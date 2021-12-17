@@ -4,16 +4,26 @@
             <div class="content">
                 <img class="logo" src="../../../assets/icon/LOGO.png" alt="logo">
                 <div class="user" @click="connect()">
-                    <div class="login_in Aideep">{{ id || "LOG IN" }}</div>
+                    <div class="login_in Aideep">{{id || "LOG IN"}}</div>
                     <img src="../../../assets/icon/user.png" alt="" v-if="!id">
                 </div>
                 <div class="menu">
                     <ul>
-                        <li @click="changeMenu(0)" :class="{'active': active == 0}">HOME</li>
-                        <li @click="changeMenu(1)" :class="{'active': active == 1}">STORY</li>
-                        <li @click="changeMenu(2)" :class="{'active': active == 2}">NEWS</li>
-                        <li @click="changeMenu(3)" :class="{'active': active == 3}">SUPPORT</li>
-                        <li @click="changeMenu(4)" :class="{'active': active == 4}">ABOUT</li>
+                        <li @click="changeMenu(0)" :class="{'active': active == 0}">
+                            <span>HOME</span>
+                        </li>
+                        <li @click="changeMenu(1)" :class="{'active': active == 1}">
+                            <span>STORY</span>
+                        </li>
+                        <li @click="changeMenu(2)" :class="{'active': active == 2}">
+                            <span>NEWS</span>
+                        </li>
+                        <li @click="changeMenu(3)" :class="{'active': active == 3}">
+                            <span>SUPPORT</span>
+                        </li>
+                        <li @click="changeMenu(4)" :class="{'active': active == 4}">
+                            <span>ABOUT</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -40,38 +50,40 @@
         <div class="warp">
             <div class="title">WELCOME TO THE<span class="yellow">NEW WORLD</span></div>
             <div class="content">
-                <div class="left">
+                <div class="left" @click="changeSWiper(0)">
                     <img src="@/assets/icon/left.png" alt="">
                 </div>
                 <div class="swiper">
-                    <div class="item1">
-                        <img class="bg" src="@/assets/icon/swiper_border.png" alt="">
-                        <img class="banner" src="@/assets/image/BK3-2.jpg" alt="">
-                        <div class="des">what kind existence <br> is cyberpunk</div>
-                        <div class="outher"></div>
-                        <div class="outher2"></div>
-                        <div class="number">001</div>
-                    </div>
-                    <div class="item2">
-                        <img class="bg" src="@/assets/icon/swiper_border.png" alt="">
-                        <img class="banner" src="@/assets/image/BK3-3.jpg" alt="">
-                        <div class="des">what kind existence <br> is cyberpunk</div>
-                        <div class="black"></div>
-                        <div class="outher"></div>
-                        <div class="outher2"></div>
-                        <div class="number">002</div>
-                        <img src="@/assets/icon/play.png" alt="" class="play">
-                    </div>
-                    <div class="item3"> 
-                        <img class="bg" src="@/assets/icon/swiper_border.png" alt="">
-                        <img class="banner" src="@/assets/image/BK3-4.png" alt="">
-                        <div class="des">what kind existence <br> is cyberpunk</div>
-                        <div class="outher"></div>
-                        <div class="outher2"></div>
-                        <div class="number">003</div>
+                    <div class="swiepr_content" :style="{'left': left + 'px'}" ref="swiperContent">
+                        <div class="item1">
+                            <img class="bg" src="@/assets/icon/swiper_border.png" alt="">
+                            <img class="banner" src="@/assets/image/BK3-2.jpg" alt="">
+                            <div class="des">what kind existence <br> is cyberpunk</div>
+                            <div class="number">001</div>
+                            <div class="outher"></div>
+                            <div class="outher2"></div>
+                        </div>
+                        <div class="item2">
+                            <img class="bg" src="@/assets/icon/swiper_border.png" alt="">
+                            <img class="banner" src="@/assets/image/BK3-3.jpg" alt="">
+                            <div class="des">what kind existence <br> is cyberpunk</div>
+                            <div class="black"></div>
+                            <div class="number">002</div>
+                            <div class="outher"></div>
+                            <div class="outher2"></div>
+                            <img src="@/assets/icon/play.png" alt="" class="play">
+                        </div>
+                        <div class="item3"> 
+                            <img class="bg" src="@/assets/icon/swiper_border.png" alt="">
+                            <img class="banner" src="@/assets/image/BK3-4.png" alt="">
+                            <div class="des">what kind existence <br> is cyberpunk</div>
+                            <div class="number">003</div>
+                            <div class="outher"></div>
+                            <div class="outher2"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="right">
+                <div class="right" @click="changeSWiper(1)">
                     <img src="@/assets/icon/left.png" alt="">
                 </div>
             </div>
@@ -87,7 +99,51 @@
              </div>
              <img src="@/assets/icon/section2_2.png" alt="" class="line">
         </div>
-        <div class="news_content">
+        <div class="news_content2">
+            <div class="news_item">
+                <img src="@/assets/image/BK3-2.jpg" alt="" class="img img1">
+                <div class="text text1">
+                    <p class="title2">CYBERPOP</p>
+                    <p class="des">BOPUNK'S EMERGENCE STILL MEANS SOMETHING.</p>
+                    <p class="des">WHY DID CYBERPUNK HAPPEN?</p>
+                    <p class="des">TURGENEV CASUALLY SAYS, DO YOU WANT TO BE HAPPY?</p>
+                    <button class="more">LEARN MORE</button>
+                </div>
+            </div>
+            <div class="news_item">
+                <img src="@/assets/image/BK3-3.jpg" alt="" class="img img1">
+                <div class="text text1">
+                    <p class="title2">CYBERPOP</p>
+                    <p class="des">BOPUNK'S EMERGENCE STILL MEANS SOMETHING.</p>
+                    <p class="des">WHY DID CYBERPUNK HAPPEN?</p>
+                    <p class="des">TURGENEV CASUALLY SAYS, DO YOU WANT TO BE HAPPY?</p>
+                    <button class="more">LEARN MORE</button>
+                </div>
+            </div>
+            <div class="news_item">
+                <img src="@/assets/image/BK3-5.jpg" alt="" class="img img1">
+                <div class="text text1">
+                    <p class="title2">CYBERPOP</p>
+                    <p class="des">THE OCCURRENCE OF CYBERPUNK,</p>
+                    <p class="des">EXACTLY HOW TO ACHIEVE,</p>
+                    <p class="des">NOT THE OCCURRENCE OF</p>
+                    <p class="des">CYBERPUNK, AND HOW TO PRODUCE.</p>
+                    <button class="more">LEARN MORE</button>
+                </div>
+            </div>
+            <div class="news_item">
+                <img src="@/assets/image/BK3-4.png" alt="" class="img img1">
+                <div class="text text1">
+                    <p class="title2">CYBERPOP</p>  
+                    <p class="des">THE OCCURRENCE OF CYBERPUNK,</p>
+                    <p class="des">EXACTLY HOW TO ACHIEVE,</p>
+                    <p class="des">NOT THE OCCURRENCE OF</p>
+                    <p class="des">CYBERPUNK, AND HOW TO PRODUCE.</p>
+                    <button class="more">LEARN MORE</button>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="news_content">
             <img src="@/assets/image/BK3-2.jpg" class="bg1" alt="">
             <img src="@/assets/image/BK3-4.png" class="bg2" alt="">
             <img src="@/assets/image/BK3-5.jpg" class="bg3" alt="">
@@ -115,10 +171,9 @@
                 <p class="des">CYBERPUNK, AND HOW TO PRODUCE.</p>
                 <button class="more">LEARN MORE</button>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="about">
-        <!-- <div class="cover_up"></div> -->
         <div class="about_content">
             <div class="left">
                 <div class="content">
@@ -130,7 +185,7 @@
                     <button class="more">LEARN MORE</button>
                 </div>
             </div>
-            <div class="right"></div>
+            <!-- <div class="right"></div> -->
         </div>
     </div>
     <div class="footer">
@@ -170,27 +225,32 @@
                 <div>
                     <span>Share this pace</span>
                     <img src="@/assets/icon/pink.png" alt="">
-                    <div class="logos">
-                        <a href="#" target="view_window">
-                            <img src="@/assets/icon/google-logo.png" alt="">
-                        </a>
-                         <a href="#" target="view_window">
-                            <img src="@/assets/icon/twitter.png" alt="">
-                        </a>
-                         <a href="#" target="view_window">
-                            <img src="@/assets/icon/facebook.png" alt="">
-                        </a>
-                         <a href="#" target="view_window">
-                            <img src="@/assets/icon/dianbao.png" alt="">
-                        </a>
-                         <a href="#" target="view_window">
-                            <img src="@/assets/icon/discordlogo.png" alt="">
-                        </a>
-                    </div>
                 </div>
+            </div>
+            <div class="logos">
+                <a href="#" target="view_window">
+                    <img src="@/assets/icon/google-logo.png" alt="">
+                </a>
+                    <a href="#" target="view_window">
+                    <img src="@/assets/icon/twitter.png" alt="">
+                </a>
+                    <a href="#" target="view_window">
+                    <img src="@/assets/icon/facebook.png" alt="">
+                </a>
+                    <a href="#" target="view_window">
+                    <img src="@/assets/icon/dianbao.png" alt="">
+                </a>
+                    <a href="#" target="view_window">
+                    <img src="@/assets/icon/discordlogo.png" alt="">
+                </a>
             </div>
             <div class="find_us">
                 <div class="find_content">
+                    <div class="section3">
+                        <img src="@/assets/icon/qiu.png" class="qiu" alt="">
+                        <div class="language">English</div>
+                        <img src="@/assets/icon/bottom.png" class="bottom" alt="">
+                    </div>
                     <div class="section1">
                         find us on
                         <img src="@/assets/icon/twitch.png" alt="">
@@ -202,11 +262,6 @@
                         <br>
                         <span>©2021 XXX Games, Inc. ALL Rights Reserved.</span>
                     </div>
-                    <div class="section3">
-                        <img src="@/assets/icon/qiu.png" class="qiu" alt="">
-                        <div class="language">English</div>
-                        <img src="@/assets/icon/bottom.png" class="bottom" alt="">
-                    </div>
                 </div>
             </div>
         </section>
@@ -215,16 +270,18 @@
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed } from 'vue'
 import { Moralis, getNativeBalance, getTokenBalances, getNFTOwners, getAllTokenIds, getNFTs, transfer, callCloud, addListing } from '@/tools/moralis';
-
 import store from '@/store'
 
 const active = ref(0);
-
-const woman = 0
+const left = ref(0)
+const swiperContent = ref(null);
+const id: any = ref(0)
+let count: any = 0
 const changeMenu = (type: any) => {
     active.value = type;
 }
-const id: any = ref(0)
+
+//连接钱包 type=true 表示上次已经登陆过了，不需要再出来钱包了
 const connect: any = (type: any) => {
     if(type){
         id.value = type.attributes.ethAddress
@@ -243,8 +300,29 @@ const connect: any = (type: any) => {
     })
 }
 
+const chientWidth: any = document.body.clientWidth * 0.7;
+const changeSWiper = (type: Number) => {
+    if(type){
+        count++;
+        if(count>2) {
+            count--;
+            return;
+        }
+        left.value = -(count * chientWidth);
+    }else{
+        count--;
+        if(count<0) {
+            count++;
+            return;
+        }
+        left.value = -(count * chientWidth);
+        
+    }
+    console.log(type);
+    
+}
+
 onMounted(() => {
-    console.log(1);
     Moralis.User.currentAsync().then((res: any) => {
         console.log(res, 'succes');
         if(res) connect(res);
@@ -258,7 +336,7 @@ onMounted(() => {
     @keyframes springtimeAniamtScale2 {
         0% {
             bottom: 2.5vw;
-        }
+        }   
         25% {
             bottom: 0vw;
         }
@@ -275,14 +353,14 @@ onMounted(() => {
     .home{
         background-image: url('../../../assets/image/BK1.jpg');
         height: 100vh;
+        width: 100%;
         background-size: auto 100%;
         // background-repeat: no-repeat;
         background-position: 20% top;
         header{
-            height: 14.5px;
+            height: 24.5px;
             color: #fff;
             .content{
-                width: 80%;
                 height: 100%;
                 margin: 0 auto;
                 display: flex;
@@ -290,12 +368,11 @@ onMounted(() => {
                 justify-content: space-between;
                 position: relative;
                 .logo{
-                    width: 8vw;
+                    width: 16vw;
                 }
                 .user{
                     display: flex;
                     align-items: center;
-                    cursor: pointer;
                     .login_in{
                         background-color: #fbec35;
                         padding: 0.5vw 0.5vw;
@@ -305,7 +382,7 @@ onMounted(() => {
                         margin-right: 0.5vw;
                     }
                     img{
-                        width: 1.5vw;
+                        width: 3.5vw;
                     }
                 }
                 .menu{
@@ -313,22 +390,27 @@ onMounted(() => {
                     left: 0;
                     right: 0;
                     margin: 0 auto;
-                    width: 50vw;
+                    width: 60vw;
                     background-image: url('../../../assets/icon/header_menu.png');
                     background-size: 100% 100%;
                     height: 100%;
                     ul{
                         width: 100%;
+                        height: 100%;
                         overflow: hidden;
                     }
                     ul > li{
                         width: 20%;
                         float: left;
                         font-family: Aideep;
-                        font-size: 1.3vw;
+                        font-size: 10px;
                         text-align: center;
-                        line-height: 3.8vw;
+                        line-height: 6.6vw;
                         cursor: pointer;
+                        span{
+                            display: inline-block;
+                            transform: scale(0.6);
+                        }
                     }
                     li:last-child{
                         background-size: 98% 99% !important;
@@ -349,35 +431,36 @@ onMounted(() => {
             transform: translateY(-50%);
             .titles{
                 position: absolute;
-                right: 10vw;
                 text-align: center;
+                left: 0;
+                right: 0;
                 top: 50%;
                 transform: translateY(-50%);
                 .title1{
-                    margin-bottom: 2vw;
+                    margin-bottom: 7vw;
                     img{
-                        width: 80px;
+                        width: 180px;
                     }
                 }
                 .title2{
                     img{
-                        width: 200px;
+                        width: 350px;
                     }
                 }
                 .title3{
                     font-family: Aideep;
                     margin: 0 auto;
-                    margin-top: 2vw;
+                    margin-top: 4vw;
                     background-image: url('../../../assets/icon/section1_3.png');
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
-                    width: 100px;
-                    height: 20px;
+                    width: 200px;
+                    height: 40px;
                     display: flex; 
                     justify-content: center;
                     align-items: center;
                     color: #fff;
-                    font-size: 1.5vw;
+                    font-size: 3vw;
                 }
             }
         }
@@ -385,7 +468,7 @@ onMounted(() => {
             animation: springtimeAniamtScale2 1.6s linear infinite;
             position: absolute;
             bottom: 2vw;
-            width: 4vw;
+            width: 9vw;
             left: 0;
             right: 0;
             margin: 0 auto;
@@ -399,7 +482,7 @@ onMounted(() => {
         background-size: 100% 100%;
         position: relative;
         width: 100%;
-        height: 50vw;
+        height: 90vw;
         box-shadow: 0px -37px 29px #000;
         margin-top: 2px;
         .cover_up{
@@ -415,16 +498,16 @@ onMounted(() => {
             top: 50%;
             transform: translateY(-50%);
             width: 100%;
-            height: 100px;
+            // height: 100px;
             text-align: center;
             .title{
                 color: #fff;
                 font-family: Aideep;
-                font-size: 2vw;
+                font-size: 4vw;
                 background-image: url('../../../assets/icon/section2_2.png');
                 background-repeat: no-repeat;
                 background-position: center bottom;
-                background-size: 35%;
+                background-size: 69%;
                 position: relative;
                 .yellow{
                     color: #feeb36;
@@ -433,8 +516,8 @@ onMounted(() => {
             .title::before{
                 content: " ";
                 background: #e9436b;
-                width:  0.7vw;
-                height: 1.3vw;
+                width:  1vw;
+                height: 3vw;
                 position: absolute;
                 margin-left: -1vw;
                 margin-top: 0.2vw;
@@ -442,8 +525,8 @@ onMounted(() => {
             .title::after{
                 content: " ";
                 background: #e9436b;
-                width:  0.7vw;
-                height: 1.3vw;
+                width:  1vw;
+                height: 3vw;
                 position: absolute;
                 margin-left: 1vw;
                 margin-top: 0.2vw;
@@ -455,25 +538,42 @@ onMounted(() => {
                 flex-wrap: nowrap;
                 width: 100%;
                 margin-top: 5vw;
+                position: relative;
                 .right{
                     transform: rotate(180deg);
                 }
+                .left,
+                .right{
+                    img{
+                        width: 6vw;
+                    }
+                }
                 .swiper{
                     width: 70vw;
-                    display: flex;
-                    justify-content: center;
-                    & > div{
-                        background-image: url('../../../assets/icon/swiper_border.png');
-                        width: 21vw;
-                        height: 15vw;
-                        background-size: 100% 100%;
-                        background-repeat: no-repeat;
-                        overflow: hidden;
+                    height: 48vw;
+                    // display: flex;
+                    // justify-content: center;
+                    margin: 0 4vw;
+                    overflow: hidden;
+                    position: relative;
+                    .swiepr_content{
+                        width: 500%;
+                        height: 100%;
                         position: relative;
-                        color: #fff;
-                    }
-                    & > div:not(:last-child){
-                        margin-right: 2vw;
+                        display: flex;
+                        transition-property: all;
+                        transition-timing-function: cubic-bezier(.4,0,.2,1);
+                        transition-duration: .40s;
+                        & > div{
+                            background-image: url('../../../assets/icon/swiper_border.png');
+                            width: 70vw;
+                            height: 48vw;
+                            background-size: 100% 100%;
+                            background-repeat: no-repeat;
+                            overflow: hidden;
+                            position: relative;
+                            color: #fff;
+                        }
                     }
                     .bg{
                         width: 100%;
@@ -487,19 +587,23 @@ onMounted(() => {
                     }
                     .number{
                         position: absolute;
-                        bottom: 0vw;
-                        right: 2vw;
+                        bottom: 0;
+                        right: 6vw;
                         background-color: #000;
-                        height: 1.2vw;
+                        height: 3.2vw;
                         line-height: 1.2;
                         font-family: EDIX;
+                        color: #fff;
+                        z-index: 1000555555011;
+                        font-size: 1.4vw;
+                        padding: 0 5px;
                     }
                     .des{
                         position: absolute;
-                        bottom: 2vw;
+                        bottom: 8vw;
                         padding: 0 1vw;
                         text-align: left;
-                        font-size: 1.5vw;
+                        font-size: 4vw;
                     }
                     .black{
                         background: #000;
@@ -507,7 +611,7 @@ onMounted(() => {
                         left: 0;
                         top: 0;
                         width: 100%;
-                        height: 9.5vw;
+                        height: 30.5vw;
                         opacity: 0.8;
                     }
                     .outher{
@@ -516,11 +620,12 @@ onMounted(() => {
                         right: 0;
                         width: 0;
                         height: 0;
-                        border-left: 0.7vw solid transparent;
-                        border-bottom: 0.7vw solid transparent;
-                        border-right: 0.7vw solid #000;
-                        border-top: 0.7vw solid #000;
+                        border-left: 2.5vw solid transparent;
+                        border-bottom: 2.5vw solid transparent;
+                        border-right: 2.5vw solid #000;
+                        border-top: 2.5vw solid #000;
                         opacity: 0.7;
+                        z-index: 99;
                     }
                     .outher2{
                         position: absolute;
@@ -528,10 +633,10 @@ onMounted(() => {
                         left: 0;
                         width: 0;
                         height: 0;
-                        border-left: 0.9vw solid #000;
-                        border-bottom: 0.7vw solid #000;
-                        border-right: 0.7vw solid transparent;
-                        border-top: 1vw solid transparent;
+                        border-left: 2.5vw solid #000;
+                        border-bottom: 2.5vw solid #000;
+                        border-right: 2.5vw solid transparent;
+                        border-top: 2.5vw solid transparent;
                         // opacity: 0.5;
                     }
                     .play{
@@ -540,8 +645,8 @@ onMounted(() => {
                         left: 0;
                         right: 0;
                         margin: 0 auto;
-                        top: 3vw;
-                        width: 4vw;
+                        top: 12vw;
+                        width: 10vw;
                         z-index: 99999;
                     }
                 }
@@ -554,6 +659,7 @@ onMounted(() => {
         background-repeat: no-repeat;
         margin-top: -1px;
         width: 100%;
+        position: relative;
         // height: 70vw;
         .cover_up{
             width: 100%;
@@ -568,21 +674,64 @@ onMounted(() => {
             align-items: center;
             justify-content: center;
             .line{
-                width: 15vw;
+                width: 20vw;
+                height: 0.5vw;
             }
             .news_box{
                 img{
-                    width: 7vw;
+                    width: 15vw;
                 }
                 margin: 0 3vw;
                 p{
                     font-family: Aideep;
                     color: #fff;
                     text-align: center;
-                    font-size: 2vw;
+                    font-size: 4vw;
                     padding-top: 1vw;
-                    padding-left: 1vw;
+                    padding-left: 3vw;
                 }
+            }
+        }
+        .news_content2{
+            position: relative;
+            .news_item{
+                background-image: url('../../../assets/icon/section3_bg.png');
+                width: 90%;
+                padding: 2vw 2vw 20vw 2vw; 
+                background-size: 100% 100%;
+                .img{
+                    width: 100%;
+                }
+                .text{
+                    font-family: Aideep;
+                    padding: 10px 0;
+                    color: #fff;
+                    .title2{
+                        font-size: 5vw;
+                        margin-bottom: 5vw;
+                    }
+                    .des{
+                        font-size: 3vw;
+                        margin-bottom: 2vw;
+                    }
+                    .more{
+                        display: flex;
+                        font-size: 0.5vw;
+                        border: none;
+                        font-family: Aideep;
+                        background: #f7ee36;
+                        padding: 1.2vw 1vw;
+                        color: #000;
+                        border-radius: 1vw;
+                        margin: 0 auto;
+                    }
+                }
+            }
+            .news_item:not(:last-child){
+                margin: 10vw auto;
+            }
+            .news_item:last-child{
+                margin: 0 auto;
             }
         }
         .news_content{
@@ -631,7 +780,7 @@ onMounted(() => {
                 .des{
                     font-size: 0.8vw;
                     font-family: Aideep;
-                    white-space: nowrap;
+                    // white-space: nowrap;
                     margin-bottom: 1vw;
                 }
                 .more{
@@ -679,9 +828,9 @@ onMounted(() => {
     .about{
         background-image: url('../../../assets/image/BK4_1.png');
         background-repeat: no-repeat;
-        background-size: 100% auto;
+        background-size: 100% 100%;
         width: 100%;
-        height: 50vw;
+        height: 78vw;
         position: relative;
         margin-top: -1px;
         z-index: 99;
@@ -697,17 +846,16 @@ onMounted(() => {
             width: 90vw;
             height: 100%;
             margin: 0 auto;
-            display: flex;
-            align-items: center;
             .left{
                 font-family: Aideep;
                 font-size: 2vw;
                 color: #fff;
                 z-index: 99;
-                background-image: url('../../../assets/icon/section4_2.png');
+                background-image: url('../../../assets/icon/section4_1.png');
+                background-size: 55% auto;
                 background-repeat: no-repeat;
                 background-position: center bottom;
-                width: 50%;
+                width: 100%;
                 height: 100%;
                 display: flex;
                 justify-content: center;
@@ -717,12 +865,12 @@ onMounted(() => {
                     padding: 0 2vw;
                     .title3{
                         text-align: left;
-                        font-size: 2vw;
-                        margin-bottom: 1.5vw;
+                        font-size: 8vw;
+                        margin-bottom: 3vw;
                     }
                     .des{
-                        font-size: 1vw;
-                        margin-bottom: 1vw;
+                        font-size: 10px;
+                        margin-bottom: 3vw;
                     }
                     .more{
                         display: flex;
@@ -756,44 +904,43 @@ onMounted(() => {
         background-image: url('../../../assets/icon/footer.png');
         background-size: 100% 100%;
         width: 100%;
-        height: 38vw;  
+        // height: 68vw;  
         margin-top: -18px;
         position: relative;
         z-index: 999 ;
         color: #fff;
         header{
-            height: 9vw;
+            // height: 14vw;
             border-bottom: 1px solid #cd2e86;
-            display: flex;
-            padding: 0 5vw;
-            align-items: center;
-            justify-content: space-between; /* 横向中间自动空间 */
+            // display: flex;
+            padding: 10vw 5vw;
+            // align-items: center;
+            // justify-content: space-between; /* 横向中间自动空间 */
             .des{
-                display: flex;
-                align-items: center;
-                flex-wrap: wrap;
-                width: 26vw;
-                height: 4vw;
+                width: 100%;
                 h2{
                     font-family: EDIX;
-                    font-size: 1.6vw;
+                    font-size: 5vw;
+                    text-align: center;
+                    margin-bottom: 5vw;
                 }
                 .text{ 
                     font-family: Aideep;
-                    font-size: 1.2vw;
+                    font-size: 4vw;
+                    text-align: center;
                 }
             }
             .address{
-                display: flex;
-                height: 3vw;
+                width: 100%;
                 .email{
                     position: relative;
-                    width: 40vw;
-                    height: 80%;
+                    width: 100%;
+                    height: 10vw;
                     margin-right: 2vw;
+                    margin-bottom: 6vw;
                     input{
-                        width: 39vw;
-                        margin-left: 1vw;
+                        width: 100%;
+                        margin-left: 3vw;
                         height: 100%;
                         background: transparent;
                         border: none;
@@ -813,8 +960,8 @@ onMounted(() => {
                     }
                     .section{
                         position: absolute;
-                        width: 0.6vw;
-                        height: 1.5vw;
+                        width: 1.6vw;
+                        height: 4.5vw;
                         left: 0;
                         top: 50%;
                         transform: translateY(-50%);
@@ -823,40 +970,39 @@ onMounted(() => {
                 .submit{
                     background-image: url('../../../assets/icon/email_box.png');
                     background-size: 100% 100%;
-                    width: 12vw;
-                    height: 100%;
+                    width: 40vw;
+                    height: 10vw;
+                    margin: 0 auto;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     font-family: EDIX;
                     font-size: 1.3vw;
                     position: relative;
-                    cursor: pointer;
                     .x{
                         position: absolute;
-                        bottom: -0.3vw;
+                        bottom: -1vw;
                         font-size: 0.7vw;
-                        right: 1vw;
+                        right: 2.5vw;
                     }
                 }
             }
         }
         section{
-            height: 29vw;
-            padding-top: 3vw;
+            // height: 29vw;
             .share_box{
-                display: flex;
                 width: 100%;
-                margin-bottom: 2vw;
+                background-image: url('../../../assets/icon/email_bottm.png');
+                background-size: 100% auto;
                 & > div{
-                    width: 25%;
-                    height: 8vw;
+                    width: 100%;
                     display: flex;
-                    position: relative;
-                    align-items: center;
                     justify-content: center;
+                    align-items: center;
+                    height: 8vw;
+                    position: relative;
                     span{
-                        font-size: 1.2vw;
+                        font-size: 4.2vw;
                         margin-right: 1vw;
                         font-family: Aideep;
                         transition-property: all;
@@ -865,28 +1011,27 @@ onMounted(() => {
                         cursor: pointer;
                     }
                     img{
-                        width: 2vw;
-                        transition-property: all;
-                        transition-timing-function: cubic-bezier(.4,0,.2,1);
-                        transition-duration: .25s;
-                        cursor: pointer;
-                    }
-                    img:hover{
-                        transform: translateX(-6px);
-                    }
-                    .logos{
-                        position: absolute;
-                        bottom: 0;
-                        img{
-                            margin-right: 0.5vw;
-                        }
-                        img:hover{
-                            transform: scale(1.2);
-                        }
+                        width: 3vw;
+                        margin-left: 1vw;
                     }
                 }
             }
+            .logos{
+                background-image: url('../../../assets/icon/email_bottm.png');
+                background-size: 100% auto;
+                text-align: center; 
+                padding-top: 7vw;
+                padding-bottom: 7vw;
+                img{
+                    margin-right: 3.5vw;
+                }
+                img:hover{
+                    transform: scale(1.2);
+                }
+            }
             .find_us{
+                background-image: url('../../../assets/icon/email_bottm.png');
+                background-size: 100% auto;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -902,8 +1047,8 @@ onMounted(() => {
                         margin-bottom: 2vw;
                         width: 100%;
                         img{
-                            margin-left: 1.5vw;
-                            width: 2vw;
+                            margin-left: 3.5vw;
+                            width: 8vw;
                             transition-property: all;
                             transition-timing-function: cubic-bezier(.4,0,.2,1);
                             transition-duration: .25s;
@@ -924,15 +1069,16 @@ onMounted(() => {
                         justify-content: center;
                         align-items: center;
                         .qiu{
-                            width: 2vw;
+                            width: 7vw;
                         }
                         .bottom{
-                            width: 1vw;
+                            width: 7vw;
                         }
                         .language{
-                            margin: 0 1vw;
+                            margin: 4vw 1vw;
                             border-bottom: 0.2vw solid #fff;
                             cursor: pointer;
+                            font-size: 8vw;
                         }
                     }
                 }

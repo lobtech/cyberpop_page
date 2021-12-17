@@ -1,10 +1,13 @@
 <template>
     <HomeA v-if="innerWidth > 740"/>
+    <HomeB v-else/>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed } from 'vue'
 import store from '../../store'
 import HomeA from '../home/pages/HomeA.vue'
+import HomeB from '../home/pages/HomeB.vue'
+
 const innerWidth = computed(() => {
     console.log(1);
     return store.state.sys?.innerWidth || 0
