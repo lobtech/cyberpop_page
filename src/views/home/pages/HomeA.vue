@@ -4,23 +4,23 @@
         <header>
             <div class="content">
                 <img class="logo" src="https://d1td2c8hf7fv9k.cloudfront.net/LOGO.png" alt="logo">
-                <div class="user" @click="connect()">
+                <div class="user">
                     <div class="login_in Aideep">{{ id || "LOG IN" }}</div>
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/user.png" alt="" v-if="!id">
                 </div>
                 <div class="menu">
                     <ul>
-                        <li @click="changeMenu(0)" :class="{'active': active == 0}">HOME</li>
+                        <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">HOME</li>
                         <li @click="changeMenu(1)" :class="{'active': active == 1}">STORY</li>
                         <li @click="changeMenu(2)" :class="{'active': active == 2}">NEWS</li>
                         <li @click="changeMenu(3)" :class="{'active': active == 3}">SUPPORT</li>
-                        <li @click="changeMenu(4)" :class="{'active': active == 4}">ABOUT</li>
+                        <li @click="changeMenu(4, '/about')" :class="{'active': active == 4}">ABOUT</li>
                     </ul>
                 </div>
             </div>
         </header>
         <section>
-            <div class="titles">
+            <div class="titles"> 
                 <div class="title1">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/section1_2.png" alt="">
                 </div>
@@ -30,6 +30,11 @@
                 <div class="title3">
                     COMMING SOON
                 </div>
+            </div>
+            <div class="document">
+                <!-- <div class="buttons" @click="down">NEWS</div> -->
+                <!-- <div class="position"></div> -->
+                <div class="buttons" @click="deckd">DECK</div>
             </div>
         </section>
         <footer>
@@ -48,7 +53,7 @@
                     <div class="item1">
                         <img class="bg" src="https://d1td2c8hf7fv9k.cloudfront.net/swiper_border.png" alt="">
                         <img class="banner" src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-2.jpg" alt="">
-                        <div class="des">The protagonists are in a <br /> real world that is <span>treacherous and changeable.</span></div>
+                        <div class="des">The protagonists are in a real world that is <span>treacherous and changeable.</span></div>
                         <div class="black"></div>
                         <div class="outher"></div>
                         <div class="outher2"></div>
@@ -99,25 +104,26 @@
             <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-3.jpg" class="bg4" alt="">
             <div class="text1">
                 <p class="title2">CYBERPOP</p>
-                <p class="des">BOPUNK'S EMERGENCE STILL MEANS SOMETHING.</p>
-                <p class="des">WHY DID CYBERPUNK HAPPEN?</p>
-                <p class="des">TURGENEV CASUALLY SAYS, DO YOU WANT TO BE HAPPY?</p>
+                <p class="des">The world is filled with restlessness,  from his shackles. </p>
+                <p class="des">because everyone is eager to free himself</p>
+                <p class="des"> --By Friedrich Nietzsche</p>
                 <button class="more">LEARN MORE</button>
             </div>
             <div class="text2">
                 <p class="title2">CYBERPOP</p>
-                <p class="des">THE OCCURRENCE OF CYBERPUNK,</p>
-                <p class="des">EXACTLY HOW TO ACHIEVE,</p>
-                <p class="des">NOT THE OCCURRENCE OF</p>
-                <p class="des">CYBERPUNK.</p>
+                <p class="des">Just as there is no fate that can not be changed,</p>
+                <p class="des">there is no world that can not be created. </p>
+                <p class="des">--By the team of the Cyber New World</p>
                 <button class="more">LEARN MORE</button>
             </div>
             <div class="text3">
                 <p class="title2">CYBERPOP</p>
-                <p class="des">THE OCCURRENCE OF CYBERPUNK,</p>
-                <p class="des">EXACTLY HOW TO ACHIEVE,</p>
-                <p class="des">NOT THE OCCURRENCE OF</p>
-                <p class="des">CYBERPUNK, AND HOW TO PRODUCE.</p>
+                <p class="des">In fact, people who struggle to make </p>
+                <p class="des">choices have already gotten their answer in mind. </p>
+                <p class="des">When they ask for consultation, </p>
+                <p class="des">they only want to hear the choice of their heart.</p>
+                <p class="des">he final so-called fate is made by themselves, step by step. </p>
+                <p class="des">--By Higashino Keigo</p>
                 <button class="more">LEARN MORE</button>
             </div>
         </div>
@@ -128,10 +134,7 @@
             <div class="left">
                 <div class="content">
                     <div class="title3">ABOUT US</div>
-                    <div class="des">THE OCCURRENCE OF CYBERPUNK,EXACTLY HOW TO ACHIEVE,</div>
-                    <div class="des">NOT THE OCCURRENCE OF CYBERPUNK, AND HOW TO PRODUCE.</div>
-                    <div class="des">WITH THESE QUESTIONS IN MIND, LET'S TAKE A LOOK AT CYBERPUNK.</div>
-                    <div class="des">SINCE HOW,I ALSO THROUGH THOUGHTFUL.</div>
+                    <div class="des">We are creating the most innovative game with the most legendary story! Our game will transport you to the most immediate scene, and present the clearest picture of the cyber world to you！In this world full of possibilities, we are our way, and we look forward to having you join us!</div>
                     <button class="more">LEARN MORE</button>
                 </div>
             </div>
@@ -219,13 +222,18 @@
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed } from 'vue'
-import { Moralis, getNativeBalance, getTokenBalances, getNFTOwners, getAllTokenIds, getNFTs, transfer, callCloud, addListing } from '@/tools/moralis';
 import store from '@/store'
+import {  useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const active = ref(0);
-const changeMenu = (type: any) => {
+
+const changeMenu = (type: any, route?: any) => {
     active.value = type;
+    if(route) router.push({ path: `${route}`})
 }
+
 const id: any = ref(0)
 const connect: any = (type: any) => {
     if(type){
@@ -234,15 +242,6 @@ const connect: any = (type: any) => {
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+"***"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         return;
     }
-    Moralis.authenticate().then((res: any) => { 
-        console.log(res,'钱包登陆成功--------');
-        id.value = res.attributes.ethAddress
-        let len = id.value.length-1;
-        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+"***"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-    }).catch((err: any) => {
-        console.log(err);
-        
-    })
 }
 let type2: any = ref(1);
 let isPlay: any = ref(false);
@@ -251,13 +250,15 @@ const playVideo = (type: any) => {
     isPlay.value = !isPlay.value;
 }
 
+const down = () => {
+    window.location.href = '../cyberpop.docx';
+}
+
+const deckd = () => {
+    window.location.href = '../(new)CyberPOPDECK(en).pdf';
+}
+
 onMounted(() => {
-    Moralis.User.currentAsync().then((res: any) => {
-        console.log(res, 'succes');
-        if(res) connect(res);
-    }).catch((res: any) => {
-        console.log(res, 'err');
-    })
     
 })
 
@@ -350,7 +351,7 @@ onMounted(() => {
             }
         }
         section{
-            height: 100px;
+            height: 140px;
             position: absolute;
             top: 50%;
             width: 100%;
@@ -386,6 +387,43 @@ onMounted(() => {
                     align-items: center;
                     color: #fff;
                     font-size: 1.5vw;
+                }
+            }
+            .document{
+                position: absolute;
+                bottom: 0;
+                color: #fff;
+                margin: 0 auto;
+                display: flex;
+                left: 0;
+                right: 0;
+                font-size: 1.125rem;
+                line-height: 1.75rem;
+                align-items: center;
+                // display: flex;
+                color: #fff;
+                display: flex;
+                justify-content: center;
+                .buttons{
+                    transition-property: all;
+                    transition-timing-function: cubic-bezier(.4,0,.2,1);
+                    background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section1_3.png');
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    transition-duration: .15s;
+                    cursor: pointer;
+                    padding: 20px 80px;
+                    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.4);
+                    opacity: 0.9;
+                    text-align: center;
+                }
+                .position{
+                    height: 4vw;
+                    margin: 0 20px;
+                }
+                .buttons:hover {
+                    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+                    opacity: 1;
                 }
             }
         }
@@ -479,15 +517,13 @@ onMounted(() => {
                         overflow: hidden;
                         position: relative;
                         color: #fff;
+
                     }
                     & > div:not(:last-child){
                         margin-right: 2vw;
                     }
-                    & > div:first-child .des{
-                        bottom: 1vw;
-                        span{
-                            white-space: nowrap;
-                        }
+                    & > div:last-child .des{
+                        bottom: 2.9vw !important;
                     }
                     .bg{
                         width: 100%;
@@ -515,7 +551,7 @@ onMounted(() => {
                         bottom: 2vw;
                         padding: 0 1vw;
                         text-align: left;
-                        font-size: 1.5vw;
+                        font-size: 1vw;
                     }
                     .black{
                         background: #000;
@@ -635,7 +671,8 @@ onMounted(() => {
                 font-size: 2vw;
                 position: absolute;
                 width: 100px;
-                right: 28.1vw;
+                min-width: 355px;
+                right: 28vw;
                 top: 0;
                 padding: 3vw 1vw 1vw 1vw;
                 background: rgba(16, 43, 87, 0.5);
@@ -664,8 +701,9 @@ onMounted(() => {
             }
             .text2{
                 text-align: center;
-                top: 23.5vw;
-                padding: 2vw 1vw 1vw 1vw;
+                top: 24.45vw;
+                height: 13.5vw;
+                padding: 2vw 0 1vw 0;
                 background: rgb(16,43,87);
                 .more{
                     float: none;
@@ -676,9 +714,11 @@ onMounted(() => {
                 background: rgb(16,43,87);
                 top: 37vw;
                 height: 117px;
-                left: 19vw;
+                left: 16.5vw;
+                width: 110px;
                 z-index: 99;
                 text-align: left;
+                min-width: 390px;
                 .title2{
                     margin-bottom: 4vw;
                 }
@@ -737,7 +777,8 @@ onMounted(() => {
                         margin-bottom: 1.5vw;
                     }
                     .des{
-                        font-size: 1vw;
+                        font-size: 1.5vw;
+                        line-height: 3vw;
                         margin-bottom: 1vw;
                     }
                     .more{

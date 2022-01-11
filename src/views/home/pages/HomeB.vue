@@ -1,16 +1,21 @@
 <template>
     <my-video v-if="isPlay" @touchmove.prevent :mobel="true" :videotype="type2" :videoSrc="'/assets/video/6dff55c4018832a1528ecbc410ec6094.mp4'" @click="playVideo"></my-video>
+    <div class="mask" v-if="newMask">
+        <div class="play" @click.stop="playVideo(3)">
+            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play">
+        </div>
+    </div>
     <div class="home">
         <header>
             <div class="content">
                 <img class="logo" src="https://d1td2c8hf7fv9k.cloudfront.net/LOGO.png" alt="logo">
-                <div class="user" @click="connect()">
+                <div class="user">
                     <div class="login_in Aideep">{{id || "LOG IN"}}</div>
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/user.png" alt="" v-if="!id">
                 </div>
                 <div class="menu">
                     <ul>
-                        <li @click="changeMenu(0)" :class="{'active': active == 0}">
+                        <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">
                             <span>HOME</span>
                         </li>
                         <li @click="changeMenu(1)" :class="{'active': active == 1}">
@@ -22,7 +27,7 @@
                         <li @click="changeMenu(3)" :class="{'active': active == 3}">
                             <span>SUPPORT</span>
                         </li>
-                        <li @click="changeMenu(4)" :class="{'active': active == 4}">
+                        <li @click="changeMenu(4, '/about')" :class="{'active': active == 4}">
                             <span>ABOUT</span>
                         </li>
                     </ul>
@@ -39,6 +44,10 @@
                 </div>
                 <div class="title3">
                     COMMING SOON
+                </div>
+                <div class="document">
+                    <!-- <div class="buttons" @click="down">NEWS</div> -->
+                    <div class="buttons" @click="deckd">DECK</div>
                 </div>
             </div>
         </section>
@@ -64,7 +73,7 @@
                             <div class="number">003</div>
                             <div class="outher"></div>
                             <div class="outher2"></div>
-                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play" @click="playVideo(3)">
+                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play" @click="playVideo(3)" v-if="isPlay != 3">
                         </div>
                         <div class="item2">
                             <img class="bg" src="https://d1td2c8hf7fv9k.cloudfront.net/swiper_border.png" alt="">
@@ -74,7 +83,7 @@
                             <div class="number">002</div>
                             <div class="outher"></div>
                             <div class="outher2"></div>
-                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play" @click="playVideo(2)">
+                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play" @click="playVideo(2)" v-if="isPlay != 2">
                         </div>
                         <div class="item1">
                             <img class="bg" src="https://d1td2c8hf7fv9k.cloudfront.net/swiper_border.png" alt="">
@@ -84,7 +93,7 @@
                             <div class="number">001</div>
                             <div class="outher"></div>
                             <div class="outher2"></div>
-                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play" @click="playVideo(1)">
+                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play" @click="playVideo(1)" v-if="isPlay != 1">
                         </div>
                     </div>
                 </div>
@@ -109,9 +118,8 @@
                 <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-2.jpg" alt="" class="img img1">
                 <div class="text text1">
                     <p class="title2">CYBERPOP</p>
-                    <p class="des">BOPUNK'S EMERGENCE STILL MEANS SOMETHING.</p>
-                    <p class="des">WHY DID CYBERPUNK HAPPEN?</p>
-                    <p class="des">TURGENEV CASUALLY SAYS, DO YOU WANT TO BE HAPPY?</p>
+                    <p class="des">The world is filled with restlessness, because everyone is eager to free himself from his shackles.</p>
+                    <p class="des" style="textAlign: right;margin: 30px 0;"> --By Friedrich Nietzsche</p>
                     <button class="more">LEARN MORE</button>
                 </div>
             </div>
@@ -119,9 +127,8 @@
                 <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-3.jpg" alt="" class="img img1">
                 <div class="text text1">
                     <p class="title2">CYBERPOP</p>
-                    <p class="des">BOPUNK'S EMERGENCE STILL MEANS SOMETHING.</p>
-                    <p class="des">WHY DID CYBERPUNK HAPPEN?</p>
-                    <p class="des">TURGENEV CASUALLY SAYS, DO YOU WANT TO BE HAPPY?</p>
+                    <p class="des">Just as there is no fate that can not be changed, there is no world that can not be created.</p>
+                    <p class="des" style="textAlign: right;margin: 30px 0;">--By the team of the Cyber New World</p>
                     <button class="more">LEARN MORE</button>
                 </div>
             </div>
@@ -129,10 +136,8 @@
                 <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-5.jpg" alt="" class="img img1">
                 <div class="text text1">
                     <p class="title2">CYBERPOP</p>
-                    <p class="des">THE OCCURRENCE OF CYBERPUNK,</p>
-                    <p class="des">EXACTLY HOW TO ACHIEVE,</p>
-                    <p class="des">NOT THE OCCURRENCE OF</p>
-                    <p class="des">CYBERPUNK, AND HOW TO PRODUCE.</p>
+                    <p class="des">In fact, people who struggle to make choices have already gotten their answer in mind. When they ask for consultation, they only want to hear the choice of their heart. The final so-called fate is made by themselves, step by step.</p>
+                    <p class="des" style="textAlign: right;margin: 30px 0;"> --By Higashino Keigo</p>
                     <button class="more">LEARN MORE</button>
                 </div>
             </div>
@@ -183,10 +188,7 @@
             <div class="left">
                 <div class="content">
                     <div class="title3">ABOUT US</div>
-                    <div class="des">THE OCCURRENCE OF CYBERPUNK,EXACTLY HOW TO ACHIEVE,</div>
-                    <div class="des">NOT THE OCCURRENCE OF CYBERPUNK, AND HOW TO PRODUCE.</div>
-                    <div class="des">WITH THESE QUESTIONS IN MIND, LET'S TAKE A LOOK AT CYBERPUNK.</div>
-                    <div class="des">SINCE HOW,I ALSO THROUGH THOUGHTFUL.</div>
+                    <div class="des">We are creating the most innovative game with the most legendary story! Our game will transport you to the most immediate scene, and present the clearest picture of the cyber world to you！In this world full of possibilities, we are our way, and we look forward to having you join us!</div>
                     <button class="more">LEARN MORE</button>
                 </div>
             </div>
@@ -274,44 +276,45 @@
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed } from 'vue'
-import { Moralis, getNativeBalance, getTokenBalances, getNFTOwners, getAllTokenIds, getNFTs, transfer, callCloud, addListing } from '@/tools/moralis';
 import store from '@/store'
+import {  useRouter } from 'vue-router'
+import { log } from 'console';
+
+const router = useRouter()
+
 
 const active = ref(0);
 const left = ref(0)
 const swiperContent = ref(null);
 const id: any = ref(0)
 let count: any = 0
-const changeMenu = (type: any) => {
+const newMask: any = ref(true)
+const changeMenu = (type: any, route?: any) => {
     active.value = type;
+    if(route) router.push({ path: `${route}`})
 }
-let type2: any = ref(1);
+
+const down = () => {
+    window.location.href = '../cyberpop.docx';
+}
+
+const deckd = () => {
+    window.location.href = '../(new)CyberPOPDECK(en).pdf';
+}
+
 let isPlay: any = ref(false);
+let type2: any = ref(3)
 const playVideo = (type: any) => {
-    type2.value = type
+    newMask.value = false;
     isPlay.value = !isPlay.value;
+    type2.value = type
 }
 
 //连接钱包 type=true 表示上次已经登陆过了，不需要再出来钱包了
-const connect: any = (type: any) => {
-    if(type){
-        id.value = type.attributes.ethAddress
-        let len = id.value.length-1;
-        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+"***"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-        return;
-    }
-    Moralis.authenticate().then((res: any) => { 
-        console.log(res,'connected--------');
-        id.value = res.attributes.ethAddress
-        let len = id.value.length-1;
-        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+"***"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-    }).catch((err: any) => {
-        console.log(err);
-        
-    })
-}
+
 
 const chientWidth: any = document.body.clientWidth * 0.7;
+
 const changeSWiper = (type: Number) => {
     if(type){
         count++;
@@ -334,15 +337,8 @@ const changeSWiper = (type: Number) => {
 }
 
 onMounted(() => {
-    Moralis.User.currentAsync().then((res: any) => {
-        console.log(res, 'succes');
-        if(res) connect(res);
-    }).catch((res: any) => {
-        console.log(res, 'err');
-    })
-    setTimeout(() => {
-        playVideo(3)
-    }, 1000);
+
+    
 })
 
 </script>
@@ -363,6 +359,18 @@ onMounted(() => {
         100% {
             bottom: 2.5vw;
         }
+    }
+    .mask{
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        z-index: 1005;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .home{
         background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/BK1.jpg');
@@ -475,6 +483,31 @@ onMounted(() => {
                     align-items: center;
                     color: #fff;
                     font-size: 3vw;
+                }
+                 .document{
+                    color: #fff;
+                    margin: 0 auto;
+                    display: inline-block;
+                    margin-top: 30px;
+                    font-size: 1.125rem;
+                    line-height: 1.75rem;
+                    align-items: center;
+                    // display: flex;
+                    color: #fff;
+                    .buttons{
+                        transition-property: all;
+                        transition-timing-function: cubic-bezier(.4,0,.2,1);
+                        background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section1_3.png');
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
+                        transition-duration: .15s;
+                        cursor: pointer;
+                        width: 40vw;
+                        padding: 10px 20px;
+                        box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.4);
+                        text-align: center;
+                        margin-bottom: 10px;
+                    }
                 }
             }
         }
@@ -617,7 +650,7 @@ onMounted(() => {
                     }
                     .des{
                         position: absolute;
-                        bottom: 8vw;
+                        bottom: 5vw;
                         padding: 0 1vw;
                         text-align: left;
                         font-size: 4vw;
@@ -630,6 +663,21 @@ onMounted(() => {
                         width: 100%;
                         height: 30.5vw;
                         opacity: 0.8;
+                    }
+                    #mp4,
+                    #mp5,
+                    #mp6{
+                        background: #000;
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 30.5vw;
+
+                    }
+                    //播放按钮
+                    video::-webkit-media-controls-play-button {
+                        display: none;
                     }
                     .outher{
                         position: absolute;
@@ -662,7 +710,7 @@ onMounted(() => {
                         left: 0;
                         right: 0;
                         margin: 0 auto;
-                        top: 12vw;
+                        top: 9vw;
                         width: 10vw;
                         z-index: 99999;
                     }
@@ -730,6 +778,7 @@ onMounted(() => {
                     .des{
                         font-size: 3vw;
                         margin-bottom: 2vw;
+                        line-height: 4vw;
                     }
                     .more{
                         display: flex;
@@ -886,7 +935,8 @@ onMounted(() => {
                         margin-bottom: 3vw;
                     }
                     .des{
-                        font-size: 10px;
+                        font-size: 4vw;
+                        line-height: 6vw;
                         margin-bottom: 3vw;
                     }
                     .more{
