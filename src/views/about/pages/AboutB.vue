@@ -3,7 +3,7 @@
         <header>
             <div class="content">
                 <img class="logo" src="https://d1td2c8hf7fv9k.cloudfront.net/LOGO.png" alt="logo">
-                <div class="user">
+                <div class="user" @click="connect()">
                     <div class="login_in Aideep">{{id || "LOG IN"}}</div>
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/user.png" alt="" v-if="!id">
                 </div>
@@ -12,13 +12,13 @@
                         <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">
                             <span>HOME</span>
                         </li>
-                        <li @click="changeMenu(1)" :class="{'active': active == 1}">
+                        <li @click="changeMenu(1, '/about')" :class="{'active': active == 1}">
                             <span>STORY</span>
                         </li>
                         <li @click="changeMenu(2)" :class="{'active': active == 2}">
                             <span>NEWS</span>
                         </li>
-                        <li @click="changeMenu(3)" :class="{'active': active == 3}">
+                        <li @click="changeMenu(3, '/support')" :class="{'active': active == 3}">
                             <span>SUPPORT</span>
                         </li>
                         <li @click="changeMenu(4, '/about')" :class="{'active': active == 4}">
@@ -31,7 +31,7 @@
         <section>
             <div class="titles">
                 <div class="title3">
-                    COMMING SOON
+                    COMING SOON
                 </div>
             </div>
         </section>
@@ -41,38 +41,43 @@
 import { onMounted, ref, reactive, computed } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
+import Web3 from '@/tools/web3'
 
 const router = useRouter()
 
-
-const active = ref(4);
+const active = computed(() => store?.state.user?.active);
 const left = ref(0)
 const swiperContent = ref(null);
 const id: any = ref(0)
 let count: any = 0
 
 const changeMenu = (type: any, route?: any) => {
-    active.value = type;
+    // active.value = type;
+    if(type == 2) {
+        window.open('https://medium.com/@Cyberpopnewworld')
+        return
+    }
+    store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
 
 let type2: any = ref(1);
 let isPlay: any = ref(false);
 
-//连接钱包 type=true 表示上次已经登陆过了，不需要再出来钱包了
-const connect: any = (type: any) => {
-    if(type){
-        id.value = type.attributes.ethAddress
-        let len = id.value.length-1;
-        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+"***"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-        return;
-    }
+const connect: any = async () => {
+    const [accounts]: any = await Web3.login().then((res: any) => {
+        return res;
+    })
+    id.value = accounts;
+    let len = id.value.length-1;
+    id.value = id.value[0]+id.value[1]+id.value[2]+"***"+id.value[len-2]+id.value[len-1]+id.value[len];
 }
 
 
 
-onMounted(() => {
 
+onMounted(() => {
+    connect()
 })
 
 </script>
@@ -87,6 +92,7 @@ onMounted(() => {
         header{
             height: 24.5px;
             color: #fff;
+            animation: fadeInDown .8s linear;
             .content{
                 height: 100%;
                 margin: 0 auto;

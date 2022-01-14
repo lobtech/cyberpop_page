@@ -7,8 +7,8 @@ const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html�
 const login = async () => {
     const ethereum = (window as any).ethereum // 获取小狐狸实例
     if (typeof ethereum.isMetaMask === 'undefined') {
-        alert('看起来您需要一个 Dapp 浏览器才能开始使用。')
-        alert('请安装 MetaMask！')
+        alert('not dapp')
+        alert('install MetaMask！')
     }
     return ethereum.request({ method: 'eth_requestAccounts' })
 }
@@ -17,14 +17,15 @@ const login = async () => {
 const getAccounts = async () => {
     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
     const res = await web3.eth.getAccounts()
-    console.log(`---------->日志输出:getAccounts`, res)
+    console.log(`---------->:getAccounts`, res)
+    return res;
 }
 
 // 查询余额
 const getBalance = async (address: string = '0xF55c6Be2F9390301bFc66Dd9f7f52495B56301dC') => {
     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
     const res = await web3.eth.getBalance(address)
-    console.log(`---------->日志输出:getBalance`, res)
+    console.log(`---------->:getBalance`, res)
     return res
 }
 
@@ -33,7 +34,7 @@ const getContract = async (contractName: string = 'test') => {
     const { abi, address } = (contracts as any)[contractName]
     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
     const contract = new web3.eth.Contract(abi, address) // 创建合约
-    console.log(`---------->日志输出:contract`, contract)
+    console.log(`---------->:contract`, contract)
 }
 
 // 授权某个合约可使用我的货币
@@ -42,23 +43,23 @@ const approve = (contractName: string = 'test', contractAddress: string = '0xF55
     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
     const contract = new web3.eth.Contract(abi, address) // 创建合约
     let user = store.state.moralis?.user.accounts[0]
-    console.log(`---------->日志输出:user`, user)
+    console.log(`---------->:user`, user)
     // console.log(`---------->日志输出:Moralis.Units.Token("0.5", "18")`, Moralis.Units.Token('0.5', '18'))
     // 发送交易，使用事件获取返回结果
     contract.methods
         .approve(contractAddress, `${Number(num) * Math.pow(10, 18)}`)
         .send({ from: user })
         .on('transactionHash', function (hash: any) {
-            console.log(`---------->日志输出:hash`, hash)
+            console.log(`---------->:hash`, hash)
         })
         .on('receipt', function (receipt: any) {
-            console.log(`---------->日志输出:receipt`, receipt)
+            console.log(`---------->:receipt`, receipt)
         })
         .on('confirmation', function (confirmationNumber: any, receipt: any) {
-            console.log(`---------->日志输出:confirmationNumber, receipt`, confirmationNumber, receipt)
+            console.log(`---------->:confirmationNumber, receipt`, confirmationNumber, receipt)
         })
         .on('error', (err: any) => {
-            console.log(`---------->日志输出:err`, err)
+            console.log(`---------->:err`, err)
         })
 }
 
@@ -70,7 +71,7 @@ const setAirdrop = async (userAddress: string = '', state: boolean = true) => {
     let user = store.state.moralis?.user.accounts[0]
     const res = await contract.methods.setUsers(userAddress, state).send({ from: user })
     // const res = await contract.methods.test('0x9a4244c1d438810f09f468dfc2ea4cf40ad93c10', '2').call()
-    console.log(`---------->日志输出:call_test`, res)
+    console.log(`---------->:call_test`, res)
 }
 
 // 查询奖池
@@ -104,7 +105,7 @@ const call = async () => {
     const contract = new web3.eth.Contract(abi, address) // 创建合约
     const res = await contract.methods.get().call()
     // const res = await contract.methods.test('0x9a4244c1d438810f09f468dfc2ea4cf40ad93c10', '2').call()
-    console.log(`---------->日志输出:call_test`, res)
+    console.log(`---------->:call_test`, res)
 }
 
 // 发送一个合约函数请求
@@ -113,7 +114,7 @@ const send = () => {
     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
     const contract = new web3.eth.Contract(abi, address) // 创建合约
     let user = store.state.moralis?.user.accounts[0]
-    console.log(`---------->日志输出:user`, user)
+    console.log(`---------->:user`, user)
     // console.log(`---------->日志输出:Moralis.Units.Token("0.5", "18")`, Moralis.Units.Token('0.5', '18'))
     // 发送交易，使用事件获取返回结果
     contract.methods
@@ -121,29 +122,29 @@ const send = () => {
         // .addListing(contracts['GameItems']['address'], '1', 45)
         .send({ from: user })
         .on('transactionHash', function (hash: any) {
-            console.log(`---------->日志输出:hash`, hash)
+            console.log(`---------->:hash`, hash)
         })
         .on('receipt', function (receipt: any) {
-            console.log(`---------->日志输出:receipt`, receipt)
+            console.log(`---------->:receipt`, receipt)
         })
         .on('confirmation', function (confirmationNumber: any, receipt: any) {
-            console.log(`---------->日志输出:confirmationNumber, receipt`, confirmationNumber, receipt)
+            console.log(`---------->:confirmationNumber, receipt`, confirmationNumber, receipt)
         })
         .on('error', (err: any) => {
-            console.log(`---------->日志输出:err`, err)
+            console.log(`---------->:err`, err)
         })
 }
 
 // 设置合约访问白名单 主合约名，新增合约地址 ，发起人
 const setApprovalForAll = async (contractName: string = 'test', contractAddress: string = '', from: string = '0xF55c6Be2F9390301bFc66Dd9f7f52495B56301dC') => {
     if (!contractAddress || !from) {
-        console.log(`---------->日志输出:参数异常{ contractName = 'test', contractAddress = '', from = '' }`, { contractName, contractAddress, from })
+        console.log(`---------->:参数异常{ contractName = 'test', contractAddress = '', from = '' }`, { contractName, contractAddress, from })
     }
     const { abi, address } = (contracts as any)[contractName]
     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
     const contract = new web3.eth.Contract(abi, address) // 创建合约
     const res = await contract.methods.setApprovalForAll(contractAddress, true).send({ from })
-    console.log(`---------->日志输出:setApprovalForAll`, res)
+    console.log(`---------->:setApprovalForAll`, res)
 }
 
 // 上架
@@ -157,16 +158,16 @@ const addListing = () => {
         // .addListing(contracts['GameItems']['address'], '1', 45)
         .send({ from: '0xF55c6Be2F9390301bFc66Dd9f7f52495B56301dC' })
         .on('transactionHash', function (hash: any) {
-            console.log(`---------->日志输出:hash`, hash)
+            console.log(`---------->:hash`, hash)
         })
         .on('receipt', function (receipt: any) {
-            console.log(`---------->日志输出:receipt`, receipt)
+            console.log(`---------->:receipt`, receipt)
         })
         .on('confirmation', function (confirmationNumber: any, receipt: any) {
-            console.log(`---------->日志输出:confirmationNumber, receipt`, confirmationNumber, receipt)
+            console.log(`---------->:confirmationNumber, receipt`, confirmationNumber, receipt)
         })
         .on('error', (err: any) => {
-            console.log(`---------->日志输出:err`, err)
+            console.log(`---------->:err`, err)
         })
 }
 
@@ -181,16 +182,16 @@ const purchase = () => {
         // .addListing(contracts['GameItems']['address'], '1', 45)
         .send({ from: '0xF55c6Be2F9390301bFc66Dd9f7f52495B56301dC' })
         .on('transactionHash', function (hash: any) {
-            console.log(`---------->日志输出:hash`, hash)
+            console.log(`---------->:hash`, hash)
         })
         .on('receipt', function (receipt: any) {
-            console.log(`---------->日志输出:receipt`, receipt)
+            console.log(`---------->:receipt`, receipt)
         })
         .on('confirmation', function (confirmationNumber: any, receipt: any) {
-            console.log(`---------->日志输出:confirmationNumber, receipt`, confirmationNumber, receipt)
+            console.log(`---------->:confirmationNumber, receipt`, confirmationNumber, receipt)
         })
         .on('error', (err: any) => {
-            console.log(`---------->日志输出:err`, err)
+            console.log(`---------->:err`, err)
         })
 }
 

@@ -21,6 +21,16 @@ const routes = [
         },
     },
     {
+        name: 'support',
+        path: '/support',
+        component: () => import('../views/support/index.vue'),
+        meta: {
+            keepAlive: false,
+            showFooter: true,
+            transition: 'slide-right',
+        },
+    },
+    {
         name: 'xplan',
         path: '/xplan',
         component: () => import('../views/xplan/index.vue'),

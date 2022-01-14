@@ -3,16 +3,16 @@
         <header>
             <div class="content">
                 <img class="logo" src="https://d1td2c8hf7fv9k.cloudfront.net/LOGO.png" alt="logo">
-                <div class="user">
+                <div class="user" @click="connect()">
                     <div class="login_in Aideep">{{ id || "LOG IN" }}</div>
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/user.png" alt="" v-if="!id">
                 </div>
                 <div class="menu">
                     <ul>
                         <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">HOME</li>
-                        <li @click="changeMenu(1)" :class="{'active': active == 1}">STORY</li>
+                        <li @click="changeMenu(1, '/about')" :class="{'active': active == 1}">STORY</li>
                         <li @click="changeMenu(2)" :class="{'active': active == 2}">NEWS</li>
-                        <li @click="changeMenu(3)" :class="{'active': active == 3}">SUPPORT</li>
+                        <li @click="changeMenu(3, '/support')" :class="{'active': active == 3}">SUPPORT</li>
                         <li @click="changeMenu(4, '/about')" :class="{'active': active == 4}">ABOUT</li>
                     </ul>
                 </div>
@@ -21,7 +21,7 @@
         <section>
             <div class="titles">
                 <div class="title3">
-                    COMMING SOON
+                    COMING SOON
                 </div>
             </div>
         </section>
@@ -31,32 +31,36 @@
 import { onMounted, ref, reactive, computed } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
+import Web3 from '@/tools/web3' 
 
 const router = useRouter()
 
-const active = ref(4);
+const active = computed(() => store?.state.user?.active);
+
 const changeMenu = (type: any, route?: any) => {
-    active.value = type;
+    // active.value = type;
+    if(type == 2) {
+        window.open('https://medium.com/@Cyberpopnewworld')
+        return
+    }
+    store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
 const id: any = ref(0)
-const connect: any = (type: any) => {
-    if(type){
-        id.value = type.attributes.ethAddress
-        let len = id.value.length-1;
-        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+"***"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-        return;
-    }
-}
 let type2: any = ref(1);
 let isPlay: any = ref(false);
-const playVideo = (type: any) => {
-    type2.value = type
-    isPlay.value = !isPlay.value;
+
+const connect: any = async () => {
+    const [accounts]: any = await Web3.login().then((res: any) => {
+        return res;
+    })
+    id.value = accounts;
+    let len = id.value.length-1;
+    id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
 }
 
 onMounted(() => {
-
+    connect()
 })
 
 </script>
@@ -94,6 +98,7 @@ onMounted(() => {
         header{
             height: 14.5px;
             color: #fff;
+            animation: fadeInDown .8s linear;
             .content{
                 width: 80%;
                 height: 100%;

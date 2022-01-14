@@ -4,16 +4,16 @@
         <header>
             <div class="content">
                 <img class="logo" src="https://d1td2c8hf7fv9k.cloudfront.net/LOGO.png" alt="logo">
-                <div class="user">
+                <div class="user" @click="connect()">
                     <div class="login_in Aideep">{{ id || "LOG IN" }}</div>
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/user.png" alt="" v-if="!id">
                 </div>
                 <div class="menu">
                     <ul>
                         <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">HOME</li>
-                        <li @click="changeMenu(1)" :class="{'active': active == 1}">STORY</li>
+                        <li @click="changeMenu(1, '/about')" :class="{'active': active == 1}">STORY</li>
                         <li @click="changeMenu(2)" :class="{'active': active == 2}">NEWS</li>
-                        <li @click="changeMenu(3)" :class="{'active': active == 3}">SUPPORT</li>
+                        <li @click="changeMenu(3, '/support')" :class="{'active': active == 3}">SUPPORT</li>
                         <li @click="changeMenu(4, '/about')" :class="{'active': active == 4}">ABOUT</li>
                     </ul>
                 </div>
@@ -28,7 +28,7 @@
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/section1_1.png" alt="">
                 </div>
                 <div class="title3">
-                    COMMING SOON
+                    COMING SOON
                 </div>
             </div>
             <div class="document">
@@ -44,8 +44,8 @@
     <div class="welcome">
         <div class="cover_up"></div>
         <div class="warp">
-            <div class="title">WELCOME TO THE<span class="yellow">NEW WORLD</span></div>
-            <div class="content">
+            <div class="title" id="ele1">WELCOMETO  THE &nbsp;<span class="yellow">NEW WORLD</span></div>
+            <div class="content" id="ele2">
                 <div class="left">
                     <img src="@/assets/icon/left.png" alt="">
                 </div>
@@ -89,7 +89,7 @@
     </div>
     <div class="news">
         <div class="cover_up"></div>
-        <div class="title">
+        <div class="title" id="ele3">
              <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_2.png" alt="" class="line">
              <div class="news_box">
                  <img src="@/assets/icon/NEWS.png" alt="">
@@ -97,7 +97,7 @@
              </div>
              <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_2.png" alt="" class="line">
         </div>
-        <div class="news_content">
+        <div class="news_content" id="ele4">
             <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-2.jpg" class="bg1" alt="">
             <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-4.png" class="bg2" alt="">
             <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-5.jpg" class="bg3" alt="">
@@ -113,7 +113,7 @@
                 <p class="title2">CYBERPOP</p>
                 <p class="des">Just as there is no fate that can not be changed,</p>
                 <p class="des">there is no world that can not be created. </p>
-                <p class="des">--By the team of the Cyber New World</p>
+                <p class="des">--By the team of the Cyberpop Lab</p>
                 <button class="more">LEARN MORE</button>
             </div>
             <div class="text3">
@@ -130,7 +130,7 @@
     </div>
     <div class="about">
         <!-- <div class="cover_up"></div> -->
-        <div class="about_content">
+        <div class="about_content" id="ele5">
             <div class="left">
                 <div class="content">
                     <div class="title3">ABOUT US</div>
@@ -151,11 +151,11 @@
             </div>
             <div class="address">
                 <div class="email">
-                    <input type="text" placeholder="Enter your email address" >
+                    <input type="text" v-model="email" placeholder="Enter your email address" >
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_1.png" class="section" alt="">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/email_bottm.png" class="email_bottom" alt="">
                 </div>
-                <div class="submit">
+                <div class="submit" @click="submit()">
                     SUBMIT
                     <div class="x">x</div>
                 </div>
@@ -182,16 +182,16 @@
                         <a href="#" target="view_window">
                             <img src="https://d1td2c8hf7fv9k.cloudfront.net/google-logo.png" alt="">
                         </a>
-                         <a href="#" target="view_window">
+                         <a href="https://twitter.com/cyberpopnw" target="view_window">
                             <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitter.png" alt="">
                         </a>
                          <a href="#" target="view_window">
                             <img src="https://d1td2c8hf7fv9k.cloudfront.net/facebook.png" alt="">
                         </a>
-                         <a href="#" target="view_window">
+                         <a href="https://t.me/cyberpopnw" target="view_window">
                             <img src="https://d1td2c8hf7fv9k.cloudfront.net/dianbao.png" alt="">
                         </a>
-                         <a href="#" target="view_window">
+                         <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
                             <img src="https://d1td2c8hf7fv9k.cloudfront.net/discordlogo.png" alt="">
                         </a>
                     </div>
@@ -202,47 +202,52 @@
                     <div class="section1">
                         find us on
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitch.png" alt="">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/YouTube-logo.png" alt="">
+                        <a href="https://www.youtube.com/channel/UCtVpocr6cpS7Ub-WxRSJ3mQ">
+                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/YouTube-logo.png" alt="">
+                        </a>
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/bilibili.png" alt="">
                     </div>
                     <div class="section2">
                         <span>Cookie Preferences</span>
                         <br>
-                        <span>©2021 XXX Games, Inc. ALL Rights Reserved.</span>
+                        <span>Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</span>
                     </div>
-                    <div class="section3">
+                    <!-- <div class="section3">
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/qiu.png" class="qiu" alt="">
                         <div class="language">English</div>
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/bottom.png" class="bottom" alt="">
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
     </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, computed } from 'vue'
+import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
+import Web3 from '@/tools/web3' 
+
+
+const { proxy } = getCurrentInstance() as any;
 
 const router = useRouter()
 
-const active = ref(0);
+const active = computed(() => store?.state.user?.active);
+
+const email: any = ref("");
 
 const changeMenu = (type: any, route?: any) => {
-    active.value = type;
+    // active.value = type;
+    if(type == 2) {
+        window.open('https://medium.com/@Cyberpopnewworld')
+        return
+    }
+    store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
 
 const id: any = ref(0)
-const connect: any = (type: any) => {
-    if(type){
-        id.value = type.attributes.ethAddress
-        let len = id.value.length-1;
-        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+"***"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-        return;
-    }
-}
 let type2: any = ref(1);
 let isPlay: any = ref(false);
 const playVideo = (type: any) => {
@@ -250,46 +255,108 @@ const playVideo = (type: any) => {
     isPlay.value = !isPlay.value;
 }
 
+const connect: any = async () => {
+    const [accounts]: any = await Web3.login().then((res: any) => {
+        return res;
+    })
+    id.value = accounts;
+    let len = id.value.length-1;
+    id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+}
+
+
 const down = () => {
     window.location.href = '../cyberpop.docx';
 }
 
-const deckd = () => {
-    window.location.href = '../(new)CyberPOPDECK(en).pdf';
+const submit = () => {
+    let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
+    console.log(email.value);
+    
+    if(email.value === ""){ //输入不能为空
+　　　　alert("not null!");
+　　　　return false;
+　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
+　　　　alert("please input email!");
+　　　　return false;
+　　 }else{
+　　　　alert("received!");
+       email.value = "";
+　　　　return true;
+　　 }
+
+    // alert('received')
+    // proxy.$api.get('http://127.0.0.1:3010/addUser?email="1"').then((res: any) => {
+        
+    // })
 }
 
-onMounted(() => {
-    
+const checkScrollHeightAndLoadAnimation: any = () => {
+        const windowHeight: Number = window.innerHeight;
+
+        let ele1 = document.getElementById("ele1") as HTMLElement;
+        let ele2 = document.getElementById("ele2") as HTMLElement;
+        let ele3 = document.getElementById("ele3") as HTMLElement;
+        let ele4 = document.getElementById("ele4") as HTMLElement;
+        let ele5 = document.getElementById("ele5") as HTMLElement;
+        const ele1Top: Number = ele1.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele2Top: Number = ele2.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele3Top: Number = ele3.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele4Top: Number = ele4.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele5Top: Number = ele5.getBoundingClientRect().top; //距离屏幕顶部的距离
+
+        let arr = [
+            {
+                el: ele1,
+                top: ele1Top
+            },
+            {
+                el: ele2,
+                top: ele2Top
+            },
+            {
+                el: ele3,
+                top: ele3Top
+            },
+        ]
+        for(let i = 0; i < arr.length; i++){
+            if(arr[i].top < windowHeight){
+                arr[i].el.classList.add('bounceInLeft')
+            }
+            
+        }
+        if(ele4Top < windowHeight) ele4.classList.add('bounceInRight')
+        if(ele5Top < windowHeight) ele5.classList.add('bounceInRight')
+}
+
+
+const deckd = () => {
+    window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf';
+}
+
+onUnmounted(() => {
+    window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
 })
+
+onMounted(() => {
+    connect()
+    window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
+})
+
 
 </script>
 <style lang="less" scoped>
-    @keyframes springtimeAniamtScale2 {
-        0% {
-            bottom: 2.5vw;
-        }
-        25% {
-            bottom: 0vw;
-        }
-        50% {
-            bottom: -2vw;
-        }
-        75%{
-            bottom: 0vw;
-        }
-        100% {
-            bottom: 2.5vw;
-        }
-    }
     .home{
         background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/BK1.jpg');
         height: 100vh;
         background-size: auto 100%;
-        // background-repeat: no-repeat;
+        background-repeat: no-repeat;
         background-position: 20% top;
+        animation: home 10s linear;
         header{
             height: 14.5px;
             color: #fff;
+            animation: fadeInDown .8s linear;
             .content{
                 width: 80%;
                 height: 100%;
@@ -364,16 +431,19 @@ onMounted(() => {
                 transform: translateY(-50%);
                 .title1{
                     margin-bottom: 2vw;
+                    animation: fadeInRight .5s linear;
                     img{
                         width: 80px;
                     }
                 }
                 .title2{
+                    animation: fadeInRight .5s linear;
                     img{
                         width: 200px;
                     }
                 }
                 .title3{
+                    animation: fadeInRight .5s linear;
                     font-family: Aideep;
                     margin: 0 auto;
                     margin-top: 2vw;
@@ -407,12 +477,13 @@ onMounted(() => {
                 .buttons{
                     transition-property: all;
                     transition-timing-function: cubic-bezier(.4,0,.2,1);
-                    background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section1_3.png');
+                    // background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section1_3.png');
+                    background-color: #02224d;
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
                     transition-duration: .15s;
                     cursor: pointer;
-                    padding: 20px 80px;
+                    padding: 5px 60px;
                     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.4);
                     opacity: 0.9;
                     text-align: center;
@@ -677,6 +748,7 @@ onMounted(() => {
                 padding: 3vw 1vw 1vw 1vw;
                 background: rgba(16, 43, 87, 0.5);
                 text-align: right;
+                z-index: 999;
                 .title2{
                     font-family: Aideep;
                     margin-bottom: 1vw;

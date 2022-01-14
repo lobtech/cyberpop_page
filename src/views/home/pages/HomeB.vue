@@ -9,7 +9,7 @@
         <header>
             <div class="content">
                 <img class="logo" src="https://d1td2c8hf7fv9k.cloudfront.net/LOGO.png" alt="logo">
-                <div class="user">
+                <div class="user" @click="connect()">
                     <div class="login_in Aideep">{{id || "LOG IN"}}</div>
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/user.png" alt="" v-if="!id">
                 </div>
@@ -18,13 +18,13 @@
                         <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">
                             <span>HOME</span>
                         </li>
-                        <li @click="changeMenu(1)" :class="{'active': active == 1}">
+                        <li @click="changeMenu(1, '/about')" :class="{'active': active == 1}">
                             <span>STORY</span>
                         </li>
                         <li @click="changeMenu(2)" :class="{'active': active == 2}">
                             <span>NEWS</span>
                         </li>
-                        <li @click="changeMenu(3)" :class="{'active': active == 3}">
+                        <li @click="changeMenu(3, '/support')" :class="{'active': active == 3}">
                             <span>SUPPORT</span>
                         </li>
                         <li @click="changeMenu(4, '/about')" :class="{'active': active == 4}">
@@ -43,7 +43,7 @@
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/section1_1.png" alt="">
                 </div>
                 <div class="title3">
-                    COMMING SOON
+                    COMING SOON
                 </div>
                 <div class="document">
                     <!-- <div class="buttons" @click="down">NEWS</div> -->
@@ -58,8 +58,8 @@
     <div class="welcome">
         <div class="cover_up"></div>
         <div class="warp">
-            <div class="title">WELCOME TO THE<span class="yellow">NEW WORLD</span></div>
-            <div class="content">
+            <div class="title" id="ele1">WELCOME TO THE<span class="yellow">NEW WORLD</span></div>
+            <div class="content" id="ele2">
                 <!-- <div class="left" @click="changeSWiper(0)">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/left.png" alt="">
                 </div> -->
@@ -105,7 +105,7 @@
     </div>
     <div class="news">
         <div class="cover_up"></div>
-        <div class="title">
+        <div class="title" id="ele3">
              <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_2.png" alt="" class="line">
              <div class="news_box">
                  <img src="@/assets/icon/NEWS.png" alt="">
@@ -113,7 +113,7 @@
              </div>
              <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_2.png" alt="" class="line">
         </div>
-        <div class="news_content2">
+        <div class="news_content2" id="ele4">
             <div class="news_item">
                 <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-2.jpg" alt="" class="img img1">
                 <div class="text text1">
@@ -184,7 +184,7 @@
         </div> -->
     </div>
     <div class="about">
-        <div class="about_content">
+        <div class="about_content" id="ele5">
             <div class="left">
                 <div class="content">
                     <div class="title3">ABOUT US</div>
@@ -205,11 +205,11 @@
             </div>
             <div class="address">
                 <div class="email">
-                    <input type="text" placeholder="Enter your email address" >
+                    <input type="text" placeholder="Enter your email address" v-model="email">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_1.png" class="section" alt="">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/email_bottm.png" class="email_bottom" alt="">
                 </div>
-                <div class="submit">
+                <div class="submit" @click="submit">
                     SUBMIT
                     <div class="x">x</div>
                 </div>
@@ -238,36 +238,38 @@
                 <a href="#" target="view_window">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/google-logo.png" alt="">
                 </a>
-                    <a href="#" target="view_window">
+                <a href="https://twitter.com/cyberpopnw" target="view_window">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitter.png" alt="">
                 </a>
-                    <a href="#" target="view_window">
+                <a href="#" target="view_window">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/facebook.png" alt="">
                 </a>
-                    <a href="#" target="view_window">
+                <a href="https://t.me/cyberpopnw" target="view_window">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/dianbao.png" alt="">
                 </a>
-                    <a href="#" target="view_window">
+                <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/discordlogo.png" alt="">
                 </a>
             </div>
             <div class="find_us">
                 <div class="find_content">
-                    <div class="section3">
+                    <!-- <div class="section3">
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/qiu.png" class="qiu" alt="">
                         <div class="language">English</div>
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/bottom.png" class="bottom" alt="">
-                    </div>
+                    </div> -->
                     <div class="section1">
                         find us on
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitch.png" alt="">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/YouTube-logo.png" alt="">
+                        <a href="https://www.youtube.com/channel/UCtVpocr6cpS7Ub-WxRSJ3mQ" target="_blank">
+                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/YouTube-logo.png" alt="">
+                        </a>
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/bilibili.png" alt="">
                     </div>
                     <div class="section2">
                         <span>Cookie Preferences</span>
                         <br>
-                        <span>©2021 XXX Games, Inc. ALL Rights Reserved.</span>
+                        <span>Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</span>
                     </div>
                 </div>
             </div>
@@ -278,19 +280,28 @@
 import { onMounted, ref, reactive, computed } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
-import { log } from 'console';
+import Web3 from '@/tools/web3' 
+
 
 const router = useRouter()
 
 
-const active = ref(0);
+const active = computed(() => store?.state.user?.active);
+
+const email: any = ref("");
+
 const left = ref(0)
 const swiperContent = ref(null);
 const id: any = ref(0)
 let count: any = 0
 const newMask: any = ref(true)
 const changeMenu = (type: any, route?: any) => {
-    active.value = type;
+    // active.value = type;
+    if(type == 2) {
+        window.open('https://medium.com/@Cyberpopnewworld')
+        return
+    }
+    store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
 
@@ -299,8 +310,31 @@ const down = () => {
 }
 
 const deckd = () => {
-    window.location.href = '../(new)CyberPOPDECK(en).pdf';
+    window.location.href = 'https://d1j4h7kk0fcyvo.cloudfront.net/pdf.html';
 }
+
+const submit = () => {
+    let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
+    console.log(email.value);
+    
+    if(email.value === ""){ //输入不能为空
+　　　　alert("not null!");
+　　　　return false;
+　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
+　　　　alert("please input email!");
+　　　　return false;
+　　 }else{
+　　　　alert("received!");
+       email.value = "";
+　　　　return true;
+　　 }
+
+    // alert('received')
+    // proxy.$api.get('http://127.0.0.1:3010/addUser?email="1"').then((res: any) => {
+        
+    // })
+}
+
 
 let isPlay: any = ref(false);
 let type2: any = ref(3)
@@ -310,35 +344,58 @@ const playVideo = (type: any) => {
     type2.value = type
 }
 
-//连接钱包 type=true 表示上次已经登陆过了，不需要再出来钱包了
 
-
-const chientWidth: any = document.body.clientWidth * 0.7;
-
-const changeSWiper = (type: Number) => {
-    if(type){
-        count++;
-        if(count>2) {
-            count--;
-            return;
-        }
-        left.value = -(count * chientWidth);
-    }else{
-        count--;
-        if(count<0) {
-            count++;
-            return;
-        }
-        left.value = -(count * chientWidth);
-        
-    }
-    console.log(type);
-    
+const connect: any = async () => {
+    const [accounts]: any = await Web3.login().then((res: any) => {
+        return res;
+    })
+    id.value = accounts;
+    let len = id.value.length-1;
+    id.value = id.value[0]+id.value[1]+id.value[2]+"***"+id.value[len-2]+id.value[len-1]+id.value[len];
 }
 
-onMounted(() => {
+const checkScrollHeightAndLoadAnimation: any = () => {
+        const windowHeight: Number = window.innerHeight;
 
-    
+        let ele1 = document.getElementById("ele1") as HTMLElement;
+        let ele2 = document.getElementById("ele2") as HTMLElement;
+        let ele3 = document.getElementById("ele3") as HTMLElement;
+        let ele4 = document.getElementById("ele4") as HTMLElement;
+        let ele5 = document.getElementById("ele5") as HTMLElement;
+        const ele1Top: Number = ele1.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele2Top: Number = ele2.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele3Top: Number = ele3.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele4Top: Number = ele4.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele5Top: Number = ele5.getBoundingClientRect().top; //距离屏幕顶部的距离
+
+        let arr = [
+            {
+                el: ele1,
+                top: ele1Top
+            },
+            {
+                el: ele2,
+                top: ele2Top
+            },
+            {
+                el: ele3,
+                top: ele3Top
+            },
+        ]
+        for(let i = 0; i < arr.length; i++){
+            if(arr[i].top < windowHeight){
+                arr[i].el.classList.add('bounceInLeft')
+            }
+            
+        }
+        if(ele4Top < windowHeight) ele4.classList.add('bounceInRight')
+        if(ele5Top < windowHeight) ele5.classList.add('bounceInRight')
+}
+
+
+onMounted(() => {
+    connect()
+    window.addEventListener('scroll', checkScrollHeightAndLoadAnimation);
 })
 
 </script>
@@ -358,6 +415,32 @@ onMounted(() => {
         }
         100% {
             bottom: 2.5vw;
+        }
+    }
+    @keyframes fadeInRight {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateX(30px);
+            transform: translateX(30px);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+    }
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateY(-30px);
+            -ms-transform: translateY(-30px);
+            transform: translateY(-30px);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: translateY(0);
+            -ms-transform: translateY(0);
+            transform: translateY(0);
         }
     }
     .mask{
@@ -382,6 +465,7 @@ onMounted(() => {
         header{
             height: 24.5px;
             color: #fff;
+            animation: fadeInDown .8s linear;
             .content{
                 height: 100%;
                 margin: 0 auto;
@@ -497,13 +581,15 @@ onMounted(() => {
                     .buttons{
                         transition-property: all;
                         transition-timing-function: cubic-bezier(.4,0,.2,1);
-                        background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section1_3.png');
+                        // background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section1_3.png');
+                        background-color: #02224d;
+                        padding: 10px 60px;
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         transition-duration: .15s;
                         cursor: pointer;
                         width: 40vw;
-                        padding: 10px 20px;
+                        padding: 2px 20px;
                         box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.4);
                         text-align: center;
                         margin-bottom: 10px;

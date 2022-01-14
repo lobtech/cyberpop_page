@@ -10,6 +10,7 @@ const states = {
     name: 'test' as string,
     age: 0 as number,
     roles: [] as role[],
+    active: 0,
 }
 export type typeof_user = typeof states
 export default {
@@ -35,6 +36,10 @@ export default {
         addRole(state, payload: role) {
             state.roles.push(payload)
         },
+        // 添加用户角色
+        changeActive(state, payload: any) {
+            state.active = payload;
+        },
     },
     actions: {
         init({ commit }, paylaod: typeof_user) {
@@ -45,6 +50,9 @@ export default {
         },
         addRole({ commit }, paylaod: role) {
             commit('addRole', paylaod)
+        },
+        changeActive({ commit }, paylaod: any) {
+            commit('changeActive', paylaod)
         },
     },
 } as Module<typeof_user, State>
