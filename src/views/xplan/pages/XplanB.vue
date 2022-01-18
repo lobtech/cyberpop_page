@@ -131,15 +131,15 @@
                     </div>
                 </div>
             </div>
-            <div class="category">
+            <!-- <div class="category">
                 <div class="category-wrap">
                     <img class="category-info" src="@/assets/support/category-info.png" alt="">
                     <img class="category-arrow1" src="@/assets/support/category-arrow1.png" alt="">
                     <img class="category-arrow2" src="@/assets/support/category-arrow2.png" alt="">
                     <img class="category-arrow3" src="@/assets/support/category-arrow3.png" alt="">
                 </div>
-            </div>
-            <div class="rordmap">
+            </div> -->
+            <!-- <div class="rordmap">
                 <div class="rordmap-left">
                     <div class="time1">
                         <div class="time1-date">
@@ -232,13 +232,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="supported">
+            </div> -->
+            <!-- <div class="supported">
                 <div class="title">SUPPORTED CAPITAL</div>
                 <div class="wrap">
                     <img src="@/assets/support/supported.png" alt="">
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -300,10 +300,7 @@ onMounted(() => {
     a {
         text-decoration: none;
     }
-    @keyframes process {
-        0% { background-position: 0 0; }
-        100% { background-position: 30px 0; }
-    }
+    
     .router-link-active {
         text-decoration: none;
     }
@@ -381,18 +378,20 @@ onMounted(() => {
                     transform: rotateY(180deg);
                 }
                 .center-models{
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    width: 12vw;
+                    position: relative;
+                    width: 18vw;
                     img{
-                        width: 12vw;
-                        margin-top: .6vw;
-                        margin-bottom: 3vw;
+                        position: absolute;
+                        top: -4vw;
+                        width: 18vw;
                     }
                     div{
+                        position: absolute;
+                        left: 50%;
+                        bottom: 1.7vw;
+                        transform: translateX(-50%);
                         color:#fff;
-                        font-size: 3.8vw;
+                        font-size: 4vw;
                         font-family: EDIX;
                         white-space: nowrap;
                     }
@@ -400,7 +399,7 @@ onMounted(() => {
             }
             .round{
                 .round-wrap{
-                    margin: 10vw 17vw 0;
+                    margin: 10vw 5vw 0;
                     li{
                         display: flex;
                         justify-content: space-between;
@@ -409,7 +408,7 @@ onMounted(() => {
                         color:#fff;
                         font-family: OPPOSans;
                         div:not(:nth-child(4)){
-                            font-size: 2vw;
+                            font-size: 4vw;
                         }
                         .round-price{
                             opacity: .8;
@@ -421,20 +420,37 @@ onMounted(() => {
                         .round-schedule{
                             position: relative;
                             width: 35.5vw;
-                            height: 3.4vw;
-                            padding: .4vw;
+                            height: 5vw;
                             color: #fc4857;
-                            line-height: 2vw;
-                            border: .3vw solid #ff593d;
+                            line-height: 3.8vw;
+                            border: .6vw solid #ff593d;
                             .schedule-line{
                                 position: absolute;
-                                left: .4vw;
-                                width: 34.1vw;
-                                height: 2vw;
+                                left: .2vw;
+                                top: .2vw;
+                                width: 33.9vw;
+                                height: 3.6vw;
+                                line-height: 3.8vw;
                                 // img{
                                 //     width: 100%;
                                 //     height: 100%;
-                                //     // #FFE980
+                                // }
+                                // .wrap{
+                                //     position: relative;
+                                //     // height: 3.8vw;
+                                //     width: 80%; // 控制进度
+                                //     .schedule-bg{
+                                //         width: 100%;
+                                //         height: 100%;
+                                //     }
+                                //     // span{
+                                //     //     position: absolute;
+                                //     //     top: 0;
+                                //     //     right: 1vw;
+                                //     //     width: 1vw;
+                                //     //     height: 100%;
+                                //     //     background: #060709;
+                                //     // }
                                 // }
                                 .wrap1{
                                     position: relative;
