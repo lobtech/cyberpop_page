@@ -308,6 +308,14 @@ onMounted(() => {
         0% { background-position: 0 0; }
         100% { background-position: 30px 0; }
     }
+    @keyframes processInit{
+        0% {
+            width: 0%;
+        }
+        100% {
+            width: 100%;
+        }
+    }
     .router-link-active {
         text-decoration: none;
     }
@@ -459,7 +467,7 @@ onMounted(() => {
                                     background-color: #dbba11;
                                     background-image: linear-gradient(-60deg, transparent 0rem, transparent 0.8rem, #f5de6b 0.8rem, #e2c94d 1.6rem, transparent 1.6rem, transparent 2.4rem, #e6d273 2.4rem);
                                     background-size: 30px 38px;
-                                    animation: process 800ms infinite linear;
+                                    animation: processInit 1000ms linear,process 800ms infinite linear;
                                 }
                                 .wrap2{
                                     position: relative;
@@ -468,7 +476,7 @@ onMounted(() => {
                                     background-color: #CCF493;
                                     background-image: linear-gradient(-60deg, transparent 0rem, transparent 0.8rem, #aed37a 0.8rem, #99c063 1.6rem, transparent 1.6rem, transparent 2.4rem, #acd670 2.4rem);
                                     background-size: 30px 38px;
-                                    animation: process 800ms infinite linear;
+                                    animation: process 800ms infinite ease;
                                     // .schedule-bg{
                                     //     width: 100%;
                                     // }

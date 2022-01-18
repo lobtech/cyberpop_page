@@ -28,8 +28,9 @@
                 <ul class="round-wrap">
                     <li>
                         <div class="round-title">Round A</div>
+                        <div>7%</div>
                         <div class="round-price">$0.13</div>
-                        <div class="round-month">7 month</div>
+                        <div class="round-month">10 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
                                 <!-- <img src="@/assets/support/yellow.png" alt=""> -->
@@ -41,23 +42,25 @@
                     </li>
                     <li>
                         <div class="round-title">Round B</div>
+                        <div>8%</div>
                         <div class="round-price">$0.25</div>
-                        <div class="round-month">8 month</div>
+                        <div class="round-month">10 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
-                                <div class="wrap2">
+                                <!-- <div class="wrap2"> -->
                                     <!-- <img class="schedule-bg" src="@/assets/support/green1.png" alt=""> -->
                                     <!-- <span></span> -->
-                                </div>
+                                <!-- </div> -->
                             </div>
-                            <div class="percent">80%</div>
-                            <img class="schedule-locking locking2" src="@/assets/support/locking2.png" alt="">
+                            <div class="percent">0%</div>
+                            <img class="schedule-locking locking2" src="@/assets/support/locking1.png" alt="">
                         </div>
                     </li>
                     <li>
                         <div class="round-title">Round C</div>
+                        <div>3%</div>
                         <div class="round-price">$0.42</div>
-                        <div class="round-month">3 month</div>
+                        <div class="round-month third-month">8 month</div>
                         <div class="round-schedule">
                             <div class="percent">0%</div>
                             <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
@@ -290,6 +293,14 @@ onMounted(() => {
         0% { background-position: 0 0; }
         100% { background-position: 30px 0; }
     }
+    @keyframes processInit{
+        0% {
+            width: 0%;
+        }
+        100% {
+            width: 100%;
+        }
+    }
     a {
         text-decoration: none;
     }
@@ -408,21 +419,25 @@ onMounted(() => {
                         margin-bottom: 3vw;
                         color:#fff;
                         font-family: OPPOSans;
-                        div:not(:nth-child(4)){
-                            font-size: 4vw;
+                        div:not(:nth-child(5)){
+                            font-size: 3vw;
                         }
                         .round-price{
                             opacity: .8;
                         }
                         .round-month{
-                            margin: 0 1vw;
+                            // margin: 0 1vw;
                             opacity: .6;
+                        }
+                        .third-month{
+                            margin-left: 1.4vw;
                         }
                         .round-schedule{
                             position: relative;
                             width: 35.5vw;
                             height: 5vw;
-                            color: #fc4857;
+                            // color: #fc4857;
+                            color: #fff;
                             line-height: 3.8vw;
                             border: .6vw solid #ff593d;
                             .schedule-line{
@@ -438,7 +453,7 @@ onMounted(() => {
                                     background-color: #FFE980;
                                     background-image: linear-gradient(-60deg, transparent 0rem, transparent 0.6rem, #f5de6b 0.8rem, #e2c94d 1.6rem, transparent 1.6rem, transparent 2.4rem, #e6d273 2.4rem);
                                     background-size: 30px 38px;
-                                    animation: process 800ms infinite linear;
+                                    animation: processInit 1000ms linear,process 800ms infinite linear;
                                 }
                                 .wrap2{
                                     position: relative;
@@ -597,20 +612,20 @@ onMounted(() => {
                     }
                     .category-arrow1{
                         position: absolute;
-                        top: 14.4vw;
-                        left: 35.3vw;
+                        top: 14.5vw;
+                        left: 36vw;
                         width: 5vw;
                     }
                     .category-arrow2{
                         position: absolute;
-                        top: 21vw;
-                        left: 36vw;
+                        top: 21.3vw;
+                        left: 36.7vw;
                         width: 5vw;
                     }
                     .category-arrow3{
                         position: absolute;
                         top: 20vw;
-                        right: 14.4vw;
+                        right: 14.6vw;
                         width: 12vw;
                     }
                 }
