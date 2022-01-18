@@ -31,6 +31,32 @@
                     COMING SOON
                 </div>
             </div>
+            <div class="nav-logos">
+                <a href="javascript:;">
+                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitch.png" alt="">
+                </a>
+                <a href="https://www.youtube.com/channel/UCtVpocr6cpS7Ub-WxRSJ3mQ">
+                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/YouTube-logo.png" alt="">
+                </a>
+                <a href="javascript:;">
+                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/bilibili.png" alt="">
+                </a>
+                <a href="#" target="view_window">
+                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/google-logo.png" alt="">
+                </a>
+                    <a href="https://twitter.com/cyberpopnw" target="view_window">
+                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitter.png" alt="">
+                </a>
+                    <a href="#" target="view_window">
+                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/facebook.png" alt="">
+                </a>
+                    <a href="https://t.me/cyberpopnw" target="view_window">
+                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/dianbao.png" alt="">
+                </a>
+                    <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
+                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/discordlogo.png" alt="">
+                </a>
+            </div>
             <div class="document">
                 <!-- <div class="buttons" @click="down">NEWS</div> -->
                 <!-- <div class="position"></div> -->
@@ -458,6 +484,20 @@ onMounted(() => {
                     color: #fff;
                     font-size: 1.5vw;
                 }
+            }
+            .nav-logos{
+                position: absolute;
+                bottom: 4vw;
+                margin: 0 auto;
+                width: 100%;
+                text-align: center;
+                a{
+                    margin: 0 1vw;
+                    img:hover{
+                        transform: scale(1.2);
+                    }
+                }
+                
             }
             .document{
                 position: absolute;

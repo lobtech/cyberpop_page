@@ -3,14 +3,14 @@
         <div class="cover_up"></div>
         <img src="@/assets/support/section2-1.png" class="section2-1 bgimg" alt="">
         <img src="@/assets/support/section2-2.png" class="section2-2 bgimg" alt="">
-        <img src="@/assets/support/section3-1.png" class="section3-1 bgimg" alt="">
-        <img src="@/assets/support/section3-2.png" class="section3-2 bgimg" alt="">
+        <img src="@/assets/support/section3-2.png" class="section3-2" alt="">
+        <img src="@/assets/support/section3-1.png" class="section3-1" alt="">
         <div class="section4">
             <div>
-                <img src="@/assets/support/section4-1.png" alt="">
+                <img class="section4-first" src="@/assets/support/section4-1.png" alt="">
             </div>
             <div>
-                <img src="@/assets/support/section3-3.png" alt="">
+                <img class="section4-second" src="@/assets/support/section3-3.png" alt="">
                 <img class="section4-last" src="@/assets/support/section4-2.png" alt="">
             </div>
         </div>
@@ -35,7 +35,7 @@
                                 <!-- <img src="@/assets/support/yellow.png" alt=""> -->
                                 <div class="wrap1"></div>
                             </div>
-                            <div>100%</div>
+                            <div class="percent">100%</div>
                             <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
                         </div>
                     </li>
@@ -50,7 +50,7 @@
                                     <!-- <span></span> -->
                                 </div>
                             </div>
-                            <div>80%</div>
+                            <div class="percent">80%</div>
                             <img class="schedule-locking locking2" src="@/assets/support/locking2.png" alt="">
                         </div>
                     </li>
@@ -59,7 +59,7 @@
                         <div class="round-price">$0.42</div>
                         <div class="round-month">3 month</div>
                         <div class="round-schedule">
-                            <div>0%</div>
+                            <div class="percent">0%</div>
                             <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
                         </div>
                     </li>
@@ -69,7 +69,6 @@
                 <div class="ratio-wrap">
                     <div class="ratio-left">
                         <div class="title">
-                            <img src="@/assets/support/ratio-leftArrow.png" alt="">
                             <img src="@/assets/support/ratio-leftTitle.png" alt="">
                             <div class="title-txt">DISTRIBUTION RATIO</div>
                             <div class="title-tips">CYBER POP
@@ -131,16 +130,21 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="category">
+            <div class="category">
                 <div class="category-wrap">
                     <img class="category-info" src="@/assets/support/category-info.png" alt="">
                     <img class="category-arrow1" src="@/assets/support/category-arrow1.png" alt="">
                     <img class="category-arrow2" src="@/assets/support/category-arrow2.png" alt="">
                     <img class="category-arrow3" src="@/assets/support/category-arrow3.png" alt="">
                 </div>
-            </div> -->
-            <!-- <div class="rordmap">
-                <div class="rordmap-left">
+            </div>
+            <div class="rordmap">
+                <div class="rordmap-leftBg"></div>
+                <div class="rordmap-rightBg">
+                    <img src="@/assets/support/rordmap-rightBg.png" alt="">
+                </div>
+                <div class="title">RORD&nbsp;&nbsp;MAP</div>
+                <div class="rordmap-content">
                     <div class="time1">
                         <div class="time1-date">
                             <div class="time1-txt">
@@ -156,6 +160,20 @@
                                 <li class="txt2">BASIC GAMEPLAY DESIGN</li>
                                 <li class="txt3">GAME SCENE DEVELOPMENT</li>
                                 <li class="txt4">GAME ART MODELING</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="time2">
+                        <div class="time2-date">
+                            <div class="time2-h">2</div>
+                            <img src="@/assets/support/2021.10.png" alt="">
+                        </div>
+                        <div class="time2-content">
+                            <ul>
+                                <li>UGC PROJECT APPROVAL</li>
+                                <li>WEBSITE LAUNCHED</li>
+                                <li>GAME DEMO ONLING</li>
+                                <li>CHARACTER MODELING</li>
                             </ul>
                         </div>
                     </div>
@@ -192,29 +210,6 @@
                                 <div>GAME UNIONS SYSTEM</div>
                             </div>
                         </div>
-                        <img class="time4-lastImg" src="@/assets/support/time4-bottom.png" alt="">
-                    </div>
-                </div>
-                <div class="rordmap-timeLine">
-                    <div class="title">RORD&nbsp;&nbsp;MAP</div>
-                    <img class="location" src="@/assets/support/rordmap-timeLine1.png" alt="">
-                    <img class="line" src="@/assets/support/rordmap-timeLine2.png" alt="">
-                    <img class="arrow" src="@/assets/support/rordmap-timeLine3.png" alt="">
-                </div>
-                <div class="rordmap-right">
-                    <div class="time2">
-                        <div class="time2-date">
-                            <div class="time2-h">2</div>
-                            <img src="@/assets/support/2021.10.png" alt="">
-                        </div>
-                        <div class="time2-content">
-                            <ul>
-                                <li>UGC PROJECT APPROVAL</li>
-                                <li>WEBSITE LAUNCHED</li>
-                                <li>GAME DEMO ONLING</li>
-                                <li>CHARACTER MODELING</li>
-                            </ul>
-                        </div>
                     </div>
                     <div class="time5">
                         <img class="time5-bg" src="@/assets/support/time5-bg.png" alt="">
@@ -232,13 +227,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
-            <!-- <div class="supported">
-                <div class="title">SUPPORTED CAPITAL</div>
-                <div class="wrap">
-                    <img src="@/assets/support/supported.png" alt="">
-                </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </template>
@@ -297,6 +286,10 @@ onMounted(() => {
             bottom: 2.5vw;
         }
     }
+    @keyframes process {
+        0% { background-position: 0 0; }
+        100% { background-position: 30px 0; }
+    }
     a {
         text-decoration: none;
     }
@@ -325,21 +318,23 @@ onMounted(() => {
             vertical-align: top;            
         }
         .section2-1{
-            height: 75vw;
+            height: 160vw;
         }
         .section2-2{
-            // height: 30vw;
+            height: 160vw;
         }
         .section3-1{
-            height: 53vw;
+            width: 100%;
+            height: 150vw;
         }
         .section3-2{
-            height: 44vw;
+            width: 100%;
+            height: 100vw;
         }
         .section4{
             display: flex;
             align-items: center;
-            height: 101.2vw;
+            height: 119.6vw;
             div{
                 // align-items: center;
             }
@@ -349,14 +344,20 @@ onMounted(() => {
             img{
                 width: 50vw;
             }
+            .section4-first{
+                height: 120vw;
+            }
+            .section4-second{
+                height: 60vw;
+            }
             .section4-last{
-                height: 55.04vw;
+                height: 60vw;
             }
         }
         .section5{
             background-image: url('../../../assets/support/section5.png');
             background-size: 100% 100%;
-            height: 43vw;
+            height: 80vw;
         }
         .content{
             position: absolute;
@@ -369,7 +370,7 @@ onMounted(() => {
                 .left-img,.right-img{
                     width:37.5vw;
                     height: 22vw;
-                    background-image: url('@/assets/support/models-l.png');
+                    background-image: url('../../../assets/support/models-l.png');
                     background-position: -11vw -1.4vw;
                     background-size: 100% auto;
                     background-repeat: no-repeat;
@@ -426,74 +427,42 @@ onMounted(() => {
                             border: .6vw solid #ff593d;
                             .schedule-line{
                                 position: absolute;
-                                left: .2vw;
-                                top: .2vw;
-                                width: 33.9vw;
-                                height: 3.6vw;
-                                line-height: 3.8vw;
-                                // img{
-                                //     width: 100%;
-                                //     height: 100%;
-                                // }
-                                // .wrap{
-                                //     position: relative;
-                                //     // height: 3.8vw;
-                                //     width: 80%; // 控制进度
-                                //     .schedule-bg{
-                                //         width: 100%;
-                                //         height: 100%;
-                                //     }
-                                //     // span{
-                                //     //     position: absolute;
-                                //     //     top: 0;
-                                //     //     right: 1vw;
-                                //     //     width: 1vw;
-                                //     //     height: 100%;
-                                //     //     background: #060709;
-                                //     // }
-                                // }
+                                left: .4vw;
+                                top: .4vw;
+                                width: 33.6vw;
+                                height: 3.3vw;
                                 .wrap1{
                                     position: relative;
-                                    height: 2vw;
+                                    height: 3.1vw;
                                     width: 100%; // 控制进度
                                     background-color: #FFE980;
-                                    background-image: linear-gradient(-60deg, transparent 0rem, transparent 0.8rem, #f5de6b 0.8rem, #e2c94d 1.6rem, transparent 1.6rem, transparent 2.4rem, #e6d273 2.4rem);
+                                    background-image: linear-gradient(-60deg, transparent 0rem, transparent 0.6rem, #f5de6b 0.8rem, #e2c94d 1.6rem, transparent 1.6rem, transparent 2.4rem, #e6d273 2.4rem);
                                     background-size: 30px 38px;
                                     animation: process 800ms infinite linear;
                                 }
                                 .wrap2{
                                     position: relative;
-                                    height: 2vw;
+                                    height: 3.1vw;
                                     width: 80%; // 控制进度
                                     background-color: #CCF493;
                                     background-image: linear-gradient(-60deg, transparent 0rem, transparent 0.8rem, #aed37a 0.8rem, #99c063 1.6rem, transparent 1.6rem, transparent 2.4rem, #acd670 2.4rem);
                                     background-size: 30px 38px;
                                     animation: process 800ms infinite linear;
-                                    // .schedule-bg{
-                                    //     width: 100%;
-                                    // }
-                                    // span{
-                                    //     position: absolute;
-                                    //     top: 0;
-                                    //     right: .5vw;
-                                    //     width: .4vw;
-                                    //     height: 100%;
-                                    //     background: #060709;
-                                    // }
                                 }
                             }
-                            div:nth-child(2){
+                            .percent{
                                 position: absolute;
                                 left: .6vw;
+                                font-size: 3.6vw;
                             }
                             .schedule-locking{
                                 position: absolute;
-                                top: -1.3vw;
-                                right: -1.5vw;
-                                width:6vw;
+                                top: -1.65vw;
+                                right: -2.4vw;
+                                width: 8vw;
                             }
                             .locking2{
-                                top: -1.15vw;
+                                top: -1.4vw;
                             }
                         }
                     }
@@ -502,128 +471,111 @@ onMounted(() => {
             .ratio{
                 .ratio-wrap{
                     display: flex;
-                    justify-content: space-between;
-                    margin: 0 14vw;
+                    flex-direction: column;
+                    align-items: center;
                     .ratio-left{
-                        width: 35vw;
-                        height: 26vw;
-                        margin-top: 2vw;
+                        width: 90vw;
+                        margin-top: 10vw;
                         color:#fff;
-                        background-image: url('@/assets/support/ratio-leftBg.png');
-                        background-size: auto 100%;
-                        background-repeat: no-repeat;
                         .title{
                             position: relative;
                             height: 8.2vw;
                             img:nth-child(1){
                                 position: absolute;
-                                top: .4vw;
-                                left: 8.4vw;
-                                width: 2.6vw;
-                            }
-                            img:nth-child(2){
-                                position: absolute;
-                                top: 3.2vw;
-                                left: .5vw;
-                                width: 7.8vw;
+                                width: 20vw;
                             }
                             .title-txt{
                                 position: absolute;
-                                top: 3.8vw;
-                                left: 8.6vw;
-                                font-size: 1.5vw;
+                                top: 2vw;
+                                left: 23.2vw;
+                                font-size: 4vw;
                                 letter-spacing:.1vw;
                             }
                             .title-tips{
                                 position: absolute;
-                                top: 6vw;
-                                left: 12.3vw;
+                                top: 6.2vw;
+                                left: 31vw;
                                 color: #7a7a78;
                                 font-size: 1vw;
                                 transform: scale(.5);
                                 img{
                                     position: absolute;
-                                    left:7vw;
-                                    top:.1vw;
-                                    width: 16vw;
+                                    left:19vw;
+                                    top:.6vw;
+                                    width: 40vw;
                                 }
                             }
                             .title-imgRotateY{
                                 position: absolute;
-                                top: 3.2vw;
-                                right: .4vw;
-                                width: 7.8vw;
+                                right: 0vw;
+                                width: 20vw;
                                 transform: rotateY(180deg);
                             }
                         }
                         .pie{
-                            height: 16.8vw;
                             position: relative;
                             .pie-main{
                                 img:first-child{
                                     z-index: -1;
                                     position: absolute;
-                                    top: .8vw;
-                                    right: 7.9vw;
-                                    width: 10.5vw;
+                                    top: 14vw;
+                                    right: 13.2vw;
+                                    width: 30vw;
                                 }
                                 img:last-child{
                                     position: absolute;
-                                    top: .1vw;
-                                    right: 6.2vw;
-                                    width: 6vw;
+                                    top: 10vw;
+                                    right: 7vw;
+                                    width: 20vw;
                                 }
                                 .percent{
                                     position: absolute;
-                                    top: .5vw;
-                                    right: 7.3vw;
+                                    top: 11.3vw;
+                                    right: 11vw;
                                     color: #6655d5;
                                     font-family: EDIX;
-                                    font-size: .9vw;
+                                    font-size: 3vw;
                                 }
 
                             }
                             .pie-rest{
                                 z-index: 1;
-                                width: 21.4vw;
-                                margin: .4vw 0 0 4.8vw;
+                                width: 60vw;
+                                margin: 14vw 0 2vw 13.1vw;
                             }
                             .total{
-                                margin-top: .9vw;
-                                margin-left: 4vw;
-                                font-size: 1.24vw;
+                                text-align: center;
+                                font-size: 3.6vw;
                                 font-family: OPPOSans;
                             }
                         }
                         
                     }
                     .ratio-right{
-                        width: 29vw;
-                        height: 32vw;
+                        width: 70vw;
+                        height: 92vw;
+                        margin-top: 10vw;
                         color:#fff;
-                        background-image: url('@/assets/support/ratio-rightBg.png');
-                        background-position: 85% center;
-                        background-size: auto 100%;
+                        background-image: url('../../../assets/support/ratio-rightBg.png');
+                        background-size: 100% auto;
                         background-repeat: no-repeat;
                         ul{
-                            width: 20vw;
-                            height: 23vw;
-                            // background: pink;
-                            margin: 5.4vw 0 5.4vw 7.6vw;
-                            background-image: url('@/assets/support/ratio-stop.png');
-                            background-position: 11.7vw 14.2vw;
+                            margin: 14vw 0 0 7vw;
+                            background-image: url('../../../assets/support/ratio-stop.png');
+                            background-position: 40vw 44vw;
                             background-size: 28% 29%;
                             background-repeat: no-repeat;
                             li{
                                 display: flex;
+                                margin-bottom: .6vw;
                                 img{
-                                    width: 2.5vw;
-                                    height: 2.5vw;
+                                    width: 6.8vw;
+                                    height: 6.8vw;
                                 }
                                 a{
-                                    margin-top: .6vw;
+                                    margin-top: 1.8vw;
                                     color: #fff;
-                                    font-size: .95vw;
+                                    font-size: 3.4vw;
                                     font-family: OPPOSans;
                                     opacity: .8;
                                     text-decoration: none;
@@ -634,104 +586,135 @@ onMounted(() => {
                 }
             }
             .category{
+                margin-bottom: 15vw;
                 .category-wrap{
                     position: relative;
-                    height: 27vw;
-                    margin: 0 14vw;
+                    height: 36vw;
+                    margin: 10vw 2.8vw;
                     .category-info{
                         position: absolute;
-                        top: -2vw;
                         width: 100%;
                     }
                     .category-arrow1{
                         position: absolute;
-                        top: 8.4vw;
-                        left: 27vw;
+                        top: 14.4vw;
+                        left: 35.3vw;
                         width: 5vw;
                     }
                     .category-arrow2{
                         position: absolute;
-                        top: 13.8vw;
-                        left: 27.8vw;
+                        top: 21vw;
+                        left: 36vw;
                         width: 5vw;
                     }
                     .category-arrow3{
                         position: absolute;
-                        top: 13.9vw;
-                        right: 11vw;
-                        width: 10vw;
+                        top: 20vw;
+                        right: 14.4vw;
+                        width: 12vw;
                     }
                 }
             }
             .rordmap{
-                display: flex;
-                justify-content: space-between;
-                margin-top:3vw;
-                .rordmap-left{
-                    width: 47vw;
-                    padding-top:20vw;
-                    color:#fff;
-                    background-image: url('@/assets/support/rordmap-leftBg.png');
-                    background-position: -11.2vw 0vw;
+                position: relative;
+                .rordmap-leftBg{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 50vw;
+                    height: 40vw;
+                    background-image: url('../../../assets/support/rordmap-leftBg.png');
+                    background-position: -12vw 0vw;
                     background-size: 50% auto;
                     background-repeat: no-repeat;
+                }
+                .rordmap-right{
+                    width: 46vw;
+                    color:#fff;
+                    background-image: url('../../../assets/support/rordmap-rightBg.png');
+                    background-position: right 6vw;
+                    background-size: 90% auto;
+                    background-repeat: no-repeat;
+                }
+                .rordmap-rightBg{
+                    position: absolute;
+                    top: -15vw;
+                    right: -14vw;
+                    width: 50vw;
+                    height: 50vw;
+                    img{
+                        width: 100%;
+                    }
+                }
+                .title{
+                    padding-top: 3vw;
+                    text-align: center;
+                    color:#fff;
+                    font-size: 5vw;
+                    font-family: EDIX;
+                    white-space: nowrap;
+                }
+                .rordmap-content{
+                    color: #fff;
                     .time1{
+                        margin-top: 7vw;
                         .time1-date{
                             position: relative;
-                            width: 100%;
-                            height: 8vw;
-                            background-image: url('@/assets/support/time1-dateBg.png');
-                            background-position: 2vw bottom;
-                            background-size: 91% auto;
+                            height: 12vw;
+                            margin: 0vw 13vw;
+                            background-image: url('../../../assets/support/time1-dateBg.png');
+                            background-position: left bottom;
+                            background-size: 96.5% auto;
                             background-repeat: no-repeat;
                             .time1-txt{
                                 position: relative;
                                 img:first-child{
                                     position: absolute;
-                                    top: 1.3vw;
-                                    right: 7.4vw;
-                                    width: 9vw;
+                                    top: 3vw;
+                                    right: 12vw;
+                                    width: 20vw;
                                 }
                                 img:nth-child(2){
                                     position: absolute;
-                                    top: 3.5vw;
-                                    right: 8.6vw;
-                                    width: 21.6vw;
+                                    top: 7.2vw;
+                                    right: 15vw;
+                                    width: 40.4vw;
                                 }
                                 img:last-child{
                                     position: absolute;
-                                    top: 4vw;
-                                    right: 5.9vw;
-                                    width: 2.4vw;
+                                    top: 7.8vw;
+                                    right: 9vw;
+                                    width: 5vw;
                                 }
                             }
                             .time1-h{
                                 position: absolute;
-                                top: -.2vw;
-                                right: .6vw;
-                                width: 5vw;
-                                height: 5vw;
-                                line-height: 5vw;
+                                top: 0vw;
+                                right: 0vw;
+                                width: 9vw;
+                                height: 9vw;
+                                line-height: 9vw;
                                 text-align: center;
-                                font-size: 2.8vw;
+                                font-size: 5vw;
                                 font-family: Aideep;
-                                background-image: url('@/assets/support/time1-circle.png');
+                                background-image: url('../../../assets/support/time1-circle.png');
                                 background-size: 100% auto;
                                 background-repeat: no-repeat;
                             }
                         }
                         .time1-content{
                             width: 100%;
-                            height: 22vw;
-                            background-image: url('@/assets/support/time1-contentBg.png');
-                            background-position: 9vw 5.5vw;
+                            height: 30vw;
+                            margin-top: 2.6vw;
+                            background-image: url('../../../assets/support/time1-contentBg.png');
+                            background-position: 7vw 3vw;
                             background-size: 30% auto;
                             background-repeat: no-repeat;
                             ul{
-                                padding: 3.7vw 1.1vw 0 25.7vw;
+                                padding: 0 13vw 0 40vw;
                                 li{
-                                    font-size: 1.3vw;
-                                    padding: .67vw;
+                                    font-size: 3vw;
+                                    padding: 1vw;
                                     color: #067966;
                                 }
                                 .txt1{
@@ -750,201 +733,157 @@ onMounted(() => {
                     }
                     .time3{
                         position: relative;
+                        margin: 5vw 13vw;
+                        height: 48vw;
+                        color: #fff;
                         .time3-bg{
                             position: absolute;
                             top: -.8vw;
-                            right: 1vw;
-                            width: 34vw;
+                            right: 0vw;
+                            width: 64vw;
                         }
                         .time3-date{
                             position: relative;
-                            width: 100%;
-                            height: 6.2vw;
+                            height: 12vw;
                             .time3-txt{
                                 position: relative;
                                 img:first-child{
                                     position: absolute;
-                                    top: 1.1vw;
-                                    right: 7.8vw;
-                                    width: 9vw;
+                                    top: 3vw;
+                                    right: 12vw;
+                                    width: 20vw;
                                 }
                                 img:nth-child(2){
                                     position: absolute;
-                                    top: 3.5vw;
-                                    right: 8.6vw;
-                                    width: 21.6vw;
+                                    top: 7.2vw;
+                                    right: 15vw;
+                                    width: 40.4vw;
                                 }
                                 img:last-child{
                                     position: absolute;
-                                    top: 4vw;
-                                    right: 5.9vw;
-                                    width: 2.4vw;
+                                    top: 7.8vw;
+                                    right: 9vw;
+                                    width: 5vw;
                                 }
                             }
                             .time3-h{
                                 position: absolute;
-                                top: -.2vw;
-                                right: .6vw;
-                                width: 5vw;
-                                height: 5vw;
-                                line-height: 5vw;
+                                top: 0vw;
+                                right: 0vw;
+                                width: 9vw;
+                                height: 9vw;
+                                line-height: 9vw;
                                 text-align: center;
-                                font-size: 2.8vw;
+                                font-size: 5vw;
                                 font-family: Aideep;
-                                background-image: url('@/assets/support/time3-circle.png');
+                                background-image: url('../../../assets/support/time3-circle.png');
                                 background-size: 100% auto;
                                 background-repeat: no-repeat;
                             }
                         }
                         .time3-content{
-                            width: 100%;
-                            height: 18vw;
                             ul{
-                                // padding: 2vw 1.1vw 0 25.7vw;
-                                padding-left: 16vw;
+                                padding-top: 1vw;
+                                padding-left: 19vw;
+                                font-size: 3vw;
                                 li{
-                                    font-size: 1.3vw;
-                                    padding: .67vw;
+                                    padding: 1vw;
                                     color: #e2489e;
                                 }
                             }
                         }
                     }
                     .time4{
+                        margin-bottom: 9vw;
                         .time4-date{
                             position: relative;
-                            width: 100%;
-                            height: 8vw;
-                            margin-top: 1vw;
+                            height: 11vw;
+                            margin: 0vw 13vw;
                             .time4-txt{
                                 position: relative;
                                 img:first-child{
                                     position: absolute;
-                                    top: 2.1vw;
-                                    right: 7.4vw;
-                                    width: 9vw;
+                                    top: 3.6vw;
+                                    right: 12vw;
+                                    width: 20vw;
                                 }
                                 img:last-child{
                                     position: absolute;
-                                    top: 4.4vw;
-                                    right: -2vw;
-                                    width: 41vw;
+                                    top: 8.4vw;
+                                    right: -3vw;
+                                    width: 74vw;
                                 }
                             }
                             .time4-h{
                                 position: absolute;
-                                top: -.2vw;
-                                right: .6vw;
-                                width: 5vw;
-                                height: 5vw;
-                                line-height: 5vw;
+                                top: 0vw;
+                                right: 0vw;
+                                width: 9vw;
+                                height: 9vw;
+                                line-height: 9vw;
                                 text-align: center;
-                                font-size: 2.8vw;
+                                font-size: 5vw;
                                 font-family: Aideep;
-                                background-image: url('@/assets/support/time4-circle.png');
+                                background-image: url('../../../assets/support/time4-circle.png');
                                 background-size: 100% auto;
                                 background-repeat: no-repeat;
                             }
                         }
                         .time4-content{
                             width: 100%;
-                            height: 20vw;
-                            // background-color: rgba(222, 22, 222, .3);
-                            background-image: url('@/assets/support/time4-contentBg.png');
-                            background-position: 12.1vw 5.5vw;
-                            background-size: auto 34%;
+                            height: 30vw;
+                            margin-top: 5vw;
+                            background-image: url('../../../assets/support/time4-contentBg.png');
+                            background-position: 14vw 9vw;
+                            background-size: auto 45%;
                             background-repeat: no-repeat;
                             .wrap{
-                                padding-top: 1.6vw;
-                                padding-right: 3vw;
+                                padding-top: 1vw;
+                                padding-right: 17vw;
                                 color:#11FFDF;
-                                font-size: 1.4vw;
+                                font-size: 3vw;
                                 text-align: right;
                                 div{
-                                    margin-bottom: 1.1vw;
+                                    margin-bottom: 2vw;
                                 }
                             }
                         }
-                        .time4-lastImg{
-                            margin-left: 7.5vw;
-                            width: 37.3vw;
-                        }
                     }
-
-                }
-                .rordmap-timeLine{
-                    position: relative;
-                    width: 7vw;
-                    .title{
-                        position: absolute;
-                        top: 8.6vw;
-                        left: -20vw;
-                        color:#fff;
-                        font-size: 4.8vw;
-                        font-family: EDIX;
-                        white-space: nowrap;
-                    }
-                    .location{
-                        position: absolute;
-                        top: 2vw;
-                        left: 0;
-                        width: 11vw;
-                    }
-                    .line{
-                        position: absolute;
-                        top: 11vw;
-                        left: 3.4vw;
-                        height: 88.4vw;
-                    }
-                    .arrow{
-                        position: absolute;
-                        left: .9vw;
-                        bottom: 10vw;
-                        width: 5.4vw;
-                    }
-                }
-                .rordmap-right{
-                    width: 46vw;
-                    color:#fff;
-                    background-image: url('@/assets/support/rordmap-rightBg.png');
-                    background-position: right 6vw;
-                    background-size: 90% auto;
-                    background-repeat: no-repeat;
-                    .time2{
+                     .time2{
                         position: relative;
-                        height: 36vw;
-                        margin-top: 39vw;
-                        background-image: url('@/assets/support/time2-bg.png');
-                        background-position: 5.6vw .5vw;
-                        background-size: auto 78.4%;
+                        margin: 5vw 13vw 10vw;
+                        height: 45vw;
+                        background-image: url('../../../assets/support/time2-bg.png');
+                        background-position: 10vw .5vw;
+                        background-size: auto 100%;
                         background-repeat: no-repeat;
                         .time2-date{
                             .time2-h{
                                 position: absolute;
-                                top: .65vw;
-                                left: -.8vw;
-                                width: 5vw;
-                                height: 5vw;
-                                line-height: 5vw;
+                                top: 0vw;
+                                left: 0vw;
+                                width: 9vw;
+                                height: 9vw;
+                                line-height: 9vw;
                                 text-align: center;
-                                font-size: 2.8vw;
+                                font-size: 5vw;
                                 font-family: Aideep;
-                                background-image: url('@/assets/support/time2-circle.png');
+                                background-image: url('../../../assets/support/time2-circle.png');
                                 background-size: 100% auto;
                                 background-repeat: no-repeat;
                             }
                             img{
                                 position: absolute;
                                 top: 2vw;
-                                left: 12vw;
-                                width: 9vw;
+                                left: 19vw;
+                                width: 20vw;
                             }
                         }
                         .time2-content{
                             ul{
-                                padding-top: 6.9vw;
-                                padding-left: 10.4vw;
-                                font-size: 1.35vw;
+                                padding-top: 10.7vw;
+                                padding-left: 19vw;
+                                font-size: 3vw;
                                 li{
                                     margin-bottom: 1.6vw;
                                     color: #F6F9B5;
@@ -954,71 +893,53 @@ onMounted(() => {
                     }
                     .time5{
                         position: relative;
-                        height: 36vw;
+                        margin: 0vw 13vw;
+                        height: 60vw;
                         .time5-bg{
                             position: absolute;
-                            top: 1.2vw;
-                            left: -1.4vw;
-                            width: 35.6vw;
+                            top: -4vw;
+                            left: -3vw;
+                            width: 70vw;
                         }
                         .time5-date{
                             .time5-h{
                                 position: absolute;
-                                top: 3.4vw;
-                                left: .2vw;
-                                width: 5vw;
-                                height: 5vw;
-                                line-height: 5vw;
+                                top: 0vw;
+                                left: 0vw;
+                                width: 9vw;
+                                height: 9vw;
+                                line-height: 9vw;
                                 text-align: center;
-                                font-size: 2.8vw;
+                                font-size: 5vw;
                                 font-family: Aideep;
-                                background-image: url('@/assets/support/time5-circle.png');
+                                background-image: url('../../../assets/support/time5-circle.png');
                                 background-size: 100% auto;
                                 background-repeat: no-repeat;
                             }
                             img{
                                 position: absolute;
-                                top: 12vw;
-                                left: 11.2vw;
-                                width: 9vw;
+                                top: 17vw;
+                                left: 20vw;
+                                width: 20vw;
                             }
                         }
                         .time5-content{
                             ul{
-                                padding-top: 17vw;
-                                padding-left: 12vw;
+                                padding-top: 27vw;
+                                padding-left: 21vw;
                                 li{
                                     margin-bottom: 1.4vw;
                                     color: #DFE007;
-                                    font-size: 1.3vw;
+                                    font-size: 3vw;
                                     letter-spacing:.1vw;
 
                                 }
                             }
                         }
                     }
+
                 }
 
-            }
-            .supported{
-                position: relative;
-                .title{
-                    position: absolute;
-                    top: -2.2vw;
-                    width: 100%;
-                    text-align: center;
-                    color: #fff;
-                    font-size: 3.8vw;
-                    font-family: EDIX;
-                }
-                .wrap{
-                    width: 100%;
-                    padding: 5vw 1vw;
-                    img{
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
             }
         }
     }

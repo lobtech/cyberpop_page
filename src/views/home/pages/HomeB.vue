@@ -45,6 +45,32 @@
                 <div class="title3">
                     COMING SOON
                 </div>
+                <div class="nav-logos">
+                    <a href="javascript:;">
+                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitch.png" alt="">
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCtVpocr6cpS7Ub-WxRSJ3mQ">
+                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/YouTube-logo.png" alt="">
+                    </a>
+                    <a href="javascript:;">
+                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/bilibili.png" alt="">
+                    </a>
+                    <a href="#" target="view_window">
+                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/google-logo.png" alt="">
+                    </a>
+                        <a href="https://twitter.com/cyberpopnw" target="view_window">
+                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitter.png" alt="">
+                    </a>
+                        <a href="#" target="view_window">
+                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/facebook.png" alt="">
+                    </a>
+                        <a href="https://t.me/cyberpopnw" target="view_window">
+                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/dianbao.png" alt="">
+                    </a>
+                        <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
+                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/discordlogo.png" alt="">
+                    </a>
+                </div>
                 <div class="document">
                     <!-- <div class="buttons" @click="down">NEWS</div> -->
                     <div class="buttons" @click="deckd">DECK</div>
@@ -568,11 +594,24 @@ onMounted(() => {
                     color: #fff;
                     font-size: 3vw;
                 }
+                .nav-logos{
+                    margin: 15px auto;
+                    width: 100%;
+                    text-align: center;
+                    a{
+                        margin: 0 .6vw;
+                        img:hover{
+                            transform: scale(1.2);
+                        }
+                    }
+                    
+                }
                  .document{
                     color: #fff;
                     margin: 0 auto;
                     display: inline-block;
-                    margin-top: 30px;
+                    margin-top: 10px;
+                    // margin-top: 20vw;
                     font-size: 1.125rem;
                     line-height: 1.75rem;
                     align-items: center;

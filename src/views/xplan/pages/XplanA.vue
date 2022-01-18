@@ -7,14 +7,15 @@
         <img src="@/assets/support/section3-2.png" class="section3-2 bgimg" alt="">
         <div class="section4">
             <div>
-                <img src="@/assets/support/section4-1.png" alt="">
+                <img class="section4-first" src="@/assets/support/section4-1.png" alt="">
             </div>
             <div>
                 <img src="@/assets/support/section3-3.png" alt="">
                 <img class="section4-last" src="@/assets/support/section4-2.png" alt="">
             </div>
         </div>
-        <div class="section5"></div>
+        <!-- <div class="section5"></div> -->
+        <div class="foot-bottom"></div>
         <div class="content">
             <div class="models">
                 <div class="left-img"></div>
@@ -28,38 +29,41 @@
                 <ul class="round-wrap">
                     <li>
                         <div class="round-title">Round A</div>
+                        <div>7%</div>
                         <div class="round-price">$0.13</div>
-                        <div class="round-month">7 month</div>
+                        <div class="round-month">10 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
                                 <!-- <img src="@/assets/support/yellow.png" alt=""> -->
                                 <div class="wrap1"></div>
                             </div>
-                            <div>100%</div>
+                            <div class="percent">100%</div>
                             <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
                         </div>
                     </li>
                     <li>
                         <div class="round-title">Round B</div>
+                        <div>8%</div>
                         <div class="round-price">$0.25</div>
-                        <div class="round-month">8 month</div>
+                        <div class="round-month">10 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
-                                <div class="wrap2">
+                                <!-- <div class="wrap2"> -->
                                     <!-- <img class="schedule-bg" src="@/assets/support/green1.png" alt=""> -->
                                     <!-- <span></span> -->
-                                </div>
+                                <!-- </div> -->
                             </div>
-                            <div>80%</div>
-                            <img class="schedule-locking locking2" src="@/assets/support/locking2.png" alt="">
+                            <div class="percent">0%</div>
+                            <img class="schedule-locking locking2" src="@/assets/support/locking1.png" alt="">
                         </div>
                     </li>
                     <li>
                         <div class="round-title">Round C</div>
+                        <div>3%</div>
                         <div class="round-price">$0.42</div>
-                        <div class="round-month">3 month</div>
+                        <div class="round-month third-month">8 month</div>
                         <div class="round-schedule">
-                            <div>0%</div>
+                            <div class="percent">0%</div>
                             <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
                         </div>
                     </li>
@@ -233,12 +237,12 @@
                     </div>
                 </div>
             </div>
-            <div class="supported">
+            <!-- <div class="supported">
                 <div class="title">SUPPORTED CAPITAL</div>
                 <div class="wrap">
                     <img src="@/assets/support/supported.png" alt="">
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -352,14 +356,22 @@ onMounted(() => {
             img{
                 width: 50vw;
             }
+            .section4-first{
+                height: 130vw;
+            }
             .section4-last{
-                height: 55.04vw;
+                // height: 55.04vw;
+                height: 78vw;
             }
         }
-        .section5{
-            background-image: url('../../../assets/support/section5.png');
-            background-size: 100% 100%;
-            height: 43vw;
+        // .section5{
+        //     background-image: url('../../../assets/support/section5.png');
+        //     background-size: 100% 100%;
+        //     height: 43vw;
+        // }
+        .foot-bottom{
+            height: 12vw;
+            background-color: black;
         }
         .content{
             position: absolute;
@@ -372,7 +384,7 @@ onMounted(() => {
                 .left-img,.right-img{
                     width:37.5vw;
                     height: 22vw;
-                    background-image: url('@/assets/support/models-l.png');
+                    background-image: url('../../../assets/support/models-l.png');
                     background-position: -11vw -1.4vw;
                     background-size: 100% auto;
                     background-repeat: no-repeat;
@@ -400,7 +412,7 @@ onMounted(() => {
             }
             .round{
                 .round-wrap{
-                    margin: 10vw 17vw 0;
+                    margin: 10vw 12vw 0;
                     li{
                         display: flex;
                         justify-content: space-between;
@@ -408,22 +420,26 @@ onMounted(() => {
                         margin-bottom: 3vw;
                         color:#fff;
                         font-family: OPPOSans;
-                        div:not(:nth-child(4)){
+                        div:not(:nth-child(5)){
                             font-size: 2vw;
                         }
                         .round-price{
                             opacity: .8;
                         }
                         .round-month{
-                            margin: 0 1vw;
+                            // margin: 0 1vw;
                             opacity: .6;
+                        }
+                        .third-month{
+                            margin-left: 1.4vw;
                         }
                         .round-schedule{
                             position: relative;
                             width: 35.5vw;
                             height: 3.4vw;
                             padding: .4vw;
-                            color: #fc4857;
+                            // color: #fc4857;
+                            color: #fff;
                             line-height: 2vw;
                             border: .3vw solid #ff593d;
                             .schedule-line{
@@ -440,7 +456,7 @@ onMounted(() => {
                                     position: relative;
                                     height: 2vw;
                                     width: 100%; // 控制进度
-                                    background-color: #FFE980;
+                                    background-color: #dbba11;
                                     background-image: linear-gradient(-60deg, transparent 0rem, transparent 0.8rem, #f5de6b 0.8rem, #e2c94d 1.6rem, transparent 1.6rem, transparent 2.4rem, #e6d273 2.4rem);
                                     background-size: 30px 38px;
                                     animation: process 800ms infinite linear;
@@ -466,7 +482,7 @@ onMounted(() => {
                                     // }
                                 }
                             }
-                            div:nth-child(2){
+                            .percent{
                                 position: absolute;
                                 left: .6vw;
                             }
@@ -477,7 +493,7 @@ onMounted(() => {
                                 width:6vw;
                             }
                             .locking2{
-                                top: -1.15vw;
+                                // top: -1.15vw;
                             }
                         }
                     }
@@ -493,7 +509,7 @@ onMounted(() => {
                         height: 26vw;
                         margin-top: 2vw;
                         color:#fff;
-                        background-image: url('@/assets/support/ratio-leftBg.png');
+                        background-image: url('../../../assets/support/ratio-leftBg.png');
                         background-size: auto 100%;
                         background-repeat: no-repeat;
                         .title{
@@ -585,16 +601,15 @@ onMounted(() => {
                         width: 29vw;
                         height: 32vw;
                         color:#fff;
-                        background-image: url('@/assets/support/ratio-rightBg.png');
+                        background-image: url('../../../assets/support/ratio-rightBg.png');
                         background-position: 85% center;
                         background-size: auto 100%;
                         background-repeat: no-repeat;
                         ul{
                             width: 20vw;
                             height: 23vw;
-                            // background: pink;
                             margin: 5.4vw 0 5.4vw 7.6vw;
-                            background-image: url('@/assets/support/ratio-stop.png');
+                            background-image: url('../../../assets/support/ratio-stop.png');
                             background-position: 11.7vw 14.2vw;
                             background-size: 28% 29%;
                             background-repeat: no-repeat;
@@ -655,7 +670,7 @@ onMounted(() => {
                     width: 47vw;
                     padding-top:20vw;
                     color:#fff;
-                    background-image: url('@/assets/support/rordmap-leftBg.png');
+                    background-image: url('../../../assets/support/rordmap-leftBg.png');
                     background-position: -11.2vw 0vw;
                     background-size: 50% auto;
                     background-repeat: no-repeat;
@@ -664,7 +679,7 @@ onMounted(() => {
                             position: relative;
                             width: 100%;
                             height: 8vw;
-                            background-image: url('@/assets/support/time1-dateBg.png');
+                            background-image: url('../../../assets/support/time1-dateBg.png');
                             background-position: 2vw bottom;
                             background-size: 91% auto;
                             background-repeat: no-repeat;
@@ -699,7 +714,7 @@ onMounted(() => {
                                 text-align: center;
                                 font-size: 2.8vw;
                                 font-family: Aideep;
-                                background-image: url('@/assets/support/time1-circle.png');
+                                background-image: url('../../../assets/support/time1-circle.png');
                                 background-size: 100% auto;
                                 background-repeat: no-repeat;
                             }
@@ -707,7 +722,7 @@ onMounted(() => {
                         .time1-content{
                             width: 100%;
                             height: 22vw;
-                            background-image: url('@/assets/support/time1-contentBg.png');
+                            background-image: url('../../../assets/support/time1-contentBg.png');
                             background-position: 9vw 5.5vw;
                             background-size: 30% auto;
                             background-repeat: no-repeat;
@@ -775,7 +790,7 @@ onMounted(() => {
                                 text-align: center;
                                 font-size: 2.8vw;
                                 font-family: Aideep;
-                                background-image: url('@/assets/support/time3-circle.png');
+                                background-image: url('../../../assets/support/time3-circle.png');
                                 background-size: 100% auto;
                                 background-repeat: no-repeat;
                             }
@@ -825,7 +840,7 @@ onMounted(() => {
                                 text-align: center;
                                 font-size: 2.8vw;
                                 font-family: Aideep;
-                                background-image: url('@/assets/support/time4-circle.png');
+                                background-image: url('../../../assets/support/time4-circle.png');
                                 background-size: 100% auto;
                                 background-repeat: no-repeat;
                             }
@@ -833,8 +848,7 @@ onMounted(() => {
                         .time4-content{
                             width: 100%;
                             height: 20vw;
-                            // background-color: rgba(222, 22, 222, .3);
-                            background-image: url('@/assets/support/time4-contentBg.png');
+                            background-image: url('../../../assets/support/time4-contentBg.png');
                             background-position: 12.1vw 5.5vw;
                             background-size: auto 34%;
                             background-repeat: no-repeat;
@@ -890,7 +904,7 @@ onMounted(() => {
                 .rordmap-right{
                     width: 46vw;
                     color:#fff;
-                    background-image: url('@/assets/support/rordmap-rightBg.png');
+                    background-image: url('../../../assets/support/rordmap-rightBg.png');
                     background-position: right 6vw;
                     background-size: 90% auto;
                     background-repeat: no-repeat;
@@ -898,7 +912,7 @@ onMounted(() => {
                         position: relative;
                         height: 36vw;
                         margin-top: 39vw;
-                        background-image: url('@/assets/support/time2-bg.png');
+                        background-image: url('../../../assets/support/time2-bg.png');
                         background-position: 5.6vw .5vw;
                         background-size: auto 78.4%;
                         background-repeat: no-repeat;
@@ -913,7 +927,7 @@ onMounted(() => {
                                 text-align: center;
                                 font-size: 2.8vw;
                                 font-family: Aideep;
-                                background-image: url('@/assets/support/time2-circle.png');
+                                background-image: url('../../../assets/support/time2-circle.png');
                                 background-size: 100% auto;
                                 background-repeat: no-repeat;
                             }
@@ -956,7 +970,7 @@ onMounted(() => {
                                 text-align: center;
                                 font-size: 2.8vw;
                                 font-family: Aideep;
-                                background-image: url('@/assets/support/time5-circle.png');
+                                background-image: url('../../../assets/support/time5-circle.png');
                                 background-size: 100% auto;
                                 background-repeat: no-repeat;
                             }
@@ -984,26 +998,26 @@ onMounted(() => {
                 }
 
             }
-            .supported{
-                position: relative;
-                .title{
-                    position: absolute;
-                    top: -2.2vw;
-                    width: 100%;
-                    text-align: center;
-                    color: #fff;
-                    font-size: 3.8vw;
-                    font-family: EDIX;
-                }
-                .wrap{
-                    width: 100%;
-                    padding: 5vw 1vw;
-                    img{
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
-            }
+            // .supported{
+            //     position: relative;
+            //     .title{
+            //         position: absolute;
+            //         top: -2.2vw;
+            //         width: 100%;
+            //         text-align: center;
+            //         color: #fff;
+            //         font-size: 3.8vw;
+            //         font-family: EDIX;
+            //     }
+            //     .wrap{
+            //         width: 100%;
+            //         padding: 5vw 1vw;
+            //         img{
+            //             width: 100%;
+            //             height: 100%;
+            //         }
+            //     }
+            // }
         }
     }
 </style>
