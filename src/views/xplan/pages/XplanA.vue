@@ -14,6 +14,7 @@
                 <img class="section4-last" src="@/assets/support/section4-2.png" alt="">
             </div>
         </div>
+        <!-- 添加support后打开section5        -->
         <!-- <div class="section5"></div> -->
         <div class="foot-bottom"></div>
         <div class="content">
@@ -161,7 +162,7 @@
                                 <li class="txt3">GAME SCENE DEVELOPMENT</li>
                                 <li class="txt4">GAME ART MODELING</li>
                             </ul>
-                        </div>
+                        </div>~
                     </div>
                     <div class="time3" id="eTime3">
                         <img class="time3-bg" src="@/assets/support/time3-bg.png" alt="">
@@ -240,7 +241,7 @@
             <!-- <div class="supported">
                 <div class="title">SUPPORTED CAPITAL</div>
                 <div class="wrap">
-                    <img src="@/assets/support/supported.png" alt="">
+                    <img src="@/assets/support/logo.png" alt="">
                 </div>
             </div> -->
         </div>
@@ -432,7 +433,7 @@ onMounted(() => {
         // .section5{
         //     background-image: url('../../../assets/support/section5.png');
         //     background-size: 100% 100%;
-        //     height: 43vw;
+        //     height: 36vw;
         // }
         .foot-bottom{
             height: 12vw;
@@ -801,7 +802,7 @@ onMounted(() => {
                             background-size: 30% auto;
                             background-repeat: no-repeat;
                             ul{
-                                padding: 3.7vw 1.1vw 0 25.7vw;
+                                padding: 3.7vw .6vw 0 25.7vw;
                                 li{
                                     font-size: 1.3vw;
                                     padding: .67vw;
@@ -1084,11 +1085,13 @@ onMounted(() => {
             //         font-family: EDIX;
             //     }
             //     .wrap{
+            //         position: absolute;
+            //         top: 0;
             //         width: 100%;
-            //         padding: 5vw 1vw;
+            //         margin: 6vw 25vw;
             //         img{
-            //             width: 100%;
-            //             height: 100%;
+            //             width: 50%;
+            //             // opacity: .9;
             //         }
             //     }
             // }

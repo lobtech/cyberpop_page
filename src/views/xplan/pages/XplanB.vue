@@ -133,7 +133,7 @@
                     </div>
                 </div>
             </div>
-            <div class="category">
+            <div class="category" id="ele1">
                 <div class="category-wrap">
                     <img class="category-info" src="@/assets/support/category-info.png" alt="">
                     <img class="category-arrow1" src="@/assets/support/category-arrow1.png" alt="">
@@ -146,9 +146,9 @@
                 <div class="rordmap-rightBg">
                     <img src="@/assets/support/rordmap-rightBg.png" alt="">
                 </div>
-                <div class="title">RORD&nbsp;&nbsp;MAP</div>
+                <div class="title" id="ele2">RORD&nbsp;&nbsp;MAP</div>
                 <div class="rordmap-content">
-                    <div class="time1">
+                    <div class="time1" id="eTime1">
                         <div class="time1-date">
                             <div class="time1-txt">
                                 <img src="@/assets/support/2021.03.png" alt="">
@@ -166,7 +166,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="time2">
+                    <div class="time2" id="eTime2">
                         <div class="time2-date">
                             <div class="time2-h">2</div>
                             <img src="@/assets/support/2021.10.png" alt="">
@@ -180,7 +180,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="time3">
+                    <div class="time3" id="eTime3">
                         <img class="time3-bg" src="@/assets/support/time3-bg.png" alt="">
                         <div class="time3-date">
                             <div class="time3-txt">
@@ -199,7 +199,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="time4">
+                    <div class="time4" id="eTime4">
                         <div class="time4-date">
                             <div class="time4-txt">
                                 <img src="@/assets/support/2022.06.png" alt="">
@@ -214,7 +214,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="time5">
+                    <div class="time5" id="eTime5">
                         <img class="time5-bg" src="@/assets/support/time5-bg.png" alt="">
                         <div class="time5-date">
                             <div class="time5-h">5</div>
@@ -231,6 +231,12 @@
                     </div>
                 </div>
             </div>
+            <!-- <div class="supported">
+                <div class="title">SUPPORTED CAPITAL</div>
+                <div class="wrap">
+                    <img src="@/assets/support/logo.png" alt="">
+                </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -264,10 +270,59 @@ const connect: any = async () => {
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
 }
+const checkScrollHeightAndLoadAnimation: any = () => {
+        const windowHeight: Number = window.innerHeight;
 
+        let ele1 = document.getElementById("ele1") as HTMLElement;
+        let ele2 = document.getElementById("ele2") as HTMLElement;
+        let eTime1 = document.getElementById("eTime1") as HTMLElement;
+        let eTime2 = document.getElementById("eTime2") as HTMLElement;
+        let eTime3 = document.getElementById("eTime3") as HTMLElement;
+        let eTime4 = document.getElementById("eTime4") as HTMLElement;
+        let eTime5 = document.getElementById("eTime5") as HTMLElement;
+        const ele1Top: Number = ele1.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele2Top: Number = ele2.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const eTime1Top: Number = eTime1.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const eTime2Top: Number = eTime2.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const eTime3Top: Number = eTime3.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const eTime4Top: Number = eTime4.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const eTime5Top: Number = eTime5.getBoundingClientRect().top; //距离屏幕顶部的距离
+
+        let arr = [
+            {
+                el: ele1,
+                top: ele1Top
+            },
+            {
+                el: ele2,
+                top: ele2Top
+            },
+            {
+                el: eTime1,
+                top: eTime1Top
+            },
+            {
+                el: eTime3,
+                top: eTime3Top
+            },
+            {
+                el: eTime4,
+                top: eTime4Top
+            },
+        ]
+        for(let i = 0; i < arr.length; i++){
+            if(arr[i].top < windowHeight){
+                arr[i].el.classList.add('fadeInLeft')
+            }
+            
+        }
+        if(eTime2Top < windowHeight) eTime2.classList.add('fadeInRight')
+        if(eTime5Top < windowHeight) eTime5.classList.add('fadeInRight')
+}
 
 onMounted(() => {
     connect()
+    window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
 })
 
 </script>
@@ -369,6 +424,7 @@ onMounted(() => {
             background-image: url('../../../assets/support/section5.png');
             background-size: 100% 100%;
             height: 80vw;
+            // height: 124vw; // 添加support后的高度
         }
         .content{
             position: absolute;
@@ -378,20 +434,28 @@ onMounted(() => {
             .models{
                 display: flex;
                 justify-content: space-between;
-                .left-img,.right-img{
-                    width:37.5vw;
+                .left-img{
+                    width: 37.5vw;
                     height: 22vw;
                     background-image: url('../../../assets/support/models-l.png');
                     background-position: -11vw -1.4vw;
                     background-size: 100% auto;
                     background-repeat: no-repeat;
+                    animation: fadeInLeft .5s linear;
                 }
                 .right-img{
-                    transform: rotateY(180deg);
+                    width: 37.5vw;
+                    height: 22vw;
+                    background-image: url('../../../assets/support/models-r.png');
+                    background-position: 11vw -1.4vw;
+                    background-size: 100% auto;
+                    background-repeat: no-repeat;
+                    animation: fadeInRight .5s linear;
                 }
                 .center-models{
                     position: relative;
                     width: 18vw;
+                    animation: fadeInDown .5s linear;
                     img{
                         position: absolute;
                         top: -4vw;
@@ -410,6 +474,7 @@ onMounted(() => {
                 }
             }
             .round{
+                animation: fadeInDown .6s linear;
                 .round-wrap{
                     margin: 10vw 5vw 0;
                     li{
@@ -492,6 +557,7 @@ onMounted(() => {
                         width: 90vw;
                         margin-top: 10vw;
                         color:#fff;
+                        animation: fadeInLeft .6s linear;
                         .title{
                             position: relative;
                             height: 8.2vw;
@@ -574,6 +640,7 @@ onMounted(() => {
                         background-image: url('../../../assets/support/ratio-rightBg.png');
                         background-size: 100% auto;
                         background-repeat: no-repeat;
+                        animation: fadeInRight .6s linear;
                         ul{
                             margin: 14vw 0 0 7vw;
                             background-image: url('../../../assets/support/ratio-stop.png');
@@ -726,9 +793,10 @@ onMounted(() => {
                             background-size: 30% auto;
                             background-repeat: no-repeat;
                             ul{
-                                padding: 0 13vw 0 40vw;
+                                padding: 0 13.4vw 0 37vw;
                                 li{
                                     font-size: 3vw;
+                                    
                                     padding: 1vw;
                                     color: #067966;
                                 }
@@ -956,6 +1024,29 @@ onMounted(() => {
                 }
 
             }
+            // .supported{
+            //     position: relative;
+            //     margin-top: 15vw;
+            //     .title{
+            //         position: absolute;
+            //         top: -2.2vw;
+            //         width: 100%;
+            //         text-align: center;
+            //         color: #fff;
+            //         font-size: 4vw;
+            //         font-family: EDIX;
+            //     }
+            //     .wrap{
+            //         position: absolute;
+            //         top: 0;
+            //         width: 100%;
+            //         margin: 10vw 15vw;
+            //         img{
+            //             width: 70%;
+            //             // opacity: .9;
+            //         }
+            //     }
+            // }
         }
     }
 </style>

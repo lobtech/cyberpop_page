@@ -46,28 +46,28 @@
                     COMING SOON
                 </div>
                 <div class="nav-logos">
-                    <a href="javascript:;">
+                   <!-- <a href="#">
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitch.png" alt="">
-                    </a>
+                    </a> -->
                     <a href="https://www.youtube.com/channel/UCtVpocr6cpS7Ub-WxRSJ3mQ">
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/YouTube-logo.png" alt="">
                     </a>
-                    <a href="javascript:;">
+                    <!-- <a href="#">
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/bilibili.png" alt="">
-                    </a>
-                    <a href="#" target="view_window">
+                    </a> -->
+                    <!-- <a href="#" target="view_window">
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/google-logo.png" alt="">
-                    </a>
-                        <a href="https://twitter.com/cyberpopnw" target="view_window">
+                    </a> -->
+                    <a href="https://twitter.com/cyberpopnw" target="view_window">
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitter.png" alt="">
                     </a>
-                        <a href="#" target="view_window">
+                    <!-- <a href="#" target="view_window">
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/facebook.png" alt="">
-                    </a>
-                        <a href="https://t.me/cyberpopnw" target="view_window">
+                    </a> -->
+                    <a href="https://t.me/cyberpopnw" target="view_window">
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/dianbao.png" alt="">
                     </a>
-                        <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
+                    <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
                         <img src="https://d1td2c8hf7fv9k.cloudfront.net/discordlogo.png" alt="">
                     </a>
                 </div>
@@ -261,15 +261,15 @@
                 </div>
             </div>
             <div class="logos">
-                <a href="#" target="view_window">
+                <!-- <a href="#" target="view_window">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/google-logo.png" alt="">
-                </a>
+                </a> -->
                 <a href="https://twitter.com/cyberpopnw" target="view_window">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitter.png" alt="">
                 </a>
-                <a href="#" target="view_window">
+                <!-- <a href="#" target="view_window">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/facebook.png" alt="">
-                </a>
+                </a> -->
                 <a href="https://t.me/cyberpopnw" target="view_window">
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/dianbao.png" alt="">
                 </a>
@@ -286,11 +286,11 @@
                     </div> -->
                     <div class="section1">
                         find us on
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitch.png" alt="">
+                        <!-- <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitch.png" alt=""> -->
                         <a href="https://www.youtube.com/channel/UCtVpocr6cpS7Ub-WxRSJ3mQ" target="_blank">
                             <img src="https://d1td2c8hf7fv9k.cloudfront.net/YouTube-logo.png" alt="">
                         </a>
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/bilibili.png" alt="">
+                        <!-- <img src="https://d1td2c8hf7fv9k.cloudfront.net/bilibili.png" alt=""> -->
                     </div>
                     <div class="section2">
                         <span>Cookie Preferences</span>
