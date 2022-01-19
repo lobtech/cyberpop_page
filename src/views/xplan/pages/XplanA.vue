@@ -71,7 +71,7 @@
             </div>
             <div class="ratio">
                 <div class="ratio-wrap">
-                    <div class="ratio-left">
+                    <div class="ratio-left" id="ele1">
                         <div class="title">
                             <img src="@/assets/support/ratio-leftArrow.png" alt="">
                             <img src="@/assets/support/ratio-leftTitle.png" alt="">
@@ -93,7 +93,7 @@
                             <div class="total">Total supply 120,000,000 CYT</div>
                         </div>
                     </div>
-                    <div class="ratio-right">
+                    <div class="ratio-right" id="ele2">
                         <ul>
                             <li>
                                 <img src="@/assets/support/ratio-block1.png" alt="">
@@ -135,7 +135,7 @@
                     </div>
                 </div>
             </div>
-            <div class="category">
+            <div class="category" id="ele3">
                 <div class="category-wrap">
                     <img class="category-info" src="@/assets/support/category-info.png" alt="">
                     <img class="category-arrow1" src="@/assets/support/category-arrow1.png" alt="">
@@ -145,7 +145,7 @@
             </div>
             <div class="rordmap">
                 <div class="rordmap-left">
-                    <div class="time1">
+                    <div class="time1" id="eTime1">
                         <div class="time1-date">
                             <div class="time1-txt">
                                 <img src="@/assets/support/2021.03.png" alt="">
@@ -163,7 +163,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="time3">
+                    <div class="time3" id="eTime3">
                         <img class="time3-bg" src="@/assets/support/time3-bg.png" alt="">
                         <div class="time3-date">
                             <div class="time3-txt">
@@ -182,7 +182,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="time4">
+                    <div class="time4" id="eTime4">
                         <div class="time4-date">
                             <div class="time4-txt">
                                 <img src="@/assets/support/2022.06.png" alt="">
@@ -199,14 +199,14 @@
                         <img class="time4-lastImg" src="@/assets/support/time4-bottom.png" alt="">
                     </div>
                 </div>
-                <div class="rordmap-timeLine">
+                <div class="rordmap-timeLine" id="ele4">
                     <div class="title">RORD&nbsp;&nbsp;MAP</div>
                     <img class="location" src="@/assets/support/rordmap-timeLine1.png" alt="">
                     <img class="line" src="@/assets/support/rordmap-timeLine2.png" alt="">
                     <img class="arrow" src="@/assets/support/rordmap-timeLine3.png" alt="">
                 </div>
                 <div class="rordmap-right">
-                    <div class="time2">
+                    <div class="time2" id="eTime2">
                         <div class="time2-date">
                             <div class="time2-h">2</div>
                             <img src="@/assets/support/2021.10.png" alt="">
@@ -220,7 +220,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="time5">
+                    <div class="time5" id="eTime5">
                         <img class="time5-bg" src="@/assets/support/time5-bg.png" alt="">
                         <div class="time5-date">
                             <div class="time5-h">5</div>
@@ -247,7 +247,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, computed } from 'vue'
+import { onMounted, onUnmounted, ref, reactive, computed } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
@@ -277,9 +277,66 @@ const connect: any = async () => {
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
 }
 
+const checkScrollHeightAndLoadAnimation: any = () => {
+        const windowHeight: Number = window.innerHeight;
+
+        let ele1 = document.getElementById("ele1") as HTMLElement;
+        let ele2 = document.getElementById("ele2") as HTMLElement;
+        let ele3 = document.getElementById("ele3") as HTMLElement;
+        let ele4 = document.getElementById("ele4") as HTMLElement;
+        let eTime1 = document.getElementById("eTime1") as HTMLElement;
+        let eTime2 = document.getElementById("eTime2") as HTMLElement;
+        let eTime3 = document.getElementById("eTime3") as HTMLElement;
+        let eTime4 = document.getElementById("eTime4") as HTMLElement;
+        let eTime5 = document.getElementById("eTime5") as HTMLElement;
+        const ele1Top: Number = ele1.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele2Top: Number = ele2.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele3Top: Number = ele3.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele4Top: Number = ele4.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const eTime1Top: Number = eTime1.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const eTime2Top: Number = eTime2.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const eTime3Top: Number = eTime3.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const eTime4Top: Number = eTime4.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const eTime5Top: Number = eTime5.getBoundingClientRect().top; //距离屏幕顶部的距离
+
+        let arr = [
+            {
+                el: ele1,
+                top: ele1Top
+            },
+            {
+                el: eTime1,
+                top: eTime1Top
+            },
+            {
+                el: eTime3,
+                top: eTime3Top
+            },
+            {
+                el: eTime4,
+                top: eTime4Top
+            },
+        ]
+        for(let i = 0; i < arr.length; i++){
+            if(arr[i].top < windowHeight){
+                arr[i].el.classList.add('bounceInLeft')
+            }
+            
+        }
+        if(ele2Top < windowHeight) ele2.classList.add('bounceInRight')
+        if(ele3Top < windowHeight) ele3.classList.add('bounceInRight')
+        if(ele4Top < windowHeight) ele4.classList.add('fadeInDown')
+        if(eTime2Top < windowHeight) eTime2.classList.add('bounceInRight')
+        if(eTime5Top < windowHeight) eTime5.classList.add('bounceInRight')
+}
+
+onUnmounted(() => {
+    window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
+})
 
 onMounted(() => {
     connect()
+    window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
 })
 
 </script>
@@ -389,22 +446,30 @@ onMounted(() => {
             .models{
                 display: flex;
                 justify-content: space-between;
-                .left-img,.right-img{
-                    width:37.5vw;
+                .left-img{
+                    width: 37.5vw;
                     height: 22vw;
                     background-image: url('../../../assets/support/models-l.png');
                     background-position: -11vw -1.4vw;
                     background-size: 100% auto;
                     background-repeat: no-repeat;
+                    animation: fadeInLeft .5s linear;
                 }
                 .right-img{
-                    transform: rotateY(180deg);
+                    width: 37.5vw;
+                    height: 22vw;
+                    background-image: url('../../../assets/support/models-r.png');
+                    background-position: 11vw -1.4vw;
+                    background-size: 100% auto;
+                    background-repeat: no-repeat;
+                    animation: fadeInRight .5s linear;
                 }
                 .center-models{
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     width: 12vw;
+                    animation: fadeInDown .5s linear;
                     img{
                         width: 12vw;
                         margin-top: .6vw;
@@ -419,6 +484,7 @@ onMounted(() => {
                 }
             }
             .round{
+                animation: fadeInDown .6s linear;
                 .round-wrap{
                     margin: 10vw 12vw 0;
                     li{
@@ -652,15 +718,15 @@ onMounted(() => {
                     }
                     .category-arrow1{
                         position: absolute;
-                        top: 8.4vw;
-                        left: 27vw;
-                        width: 5vw;
+                        top: 9.3vw;
+                        left: 28vw;
+                        width: 3.6vw;
                     }
                     .category-arrow2{
                         position: absolute;
-                        top: 13.8vw;
-                        left: 27.8vw;
-                        width: 5vw;
+                        top: 14.8vw;
+                        left: 28.6vw;
+                        width: 3.2vw;
                     }
                     .category-arrow3{
                         position: absolute;

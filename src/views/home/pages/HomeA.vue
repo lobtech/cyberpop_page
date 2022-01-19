@@ -70,8 +70,8 @@
     <div class="welcome">
         <div class="cover_up"></div>
         <div class="warp">
-            <div class="title" id="ele1">WELCOMETO  THE &nbsp;<span class="yellow">NEW WORLD</span></div>
-            <div class="content" id="ele2">
+            <div class="title" :class="isAddClass1 == true ? 'bounceInLeft' : ''" id="ele1">WELCOMETO  THE &nbsp;<span class="yellow">NEW WORLD</span></div>
+            <div class="content" :class="isAddClass2 == true ? 'bounceInLeft' : ''" id="ele2">
                 <div class="left">
                     <img src="@/assets/icon/left.png" alt="">
                 </div>
@@ -115,7 +115,7 @@
     </div>
     <div class="news">
         <div class="cover_up"></div>
-        <div class="title" id="ele3">
+        <div class="title" :class="isAddClass3 == true ? 'bounceInLeft' : ''" id="ele3">
              <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_2.png" alt="" class="line">
              <div class="news_box">
                  <img src="@/assets/icon/NEWS.png" alt="">
@@ -123,7 +123,7 @@
              </div>
              <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_2.png" alt="" class="line">
         </div>
-        <div class="news_content" id="ele4">
+        <div class="news_content " :class="isAddClass4 == true ? 'bounceInRight' : ''" id="ele4">
             <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-2.jpg" class="bg1" alt="">
             <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-4.png" class="bg2" alt="">
             <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-5.jpg" class="bg3" alt="">
@@ -156,7 +156,7 @@
     </div>
     <div class="about">
         <!-- <div class="cover_up"></div> -->
-        <div class="about_content" id="ele5">
+        <div class="about_content" :class="isAddClass5 == true ? 'bounceInRight' : ''" id="ele5">
             <div class="left">
                 <div class="content">
                     <div class="title3">ABOUT US</div>
@@ -317,6 +317,12 @@ const submit = () => {
     // })
 }
 
+
+let isAddClass1: any = ref(false); 
+let isAddClass2: any = ref(false); 
+let isAddClass3: any = ref(false); 
+let isAddClass4: any = ref(false); 
+let isAddClass5: any = ref(false); 
 const checkScrollHeightAndLoadAnimation: any = () => {
         const windowHeight: Number = window.innerHeight;
 
@@ -334,25 +340,35 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         let arr = [
             {
                 el: ele1,
-                top: ele1Top
+                top: ele1Top,
+                isAdd: false
             },
             {
                 el: ele2,
-                top: ele2Top
+                top: ele2Top,
+                isAdd: false
             },
             {
                 el: ele3,
-                top: ele3Top
+                top: ele3Top,
+                isAdd: false
             },
         ]
         for(let i = 0; i < arr.length; i++){
             if(arr[i].top < windowHeight){
                 arr[i].el.classList.add('bounceInLeft')
+                // arr[i].isAdd = true
+
             }
             
         }
         if(ele4Top < windowHeight) ele4.classList.add('bounceInRight')
         if(ele5Top < windowHeight) ele5.classList.add('bounceInRight')
+        // if(ele1Top < windowHeight) isAddClass1.value = true
+        // if(ele2Top < windowHeight) isAddClass2.value = true
+        // if(ele3Top < windowHeight) isAddClass3.value = true
+        // if(ele4Top < windowHeight) isAddClass4.value = true
+        // if(ele5Top < windowHeight) isAddClass5.value = true
 }
 
 

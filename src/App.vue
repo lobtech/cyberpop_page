@@ -44,6 +44,18 @@ onMounted(() => {
             transform: translateX(0);
         }
     }
+    @keyframes fadeInLeft {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateX(-30px);
+            transform: translateX(-30px);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+    }
     @keyframes bounceInLeft {
         0% {
             opacity: 0;
@@ -175,6 +187,9 @@ onMounted(() => {
     .bounceIn{
         animation: bounceIn 1s linear;
 
+    }
+    .fadeInLeft{
+         animation: fadeInLeft 1s linear;
     }
     .fadeInRight{
          animation: fadeInRight 1s linear;
