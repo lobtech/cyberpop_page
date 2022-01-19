@@ -291,7 +291,7 @@ onMounted(() => {
     }
     @keyframes process {
         0% { background-position: 0 0; }
-        100% { background-position: 30px 0; }
+        100% { background-position: 26px 0; }
     }
     @keyframes processInit{
         0% {
@@ -450,9 +450,9 @@ onMounted(() => {
                                     position: relative;
                                     height: 3.1vw;
                                     width: 100%; // 控制进度
-                                    background-color: #FFE980;
+                                    background-color: #dbba11;
                                     background-image: linear-gradient(-60deg, transparent 0rem, transparent 0.6rem, #f5de6b 0.8rem, #e2c94d 1.6rem, transparent 1.6rem, transparent 2.4rem, #e6d273 2.4rem);
-                                    background-size: 30px 38px;
+                                    background-size: 26px 54px;
                                     animation: processInit 1000ms linear,process 800ms infinite linear;
                                 }
                                 .wrap2{
