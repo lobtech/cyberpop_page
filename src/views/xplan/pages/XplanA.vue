@@ -162,7 +162,7 @@
                                 <li class="txt3">GAME SCENE DEVELOPMENT</li>
                                 <li class="txt4">GAME ART MODELING</li>
                             </ul>
-                        </div>
+                        </div>~
                     </div>
                     <div class="time3" id="eTime3">
                         <img class="time3-bg" src="@/assets/support/time3-bg.png" alt="">
