@@ -607,6 +607,7 @@ onMounted(() => {
                                 top: 3.8vw;
                                 left: 8.6vw;
                                 font-size: 1.5vw;
+                                // font-family: Aideep;
                                 letter-spacing:.1vw;
                             }
                             .title-tips{
