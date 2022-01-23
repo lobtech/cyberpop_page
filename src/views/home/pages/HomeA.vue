@@ -443,7 +443,7 @@ onMounted(() => {
         background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/BK1.jpg');
         height: 100vh;
         background-size: auto 100%;
-        background-repeat: no-repeat;
+        // background-repeat: no-repeat;
         background-position: 20% top;
         animation: home 10s linear;
         header{
