@@ -24,9 +24,6 @@
                 </div>
                 <div class="right-img"></div>
             </div>
-            <div class="excel">
-                <iframe class="excel" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
-            </div>
             <div class="round">
                 <ul class="round-wrap">
                     <li>
@@ -135,6 +132,9 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="excel">
+                <iframe class="excel" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
             </div>
             <div class="category" id="ele1">
                 <div class="category-wrap">
@@ -477,9 +477,10 @@ onMounted(() => {
                 }
             }
             .excel{
-                height: 65vw;
+                height: 70vw;
                 width: 100%;
-                margin-top: 2vw;
+                margin-top: 3vw;
+                margin-bottom: 8vw;
                 iframe{
                     padding: 0 10vw;
                 }

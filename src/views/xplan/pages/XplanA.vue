@@ -26,9 +26,6 @@
                 </div>
                 <div class="right-img"></div>
             </div>
-            <div class="excel">
-                <iframe class="excel" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
-            </div>
             <div class="round">
                 <ul class="round-wrap">
                     <li>
@@ -138,6 +135,9 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="excel">
+                <iframe class="excel" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
             </div>
             <div class="category" id="ele3">
                 <div class="category-wrap">
@@ -401,17 +401,17 @@ onMounted(() => {
             vertical-align: top;            
         }
         .section2-1{
-            height: 75vw;
+            height: 80vw;
         }
         .section2-2{
             // height: 30vw;
         }
         .section3-1{
             // height: 73vw;
-            height: 82vw;
+            height: 92vw;
         }
         .section3-2{
-            height: 60vw;
+            height: 68vw;
         }
         .section4{
             display: flex;
@@ -427,14 +427,14 @@ onMounted(() => {
                 width: 50vw;
             }
             .section4-first{
-                height: 150vw;
+                height: 162vw;
             }
             .section4-second{
-                height: 70vw;
+                height: 85vw;
             }
             .section4-last{
                 // height: 55.04vw;
-                height: 98vw;
+                height: 110vw;
             }
         }
         // .section5{
@@ -492,9 +492,10 @@ onMounted(() => {
                 }
             }
             .excel{
-                height: 30vw;
+                height: 40vw;
                 width: 100%;
-                margin-top: 2vw;
+                margin-top: 3vw;
+                margin-bottom: 8vw;
                 iframe{
                     padding: 0 23vw;
                 }
