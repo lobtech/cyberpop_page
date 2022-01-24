@@ -24,6 +24,9 @@
                 </div>
                 <div class="right-img"></div>
             </div>
+            <div class="excel">
+                <iframe class="excel" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
+            </div>
             <div class="round">
                 <ul class="round-wrap">
                     <li>
@@ -146,7 +149,7 @@
                 <div class="rordmap-rightBg">
                     <img src="@/assets/support/rordmap-rightBg.png" alt="">
                 </div>
-                <div class="title" id="ele2">RORD&nbsp;&nbsp;MAP</div>
+                <div class="title" id="ele2">RORDMAP</div>
                 <div class="rordmap-content">
                     <div class="time1" id="eTime1">
                         <div class="time1-date">
@@ -384,18 +387,18 @@ onMounted(() => {
             vertical-align: top;            
         }
         .section2-1{
-            height: 160vw;
+            height: 180vw;
         }
         .section2-2{
-            height: 160vw;
+            height: 210vw;
         }
         .section3-1{
             width: 100%;
-            height: 150vw;
+            height: 155vw;
         }
         .section3-2{
             width: 100%;
-            height: 100vw;
+            height: 105vw;
         }
         .section4{
             display: flex;
@@ -473,6 +476,14 @@ onMounted(() => {
                     }
                 }
             }
+            .excel{
+                height: 65vw;
+                width: 100%;
+                margin-top: 2vw;
+                iframe{
+                    padding: 0 10vw;
+                }
+            }
             .round{
                 animation: fadeInDown .6s linear;
                 .round-wrap{
@@ -485,7 +496,7 @@ onMounted(() => {
                         color:#fff;
                         font-family: OPPOSans;
                         div:not(:nth-child(5)){
-                            font-size: 3vw;
+                            font-size: 2.6vw;
                         }
                         .round-price{
                             opacity: .8;

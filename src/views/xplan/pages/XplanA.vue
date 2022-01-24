@@ -10,7 +10,7 @@
                 <img class="section4-first" src="@/assets/support/section4-1.png" alt="">
             </div>
             <div>
-                <img src="@/assets/support/section3-3.png" alt="">
+                <img class="section4-second" src="@/assets/support/section3-3.png" alt="">
                 <img class="section4-last" src="@/assets/support/section4-2.png" alt="">
             </div>
         </div>
@@ -25,6 +25,9 @@
                     <div>ECONOMIC MODELS</div>
                 </div>
                 <div class="right-img"></div>
+            </div>
+            <div class="excel">
+                <iframe class="excel" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
             </div>
             <div class="round">
                 <ul class="round-wrap">
@@ -404,10 +407,11 @@ onMounted(() => {
             // height: 30vw;
         }
         .section3-1{
-            height: 53vw;
+            // height: 73vw;
+            height: 82vw;
         }
         .section3-2{
-            height: 44vw;
+            height: 60vw;
         }
         .section4{
             display: flex;
@@ -423,11 +427,14 @@ onMounted(() => {
                 width: 50vw;
             }
             .section4-first{
-                height: 130vw;
+                height: 150vw;
+            }
+            .section4-second{
+                height: 70vw;
             }
             .section4-last{
                 // height: 55.04vw;
-                height: 78vw;
+                height: 98vw;
             }
         }
         // .section5{
@@ -478,16 +485,24 @@ onMounted(() => {
                     }
                     div{
                         color:#fff;
-                        font-size: 3.8vw;
+                        font-size: 2.8vw;
                         font-family: EDIX;
                         white-space: nowrap;
                     }
                 }
             }
+            .excel{
+                height: 30vw;
+                width: 100%;
+                margin-top: 2vw;
+                iframe{
+                    padding: 0 23vw;
+                }
+            }
             .round{
                 animation: fadeInDown .6s linear;
                 .round-wrap{
-                    margin: 10vw 12vw 0;
+                    margin: 7vw 12vw 0;
                     li{
                         display: flex;
                         justify-content: space-between;
@@ -496,7 +511,7 @@ onMounted(() => {
                         color:#fff;
                         font-family: OPPOSans;
                         div:not(:nth-child(5)){
-                            font-size: 2vw;
+                            font-size: 1.6vw;
                         }
                         .round-price{
                             opacity: .8;
@@ -951,10 +966,10 @@ onMounted(() => {
                     width: 7vw;
                     .title{
                         position: absolute;
-                        top: 8.6vw;
-                        left: -20vw;
+                        top: 9.6vw;
+                        left: -11.2vw;
                         color:#fff;
-                        font-size: 4.8vw;
+                        font-size: 3vw;
                         font-family: EDIX;
                         white-space: nowrap;
                     }
