@@ -1,17 +1,17 @@
 <template>
     <div class="welcome">
         <div class="cover_up"></div>
-        <img src="@/assets/support/section2-1.png" class="section2-1 bgimg" alt="">
-        <img src="@/assets/support/section2-2.png" class="section2-2 bgimg" alt="">
-        <img src="@/assets/support/section3-1.png" class="section3-1 bgimg" alt="">
-        <img src="@/assets/support/section3-2.png" class="section3-2 bgimg" alt="">
+        <img src="https://d3bhixjyozyk2o.cloudfront.net/section2-1.png" class="section2-1 bgimg" alt="">
+        <img src="https://d3bhixjyozyk2o.cloudfront.net/section2-2.png" class="section2-2 bgimg" alt="">
+        <img src="https://d3bhixjyozyk2o.cloudfront.net/section3-1.png" class="section3-1 bgimg" alt="">
+        <img src="https://d3bhixjyozyk2o.cloudfront.net/section3-2.png" class="section3-2 bgimg" alt="">
         <div class="section4">
             <div>
-                <img class="section4-first" src="@/assets/support/section4-1.png" alt="">
+                <img class="section4-first" src="https://d3bhixjyozyk2o.cloudfront.net/section4-1.png" alt="">
             </div>
             <div>
-                <img src="@/assets/support/section3-3.png" alt="">
-                <img class="section4-last" src="@/assets/support/section4-2.png" alt="">
+                <img class="section4-second" src="https://d3bhixjyozyk2o.cloudfront.net/section3-3.png" alt="">
+                <img class="section4-last" src="https://d3bhixjyozyk2o.cloudfront.net/section4-2.png" alt="">
             </div>
         </div>
         <!-- 添加support后打开section5        -->
@@ -21,10 +21,13 @@
             <div class="models">
                 <div class="left-img"></div>
                 <div class="center-models">
-                    <img class="section2-img2" src="@/assets/support/models-c.png" alt="">
+                    <img class="section2-img2" src="https://d3bhixjyozyk2o.cloudfront.net/models-c.png" alt="">
                     <div>ECONOMIC MODELS</div>
                 </div>
                 <div class="right-img"></div>
+            </div>
+            <div class="excel">
+                <iframe class="excel" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
             </div>
             <div class="round">
                 <ul class="round-wrap">
@@ -35,11 +38,11 @@
                         <div class="round-month">10 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
-                                <!-- <img src="@/assets/support/yellow.png" alt=""> -->
+                                <!-- <img src="https://d3bhixjyozyk2o.cloudfront.net/yellow.png" alt=""> -->
                                 <div class="wrap1"></div>
                             </div>
                             <div class="percent">100%</div>
-                            <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
+                            <img class="schedule-locking" src="https://d3bhixjyozyk2o.cloudfront.net/locking1.png" alt="">
                         </div>
                     </li>
                     <li>
@@ -50,12 +53,12 @@
                         <div class="round-schedule">
                             <div class="schedule-line">
                                 <!-- <div class="wrap2"> -->
-                                    <!-- <img class="schedule-bg" src="@/assets/support/green1.png" alt=""> -->
+                                    <!-- <img class="schedule-bg" src="https://d3bhixjyozyk2o.cloudfront.net/green1.png" alt=""> -->
                                     <!-- <span></span> -->
                                 <!-- </div> -->
                             </div>
                             <div class="percent">0%</div>
-                            <img class="schedule-locking locking2" src="@/assets/support/locking1.png" alt="">
+                            <img class="schedule-locking locking2" src="https://d3bhixjyozyk2o.cloudfront.net/locking1.png" alt="">
                         </div>
                     </li>
                     <li>
@@ -65,7 +68,7 @@
                         <div class="round-month third-month">8 month</div>
                         <div class="round-schedule">
                             <div class="percent">0%</div>
-                            <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
+                            <img class="schedule-locking" src="https://d3bhixjyozyk2o.cloudfront.net/locking1.png" alt="">
                         </div>
                     </li>
                 </ul>
@@ -74,62 +77,62 @@
                 <div class="ratio-wrap">
                     <div class="ratio-left" id="ele1">
                         <div class="title">
-                            <img src="@/assets/support/ratio-leftArrow.png" alt="">
-                            <img src="@/assets/support/ratio-leftTitle.png" alt="">
+                            <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftArrow.png" alt="">
+                            <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftTitle.png" alt="">
                             <div class="title-txt">DISTRIBUTION RATIO</div>
                             <div class="title-tips">CYBER POP
-                                <img src="@/assets/support/ratio-leftLine.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftLine.png" alt="">
                             </div>
-                            <img class="title-imgRotateY" src="@/assets/support/ratio-leftTitle.png" alt="">
+                            <img class="title-imgRotateY" src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftTitle.png" alt="">
                         </div>
                         <div class="pie">
                             <div class="pie-main">
                                 <div>
-                                    <img src="@/assets/support/ratio-leftPie15.png" alt="">
-                                    <img src="@/assets/support/ratio-leftPie15-text.png" alt="">
+                                    <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftPie15.png" alt="">
+                                    <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftPie15-text.png" alt="">
                                 </div>
                                 <div class="percent">18%</div>
                             </div>
-                            <img class="pie-rest" src="@/assets/support/ratio-leftPie.png" alt="">
+                            <img class="pie-rest" src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftPie.png" alt="">
                             <div class="total">Total supply 120,000,000 CYT</div>
                         </div>
                     </div>
                     <div class="ratio-right" id="ele2">
                         <ul>
                             <li>
-                                <img src="@/assets/support/ratio-block1.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block1.png" alt="">
                                 <a href="">private investment</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block2.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block2.png" alt="">
                                 <a href="">consultants and legal services</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block3.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block3.png" alt="">
                                 <a href="">investment institution</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block4.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block4.png" alt="">
                                 <a href="">community building and airdrop</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block5.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block5.png" alt="">
                                 <a href="">public offering</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block6.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block6.png" alt="">
                                 <a href="">cological construction fund</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block7.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block7.png" alt="">
                                 <a href="">1n-game output</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block8.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block8.png" alt="">
                                 <a href="">team</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block9.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block9.png" alt="">
                                 <a href="">pledge and interest payment</a>
                             </li>
                         </ul>
@@ -138,10 +141,10 @@
             </div>
             <div class="category" id="ele3">
                 <div class="category-wrap">
-                    <img class="category-info" src="@/assets/support/category-info.png" alt="">
-                    <img class="category-arrow1" src="@/assets/support/category-arrow1.png" alt="">
-                    <img class="category-arrow2" src="@/assets/support/category-arrow2.png" alt="">
-                    <img class="category-arrow3" src="@/assets/support/category-arrow3.png" alt="">
+                    <img class="category-info" src="https://d3bhixjyozyk2o.cloudfront.net/category-info.png" alt="">
+                    <img class="category-arrow1" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow1.png" alt="">
+                    <img class="category-arrow2" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow2.png" alt="">
+                    <img class="category-arrow3" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow3.png" alt="">
                 </div>
             </div>
             <div class="rordmap">
@@ -149,9 +152,9 @@
                     <div class="time1" id="eTime1">
                         <div class="time1-date">
                             <div class="time1-txt">
-                                <img src="@/assets/support/2021.03.png" alt="">
-                                <img src="@/assets/support/time1-yellow.png" alt="">
-                                <img src="@/assets/support/time1-orange.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/2021.03.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/time1-yellow.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/time1-orange.png" alt="">
                             </div>
                             <div class="time1-h">1</div>
                         </div>
@@ -165,12 +168,12 @@
                         </div>~
                     </div>
                     <div class="time3" id="eTime3">
-                        <img class="time3-bg" src="@/assets/support/time3-bg.png" alt="">
+                        <img class="time3-bg" src="https://d3bhixjyozyk2o.cloudfront.net/time3-bg.png" alt="">
                         <div class="time3-date">
                             <div class="time3-txt">
-                                <img src="@/assets/support/2022.03.png" alt="">
-                                <img src="@/assets/support/time1-yellow.png" alt="">
-                                <img src="@/assets/support/time1-orange.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/2022.03.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/time1-yellow.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/time1-orange.png" alt="">
                             </div>
                             <div class="time3-h">3</div>
                         </div>
@@ -186,8 +189,8 @@
                     <div class="time4" id="eTime4">
                         <div class="time4-date">
                             <div class="time4-txt">
-                                <img src="@/assets/support/2022.06.png" alt="">
-                                <img src="@/assets/support/time4-arrow.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/2022.06.png" alt="">
+                                <img src="https://d3bhixjyozyk2o.cloudfront.net/time4-arrow.png" alt="">
                             </div>
                             <div class="time4-h">4</div>
                         </div>
@@ -197,20 +200,20 @@
                                 <div>GAME UNIONS SYSTEM</div>
                             </div>
                         </div>
-                        <img class="time4-lastImg" src="@/assets/support/time4-bottom.png" alt="">
+                        <img class="time4-lastImg" src="https://d3bhixjyozyk2o.cloudfront.net/time4-bottom.png" alt="">
                     </div>
                 </div>
                 <div class="rordmap-timeLine" id="ele4">
                     <div class="title">RORD&nbsp;&nbsp;MAP</div>
-                    <img class="location" src="@/assets/support/rordmap-timeLine1.png" alt="">
-                    <img class="line" src="@/assets/support/rordmap-timeLine2.png" alt="">
-                    <img class="arrow" src="@/assets/support/rordmap-timeLine3.png" alt="">
+                    <img class="location" src="https://d3bhixjyozyk2o.cloudfront.net/rordmap-timeLine1.png" alt="">
+                    <img class="line" src="https://d3bhixjyozyk2o.cloudfront.net/rordmap-timeLine2.png" alt="">
+                    <img class="arrow" src="https://d3bhixjyozyk2o.cloudfront.net/rordmap-timeLine3.png" alt="">
                 </div>
                 <div class="rordmap-right">
                     <div class="time2" id="eTime2">
                         <div class="time2-date">
                             <div class="time2-h">2</div>
-                            <img src="@/assets/support/2021.10.png" alt="">
+                            <img src="https://d3bhixjyozyk2o.cloudfront.net/2021.10.png" alt="">
                         </div>
                         <div class="time2-content">
                             <ul>
@@ -222,10 +225,10 @@
                         </div>
                     </div>
                     <div class="time5" id="eTime5">
-                        <img class="time5-bg" src="@/assets/support/time5-bg.png" alt="">
+                        <img class="time5-bg" src="https://d3bhixjyozyk2o.cloudfront.net/time5-bg.png" alt="">
                         <div class="time5-date">
                             <div class="time5-h">5</div>
-                            <img src="@/assets/support/2022.10.png" alt="">
+                            <img src="https://d3bhixjyozyk2o.cloudfront.net/2022.10.png" alt="">
                         </div>
                         <div class="time5-content">
                             <ul>
@@ -241,7 +244,7 @@
             <!-- <div class="supported">
                 <div class="title">SUPPORTED CAPITAL</div>
                 <div class="wrap">
-                    <img src="@/assets/support/logo.png" alt="">
+                    <img src="https://d3bhixjyozyk2o.cloudfront.net/logo.png" alt="">
                 </div>
             </div> -->
         </div>
@@ -404,10 +407,11 @@ onMounted(() => {
             // height: 30vw;
         }
         .section3-1{
-            height: 53vw;
+            // height: 73vw;
+            height: 82vw;
         }
         .section3-2{
-            height: 44vw;
+            height: 60vw;
         }
         .section4{
             display: flex;
@@ -423,11 +427,14 @@ onMounted(() => {
                 width: 50vw;
             }
             .section4-first{
-                height: 130vw;
+                height: 150vw;
+            }
+            .section4-second{
+                height: 70vw;
             }
             .section4-last{
                 // height: 55.04vw;
-                height: 78vw;
+                height: 98vw;
             }
         }
         // .section5{
@@ -478,16 +485,24 @@ onMounted(() => {
                     }
                     div{
                         color:#fff;
-                        font-size: 3.8vw;
+                        font-size: 2.8vw;
                         font-family: EDIX;
                         white-space: nowrap;
                     }
                 }
             }
+            .excel{
+                height: 30vw;
+                width: 100%;
+                margin-top: 2vw;
+                iframe{
+                    padding: 0 23vw;
+                }
+            }
             .round{
                 animation: fadeInDown .6s linear;
                 .round-wrap{
-                    margin: 10vw 12vw 0;
+                    margin: 7vw 12vw 0;
                     li{
                         display: flex;
                         justify-content: space-between;
@@ -496,7 +511,7 @@ onMounted(() => {
                         color:#fff;
                         font-family: OPPOSans;
                         div:not(:nth-child(5)){
-                            font-size: 2vw;
+                            font-size: 1.6vw;
                         }
                         .round-price{
                             opacity: .8;
@@ -951,10 +966,10 @@ onMounted(() => {
                     width: 7vw;
                     .title{
                         position: absolute;
-                        top: 8.6vw;
-                        left: -20vw;
+                        top: 9.6vw;
+                        left: -11.2vw;
                         color:#fff;
-                        font-size: 4.8vw;
+                        font-size: 3vw;
                         font-family: EDIX;
                         white-space: nowrap;
                     }
