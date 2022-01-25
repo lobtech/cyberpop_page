@@ -137,7 +137,12 @@
                 </div>
             </div>
             <div class="excel">
-                <iframe class="excel" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
+                <div class="excel-item1">
+                    <iframe class="iframe1" src="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing"></iframe>
+                </div>
+                <div class="excel-item2">
+                    <iframe class="iframe2" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
+                </div>
             </div>
             <div class="category" id="ele3">
                 <div class="category-wrap">
@@ -401,7 +406,7 @@ onMounted(() => {
             vertical-align: top;            
         }
         .section2-1{
-            height: 80vw;
+            height: 86vw;
         }
         .section2-2{
             // height: 30vw;
@@ -492,12 +497,32 @@ onMounted(() => {
                 }
             }
             .excel{
-                height: 40vw;
                 width: 100%;
-                margin-top: 3vw;
-                margin-bottom: 8vw;
-                iframe{
-                    padding: 0 23vw;
+                height: 50vw;
+                margin-top: 5vw;
+                display: flex;
+                justify-content: center;
+                overflow: hidden;
+                .excel-item1{
+                    width: 50vw;
+                    height: 100%;
+                    margin-top: -7.41vw;
+                    margin-right: 2.2vw;
+                    overflow: hidden;
+                    .iframe1{
+                        width: 50vw;
+                        height: 104%;
+                    }
+                }
+                .excel-item2{
+                    width: 30vw;
+                    height: 100%;
+                    margin-top: -7.41vw;
+                    overflow: hidden;
+                    .iframe2{
+                        width: 30vw;
+                        height: 104%;
+                    }
                 }
             }
             .round{

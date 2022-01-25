@@ -134,7 +134,14 @@
                 </div>
             </div>
             <div class="excel">
-                <iframe class="excel" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
+                <div class="excel-item1">
+                    <iframe class="iframe1" src="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing"></iframe>
+                </div>
+            </div>
+            <div class="excel">
+                <div class="excel-item2">
+                    <iframe class="iframe2" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
+                </div>
             </div>
             <div class="category" id="ele1">
                 <div class="category-wrap">
@@ -394,11 +401,11 @@ onMounted(() => {
         }
         .section3-1{
             width: 100%;
-            height: 155vw;
+            height: 185vw;
         }
         .section3-2{
             width: 100%;
-            height: 105vw;
+            height: 155vw;
         }
         .section4{
             display: flex;
@@ -476,13 +483,42 @@ onMounted(() => {
                     }
                 }
             }
+            // .excel{
+            //     height: 70vw;
+            //     width: 100%;
+            //     margin-top: 3vw;
+            //     margin-bottom: 8vw;
+            //     iframe{
+            //         padding: 0 10vw;
+            //     }
+            // }
             .excel{
-                height: 70vw;
                 width: 100%;
-                margin-top: 3vw;
-                margin-bottom: 8vw;
-                iframe{
-                    padding: 0 10vw;
+                // height: 70vw;
+                margin-top: 8vw;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                overflow: hidden;
+                .excel-item1{
+                    width: 90vw;
+                    height: 90vw;
+                    margin-top: -17.4vw;
+                    overflow: hidden;
+                    .iframe1{
+                        width: 90vw;
+                        height: 100%;
+                    }
+                }
+                .excel-item2{
+                    width: 90vw;
+                    height: 80vw;
+                    margin-top: -17.3vw;
+                    overflow: hidden;
+                    .iframe2{
+                        width: 90vw;
+                        height: 100%;
+                    }
                 }
             }
             .round{
