@@ -503,7 +503,7 @@ onMounted(() => {
             .round{
                 animation: fadeInDown .6s linear;
                 .round-wrap{
-                    margin: 7vw 12vw 0;
+                    margin: 7vw 16vw 0;
                     li{
                         display: flex;
                         justify-content: space-between;
@@ -594,7 +594,7 @@ onMounted(() => {
                 .ratio-wrap{
                     display: flex;
                     justify-content: space-between;
-                    margin: 0 14vw;
+                    margin: 0 16vw;
                     .ratio-left{
                         width: 35vw;
                         height: 26vw;

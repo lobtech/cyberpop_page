@@ -488,7 +488,7 @@ onMounted(() => {
             .round{
                 animation: fadeInDown .6s linear;
                 .round-wrap{
-                    margin: 10vw 5vw 0;
+                    margin: 10vw 6vw 0;
                     li{
                         display: flex;
                         justify-content: space-between;
