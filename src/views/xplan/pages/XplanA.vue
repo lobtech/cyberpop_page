@@ -137,11 +137,17 @@
                 </div>
             </div>
             <div class="excel">
-                <div class="excel-item1">
-                    <iframe class="iframe1" src="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing"></iframe>
+                <div class="excel-wrap">
+                    <div class="excel-item1">
+                        <iframe class="iframe1" src="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing"></iframe>
+                    </div>
+                    <div class="excel-item2">
+                        <iframe class="iframe2" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
+                    </div>
                 </div>
-                <div class="excel-item2">
-                    <iframe class="iframe2" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
+                <div class="btn">
+                    <a class="table1" target="view_window" href="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing">OPEN SHEET</a>
+                    <a class="table2" target="view_window" href="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576">OPEN SHEET</a>
                 </div>
             </div>
             <div class="category" id="ele3">
@@ -421,7 +427,7 @@ onMounted(() => {
         .section4{
             display: flex;
             align-items: center;
-            height: 101.2vw;
+            height: 110.2vw;
             div{
                 // align-items: center;
             }
@@ -498,30 +504,58 @@ onMounted(() => {
             }
             .excel{
                 width: 100%;
-                height: 50vw;
-                margin-top: 5vw;
-                display: flex;
-                justify-content: center;
-                overflow: hidden;
-                .excel-item1{
-                    width: 50vw;
-                    height: 100%;
-                    margin-top: -7.41vw;
-                    margin-right: 2.2vw;
+                .excel-wrap{
+                    width: 100%;
+                    height: 50vw;
+                    margin-top: 5vw;
+                    display: flex;
+                    justify-content: center;
                     overflow: hidden;
-                    .iframe1{
+                    .excel-item1{
                         width: 50vw;
-                        height: 104%;
+                        height: 100%;
+                        margin-top: -7.41vw;
+                        margin-right: 2.2vw;
+                        overflow: hidden;
+                        .iframe1{
+                            width: 50vw;
+                            height: 104%;
+                        }
+                    }
+                    .excel-item2{
+                        width: 30vw;
+                        height: 100%;
+                        margin-top: -7.41vw;
+                        overflow: hidden;
+                        .iframe2{
+                            width: 30vw;
+                            height: 104%;
+                        }
                     }
                 }
-                .excel-item2{
-                    width: 30vw;
-                    height: 100%;
-                    margin-top: -7.41vw;
-                    overflow: hidden;
-                    .iframe2{
-                        width: 30vw;
-                        height: 104%;
+                .btn{
+                    position: relative;
+                    width: 100%;
+                    height: 10vw;
+                    margin-top: -5.8vw;
+                    text-align: center;
+                    a{
+                        display: inline-block;
+                        width: 9vw;
+                        height: 2.3vw;
+                        line-height: 2.3vw;
+                        color: #000;
+                        font-size: 1vw;
+                        background-color: #CFE2F3;
+                        border-radius: .2vw;
+                    }
+                    .table1{
+                        position: absolute;
+                        left: 29vw;
+                    }
+                    .table2{
+                        position: absolute;
+                        right: 18.8vw;
                     }
                 }
             }

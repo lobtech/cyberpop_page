@@ -134,13 +134,24 @@
                 </div>
             </div>
             <div class="excel">
-                <div class="excel-item1">
-                    <iframe class="iframe1" src="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing"></iframe>
+                <div class="excel-wrap">
+                    <div class="excel-item1">
+                        <iframe class="iframe1" src="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing"></iframe>
+                    </div>
+                </div>
+                <div class="btn">
+                    <a class="table1" target="view_window" href="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing">OPEN SHEET</a>
                 </div>
             </div>
+
             <div class="excel">
-                <div class="excel-item2">
-                    <iframe class="iframe2" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
+                <div class="excel-wrap">
+                    <div class="excel-item2">
+                        <iframe class="iframe2" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
+                    </div>
+                </div>
+                <div class="btn">
+                    <a class="table2" target="view_window" href="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576">OPEN SHEET</a>
                 </div>
             </div>
             <div class="category" id="ele1">
@@ -433,7 +444,7 @@ onMounted(() => {
         .section5{
             background-image: url('../../../assets/support/section5.png');
             background-size: 100% 100%;
-            height: 80vw;
+            height: 100vw;
             // height: 124vw; // 添加support后的高度
         }
         .content{
@@ -493,31 +504,47 @@ onMounted(() => {
             //     }
             // }
             .excel{
-                width: 100%;
-                // height: 70vw;
-                margin-top: 8vw;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                overflow: hidden;
-                .excel-item1{
-                    width: 90vw;
-                    height: 90vw;
-                    margin-top: -17.4vw;
+                .excel-wrap{
+                    width: 100%;
+                    margin-top: 8vw;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
                     overflow: hidden;
-                    .iframe1{
+                    .excel-item1{
                         width: 90vw;
-                        height: 100%;
+                        height: 90vw;
+                        margin-top: -17.4vw;
+                        overflow: hidden;
+                        .iframe1{
+                            width: 90vw;
+                            height: 100%;
+                        }
+                    }
+                    .excel-item2{
+                        width: 90vw;
+                        height: 80vw;
+                        margin-top: -17.3vw;
+                        overflow: hidden;
+                        .iframe2{
+                            width: 90vw;
+                            height: 100%;
+                        }
                     }
                 }
-                .excel-item2{
-                    width: 90vw;
-                    height: 80vw;
-                    margin-top: -17.3vw;
-                    overflow: hidden;
-                    .iframe2{
-                        width: 90vw;
-                        height: 100%;
+                .btn{
+                    width: 100%;
+                    margin-top: 2.8vw;
+                    text-align: center;
+                    a{
+                        display: inline-block;
+                        width: 14vw;
+                        height: 4vw;
+                        line-height: 4vw;
+                        color: #000;
+                        font-size: 1vw;
+                        background-color: #CFE2F3;
+                        border-radius: .2vw;
                     }
                 }
             }
