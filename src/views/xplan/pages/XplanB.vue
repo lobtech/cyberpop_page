@@ -36,7 +36,7 @@
                                 <!-- <img src="https://d3bhixjyozyk2o.cloudfront.net/yellow.png" alt=""> -->
                                 <div class="wrap1"></div>
                             </div>
-                            <div class="percent">100%</div>
+                            <!-- <div class="percent">100%</div> -->
                             <img class="schedule-locking" src="https://d3bhixjyozyk2o.cloudfront.net/locking1.png" alt="">
                         </div>
                     </li>
@@ -52,7 +52,7 @@
                                     <!-- <span></span> -->
                                 <!-- </div> -->
                             </div>
-                            <div class="percent">0%</div>
+                            <!-- <div class="percent">0%</div> -->
                             <img class="schedule-locking locking2" src="https://d3bhixjyozyk2o.cloudfront.net/locking1.png" alt="">
                         </div>
                     </li>
@@ -62,7 +62,7 @@
                         <div class="round-price">$0.42</div>
                         <div class="round-month third-month">8 month</div>
                         <div class="round-schedule">
-                            <div class="percent">0%</div>
+                            <!-- <div class="percent">0%</div> -->
                             <img class="schedule-locking" src="https://d3bhixjyozyk2o.cloudfront.net/locking1.png" alt="">
                         </div>
                     </li>
@@ -143,7 +143,6 @@
                     <a class="table1" target="view_window" href="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing">OPEN SHEET</a>
                 </div>
             </div>
-
             <div class="excel">
                 <div class="excel-wrap">
                     <div class="excel-item2">
@@ -494,15 +493,6 @@ onMounted(() => {
                     }
                 }
             }
-            // .excel{
-            //     height: 70vw;
-            //     width: 100%;
-            //     margin-top: 3vw;
-            //     margin-bottom: 8vw;
-            //     iframe{
-            //         padding: 0 10vw;
-            //     }
-            // }
             .excel{
                 .excel-wrap{
                     width: 100%;
@@ -589,7 +579,7 @@ onMounted(() => {
                                 .wrap1{
                                     position: relative;
                                     height: 3.1vw;
-                                    width: 100%; // 控制进度
+                                    width: 90%; // 控制进度
                                     background-color: #dbba11;
                                     background-image: linear-gradient(-60deg, transparent 0rem, transparent 0.6rem, #f5de6b 0.8rem, #e2c94d 1.6rem, transparent 1.6rem, transparent 2.4rem, #e6d273 2.4rem);
                                     background-size: 26px 54px;
