@@ -388,7 +388,7 @@ const checkScrollHeightAndLoadAnimation: any = () => {
 
 
 const deckd = () => {
-    window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf';
+    window.location.href = 'https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf';
 }
 
 onUnmounted(() => {

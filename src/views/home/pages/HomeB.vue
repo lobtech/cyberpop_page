@@ -340,7 +340,7 @@ const down = () => {
 }
 
 const deckd = () => {
-    window.location.href = 'https://d1j4h7kk0fcyvo.cloudfront.net/pdf.html';
+    window.location.href = 'https://cyberppp-pdf.s3.ap-southeast-1.amazonaws.com/pdf.html';
 }
 
 const submit = () => {
