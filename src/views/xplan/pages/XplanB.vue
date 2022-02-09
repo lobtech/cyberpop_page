@@ -1,5 +1,8 @@
 <template>
-    <div class="welcome">
+    <!--  mask黑幕  -->
+    <div class="mask" v-if="token1Number<=0"></div>
+
+    <div class="welcome" v-else>
         <div class="cover_up"></div>
         <img src="https://d3bhixjyozyk2o.cloudfront.net/section2-1.png" class="section2-1 bgimg" alt="">
         <img src="https://d3bhixjyozyk2o.cloudfront.net/section2-2.png" class="section2-2 bgimg" alt="">
@@ -20,10 +23,19 @@
                 <div class="left-img"></div>
                 <div class="center-models">
                     <img class="section2-img2" src="https://d3bhixjyozyk2o.cloudfront.net/models-c.png" alt="">
-                    <div>ECONOMIC MODELS</div>
+                    <div class="title">ECONOMIC MODELS</div>
                 </div>
                 <div class="right-img"></div>
             </div>
+            <div class="nft_box">
+                <div>
+                    <img src="https://lh3.googleusercontent.com/L4CNumJrsy2P3MhtzF1f18kLmAt2YzLu3u_vY5ksaSkEKHwFxK852X8ZIhU8Cf5snR9ocKA-ZxuAu_EBqoL4wbLOYthdgkM3t8a-=w600" alt="">
+                    <span class="number">Number of owned: {{ token1Number }}</span>
+                </div>
+            </div>
+            <div class="contract_address">
+                Contract Address: 0x82cCB2FE8f4d07702f7c2F4200f0FBF630C52406    
+            </div> 
             <div class="round">
                 <ul class="round-wrap">
                     <li>
@@ -281,10 +293,16 @@ const changeMenu = (type: any, route?: any) => {
 }
 
 const id: any = ref(0)
-
+const token1Number: any = ref(0); //token 数量
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
         return res;
+    })
+    Web3.getBalance(accounts).then((res) => {
+        token1Number.value = res[1];
+        if(token1Number.value <= 0){
+            window.location.href = 'https://game.cyberpop.online/';
+        }
     })
     id.value = accounts;
     let len = id.value.length-1;
@@ -378,6 +396,35 @@ onMounted(() => {
     }
     a {
         text-decoration: none;
+    }
+    .mask{
+        background-color: #000;
+        height: 100vh;
+    }
+
+    .nft_box{
+        display: flex;
+        justify-content: center;
+        & > div{
+            width: 25vw;
+            height: 25vw;
+            text-align: center;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .number{
+            color: #fff;
+            width: 100%;
+            display: inline-block;
+        }
+    }
+    .contract_address{
+        width: 100vw;
+        text-align: center;
+        margin-top: 11vw;
+        color: #fff;
     }
     
     .router-link-active {
@@ -476,12 +523,13 @@ onMounted(() => {
                     position: relative;
                     width: 18vw;
                     animation: fadeInDown .5s linear;
-                    img{
+                    
+                    & > img{
                         position: absolute;
                         top: -4vw;
                         width: 18vw;
                     }
-                    div{
+                    & > .title{
                         position: absolute;
                         left: 50%;
                         bottom: 1.7vw;

@@ -195,6 +195,7 @@
                 <div>
                     <span>Terms of Service</span>
                     <img src="https://d1td2c8hf7fv9k.cloudfront.net/pink.png" alt="">
+                    <img class="xplan" src="@/assets/icon/xplan.png" alt="" @click="toXplan">
                 </div>
                 <div>
                     <span>Privacy Notice</span>
@@ -274,6 +275,9 @@ const changeMenu = (type: any, route?: any) => {
     }
     store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
+}
+const toXplan: any = () => {
+    router.push({ path: '/xplan'})
 }
 
 const id: any = ref(0)
@@ -1140,6 +1144,14 @@ onMounted(() => {
                     position: relative;
                     align-items: center;
                     justify-content: center;
+                    .xplan{
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                        width: 5vw;
+                        top: 8vw;
+                    }
                     span{
                         font-size: 1.2vw;
                         margin-right: 1vw;
@@ -1158,6 +1170,9 @@ onMounted(() => {
                     }
                     img:hover{
                         transform: translateX(-6px);
+                    }
+                    .xplan:hover{
+                        transform: scale(1.2);
                     }
                     .logos{
                         position: absolute;

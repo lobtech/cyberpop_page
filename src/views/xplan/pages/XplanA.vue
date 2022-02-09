@@ -1,5 +1,8 @@
 <template>
-    <div class="welcome">
+    <!--  mask黑幕  -->
+    <div class="mask" v-if="token0Number<=0"></div>
+
+    <div class="welcome" v-else>
         <div class="cover_up"></div>
         <img src="https://d3bhixjyozyk2o.cloudfront.net/section2-1.png" class="section2-1 bgimg" alt="">
         <img src="https://d3bhixjyozyk2o.cloudfront.net/section2-2.png" class="section2-2 bgimg" alt="">
@@ -22,7 +25,16 @@
                 <div class="left-img"></div>
                 <div class="center-models">
                     <img class="section2-img2" src="https://d3bhixjyozyk2o.cloudfront.net/models-c.png" alt="">
-                    <div>ECONOMIC MODELS</div>
+                    <div class="title">ECONOMIC MODELS</div>
+                    <div class="nft_box">
+                        <div>
+                            <img src="https://cyberpop.mypinata.cloud/ipfs/QmasqFt6yffS7cyUq4gZKQ5fxXuxFPQ1jbcar17z9dYUku" alt="">
+                            <span class="number">Number of owned: {{ token0Number }}</span>
+                        </div>
+                    </div>
+                    <div class="contract_address">
+                        Contract Address: 0x82cCB2FE8f4d07702f7c2F4200f0FBF630C52406    
+                    </div> 
                 </div>
                 <div class="right-img"></div>
             </div>
@@ -265,7 +277,7 @@
 import { onMounted, onUnmounted, ref, reactive, computed } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
-import Web3 from '@/tools/web3' 
+import Web3 from '@/tools/web3'
 
 const router = useRouter()
 
@@ -280,12 +292,18 @@ const changeMenu = (type: any, route?: any) => {
     store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
-
+const token0Number: any = ref(0);
 const id: any = ref(0)
 
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
         return res;
+    })
+    Web3.getBalance(accounts).then((res) => {
+        token0Number.value = res[0];
+        if(token0Number.value <= 0){
+            window.location.href = 'https://game.cyberpop.online/';
+        }
     })
     id.value = accounts;
     let len = id.value.length-1;
@@ -345,6 +363,7 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         if(eTime5Top < windowHeight) eTime5.classList.add('bounceInRight')
 }
 
+
 onUnmounted(() => {
     window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
 })
@@ -387,6 +406,31 @@ onMounted(() => {
         100% {
             width: 100%;
         }
+    }
+    .mask{
+        background-color: #000;
+        height: 100vh;
+    }
+    .nft_box{
+        display: flex;
+        & > div{
+            width: 25vw;
+            height: 25vw;
+            text-align: center;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .number{
+            color: #fff;
+        }
+    }
+    .contract_address{
+        width: 100vw;
+        text-align: center;
+        margin-top: 4vw;
+        color: #fff;
     }
     .router-link-active {
         text-decoration: none;
@@ -489,12 +533,12 @@ onMounted(() => {
                     align-items: center;
                     width: 12vw;
                     animation: fadeInDown .5s linear;
-                    img{
+                    & > img{
                         width: 12vw;
                         margin-top: .6vw;
                         margin-bottom: 3vw;
                     }
-                    div{
+                    & > .title{
                         color:#fff;
                         font-size: 2.8vw;
                         font-family: EDIX;
