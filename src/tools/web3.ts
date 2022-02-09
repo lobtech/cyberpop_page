@@ -6,6 +6,7 @@ const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html�
 // 登录钱包
 const login = async () => {
     const ethereum = (window as any).ethereum // 获取小狐狸实例
+    console.log(ethereum);
     if (!ethereum) {
         alert('not dapp')
         alert('install MetaMask！')
