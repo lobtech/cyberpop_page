@@ -451,11 +451,11 @@ const startMove = (target : any) => {
 
 // news
 let showNewsImg: any = ref(0);
-let newsStatictxt1:any = ref('CYBER NEW WORLD HAS LAUNCHED THREE MAPS OF THE OPEN WORLD');
-let newsStatictxt2:any = ref('CYBER NEW MAPS OF THE OPEN WORLD THE OPEN WORLD');
+let newsStatictxt1:any = ref('Cyber New World Has Launched Three Maps Of The Open World');
+let newsStatictxt2:any = ref('Cyber pop-New blockchain game-New world');
 
 
-let newsTitle1:any = ref('CYBER NEW WORLD HAS LAUNCHED THREE MAPS OF THE OPEN WORLD');
+let newsTitle1:any = ref('Cyber New World Has Launched Three Maps Of The Open World');
 const newsHover = (index: any, txt1:any) => {
     showNewsImg.value = index;
     newsTitle1.value = txt1;
@@ -470,7 +470,7 @@ const newsHover = (index: any, txt1:any) => {
     } 
 }
 let newsFlag:any = ref(0);
-let clickTitle1:any = ref('CYBER NEW WORLD HAS LAUNCHED THREE MAPS OF THE OPEN WORLD');
+let clickTitle1:any = ref('Cyber New World Has Launched Three Maps Of The Open World');
 const newsActive = (index: any, txt1:any) => {
     showNewsImg.value = index;
     newsFlag.value = index;
