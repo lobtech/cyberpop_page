@@ -13,9 +13,14 @@
                             <li :class="select == 2 ? 'active' : ''" @click="selectLang(2)">Japanese</li>
                         </ul>
                     </div> -->
-                    <div class="login_in" @click="connect()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
-                        <div class="txt">{{ id || "CONNECT WALLET" }}</div>
+                    <div class="login_in" v-if="!loggined" @click="connect()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
+                        <div class="txt">CONNECT WALLET</div>
                         <div class="mask" id="mask"></div>
+                    </div>
+                    <div class="logged_in" v-if="loggined">
+                        <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
+                        <div class="idtxt">{{id}}</div>
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
                     </div>
                 </div>
                 <div class="menu">
@@ -32,7 +37,6 @@
         </header>
         <section>
             <div class="title">COMING SOON</div>
-            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg.png" alt="">
         </section>
     </div>
 </template>
@@ -45,7 +49,7 @@ import Web3 from '@/tools/web3'
 
 // whitepaper
 const openPaper = () => {
-    window.open("public/whitepaper.pdf");
+    window.open("public/CyberpopWhitePaper.pdf");
 }
 
 
@@ -88,6 +92,7 @@ const stopHGif = () => {
 
 
 const id: any = ref(0)
+const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
         return res;
@@ -95,6 +100,7 @@ const connect: any = async () => {
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+    loggined.value = true;
 }
 
 
@@ -176,12 +182,8 @@ onMounted(() => {
             opacity: .86;
             color: #fff;
             background-color: #000000;
-            // background-image: linear-gradient(to right, #000 , #1C0B3D, #000);
-            // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-bg.svg');
-            // background-size: auto 100%;
             .content{
                 height: 98.9%;
-                // margin: 0 2vw 0 1.8vw;
                 margin: 0 2vw 0 0vw;
                 display: flex;
                 justify-content: space-between;
@@ -189,7 +191,6 @@ onMounted(() => {
                 .logo{
                     width: 20.20vw;
                     height: 100%;
-                    // margin-top: .88vw;
                 }
                 .user{
                     display: flex;
@@ -236,6 +237,31 @@ onMounted(() => {
                             animation-fill-mode: forwards;
                         }
                     }
+                    .logged_in{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        width: 12.13vw;
+                        height: 2.3vw;
+                        margin-top: 1.1vw;
+                        .wallet{
+                            width: 1.4vw;
+                            height: .98vw;
+                        }
+                        .idtxt{
+                            width: 8vw;
+                            height: 1.56vw;
+                            font-size: .98vw;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            color: #C8C4C4;
+                            line-height: 1.56vw;
+                            text-align: center;
+                        }
+                        .portrait{
+                            width: 2.6vw;
+                            height: 2.6vw;
+                        }
+                    }   
                     .language{
                         position: relative;
                         margin-top: 1.46vw;
@@ -328,20 +354,26 @@ onMounted(() => {
             width: 100%;
             height: 100vh;
             background-color: #000000;
+            overflow: hidden;
             .title{
+                z-index: 10;
                 position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 100%;
-                font-size: 4.32vw;
-                font-family: AlibabaPuHuiTi_2_105_Heavy;
-                color: #ffffff;
-                background: linear-gradient(163deg, transparent 0%, rgba(0,0,0,.9) 50%, transparent 100%);
+                top: 3vw;
+                left: 0;
+                right: 0;
+                width: 13.22vw;
+                height: 2.39vw;
+                margin: 0 auto;
+                margin-top: 2vw;
+                font-size: 1.04vw;
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                color: #35F1C8;
+                line-height: 2.39vw;
                 text-align: center;
-            }
-            img{
-                width: 100%;
-                height: 100%;
+                background-image: url('../../../assets/nwcyberspace/comingsoon.svg');
+                background-repeat: no-repeat;
+                background-position: left top;
+                background-size: auto 100%;
             }
         }
     }

@@ -13,9 +13,14 @@
                             <li :class="select == 2 ? 'active' : ''" @click="selectLang(2)">Japanese</li>
                         </ul>
                     </div> -->
-                    <div class="login_in" @click="connect()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
-                        <div class="txt">{{ id || "CONNECT WALLET" }}</div>
+                    <div class="login_in" v-if="!loggined" @click="connect()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
+                        <div class="txt">CONNECT WALLET</div>
                         <div class="mask" id="mask"></div>
+                    </div>
+                    <div class="logged_in" v-if="loggined">
+                        <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
+                        <div class="idtxt">{{id}}</div>
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
                     </div>
                 </div>
                 <div class="menu">
@@ -125,7 +130,7 @@ import Web3 from '@/tools/web3'
 
 // whitepaper
 const openPaper = () => {
-    window.open("public/whitepaper.pdf");
+    window.open("public/CyberpopWhitePaper.pdf");
 }
 
 
@@ -202,7 +207,7 @@ const changeMenu = (type: any, route?: any) => {
 
 
 const id: any = ref(0)
-
+const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
         return res;
@@ -210,6 +215,7 @@ const connect: any = async () => {
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+    loggined.value = true;
 }
 
 
@@ -312,6 +318,31 @@ onMounted(() => {
                             animation-fill-mode: forwards;
                         }
                     }
+                    .logged_in{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        width: 12.13vw;
+                        height: 2.3vw;
+                        margin-top: 1.1vw;
+                        .wallet{
+                            width: 1.4vw;
+                            height: .98vw;
+                        }
+                        .idtxt{
+                            width: 8vw;
+                            height: 1.56vw;
+                            font-size: .98vw;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            color: #C8C4C4;
+                            line-height: 1.56vw;
+                            text-align: center;
+                        }
+                        .portrait{
+                            width: 2.6vw;
+                            height: 2.6vw;
+                        }
+                    }  
                     .language{
                         position: relative;
                         margin-top: 1.46vw;

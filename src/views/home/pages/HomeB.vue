@@ -11,6 +11,17 @@
                 <div class="close-menu">
                     <img @click="showMenu()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
+                <div class="login_in" v-if="!loggined" @click="connect()">
+                    <div class="txt">CONNECT WALLET</div>
+                </div>
+                <div class="logged_in" v-if="loggined">
+                    <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
+                    <div class="idtxt">{{id}}</div>
+                    <div class="submenu">
+                        <div class="myassets">My assets</div>
+                        <div class="logout">Logout</div>
+                    </div>
+                </div>
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
                     <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
@@ -363,7 +374,7 @@ SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
 
 // whitepaper
 const openPaper = () => {
-    window.open("public/whitepaper.pdf");
+    window.open("public/CyberpopWhitePaper.pdf");
 }
 
 
@@ -483,7 +494,7 @@ const newsActiveSrc = () => {
 
 const toYoutube= (event:any) => {
     event.stopPropagation();
-    window.open('https://twitter.com/cyberpopnw');
+    window.open('https://www.youtube.com/channel/UCtVpocr6cpS7Ub-WxRSJ3mQ');
 }
 
 
@@ -568,6 +579,7 @@ const playVideo = (type: any) => {
     isPlay.value = !isPlay.value;
 }
 
+const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
         return res;
@@ -575,6 +587,7 @@ const connect: any = async () => {
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+    loggined.value = true;
 }
 
 
@@ -798,6 +811,63 @@ onMounted(() => {
                         margin-right: 18px;
                     }
                 }
+                .login_in{
+                    width: 100%;
+                    height: 100px;
+                    overflow: hidden;
+                    cursor: pointer;
+                    .txt{
+                        width: 238px;
+                        height: 54px;
+                        margin: 0 auto;
+                        margin-top: 27px;
+                        font-size: 20px;
+                        font-family: AlibabaPuHuiTi_2_115_Black;
+                        color: #000000;
+                        line-height: 54px;
+                        text-align: center;
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-loginBg.svg');
+                        background-size: 100% 100%;
+                        background-position: left top;
+                        white-space: nowrap;
+                    }
+                }
+                .logged_in{
+                    width: 100%;
+                    height: 163px;
+                    margin-top: 10px;
+                    text-align: center;
+                    .portrait{
+                        width: 50px;
+                        height: 50px;
+                    }
+                    .idtxt{
+                        width: 144px;
+                        height: 30px;
+                        margin: 12px auto 5px;
+                        font-size: 19px;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                        color: #C8C4C4;
+                        line-height: 28px;
+                    }
+                    .submenu{
+                        display: flex;
+                        justify-content: space-between;
+                        width: 286px;
+                        height: 60px;
+                        margin-left: 30px;
+                        padding-right: 30px;
+                        .myassets,.logout{
+                            font-size: 16px;
+                            font-family: Poppins-Regular, Poppins;
+                            font-weight: 400;
+                            color: #FFFFFF;
+                            line-height: 60px;
+                            text-align: left;
+                            cursor: pointer;
+                        }
+                    }
+                } 
                 .menuul{
                     li{
                         width: 286px;
@@ -1311,7 +1381,6 @@ onMounted(() => {
                     width: 284px;
                     height: 149px;
                     background: #000000;
-                    background: chartreuse;
                     .videoBg{
                         position: absolute;
                         right: -4.4px;

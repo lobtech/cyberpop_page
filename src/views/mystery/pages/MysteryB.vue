@@ -10,6 +10,17 @@
                 <div class="close-menu">
                     <img @click="showMenu()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
+                <div class="login_in" v-if="!loggined" @click="connect()">
+                    <div class="txt">CONNECT WALLET</div>
+                </div>
+                <div class="logged_in" v-if="loggined">
+                    <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
+                    <div class="idtxt">{{id}}</div>
+                    <div class="submenu">
+                        <div class="myassets">My assets</div>
+                        <div class="logout">Logout</div>
+                    </div>
+                </div>
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
                     <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
@@ -28,8 +39,12 @@
                 </div> -->
             </div>
         </header>
+        <!-- coming soon -->
+        <section>
+            <div class="title">COMING SOON</div>
+        </section>
     </div>
-    <div class="boxBg">
+    <!-- <div class="boxBg">
         <div class="titles"> 
             <div class="left">
                 <div class="title">
@@ -99,7 +114,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                 <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
             </div>
         </div>
-    </div>
+    </div> -->
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -113,7 +128,7 @@ import { log } from 'util';
 
 // whitepaper
 const openPaper = () => {
-    window.open("public/whitepaper.pdf");
+    window.open("public/CyberpopWhitePaper.pdf");
 }
 
 
@@ -247,6 +262,7 @@ const id: any = ref(0)
 let type2: any = ref(1);
 let isPlay: any = ref(false);
 
+const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
         return res;
@@ -254,6 +270,7 @@ const connect: any = async () => {
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+    loggined.value = true;
 }
 
 
@@ -393,6 +410,63 @@ onMounted(() => {
                         margin-right: 18px;
                     }
                 }
+                .login_in{
+                    width: 100%;
+                    height: 100px;
+                    overflow: hidden;
+                    cursor: pointer;
+                    .txt{
+                        width: 238px;
+                        height: 54px;
+                        margin: 0 auto;
+                        margin-top: 27px;
+                        font-size: 20px;
+                        font-family: AlibabaPuHuiTi_2_115_Black;
+                        color: #000000;
+                        line-height: 54px;
+                        text-align: center;
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-loginBg.svg');
+                        background-size: 100% 100%;
+                        background-position: left top;
+                        white-space: nowrap;
+                    }
+                }
+                .logged_in{
+                    width: 100%;
+                    height: 163px;
+                    margin-top: 10px;
+                    text-align: center;
+                    .portrait{
+                        width: 50px;
+                        height: 50px;
+                    }
+                    .idtxt{
+                        width: 144px;
+                        height: 30px;
+                        margin: 12px auto 5px;
+                        font-size: 19px;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                        color: #C8C4C4;
+                        line-height: 28px;
+                    }
+                    .submenu{
+                        display: flex;
+                        justify-content: space-between;
+                        width: 286px;
+                        height: 60px;
+                        margin-left: 30px;
+                        padding-right: 30px;
+                        .myassets,.logout{
+                            font-size: 16px;
+                            font-family: Poppins-Regular, Poppins;
+                            font-weight: 400;
+                            color: #FFFFFF;
+                            line-height: 60px;
+                            text-align: left;
+                            cursor: pointer;
+                        }
+                    }
+                }
                 .menuul{
                     li{
                         width: 286px;
@@ -458,285 +532,311 @@ onMounted(() => {
                 animation-fill-mode: forwards;
             }
         }
-    }
-    .boxBg{
-        position: absolute;
-        width: 100%;
-        background-color: #000000;
-        height: 1361px;
-        .titles{
-            display: flex;
-            flex-direction: column;
-            .left{
-                z-index: 1;
-                margin-left: 31px;
-                .title{
-                    position: relative;
-                    margin-top: 112px;
-                    font-size: 40px;
-                    font-family: AlibabaPuHuiTi_2_105_Heavy;
-                    color: #FFFFFF;
-                    line-height: 54px;
-                    animation: fadeInUp .8s linear;
-                    .purple{
-                        height: 68px;
-                        font-size: 40px;
-                        font-family: AlibabaPuHuiTi_2_105_Heavy;
-                        color: #FFFFFF;
-                        line-height: 68px;
-                        background: linear-gradient(163deg, #FB52FC 0%, #8953FF 100%);
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                    }
-                }
-                .round{
-                    width: 112px;
-                    height: 22px;
-                    margin-top: 7px;
-                    font-size: 15px;
-                    font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                    text-align: center;
-                    line-height: 22px;
-                    background-color: #FFFFFF;
-                }
-                .subtitle{
-                    width: 326px;
-                    height: 60px;
-                    margin: 6px 0 33px 0;
-                    font-size: 18px;
-                    font-family: Arial-Black, Arial;
-                    font-weight: 900;
-                    color: #04FFA2;
-                    line-height: 30px;
-                }
-                .desc{
-                    width: 188px;
-                    height: 132px;
-                    font-size: 14px;
-                    font-family: AlibabaPuHuiTi_2_55_Regular;
-                    color: #FFFFFF;
-                    line-height: 22px;
-                }
-            }   
-            .right{
-                position: relative;
-                height: 348px;
-                margin-top: -42px;
-                :deep(.VideoBg){
-                    height: 348px !important;
-                }
-                :deep(.VideoBg video){
-                    height: 348px !important;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    visibility: hidden;
-                    transform: translate(-67%,-50%);
-                }
-                .title{
-                    position: absolute;
-                    right: 27px;
-                    bottom: 53px;
-                    width: 197px;
-                    height: 20px;
-                    font-size: 15px;
-                    font-family: AlibabaPuHuiTi_2_85_Bold;
-                    color: #FFFFFF;
-                    line-height: 20px;
-                    text-align: right;
-                }
-                .countDown{
-                    display: flex;
-                    position: absolute;
-                    right: 21px;
-                    bottom: 20px;
-                    width: 168px;
-                    height: 32px;
-                    font-size: 20px;
-                    font-family: AlibabaPuHuiTi_2_85_Bold;
-                    color: #FFFFFF;
-                    line-height: 32px;
-                    div{
-                        width: 47px;
-                        height: 32px;
-                        margin: 0 2px;
-                        background: #171C28;
-                        border-radius: 1px;
-                        text-align: center;
-                    }
-                }
-            }
-            .nftCard{
-                height: 352px;
-                ul{
-                    display: flex;
-                    justify-content: center;
-                    margin-bottom: 38px;
-                    li{
-                        position: relative;
-                        width: 94px;
-                        height: 89px;
-                        margin-right: 9px;
-                        img{
-                            width: 100%;
-                            height: 100%;
-                        }
-                        .border{
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                        }
-                        .mask{
-                            position: absolute;
-                            bottom: 0;
-                            width: 100%;
-                            height: 20px;
-                            font-size: 14px;
-                            font-family: AlibabaPuHuiTi_2_55_Regular;
-                            color: #FFFFFF;
-                            line-height: 20px;
-                            text-align: center;
-                            background-color: rgba(255,255,255,.1);
-                        }
-                    }
-                    li:last-child{
-                        margin-right: 0;
-                    }
-                }
-                .button{
-                    text-align: center;
-                    .purchase{
-                        width: 100%;
-                        height: 74px;
-                        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #0A0A0A 100%);
-                        div{
-                            width: 283px;
-                            height: 50px;
-                            margin: 0 auto;
-                            margin-top: 7px;
-                            font-size: 18px;
-                            font-family: AlibabaPuHuiTi_2_115_Black;
-                            color: #FFFFFF;
-                            line-height: 50px;
-                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/purchase.svg');
-                            background-repeat: no-repeat;
-                            background-size: 100% auto;
-                            background-position: left top;
-                        }
-                    }
-                    .detailbtn{
-                        width: 281px;
-                        height: 51px;
-                        margin: 0 auto ;
-                        margin-top: 14px;
-                        font-size: 16px;
-                        font-family: AlibabaPuHuiTi_2_115_Black;
-                        color: #FFFFFF;
-                        line-height: 51px;
-                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/detailb.svg');
-                        background-repeat: no-repeat;
-                        background-size: 100% 100%;
-                        background-position: left top;
-                    }
-                    .purchase > div:hover{
-                        filter: drop-shadow(0 0 0.3rem #AA31DF);
-                    }
-                    .detailbtn:hover{
-                        filter: drop-shadow(0 0 0.3rem #ffffff);
-                    }
-                }
-            }
-            .tline{
-                width: 100%;
-                height: 3px;
-                border: 1px solid;
-                background: linear-gradient(to right, rgba(50, 211, 123, 0), rgba(40, 18, 69, 1), rgba(6, 255, 161, 0));;
-                // border-image: linear-gradient(135deg, rgba(50, 211, 123, 0), rgba(40, 18, 69, 1), rgba(6, 255, 161, 0)) 1 1;
-            }
-        }
-        .footer{
-            position: absolute;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
+        section{
+            position: relative;
             width: 100%;
-            height: 206px;
+            height: 100vh;
             background-color: #000000;
-            align-items: center;
-            a{
-                color: #ffffff;
-                text-decoration: none;
-            }
-            .mask{
+            overflow: hidden;
+            .title{
                 position: absolute;
-                width: 96%;
-                height: 100%;
-                margin-left: 4%;
-                // background-color: #121122;
-                background-color: #000000;
+                top: 3vw;
+                left: 0;
+                right: 0;
+                width: 254px;
+                height: 46px;
+                margin: 0 auto;
+                margin-top: 44px;
+                font-size: 20px;
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                color: #35F1C8;
+                line-height: 46px;
+                text-align: center;
+                background-image: url('../../../assets/nwcyberspace/comingsoon.svg');
+                background-repeat: no-repeat;
+                background-position: left top;
+                background-size: auto 100%;
             }
-        .footer-wrap{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-                .logo{
-                    width: 181px;
-                    height: 49px;
-                    margin-top: 10px;
-                    margin-bottom: 5px;
-                }
-                .clause{
-                    display: flex;
-                    justify-content: center;
-                    margin-bottom: 25px;
-                    height: 23px;
-                    font-size: 14px;
-                    font-family: Poppins-Regular, Poppins;
-                    font-weight: 400;
-                    color: #FFFFFF;
-                    line-height: 23px;
-                    .policy{
-                        width: 101px;
-                        margin-right: 14px;
-                        white-space: nowrap;
-                    }
-                    .policy > a:hover{
-                        color: #04FF55;
-                    }
-                    .terms{
-                        width: 145px;
-                        white-space: nowrap;
-                    }
-                    .terms > a:hover{
-                        color: #04FF55;
-                    }
-                }
-                .icon{
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    margin-bottom: 22px;
-                    img{
-                        width: 41px;
-                        height: 41px;
-                    }
-                    img:not(.medium){
-                        margin-left: 31px;
-                    }
-                    img:hover{
-                        transform: scale(1.1);
-                    }
-                }
-                .desc{
-                    height: 13px;
-                    font-size: 8px;
-                    font-family: Poppins-Regular, Poppins;
-                    font-weight: 400;
-                    color: #FFFFFF;
-                    line-height: 13px;
-                }
-        }
         }
     }
+    // .boxBg{
+    //     position: absolute;
+    //     width: 100%;
+    //     background-color: #000000;
+    //     height: 1361px;
+    //     .titles{
+    //         display: flex;
+    //         flex-direction: column;
+    //         .left{
+    //             z-index: 1;
+    //             margin-left: 31px;
+    //             .title{
+    //                 position: relative;
+    //                 margin-top: 112px;
+    //                 font-size: 40px;
+    //                 font-family: AlibabaPuHuiTi_2_105_Heavy;
+    //                 color: #FFFFFF;
+    //                 line-height: 54px;
+    //                 animation: fadeInUp .8s linear;
+    //                 .purple{
+    //                     height: 68px;
+    //                     font-size: 40px;
+    //                     font-family: AlibabaPuHuiTi_2_105_Heavy;
+    //                     color: #FFFFFF;
+    //                     line-height: 68px;
+    //                     background: linear-gradient(163deg, #FB52FC 0%, #8953FF 100%);
+    //                     -webkit-background-clip: text;
+    //                     -webkit-text-fill-color: transparent;
+    //                 }
+    //             }
+    //             .round{
+    //                 width: 112px;
+    //                 height: 22px;
+    //                 margin-top: 7px;
+    //                 font-size: 15px;
+    //                 font-family: AlibabaPuHuiTi_2_75_SemiBold;
+    //                 text-align: center;
+    //                 line-height: 22px;
+    //                 background-color: #FFFFFF;
+    //             }
+    //             .subtitle{
+    //                 width: 326px;
+    //                 height: 60px;
+    //                 margin: 6px 0 33px 0;
+    //                 font-size: 18px;
+    //                 font-family: Arial-Black, Arial;
+    //                 font-weight: 900;
+    //                 color: #04FFA2;
+    //                 line-height: 30px;
+    //             }
+    //             .desc{
+    //                 width: 188px;
+    //                 height: 132px;
+    //                 font-size: 14px;
+    //                 font-family: AlibabaPuHuiTi_2_55_Regular;
+    //                 color: #FFFFFF;
+    //                 line-height: 22px;
+    //             }
+    //         }   
+    //         .right{
+    //             position: relative;
+    //             height: 348px;
+    //             margin-top: -42px;
+    //             :deep(.VideoBg){
+    //                 height: 348px !important;
+    //             }
+    //             :deep(.VideoBg video){
+    //                 height: 348px !important;
+    //                 position: absolute;
+    //                 top: 50%;
+    //                 left: 50%;
+    //                 visibility: hidden;
+    //                 transform: translate(-67%,-50%);
+    //             }
+    //             .title{
+    //                 position: absolute;
+    //                 right: 27px;
+    //                 bottom: 53px;
+    //                 width: 197px;
+    //                 height: 20px;
+    //                 font-size: 15px;
+    //                 font-family: AlibabaPuHuiTi_2_85_Bold;
+    //                 color: #FFFFFF;
+    //                 line-height: 20px;
+    //                 text-align: right;
+    //             }
+    //             .countDown{
+    //                 display: flex;
+    //                 position: absolute;
+    //                 right: 21px;
+    //                 bottom: 20px;
+    //                 width: 168px;
+    //                 height: 32px;
+    //                 font-size: 20px;
+    //                 font-family: AlibabaPuHuiTi_2_85_Bold;
+    //                 color: #FFFFFF;
+    //                 line-height: 32px;
+    //                 div{
+    //                     width: 47px;
+    //                     height: 32px;
+    //                     margin: 0 2px;
+    //                     background: #171C28;
+    //                     border-radius: 1px;
+    //                     text-align: center;
+    //                 }
+    //             }
+    //         }
+    //         .nftCard{
+    //             height: 352px;
+    //             ul{
+    //                 display: flex;
+    //                 justify-content: center;
+    //                 margin-bottom: 38px;
+    //                 li{
+    //                     position: relative;
+    //                     width: 94px;
+    //                     height: 89px;
+    //                     margin-right: 9px;
+    //                     img{
+    //                         width: 100%;
+    //                         height: 100%;
+    //                     }
+    //                     .border{
+    //                         position: absolute;
+    //                         top: 0;
+    //                         left: 0;
+    //                     }
+    //                     .mask{
+    //                         position: absolute;
+    //                         bottom: 0;
+    //                         width: 100%;
+    //                         height: 20px;
+    //                         font-size: 14px;
+    //                         font-family: AlibabaPuHuiTi_2_55_Regular;
+    //                         color: #FFFFFF;
+    //                         line-height: 20px;
+    //                         text-align: center;
+    //                         background-color: rgba(255,255,255,.1);
+    //                     }
+    //                 }
+    //                 li:last-child{
+    //                     margin-right: 0;
+    //                 }
+    //             }
+    //             .button{
+    //                 text-align: center;
+    //                 .purchase{
+    //                     width: 100%;
+    //                     height: 74px;
+    //                     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #0A0A0A 100%);
+    //                     div{
+    //                         width: 283px;
+    //                         height: 50px;
+    //                         margin: 0 auto;
+    //                         margin-top: 7px;
+    //                         font-size: 18px;
+    //                         font-family: AlibabaPuHuiTi_2_115_Black;
+    //                         color: #FFFFFF;
+    //                         line-height: 50px;
+    //                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/purchase.svg');
+    //                         background-repeat: no-repeat;
+    //                         background-size: 100% auto;
+    //                         background-position: left top;
+    //                     }
+    //                 }
+    //                 .detailbtn{
+    //                     width: 281px;
+    //                     height: 51px;
+    //                     margin: 0 auto ;
+    //                     margin-top: 14px;
+    //                     font-size: 16px;
+    //                     font-family: AlibabaPuHuiTi_2_115_Black;
+    //                     color: #FFFFFF;
+    //                     line-height: 51px;
+    //                     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/detailb.svg');
+    //                     background-repeat: no-repeat;
+    //                     background-size: 100% 100%;
+    //                     background-position: left top;
+    //                 }
+    //                 .purchase > div:hover{
+    //                     filter: drop-shadow(0 0 0.3rem #AA31DF);
+    //                 }
+    //                 .detailbtn:hover{
+    //                     filter: drop-shadow(0 0 0.3rem #ffffff);
+    //                 }
+    //             }
+    //         }
+    //         .tline{
+    //             width: 100%;
+    //             height: 3px;
+    //             border: 1px solid;
+    //             background: linear-gradient(to right, rgba(50, 211, 123, 0), rgba(40, 18, 69, 1), rgba(6, 255, 161, 0));;
+    //             // border-image: linear-gradient(135deg, rgba(50, 211, 123, 0), rgba(40, 18, 69, 1), rgba(6, 255, 161, 0)) 1 1;
+    //         }
+    //     }
+    //     .footer{
+    //         position: absolute;
+    //         bottom: 0;
+    //         display: flex;
+    //         flex-direction: column;
+    //         width: 100%;
+    //         height: 206px;
+    //         background-color: #000000;
+    //         align-items: center;
+    //         a{
+    //             color: #ffffff;
+    //             text-decoration: none;
+    //         }
+    //         .mask{
+    //             position: absolute;
+    //             width: 96%;
+    //             height: 100%;
+    //             margin-left: 4%;
+    //             // background-color: #121122;
+    //             background-color: #000000;
+    //         }
+    //     .footer-wrap{
+    //         position: absolute;
+    //         width: 100%;
+    //         height: 100%;
+    //         text-align: center;
+    //             .logo{
+    //                 width: 181px;
+    //                 height: 49px;
+    //                 margin-top: 10px;
+    //                 margin-bottom: 5px;
+    //             }
+    //             .clause{
+    //                 display: flex;
+    //                 justify-content: center;
+    //                 margin-bottom: 25px;
+    //                 height: 23px;
+    //                 font-size: 14px;
+    //                 font-family: Poppins-Regular, Poppins;
+    //                 font-weight: 400;
+    //                 color: #FFFFFF;
+    //                 line-height: 23px;
+    //                 .policy{
+    //                     width: 101px;
+    //                     margin-right: 14px;
+    //                     white-space: nowrap;
+    //                 }
+    //                 .policy > a:hover{
+    //                     color: #04FF55;
+    //                 }
+    //                 .terms{
+    //                     width: 145px;
+    //                     white-space: nowrap;
+    //                 }
+    //                 .terms > a:hover{
+    //                     color: #04FF55;
+    //                 }
+    //             }
+    //             .icon{
+    //                 width: 100%;
+    //                 display: flex;
+    //                 justify-content: center;
+    //                 margin-bottom: 22px;
+    //                 img{
+    //                     width: 41px;
+    //                     height: 41px;
+    //                 }
+    //                 img:not(.medium){
+    //                     margin-left: 31px;
+    //                 }
+    //                 img:hover{
+    //                     transform: scale(1.1);
+    //                 }
+    //             }
+    //             .desc{
+    //                 height: 13px;
+    //                 font-size: 8px;
+    //                 font-family: Poppins-Regular, Poppins;
+    //                 font-weight: 400;
+    //                 color: #FFFFFF;
+    //                 line-height: 13px;
+    //             }
+    //     }
+    //     }
+    // }
 </style>
