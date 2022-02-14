@@ -66,7 +66,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </footer>
     </div>
     <div class="nav-logos" ref="myNav">
-        <a href="" target="view_window">
+        <a href="#">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/joinus.svg" alt="" class="joinus">
             <div>JOIN US</div>
         </a>
@@ -238,8 +238,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="channel">CYBERPOP Channel</div>
                 <div class="arrival">NEW ARRIVAL</div>
                 <div class="news-logo">
-                    <img class="news-img1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-logo.svg" alt="">
-                    <a href=""><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/youtube-play.svg" alt=""></a>
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-logo.svg" alt="">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/youtube-play.svg" alt="">
                 </div>
             </div>
             <div class="news-img" @click="newsActiveSrc()">
@@ -610,7 +610,7 @@ const submit = () => {
 　　　　return false;
 　　 }else{
 　　　　alert("received!");
-    //    email.value = "";
+       //email.value = "";
 　　 }
 
 
@@ -1718,11 +1718,12 @@ onMounted(() => {
                 .news-logo{
                     display: flex;
                     flex-direction: column;
-                    .news-img1{
+                    align-items: center;
+                    img:nth-child(1){
                         width: 157px;
                         height: 120px;
                     }
-                    a > img{
+                    img:nth-child(2){
                         width: 53px;
                         height: 52px;
                         margin-top: -20px;

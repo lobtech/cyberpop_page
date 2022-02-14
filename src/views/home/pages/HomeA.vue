@@ -63,7 +63,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </footer>
     </div>
     <div class="nav-logos" ref="myNav">
-        <a href="" target="view_window">
+        <a href="#" target="view_window">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/joinus.svg" alt="" class="joinus">
             <div>JOIN US</div>
         </a>
