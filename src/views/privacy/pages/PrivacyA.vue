@@ -222,6 +222,7 @@ const connect: any = async () => {
 
 onMounted(() => {
     connect();
+    window.scrollTo(0,0);
 })
 
 </script>
