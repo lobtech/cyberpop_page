@@ -48,7 +48,7 @@
                         1.3 Your use of the Game and any personal information you provide through the Game remains subject to the terms of this Privacy Policy and our Terms of Use, as each may be updated from time to time.
                     </div>
                     <div class="content">
-                        1.4 Any questions, comments or complaints that you might have should be emailed to <a href="">support@cyberpop.online</a>
+                        1.4 Any questions, comments or complaints that you might have should be emailed to <a href="mailto:business@cyberpop.online" target="view_window">business@cyberpop.online</a>
                     </div>
                 </li>
                 <li>
@@ -414,15 +414,14 @@ onMounted(() => {
                 text-align: center;
             }
             .subtitle{
-                margin-top: 1vw;
-                margin-bottom: 1.4vw;
-                font-size: 1.45vw;
-                font-family: AlibabaPuHuiTi_2_115_Black;
-                line-height: 2vw;
+                margin-bottom: .9vw;
+                font-size: .88vw;
+                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                line-height: 2.5vw;
             }
             .content{
-                margin-bottom: 1.6vw;
-                font-size: 1.04vw;
+                margin-bottom: 1.2vw;
+                font-size: .88vw;
                 font-family: AlibabaPuHuiTi_2_55_Regular;
                 line-height: 1.4vw;
                 color: #FFFFFF;

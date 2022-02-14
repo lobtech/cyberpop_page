@@ -374,24 +374,24 @@ onMounted(() => {
         .termas-wrap{
             padding: 20px;
             .title{
-                height: 47px;
-                font-size: 26px;
-                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                font-size: 34px;
+                font-family: AlibabaPuHuiTi_2_115_Black;
                 color: #FFFFFF;
-                line-height: 26px;
+                line-height: 48px;
                 text-align: center;
             }
             .subtitle{
-                margin-bottom: 16px;
-                font-size: 14px;
-                font-family: AlibabaPuHuiTi_2_115_Black;
+                margin-bottom: 14px;
+                font-size: 17px;
+                font-family: AlibabaPuHuiTi_2_105_Heavy;
                 color: #ffffff;
-                line-height: 14px;
+                line-height: 48px;
             }
             .content{
-                font-size: 24;
-                line-height: 20px;
-                margin-bottom: 20px;
+                margin-bottom: 14px;
+                font-size: 17px;
+                line-height: 24px;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
             }
         }
     }

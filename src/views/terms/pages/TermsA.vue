@@ -407,22 +407,21 @@ onMounted(() => {
         .termas-wrap{
             padding: 2.7vw 19.375vw 4.11vw;
             .title{
-                line-height: 1.8vw;
-                font-size: 2.6vw;
+                line-height: 2.5vw;
+                font-size: 1.77vw;
                 color: #FFFFFF;
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 text-align: center;
             }
             .subtitle{
-                margin-top: 1vw;
-                margin-bottom: 1.4vw;
-                font-size: 1.45vw;
-                font-family: AlibabaPuHuiTi_2_115_Black;
-                line-height: 2vw;
+                margin-bottom: .9vw;
+                font-size: .88vw;
+                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                line-height: 2.5vw;
             }
             .content{
-                margin-bottom: 1.6vw;
-                font-size: 1.04vw;
+                margin-bottom: 1.2vw;
+                font-size: .88vw;
                 font-family: AlibabaPuHuiTi_2_55_Regular;
                 line-height: 1.4vw;
                 color: #FFFFFF;
