@@ -376,11 +376,10 @@ onMounted(() => {
         .privacy-wrap{
             padding: 20px;
             .title{
-                height: 47px;
-                font-size: 26px;
+                font-size: 34px;
                 font-family: AlibabaPuHuiTi_2_105_Heavy;
                 color: #FFFFFF;
-                line-height: 26px;
+                line-height: 48px;
                 text-align: center;
             }
             .subtitle{
