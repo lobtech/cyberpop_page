@@ -10,8 +10,18 @@
             <!-- <source :src="videoSrc" type="video/WebM">
             <source :src="videoSrc" type="video/Ogg"> -->
         </video>
-        <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-else>
+        <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-else-if="videotype == 3">
             <source src="https://d1td2c8hf7fv9k.cloudfront.net/fd9efe5ce1ffcc8f1ae3fd6fdfab31e4.mp4" type="video/mp4">
+            <!-- <source :src="videoSrc" type="video/WebM">
+            <source :src="videoSrc" type="video/Ogg"> -->
+        </video>
+        <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-else-if="videotype == 4">
+            <source src="@/assets/nwhome/output.mp4" type="video/mp4">
+            <!-- <source :src="videoSrc" type="video/WebM">
+            <source :src="videoSrc" type="video/Ogg"> -->
+        </video>
+        <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-else-if="videotype == 5">
+            <source src="https://d3bhixjyozyk2o.cloudfront.net/banner.mp4" type="video/mp4">
             <!-- <source :src="videoSrc" type="video/WebM">
             <source :src="videoSrc" type="video/Ogg"> -->
         </video>

@@ -80,7 +80,21 @@ onMounted(() => {
             transform: translateX(0);
         }
     }
-    @keyframes fadeInDown {
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateY(30px);
+            -ms-transform: translateY(30px);
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: translateY(0);
+            -ms-transform: translateY(0);
+            transform: translateY(0);
+        }
+    }
+    /* @keyframes fadeInDown {
         0% {
             opacity: 0;
             -webkit-transform: translateY(-30px);
@@ -92,6 +106,26 @@ onMounted(() => {
             -webkit-transform: translateY(0);
             -ms-transform: translateY(0);
             transform: translateY(0);
+        }
+    } */
+    @keyframes fadeInDown {
+        0% {
+            opacity: 1;
+            -webkit-transform: translateY(0px);
+            -ms-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+        50% {
+            opacity: 1;
+            -webkit-transform: translateY(-30px);
+            -ms-transform: translateY(-30px);
+            transform: translateY(-30px);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: translateY(0px);
+            -ms-transform: translateY(0px);
+            transform: translateY(0px);
         }
     }
     @keyframes bounceIn {
@@ -179,10 +213,11 @@ onMounted(() => {
             transform: translateX(0);
         }
     }
-
+    .fadeInUp{
+        animation: fadeInUp 1s linear;
+    }
     .fadeInDown{
-        animation: fadeInDown 1s linear;
-
+        animation: fadeInDown 3s linear infinite;
     }
     .bounceIn{
         animation: bounceIn 1s linear;

@@ -1,20 +1,17 @@
 <template>
-    <!--  mask黑幕  -->
-    <div class="mask" v-if="token0Number<=0"></div>
-
-    <div class="welcome" v-else>
+    <div class="welcome">
         <div class="cover_up"></div>
-        <img src="https://d3bhixjyozyk2o.cloudfront.net/section2-1.png" class="section2-1 bgimg" alt="">
-        <img src="https://d3bhixjyozyk2o.cloudfront.net/section2-2.png" class="section2-2 bgimg" alt="">
-        <img src="https://d3bhixjyozyk2o.cloudfront.net/section3-1.png" class="section3-1 bgimg" alt="">
-        <img src="https://d3bhixjyozyk2o.cloudfront.net/section3-2.png" class="section3-2 bgimg" alt="">
+        <img src="@/assets/support/section2-1.png" class="section2-1 bgimg" alt="">
+        <img src="@/assets/support/section2-2.png" class="section2-2 bgimg" alt="">
+        <img src="@/assets/support/section3-1.png" class="section3-1 bgimg" alt="">
+        <img src="@/assets/support/section3-2.png" class="section3-2 bgimg" alt="">
         <div class="section4">
             <div>
-                <img class="section4-first" src="https://d3bhixjyozyk2o.cloudfront.net/section4-1.png" alt="">
+                <img class="section4-first" src="@/assets/support/section4-1.png" alt="">
             </div>
             <div>
-                <img class="section4-second" src="https://d3bhixjyozyk2o.cloudfront.net/section3-3.png" alt="">
-                <img class="section4-last" src="https://d3bhixjyozyk2o.cloudfront.net/section4-2.png" alt="">
+                <img src="@/assets/support/section3-3.png" alt="">
+                <img class="section4-last" src="@/assets/support/section4-2.png" alt="">
             </div>
         </div>
         <!-- 添加support后打开section5        -->
@@ -24,17 +21,8 @@
             <div class="models">
                 <div class="left-img"></div>
                 <div class="center-models">
-                    <img class="section2-img2" src="https://d3bhixjyozyk2o.cloudfront.net/models-c.png" alt="">
-                    <div class="title">ECONOMIC MODELS</div>
-                    <div class="nft_box">
-                        <div>
-                            <img src="https://cyberpop.mypinata.cloud/ipfs/QmasqFt6yffS7cyUq4gZKQ5fxXuxFPQ1jbcar17z9dYUku" alt="">
-                            <span class="number">Number of owned: {{ token0Number }}</span>
-                        </div>
-                    </div>
-                    <div class="contract_address">
-                        Contract Address: 0x82cCB2FE8f4d07702f7c2F4200f0FBF630C52406    
-                    </div> 
+                    <img class="section2-img2" src="@/assets/support/models-c.png" alt="">
+                    <div>ECONOMIC MODELS</div>
                 </div>
                 <div class="right-img"></div>
             </div>
@@ -47,11 +35,11 @@
                         <div class="round-month">10 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
-                                <!-- <img src="https://d3bhixjyozyk2o.cloudfront.net/yellow.png" alt=""> -->
+                                <!-- <img src="@/assets/support/yellow.png" alt=""> -->
                                 <div class="wrap1"></div>
                             </div>
-                            <!-- <div class="percent">100%</div> -->
-                            <img class="schedule-locking" src="https://d3bhixjyozyk2o.cloudfront.net/locking1.png" alt="">
+                            <div class="percent">100%</div>
+                            <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
                         </div>
                     </li>
                     <li>
@@ -62,12 +50,12 @@
                         <div class="round-schedule">
                             <div class="schedule-line">
                                 <!-- <div class="wrap2"> -->
-                                    <!-- <img class="schedule-bg" src="https://d3bhixjyozyk2o.cloudfront.net/green1.png" alt=""> -->
+                                    <!-- <img class="schedule-bg" src="@/assets/support/green1.png" alt=""> -->
                                     <!-- <span></span> -->
                                 <!-- </div> -->
                             </div>
-                            <!-- <div class="percent">0%</div> -->
-                            <img class="schedule-locking locking2" src="https://d3bhixjyozyk2o.cloudfront.net/locking1.png" alt="">
+                            <div class="percent">0%</div>
+                            <img class="schedule-locking locking2" src="@/assets/support/locking1.png" alt="">
                         </div>
                     </li>
                     <li>
@@ -76,8 +64,8 @@
                         <div class="round-price">$0.42</div>
                         <div class="round-month third-month">8 month</div>
                         <div class="round-schedule">
-                            <!-- <div class="percent">0%</div> -->
-                            <img class="schedule-locking" src="https://d3bhixjyozyk2o.cloudfront.net/locking1.png" alt="">
+                            <div class="percent">0%</div>
+                            <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
                         </div>
                     </li>
                 </ul>
@@ -86,88 +74,74 @@
                 <div class="ratio-wrap">
                     <div class="ratio-left" id="ele1">
                         <div class="title">
-                            <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftArrow.png" alt="">
-                            <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftTitle.png" alt="">
+                            <img src="@/assets/support/ratio-leftArrow.png" alt="">
+                            <img src="@/assets/support/ratio-leftTitle.png" alt="">
                             <div class="title-txt">DISTRIBUTION RATIO</div>
                             <div class="title-tips">CYBER POP
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftLine.png" alt="">
+                                <img src="@/assets/support/ratio-leftLine.png" alt="">
                             </div>
-                            <img class="title-imgRotateY" src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftTitle.png" alt="">
+                            <img class="title-imgRotateY" src="@/assets/support/ratio-leftTitle.png" alt="">
                         </div>
                         <div class="pie">
                             <div class="pie-main">
                                 <div>
-                                    <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftPie15.png" alt="">
-                                    <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftPie15-text.png" alt="">
+                                    <img src="@/assets/support/ratio-leftPie15.png" alt="">
+                                    <img src="@/assets/support/ratio-leftPie15-text.png" alt="">
                                 </div>
                                 <div class="percent">18%</div>
                             </div>
-                            <img class="pie-rest" src="https://d3bhixjyozyk2o.cloudfront.net/ratio-leftPie.png" alt="">
+                            <img class="pie-rest" src="@/assets/support/ratio-leftPie.png" alt="">
                             <div class="total">Total supply 120,000,000 CYT</div>
                         </div>
                     </div>
                     <div class="ratio-right" id="ele2">
                         <ul>
                             <li>
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block1.png" alt="">
+                                <img src="@/assets/support/ratio-block1.png" alt="">
                                 <a href="">private investment</a>
                             </li>
                             <li>
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block2.png" alt="">
+                                <img src="@/assets/support/ratio-block2.png" alt="">
                                 <a href="">consultants and legal services</a>
                             </li>
                             <li>
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block3.png" alt="">
+                                <img src="@/assets/support/ratio-block3.png" alt="">
                                 <a href="">investment institution</a>
                             </li>
                             <li>
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block4.png" alt="">
+                                <img src="@/assets/support/ratio-block4.png" alt="">
                                 <a href="">community building and airdrop</a>
                             </li>
                             <li>
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block5.png" alt="">
+                                <img src="@/assets/support/ratio-block5.png" alt="">
                                 <a href="">public offering</a>
                             </li>
                             <li>
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block6.png" alt="">
+                                <img src="@/assets/support/ratio-block6.png" alt="">
                                 <a href="">cological construction fund</a>
                             </li>
                             <li>
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block7.png" alt="">
+                                <img src="@/assets/support/ratio-block7.png" alt="">
                                 <a href="">1n-game output</a>
                             </li>
                             <li>
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block8.png" alt="">
+                                <img src="@/assets/support/ratio-block8.png" alt="">
                                 <a href="">team</a>
                             </li>
                             <li>
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/ratio-block9.png" alt="">
+                                <img src="@/assets/support/ratio-block9.png" alt="">
                                 <a href="">pledge and interest payment</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="excel">
-                <div class="excel-wrap">
-                    <div class="excel-item1">
-                        <iframe class="iframe1" src="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing"></iframe>
-                    </div>
-                    <div class="excel-item2">
-                        <iframe class="iframe2" src="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576"></iframe>
-                    </div>
-                </div>
-                <div class="btn">
-                    <a class="table1" target="view_window" href="https://docs.google.com/spreadsheets/d/1T6TDvp4SIi-m-yGz6BqeEzokKYOdUQYOQGjm2AnSSXg/edit?usp=sharing">OPEN SHEET</a>
-                    <a class="table2" target="view_window" href="https://docs.google.com/spreadsheets/d/1ox6pcTp9gCk8c2iHTtr6AaHqF2bc9JIZOCNZD2bZq1k/edit#gid=1386834576">OPEN SHEET</a>
-                </div>
-            </div>
             <div class="category" id="ele3">
                 <div class="category-wrap">
-                    <img class="category-info" src="https://d3bhixjyozyk2o.cloudfront.net/category-info.png" alt="">
-                    <img class="category-arrow1" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow1.png" alt="">
-                    <img class="category-arrow2" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow2.png" alt="">
-                    <img class="category-arrow3" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow3.png" alt="">
+                    <img class="category-info" src="@/assets/support/category-info.png" alt="">
+                    <img class="category-arrow1" src="@/assets/support/category-arrow1.png" alt="">
+                    <img class="category-arrow2" src="@/assets/support/category-arrow2.png" alt="">
+                    <img class="category-arrow3" src="@/assets/support/category-arrow3.png" alt="">
                 </div>
             </div>
             <div class="rordmap">
@@ -175,9 +149,9 @@
                     <div class="time1" id="eTime1">
                         <div class="time1-date">
                             <div class="time1-txt">
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/2021.03.png" alt="">
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/time1-yellow.png" alt="">
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/time1-orange.png" alt="">
+                                <img src="@/assets/support/2021.03.png" alt="">
+                                <img src="@/assets/support/time1-yellow.png" alt="">
+                                <img src="@/assets/support/time1-orange.png" alt="">
                             </div>
                             <div class="time1-h">1</div>
                         </div>
@@ -191,12 +165,12 @@
                         </div>~
                     </div>
                     <div class="time3" id="eTime3">
-                        <img class="time3-bg" src="https://d3bhixjyozyk2o.cloudfront.net/time3-bg.png" alt="">
+                        <img class="time3-bg" src="@/assets/support/time3-bg.png" alt="">
                         <div class="time3-date">
                             <div class="time3-txt">
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/2022.03.png" alt="">
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/time1-yellow.png" alt="">
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/time1-orange.png" alt="">
+                                <img src="@/assets/support/2022.03.png" alt="">
+                                <img src="@/assets/support/time1-yellow.png" alt="">
+                                <img src="@/assets/support/time1-orange.png" alt="">
                             </div>
                             <div class="time3-h">3</div>
                         </div>
@@ -212,8 +186,8 @@
                     <div class="time4" id="eTime4">
                         <div class="time4-date">
                             <div class="time4-txt">
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/2022.06.png" alt="">
-                                <img src="https://d3bhixjyozyk2o.cloudfront.net/time4-arrow.png" alt="">
+                                <img src="@/assets/support/2022.06.png" alt="">
+                                <img src="@/assets/support/time4-arrow.png" alt="">
                             </div>
                             <div class="time4-h">4</div>
                         </div>
@@ -223,20 +197,20 @@
                                 <div>GAME UNIONS SYSTEM</div>
                             </div>
                         </div>
-                        <img class="time4-lastImg" src="https://d3bhixjyozyk2o.cloudfront.net/time4-bottom.png" alt="">
+                        <img class="time4-lastImg" src="@/assets/support/time4-bottom.png" alt="">
                     </div>
                 </div>
                 <div class="rordmap-timeLine" id="ele4">
                     <div class="title">RORD&nbsp;&nbsp;MAP</div>
-                    <img class="location" src="https://d3bhixjyozyk2o.cloudfront.net/rordmap-timeLine1.png" alt="">
-                    <img class="line" src="https://d3bhixjyozyk2o.cloudfront.net/rordmap-timeLine2.png" alt="">
-                    <img class="arrow" src="https://d3bhixjyozyk2o.cloudfront.net/rordmap-timeLine3.png" alt="">
+                    <img class="location" src="@/assets/support/rordmap-timeLine1.png" alt="">
+                    <img class="line" src="@/assets/support/rordmap-timeLine2.png" alt="">
+                    <img class="arrow" src="@/assets/support/rordmap-timeLine3.png" alt="">
                 </div>
                 <div class="rordmap-right">
                     <div class="time2" id="eTime2">
                         <div class="time2-date">
                             <div class="time2-h">2</div>
-                            <img src="https://d3bhixjyozyk2o.cloudfront.net/2021.10.png" alt="">
+                            <img src="@/assets/support/2021.10.png" alt="">
                         </div>
                         <div class="time2-content">
                             <ul>
@@ -248,10 +222,10 @@
                         </div>
                     </div>
                     <div class="time5" id="eTime5">
-                        <img class="time5-bg" src="https://d3bhixjyozyk2o.cloudfront.net/time5-bg.png" alt="">
+                        <img class="time5-bg" src="@/assets/support/time5-bg.png" alt="">
                         <div class="time5-date">
                             <div class="time5-h">5</div>
-                            <img src="https://d3bhixjyozyk2o.cloudfront.net/2022.10.png" alt="">
+                            <img src="@/assets/support/2022.10.png" alt="">
                         </div>
                         <div class="time5-content">
                             <ul>
@@ -267,7 +241,7 @@
             <!-- <div class="supported">
                 <div class="title">SUPPORTED CAPITAL</div>
                 <div class="wrap">
-                    <img src="https://d3bhixjyozyk2o.cloudfront.net/logo.png" alt="">
+                    <img src="@/assets/support/logo.png" alt="">
                 </div>
             </div> -->
         </div>
@@ -277,7 +251,7 @@
 import { onMounted, onUnmounted, ref, reactive, computed } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
-import Web3 from '@/tools/web3'
+import Web3 from '@/tools/web3' 
 
 const router = useRouter()
 
@@ -292,18 +266,12 @@ const changeMenu = (type: any, route?: any) => {
     store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
-const token0Number: any = ref(0);
+
 const id: any = ref(0)
 
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
         return res;
-    })
-    Web3.getBalance(accounts).then((res) => {
-        token0Number.value = res[0];
-        if(token0Number.value <= 0){
-            window.location.href = 'https://game.cyberpop.online/';
-        }
     })
     id.value = accounts;
     let len = id.value.length-1;
@@ -363,7 +331,6 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         if(eTime5Top < windowHeight) eTime5.classList.add('bounceInRight')
 }
 
-
 onUnmounted(() => {
     window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
 })
@@ -407,31 +374,6 @@ onMounted(() => {
             width: 100%;
         }
     }
-    .mask{
-        background-color: #000;
-        height: 100vh;
-    }
-    .nft_box{
-        display: flex;
-        & > div{
-            width: 25vw;
-            height: 25vw;
-            text-align: center;
-            img{
-                width: 100%;
-                height: 100%;
-            }
-        }
-        .number{
-            color: #fff;
-        }
-    }
-    .contract_address{
-        width: 100vw;
-        text-align: center;
-        margin-top: 4vw;
-        color: #fff;
-    }
     .router-link-active {
         text-decoration: none;
     }
@@ -456,22 +398,21 @@ onMounted(() => {
             vertical-align: top;            
         }
         .section2-1{
-            height: 86vw;
+            height: 75vw;
         }
         .section2-2{
             // height: 30vw;
         }
         .section3-1{
-            // height: 73vw;
-            height: 92vw;
+            height: 53vw;
         }
         .section3-2{
-            height: 68vw;
+            height: 44vw;
         }
         .section4{
             display: flex;
             align-items: center;
-            height: 110.2vw;
+            height: 101.2vw;
             div{
                 // align-items: center;
             }
@@ -482,14 +423,11 @@ onMounted(() => {
                 width: 50vw;
             }
             .section4-first{
-                height: 162vw;
-            }
-            .section4-second{
-                height: 85vw;
+                height: 130vw;
             }
             .section4-last{
                 // height: 55.04vw;
-                height: 110vw;
+                height: 78vw;
             }
         }
         // .section5{
@@ -533,80 +471,23 @@ onMounted(() => {
                     align-items: center;
                     width: 12vw;
                     animation: fadeInDown .5s linear;
-                    & > img{
+                    img{
                         width: 12vw;
                         margin-top: .6vw;
                         margin-bottom: 3vw;
                     }
-                    & > .title{
+                    div{
                         color:#fff;
-                        font-size: 2.8vw;
+                        font-size: 3.8vw;
                         font-family: EDIX;
                         white-space: nowrap;
-                    }
-                }
-            }
-            .excel{
-                width: 100%;
-                .excel-wrap{
-                    width: 100%;
-                    height: 50vw;
-                    margin-top: 5vw;
-                    display: flex;
-                    justify-content: center;
-                    overflow: hidden;
-                    .excel-item1{
-                        width: 50vw;
-                        height: 100%;
-                        margin-top: -7.41vw;
-                        margin-right: 2.2vw;
-                        overflow: hidden;
-                        .iframe1{
-                            width: 50vw;
-                            height: 104%;
-                        }
-                    }
-                    .excel-item2{
-                        width: 30vw;
-                        height: 100%;
-                        margin-top: -7.41vw;
-                        overflow: hidden;
-                        .iframe2{
-                            width: 30vw;
-                            height: 104%;
-                        }
-                    }
-                }
-                .btn{
-                    position: relative;
-                    width: 100%;
-                    height: 10vw;
-                    margin-top: -5.8vw;
-                    text-align: center;
-                    a{
-                        display: inline-block;
-                        width: 9vw;
-                        height: 2.3vw;
-                        line-height: 2.3vw;
-                        color: #000;
-                        font-size: 1vw;
-                        background-color: #CFE2F3;
-                        border-radius: .2vw;
-                    }
-                    .table1{
-                        position: absolute;
-                        left: 29vw;
-                    }
-                    .table2{
-                        position: absolute;
-                        right: 18.8vw;
                     }
                 }
             }
             .round{
                 animation: fadeInDown .6s linear;
                 .round-wrap{
-                    margin: 7vw 16vw 0;
+                    margin: 10vw 12vw 0;
                     li{
                         display: flex;
                         justify-content: space-between;
@@ -615,7 +496,7 @@ onMounted(() => {
                         color:#fff;
                         font-family: OPPOSans;
                         div:not(:nth-child(5)){
-                            font-size: 1.6vw;
+                            font-size: 2vw;
                         }
                         .round-price{
                             opacity: .8;
@@ -649,7 +530,7 @@ onMounted(() => {
                                 .wrap1{
                                     position: relative;
                                     height: 2vw;
-                                    width: 90%; // 控制进度
+                                    width: 100%; // 控制进度
                                     background-color: #dbba11;
                                     background-image: linear-gradient(-60deg, transparent 0rem, transparent 0.8rem, #f5de6b 0.8rem, #e2c94d 1.6rem, transparent 1.6rem, transparent 2.4rem, #e6d273 2.4rem);
                                     background-size: 30px 38px;
@@ -697,7 +578,7 @@ onMounted(() => {
                 .ratio-wrap{
                     display: flex;
                     justify-content: space-between;
-                    margin: 0 16vw;
+                    margin: 0 14vw;
                     .ratio-left{
                         width: 35vw;
                         height: 26vw;
@@ -1070,10 +951,10 @@ onMounted(() => {
                     width: 7vw;
                     .title{
                         position: absolute;
-                        top: 9.6vw;
-                        left: -11.2vw;
+                        top: 8.6vw;
+                        left: -20vw;
                         color:#fff;
-                        font-size: 3vw;
+                        font-size: 4.8vw;
                         font-family: EDIX;
                         white-space: nowrap;
                     }

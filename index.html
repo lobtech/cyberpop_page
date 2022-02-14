@@ -8,22 +8,94 @@
         <!-- <script src="https://d1td2c8hf7fv9k.cloudfront.net/js/moralis.js"></script> -->
         <script src="https://d1td2c8hf7fv9k.cloudfront.net/js/web3.min.js"></script>
         <script src="//at.alicdn.com/t/font_2301545_6o789g7czrs.js"></script>
+        <script src =" https://code.jquery.com/jquery-3.6.0.min.js "></script>
+        <script src="/videoBackground.js"></script>
         <style>
             @font-face {
-                font-family: EDIX;
+                font-family: OPPOSans-B;
                 font-weight: bold;
-                src: url("/EDIX.ttf") format("truetype");
+                src: url("/OPPOSans-B.ttf") format("truetype");
             }
             @font-face {
-                font-family: Aideep;
+                font-family: AlibabaPuHuiTi_2_35_Thin;
                 font-weight: bold;
-                src: url("/AiDeep.otf") format("opentype");
+                src: url('/FONT/eot/AlibabaPuHuiTi-2-35-Thin.eot?#iefix') format('embedded-opentype'),
+                    url('/FONT/otf/AlibabaPuHuiTi-2-35-Thin.otf')  format('opentype'),
+                    url('/FONT/woff/AlibabaPuHuiTi-2-35-Thin.woff') format('woff'),
+                    url("/FONT/ttf/AlibabaPuHuiTi-2-35-Thin.ttf")  format("truetype"),
+                    url('/FONT/svg/AlibabaPuHuiTi-2-35-Thin.svg#AvenirNextLTPro-Regular') format('svg');
             }
-            .Aideep{
-                font-family: Aideep;
+            @font-face {
+                font-family: AlibabaPuHuiTi_2_45_Light;
+                font-weight: bold;
+                src: url('/FONT/eot/AlibabaPuHuiTi-2-45-Light.eot?#iefix') format('embedded-opentype'),
+                    url('/FONT/otf/AlibabaPuHuiTi-2-45-Light.otf')  format('opentype'),
+                    url('/FONT/woff/AlibabaPuHuiTi-2-45-Light.woff') format('woff'),
+                    url("/FONT/ttf/AlibabaPuHuiTi-2-45-Light.ttf") format("truetype"),
+                    url('/FONT/svg/AlibabaPuHuiTi-2-45-Light.svg#AvenirNextLTPro-Regular') format('svg');
             }
-            .EDIX{
-                font-family: EDIX;
+            @font-face {
+                font-family: AlibabaPuHuiTi_2_55_Regular;
+                font-weight: bold;
+                src: url('/FONT/eot/AlibabaPuHuiTi-2-55-Regular.eot?#iefix') format('embedded-opentype'),
+                    url('/FONT/otf/AlibabaPuHuiTi-2-55-Regular.otf')  format('opentype'),
+                    url('/FONT/woff/AlibabaPuHuiTi-2-55-Regular.woff') format('woff'),
+                    url("/FONT/ttf/AlibabaPuHuiTi-2-55-Regular.ttf") format("truetype"),
+                    url('/FONT/svg/AlibabaPuHuiTi-2-55-Regular.svg#AvenirNextLTPro-Regular') format('svg');
+            }
+            @font-face {
+                font-family: AlibabaPuHuiTi_2_65_Medium;
+                font-weight: bold;
+                src: url('/FONT/eot/AlibabaPuHuiTi-2-65-Medium.eot?#iefix') format('embedded-opentype'),
+                    url('/FONT/otf/AlibabaPuHuiTi-2-65-Medium.otf')  format('opentype'),
+                    url('/FONT/woff/AlibabaPuHuiTi-2-65-Medium.woff') format('woff'),
+                    url("/FONT/ttf/AlibabaPuHuiTi-2-65-Medium.ttf") format("truetype"),
+                    url('/FONT/svg/AlibabaPuHuiTi-2-65-Medium.svg#AvenirNextLTPro-Regular') format('svg');
+            }
+            @font-face {
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                font-weight: bold;
+                src: url('/FONT/eot/AlibabaPuHuiTi-2-75-SemiBold.eot?#iefix') format('embedded-opentype'),
+                    url('/FONT/otf/AlibabaPuHuiTi-2-75-SemiBold.otf')  format('opentype'),
+                    url('/FONT/woff/AlibabaPuHuiTi-2-75-SemiBold.woff') format('woff'),
+                    url("/FONT/ttf/AlibabaPuHuiTi-2-75-SemiBold.ttf") format("truetype"),
+                    url('/FONT/svg/AlibabaPuHuiTi-2-75-SemiBold.svg#AvenirNextLTPro-Regular') format('svg');
+            }
+            @font-face {
+                font-family: AlibabaPuHuiTi_2_85_Bold;
+                font-weight: bold;
+                src: url('/FONT/eot/AlibabaPuHuiTi-2-85-Bold.eot?#iefix') format('embedded-opentype'),
+                    url('/FONT/otf/AlibabaPuHuiTi-2-85-Bold.otf')  format('opentype'),
+                    url('/FONT/woff/AlibabaPuHuiTi-2-85-Bold.woff') format('woff'),
+                    url("/FONT/ttf/AlibabaPuHuiTi-2-85-Bold.ttf") format("truetype"),
+                    url('/FONT/svg/AlibabaPuHuiTi-2-85-Bold.svg#AvenirNextLTPro-Regular') format('svg');
+            }
+            @font-face {
+                font-family: AlibabaPuHuiTi_2_95_ExtraBold;
+                font-weight: bold;
+                src: url('/FONT/eot/AlibabaPuHuiTi-2-95-ExtraBold.eot?#iefix') format('embedded-opentype'),
+                    url('/FONT/otf/AlibabaPuHuiTi-2-95-ExtraBold.otf')  format('opentype'),
+                    url('/FONT/woff/AlibabaPuHuiTi-2-95-ExtraBold.woff') format('woff'),
+                    url("/FONT/ttf/AlibabaPuHuiTi-2-95-ExtraBold.ttf") format("truetype"),
+                    url('/FONT/svg/AlibabaPuHuiTi-2-95-ExtraBold.svg#AvenirNextLTPro-Regular') format('svg');
+            }
+            @font-face {
+                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                font-weight: bold;
+                src: url('/FONT/eot/AlibabaPuHuiTi-2-105-Heavy.eot?#iefix') format('embedded-opentype'),
+                    url('/FONT/otf/AlibabaPuHuiTi-2-105-Heavy.otf')  format('opentype'),
+                    url('/FONT/woff/AlibabaPuHuiTi-2-105-Heavy.woff') format('woff'),
+                    url("/FONT/ttf/AlibabaPuHuiTi-2-105-Heavy.ttf") format("truetype"),
+                    url('/FONT/svg/AlibabaPuHuiTi-2-105-Heavy.svg#AvenirNextLTPro-Regular') format('svg');
+            }
+            @font-face {
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                font-weight: bold;
+                src: url('/FONT/eot/AlibabaPuHuiTi-2-115-Black.eot?#iefix') format('embedded-opentype'),
+                    url('/FONT/otf/AlibabaPuHuiTi-2-115-Black.otf')  format('opentype'),
+                    url('/FONT/woff/AlibabaPuHuiTi-2-115-Black.woff') format('woff'),
+                    url("/FONT/ttf/AlibabaPuHuiTi-2-115-Black.ttf") format("truetype"),
+                    url('/FONT/svg/AlibabaPuHuiTi-2-115-Black.svg#AvenirNextLTPro-Regular') format('svg');
             }
             *{
                 margin: 0;
@@ -34,6 +106,46 @@
     </head>
     <body>
         <div id="app"></div>
+        <script src="public/three.min.js"></script>
         <script type="module" src="/src/main.ts"></script>
+        <script>
+            $('.html-video-background').videoBackground({
+                ratio_x: 20,
+                ratio_y: 11.25,
+            });
+        </script>
+
+
+
+        <script type="x-shader/x-vertex" id="vertexshader">
+
+            attribute float size;
+            attribute vec3 customColor;
+            varying vec3 vColor;
+            
+            void main() {
+            
+                vColor = customColor;
+                vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+                gl_PointSize = size * ( 300.0 / -mvPosition.z );
+                gl_Position = projectionMatrix * mvPosition;
+            
+            }
+        
+        </script>
+        <script type="x-shader/x-fragment" id="fragmentshader">
+        
+            uniform vec3 color;
+            uniform sampler2D pointTexture;
+            
+            varying vec3 vColor;
+            
+            void main() {
+            
+            gl_FragColor = vec4( color * vColor, 1.0 );
+            gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+            
+            }
+        </script>
     </body>
 </html>

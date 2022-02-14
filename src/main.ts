@@ -5,10 +5,16 @@ import store, { key } from './store'
 import './index.css' // 自定义全局样式
 import MyVideo from './components/video/video.vue'
 import api from './api/request'
+import VideoBg from 'vue-videobg'
+import 'swiper/css';
+
+
 
 const app = createApp(App) // 创建实例
 app.config.globalProperties.$api = api;
 app.use(router) // 挂载路由
 app.use(store, key) // 挂载vuex
+
 app.component('MyVideo', MyVideo) //视频组件
+app.component('video-bg', VideoBg)
 app.mount('#app')

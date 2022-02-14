@@ -282,6 +282,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/jquery@^3.5.13":
+  "integrity" "sha512-ZxJrup8nz/ZxcU0vantG+TPdboMhB24jad2uSap50zE7Q9rUeYlCF25kFMSmHR33qoeOgqcdHEp3roaookC0Sg=="
+  "resolved" "https://registry.npmjs.org/@types/jquery/-/jquery-3.5.13.tgz"
+  "version" "3.5.13"
+  dependencies:
+    "@types/sizzle" "*"
+
 "@types/node@*", "@types/node@^16.11.11":
   "integrity" "sha512-KB0sixD67CeecHC33MYn+eYARkqTheIRNuu97y2XMjR7Wu3XibO1vaY6VBV6O/a89SPI81cEUIYT87UqUWlZNw=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-16.11.11.tgz"
@@ -305,6 +312,11 @@
   "version" "4.0.3"
   dependencies:
     "@types/node" "*"
+
+"@types/sizzle@*":
+  "integrity" "sha512-JYM8x9EGF163bEyhdJBpR2QX1R5naCJHC8ucJylJ3w9/CVBaskdQ8WqBf8MmQrd1kRvp/a4TS8HJ+bxzR7ZJYQ=="
+  "resolved" "https://registry.npmjs.org/@types/sizzle/-/sizzle-2.3.3.tgz"
+  "version" "2.3.3"
 
 "@vitejs/plugin-vue@^1.9.3":
   "integrity" "sha512-oL76QETMSpVE9jIScirGB2bYJEVU/+r+g+K7oG+sXPs9TZljqveoVRsmLyXlMZTjpQkLL8gz527cW80NMGVKJg=="
@@ -352,6 +364,14 @@
   dependencies:
     "@volar/shared" "^0.27.24"
     "vscode-languageserver" "^8.0.0-next.2"
+
+"@vroger/vue-videobg@^2.1.0":
+  "integrity" "sha512-63u6WIrFsy4a9kGOJS9cPrUxL4WlnO2LysqKvKB+uHwX257zHf2k8w+qzic/2eSrub8UrNlf00Ac6u7ebC8wOA=="
+  "resolved" "https://registry.npmjs.org/@vroger/vue-videobg/-/vue-videobg-2.1.0.tgz"
+  "version" "2.1.0"
+  dependencies:
+    "babel-runtime" "^5.8.0"
+    "vue" "^2.3.2"
 
 "@vscode/emmet-helper@^2.7.0":
   "integrity" "sha512-A/+pkBYQq2JTow1A2flfTmEOmiF780KpdkoX7VBjQ7wujeA+CFUPd17YdeIa9aim20+J5Jp7SFujPDwVFiQucQ=="
@@ -605,6 +625,13 @@
   "version" "0.24.0"
   dependencies:
     "follow-redirects" "^1.14.4"
+
+"babel-runtime@^5.8.0":
+  "integrity" "sha1-HAsC62MxL18If/IEUIJ7QlydTBk="
+  "resolved" "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.8.38.tgz"
+  "version" "5.8.38"
+  dependencies:
+    "core-js" "^1.0.0"
 
 "babel-walk@3.0.0-canary-5":
   "integrity" "sha512-GAwkz0AihzY5bkwIY5QDR+LvsRQgB/B+1foMPvi0FZPMl5fjD7ICiznUiBdLYMH1QYe6vqu4gWYytZOccLouFw=="
@@ -997,16 +1024,21 @@
   "version" "2.1.3"
 
 "copy-anything@^2.0.1":
-  "integrity" "sha512-GK6QUtisv4fNS+XcI7shX0Gx9ORg7QqIznyfho79JTnX1XhLiyZHfftvGiziqzRiEi/Bjhgpi+D2o7HxJFPnDQ=="
-  "resolved" "https://registry.npmjs.org/copy-anything/-/copy-anything-2.0.3.tgz"
-  "version" "2.0.3"
+  "integrity" "sha512-1j20GZTsvKNkc4BY3NpMOM8tt///wY3FpIzozTOFO2ffuZcV61nojHXVKIy3WM+7ADCy5FVhdZYHYDdgTU0yJw=="
+  "resolved" "https://registry.npmjs.org/copy-anything/-/copy-anything-2.0.6.tgz"
+  "version" "2.0.6"
   dependencies:
-    "is-what" "^3.12.0"
+    "is-what" "^3.14.1"
 
 "core-js-pure@^3.19.0":
   "integrity" "sha512-CmWHvSKn2vNL6p6StNp1EmMIfVY/pqn3JLAjfZQ8WZGPOlGoO92EkX9/Mk81i6GxvoPXjUqEQnpM3rJ5QxxIOg=="
   "resolved" "https://registry.npmjs.org/core-js-pure/-/core-js-pure-3.20.2.tgz"
   "version" "3.20.2"
+
+"core-js@^1.0.0":
+  "integrity" "sha1-ZSKUwUZR2yj6k70tX/KYOk8IxjY="
+  "resolved" "https://registry.npmjs.org/core-js/-/core-js-1.2.7.tgz"
+  "version" "1.2.7"
 
 "core-util-is@1.0.2":
   "integrity" "sha1-tf1UIgqivFq1eqtxQMlAdUUDwac="
@@ -1240,6 +1272,13 @@
   "integrity" "sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w=="
   "resolved" "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.2.tgz"
   "version" "0.1.2"
+
+"dom7@^4.0.1":
+  "integrity" "sha512-DSSgBzQ4rJWQp1u6o+3FVwMNnT5bzQbMb+o31TjYYeRi05uAcpF8koxdfzeoe5ElzPmua7W7N28YJhF7iEKqIw=="
+  "resolved" "https://registry.npmjs.org/dom7/-/dom7-4.0.4.tgz"
+  "version" "4.0.4"
+  dependencies:
+    "ssr-window" "^4.0.0"
 
 "domelementtype@^2.0.1", "domelementtype@^2.2.0":
   "integrity" "sha512-DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A=="
@@ -2146,7 +2185,7 @@
   dependencies:
     "call-bind" "^1.0.2"
 
-"is-what@^3.12.0":
+"is-what@^3.14.1":
   "integrity" "sha512-sNxgpk9793nzSs7bA6JQJGeIuRBQhAaNGG77kzYQgMkrID+lS6SlK07K5LaptscDlSaIgH+GPFzf+d75FVxozA=="
   "resolved" "https://registry.npmjs.org/is-what/-/is-what-3.14.1.tgz"
   "version" "3.14.1"
@@ -2168,6 +2207,11 @@
   dependencies:
     "has-to-string-tag-x" "^1.2.0"
     "is-object" "^1.0.1"
+
+"jquery@^3.6.0":
+  "integrity" "sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw=="
+  "resolved" "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
+  "version" "3.6.0"
 
 "js-sha3@^0.5.7":
   "integrity" "sha1-DU/9gALVMzqrr0oj7tL2N0yfKOc="
@@ -2509,20 +2553,15 @@
   optionalDependencies:
     "crypto-js" "4.1.1"
 
-"ms@^2.1.1":
-  "integrity" "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="
-  "resolved" "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz"
-  "version" "2.1.3"
+"ms@^2.1.1", "ms@2.1.2":
+  "integrity" "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="
+  "resolved" "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz"
+  "version" "2.1.2"
 
 "ms@2.0.0":
   "integrity" "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g="
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
   "version" "2.0.0"
-
-"ms@2.1.2":
-  "integrity" "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="
-  "resolved" "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz"
-  "version" "2.1.2"
 
 "ms@2.1.3":
   "integrity" "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="
@@ -3581,6 +3620,11 @@
     "safer-buffer" "^2.0.2"
     "tweetnacl" "~0.14.0"
 
+"ssr-window@^4.0.0", "ssr-window@^4.0.1":
+  "integrity" "sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ=="
+  "resolved" "https://registry.npmjs.org/ssr-window/-/ssr-window-4.0.2.tgz"
+  "version" "4.0.2"
+
 "statuses@>= 1.5.0 < 2", "statuses@~1.5.0":
   "integrity" "sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow="
   "resolved" "https://registry.npmjs.org/statuses/-/statuses-1.5.0.tgz"
@@ -3694,6 +3738,14 @@
     "tar" "^4.0.2"
     "xhr-request" "^1.0.1"
 
+"swiper@^7.2.0":
+  "integrity" "sha512-CUL6Nvzcf3fU0b8dHaraYphgBT7l44PY1B6T8b+E12pim4DEcwFZDy/KZoIKrAnn+rfbayCmcksYmSDIP5nDHg=="
+  "resolved" "https://registry.npmjs.org/swiper/-/swiper-7.2.0.tgz"
+  "version" "7.2.0"
+  dependencies:
+    "dom7" "^4.0.1"
+    "ssr-window" "^4.0.1"
+
 "tar@^4.0.2":
   "integrity" "sha512-a20gEsvHnWe0ygBY8JbxoM4w3SJdhc7ZAuxkLqh+nvNQN2IOt0B5lLgM490X5Hl8FF0dl0tOf2ewFYAlIFgzVA=="
   "resolved" "https://registry.npmjs.org/tar/-/tar-4.4.19.tgz"
@@ -3706,6 +3758,11 @@
     "mkdirp" "^0.5.5"
     "safe-buffer" "^5.2.1"
     "yallist" "^3.1.1"
+
+"three@^0.137.5":
+  "integrity" "sha512-rTyr+HDFxjnN8+N/guZjDgfVxgHptZQpf6xfL/Mo7a5JYIFwK6tAq3bzxYYB4Ae0RosDZlDuP+X5aXDXz+XnHQ=="
+  "resolved" "https://registry.npmjs.org/three/-/three-0.137.5.tgz"
+  "version" "0.137.5"
 
 "through@^2.3.8":
   "integrity" "sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU="
@@ -4093,7 +4150,15 @@
   dependencies:
     "vscode-vue-languageservice" "^0.27.0"
 
-"vue@^3.0.0", "vue@^3.0.2", "vue@^3.2.16", "vue@3.2.23":
+"vue-videobg@^2.0.0":
+  "integrity" "sha1-WCZ1Au2m2+FYotXdkkz2G+oIbQw="
+  "resolved" "https://registry.npmjs.org/vue-videobg/-/vue-videobg-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "babel-runtime" "^5.8.0"
+    "vue" "^2.3.2"
+
+"vue@^2.0.0", "vue@^3.0.0", "vue@^3.0.2", "vue@^3.2.16", "vue@3.2.23":
   "integrity" "sha512-MGp9JZC37lzGhwSu6c1tQxrQbXbw7XKFqtYh7SFwNrNK899FPxGAHwSHMZijMChTSC3uZrD2BGO/3EHOgMJ0cw=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.23.tgz"
   "version" "3.2.23"
@@ -4103,6 +4168,16 @@
     "@vue/runtime-dom" "3.2.23"
     "@vue/server-renderer" "3.2.23"
     "@vue/shared" "3.2.23"
+
+"vue@^2.3.2":
+  "integrity" "sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ=="
+  "resolved" "https://registry.npmjs.org/vue/-/vue-2.6.14.tgz"
+  "version" "2.6.14"
+
+"vuescroll@^4.17.3":
+  "integrity" "sha512-5P3hje/fYjo1eAB0Y8zboLbaq/mnPNczYyZ1aPHHM6wIFKcqal9Mi42CBCZizUnEtoXtbsGlnyLcVbnalTNptA=="
+  "resolved" "https://registry.npmjs.org/vuescroll/-/vuescroll-4.17.3.tgz"
+  "version" "4.17.3"
 
 "vuex@^4.0.2":
   "integrity" "sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q=="

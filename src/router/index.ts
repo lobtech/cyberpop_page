@@ -8,12 +8,12 @@ const routes = [
             keepAlive: false,
             showFooter: true,
             transition: 'slide-right',
-        },
+        }
     },
     {
-        name: 'about',
-        path: '/about',
-        component: () => import('../views/about/index.vue'),
+        name: 'privacy',
+        path: '/privacy',
+        component: () => import('../views/privacy/index.vue'),
         meta: {
             keepAlive: false,
             showFooter: true,
@@ -21,9 +21,9 @@ const routes = [
         },
     },
     {
-        name: 'support',
-        path: '/support',
-        component: () => import('../views/support/index.vue'),
+        name: 'terms',
+        path: '/terms',
+        component: () => import('../views/terms/index.vue'),
         meta: {
             keepAlive: false,
             showFooter: true,
@@ -31,9 +31,29 @@ const routes = [
         },
     },
     {
-        name: 'xplan',
-        path: '/xplan',
-        component: () => import('../views/xplan/index.vue'),
+        name: 'mining',
+        path: '/mining',
+        component: () => import('../views/mining/index.vue'),
+        meta: {
+            keepAlive: false,
+            showFooter: true,
+            transition: 'slide-right',
+        },
+    },
+    {
+        name: 'mystery',
+        path: '/mystery',
+        component: () => import('../views/mystery/index.vue'),
+        meta: {
+            keepAlive: false,
+            showFooter: true,
+            transition: 'slide-right',
+        },
+    },
+    {
+        name: 'cyberspace',
+        path: '/cyberspace',
+        component: () => import('../views/cyberspace/index.vue'),
         meta: {
             keepAlive: false,
             showFooter: true,

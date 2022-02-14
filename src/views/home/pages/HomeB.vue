@@ -1,332 +1,554 @@
 <template>
-    <my-video v-if="isPlay" @touchmove.prevent :mobel="true" :videotype="type2" :videoSrc="'/assets/video/6dff55c4018832a1528ecbc410ec6094.mp4'" @click="playVideo"></my-video>
-    <div class="mask" v-if="newMask">
-        <div class="play" @click.stop="playVideo(3)">
-            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play">
-        </div>
-    </div>
+    <my-video v-if="isPlay" @touchmove.prevent :videotype="type2" :videoSrc="'/assets/video/6dff55c4018832a1528ecbc410ec6094.mp4'" @click="playVideo"></my-video>
     <div class="home">
         <header>
-            <div class="content">
-                <img class="logo" src="https://d1td2c8hf7fv9k.cloudfront.net/LOGO.png" alt="logo">
-                <div class="user" @click="connect()">
-                    <div class="login_in Aideep">{{id || "LOG IN"}}</div>
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/user.png" alt="" v-if="!id">
+            <div class="content" id="header">
+                <img class="logo" :src="logoHSrc" @mouseover="changeHGif()" @mouseout="stopHGif()" alt="">
+                <!-- <img class="logo" src="@/assets/nwhome/header-logo.svg" alt="logo"> -->
+                <img class="menu" src="@/assets/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
+            </div>
+            <div class="menuMask" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
+                <div class="close-menu">
+                    <img @click="showMenu()" src="@/assets/nwhomePhone/close-menu.svg" alt="">
                 </div>
-                <div class="menu">
-                    <ul>
-                        <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">
-                            <span>HOME</span>
-                        </li>
-                        <li @click="changeMenu(1, '/about')" :class="{'active': active == 1}">
-                            <span>STORY</span>
-                        </li>
-                        <li @click="changeMenu(2)" :class="{'active': active == 2}">
-                            <span>NEWS</span>
-                        </li>
-                        <li @click="changeMenu(3, '/support')" :class="{'active': active == 3}">
-                            <span>SUPPORT</span>
-                        </li>
-                        <li @click="changeMenu(4, '/about')" :class="{'active': active == 4}">
-                            <span>ABOUT</span>
-                        </li>
+                <ul id="menuUl" class="menuul">
+                    <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
+                    <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
+                    <!-- <li @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li> -->
+                    <li @mouseover="menuHover(2)" @click="openPaper()">Whitepaper</li>
+                    <li @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">Mystery Box</li>
+                    <li @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">Cyberspace</li>
+                </ul>
+                <!-- <div class="language">
+                    <div @click="showUl()">Language switch</div>
+                    <ul v-show="showul">
+                        <li>简体中文</li>
+                        <li>Engliah</li>
+                        <li>Japanese</li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </header>
         <section>
-            <div class="titles">
-                <div class="title1">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/section1_2.png" alt="">
-                </div>
-                <div class="title2">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/section1_1.png" alt="">
-                </div>
-                <div class="title3">
-                    COMING SOON
-                </div>
-                <div class="nav-logos">
-                   <!-- <a href="#">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitch.png" alt="">
-                    </a> -->
-                    <a href="https://www.youtube.com/channel/UCtVpocr6cpS7Ub-WxRSJ3mQ">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/YouTube-logo.png" alt="">
-                    </a>
-                    <!-- <a href="#">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/bilibili.png" alt="">
-                    </a> -->
-                    <!-- <a href="#" target="view_window">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/google-logo.png" alt="">
-                    </a> -->
-                    <a href="https://twitter.com/cyberpopnw" target="view_window">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitter.png" alt="">
-                    </a>
-                    <!-- <a href="#" target="view_window">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/facebook.png" alt="">
-                    </a> -->
-                    <a href="https://t.me/cyberpopnw" target="view_window">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/dianbao.png" alt="">
-                    </a>
-                    <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/discordlogo.png" alt="">
-                    </a>
-                </div>
-                <div class="document">
-                    <!-- <div class="buttons" @click="down">NEWS</div> -->
-                    <div class="buttons" @click="deckd">DECK</div>
-                </div>
-            </div>
-        </section>
-        <footer>
-            <img src="https://d1td2c8hf7fv9k.cloudfront.net/section1_buttom.png" alt="" class="buttom">
-        </footer>
-    </div>
-    <div class="welcome">
-        <div class="cover_up"></div>
-        <div class="warp">
-            <div class="title" id="ele1">WELCOME TO THE<span class="yellow">NEW WORLD</span></div>
-            <div class="content" id="ele2">
-                <!-- <div class="left" @click="changeSWiper(0)">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/left.png" alt="">
-                </div> -->
-                <div class="swiper">
-                    <div class="swiepr_content" :style="{'left': left + 'px'}" ref="swiperContent">
-                        <div class="item3"> 
-                            <img class="bg" src="https://d1td2c8hf7fv9k.cloudfront.net/swiper_border.png" alt="">
-                            <img class="banner" src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-4.png" alt="">
-                            <div class="des">The protagonists are in a real world that is treacherous and changeable.</div>
-                            <div class="black"></div>
-                            <div class="number">003</div>
-                            <div class="outher"></div>
-                            <div class="outher2"></div>
-                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play" @click="playVideo(3)" v-if="isPlay != 3">
-                        </div>
-                        <div class="item2">
-                            <img class="bg" src="https://d1td2c8hf7fv9k.cloudfront.net/swiper_border.png" alt="">
-                            <img class="banner" src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-3.jpg" alt="">
-                            <div class="des">Experience the fantastic online cyber world. </div>
-                            <div class="black"></div>
-                            <div class="number">002</div>
-                            <div class="outher"></div>
-                            <div class="outher2"></div>
-                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play" @click="playVideo(2)" v-if="isPlay != 2">
-                        </div>
-                        <div class="item1">
-                            <img class="bg" src="https://d1td2c8hf7fv9k.cloudfront.net/swiper_border.png" alt="">
-                            <img class="banner" src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-2.jpg" alt="">
-                            <div class="des">Welcome to the Cyber Pop New World.</div>
-                            <div class="black"></div>
-                            <div class="number">001</div>
-                            <div class="outher"></div>
-                            <div class="outher2"></div>
-                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play" @click="playVideo(1)" v-if="isPlay != 1">
+            <video-bg 
+id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="/src/assets/nwhome/videobg.png">
+            </video-bg>
+            <div class="titles"> 
+                <div class="title-wrap">
+                    <div class="title1" id="title1">FIND REAL YOU <br/> IN THIS NEW WORLD</div>
+                    <div class="title2">
+                        THE GAMEFI TO THE FUTURE <br/> CYBERSPACE CAN NOT BE MISSED
+                    </div>
+                    <div class="btnbox">
+                        <div class="btn-register"><div>REGISTER</div></div>
+                        <div class="btn-video" @click="playVideo(5)">
+                            <div>DEMO VIDEO</div>
+                            <img src="@/assets/nwhomePhone/section-btnPlay.svg" alt="">
                         </div>
                     </div>
                 </div>
-                <!-- <div class="right" @click="changeSWiper(1)">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/left.png" alt="">
-                </div> -->
             </div>
+            <div class="botm">#0 <span class="txt1">CYBERSPACE </span><span class="txt2">WILL BE OPENED SOON</span></div>
+        </section>
+        <footer>
+            <img src="@/assets/nwhomePhone/section_buttom.svg" alt="" class="buttom">
+        </footer>
+    </div>
+    <div class="nav-logos" ref="myNav">
+        <a href="" target="view_window">
+            <img src="@/assets/nwhomePhone/joinus.svg" alt="" class="joinus">
+            <div>JOIN US</div>
+        </a>
+        <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
+            <img src="@/assets/nwhomePhone/discordlogo.svg" alt="" class="nav-img1">
+        </a>
+        <a href="https://twitter.com/cyberpopnw" target="view_window">
+            <img src="@/assets/nwhomePhone/twitter.svg" alt="" class="nav-img2">
+        </a>
+        <a href="https://t.me/cyberpopnw" target="view_window">
+            <img src="@/assets/nwhomePhone/dianbao.svg" alt="" class="nav-img3">
+        </a>
+    </div>
+    <div class="welcome">
+        <div class="warp">
+            <div class="title" id="ele1">WELCOMETO  TO<p class="white">CYBERPOP NEW WORLD</p></div>
+            <div class="desc">
+                A Metaverse adventure UGC game built on the <br/> 
+                ethereum blockchain.Travel through diverse <br/> 
+                cyberspace in search of mysterious digital artifacts <br/>
+                and creatures even Legend of the absolute <br/>
+                beginning.
+            </div>
+            <div class="content">
+                <div class="left">
+                   <!-- <div class="start">01</div> -->
+                   <img class="start" src="@/assets/nwhomePhone/01-icon.svg" alt="">
+                   <div class="pList">
+                        <img id="lImg1" :src="imgIndex == 0 ? imgSrc : imgSrc0" alt="">
+                        <img id="lImg2" :src="imgIndex == 1 ? imgSrc : imgSrc0" alt="">
+                        <img id="lImg3" :src="imgIndex == 2 ? imgSrc : imgSrc0" alt="">
+                        <img id="lImg4" :src="imgIndex == 3 ? imgSrc : imgSrc0" alt="">
+                   </div>
+                   <!-- <div class="end">/04</div> -->
+                   <img class="end" src="@/assets/nwhomePhone/04-icon.svg" alt="">
+                </div>
+                <div class="swiper1">
+                    <div class="swiper-bg">
+                        <img :class="imgIndex == 0 ? 'show' : ''" src="@/assets/nwhomePhone/timeRemnant.png" alt="">
+                        <img :class="imgIndex == 1 ? 'show' : ''" src="@/assets/nwhomePhone/digitalPujas.png" alt="">
+                        <img :class="imgIndex == 2 ? 'show' : ''" src="@/assets/nwhomePhone/moonlightCentury.png" alt="">
+                        <img :class="imgIndex == 3 ? 'show' : ''" src="@/assets/nwhomePhone/futureCity.png" alt="">
+                    </div>
+                    <div class="swiper-bg2">
+                        <img src="@/assets/nwhomePhone/swiper-bgBlack.png" alt="">
+                    </div>
+                    <div class="swiper-leftTop">
+                        <img src="@/assets/nwhomePhone/swiper-leftTop.svg" alt="">
+                        <ul>
+                            <li :class="imgIndex == 0 ? 'show' : ''">Time Remnant</li>
+                            <li :class="imgIndex == 1 ? 'show' : ''">Digital Pujas</li>
+                            <li :class="imgIndex == 2 ? 'show' : ''">Moonlight Century</li>
+                            <li :class="imgIndex == 3 ? 'show' : ''">Future City</li>
+                        </ul>
+                    </div>
+                    <div class="swiper-img">
+                        <swiper
+                            class="swiper-bg3"
+                            direction="vertical"
+                            :slides-per-view="1"
+                            :mousewheel="true" 
+                            @slideChangeTransitionEnd="onSlideChangeEnd"
+                            :loop="true"
+                            :speed="200"
+                            :autoplay="true"
+                        >
+                            <swiper-slide><img src="@/assets/nwhomePhone/timeRemnant.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="@/assets/nwhomePhone/digitalPujas.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="@/assets/nwhomePhone/moonlightCentury.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="@/assets/nwhomePhone/futureCity.png"  alt=""></swiper-slide>
+                        </swiper>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nobody">
+        <div class="nobody-wrap">
+            <div class="nobody-left">
+                <img id="role" src="@/assets/nwhome/nobody-leftBg.png" alt="">
+                <div class="nobody-img"></div>
+                <div class="nobody-left-tip">
+                    <div>Scarlet Witch <br/> in cyberspace</div>
+                </div>
+            </div>
+            <div class="nobody-right">
+                <div class="title" id="ele2">YOU ARE NOBODY AND <br/> SOMEBODY</div>
+                <div class="subtitle">IN DIFFERENT CYBERSPACE</div>
+                <div class="desc">
+                    By teleporting into different cyberspace， Players <br/>
+                    will become different NFT characters belonging to <br/>
+                    this space. Exploring the secrets of space to <br/>
+                    create your own personality and gain more <br/>
+                    assets.You can also compete with players in the <br/>
+                    same space or team up with them.
+                </div>
+                <div class="video">
+                    <img class="videoBg" src="@/assets/nwhomePhone/yellowBg-r.svg" alt="">
+                    <img class="banner" src="@/assets/nwhomePhone/nobody-videoBg.png" alt="">
+                    <div class="video-wrap">
+                        <img src="@/assets/nwhomePhone/nobody-controls.svg" alt="" @click="playVideo(4)">
+                    </div>>
+                    <div class="content">
+                        <div class="video-title">#0 Cyberspace <span class="yellow">Exposure</span></div>
+                        <div class="video-subtitle">Ancient space in the remnants of time</div>
+                    </div>
+                </div>
+                <div class="getNft-wrap">
+                    <div class="getNft"></div>
+                    <div class="txt">GET NFT</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="make">
+        <div class="make-wrap">
+            <img class="title-bg" src="@/assets/nwhomePhone/title-bg.png" alt="">
+            <div class="title" id="ele3">MAKE CYBERSPACE BELONGS TO YOU</div>
+            <div class="subtitle">THE NFT MADE BY YOURSELF</div>
+            <div class="desc">
+                Through advanced collapse algorithms, cyberpop supports
+                the generation of UGC nft. Based on the security of chain
+                protocols, it effectively ensures the multiple player battles
+                and development of future cybercities. We already support
+                functional city components for assets production, and are
+                continuously being added.
+            </div>
+            <div class="make-img">
+                <img class="yellowBg-r" src="@/assets/nwhomePhone/yellowBg-r.svg" alt="">
+                <img class="yellowBg-l" src="@/assets/nwhomePhone/yellowBg-l.svg" alt="">
+                <ul>
+                    <li>
+                        <img src="@/assets/nwhomePhone/make-img1.png" alt="">
+                        <div>Product</div>
+                    </li>
+                    <li>
+                        <img src="@/assets/nwhomePhone/make-img2.png" alt="">
+                        <div>Live</div>
+                    </li>
+                    <li>
+                        <img src="@/assets/nwhomePhone/make-img3.png" alt="">
+                        <div>Basic</div>
+                    </li>
+                    <li>
+                        <img src="@/assets/nwhomePhone/make-img4.png" alt="">
+                        <div class="tech">Technology</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="opensea" @mouseenter="openseaEnter()" @mouseleave="openseaLeave()">
+                <div class="opensea-title">View the claimed lands on</div>
+                <div class="openUrl" target="view_window">
+                    <a href="">
+                        <img src="@/assets/nwhomePhone/openSea.png" alt="">
+                        <img src="@/assets/nwhomePhone/make-rightArrow.svg" alt="">
+                    </a>
+                </div>
+                <div id="openMask" class="mask"></div>
+            </div>  
         </div>
     </div>
     <div class="news">
-        <div class="cover_up"></div>
-        <div class="title" id="ele3">
-             <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_2.png" alt="" class="line">
-             <div class="news_box">
-                 <img src="@/assets/icon/NEWS.png" alt="">
-                 <p>NEWS</p>
-             </div>
-             <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_2.png" alt="" class="line">
+        <div class="news-wrap">
+            <div class="title" id="ele4">NEWS</div>
+            <div class="news-top" @click="toYoutube($event)">
+                <div class="channel">CYBERPOP Channel</div>
+                <div class="arrival">NEW ARRIVAL</div>
+                <div class="news-logo">
+                    <img class="news-img1" src="@/assets/nwhomePhone/news-logo.svg" alt="">
+                    <a href=""><img src="@/assets/nwhomePhone/youtube-play.svg" alt=""></a>
+                </div>
+            </div>
+            <div class="news-img" @click="newsActiveSrc()">
+                <img :class="{'newsShow': showNewsImg == 0}" src="@/assets/nwhomePhone/news-bg.png" alt="">
+                <img :class="{'newsShow': showNewsImg == 1}" src="@/assets/nwhomePhone/futureCity.png" alt="">
+                <div class="desc">
+                    <div>{{newsTitle1}}</div>
+                </div>
+            </div>
+            <ul @click="newsActiveSrc()">
+                <li>
+                    <img src="@/assets/nwhomePhone/news-img1.png" id="myNews1" class="myNews" @mouseover="newsHover(0,newsStatictxt1)" @click="newsActive(0,newsStatictxt1)" alt="">
+                    <div class="read">
+                        <div class="txt">Picante Channel News</div>
+                        <div class="date">January 2,2022</div>
+                        <div class="toRead">To Read ></div>
+                    </div>
+                </li>
+                <li>
+                    <img src="@/assets/nwhomePhone/news-img2.png" id="myNews2" class="myNews" @mouseover="newsHover(1,newsStatictxt2)" @click="newsActive(1,newsStatictxt2)" alt="">
+                    <div class="read">
+                        <div class="txt">cyberbump channel news</div>
+                        <div class="date">January 2,2022</div>
+                        <div class="toRead">To Read ></div>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <div class="news_content2" id="ele4">
-            <div class="news_item">
-                <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-2.jpg" alt="" class="img img1">
-                <div class="text text1">
-                    <p class="title2">CYBERPOP</p>
-                    <p class="des">The world is filled with restlessness, because everyone is eager to free himself from his shackles.</p>
-                    <p class="des" style="textAlign: right;margin: 30px 0;"> --By Friedrich Nietzsche</p>
-                    <button class="more">LEARN MORE</button>
-                </div>
-            </div>
-            <div class="news_item">
-                <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-3.jpg" alt="" class="img img1">
-                <div class="text text1">
-                    <p class="title2">CYBERPOP</p>
-                    <p class="des">Just as there is no fate that can not be changed, there is no world that can not be created.</p>
-                    <p class="des" style="textAlign: right;margin: 30px 0;">--By the team of the Cyber New World</p>
-                    <button class="more">LEARN MORE</button>
-                </div>
-            </div>
-            <div class="news_item">
-                <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-5.jpg" alt="" class="img img1">
-                <div class="text text1">
-                    <p class="title2">CYBERPOP</p>
-                    <p class="des">In fact, people who struggle to make choices have already gotten their answer in mind. When they ask for consultation, they only want to hear the choice of their heart. The final so-called fate is made by themselves, step by step.</p>
-                    <p class="des" style="textAlign: right;margin: 30px 0;"> --By Higashino Keigo</p>
-                    <button class="more">LEARN MORE</button>
-                </div>
-            </div>
-            <div class="news_item">
-                <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-4.png" alt="" class="img img1">
-                <div class="text text1">
-                    <p class="title2">CYBERPOP</p>  
-                    <p class="des">THE OCCURRENCE OF CYBERPUNK,</p>
-                    <p class="des">EXACTLY HOW TO ACHIEVE,</p>
-                    <p class="des">NOT THE OCCURRENCE OF</p>
-                    <p class="des">CYBERPUNK, AND HOW TO PRODUCE.</p>
-                    <button class="more">LEARN MORE</button>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="news_content">
-            <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-2.jpg" class="bg1" alt="">
-            <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-4.png" class="bg2" alt="">
-            <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-5.jpg" class="bg3" alt="">
-            <img src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-3.jpg" class="bg4" alt="">
-            <div class="text1">
-                <p class="title2">CYBERPOP</p>
-                <p class="des">BOPUNK'S EMERGENCE STILL MEANS SOMETHING.</p>
-                <p class="des">WHY DID CYBERPUNK HAPPEN?</p>
-                <p class="des">TURGENEV CASUALLY SAYS, DO YOU WANT TO BE HAPPY?</p>
-                <button class="more">LEARN MORE</button>
-            </div>
-            <div class="text2">
-                <p class="title2">CYBERPOP</p>
-                <p class="des">THE OCCURRENCE OF CYBERPUNK,</p>
-                <p class="des">EXACTLY HOW TO ACHIEVE,</p>
-                <p class="des">NOT THE OCCURRENCE OF</p>
-                <p class="des">CYBERPUNK.</p>
-                <button class="more">LEARN MORE</button>
-            </div>
-            <div class="text3">
-                <p class="title2">CYBERPOP</p>
-                <p class="des">THE OCCURRENCE OF CYBERPUNK,</p>
-                <p class="des">EXACTLY HOW TO ACHIEVE,</p>
-                <p class="des">NOT THE OCCURRENCE OF</p>
-                <p class="des">CYBERPUNK, AND HOW TO PRODUCE.</p>
-                <button class="more">LEARN MORE</button>
-            </div>
-        </div> -->
     </div>
-    <div class="about">
-        <div class="about_content" id="ele5">
-            <div class="left">
-                <div class="content">
-                    <div class="title3">ABOUT US</div>
-                    <div class="des">We are creating the most innovative game with the most legendary story! Our game will transport you to the most immediate scene, and present the clearest picture of the cyber world to you！In this world full of possibilities, we are our way, and we look forward to having you join us!</div>
-                    <button class="more">LEARN MORE</button>
+    <div class="roadmap">
+        <div class="roadmap-bg">
+            <img class="roadmap-bg1" src="@/assets/nwhomePhone/roadmap-bg1.png" alt="">
+            <div class="roadmap-center">
+                <img src="@/assets/nwhomePhone/roadmap-icon.svg" alt="">
+                <div></div>
+            </div>
+            <img class="roadmap-bg2" src="@/assets/nwhomePhone/roadmap-bg2.svg" alt="">
+        </div>
+        <div class="roadmap-wrap">
+            <div class="title" id="ele5">ROADMAP</div>
+            <div class="time1 timeWidth-r" id="time1">
+                <div class="date"><span class="span-l"></span>2021.03</div>
+                <div class="event">
+                    Project Concept <br/>
+                    Basic gameplay design <br/>
+                    Game scene <br/>
+                    Development <br/>
+                    Game Art Modeling
                 </div>
             </div>
-            <!-- <div class="right"></div> -->
+            <div class="time2 timeWidth-l" id="time2">
+                <div class="date">2021.10<span class="span-r"></span></div>
+                <div class="event">
+                    UGC project approval <br/>
+                    web launched <br/>
+                    Game demo online <br/>
+                    Character Modeling
+                </div>
+            </div>
+            <div class="time3 timeWidth-r" id="time3">
+                <div class="date"><span class="span-l"></span>2022.03</div>
+                <div class="event">
+                    Game trial launch <br/>
+                    Game NFT Mall <br/>
+                    Release UGC toolchain <br/>
+                    Token CYT released
+                </div>
+            </div>
+            <div class="time4 timeWidth-l" id="time4">
+                <div class="date">2022.06<span class="span-r"></span></div>
+                <div class="event">
+                    The socialFi mechanism <br/>
+                    Game unions system
+                </div>
+            </div>
+            <div class="time5 timeWidth-r" id="time5">
+                <div class="date"><span class="span-l"></span>2022.10</div>
+                <div class="event">
+                    Create virtual idols <br/>
+                    Support for multiple currency system
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="partners">
+        <div class="title" id="ele6">ECOLOGICAL PARTNERS</div>
+        <div class="logo">
+            <img src="@/assets/nwhomePhone/partners1.png" alt="">
+            <img src="@/assets/nwhomePhone/partners2.png" alt="">
+        </div>
+    </div>
+    <div class="register">
+        <div class="title">READY FOR YOUR JOURNEY?</div>
+        <div class="subtitle">GET THE LASTEST IN INBOX</div>
+        <div class="email">
+            <div class="email-wrap">
+                <input class="email-input" type="text" v-model="email" placeholder="Email">
+            </div>
+            <div class="register" @click="submit()">Register</div>
         </div>
     </div>
     <div class="footer">
-        <header>
-            <div class="des">
-                <h2>ALWAYS FIRST!</h2>
-                <div class="text">
-                    Sign up to Cyberpop New would newsletter.
-                </div>
+        <div class="mask"></div>
+        <div class="footer-wrap">
+            <img class="logo" :src="logoSrc" @mouseover="changeGif()" @mouseout="stopGif()" alt="">
+            <div class="clause">
+                <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
+                <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
             </div>
-            <div class="address">
-                <div class="email">
-                    <input type="text" v-model="email" placeholder="" @focus="inputAnimation()" @blur="stopInputAnimation()">
-                    <div class="input-placeholder" :class="addInput == 1 ? 'inputAnimation' : 'stopInputAnimation'" id="inputA">Enter your email address</div>
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/section2_1.png" class="section" alt="">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/email_bottm.png" class="email_bottom" alt="">
-                </div>
-                <div class="submit" @click="submit()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
-                    SUBMIT
-                    <div class="x">x</div>
-                    <div class="mask" :class="submitMove == true ? 'submitAnimation' : 'stopSubmitAnimation'"></div>
-                    <div class="rtIcon"></div>
-                </div>
-            </div>
-        </header>
-        <section>
-            <div class="share_box">
-                <div>
-                    <span>Terms of Service</span>
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/pink.png" alt="">
-                </div>
-                <div>
-                    <span>Privacy Notice</span>
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/pink.png" alt="">
-                </div>
-                <div>
-                    <span>user agreement</span>
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/pink.png" alt="">
-                </div>
-                <div>
-                    <span>Share this pace</span>
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/pink.png" alt="">
-                </div>
-            </div>
-            <div class="logos">
-                <!-- <a href="#" target="view_window">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/google-logo.png" alt="">
-                </a> -->
-                <a href="https://twitter.com/cyberpopnw" target="view_window">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitter.png" alt="">
-                </a>
-                <!-- <a href="#" target="view_window">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/facebook.png" alt="">
-                </a> -->
+            <div class="icon">
                 <a href="https://t.me/cyberpopnw" target="view_window">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/dianbao.png" alt="">
+                    <img class="medium" src="@/assets/nwhomePhone/medium-footer.svg" alt="">
                 </a>
-                <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/discordlogo.png" alt="">
+            <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
+                <img src="@/assets/nwhomePhone/discord-footer.svg" alt="" class="navLogo2">
+                </a>
+                <a href="https://twitter.com/cyberpopnw" target="view_window">
+                    <img src="@/assets/nwhomePhone/twitter-footer0.svg" alt="">
                 </a>
             </div>
-            <div class="find_us">
-                <div class="find_content">
-                    <!-- <div class="section3">
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/qiu.png" class="qiu" alt="">
-                        <div class="language">English</div>
-                        <img src="https://d1td2c8hf7fv9k.cloudfront.net/bottom.png" class="bottom" alt="">
-                    </div> -->
-                    <div class="section1">
-                        find us on
-                        <!-- <img src="https://d1td2c8hf7fv9k.cloudfront.net/twitch.png" alt=""> -->
-                        <a href="https://www.youtube.com/channel/UCtVpocr6cpS7Ub-WxRSJ3mQ" target="_blank">
-                            <img src="https://d1td2c8hf7fv9k.cloudfront.net/YouTube-logo.png" alt="">
-                        </a>
-                        <!-- <img src="https://d1td2c8hf7fv9k.cloudfront.net/bilibili.png" alt=""> -->
-                    </div>
-                    <div class="section2">
-                        <span>Cookie Preferences</span>
-                        <br>
-                        <span>Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
+        </div>
     </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, getCurrentInstance, computed } from 'vue'
+import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
+SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
+
+
+// whitepaper
+const openPaper = () => {
+    window.open("public/whitepaper.pdf");
+}
+
+
+// language
+let lang:any = ref(false);
+const changeLanguage = () => {
+    lang.value = !lang.value;
+}
+
+let select:any = ref(0);
+const selectLang = (index:any) => {
+    select.value = index;
+}
+
+// menu
+let showMenuAni:any = ref(false);
+let isPage:any = ref(false);
+const showMenu = () => {
+    isPage.value = true;
+    showMenuAni.value = !showMenuAni.value
+}
+let showul:any = ref(true);
+const showUl = () => {
+    showul.value = !showul.value;
+}
+
+
+
+
+
+// swiper
+let imgSrc0: any = ref('/src/assets/nwhome/welcome-leftGray.svg');
+let imgSrc: any = ref('/src/assets/nwhome/welcome-leftYellow.svg');
+let imgIndex: any = ref(0);
+
+
+const onSwiper = (swiper: any) => {
+    console.log('swiper',swiper.activeInde);
+};
+
+const onSlideChangeEnd = (swiper: any) => {
+    imgSrc.value = '/src/assets/nwhome/welcome-leftYellow.svg';
+    imgIndex.value = swiper.realIndex;
+};
+ 
+
+// 右侧图标滚动
+const myNav:any = ref(null);
+const windowScroll: any = () => {
+    const navHeight: number = myNav.value.offsetHeight;
+    const cHeight: number = document.documentElement.clientHeight;
+    const scrollHeight: number = document.documentElement.scrollTop;
+    startMove(Math.ceil((cHeight - navHeight - 10) + scrollHeight));
+}
+
+let timer: any = null;
+const startMove = (target : any) => {
+    clearInterval(timer);
+    timer = setInterval(() => {
+        let speed = (target - myNav.value.offsetTop) / 30;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+        if( target === myNav.value.offsetTop ){
+            clearInterval(timer);
+        }else{
+            myNav.value.style.top = myNav.value.offsetTop + speed + 'px';
+        }
+    },5 )
+}
+
+
+
+// news
+let showNewsImg: any = ref(0);
+let newsStatictxt1:any = ref('CYBER NEW WORLD HAS LAUNCHED THREE MAPS OF THE OPEN WORLD');
+let newsStatictxt2:any = ref('CYBER NEW MAPS OF THE OPEN WORLD THE OPEN WORLD');
+
+
+let newsTitle1:any = ref('CYBER NEW WORLD HAS LAUNCHED THREE MAPS OF THE OPEN WORLD');
+const newsHover = (index: any, txt1:any) => {
+    showNewsImg.value = index;
+    newsTitle1.value = txt1;
+
+    let myNews = document.getElementsByClassName('myNews');
+    let myNewsLen = myNews.length;
+    for(let i = 0; i< myNewsLen;i++){
+        myNews[i].addEventListener('mouseout',() => {
+            showNewsImg.value = newsFlag.value;
+            newsTitle1.value = clickTitle1.value;
+        })
+    } 
+}
+let newsFlag:any = ref(0);
+let clickTitle1:any = ref('CYBER NEW WORLD HAS LAUNCHED THREE MAPS OF THE OPEN WORLD');
+const newsActive = (index: any, txt1:any) => {
+    showNewsImg.value = index;
+    newsFlag.value = index;
+    clickTitle1.value = txt1;
+
+
+    let myNews = document.getElementsByClassName('myNews');
+    let myNewsLen = myNews.length;
+    for(let i = 0; i< myNewsLen;i++){
+        myNews[i].addEventListener('mouseout',() => {
+            showNewsImg.value = index;
+            newsTitle1.value = txt1;
+        })
+    } 
+}
+
+const newsActiveSrc = () => {
+    if(showNewsImg.value === 0){
+        window.open('https://finance.yahoo.com/news/cyber-world-launched-three-maps-172500987.html');
+    }else if(showNewsImg.value === 1){
+        window.open('https://cyberbump.net/cyber-pop-new-blockchain-game-new-world/');
+    }
+}
+
+const toYoutube= (event:any) => {
+    event.stopPropagation();
+    window.open('https://twitter.com/cyberpopnw');
+}
+
+
+
+// openSea
+const openseaEnter = () => {
+    const openMask = document.getElementById("openMask") as HTMLElement;
+    openMask.classList.add('openAnimation');
+    openMask.classList.remove('stopOpenAnimation');
+}
+
+const openseaLeave = () => {
+    const openMask = document.getElementById("openMask") as HTMLElement;
+    openMask.classList.add('stopOpenAnimation');
+    openMask.classList.remove('openAnimation');
+}
+
+
+
+//header
+let logoHSrc: any = ref('/src/assets/nwhomePhone/logo_101.png') ;
+const changeHGif = () => {
+    logoHSrc.value = '/src/assets/nwhomePhone/logo.gif';
+}
+const stopHGif = () => {
+    logoHSrc.value = '/src/assets/nwhomePhone/logo_101.png';
+}
+
+// footer
+let logoSrc: any = ref('/src/assets/nwhomePhone/logo_101.png') ;
+const changeGif = () => {
+    logoSrc.value = '/src/assets/nwhomePhone/logo.gif';
+}
+const stopGif = () => {
+    logoSrc.value = '/src/assets/nwhomePhone//logo_101.png';
+}
 
 const { proxy } = getCurrentInstance() as any;
 
 const router = useRouter()
 
-
 const active = computed(() => store?.state.user?.active);
 
 const email: any = ref("");
 
-const left = ref(0)
-const swiperContent = ref(null);
-const id: any = ref(0)
-let count: any = 0
-const newMask: any = ref(true)
+const menuHover = (type: any) => {
+    let myMenuUl = document.getElementById("menuUl") as HTMLElement;
+    let header = document.getElementById("header") as HTMLElement;
+    let myMenuLi = myMenuUl.getElementsByTagName("li");
+    let myMenuLiLen:number = myMenuLi.length;
+    for( let i=0;i<myMenuLiLen;i++){
+        myMenuLi[i].addEventListener('mouseout',() => {
+            store.dispatch('user/changeActive', menuFlag.value);
+        })
+    }
+    header.addEventListener('mouseout',() => {
+        store.dispatch('user/changeActive', menuFlag.value);
+    })
+    store.dispatch('user/changeActive', type);
+}
+
+let menuFlag:any = ref(0);
 const changeMenu = (type: any, route?: any) => {
-    // active.value = type;
+    showMenuAni.value = false;
+    menuFlag.value = type;
     if(type == 2) {
         window.open('https://medium.com/@Cyberpopnewworld')
         return
@@ -335,12 +557,30 @@ const changeMenu = (type: any, route?: any) => {
     if(route) router.push({ path: `${route}`})
 }
 
-const down = () => {
-    window.location.href = '../cyberpop.docx';
+
+
+// play video
+const id: any = ref(0)
+let type2: any = ref(1);
+let isPlay: any = ref(false);
+const playVideo = (type: any) => {
+    type2.value = type
+    isPlay.value = !isPlay.value;
 }
 
-const deckd = () => {
-    window.location.href = 'https://d1j4h7kk0fcyvo.cloudfront.net/pdf.html';
+const connect: any = async () => {
+    const [accounts]: any = await Web3.login().then((res: any) => {
+        return res;
+    })
+    id.value = accounts;
+    let len = id.value.length-1;
+    id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+}
+
+
+
+const down = () => {
+    window.location.href = '../cyberpop.docx';
 }
 
 const submit = () => {
@@ -357,10 +597,11 @@ const submit = () => {
     //    email.value = "";
 　　 }
 
+
     proxy.$api.get('http://127.0.0.1:3001/addUser?email=' + email.value ).then((res: any) => {
         if( res.serverStatus === 2 && res.affectedRows === 1){
             email.value = "";
-            alert('success');
+            // alert('success');
         }else{
             alert(res.message);
         }
@@ -369,16 +610,6 @@ const submit = () => {
     })
 }
 
-let addInput: any = ref(0);
-const inputAnimation = () => {
-    addInput.value = 1;
-}
-
-const stopInputAnimation = () => {
-    if( email.value == '' ){
-        addInput.value = 2;
-    }
-}
 
 
 let submitMove: any = ref(false);
@@ -390,24 +621,6 @@ const mouseLeave = () => {
     submitMove.value = false;
 }
 
-let isPlay: any = ref(false);
-let type2: any = ref(3)
-const playVideo = (type: any) => {
-    newMask.value = false;
-    isPlay.value = !isPlay.value;
-    type2.value = type
-}
-
-
-const connect: any = async () => {
-    const [accounts]: any = await Web3.login().then((res: any) => {
-        return res;
-    })
-    id.value = accounts;
-    let len = id.value.length-1;
-    id.value = id.value[0]+id.value[1]+id.value[2]+"***"+id.value[len-2]+id.value[len-1]+id.value[len];
-}
-
 const checkScrollHeightAndLoadAnimation: any = () => {
         const windowHeight: Number = window.innerHeight;
 
@@ -416,11 +629,25 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         let ele3 = document.getElementById("ele3") as HTMLElement;
         let ele4 = document.getElementById("ele4") as HTMLElement;
         let ele5 = document.getElementById("ele5") as HTMLElement;
+        let ele6 = document.getElementById("ele6") as HTMLElement;
+        let time1 = document.getElementById("time1") as HTMLElement;
+        let time2 = document.getElementById("time2") as HTMLElement;
+        let time3 = document.getElementById("time3") as HTMLElement;
+        let time4 = document.getElementById("time4") as HTMLElement;
+        let time5 = document.getElementById("time5") as HTMLElement;
+        let role = document.getElementById("role") as HTMLElement;
         const ele1Top: Number = ele1.getBoundingClientRect().top; //距离屏幕顶部的距离
-        const ele2Top: Number = ele2.getBoundingClientRect().top; //距离屏幕顶部的距离
-        const ele3Top: Number = ele3.getBoundingClientRect().top; //距离屏幕顶部的距离
-        const ele4Top: Number = ele4.getBoundingClientRect().top; //距离屏幕顶部的距离
-        const ele5Top: Number = ele5.getBoundingClientRect().top; //距离屏幕顶部的距离
+        const ele2Top: Number = ele2.getBoundingClientRect().top; 
+        const ele3Top: Number = ele3.getBoundingClientRect().top; 
+        const ele4Top: Number = ele4.getBoundingClientRect().top; 
+        const ele5Top: Number = ele5.getBoundingClientRect().top; 
+        const ele6Top: Number = ele6.getBoundingClientRect().top; 
+        const time1Top: Number = time1.getBoundingClientRect().top; 
+        const time2Top: Number = time2.getBoundingClientRect().top; 
+        const time3Top: Number = time3.getBoundingClientRect().top; 
+        const time4Top: Number = time4.getBoundingClientRect().top; 
+        const time5Top: Number = time5.getBoundingClientRect().top; 
+        const roleTop: Number = role.getBoundingClientRect().top; 
 
         let arr = [
             {
@@ -435,966 +662,1382 @@ const checkScrollHeightAndLoadAnimation: any = () => {
                 el: ele3,
                 top: ele3Top
             },
+            {
+                el: ele4,
+                top: ele4Top
+            },
+            {
+                el: ele5,
+                top: ele5Top
+            },
+            {
+                el: ele6,
+                top: ele6Top
+            },
+            {
+                el: role,
+                top: roleTop
+            }
         ]
         for(let i = 0; i < arr.length; i++){
             if(arr[i].top < windowHeight){
-                arr[i].el.classList.add('bounceInLeft')
+                arr[i].el.classList.add('fadeInUp')
             }
             
         }
-        if(ele4Top < windowHeight) ele4.classList.add('bounceInRight')
-        if(ele5Top < windowHeight) ele5.classList.add('bounceInRight')
+        if(time1Top < windowHeight) time1.classList.add('fadeInRight')
+        if(time3Top < windowHeight) time3.classList.add('fadeInRight')
+        if(time5Top < windowHeight) time5.classList.add('fadeInRight')
+        if(time2Top < windowHeight) time2.classList.add('fadeInLeft')
+        if(time4Top < windowHeight) time4.classList.add('fadeInLeft')
 }
 
 
+const deckd = () => {
+    window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf';
+}
+
+onUnmounted(() => {
+    window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
+})
+
 onMounted(() => {
     connect()
-    window.addEventListener('scroll', checkScrollHeightAndLoadAnimation);
+    window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
+    window.addEventListener('scroll', windowScroll, true);
 })
 
 </script>
 <style lang="less" scoped>
-    @keyframes springtimeAniamtScale2 {
+    @keyframes menuStart{
         0% {
-            bottom: 2.5vw;
-        }   
-        25% {
-            bottom: 0vw;
-        }
-        50% {
-            bottom: -2vw;
-        }
-        75%{
-            bottom: 0vw;
-        }
-        100% {
-            bottom: 2.5vw;
-        }
-    }
-    @keyframes fadeInRight {
-        0% {
-            opacity: 0;
-            -webkit-transform: translateX(30px);
-            transform: translateX(30px);
-        }
-        100% {
-            opacity: 1;
-            -webkit-transform: translateX(0);
-            transform: translateX(0);
-        }
-    }
-    @keyframes fadeInDown {
-        0% {
-            opacity: 0;
-            -webkit-transform: translateY(-30px);
-            -ms-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-        100% {
-            opacity: 1;
-            -webkit-transform: translateY(0);
-            -ms-transform: translateY(0);
-            transform: translateY(0);
-        }
-    }
-     @keyframes inputPlaceholder{
-        0% {
-            top: 3.6vw;
-            left: 3vw;
-            font-size: 2vw;
-        }
-        100% {
-            top: 1vw;
-            left: 0vw;
-            font-size: 1vw;
-            transform: scale(.8);
-        }
-    }
-    @keyframes stopInputPlaceholder{
-        0% {
-            top: 1vw;
-            font-size: 1vw;
-            transform: scale(.8);
-        }
-        100% {
-            top: 3.6vw;
-            font-size: 2vw;
-        }
-    }
-    @keyframes submitAnimation {
-        0%{
-            left: 44.6vw;
+            right: -740px;
         }
         100%{
-            left: -1.7vw;
+            right: 0;
         }
     }
-    @keyframes stopSubmitAnimation {
-        0%{
-            left: -1.7vw;
+    @keyframes menuEnd{
+        0% {
+            right: 0;
         }
         100%{
-            left: 44.6vw;
+            right: -740px;
         }
     }
-    .mask{
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        left: 0;
-        z-index: 1005;
-        top: 0;
-        background-color: rgba(0, 0, 0, 0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    @keyframes openAnimation {
+        0%{
+            left: -500px;
+        }
+        100%{
+            left: -80px;
+        }
+    }
+    @keyframes stopOpenAnimation {
+        0%{
+            left: -80px;
+        }
+        100%{
+            left: -920px;
+        }
+    }
+
+    html,
+    body {
+        height: 100%;
+        overflow-x: hidden;
     }
     .home{
-        background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/BK1.jpg');
-        height: 100vh;
+        position: relative;
         width: 100%;
-        background-size: auto 100%;
-        // background-repeat: no-repeat;
-        background-position: 20% top;
+        height: 100vh;
+        overflow: hidden;
         header{
-            height: 24.5px;
+            z-index: 9;
+            position: relative;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 55px;
             color: #fff;
-            animation: fadeInDown .8s linear;
+            background-color: #000000;
             .content{
+                width: 100%;
                 height: 100%;
-                margin: 0 auto;
                 display: flex;
-                align-items: center;
                 justify-content: space-between;
-                position: relative;
+                align-items: center;
                 .logo{
-                    width: 16vw;
-                }
-                .user{
-                    display: flex;
-                    align-items: center;
-                    .login_in{
-                        background-color: #fbec35;
-                        padding: 0.5vw 0.5vw;
-                        color: #333;
-                        border-radius: 8px;
-                        font-size: 0.6vw;
-                        margin-right: 0.5vw;
-                    }
-                    img{
-                        width: 3.5vw;
-                    }
+                    width: 151px;
+                    height: 41px;
                 }
                 .menu{
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    margin: 0 auto;
-                    width: 60vw;
-                    background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/header_menu.png');
-                    background-size: 100% 100%;
-                    height: 100%;
-                    ul{
-                        width: 100%;
-                        height: 100%;
-                        overflow: hidden;
+                    width: 22px;
+                    height: 22px;
+                    // margin: 12px 17px 0 0;
+                    margin-right: 17px;
+                }
+            }
+            .menuMask{
+                position: fixed;
+                top: 0;
+                right: -316px;
+                width: 316px;
+                height: 100vh;
+                background: #000000;
+                opacity: 0.92;
+                .close-menu{
+                    width: 100%;
+                    height: 44px;
+                    text-align: right;
+                    img{
+                        width: 22px;
+                        height: 22px;
+                        margin-top: 12px;
+                        margin-right: 18px;
                     }
-                    ul > li{
-                        width: 20%;
-                        float: left;
-                        font-family: Aideep;
-                        font-size: 10px;
-                        text-align: center;
-                        line-height: 6.6vw;
+                }
+                .menuul{
+                    li{
+                        width: 286px;
+                        height: 60px;
+                        margin-left: 30px;
+                        font-family: Poppins-Regular, Poppins;
+                        font-weight: 400;
+                        color: #FFFFFF;
+                        line-height: 60px;
+                        font-size: 16px;
+                        border-bottom: 1px solid rgba(255,255,255,.3);
                         cursor: pointer;
-                        span{
-                            display: inline-block;
-                            transform: scale(0.6);
-                        }
-                    }
-                    li:last-child{
-                        background-size: 98% 99% !important;
                     }
                     .active{
-                        background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/active_menu.png');
-                        background-size: 108% 100%;
-                        background-position: left top;
+                        color: #04FF55;
+                    }
+                }
+                .language{
+                    position: relative;
+                    width: 286px;
+                    margin-left: 30px;
+                    div{
+                        width: 100%;
+                        height: 30px;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                        font-size: 16px;
+                        font-family: Poppins-Regular, Poppins;
+                        font-weight: 400;
+                        color: #FFFFFF;
+                        line-height: 30px;
+                    }
+                    div:after{
+                        position: absolute;
+                        top: 8px;
+                        content: '';
+                        display: inline-block;
+                        width: 8px;
+                        height: 8px;
+                        margin-left: 33px;
+                        border-left: 2px solid #fff;
+                        border-bottom: 2px solid #fff;
+                        transform: rotateZ(-45deg);
+                    }
+                    ul{
+                        li{
+                            height: 40px;
+                            font-size: 14px;
+                            font-family: PingFangSC-Regular, PingFang SC;
+                            font-weight: 400;
+                            color: #FFFFFF;
+                            line-height: 20px;
+                        }
                     }
                 }
             }
+            .menuAnimation{
+                animation: menuStart .2s ease-out;
+                animation-fill-mode: forwards;
+            }
+            .stopMenuAnimation{
+                animation: menuEnd .4s ease-out;
+                animation-fill-mode: forwards;
+            }
         }
         section{
-            height: 100px;
-            position: absolute;
-            top: 50%;
             width: 100%;
-            transform: translateY(-50%);
+            // height: 284px;
+            height: 100vh;
+            overflow: hidden;
             .titles{
                 position: absolute;
-                text-align: center;
-                left: 0;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                .title1{
-                    margin-bottom: 7vw;
-                    img{
-                        width: 180px;
-                    }
-                }
-                .title2{
-                    img{
-                        width: 350px;
-                    }
-                }
-                .title3{
-                    font-family: Aideep;
-                    margin: 0 auto;
-                    margin-top: 4vw;
-                    background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section1_3.png');
-                    background-repeat: no-repeat;
-                    background-size: 100% 100%;
-                    width: 200px;
-                    height: 40px;
-                    display: flex; 
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('../../../assets/nwhomePhone/section-cover.png');
+                background-size: 101% 101%;
+                // background-size: 100% 100%;
+                // background-position: left top;
+                background-position: -1vw 1vw;
+                .title-wrap{
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;            
                     justify-content: center;
                     align-items: center;
-                    color: #fff;
-                    font-size: 3vw;
-                }
-                .nav-logos{
-                    margin: 15px auto;
-                    width: 100%;
-                    text-align: center;
-                    a{
-                        margin: 0 .6vw;
-                        img:hover{
-                            transform: scale(1.2);
+                    .title1{
+                        width: 273px;
+                        height: 47px;
+                        font-size: 26px;
+                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                        color: #FFFFFF;
+                        line-height: 23px;
+                        text-align: center;
+                        filter: drop-shadow( .155vw 0 0 #D236A5 )
+                                drop-shadow( -.15vw 0 0.05rem #72F0D9 );
+                    }
+                    .title2{
+                        width: 227px;
+                        height: 34px;
+                        margin-top: 11px;
+                        margin-bottom: 24px;
+                        font-size: 12px;
+                        font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                        color: #FFFFFF;
+                        line-height: 17px;
+                        text-align: center;
+                    }
+                    .btnbox{
+                        display: flex;
+                        justify-content: center;
+                        .btn-register{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 213px;
+                            height: 75px;
+                            margin-right: -6%;
+                            color: #fff;
+                            text-align: center;
+                            background-image: url('../../../assets/nwhomePhone/section-btn1.svg');
+                            background-position: center;
+                            background-size: 100% auto;
+                            cursor: pointer;
+                            div{
+                                font-size: 12px;
+                                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                                color: #FFFFFF;
+                            }
+                        }
+                        .btn-video{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 213px;
+                            height: 75px;
+                            margin-left: -6%;
+                            background-image: url('../../../assets/nwhomePhone/section-btn2.svg');
+                            background-position: center;
+                            background-size: 100% auto;
+                            cursor: pointer;
+                            div{
+                                font-size: 12px;
+                                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                                color: #000000;
+                                line-height: 17px;
+                            }
+                            img{
+                                margin-left: 4px;
+                                width: 12px;
+                                height: 12px;
+                            }
+                        }
+                        .btn-register:hover{
+                            filter: drop-shadow(0 0 0.75rem #c42edb);
+                        }
+                        .btn-video:hover{
+                            filter: drop-shadow(0 0 0.75rem #c42edb);
                         }
                     }
-                    
                 }
-                 .document{
-                    color: #fff;
-                    margin: 0 auto;
-                    display: inline-block;
-                    margin-top: 10px;
-                    // margin-top: 20vw;
-                    font-size: 1.125rem;
-                    line-height: 1.75rem;
-                    align-items: center;
-                    // display: flex;
-                    color: #fff;
-                    .buttons{
-                        transition-property: all;
-                        transition-timing-function: cubic-bezier(.4,0,.2,1);
-                        // background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section1_3.png');
-                        background-color: #02224d;
-                        padding: 10px 60px;
-                        background-repeat: no-repeat;
-                        background-size: 100% 100%;
-                        transition-duration: .15s;
-                        cursor: pointer;
-                        width: 40vw;
-                        padding: 2px 20px;
-                        box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.4);
-                        text-align: center;
-                        margin-bottom: 10px;
-                    }
+            }
+            .botm{
+                position: absolute;
+                bottom: 38px;
+                width: 100%;
+                text-align: center;
+                font-size: 14px;
+                font-family: Menlo-Regular, Menlo;
+                font-weight: 400;
+                color: #04FFA2;
+                line-height: 16px;
+                .txt1{
+                }
+                .txt2{
+                    font-size: 12px;
+                    color: #ffffff;
+                    font-weight: bold;
                 }
             }
         }
         .buttom{
-            animation: springtimeAniamtScale2 1.6s linear infinite;
             position: absolute;
-            bottom: 2vw;
-            width: 9vw;
+            bottom: 7px;
             left: 0;
             right: 0;
+            width: 18px;
+            height: 18px;
             margin: 0 auto;
-            z-index: 99;
         }
     }
-    .welcome{
-        background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/BK2.png');
+    .nav-logos{
+        z-index: 2;
+        position: absolute;
+        top: 580px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        width: 47px;
+        height: 280px;
+        padding-bottom: 40px;
+        background-image: url('../../../assets/nwhomePhone/nav-logoBg.svg');
+        background-position: right bottom;
         background-repeat: no-repeat;
-        background-position: -10% top;
-        background-size: 100% 100%;
+        background-size: auto 100%;
+        a{
+            text-decoration: none;
+            text-align: center;
+            img{
+                margin-top: 3vw;
+            }
+            div{
+                font-size: 10px;
+                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                color: #FFFFFF;
+                line-height: 14px;
+            }
+            .joinus{
+                width: 24px;
+                height: 21px;
+            }
+            .nav-img1{
+                width: 22px;
+                height: 16px;
+            }
+            .nav-img2{
+                width: 24px;
+                height: 19px;
+            }
+            .nav-img3{
+                width: 22px;
+                height: 19px;
+            }
+            img:not(.joinus):hover{
+                filter: drop-shadow(0 0 .5vw #00FF9C);
+            }
+        }
+        a + a::before{
+            display: inline-block;
+            content: '';
+            width: 40px;
+            height: 1px;
+            border-top: 1px solid #8147FF;
+            transform: rotateX(180deg);
+        }
+        
+    }
+    .welcome{
         position: relative;
         width: 100%;
-        // height: 90vw;
-        min-height: 200vw;
-        box-shadow: 0px -37px 29px #000;
-        margin-top: 2px;
-        position: relative;
-        .cover_up{
+        height: 472px;
+        // margin-top: -.1vw;
+        background-color: #0C0A0A;
+        z-index: -1;
+        .warp{
+            z-index: -1;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            // justify-content: center;
             width: 100%;
             height: 100%;
-            position: absolute;
-            background: #000;
-            opacity: 1;
-            z-index: -1;
-        }
-        .warp{
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            // height: 100px;
-            text-align: center;
             .title{
-                color: #fff;
-                font-family: Aideep;
-                font-size: 4vw;
-                background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section2_2.png');
-                background-repeat: no-repeat;
-                background-position: center bottom;
-                background-size: 69%;
-                position: relative;
-                .yellow{
-                    color: #feeb36;
+                height: 67px;
+                margin-top: 38px;
+                font-size: 22px;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #04FFA2;
+                line-height: 33px;
+                text-align: center;
+                .white{
+                    color: #fff;
                 }
             }
-            .title::before{
-                content: " ";
-                background: #e9436b;
-                width:  1vw;
-                height: 3vw;
-                position: absolute;
-                margin-left: -1vw;
-                margin-top: 0.2vw;
-            }
-            .title::after{
-                content: " ";
-                background: #e9436b;
-                width:  1vw;
-                height: 3vw;
-                position: absolute;
-                margin-left: 1vw;
-                margin-top: 0.2vw;
+            .desc{
+                margin-top: 17px;
+                font-size: 12px;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
+                color: #FFFFFF;
+                line-height: 17px;
+                text-align: center;
             }
             .content{
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-wrap: nowrap;
                 width: 100%;
-                margin-top: 5vw;
-                position: relative;
-                .right{
-                    transform: rotate(180deg);
-                }
-                .left,
-                .right{
-                    img{
-                        width: 6vw;
-                    }
-                }
-                .swiper{
-                    width: 70vw;
-                    // height: 48vw;
-                    // display: flex;
-                    // justify-content: center;
-                    margin: 0 4vw;
-                    // overflow: hidden;
+                height: 265px;
+                z-index: -1;
+                .left{
+                    z-index: 1;
                     position: relative;
-                    .swiepr_content{
-                        width: 100%;
-                        // height: 100%;
-                        position: relative;
-                        // display: flex;
-                        transition-property: all;
-                        transition-timing-function: cubic-bezier(.4,0,.2,1);
-                        transition-duration: .40s;
-                        & > div{
-                            background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/swiper_border.png');
-                            width: 70vw;
-                            height: 48vw;
-                            background-size: 100% 100%;
-                            background-repeat: no-repeat;
-                            overflow: hidden;
-                            position: relative;
-                            color: #fff;
-                            margin-bottom: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin: 74px 5px 0vw 24px;
+                    .start{
+                        position: absolute;
+                        top: 7px;
+                        left: -9px;
+                        width: 10px;
+                        height: 7px;
+                    }
+                    .end{
+                        position: absolute;
+                        top: 117px;
+                        left: -13px;
+                        width: 14px;
+                        height: 8px;
+                    }
+                    .pList{
+                        margin-top: 15px;
+                        display: flex;
+                        flex-direction: column;
+                        img{
+                            width: 2px;
+                            height: 24px;
+                            margin-bottom: .35vw;
+                        }
+                        // p{
+                        //     width: .15vw;
+                        //     // height: 3.6vw;
+                        //     height: 4.42vw;
+                        //     margin-bottom: .4vw;
+                        //     background-color: #484747;
+                        //     transform: skewY(-25deg);
+                        //     cursor: pointer;
+                        // }
+
+                        .active{
+                            width: 3px;
+                            background-color: #EDFF00;
                         }
                     }
-                    .bg{
-                        width: 100%;
-                    }
-                    .banner{
-                        width: 100%;
+                    
+                    
+                }
+                .swiper1{
+                    z-index: 1;
+                    position: relative;
+                    height: 265px;
+                    width: 340px;
+                    // margin-top: 58px;
+                    overflow: hidden;
+                    .swiper-bg{
                         position: absolute;
-                        left: 0;
-                        right: 0;
-                        z-index: -1;
-                    }
-                    .number{
-                        position: absolute;
-                        bottom: 0;
-                        right: 6vw;
-                        background-color: #000;
-                        height: 3.2vw;
-                        line-height: 1.2;
-                        font-family: EDIX;
-                        color: #fff;
-                        z-index: 1000555555011;
-                        font-size: 1.4vw;
-                        padding: 0 10px;
-                    }
-                    .des{
-                        position: absolute;
-                        bottom: 5vw;
-                        padding: 0 1vw;
-                        text-align: left;
-                        font-size: 4vw;
-                    }
-                    .black{
-                        background: #000;
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                        height: 30.5vw;
-                        opacity: 0.8;
-                    }
-                    #mp4,
-                    #mp5,
-                    #mp6{
-                        background: #000;
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                        height: 30.5vw;
+                        top: 40px;
+                        left: 32px;
+                        width: 326px;
+                        height: 164px;
+                        filter: blur(4vw);
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            display: none;
+                        }
+                        img.show{
+                            display: block;
+                        }
 
                     }
-                    //播放按钮
-                    video::-webkit-media-controls-play-button {
-                        display: none;
+                    .swiper-bg2{
+                        position: absolute;
+                        top: 34px;
+                        width: 326px;
+                        height: 170px;
+                        overflow: hidden;
+                        img{
+                            width: 108%;
+                            height: 106%;
+                            z-index: -1;
+                        }
                     }
-                    .outher{
+                    .swiper-leftTop{
+                        z-index: 2;
+                        position: absolute;
+                        top: 58px;
+                        width: 93px;
+                        height: 20px;
+                        img{
+                            width: 100%;
+                        }
+                        ul{
+                            position: absolute;
+                            top: 7px;
+                            width: 100%;
+                            text-align: center;
+                            li{
+                                font-size: 8px;
+                                color: #000000;
+                                font-family: AlibabaPuHuiTi_2_115_Black;
+                                display: none;
+                            }
+                            .show{
+                                display: block;
+                            }
+                        }
+                    }
+                    .swiper-img{
+                        width: 290px;
+                        height: 126px;
+                        margin-top: 68px;
+                        margin-left: 12px;
+                        .swiper-bg3{
+                            width: 290px;
+                            height: 126px;
+                            img{
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                        // ::v-deep .swiper-vertical > .swiper-wrapper{
+                        //     transition-timing-function: ease-in !important;
+                        // }
+                        :deep(.swiper-vertical > .swiper-wrapper){
+                            transition-timing-function: ease-in !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .nobody{
+        width: 100%;
+        height: 881px;
+        background-color: #000;
+        display: flex;
+        .nobody-wrap{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .nobody-left{
+                position: relative;
+                width: 100%;
+                height: 321px;
+                // background-image: url('../../../assets/nwhomePhone/nobody-leftBg.png');
+                // background-repeat: no-repeat;
+                // background-position: left top;
+                // background-size: auto 100%;
+                img{
+                    height: 100%;
+                }
+                .nobody-img{
+                    position: absolute;
+                    top: 39px;
+                    right: 0;
+                    width: 146px;
+                    height: 235px;
+                    background: linear-gradient(90deg, rgba(111, 38, 190, 0) 0%, rgba(156, 0, 248, 0.64) 64%, #7A00F8 100%);
+                }
+                .nobody-left-tip{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    div{
+                        position: absolute;
+                        top: 160px;
+                        right: 40px;
+                        padding-right: 9px;
+                        width: 145px;
+                        height: 29px;
+                        font-size: 12px;
+                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                        color: #FFFFFF;
+                        line-height: 14px;
+                        text-align: right;
+                        background-image: url('../../../assets/nwhomePhone/nobody-leftYellow.svg');
+                        background-repeat: no-repeat;
+                        background-position: right top;
+                        background-size: 64px 64px;
+                    }
+                }
+            }
+            .nobody-right{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                z-index: 0;
+                width: 100%;
+                height: 560px;
+                .title{
+                    width: 340px;
+                    height: 67px;
+                    font-size: 22px;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #FFFFFF;
+                    line-height: 33px;
+                    text-align: center;
+                }
+                .subtitle{
+                    font-size: 14px;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #04FFA2;
+                    line-height: 12px;
+                }
+                .desc{
+                    margin-top: 32px;
+                    margin-bottom: 33px;
+                    font-size: 12px;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    color: #FFFFFF;
+                    line-height: 17px;
+                    white-space: nowrap;
+                    text-align: center;
+                }
+                .video{
+                    position: relative;
+                    width: 284px;
+                    height: 149px;
+                    background: #000000;
+                    background: chartreuse;
+                    .videoBg{
+                        position: absolute;
+                        right: -4.4px;
+                        bottom: -6px;
+                        width: 157px;
+                        height: 31px;
+                    }
+                    .banner{
                         position: absolute;
                         top: 0;
-                        right: 0;
-                        width: 0;
-                        height: 0;
-                        border-left: 2.5vw solid transparent;
-                        border-bottom: 2.5vw solid transparent;
-                        border-right: 2.5vw solid #000;
-                        border-top: 2.5vw solid #000;
-                        opacity: 0.7;
-                        z-index: 99;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
                     }
-                    .outher2{
+                    .video-wrap{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 100%;
+                        height: 105px;
+                        background: #000000;
+                        opacity: 0.65;
+                        img{
+                            z-index: 1;
+                            width: 33px;
+                            height: 33px;
+                            cursor: pointer;
+                        }
+                    }
+                    .content{
                         position: absolute;
+                        left: 0;
                         bottom: 0;
-                        left: 0;
-                        width: 0;
-                        height: 0;
-                        border-left: 2.5vw solid #000;
-                        border-bottom: 2.5vw solid #000;
-                        border-right: 2.5vw solid transparent;
-                        border-top: 2.5vw solid transparent;
-                        // opacity: 0.5;
+                        width: 100%;
+                        height: 44px;
+                        background-color: #000000;
+                        text-align: right;
+                        .video-title{
+                            margin-top: 3px;
+                            margin-right: 12px;
+                            font-size: 15px;
+                            font-family: AlibabaPuHuiTi_2_95_ExtraBold;
+                            color: #EDFF00;
+                            line-height: 18px;
+                            .yellow{
+                                color: #fff;
+                            }
+                        }
+                        .video-title:before{
+                            display: inline-block;
+                            content: '';
+                            width: 2px;
+                            height: 5px;
+                            margin-right: 10px;
+                            margin-bottom: 2px;
+                            border: 1px solid #EDFF00;
+                            background-color: #EDFF00;
+                            transform: skew(-10deg);
+                            z-index: 1;
+                        }
+                        .video-subtitle{
+                            margin-right: 15px;
+                            font-size: 12px;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            color: #FFFFFF;
+                            line-height: 18px;
+                        }
                     }
-                    .play{
-                        cursor: pointer;
+                }
+                .getNft-wrap{
+                    position: relative;
+                    width: 173px;
+                    height: 40px;
+                    margin-top: 31px;
+                    margin-bottom: 85px;
+                    .getNft{
                         position: absolute;
-                        left: 0;
-                        right: 0;
-                        margin: 0 auto;
-                        top: 9vw;
-                        width: 10vw;
-                        z-index: 99999;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-image: url('../../../assets/nwhomePhone/white-border.svg');
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;  
+                        background-position: left top;
+                        cursor: pointer;
                     }
+                    .txt{
+                        font-size: 13px;
+                        font-family: AlibabaPuHuiTi_2_115_Black;
+                        color: #FFFFFF;
+                        line-height: 40px;
+                        text-align: center;
+                        cursor: pointer;
+                    }
+                }
+                .getNft:hover{
+                    filter: drop-shadow(0 0 4px #fff);
+                }
+            }
+        }
+    }
+    .make{
+        position: relative;
+        width: 100%;
+        // height: 1391px;
+        height: 1670px;
+        background-image: url('../../../assets/nwhomePhone/make-bg.png');
+        background-position: left top;
+        background-size: 100% 100%;
+        overflow: hidden;
+        .make-wrap{
+            position: relative;
+            display: flex;
+            flex-direction: column;            
+            // justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            .title-bg{
+                z-index: 0;
+                position: absolute;
+                top: -4px;
+                width: 100%;
+                height: 400px;
+            }
+            .title{
+                z-index: 1;
+                width: 338px;
+                height: 66px;
+                margin-top: 32px;
+                font-size: 22px;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #FFFFFF;
+                line-height: 33px;
+            }
+            .subtitle{
+                z-index: 1;
+                width: 338px;
+                height: 15px;
+                margin-bottom: 34px;
+                font-size: 14px;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #04FFA2;
+                line-height: 12px;
+            }
+            .desc{
+                z-index: 1;
+                margin-bottom: 101px;
+                width: 332px;
+                height: 118px;
+                font-size: 14px;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
+                color: #FFFFFF;
+                line-height: 20px;
+            }
+            .make-img{
+                position: relative;
+                width: 319px;
+                height: 988px;
+                background: linear-gradient(90deg, #000000 0%, #000000 100%);
+                opacity: 0.83;
+                .yellowBg-r{
+                    position: absolute;
+                    top: -3px;
+                    right: -5px;
+                    width: 115px;
+                    height: 22px;
+                    transform: rotateX(180deg);
+                }
+                .yellowBg-l{
+                    position: absolute;
+                    bottom: -2px;
+                    left: -3px;
+                    width: 115px;
+                    height: 22px;
+                }
+                ul{
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-top: 29px;
+                    li{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        margin-bottom: 14px;
+                    }
+                    li:nth-child(1){
+                        width: 131px;
+                        width: 155px;
+                    }
+                    li:nth-child(2){
+                        width: 84px;
+                        height: 199px;
+                        margin-top: -28px;
+                    }
+                    li:nth-child(3){
+                        width: 205px;
+                        height: 210px;
+                        margin-bottom: 48px;
+                    }
+                    li:nth-child(4){
+                        width: 89px;
+                        height: 230px;
+                    }
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        margin: 10px 0;
+                    }
+                    div{
+                        width: 61px;
+                        height: 13px;
+                        font-size: 16px;
+                        font-family: AlibabaPuHuiTi_2_95_ExtraBold;
+                        color: #EDFF00;
+                        line-height: 13px;
+                        z-index: 1;
+                        cursor: pointer;
+                    }
+                    .tech{
+                        margin-right: 28px;
+                    }
+                }
+            }
+            .opensea{
+                position: relative;
+                width: 357px;
+                height: 175px;
+                margin-top: 60px;
+                background: #EDFF00;
+                clip-path: polygon(0 0, 100% 0, 100% 66%, 94% 100%, 0 100%);
+                .opensea-title{
+                    height: 26px;
+                    margin-top: 18px;
+                    margin-bottom: 12px;
+                    font-size: 17px;
+                    font-family: OPPOSans-B, OPPOSans;
+                    font-weight: normal;
+                    color: #000000;
+                    line-height: 26px;
+                    text-align: center;
+                }
+                .openUrl{
+                    a{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        img:nth-child(1){
+                            width: 276px;
+                            height: 63px;
+                        }
+                        img:nth-child(2){
+                            width: 41px;
+                            height: 42px;
+                            margin-top: 4px;
+                        }
+                        img:nth-child(2):hover{
+                            filter: drop-shadow(0 0 2px #373d41);
+                        }
+                    }
+                }
+                .mask{
+                    z-index: -1;
+                    position: absolute;
+                    top: 0;
+                    left: -500px;
+                    width: 450px;
+                    height: 175px;
+                    background-color: #29fdfe;
+                    opacity: .6;
+                    transform: skewX(-20deg);
+                }
+                .openAnimation{
+                    animation: openAnimation 0.2s linear;
+                    animation-fill-mode: forwards;
+                }
+                .stopOpenAnimation{
+                    animation: stopOpenAnimation 0.2s linear;
+                    animation-fill-mode: forwards;
                 }
             }
         }
     }
     .news{
-        background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/BK3-1.png');
-        background-size: 100% auto;
-        background-repeat: no-repeat;
-        margin-top: -1px;
         width: 100%;
-        position: relative;
-        // height: 70vw;
-        .cover_up{
-            width: 100%;
+        // height: 1089px;
+        height: 1165px;
+        margin-top: -2px;
+        background-color: #000000;
+        overflow: hidden;
+        .news-wrap{
             height: 100%;
-            position: absolute;
-            background: #000;
-            opacity: 1;
-            z-index: -1;
-        }
-        .title{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            .line{
-                width: 20vw;
-                height: 0.5vw;
-            }
-            .news_box{
-                img{
-                    width: 15vw;
-                }
-                margin: 0 3vw;
-                p{
-                    font-family: Aideep;
-                    color: #fff;
-                    text-align: center;
-                    font-size: 4vw;
-                    padding-top: 1vw;
-                    padding-left: 3vw;
-                }
-            }
-        }
-        .news_content2{
-            position: relative;
-            .news_item{
-                background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section3_bg.png');
-                width: 90%;
-                padding: 2vw 2vw 20vw 2vw; 
-                background-size: 100% 100%;
-                .img{
-                    width: 100%;
-                }
-                .text{
-                    font-family: Aideep;
-                    padding: 10px 0;
-                    color: #fff;
-                    .title2{
-                        font-size: 5vw;
-                        margin-bottom: 5vw;
-                    }
-                    .des{
-                        font-size: 3vw;
-                        margin-bottom: 2vw;
-                        line-height: 4vw;
-                    }
-                    .more{
-                        display: flex;
-                        font-size: 0.5vw;
-                        border: none;
-                        font-family: Aideep;
-                        background: #f7ee36;
-                        padding: 1.2vw 1vw;
-                        color: #000;
-                        border-radius: 1vw;
-                        margin: 0 auto;
-                    }
-                }
-            }
-            .news_item:not(:last-child){
-                margin: 10vw auto;
-            }
-            .news_item:last-child{
-                margin: 0 auto;
-            }
-        }
-        .news_content{
-            position: relative;
-            margin-top: 10vw;
-            height: 68vw;
-            .bg1{
-                width: 270px;
-            }
-            .bg2{
-                width: 200px;
-                position: absolute;
-                left: -4.6vw;
-                z-index: 11;
-            }
-             .bg3{
-                width: 204px;
-                height: 113px;
-                position: absolute;
-                bottom: 0;
-                right: 0;
-            }
-            .bg4{
-                width: 105px;
-                position: absolute;
-                right: 0;
-                top: 10vw;
-                // z-index: -1;
-            }
-            .text1,
-            .text2,
-            .text3{
-                color: #fff;
-                font-size: 2vw;
-                position: absolute;
-                width: 100px;
-                right: 28.1vw;
-                top: 0;
-                padding: 3vw 1vw 1vw 1vw;
-                background: rgba(16, 43, 87, 0.5);
-                text-align: right;
-                .title2{
-                    font-family: Aideep;
-                    margin-bottom: 1vw;
-                }
-                .des{
-                    font-size: 0.8vw;
-                    font-family: Aideep;
-                    // white-space: nowrap;
-                    margin-bottom: 1vw;
-                }
-                .more{
-                    display: flex;
-                    font-size: 0.5vw;
-                    border: none;
-                    font-family: Aideep;
-                    background: #f7ee36;
-                    padding: 0.2vw 0.3vw;
-                    color: #000;
-                    border-radius: 0.2vw;
-                    float: right;
-                }
-            }
-            .text2{
+            .title{
+                height: 14px;
+                margin-top: 73px;
+                margin-bottom: 41px;
+                font-size: 30px;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #FFFFFF;
+                line-height: 14px;
                 text-align: center;
-                top: 23.5vw;
-                padding: 2vw 1vw 1vw 1vw;
-                background: rgb(16,43,87);
-                .more{
-                    float: none;
-                    margin: 0 auto;
-                }
             }
-            .text3{
-                background: rgb(16,43,87);
-                top: 37vw;
-                height: 117px;
-                left: 19vw;
-                z-index: 99;
-                text-align: left;
-                .title2{
-                    margin-bottom: 4vw;
-                }
-                .des{
-                    margin-bottom: 2vw;
-                }
-                .more{
-                    float: left;
-                    margin: 0 auto;
-                }
-            }
-        }
-    }
-    .about{
-        background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/BK4_1.png');
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        width: 100%;
-        height: 78vw;
-        position: relative;
-        margin-top: -1px;
-        z-index: 99;
-        .cover_up{
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            background: #000;
-            opacity: 0.8;
-            z-index: -1;
-        }
-        .about_content{
-            width: 90vw;
-            height: 100%;
-            margin: 0 auto;
-            .left{
-                font-family: Aideep;
-                font-size: 2vw;
-                color: #fff;
-                z-index: 99;
-                background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section4_1.png');
-                background-size: 55% auto;
-                background-repeat: no-repeat;
-                background-position: center bottom;
-                width: 100%;
-                height: 100%;
+            .news-top{
+                text-align: center;
                 display: flex;
-                justify-content: center;
+                flex-direction: column;
                 align-items: center;
-                .content{
-                    width: 100%;
-                    padding: 0 2vw;
-                    .title3{
-                        text-align: left;
-                        font-size: 8vw;
-                        margin-bottom: 3vw;
+                .channel{
+                    height: 28px;
+                    font-size: 16px;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #FFFFFF;
+                    line-height: 28px;
+                }
+                .arrival{
+                    width: 86px;
+                    height: 17px;
+                    margin: 8px 0 20px 0;
+                    line-height: 1.09vw;
+                    font-size: 9px;
+                    font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                    color: #000000;
+                    line-height: 17px;
+                    text-align: center;
+                    background: #04FFA2;
+                }
+                .news-logo{
+                    display: flex;
+                    flex-direction: column;
+                    .news-img1{
+                        width: 157px;
+                        height: 120px;
                     }
-                    .des{
-                        font-size: 4vw;
-                        line-height: 6vw;
-                        margin-bottom: 3vw;
-                    }
-                    .more{
-                        display: flex;
-                        font-size: 0.5vw;
-                        border: none;
-                        font-family: Aideep;
-                        background: #f7ee36;
-                        padding: 0.2vw 0.3vw;
-                        color: #000;
-                        border-radius: 0.2vw;
-                        margin-top: 1vw;
+                    a > img{
+                        width: 53px;
+                        height: 52px;
+                        margin-top: -20px;
+                        margin-bottom: 58px;
+                        cursor: pointer;
                     }
                 }
             }
-            .right{
-                font-family: Aideep;
-                font-size: 2vw;
-                color: #fff;
-                z-index: 99;
-                background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/section4_1.png');
-                background-repeat: no-repeat;
-                background-position: center bottom;
-                width: 50%;
-                height: 100%;
-                background-size: 100% auto;
+            .news-img{
+                position: relative;
+                width: 100%;
+                height: 463px;
+                img{
+                    position: absolute;
+                    right: -6px;
+                    height: 421px;
+                    display: none;
+                }
+                img.newsShow{
+                    display: block;
+                }
+                .desc{
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    height: 76px;
+                    padding-top: 14px;
+                    padding-right: 11px;
+                    background: linear-gradient(81deg, rgba(200, 53, 185, 0) 0%, rgba(199, 53, 183, 0.7) 33%, #C635B4 100%);
+                    font-size: 15px;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #FFFFFF;
+                    line-height: 22px;
+                    text-align: right;
+                }
+            }
+            ul{
+                height: 290px;
+                background: #000000;
+                li{
+                    display: flex;
+                    width: 124px;
+                    height: 124px;
+                    margin: 21px 0 21px 43px;
+                    border: 2px solid #C434B2;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .read{
+                        margin-left: 10px;
+                        margin-top: 2px;
+                        .txt{
+                            width: 131px;
+                            height: 44px;
+                            font-size: 16px;
+                            font-family: AlibabaPuHuiTi_2_115_Black;
+                            color: #FFFFFF;
+                            line-height: 21px;
+                        }
+                        .date{
+                            width: 167px;
+                            height: 17px;
+                            margin-top: 2px;
+                            margin-bottom: 17px;
+                            font-size: 12px;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            color: #FFFFFF;
+                            line-height: 17px;
+                        }
+                        .toRead{
+                            font-size: 12px;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            color: #FF21FF;
+                            line-height: 17px;
+                            text-decoration: none;
+                        }
+                    }
+                }
             }
         }
 
     }
-    .footer{
-        background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/footer.png');
-        background-size: 100% 100%;
+    .roadmap{
         width: 100%;
-        // height: 68vw;  
-        margin-top: -18px;
-        position: relative;
-        z-index: 999 ;
-        color: #fff;
-        header{
-            // height: 14vw;
-            border-bottom: 1px solid #cd2e86;
-            // display: flex;
-            padding: 10vw 5vw;
-            // align-items: center;
-            // justify-content: space-between; /* 横向中间自动空间 */
-            .des{
-                width: 100%;
-                h2{
-                    font-family: EDIX;
-                    font-size: 5vw;
-                    text-align: center;
-                    margin-bottom: 5vw;
-                }
-                .text{ 
-                    font-family: Aideep;
-                    font-size: 4vw;
-                    text-align: center;
-                }
+        // height: 731px;
+        height: 770px;
+        background-color: #000000;
+        overflow: hidden;
+        .roadmap-bg{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            .roadmap-bg1{
+                position: absolute;
+                top: 185px;
+                left: 0;
+                width: 177px;
+                height: 201px;
             }
-            .address{
+            .roadmap-bg2{
+                position: absolute;
+                top: 344px;
+                right: 27px;
+                width: 106px;
+                height: 94px;
+            }
+            .roadmap-center{
+                position: absolute;
+                top: 178px;
                 width: 100%;
-                .email{
-                    position: relative;
-                    width: 100%;
-                    height: 10vw;
-                    margin-right: 2vw;
-                    margin-bottom: 6vw;
-                    input{
-                        width: 100%;
-                        margin-left: 3vw;
-                        height: 100%;
-                        background: transparent;
-                        border: none;
-                        outline: none;
-                        color: #fff;
-                        font-size: 2vw;
-                        font-family: Aideep;
-                    }
-                    input::-webkit-input-placeholder {
-                        color: #fff;
-                    }
-                    .input-placeholder{
-                        z-index: -1;
-                        position: absolute;
-                        top: 3.6vw;
-                        left: 3vw;
-                        color: #fff;
-                        font-size: 2vw;
-                        font-family: Aideep;
-                    }
-                    .inputAnimation{
-                        animation: inputPlaceholder .1s ease-in;
-                        top: 1vw;
-                        left: 0vw;
-                        font-size: 1vw;
-                        transform: scale(.8);
-                    }
-                    .stopInputAnimation{
-                        animation: stopInputPlaceholder .1s ease-in;
-                        top: 3.6vw;
-                        font-size: 2vw;
-                    }
-                    .email_bottom{
-                        width: 100%;
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                    }
-                    .section{
-                        position: absolute;
-                        width: 1.6vw;
-                        height: 4.5vw;
-                        left: 0;
-                        top: 50%;
-                        transform: translateY(-50%);
-                    }
+                text-align: center;
+                img{
+                    width: 17px;
+                    height: 16px;
                 }
-                .submit{
-                    background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/email_box.png');
-                    background-size: 100% 100%;
-                    width: 40vw;
-                    height: 10vw;
+                div{
+                    position: absolute;
+                    top: 16px;
+                    left: 0;
+                    right: 0;
                     margin: 0 auto;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: EDIX;
-                    // font-size: 1.3vw;
-                    font-size: 3vw;
-                    position: relative;
-                    overflow: hidden;
-                    .x{
-                        position: absolute;
-                        bottom: -.2vw;
-                        font-size: 0.7vw;
-                        right: 3.6vw;
-                    }
-                    .mask{
-                        z-index: -1;
-                        position: absolute;
-                        top: 0;
-                        left: 44.6vw;
-                        width: 43.6vw;
-                        height: 100%;
-                        background-color: #cd2e86;
-                        opacity: .6;
-                        transform: skewX(42deg);
-                    }
-                    .rtIcon{
-                        position: absolute;
-                        right: -12.2vw;
-                        width: 0;
-                        height: 0;
-                        border-top: 10vw solid #112C53;
-                        border-left: 10vw solid transparent;
-                        border-right: 10vw solid transparent;
-                        border-bottom: 10vw solid transparent;
-                    }
-                    .submitAnimation{
-                        animation: submitAnimation 0.2s linear;
-                        animation-fill-mode: forwards;
-                    }
-                    .stopSubmitAnimation{
-                        animation: stopSubmitAnimation 0.2s linear;
-                        animation-fill-mode: forwards;
-                    }
+                    width: 1px;
+                    height: 485px;
+                    border: 1px solid #C689FF;
                 }
             }
         }
-        section{
-            // height: 29vw;
-            .share_box{
+        .roadmap-wrap{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            .title{
                 width: 100%;
-                background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/email_bottm.png');
-                background-size: 100% auto;
-                & > div{
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 8vw;
+                height: 16px;
+                margin-top: 99px;
+                margin-bottom: 63px;
+                font-size: 26px;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #FFFFFF;
+                line-height: 14px;
+                text-align: center;
+            }
+            .timeWidth-l{
+                width: 50%;
+                text-align: right;
+                padding-right: 17px;
+            }
+            .timeWidth-r{
+                width: 50%;
+                margin-left: 50%;
+                padding-left: 17px;
+                text-align: left;
+            }
+            .span-l{
+                position: absolute;
+                top: 8px;
+                left: -16px;
+                display: inline-block;
+                width: 9px;
+                height: 0px;
+                background-color: #C689FF;
+                border: 1px solid #C689FF;
+            }
+             .span-r{
+                position: absolute;
+                top: 8px;
+                right: -16px;
+                display: inline-block;
+                width: 9px;
+                height: 0px;
+                background-color: #C689FF;
+                border: 1px solid #C689FF;
+            }
+            .time1,.time2,.time3,.time4,.time5{
+                .date{
                     position: relative;
-                    span{
-                        font-size: 4.2vw;
-                        margin-right: 1vw;
-                        font-family: Aideep;
-                        transition-property: all;
-                        transition-timing-function: cubic-bezier(.4,0,.2,1);
-                        transition-duration: .25s;
-                        cursor: pointer;
-                    }
-                    img{
-                        width: 3vw;
-                        margin-left: 1vw;
-                    }
+                    font-size: 20px;
+                    font-family: AiDeep-Bold, AiDeep;
+                    font-weight: bold;
+                    color: #04FFA2;
+                    line-height: 18px;
+                }
+                .event{
+                    margin-top: 16px;
+                    font-size: 8px;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    color: #FFFFFF;
+                    line-height: 12px;
                 }
             }
-            .logos{
-                background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/email_bottm.png');
-                background-size: 100% auto;
-                text-align: center; 
-                padding-top: 7vw;
-                padding-bottom: 7vw;
-                img{
-                    margin-right: 3.5vw;
+            .time1{
+                margin-top: 47px;
+            }
+            .time2{
+                margin-top: 38px;
+            }
+            .time3{
+                margin-top: -20px;
+            }
+            .time4{
+                margin-top: 18px;
+            }
+            .time5{
+                margin-top: 15px;
+            }
+        }
+    }
+    .partners{
+        width: 100%;
+        height: 200px;
+        background-color: #000000;
+        overflow: hidden;
+        .title{
+            height: 31px;
+            margin-bottom: 7px;
+            font-size: 22px;
+            font-family: AlibabaPuHuiTi_2_115_Black;
+            color: #FFFFFF;
+            line-height: 28px;
+            text-align: center;
+        }
+        .logo{
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            img:nth-child(1){
+                width: 93px;
+                height: 71px;
+                margin-left: 66px;
+                margin-bottom: -2px;
+            }
+            img:nth-child(2){
+                width: 147px;
+                height: 47px;
+            }
+
+        }
+    }
+    .register{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 222px;
+        background: #04FF55;
+        .title{
+            height: 28px;
+            margin-top: 30px;
+            margin-bottom: 3px;
+            font-size: 22px;
+            font-family: AlibabaPuHuiTi_2_115_Black;
+            color: #000000;
+            line-height: 28px;
+        }
+        .subtitle{
+            height: 14px;
+            margin-bottom: 34px;
+            font-size: 16px;
+            font-family: AlibabaPuHuiTi_2_115_Black;
+            color: #000000;
+            line-height: 14px;
+        }
+        .email{
+            display: flex;
+            width: 342px;
+            height: 37px;
+            .email-wrap{
+                width: 69%;
+                height: 100%;
+                input{
+                    width: 100%;
+                    height: 100%;
+                    padding-right: 10px;
+                    text-indent: 12px;
+                    font-size: 11px;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    color: #565656;
+                    line-height: 16px;
+                    background-color: #FFFFFF;
+                    border: 1px solid #979797;;
+                    outline: none;
+                    text-align: left;
+
                 }
-                img:hover{
-                    transform: scale(1.2);
+                input:focus::-webkit-input-placeholder {
+                    font-size: 9px;
+                    text-align: right;
                 }
             }
-            .find_us{
-                background-image: url('https://d1td2c8hf7fv9k.cloudfront.net/email_bottm.png');
-                background-size: 100% auto;
+            .register{
+                width: 31%;
+                height: 100%;
+                background-color: #0C0A0A;
+                font-size: 10px;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #04FF84;
+                line-height: 35px;
+                cursor: pointer;
+            }
+        }
+        .email:hover{
+            filter: drop-shadow(0 0 6px #000000);
+        }
+        .email:focus-within {
+            filter: drop-shadow(0 0 6px #000000);
+        }
+    }
+    .footer{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 206px;
+        background-color: #000000;
+        align-items: center;
+        a{
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .mask{
+            position: absolute;
+            width: 96%;
+            height: 100%;
+            margin-left: 4%;
+            // background-color: #121122;
+            background-color: #000000;
+        }
+       .footer-wrap{
+           position: absolute;
+           width: 100%;
+           height: 100%;
+           text-align: center;
+            .logo{
+                width: 181px;
+                height: 49px;
+                margin-top: 10px;
+                margin-bottom: 5px;
+            }
+            .clause{
                 display: flex;
                 justify-content: center;
-                align-items: center;
-                flex-wrap: wrap;
-                .find_content{
-                    text-align: center;
-                    font-size: 1.2vw;
-                    font-family: Aideep;
-                    .section1{
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        margin-bottom: 2vw;
-                        width: 100%;
-                        img{
-                            margin-left: 3.5vw;
-                            width: 8vw;
-                            transition-property: all;
-                            transition-timing-function: cubic-bezier(.4,0,.2,1);
-                            transition-duration: .25s;
-                            cursor: pointer;
-                        }
-                        img:hover{
-                            transform: scale(1.2);
-                        }
-                    }
-                    .section2{
-                        span{
-                            display: inline-block;
-                            margin-bottom: 1vw;
-                        }
-                    }
-                    .section3{
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        .qiu{
-                            width: 7vw;
-                        }
-                        .bottom{
-                            width: 7vw;
-                        }
-                        .language{
-                            margin: 4vw 1vw;
-                            border-bottom: 0.2vw solid #fff;
-                            cursor: pointer;
-                            font-size: 8vw;
-                        }
-                    }
+                margin-bottom: 25px;
+                height: 23px;
+                font-size: 14px;
+                font-family: Poppins-Regular, Poppins;
+                font-weight: 400;
+                color: #FFFFFF;
+                line-height: 23px;
+                .policy{
+                    width: 101px;
+                    margin-right: 14px;
+                    white-space: nowrap;
+                }
+                .policy > a:hover{
+                    color: #04FF55;
+                }
+                .terms{
+                    width: 145px;
+                    white-space: nowrap;
+                }
+                .terms > a:hover{
+                    color: #04FF55;
                 }
             }
-        }
+            .icon{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-bottom: 22px;
+                img{
+                    width: 41px;
+                    height: 41px;
+                }
+                img:not(.medium){
+                    margin-left: 31px;
+                }
+                img:hover{
+                    transform: scale(1.1);
+                }
+            }
+            .desc{
+                height: 13px;
+                font-size: 8px;
+                font-family: Poppins-Regular, Poppins;
+                font-weight: 400;
+                color: #FFFFFF;
+                line-height: 13px;
+            }
+       }
     }
 </style>

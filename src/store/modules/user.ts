@@ -10,7 +10,7 @@ const states = {
     name: 'test' as string,
     age: 0 as number,
     roles: [] as role[],
-    active: 0,
+    active: 0
 }
 export type typeof_user = typeof states
 export default {
@@ -39,7 +39,7 @@ export default {
         // 添加用户角色
         changeActive(state, payload: any) {
             state.active = payload;
-        },
+        }
     },
     actions: {
         init({ commit }, paylaod: typeof_user) {
