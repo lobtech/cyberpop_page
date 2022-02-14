@@ -4,10 +4,10 @@
         <header>
             <div class="content" id="header">
                 <img class="logo" :src="logoHSrc" @mouseover="changeHGif()" @mouseout="stopHGif()" alt="">
-                <!-- <img class="logo" src="@/assets/nwhome/header-logo.svg" alt="logo"> -->
+                <!-- <img class="logo" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-logo.svg" alt="logo"> -->
                 <div class="user" @click="connect()">
                     <!-- <div class="language">
-                        <img @click="changeLanguage()" src="@/assets/nwhome/header-language.svg" alt="" v-if="!id">
+                        <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
                         <ul :class="lang == true ? 'showLang' : ''">
                             <li :class="select == 0 ? 'active' : ''" @click="selectLang(0)">简体中文</li>
                             <li :class="select == 1 ? 'active' : ''" @click="selectLang(1)">English</li>
@@ -33,7 +33,7 @@
         </header>
         <section>
             <video-bg 
-id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="/src/assets/nwhome/videobg.png">
+id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg.png">
             </video-bg>
             <div class="titles"> 
                 <div class="title-wrap">
@@ -46,7 +46,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         <div class="btn-register">REGISTER</div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
-                            <img src="@/assets/nwhome/section-btnPlay.svg" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net//nwhome/section-btnPlay.svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -54,22 +54,22 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="botm">#0 <span class="txt1">CYBERSPACE </span><span class="txt2">WILL BE OPENED SOON</span></div>
         </section>
         <footer>
-            <img src="@/assets/nwhome/section_buttom.svg" alt="" class="buttom">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section_buttom.svg" alt="" class="buttom">
         </footer>
     </div>
     <div class="nav-logos" ref="myNav">
         <a href="" target="view_window">
-            <img src="@/assets/nwhome/joinus.svg" alt="" class="joinus">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/joinus.svg" alt="" class="joinus">
             <div>JOIN US</div>
         </a>
         <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-            <img src="@/assets/nwhome/discordlogo.svg" alt="" class="nav-img1">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/discordlogo.svg" alt="" class="nav-img1">
         </a>
         <a href="https://twitter.com/cyberpopnw" target="view_window">
-            <img src="@/assets/nwhome/twitter.svg" alt="" class="nav-img2">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/twitter.svg" alt="" class="nav-img2">
         </a>
         <a href="https://t.me/cyberpopnw" target="view_window">
-            <img src="@/assets/nwhome/dianbao.svg" alt="" class="nav-img3">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/dianbao.svg" alt="" class="nav-img3">
         </a>
     </div>
     <div class="welcome">
@@ -93,16 +93,16 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
                 <div class="swiper1">
                     <div class="swiper-bg">
-                        <img :class="imgIndex == 0 ? 'show' : ''" src="@/assets/nwhome/timeRemnant.png" alt="">
-                        <img :class="imgIndex == 1 ? 'show' : ''" src="@/assets/nwhome/digitalPujas.png" alt="">
-                        <img :class="imgIndex == 2 ? 'show' : ''" src="@/assets/nwhome/moonlightCentury.png" alt="">
-                        <img :class="imgIndex == 3 ? 'show' : ''" src="@/assets/nwhome/futureCity.png" alt="">
+                        <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant.png" alt="">
+                        <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas.png" alt="">
+                        <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury.png" alt="">
+                        <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity.png" alt="">
                     </div>
                     <div class="swiper-bg2">
-                        <img src="@/assets/nwhome/swiper-bg2.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/swiper-bg2.png" alt="">
                     </div>
                     <div class="swiper-leftTop">
-                        <img src="@/assets/nwhome/swiper-leftTop.svg" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/swiper-leftTop.svg" alt="">
                         <ul>
                             <li :class="imgIndex == 0 ? 'show' : ''">Time Remnant</li>
                             <li :class="imgIndex == 1 ? 'show' : ''">Digital Pujas</li>
@@ -121,10 +121,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :speed="200"
                             :autoplay="true"
                         >
-                            <swiper-slide><img src="@/assets/nwhome/timeRemnant.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="@/assets/nwhome/digitalPujas.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="@/assets/nwhome/moonlightCentury.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="@/assets/nwhome/futureCity.png"  alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity.png"  alt=""></swiper-slide>
                         </swiper>
                     </div>
                 </div>
@@ -132,10 +132,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="nobody">
-        <img class="nobody-img" src="@/assets/nwhome/nobody-bg.png" alt="">
+        <img class="nobody-img" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-bg.png" alt="">
         <div class="nobody-wrap">
             <div class="nobody-left">
-                <img id="role" src="@/assets/nwhome/nobody-leftBg.png" alt="">
+                <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg.png" alt="">
                 <div class="nobody-left-tip">
                     <div>Scarlet Witch <br/> in #0 cyberspace</div>
                 </div>
@@ -151,10 +151,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     with players in the same space or team up with them.
                 </div>
                 <div class="video">
-                    <img class="videoBg" src="@/assets/nwhome/yellowBg-r.svg" alt="">
-                    <img class="banner" src="@/assets/nwhome/nobody-playBg.png" alt="">
+                    <img class="videoBg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/yellowBg-r.svg" alt="">
+                    <img class="banner" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-playBg.png" alt="">
                     <div class="video-wrap">
-                        <img src="@/assets/nwhome/nobody-controls.svg" alt="" @click="playVideo(4)">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-controls.svg" alt="" @click="playVideo(4)">
                     </div>
                     <div class="content">
                         <div class="video-title">#0 Cyberspace <span class="yellow">Exposure</span></div>
@@ -183,19 +183,19 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="make-img">
                 <ul>
                     <li>
-                        <img src="@/assets/nwhome/make-img1.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/make-img1.png" alt="">
                         <div>Product</div>
                     </li>
                     <li>
-                        <img src="@/assets/nwhome/make-img2.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/make-img2.png" alt="">
                         <div>Live</div>
                     </li>
                     <li>
-                        <img src="@/assets/nwhome/make-img3.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/make-img3.png" alt="">
                         <div>Basic</div>
                     </li>
                     <li>
-                        <img src="@/assets/nwhome/make-img4.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/make-img4.png" alt="">
                         <div>Technology</div>
                     </li>
                 </ul>
@@ -205,8 +205,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="opensea-title">View the claimed lands on</div>
                 <div class="openUrl" target="view_window">
                     <a href="">
-                        <img src="@/assets/nwhome/openSea.png" alt="">
-                        <img src="@/assets/nwhome/make-rightArrow.svg" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/openSea.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/make-rightArrow.svg" alt="">
                     </a>
                 </div>
                 <div id="openMask" class="mask"></div>
@@ -218,14 +218,14 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="title" id="ele4">NEWS</div>
             <div class="content" @click="newsActiveSrc()">
                 <div class="hover-img">
-                    <img :class="{'newsShow': showNewsImg == 0}" src="@/assets/nwhome/news-bg.png" alt="">
-                    <img :class="{'newsShow': showNewsImg == 1}" src="@/assets/nwhome/news-bg2.png" alt="">
+                    <img :class="{'newsShow': showNewsImg == 0}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg.png" alt="">
+                    <img :class="{'newsShow': showNewsImg == 1}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg2.png" alt="">
                 </div>
                 <div class="news-left">
                     <div class="news-top" @click="toYoutube($event)">
                         <div class="news-logo">
-                            <img src="@/assets/nwhome/news-logo.png" alt="">
-                            <img src="@/assets/nwhome/youtube-play.svg" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-logo.png" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/youtube-play.svg" alt="">
                         </div>
                         <div>
                             <div class="channel">CYBERPOP Channel</div>
@@ -234,7 +234,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     </div>
                     <ul>
                         <li @mouseover="newsHover(0,newsStatictxt1)" @click="newsActive(0,newsStatictxt1)">
-                            <img src="@/assets/nwhome/news-img1.png" id="myNews1" class="myNews" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-img1.png" id="myNews1" class="myNews" alt="">
                             <div class="read">
                                 <div class="txt">Picante Channel News</div>
                                 <div class="date">January 2,2022</div>
@@ -242,7 +242,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             </div>
                         </li>
                         <li @mouseover="newsHover(1,newsStatictxt2)" @click="newsActive(1,newsStatictxt2)" >
-                            <img src="@/assets/nwhome/news-img2.png" id="myNews2" class="myNews" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-img2.png" id="myNews2" class="myNews" alt="">
                             <div class="read">
                                 <div class="txt">cyberbump channel news</div>
                                 <div class="date">January 2,2022</div>
@@ -252,7 +252,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     </ul>
                 </div>
                 <div class="news-right">
-                    <img src="@/assets/nwhome/news-rightBg.png" alt="">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-rightBg.png" alt="">
                     <div class="desc">
                         <div>{{newsTitle1}}</div>
                     </div>
@@ -262,12 +262,12 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="roadmap">
         <div class="roadmap-bg">
-            <img class="roadmap-bg1" src="@/assets/nwhome/roadmap-bg1.png" alt="">
+            <img class="roadmap-bg1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/roadmap-bg1.png" alt="">
             <div class="roadmap-center">
-                <img src="@/assets/nwhome/roadmap-icon.svg" alt="">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/roadmap-icon.svg" alt="">
                 <div></div>
             </div>
-            <img class="roadmap-bg2" src="@/assets/nwhome/roadmap-bg2.svg" alt="">
+            <img class="roadmap-bg2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/roadmap-bg2.svg" alt="">
         </div>
         <div class="roadmap-wrap">
             <div class="title" id="ele5">ROADMAP</div>
@@ -318,8 +318,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="partners">
         <div class="title" id="ele6">ECOLOGICAL PARTNERS</div>
         <div class="logo">
-            <img src="@/assets/nwhome/partners1.png" alt="">
-            <img src="@/assets/nwhome/partners2.png" alt="">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners1.png" alt="">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt="">
         </div>
     </div>
     <div class="register">
@@ -339,13 +339,13 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
         <div class="icon">
             <a href="https://t.me/cyberpopnw" target="view_window">
-                <img src="@/assets/nwhome/medium.svg" alt="">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/medium.svg" alt="">
             </a>
            <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-            <img src="@/assets/nwhome/discord.svg" alt="" class="navLogo2">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/discord.svg" alt="" class="navLogo2">
             </a>
             <a href="https://twitter.com/cyberpopnw" target="view_window">
-                <img src="@/assets/nwhome/twitter-footer.svg" alt="">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/twitter-footer.svg" alt="">
             </a>
         </div>
     </div>
@@ -356,7 +356,7 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
-// import '@/assets/js/titleThree'
+// import 'https://d2cimmz3cflrbm.cloudfront.net/js/titleThree'
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
@@ -405,8 +405,8 @@ const selectLang = (index:any) => {
 }
 
 // swiper
-let imgSrc0: any = ref('/src/assets/nwhome/welcome-leftGray.svg');
-let imgSrc: any = ref('/src/assets/nwhome/welcome-leftYellow.svg');
+let imgSrc0: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftGray.svg');
+let imgSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftYellow.svg');
 let imgIndex: any = ref(0);
 
 
@@ -416,7 +416,7 @@ const onSwiper = (swiper: any) => {
 
 
 const onSlideChangeEnd = (swiper: any) => {
-    imgSrc.value = '/src/assets/nwhome/welcome-leftYellow.svg';
+    imgSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftYellow.svg';
     imgIndex.value = swiper.realIndex;
 };
 
@@ -425,7 +425,7 @@ const onSlideChangeEnd = (swiper: any) => {
 
 
 // banner视频播放
-// let videoControls: any = ref('/src/assets/nwhome/section-btnPlay.svg') 
+// let videoControls: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-btnPlay.svg') 
 // let playFlag: any = ref(false);
 // const stopPlay = () => {
 //     let videobg = document.querySelector("#videobg") as HTMLElement;
@@ -433,11 +433,11 @@ const onSlideChangeEnd = (swiper: any) => {
 //     if( playFlag.value == false ){
 //         relVideo.pause();
 //         playFlag.value = !playFlag.value;
-//         videoControls.value = '/src/assets/nwhome/zanting.svg';
+//         videoControls.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/zanting.svg';
 //     }else if( playFlag.value == true ){
 //         relVideo.play();
 //         playFlag.value = !playFlag.value;
-//         videoControls.value = '/src/assets/nwhome/section-btnPlay.svg';
+//         videoControls.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-btnPlay.svg';
 //     }
 // }
  
@@ -535,21 +535,21 @@ const openseaLeave = () => {
 
 
 //header
-let logoHSrc: any = ref('/src/assets/nwhome/logo_101.png') ;
+let logoHSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
 const changeHGif = () => {
-    logoHSrc.value = '/src/assets/nwhome/logo.gif';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
 }
 const stopHGif = () => {
-    logoHSrc.value = '/src/assets/nwhome/logo_101.png';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png';
 }
 
 // footer
-let logoSrc: any = ref('/src/assets/nwhome/logo_101.png') ;
+let logoSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
 const changeGif = () => {
-    logoSrc.value = '/src/assets/nwhome/logo.gif';
+    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
 }
 const stopGif = () => {
-    logoSrc.value = '/src/assets/nwhome/logo_101.png';
+    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png';
 }
 
 const { proxy } = getCurrentInstance() as any;
@@ -785,7 +785,7 @@ onMounted(() => {
             color: #fff;
             background-color: #000000;
             // background-image: linear-gradient(to right, #000 , #1C0B3D, #000);
-            // background-image: url('../../../assets/nwhome/header-bg.svg');
+            // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-bg.svg');
             // background-size: auto 100%;
             .content{
                 height: 98.9%;
@@ -810,7 +810,7 @@ onMounted(() => {
                         width: 10.3vw;
                         height: 2.3vw;
                         margin-top: 1.1vw;
-                        background-image: url('../../../assets/nwhome/header-loginBg.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-loginBg.svg');
                         background-size: 100% 100%;
                         background-position: left top;
                         overflow: hidden;
@@ -923,7 +923,7 @@ onMounted(() => {
                         width: 9.8vw;
                     }
                     .active{
-                        background-image: url('../../../assets/nwhome/header-titleBg.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-titleBg.svg');
                         background-repeat: no-repeat;
                         background-size: 110% 110%;
                         background-position: left -1.6vw;
@@ -940,7 +940,7 @@ onMounted(() => {
                 top: 0;
                 width: 100%;
                 height: 100%;
-                background-image: url('../../../assets/nwhome/section-cover.png');
+                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-cover.png');
                 background-size: 100% 103%;
                 background-position: left top;
                 .title-wrap{
@@ -987,7 +987,7 @@ onMounted(() => {
                             font-size: 1.04vw;
                             font-weight: bold;
                             font-family: AlibabaPuHuiTi_2_105_Heavy;
-                            background-image: url('../../../assets/nwhome/section-btn1.svg');
+                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-btn1.svg');
                             background-position: center;
                             background-size: 100% auto;
                             cursor: pointer;
@@ -998,7 +998,7 @@ onMounted(() => {
                             align-items: center;
                             width: 18.75vw;
                             height: 7.24vw;
-                            background-image: url('../../../assets/nwhome/section-btn2.svg');
+                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-btn2.svg');
                             background-position: center;
                             background-size: 100% auto;
                             cursor: pointer;
@@ -1070,7 +1070,7 @@ onMounted(() => {
         width: 4.4vw;
         height: 29vw;
         padding-bottom: 5.2vw;
-        background-image: url('../../../assets/nwhome/nav-logoBg.svg');
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/nav-logoBg.svg');
         background-position: right bottom;
         background-repeat: no-repeat;
         background-size: auto 100%;
@@ -1347,7 +1347,7 @@ onMounted(() => {
                         font-weight: bold;
                         color: #FFFFFF;
                         line-height: 1.25vw;
-                        background-image: url('../../../assets/nwhome/nobody-leftYellow.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftYellow.svg');
                         background-repeat: no-repeat;
                         background-position: right top;
                         background-size: auto 100%;
@@ -1471,7 +1471,7 @@ onMounted(() => {
                         top: 0;
                         width: 100%;
                         height: 100%;
-                        background-image: url('../../../assets/nwhome/white-border.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/white-border.svg');
                         background-repeat: no-repeat;
                         background-size: 100% 100%;  
                         background-position: left top;
@@ -1498,7 +1498,7 @@ onMounted(() => {
         width: 100%;
         min-height: 120vh;
         height: 120vh;
-        background-image: url('../../../assets/nwhome/make-bg.png');
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/make-bg.png');
         background-position: right top;
         background-size: 100% 100%;
         background-color: #000000;
@@ -1537,7 +1537,7 @@ onMounted(() => {
                 position: relative;
                 width: 39.42vw;
                 height: 14.58vw;
-                background-image: url('../../../assets/nwhome/make-imgBg.png');
+                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/make-imgBg.png');
                 background-size: 100% 100%;
                 ul{
                     display: flex;

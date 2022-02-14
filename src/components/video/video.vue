@@ -16,7 +16,7 @@
             <source :src="videoSrc" type="video/Ogg"> -->
         </video>
         <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-else-if="videotype == 4">
-            <source src="@/assets/nwhome/output.mp4" type="video/mp4">
+            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/output.mp4" type="video/mp4">
             <!-- <source :src="videoSrc" type="video/WebM">
             <source :src="videoSrc" type="video/Ogg"> -->
         </video>

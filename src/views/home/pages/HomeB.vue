@@ -4,12 +4,12 @@
         <header>
             <div class="content" id="header">
                 <img class="logo" :src="logoHSrc" @mouseover="changeHGif()" @mouseout="stopHGif()" alt="">
-                <!-- <img class="logo" src="@/assets/nwhome/header-logo.svg" alt="logo"> -->
-                <img class="menu" src="@/assets/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
+                <!-- <img class="logo" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-logo.svg" alt="logo"> -->
+                <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
             <div class="menuMask" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
                 <div class="close-menu">
-                    <img @click="showMenu()" src="@/assets/nwhomePhone/close-menu.svg" alt="">
+                    <img @click="showMenu()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
@@ -31,7 +31,7 @@
         </header>
         <section>
             <video-bg 
-id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="/src/assets/nwhome/videobg.png">
+id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg.png">
             </video-bg>
             <div class="titles"> 
                 <div class="title-wrap">
@@ -43,7 +43,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         <div class="btn-register"><div>REGISTER</div></div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
-                            <img src="@/assets/nwhomePhone/section-btnPlay.svg" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section-btnPlay.svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -51,22 +51,22 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="botm">#0 <span class="txt1">CYBERSPACE </span><span class="txt2">WILL BE OPENED SOON</span></div>
         </section>
         <footer>
-            <img src="@/assets/nwhomePhone/section_buttom.svg" alt="" class="buttom">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section_buttom.svg" alt="" class="buttom">
         </footer>
     </div>
     <div class="nav-logos" ref="myNav">
         <a href="" target="view_window">
-            <img src="@/assets/nwhomePhone/joinus.svg" alt="" class="joinus">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/joinus.svg" alt="" class="joinus">
             <div>JOIN US</div>
         </a>
         <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-            <img src="@/assets/nwhomePhone/discordlogo.svg" alt="" class="nav-img1">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/discordlogo.svg" alt="" class="nav-img1">
         </a>
         <a href="https://twitter.com/cyberpopnw" target="view_window">
-            <img src="@/assets/nwhomePhone/twitter.svg" alt="" class="nav-img2">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/twitter.svg" alt="" class="nav-img2">
         </a>
         <a href="https://t.me/cyberpopnw" target="view_window">
-            <img src="@/assets/nwhomePhone/dianbao.svg" alt="" class="nav-img3">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/dianbao.svg" alt="" class="nav-img3">
         </a>
     </div>
     <div class="welcome">
@@ -82,7 +82,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="content">
                 <div class="left">
                    <!-- <div class="start">01</div> -->
-                   <img class="start" src="@/assets/nwhomePhone/01-icon.svg" alt="">
+                   <img class="start" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/01-icon.svg" alt="">
                    <div class="pList">
                         <img id="lImg1" :src="imgIndex == 0 ? imgSrc : imgSrc0" alt="">
                         <img id="lImg2" :src="imgIndex == 1 ? imgSrc : imgSrc0" alt="">
@@ -90,20 +90,20 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         <img id="lImg4" :src="imgIndex == 3 ? imgSrc : imgSrc0" alt="">
                    </div>
                    <!-- <div class="end">/04</div> -->
-                   <img class="end" src="@/assets/nwhomePhone/04-icon.svg" alt="">
+                   <img class="end" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/04-icon.svg" alt="">
                 </div>
                 <div class="swiper1">
                     <div class="swiper-bg">
-                        <img :class="imgIndex == 0 ? 'show' : ''" src="@/assets/nwhomePhone/timeRemnant.png" alt="">
-                        <img :class="imgIndex == 1 ? 'show' : ''" src="@/assets/nwhomePhone/digitalPujas.png" alt="">
-                        <img :class="imgIndex == 2 ? 'show' : ''" src="@/assets/nwhomePhone/moonlightCentury.png" alt="">
-                        <img :class="imgIndex == 3 ? 'show' : ''" src="@/assets/nwhomePhone/futureCity.png" alt="">
+                        <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/timeRemnant.png" alt="">
+                        <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/digitalPujas.png" alt="">
+                        <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/moonlightCentury.png" alt="">
+                        <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/futureCity.png" alt="">
                     </div>
                     <div class="swiper-bg2">
-                        <img src="@/assets/nwhomePhone/swiper-bgBlack.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/swiper-bgBlack.png" alt="">
                     </div>
                     <div class="swiper-leftTop">
-                        <img src="@/assets/nwhomePhone/swiper-leftTop.svg" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/swiper-leftTop.svg" alt="">
                         <ul>
                             <li :class="imgIndex == 0 ? 'show' : ''">Time Remnant</li>
                             <li :class="imgIndex == 1 ? 'show' : ''">Digital Pujas</li>
@@ -122,10 +122,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :speed="200"
                             :autoplay="true"
                         >
-                            <swiper-slide><img src="@/assets/nwhomePhone/timeRemnant.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="@/assets/nwhomePhone/digitalPujas.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="@/assets/nwhomePhone/moonlightCentury.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="@/assets/nwhomePhone/futureCity.png"  alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/timeRemnant.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/digitalPujas.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/moonlightCentury.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/futureCity.png"  alt=""></swiper-slide>
                         </swiper>
                     </div>
                 </div>
@@ -135,7 +135,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="nobody">
         <div class="nobody-wrap">
             <div class="nobody-left">
-                <img id="role" src="@/assets/nwhome/nobody-leftBg.png" alt="">
+                <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg.png" alt="">
                 <div class="nobody-img"></div>
                 <div class="nobody-left-tip">
                     <div>Scarlet Witch <br/> in cyberspace</div>
@@ -153,10 +153,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     same space or team up with them.
                 </div>
                 <div class="video">
-                    <img class="videoBg" src="@/assets/nwhomePhone/yellowBg-r.svg" alt="">
-                    <img class="banner" src="@/assets/nwhomePhone/nobody-videoBg.png" alt="">
+                    <img class="videoBg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/yellowBg-r.svg" alt="">
+                    <img class="banner" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-videoBg.png" alt="">
                     <div class="video-wrap">
-                        <img src="@/assets/nwhomePhone/nobody-controls.svg" alt="" @click="playVideo(4)">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-controls.svg" alt="" @click="playVideo(4)">
                     </div>>
                     <div class="content">
                         <div class="video-title">#0 Cyberspace <span class="yellow">Exposure</span></div>
@@ -172,7 +172,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="make">
         <div class="make-wrap">
-            <img class="title-bg" src="@/assets/nwhomePhone/title-bg.png" alt="">
+            <img class="title-bg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/title-bg.png" alt="">
             <div class="title" id="ele3">MAKE CYBERSPACE BELONGS TO YOU</div>
             <div class="subtitle">THE NFT MADE BY YOURSELF</div>
             <div class="desc">
@@ -184,23 +184,23 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 continuously being added.
             </div>
             <div class="make-img">
-                <img class="yellowBg-r" src="@/assets/nwhomePhone/yellowBg-r.svg" alt="">
-                <img class="yellowBg-l" src="@/assets/nwhomePhone/yellowBg-l.svg" alt="">
+                <img class="yellowBg-r" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/yellowBg-r.svg" alt="">
+                <img class="yellowBg-l" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/yellowBg-l.svg" alt="">
                 <ul>
                     <li>
-                        <img src="@/assets/nwhomePhone/make-img1.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-img1.png" alt="">
                         <div>Product</div>
                     </li>
                     <li>
-                        <img src="@/assets/nwhomePhone/make-img2.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-img2.png" alt="">
                         <div>Live</div>
                     </li>
                     <li>
-                        <img src="@/assets/nwhomePhone/make-img3.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-img3.png" alt="">
                         <div>Basic</div>
                     </li>
                     <li>
-                        <img src="@/assets/nwhomePhone/make-img4.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-img4.png" alt="">
                         <div class="tech">Technology</div>
                     </li>
                 </ul>
@@ -209,8 +209,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="opensea-title">View the claimed lands on</div>
                 <div class="openUrl" target="view_window">
                     <a href="">
-                        <img src="@/assets/nwhomePhone/openSea.png" alt="">
-                        <img src="@/assets/nwhomePhone/make-rightArrow.svg" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/openSea.png" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-rightArrow.svg" alt="">
                     </a>
                 </div>
                 <div id="openMask" class="mask"></div>
@@ -224,20 +224,20 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="channel">CYBERPOP Channel</div>
                 <div class="arrival">NEW ARRIVAL</div>
                 <div class="news-logo">
-                    <img class="news-img1" src="@/assets/nwhomePhone/news-logo.svg" alt="">
-                    <a href=""><img src="@/assets/nwhomePhone/youtube-play.svg" alt=""></a>
+                    <img class="news-img1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-logo.svg" alt="">
+                    <a href=""><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/youtube-play.svg" alt=""></a>
                 </div>
             </div>
             <div class="news-img" @click="newsActiveSrc()">
-                <img :class="{'newsShow': showNewsImg == 0}" src="@/assets/nwhomePhone/news-bg.png" alt="">
-                <img :class="{'newsShow': showNewsImg == 1}" src="@/assets/nwhomePhone/news-bg2.png" alt="">
+                <img :class="{'newsShow': showNewsImg == 0}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-bg.png" alt="">
+                <img :class="{'newsShow': showNewsImg == 1}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-bg2.png" alt="">
                 <div class="desc">
                     <div>{{newsTitle1}}</div>
                 </div>
             </div>
             <ul @click="newsActiveSrc()">
                 <li>
-                    <img src="@/assets/nwhomePhone/news-img1.png" id="myNews1" class="myNews" @mouseover="newsHover(0,newsStatictxt1)" @click="newsActive(0,newsStatictxt1)" alt="">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img1.png" id="myNews1" class="myNews" @mouseover="newsHover(0,newsStatictxt1)" @click="newsActive(0,newsStatictxt1)" alt="">
                     <div class="read">
                         <div class="txt">Picante Channel News</div>
                         <div class="date">January 2,2022</div>
@@ -245,7 +245,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     </div>
                 </li>
                 <li>
-                    <img src="@/assets/nwhomePhone/news-img2.png" id="myNews2" class="myNews" @mouseover="newsHover(1,newsStatictxt2)" @click="newsActive(1,newsStatictxt2)" alt="">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img2.png" id="myNews2" class="myNews" @mouseover="newsHover(1,newsStatictxt2)" @click="newsActive(1,newsStatictxt2)" alt="">
                     <div class="read">
                         <div class="txt">cyberbump channel news</div>
                         <div class="date">January 2,2022</div>
@@ -257,12 +257,12 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="roadmap">
         <div class="roadmap-bg">
-            <img class="roadmap-bg1" src="@/assets/nwhomePhone/roadmap-bg1.png" alt="">
+            <img class="roadmap-bg1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/roadmap-bg1.png" alt="">
             <div class="roadmap-center">
-                <img src="@/assets/nwhomePhone/roadmap-icon.svg" alt="">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/roadmap-icon.svg" alt="">
                 <div></div>
             </div>
-            <img class="roadmap-bg2" src="@/assets/nwhomePhone/roadmap-bg2.svg" alt="">
+            <img class="roadmap-bg2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/roadmap-bg2.svg" alt="">
         </div>
         <div class="roadmap-wrap">
             <div class="title" id="ele5">ROADMAP</div>
@@ -313,8 +313,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="partners">
         <div class="title" id="ele6">ECOLOGICAL PARTNERS</div>
         <div class="logo">
-            <img src="@/assets/nwhomePhone/partners1.png" alt="">
-            <img src="@/assets/nwhomePhone/partners2.png" alt="">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/partners1.png" alt="">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/partners2.png" alt="">
         </div>
     </div>
     <div class="register">
@@ -337,13 +337,13 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="icon">
                 <a href="https://t.me/cyberpopnw" target="view_window">
-                    <img class="medium" src="@/assets/nwhomePhone/medium-footer.svg" alt="">
+                    <img class="medium" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/medium-footer.svg" alt="">
                 </a>
             <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-                <img src="@/assets/nwhomePhone/discord-footer.svg" alt="" class="navLogo2">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/discord-footer.svg" alt="" class="navLogo2">
                 </a>
                 <a href="https://twitter.com/cyberpopnw" target="view_window">
-                    <img src="@/assets/nwhomePhone/twitter-footer0.svg" alt="">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/twitter-footer0.svg" alt="">
                 </a>
             </div>
             <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
@@ -395,8 +395,8 @@ const showUl = () => {
 
 
 // swiper
-let imgSrc0: any = ref('/src/assets/nwhome/welcome-leftGray.svg');
-let imgSrc: any = ref('/src/assets/nwhome/welcome-leftYellow.svg');
+let imgSrc0: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftGray.svg');
+let imgSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftYellow.svg');
 let imgIndex: any = ref(0);
 
 
@@ -405,7 +405,7 @@ const onSwiper = (swiper: any) => {
 };
 
 const onSlideChangeEnd = (swiper: any) => {
-    imgSrc.value = '/src/assets/nwhome/welcome-leftYellow.svg';
+    imgSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftYellow.svg';
     imgIndex.value = swiper.realIndex;
 };
  
@@ -504,21 +504,21 @@ const openseaLeave = () => {
 
 
 //header
-let logoHSrc: any = ref('/src/assets/nwhomePhone/logo_101.png') ;
+let logoHSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/logo_101.png') ;
 const changeHGif = () => {
-    logoHSrc.value = '/src/assets/nwhomePhone/logo.gif';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/logo.gif';
 }
 const stopHGif = () => {
-    logoHSrc.value = '/src/assets/nwhomePhone/logo_101.png';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/logo_101.png';
 }
 
 // footer
-let logoSrc: any = ref('/src/assets/nwhomePhone/logo_101.png') ;
+let logoSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/logo_101.png') ;
 const changeGif = () => {
-    logoSrc.value = '/src/assets/nwhomePhone/logo.gif';
+    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/logo.gif';
 }
 const stopGif = () => {
-    logoSrc.value = '/src/assets/nwhomePhone//logo_101.png';
+    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone//logo_101.png';
 }
 
 const { proxy } = getCurrentInstance() as any;
@@ -873,7 +873,7 @@ onMounted(() => {
                 top: 0;
                 width: 100%;
                 height: 100%;
-                background-image: url('../../../assets/nwhomePhone/section-cover.png');
+                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section-cover.png');
                 background-size: 101% 101%;
                 // background-size: 100% 100%;
                 // background-position: left top;
@@ -918,7 +918,7 @@ onMounted(() => {
                             margin-right: -6%;
                             color: #fff;
                             text-align: center;
-                            background-image: url('../../../assets/nwhomePhone/section-btn1.svg');
+                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section-btn1.svg');
                             background-position: center;
                             background-size: 100% auto;
                             cursor: pointer;
@@ -935,7 +935,7 @@ onMounted(() => {
                             width: 213px;
                             height: 75px;
                             margin-left: -6%;
-                            background-image: url('../../../assets/nwhomePhone/section-btn2.svg');
+                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section-btn2.svg');
                             background-position: center;
                             background-size: 100% auto;
                             cursor: pointer;
@@ -1001,7 +1001,7 @@ onMounted(() => {
         width: 47px;
         height: 280px;
         padding-bottom: 40px;
-        background-image: url('../../../assets/nwhomePhone/nav-logoBg.svg');
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nav-logoBg.svg');
         background-position: right bottom;
         background-repeat: no-repeat;
         background-size: auto 100%;
@@ -1235,7 +1235,7 @@ onMounted(() => {
                 position: relative;
                 width: 100%;
                 height: 321px;
-                // background-image: url('../../../assets/nwhomePhone/nobody-leftBg.png');
+                // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-leftBg.png');
                 // background-repeat: no-repeat;
                 // background-position: left top;
                 // background-size: auto 100%;
@@ -1267,7 +1267,7 @@ onMounted(() => {
                         color: #FFFFFF;
                         line-height: 14px;
                         text-align: right;
-                        background-image: url('../../../assets/nwhomePhone/nobody-leftYellow.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-leftYellow.svg');
                         background-repeat: no-repeat;
                         background-position: right top;
                         background-size: 64px 64px;
@@ -1392,7 +1392,7 @@ onMounted(() => {
                         top: 0;
                         width: 100%;
                         height: 100%;
-                        background-image: url('../../../assets/nwhomePhone/white-border.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/white-border.svg');
                         background-repeat: no-repeat;
                         background-size: 100% 100%;  
                         background-position: left top;
@@ -1418,7 +1418,7 @@ onMounted(() => {
         width: 100%;
         // height: 1391px;
         height: 1670px;
-        background-image: url('../../../assets/nwhomePhone/make-bg.png');
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-bg.png');
         background-position: left top;
         background-size: 100% 100%;
         overflow: hidden;

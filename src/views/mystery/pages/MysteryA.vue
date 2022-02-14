@@ -3,10 +3,10 @@
         <header>
             <div class="content" id="header">
                 <img class="logo" :src="logoHSrc" @mouseover="changeHGif()" @mouseout="stopHGif()" alt="">
-                <!-- <img class="logo" src="@/assets/nwhome/header-logo.svg" alt="logo"> -->
+                <!-- <img class="logo" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-logo.svg" alt="logo"> -->
                 <div class="user" @click="connect()">
                     <!-- <div class="language">
-                        <img @click="changeLanguage()" src="@/assets/nwhome/header-language.svg" alt="" v-if="!id">
+                        <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
                         <ul :class="lang == true ? 'showLang' : ''">
                             <li :class="select == 0 ? 'active' : ''" @click="selectLang(0)">简体中文</li>
                             <li :class="select == 1 ? 'active' : ''" @click="selectLang(1)">English</li>
@@ -34,7 +34,7 @@
     <div class="boxBg">
         <div class="video">
             <video-bg 
-id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
+id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.mp4`]">
             </video-bg>
             <div class="titles"> 
                 <div class="titles-wrap">
@@ -51,18 +51,18 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
                             <div class="type-title">TYPE</div>
                             <ul>
                                 <li class="type-common">
-                                    <img src="@/assets/nwbox/type-common.png" alt="">
-                                    <img class="border" src="@/assets/nwbox/type-commonBorder.svg" alt="">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/type-common.png" alt="">
+                                    <img class="border" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/type-commonBorder.svg" alt="">
                                     <div class="mask">Common</div>
                                 </li>
                                 <li class="type-rare">
-                                    <img src="@/assets/nwbox/type-rare.png" alt="">
-                                    <img class="border" src="@/assets/nwbox/type-rareBorder.svg" alt="">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/type-rare.png" alt="">
+                                    <img class="border" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/type-rareBorder.svg" alt="">
                                     <div class="mask">Rare</div>
                                 </li>
                                 <li class="type-epic">
-                                    <img src="@/assets/nwbox/type-epic.png" alt="">
-                                    <img class="border" src="@/assets/nwbox/type-rareBorder.svg" alt="">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/type-epic.png" alt="">
+                                    <img class="border" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/type-rareBorder.svg" alt="">
                                     <div class="mask">Epic</div>
                                 </li>
                             </ul>
@@ -71,7 +71,7 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
                             <div class="purchase">Purchase</div>
                             <div class="detailbtn">
                                 Detail
-                                <img src="@/assets/nwbox/detailb.svg" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/detailb.svg" alt="">
                             </div>
                         </div>
                     </div>
@@ -87,15 +87,15 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
             </div>
         </div>
         <!-- <div class="box">
-            <img class="box-rightbg" src="@/assets/nwbox/box-rightBg.png" alt="">
+            <img class="box-rightbg" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/box-rightBg.png" alt="">
             <div class="box-wrap">
                 <div class="left">
                     <div class="title">BUY AND SELL DIGITAL<br/><span class="green">ART NFT </span>COLLECTION</div>
                     <div class="subtitle">They all have a very special light that gives people a sense of healing</div>
-                    <img class="allbox" src="@/assets/nwbox/allbox.png" alt="">
+                    <img class="allbox" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/allbox.png" alt="">
                 </div>
                 <div class="boxImg">
-                    <img src="@/assets/nwbox/box-rightImg.png" alt="">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/box-rightImg.png" alt="">
                 </div>
             </div>
         </div>
@@ -104,10 +104,10 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
                 <div class="title">TOP SALES</div>
                 <ul>
                     <li id="ele1">
-                        <img class="card-img" src="@/assets/nwbox/top-img1.png" alt="">
+                        <img class="card-img" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/top-img1.png" alt="">
                         <div class="card-title">
                             <div>THE LITILE PURPLE</div>
-                            <img src="@/assets/nwbox/collect.svg" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/collect.svg" alt="">
                         </div>
                         <div class="card-subtitle">Active Remaining Time</div>
                         <div class="time">
@@ -119,10 +119,10 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
                         </div>
                     </li>
                     <li id="ele2">
-                        <img class="card-img" src="@/assets/nwbox/top-img2.png" alt="">
+                        <img class="card-img" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/top-img2.png" alt="">
                         <div class="card-title">
                             <div>THE LITILE PURPLE</div>
-                            <img src="@/assets/nwbox/collect.svg" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/collect.svg" alt="">
                         </div>
                         <div class="card-subtitle">Active Remaining Time</div>
                         <div class="time">
@@ -134,10 +134,10 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
                         </div>
                     </li>
                     <li id="ele3">
-                        <img class="card-img" src="@/assets/nwbox/top-img3.png" alt="">
+                        <img class="card-img" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/top-img3.png" alt="">
                         <div class="card-title">
                             <div>THE LITILE PURPLE</div>
-                            <img src="@/assets/nwbox/collect.svg" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/collect.svg" alt="">
                         </div>
                         <div class="card-subtitle">Active Remaining Time</div>
                         <div class="time">
@@ -149,10 +149,10 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
                         </div>
                     </li>
                     <li id="ele4">
-                        <img class="card-img" src="@/assets/nwbox/top-img4.png" alt="">
+                        <img class="card-img" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/top-img4.png" alt="">
                         <div class="card-title">
                             <div>THE LITILE PURPLE</div>
-                            <img src="@/assets/nwbox/collect.svg" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/collect.svg" alt="">
                         </div>
                         <div class="card-subtitle">Active Remaining Time</div>
                         <div class="time">
@@ -164,10 +164,10 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
                         </div>
                     </li>
                     <li id="ele5">
-                        <img class="card-img" src="@/assets/nwbox/top-img5.png" alt="">
+                        <img class="card-img" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/top-img5.png" alt="">
                         <div class="card-title">
                             <div>THE LITILE PURPLE</div>
-                            <img src="@/assets/nwbox/collect.svg" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/collect.svg" alt="">
                         </div>
                         <div class="card-subtitle">Active Remaining Time</div>
                         <div class="time">
@@ -179,10 +179,10 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
                         </div>
                     </li>
                     <li id="ele6">
-                        <img class="card-img" src="@/assets/nwbox/top-img6.png" alt="">
+                        <img class="card-img" src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/top-img6.png" alt="">
                         <div class="card-title">
                             <div>THE LITILE PURPLE</div>
-                            <img src="@/assets/nwbox/collect.svg" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/collect.svg" alt="">
                         </div>
                         <div class="card-subtitle">Active Remaining Time</div>
                         <div class="time">
@@ -219,13 +219,13 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
             <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
             <div class="icon">
                 <a href="https://t.me/cyberpopnw" target="view_window">
-                    <img src="@/assets/nwhome/medium.svg" alt="">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/medium.svg" alt="">
                 </a>
             <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-                <img src="@/assets/nwhome/discord.svg" alt="" class="navLogo2">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/discord.svg" alt="" class="navLogo2">
                 </a>
                 <a href="https://twitter.com/cyberpopnw" target="view_window">
-                    <img src="@/assets/nwhome/twitter-footer.svg" alt="">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/twitter-footer.svg" alt="">
                 </a>
             </div>
         </div>
@@ -273,21 +273,21 @@ const mouseLeave = () => {
 }
 
 //header
-let logoHSrc: any = ref('/src/assets/nwhome/logo_101.png') ;
+let logoHSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
 const changeHGif = () => {
-    logoHSrc.value = '/src/assets/nwhome/logo.gif';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
 }
 const stopHGif = () => {
-    logoHSrc.value = '/src/assets/nwhome/logo_101.png';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png';
 }
 
 // footer
-let logoSrc: any = ref('/src/assets/nwhome/logo_101.png') ;
+let logoSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
 const changeGif = () => {
-    logoSrc.value = '/src/assets/nwhome/logo.gif';
+    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
 }
 const stopGif = () => {
-    logoSrc.value = '/src/assets/nwhome//logo_101.png';
+    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome//logo_101.png';
 }
 
 const { proxy } = getCurrentInstance() as any;
@@ -506,7 +506,7 @@ onMounted(() => {
                         width: 10.3vw;
                         height: 2.3vw;
                         margin-top: 1.1vw;
-                        background-image: url('../../../assets/nwhome/header-loginBg.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-loginBg.svg');
                         background-size: 100% 100%;
                         background-position: left top;
                         overflow: hidden;
@@ -619,7 +619,7 @@ onMounted(() => {
                         width: 9.8vw;
                     }
                     .active{
-                        background-image: url('../../../assets/nwhome/header-titleBg.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-titleBg.svg');
                         background-repeat: no-repeat;
                         background-size: 110% 110%;
                         background-position: left -1.6vw;
@@ -633,7 +633,7 @@ onMounted(() => {
         width: 100%;
         // height: 200.57vw;
         // background: #210737;
-        // background-image: url('../../../assets/nwbox/boxbg.png');
+        // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbg.png');
         // background-repeat: no-repeat;
         // background-size: 100% auto;
         // background-position: left 5.5vw;
@@ -763,7 +763,7 @@ onMounted(() => {
                                 font-family: AlibabaPuHuiTi_2_115_Black;
                                 color: #FFFFFF;
                                 line-height: 2.55vw;
-                                background-image: url('../../../assets/nwbox/purchase.svg');
+                                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/purchase.svg');
                                 background-repeat: no-repeat;
                                 background-size: 100% auto;
                                 background-position: left top;
@@ -776,7 +776,7 @@ onMounted(() => {
                                 font-family: AlibabaPuHuiTi_2_115_Black;
                                 color: #FFFFFF;
                                 line-height: 2.65vw;
-                                // background-image: url('../../../assets/nwbox/detailb.svg');
+                                // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/detailb.svg');
                                 // background-repeat: no-repeat;
                                 // background-size: 100% auto;
                                 // background-position: left top;
@@ -910,7 +910,7 @@ onMounted(() => {
         //             font-family: AlibabaPuHuiTi_2_85_Bold;
         //             color: #FFFFFF;
         //             line-height: 4.21vw;
-        //             background-image: url('../../../assets/nwbox/top-titlebg.svg');
+        //             background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/top-titlebg.svg');
         //             background-repeat: no-repeat;
         //             background-size: auto 13.8%;
         //             background-position: left 3.5vw;
@@ -997,7 +997,7 @@ onMounted(() => {
         //                         line-height: 1.45vw;
         //                         text-align: center;
         //                         color: #fff;
-        //                         background-image: url('../../../assets/nwbox/top-buy.svg');
+        //                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/top-buy.svg');
         //                     }
         //                 }
         //             }
@@ -1028,7 +1028,7 @@ onMounted(() => {
         //             font-family: AlibabaPuHuiTi_2_65_Medium;
         //             color: #FFFFFF;
         //             line-height: 3.48vw;
-        //             background-image: url('../../../assets/nwbox/save-green.png');
+        //             background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/save-green.png');
         //             background-repeat: no-repeat;
         //             background-position: 2.6vw .3vw;
         //             background-size: auto 92%;
