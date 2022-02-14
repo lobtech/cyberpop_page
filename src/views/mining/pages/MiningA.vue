@@ -3,10 +3,10 @@
         <header>
             <div class="content" id="header">
                 <img class="logo" :src="logoHSrc" @mouseover="changeHGif()" @mouseout="stopHGif()" alt="">
-                <!-- <img class="logo" src="@/assets/nwhome/header-logo.svg" alt="logo"> -->
+                <!-- <img class="logo" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-logo.svg" alt="logo"> -->
                 <div class="user" @click="connect()">
                     <!-- <div class="language">
-                        <img @click="changeLanguage()" src="@/assets/nwhome/header-language.svg" alt="" v-if="!id">
+                        <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
                         <ul :class="lang == true ? 'showLang' : ''">
                             <li :class="select == 0 ? 'active' : ''" @click="selectLang(0)">简体中文</li>
                             <li :class="select == 1 ? 'active' : ''" @click="selectLang(1)">English</li>
@@ -37,7 +37,7 @@
             <div class="subtitle">STAKE NFT FOR MINING REWARDS</div>
             <div class="total">
                 <div class="progressBall">
-                    <img class="ballBorder" src="@/assets/nwmining/ballBorder.svg" alt="">
+                    <img class="ballBorder" src="https://d2cimmz3cflrbm.cloudfront.net/nwmining/ballBorder.svg" alt="">
                     <div class="ball-inner"></div>
                 </div>
                 <div class="right">
@@ -114,13 +114,13 @@
         <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
         <div class="icon">
             <a href="https://t.me/cyberpopnw" target="view_window">
-                <img src="@/assets/nwhome/medium.svg" alt="">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/medium.svg" alt="">
             </a>
         <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-            <img src="@/assets/nwhome/discord.svg" alt="" class="navLogo2">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/discord.svg" alt="" class="navLogo2">
             </a>
             <a href="https://twitter.com/cyberpopnw" target="view_window">
-                <img src="@/assets/nwhome/twitter-footer.svg" alt="">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/twitter-footer.svg" alt="">
             </a>
         </div>
     </div>
@@ -177,32 +177,32 @@ const mouseLeave = () => {
 
 
 // pledge
-let greenImgSrc:any = ref('/src/assets/nwmining/whiteImg.png')
-let whiteImgSrc:any = ref('/src/assets/nwmining/whiteImg.png')
-let lockedImgSrc:any = ref('/src/assets/nwmining/locked.svg')
+let greenImgSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/whiteImg.png')
+let whiteImgSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/whiteImg.png')
+let lockedImgSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/locked.svg')
 
-let greenBorderSrc:any = ref('/src/assets/nwmining/pledge-border1.svg')
-let whiteBorderSrc:any = ref('/src/assets/nwmining/pledge-border2.svg')
-let lockedBorderSrc:any = ref('/src/assets/nwmining/pledge-border3.svg')
+let greenBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pledge-border1.svg')
+let whiteBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pledge-border2.svg')
+let lockedBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pledge-border3.svg')
 
 
 
 //header
-let logoHSrc: any = ref('/src/assets/nwhome/logo_101.png') ;
+let logoHSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
 const changeHGif = () => {
-    logoHSrc.value = '/src/assets/nwhome/logo.gif';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
 }
 const stopHGif = () => {
-    logoHSrc.value = '/src/assets/nwhome/logo_101.png';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png';
 }
 
 // footer
-let logoSrc: any = ref('/src/assets/nwhome/logo_101.png') ;
+let logoSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
 const changeGif = () => {
-    logoSrc.value = '/src/assets/nwhome/logo.gif';
+    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
 }
 const stopGif = () => {
-    logoSrc.value = '/src/assets/nwhome//logo_101.png';
+    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome//logo_101.png';
 }
 
 const { proxy } = getCurrentInstance() as any;
@@ -341,7 +341,7 @@ onMounted(() => {
                         width: 10.3vw;
                         height: 2.3vw;
                         margin-top: 1.1vw;
-                        background-image: url('../../../assets/nwhome/header-loginBg.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-loginBg.svg');
                         background-size: 100% 100%;
                         background-position: left top;
                         overflow: hidden;
@@ -454,7 +454,7 @@ onMounted(() => {
                         width: 9.8vw;
                     }
                     .active{
-                        background-image: url('../../../assets/nwhome/header-titleBg.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-titleBg.svg');
                         background-repeat: no-repeat;
                         background-size: 110% 110%;
                         background-position: left -1.6vw;
@@ -470,7 +470,7 @@ onMounted(() => {
         .banner{
             width: 100%;
             height: 25.78vw;
-            background-image: url('../../../assets/nwmining/banner.png');
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwmining/banner.png');
             background-repeat: no-repeat;
             background-position: left bottom;
             background-size: 100% 100%; 
@@ -504,7 +504,7 @@ onMounted(() => {
                     position: relative;
                     width: 11.30vw;
                     height: 11.45vw;
-                    background-image: url('../../../assets/nwmining/ballBg.svg');
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwmining/ballBg.svg');
                     background-repeat: no-repeat;
                     background-position: left bottom;
                     background-size: 100% 100%; 
@@ -617,7 +617,7 @@ onMounted(() => {
                     position: relative;
                     width: 13.17vw;
                     height: 15.15vw;
-                    background-image: url('../../../assets/nwmining/pledgeBg.png');
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pledgeBg.png');
                     background-repeat: no-repeat;
                     background-position: left top;
                     background-size: 100% 100%; 

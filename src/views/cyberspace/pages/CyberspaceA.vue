@@ -3,10 +3,10 @@
         <header>
             <div class="content" id="header">
                 <img class="logo" :src="logoHSrc" @mouseover="changeHGif()" @mouseout="stopHGif()" alt="">
-                <!-- <img class="logo" src="@/assets/nwhome/header-logo.svg" alt="logo"> -->
+                <!-- <img class="logo" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-logo.svg" alt="logo"> -->
                 <div class="user" @click="connect()">
                     <!-- <div class="language">
-                        <img @click="changeLanguage()" src="@/assets/nwhome/header-language.svg" alt="" v-if="!id">
+                        <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
                         <ul :class="lang == true ? 'showLang' : ''">
                             <li :class="select == 0 ? 'active' : ''" @click="selectLang(0)">简体中文</li>
                             <li :class="select == 1 ? 'active' : ''" @click="selectLang(1)">English</li>
@@ -32,7 +32,7 @@
         </header>
         <section>
             <div class="title">COMING SOON</div>
-            <img src="@/assets/nwhome/videobg.png" alt="">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg.png" alt="">
         </section>
     </div>
 </template>
@@ -77,12 +77,12 @@ const selectLang = (index:any) => {
 
 
 //header
-let logoHSrc: any = ref('/src/assets/nwhome/logo_101.png') ;
+let logoHSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
 const changeHGif = () => {
-    logoHSrc.value = '/src/assets/nwhome/logo.gif';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
 }
 const stopHGif = () => {
-    logoHSrc.value = '/src/assets/nwhome/logo_101.png';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png';
 }
 
 
@@ -177,7 +177,7 @@ onMounted(() => {
             color: #fff;
             background-color: #000000;
             // background-image: linear-gradient(to right, #000 , #1C0B3D, #000);
-            // background-image: url('../../../assets/nwhome/header-bg.svg');
+            // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-bg.svg');
             // background-size: auto 100%;
             .content{
                 height: 98.9%;
@@ -202,7 +202,7 @@ onMounted(() => {
                         width: 10.3vw;
                         height: 2.3vw;
                         margin-top: 1.1vw;
-                        background-image: url('../../../assets/nwhome/header-loginBg.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-loginBg.svg');
                         background-size: 100% 100%;
                         background-position: left top;
                         overflow: hidden;
@@ -315,7 +315,7 @@ onMounted(() => {
                         width: 9.8vw;
                     }
                     .active{
-                        background-image: url('../../../assets/nwhome/header-titleBg.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-titleBg.svg');
                         background-repeat: no-repeat;
                         background-size: 110% 110%;
                         background-position: left -1.6vw;

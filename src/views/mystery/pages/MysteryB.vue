@@ -3,12 +3,12 @@
         <header>
             <div class="content" id="header">
                 <img class="logo" :src="logoHSrc" @mouseover="changeHGif()" @mouseout="stopHGif()" alt="">
-                <!-- <img class="logo" src="@/assets/nwhome/header-logo.svg" alt="logo"> -->
-                <img class="menu" src="@/assets/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
+                <!-- <img class="logo" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-logo.svg" alt="logo"> -->
+                <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
             <div class="menuMask"  :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
                 <div class="close-menu">
-                    <img @click="showMenu()" src="@/assets/nwhomePhone/close-menu.svg" alt="">
+                    <img @click="showMenu()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
@@ -43,7 +43,7 @@
             </div>
             <div class="right">
                 <video-bg 
-id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
+id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.mp4`]">
                 </video-bg>
                 <div class="title">Sale Start time</div>
                 <div class="countDown">
@@ -55,18 +55,18 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
             <div class="nftCard">
                 <ul class="type">
                     <li class="type-common">
-                        <img src="@/assets/nwboxPhone/type-common.png" alt="">
-                        <img class="border" src="@/assets/nwboxPhone/type-commonBorder0.svg" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/type-common.png" alt="">
+                        <img class="border" src="https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/type-commonBorder0.svg" alt="">
                         <div class="mask">Common</div>
                     </li>
                     <li class="type-rare">
-                        <img src="@/assets/nwboxPhone/type-rare.png" alt="">
-                        <img class="border" src="@/assets/nwboxPhone/type-rareBorder0.svg" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/type-rare.png" alt="">
+                        <img class="border" src="https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/type-rareBorder0.svg" alt="">
                         <div class="mask">Rare</div>
                     </li>
                     <li class="type-epic">
-                        <img src="@/assets/nwboxPhone/type-epic.png" alt="">
-                        <img class="border" src="@/assets/nwboxPhone/type-rareBorder0.svg" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/type-epic.png" alt="">
+                        <img class="border" src="https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/type-rareBorder0.svg" alt="">
                         <div class="mask">Epic</div>
                     </li>
                 </ul>
@@ -87,13 +87,13 @@ id="videobg" :sources="[`/src/assets/nwbox/boxbanner.mp4`]">
                 </div>
                 <div class="icon">
                     <a href="https://t.me/cyberpopnw" target="view_window">
-                        <img class="medium" src="@/assets/nwhomePhone/medium-footer.svg" alt="">
+                        <img class="medium" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/medium-footer.svg" alt="">
                     </a>
                 <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-                    <img src="@/assets/nwhomePhone/discord-footer.svg" alt="" class="navLogo2">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/discord-footer.svg" alt="" class="navLogo2">
                     </a>
                     <a href="https://twitter.com/cyberpopnw" target="view_window">
-                        <img src="@/assets/nwhomePhone/twitter-footer0.svg" alt="">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/twitter-footer0.svg" alt="">
                     </a>
                 </div>
                 <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
@@ -155,21 +155,21 @@ const mouseLeave = () => {
 }
 
 //header
-let logoHSrc: any = ref('/src/assets/nwhome/logo_101.png') ;
+let logoHSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
 const changeHGif = () => {
-    logoHSrc.value = '/src/assets/nwhome/logo.gif';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
 }
 const stopHGif = () => {
-    logoHSrc.value = '/src/assets/nwhome/logo_101.png';
+    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png';
 }
 
 // footer
-let logoSrc: any = ref('/src/assets/nwhome/logo_101.png') ;
+let logoSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
 const changeGif = () => {
-    logoSrc.value = '/src/assets/nwhome/logo.gif';
+    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
 }
 const stopGif = () => {
-    logoSrc.value = '/src/assets/nwhome//logo_101.png';
+    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome//logo_101.png';
 }
 
 const { proxy } = getCurrentInstance() as any;
@@ -618,7 +618,7 @@ onMounted(() => {
                             font-family: AlibabaPuHuiTi_2_115_Black;
                             color: #FFFFFF;
                             line-height: 50px;
-                            background-image: url('../../../assets/nwboxPhone/purchase.svg');
+                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/purchase.svg');
                             background-repeat: no-repeat;
                             background-size: 100% auto;
                             background-position: left top;
@@ -633,7 +633,7 @@ onMounted(() => {
                         font-family: AlibabaPuHuiTi_2_115_Black;
                         color: #FFFFFF;
                         line-height: 51px;
-                        background-image: url('../../../assets/nwboxPhone/detailb.svg');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwboxPhone/detailb.svg');
                         background-repeat: no-repeat;
                         background-size: 100% 100%;
                         background-position: left top;

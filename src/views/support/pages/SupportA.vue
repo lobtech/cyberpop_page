@@ -37,17 +37,17 @@
     </div>
     <div class="welcome">
         <div class="cover_up"></div>
-        <img src="@/assets/support/section2-1.png" class="section2-1 bgimg" alt="">
-        <img src="@/assets/support/section2-2.png" class="section2-2 bgimg" alt="">
-        <img src="@/assets/support/section3-1.png" class="section3-1 bgimg" alt="">
-        <img src="@/assets/support/section3-2.png" class="section3-2 bgimg" alt="">
+        <img src="https://d2cimmz3cflrbm.cloudfront.net/support/section2-1.png" class="section2-1 bgimg" alt="">
+        <img src="https://d2cimmz3cflrbm.cloudfront.net/support/section2-2.png" class="section2-2 bgimg" alt="">
+        <img src="https://d2cimmz3cflrbm.cloudfront.net/support/section3-1.png" class="section3-1 bgimg" alt="">
+        <img src="https://d2cimmz3cflrbm.cloudfront.net/support/section3-2.png" class="section3-2 bgimg" alt="">
         <div class="section4">
             <div>
-                <img src="@/assets/support/section4-1.png" alt="">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/section4-1.png" alt="">
             </div>
             <div>
-                <img src="@/assets/support/section3-3.png" alt="">
-                <img src="@/assets/support/section4-2.png" alt="">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/section3-3.png" alt="">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/section4-2.png" alt="">
             </div>
         </div>
         <div class="section5"></div>
@@ -55,7 +55,7 @@
             <div class="models">
                 <div class="left-img"></div>
                 <div class="center-models">
-                    <img class="section2-img2" src="@/assets/support/models-c.png" alt="">
+                    <img class="section2-img2" src="https://d2cimmz3cflrbm.cloudfront.net/support/models-c.png" alt="">
                     <div>ECONOMIC MODELS</div>
                 </div>
                 <div class="right-img"></div>
@@ -68,10 +68,10 @@
                         <div class="round-month">7 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
-                                <img src="@/assets/support/yellow.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/yellow.png" alt="">
                             </div>
                             <div>100%</div>
-                            <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
+                            <img class="schedule-locking" src="https://d2cimmz3cflrbm.cloudfront.net/support/locking1.png" alt="">
                         </div>
                     </li>
                     <li>
@@ -81,12 +81,12 @@
                         <div class="round-schedule">
                             <div class="schedule-line">
                                 <div class="wrap">
-                                    <img class="schedule-bg" src="@/assets/support/green1.png" alt="">
+                                    <img class="schedule-bg" src="https://d2cimmz3cflrbm.cloudfront.net/support/green1.png" alt="">
                                     <span></span>
                                 </div>
                             </div>
                             <div>80%</div>
-                            <img class="schedule-locking locking2" src="@/assets/support/locking2.png" alt="">
+                            <img class="schedule-locking locking2" src="https://d2cimmz3cflrbm.cloudfront.net/support/locking2.png" alt="">
                         </div>
                     </li>
                     <li>
@@ -95,7 +95,7 @@
                         <div class="round-month">3 month</div>
                         <div class="round-schedule">
                             <div>0%</div>
-                            <img class="schedule-locking" src="@/assets/support/locking1.png" alt="">
+                            <img class="schedule-locking" src="https://d2cimmz3cflrbm.cloudfront.net/support/locking1.png" alt="">
                         </div>
                     </li>
                 </ul>
@@ -104,62 +104,62 @@
                 <div class="ratio-wrap">
                     <div class="ratio-left">
                         <div class="title">
-                            <img src="@/assets/support/ratio-leftArrow.png" alt="">
-                            <img src="@/assets/support/ratio-leftTitle.png" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-leftArrow.png" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-leftTitle.png" alt="">
                             <div class="title-txt">DISTRIBUTION RATIO</div>
                             <div class="title-tips">CYBER POP
-                                <img src="@/assets/support/ratio-leftLine.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-leftLine.png" alt="">
                             </div>
-                            <img class="title-imgRotateY" src="@/assets/support/ratio-leftTitle.png" alt="">
+                            <img class="title-imgRotateY" src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-leftTitle.png" alt="">
                         </div>
                         <div class="pie">
                             <div class="pie-main">
                                 <div>
-                                    <img src="@/assets/support/ratio-leftPie15.png" alt="">
-                                    <img src="@/assets/support/ratio-leftPie15-text.png" alt="">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-leftPie15.png" alt="">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-leftPie15-text.png" alt="">
                                 </div>
                                 <div class="percent">18%</div>
                             </div>
-                            <img class="pie-rest" src="@/assets/support/ratio-leftPie.png" alt="">
+                            <img class="pie-rest" src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-leftPie.png" alt="">
                             <div class="total">Total supply 120,000,000 CYT</div>
                         </div>
                     </div>
                     <div class="ratio-right">
                         <ul>
                             <li>
-                                <img src="@/assets/support/ratio-block1.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-block1.png" alt="">
                                 <a href="">private investment</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block2.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-block2.png" alt="">
                                 <a href="">consultants and legal services</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block3.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-block3.png" alt="">
                                 <a href="">investment institution</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block4.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-block4.png" alt="">
                                 <a href="">community building and airdrop</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block5.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-block5.png" alt="">
                                 <a href="">public offering</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block6.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-block6.png" alt="">
                                 <a href="">cological construction fund</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block7.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-block7.png" alt="">
                                 <a href="">1n-game output</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block8.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-block8.png" alt="">
                                 <a href="">team</a>
                             </li>
                             <li>
-                                <img src="@/assets/support/ratio-block9.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/ratio-block9.png" alt="">
                                 <a href="">pledge and interest payment</a>
                             </li>
                         </ul>
@@ -168,10 +168,10 @@
             </div>
             <div class="category">
                 <div class="category-wrap">
-                    <img class="category-info" src="@/assets/support/category-info.png" alt="">
-                    <img class="category-arrow1" src="@/assets/support/category-arrow1.png" alt="">
-                    <img class="category-arrow2" src="@/assets/support/category-arrow2.png" alt="">
-                    <img class="category-arrow3" src="@/assets/support/category-arrow3.png" alt="">
+                    <img class="category-info" src="https://d2cimmz3cflrbm.cloudfront.net/support/category-info.png" alt="">
+                    <img class="category-arrow1" src="https://d2cimmz3cflrbm.cloudfront.net/support/category-arrow1.png" alt="">
+                    <img class="category-arrow2" src="https://d2cimmz3cflrbm.cloudfront.net/support/category-arrow2.png" alt="">
+                    <img class="category-arrow3" src="https://d2cimmz3cflrbm.cloudfront.net/support/category-arrow3.png" alt="">
                 </div>
             </div>
             <div class="rordmap">
@@ -179,9 +179,9 @@
                     <div class="time1">
                         <div class="time1-date">
                             <div class="time1-txt">
-                                <img src="@/assets/support/2021.03.png" alt="">
-                                <img src="@/assets/support/time1-yellow.png" alt="">
-                                <img src="@/assets/support/time1-orange.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/2021.03.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/time1-yellow.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/time1-orange.png" alt="">
                             </div>
                             <div class="time1-h">1</div>
                         </div>
@@ -195,12 +195,12 @@
                         </div>
                     </div>
                     <div class="time3">
-                        <img class="time3-bg" src="@/assets/support/time3-bg.png" alt="">
+                        <img class="time3-bg" src="https://d2cimmz3cflrbm.cloudfront.net/support/time3-bg.png" alt="">
                         <div class="time3-date">
                             <div class="time3-txt">
-                                <img src="@/assets/support/2022.03.png" alt="">
-                                <img src="@/assets/support/time1-yellow.png" alt="">
-                                <img src="@/assets/support/time1-orange.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/2022.03.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/time1-yellow.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/time1-orange.png" alt="">
                             </div>
                             <div class="time3-h">3</div>
                         </div>
@@ -216,8 +216,8 @@
                     <div class="time4">
                         <div class="time4-date">
                             <div class="time4-txt">
-                                <img src="@/assets/support/2022.06.png" alt="">
-                                <img src="@/assets/support/time4-arrow.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/2022.06.png" alt="">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/support/time4-arrow.png" alt="">
                             </div>
                             <div class="time4-h">4</div>
                         </div>
@@ -227,20 +227,20 @@
                                 <div>GAME UNIONS SYSTEM</div>
                             </div>
                         </div>
-                        <img class="time4-lastImg" src="@/assets/support/time4-bottom.png" alt="">
+                        <img class="time4-lastImg" src="https://d2cimmz3cflrbm.cloudfront.net/support/time4-bottom.png" alt="">
                     </div>
                 </div>
                 <div class="rordmap-timeLine">
                     <div class="title">RORD&nbsp;&nbsp;MAP</div>
-                    <img class="location" src="@/assets/support/rordmap-timeLine1.png" alt="">
-                    <img class="line" src="@/assets/support/rordmap-timeLine2.png" alt="">
-                    <img class="arrow" src="@/assets/support/rordmap-timeLine3.png" alt="">
+                    <img class="location" src="https://d2cimmz3cflrbm.cloudfront.net/support/rordmap-timeLine1.png" alt="">
+                    <img class="line" src="https://d2cimmz3cflrbm.cloudfront.net/support/rordmap-timeLine2.png" alt="">
+                    <img class="arrow" src="https://d2cimmz3cflrbm.cloudfront.net/support/rordmap-timeLine3.png" alt="">
                 </div>
                 <div class="rordmap-right">
                     <div class="time2">
                         <div class="time2-date">
                             <div class="time2-h">2</div>
-                            <img src="@/assets/support/2021.10.png" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/support/2021.10.png" alt="">
                         </div>
                         <div class="time2-content">
                             <ul>
@@ -252,10 +252,10 @@
                         </div>
                     </div>
                     <div class="time5">
-                        <img class="time5-bg" src="@/assets/support/time5-bg.png" alt="">
+                        <img class="time5-bg" src="https://d2cimmz3cflrbm.cloudfront.net/support/time5-bg.png" alt="">
                         <div class="time5-date">
                             <div class="time5-h">5</div>
-                            <img src="@/assets/support/2022.10.png" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/support/2022.10.png" alt="">
                         </div>
                         <div class="time5-content">
                             <ul>
@@ -382,7 +382,7 @@ onMounted(() => {
                     right: 0;
                     margin: 0 auto;
                     width: 50vw;
-                    background-image: url('../../../assets/icon/header_menu.png');
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/icon/header_menu.png');
                     background-size: 100% 100%;
                     height: 100%;
                     ul{
@@ -506,7 +506,7 @@ onMounted(() => {
             }
         }
         .section5{
-            background-image: url('../../../assets/support/section5.png');
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/section5.png');
             background-size: 100% 100%;
             height: 50vw;
         }
@@ -521,7 +521,7 @@ onMounted(() => {
         //         .left-img,.right-img{
         //             width:37.5vw;
         //             height: 22vw;
-        //             background-image: url('@/assets/support/models-l.png');
+        //             background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/models-l.png');
         //             background-position: -11vw -1.4vw;
         //             background-size: 100% auto;
         //             background-repeat: no-repeat;
@@ -628,7 +628,7 @@ onMounted(() => {
         //                 height: 26vw;
         //                 margin-top: 2vw;
         //                 color:#fff;
-        //                 background-image: url('@/assets/support/ratio-leftBg.png');
+        //                 background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/ratio-leftBg.png');
         //                 background-size: auto 100%;
         //                 background-repeat: no-repeat;
         //                 .title{
@@ -720,7 +720,7 @@ onMounted(() => {
         //                 width: 29vw;
         //                 height: 32vw;
         //                 color:#fff;
-        //                 background-image: url('@/assets/support/ratio-rightBg.png');
+        //                 background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/ratio-rightBg.png');
         //                 background-position: 85% center;
         //                 background-size: auto 100%;
         //                 background-repeat: no-repeat;
@@ -729,7 +729,7 @@ onMounted(() => {
         //                     height: 23vw;
         //                     // background: pink;
         //                     margin: 5.4vw 0 5.4vw 7.6vw;
-        //                     background-image: url('@/assets/support/ratio-stop.png');
+        //                     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/ratio-stop.png');
         //                     background-position: 11.7vw 14.2vw;
         //                     background-size: 28% 29%;
         //                     background-repeat: no-repeat;
@@ -790,7 +790,7 @@ onMounted(() => {
         //             width: 47vw;
         //             padding-top:20vw;
         //             color:#fff;
-        //             background-image: url('@/assets/support/rordmap-leftBg.png');
+        //             background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/rordmap-leftBg.png');
         //             background-position: -11.2vw 0vw;
         //             background-size: 50% auto;
         //             background-repeat: no-repeat;
@@ -799,7 +799,7 @@ onMounted(() => {
         //                     position: relative;
         //                     width: 100%;
         //                     height: 8vw;
-        //                     background-image: url('@/assets/support/time1-dateBg.png');
+        //                     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/time1-dateBg.png');
         //                     background-position: 2vw bottom;
         //                     background-size: 91% auto;
         //                     background-repeat: no-repeat;
@@ -834,7 +834,7 @@ onMounted(() => {
         //                         text-align: center;
         //                         font-size: 2.8vw;
         //                         font-family: Aideep;
-        //                         background-image: url('@/assets/support/time1-circle.png');
+        //                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/time1-circle.png');
         //                         background-size: 100% auto;
         //                         background-repeat: no-repeat;
         //                     }
@@ -842,7 +842,7 @@ onMounted(() => {
         //                 .time1-content{
         //                     width: 100%;
         //                     height: 22vw;
-        //                     background-image: url('@/assets/support/time1-contentBg.png');
+        //                     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/time1-contentBg.png');
         //                     background-position: 9vw 5.5vw;
         //                     background-size: 30% auto;
         //                     background-repeat: no-repeat;
@@ -910,7 +910,7 @@ onMounted(() => {
         //                         text-align: center;
         //                         font-size: 2.8vw;
         //                         font-family: Aideep;
-        //                         background-image: url('@/assets/support/time3-circle.png');
+        //                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/time3-circle.png');
         //                         background-size: 100% auto;
         //                         background-repeat: no-repeat;
         //                     }
@@ -960,7 +960,7 @@ onMounted(() => {
         //                         text-align: center;
         //                         font-size: 2.8vw;
         //                         font-family: Aideep;
-        //                         background-image: url('@/assets/support/time4-circle.png');
+        //                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/time4-circle.png');
         //                         background-size: 100% auto;
         //                         background-repeat: no-repeat;
         //                     }
@@ -969,7 +969,7 @@ onMounted(() => {
         //                     width: 100%;
         //                     height: 20vw;
         //                     // background-color: rgba(222, 22, 222, .3);
-        //                     background-image: url('@/assets/support/time4-contentBg.png');
+        //                     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/time4-contentBg.png');
         //                     background-position: 12.1vw 5.5vw;
         //                     background-size: auto 34%;
         //                     background-repeat: no-repeat;
@@ -1025,7 +1025,7 @@ onMounted(() => {
         //         .rordmap-right{
         //             width: 46vw;
         //             color:#fff;
-        //             background-image: url('@/assets/support/rordmap-rightBg.png');
+        //             background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/rordmap-rightBg.png');
         //             background-position: right 6vw;
         //             background-size: 90% auto;
         //             background-repeat: no-repeat;
@@ -1033,7 +1033,7 @@ onMounted(() => {
         //                 position: relative;
         //                 height: 36vw;
         //                 margin-top: 39vw;
-        //                 background-image: url('@/assets/support/time2-bg.png');
+        //                 background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/time2-bg.png');
         //                 background-position: 5.6vw .5vw;
         //                 background-size: auto 78.4%;
         //                 background-repeat: no-repeat;
@@ -1048,7 +1048,7 @@ onMounted(() => {
         //                         text-align: center;
         //                         font-size: 2.8vw;
         //                         font-family: Aideep;
-        //                         background-image: url('@/assets/support/time2-circle.png');
+        //                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/time2-circle.png');
         //                         background-size: 100% auto;
         //                         background-repeat: no-repeat;
         //                     }
@@ -1091,7 +1091,7 @@ onMounted(() => {
         //                         text-align: center;
         //                         font-size: 2.8vw;
         //                         font-family: Aideep;
-        //                         background-image: url('@/assets/support/time5-circle.png');
+        //                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/support/time5-circle.png');
         //                         background-size: 100% auto;
         //                         background-repeat: no-repeat;
         //                     }
