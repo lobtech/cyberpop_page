@@ -46,7 +46,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         <div class="btn-register">REGISTER</div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
-                            <img src="https://d2cimmz3cflrbm.cloudfront.net//nwhome/section-btnPlay.svg" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-btnPlay.svg" alt="">
                         </div>
                     </div>
                 </div>
