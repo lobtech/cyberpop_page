@@ -230,7 +230,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="news-img" @click="newsActiveSrc()">
                 <img :class="{'newsShow': showNewsImg == 0}" src="@/assets/nwhomePhone/news-bg.png" alt="">
-                <img :class="{'newsShow': showNewsImg == 1}" src="@/assets/nwhomePhone/futureCity.png" alt="">
+                <img :class="{'newsShow': showNewsImg == 1}" src="@/assets/nwhomePhone/news-bg2.png" alt="">
                 <div class="desc">
                     <div>{{newsTitle1}}</div>
                 </div>
@@ -416,7 +416,7 @@ const windowScroll: any = () => {
     const navHeight: number = myNav.value.offsetHeight;
     const cHeight: number = document.documentElement.clientHeight;
     const scrollHeight: number = document.documentElement.scrollTop;
-    startMove(Math.ceil((cHeight - navHeight - 10) + scrollHeight));
+    startMove(Math.ceil((cHeight - navHeight - 130) + scrollHeight));
 }
 
 let timer: any = null;
@@ -1773,6 +1773,7 @@ onMounted(() => {
                     margin: 0 auto;
                     width: 1px;
                     height: 485px;
+                    background-color: #C689FF;
                     border: 1px solid #C689FF;
                 }
             }

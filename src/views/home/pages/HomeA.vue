@@ -38,15 +38,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="titles"> 
                 <div class="title-wrap">
                     <!-- <div class="title1" id="magic"></div> -->
-                    <!-- <div class="title1">FIND REAL YOU <br/> IN THIS NEW WORLD</div> -->
-                    <div class="title1">
-                        <div class="rolling-text">
-                            FIND REAL YOU
-                        </div><br/>
-                        <div class="rolling-text">
-                            IN THIS NEW WORLD
-                        </div>
-                    </div>
+                    <div class="title1">FIND REAL YOU <br/> IN THIS NEW WORLD</div>
                     <div class="title2">
                         THE GAMEFI TO THE FUTURE CYBERSPACE CAN NOT BE MISSED
                     </div>
@@ -82,15 +74,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="welcome">
         <div class="warp">
-            <!-- <div class="title" id="ele1">WELCOMETO  TO<p class="white">CYBERPOP NEW WORLD</p></div> -->
-            <div class="title" id="ele1">
-                <div class="rolling-text">
-                    WELCOMETO  TO
-                </div><br/>
-                <div class="rolling-text white">
-                    CYBERPOP NEW WORLD
-                </div>
-            </div>
+            <div class="title" id="ele1">WELCOMETO  TO<p class="white">CYBERPOP NEW WORLD</p></div>
             <div class="desc">
                 A Metaverse adventure UGC game built on the ethereum blockchain. <br/>
                 Travel through diverse cyberspace in search of mysterious digital artifacts <br/>
@@ -157,15 +141,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
             </div>
             <div class="nobody-right">
-                <!-- <div class="title" id="ele2">YOU ARE NOBODY<br/> AND SOMEBODY</div> -->
-                <div class="title" id="ele2">
-                    <div class="rolling-text">
-                        YOU ARE NOBODY
-                    </div><br/>
-                    <div class="rolling-text">
-                        AND SOMEBODY
-                    </div>
-                </div>
+                <div class="title" id="ele2">YOU ARE NOBODY<br/> AND SOMEBODY</div>
                 <div class="subtitle">IN DIFFERENT CYBERSPACE</div>
                 <div class="desc">
                     By teleporting into different cyberspace， Players will  <br/>
@@ -194,15 +170,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="make">
         <div class="make-wrap">
-            <!-- <div class="title" id="ele3">MAKE CYBERSPACE <br/> BELONGS TO YOU</div> -->
-            <div class="title" id="ele3">
-                <div class="rolling-text">
-                    MAKE CYBERSPACE
-                </div><br/>
-                <div class="rolling-text">
-                    BELONGS TO YOU
-                </div>
-            </div>
+            <div class="title" id="ele3">MAKE CYBERSPACE <br/> BELONGS TO YOU</div>
             <div class="subtitle">THE NFT MADE BY YOURSELF</div>
             <div class="desc">
                 Through advanced collapse algorithms, cyberpop supports <br/>
@@ -247,16 +215,11 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="news">
         <div class="news-wrap">
-            <!-- <div class="title" id="ele4">NEWS</div> -->
-            <div class="title" id="ele4">
-                <div class="rolling-text">
-                    NEWS
-                </div>
-            </div>
+            <div class="title" id="ele4">NEWS</div>
             <div class="content" @click="newsActiveSrc()">
                 <div class="hover-img">
                     <img :class="{'newsShow': showNewsImg == 0}" src="@/assets/nwhome/news-bg.png" alt="">
-                    <img :class="{'newsShow': showNewsImg == 1}" src="@/assets/nwhome/futureCity.png" alt="">
+                    <img :class="{'newsShow': showNewsImg == 1}" src="@/assets/nwhome/news-bg2.png" alt="">
                 </div>
                 <div class="news-left">
                     <div class="news-top" @click="toYoutube($event)">
@@ -307,12 +270,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img class="roadmap-bg2" src="@/assets/nwhome/roadmap-bg2.svg" alt="">
         </div>
         <div class="roadmap-wrap">
-            <!-- <div class="title" id="ele5">ROADMAP</div> -->
-            <div class="title" id="ele5">
-                <div class="rolling-text">
-                    ROADMAP
-                </div>
-            </div>
+            <div class="title" id="ele5">ROADMAP</div>
             <div class="time1 timeWidth-r" id="time1">
                 <div class="date"><span class="span-l"></span>2021.03</div>
                 <div class="event">
@@ -358,12 +316,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="partners">
-        <!-- <div class="title" id="ele6">ECOLOGICAL PARTNERS</div> -->
-        <div class="title" id="ele6">
-            <div class="rolling-text">
-                ECOLOGICAL PARTNERS
-            </div>
-        </div>
+        <div class="title" id="ele6">ECOLOGICAL PARTNERS</div>
         <div class="logo">
             <img src="@/assets/nwhome/partners1.png" alt="">
             <img src="@/assets/nwhome/partners2.png" alt="">
@@ -410,29 +363,6 @@ import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
 import { title } from 'process';
 import { AnyMxRecord } from 'dns';
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
-
-
-
-const title1Hover = () => {
-    let elements = document.querySelectorAll('.rolling-text');
-    elements.forEach(element => {
-
-        let innerText = element.innerHTML;
-        element.innerHTML = '';
-        
-        let textContainer = document.createElement('div');
-        textContainer.classList.add('block');
-        
-        for (let letter of innerText) {
-            let span = document.createElement('span');
-            span.innerText = letter.trim() === '' ? '\xa0': letter;
-            span.classList.add('letter');
-            textContainer.appendChild(span);
-        }
-        element.appendChild(textContainer);
-        element.appendChild(textContainer.cloneNode(true));
-    });
-}
 
 
 
@@ -518,7 +448,7 @@ const windowScroll: any = () => {
     const navHeight: number = myNav.value.offsetHeight;
     const cHeight: number = document.documentElement.clientHeight;
     const scrollHeight: number = document.documentElement.scrollTop;
-    startMove(Math.ceil((cHeight - navHeight - 10) + scrollHeight));
+    startMove(Math.ceil((cHeight - navHeight - 130) + scrollHeight));
 }
 
 let timer: any = null;
@@ -774,11 +704,11 @@ const checkScrollHeightAndLoadAnimation: any = () => {
                 arr[i].el.classList.add('fadeInUp');
             }
         }
-        if(time1Top < windowHeight) time1.classList.add('fadeInRight')
-        if(time3Top < windowHeight) time3.classList.add('fadeInRight')
-        if(time5Top < windowHeight) time5.classList.add('fadeInRight')
-        if(time2Top < windowHeight) time2.classList.add('fadeInLeft')
-        if(time4Top < windowHeight) time4.classList.add('fadeInLeft')
+        if(time1Top < windowHeight) time1.classList.add('bounceInRight')
+        if(time3Top < windowHeight) time3.classList.add('bounceInRight')
+        if(time5Top < windowHeight) time5.classList.add('bounceInRight')
+        if(time2Top < windowHeight) time2.classList.add('bounceInLeft')
+        if(time4Top < windowHeight) time4.classList.add('bounceInLeft')
         if(role.className == 'fadeInUp'){
             setTimeout(() => {
                 if(role.className == 'fadeInUp') role.classList.add('fadeInDown')
@@ -796,7 +726,6 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-    title1Hover();
     connect();
     window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
     window.addEventListener('scroll', windowScroll, true);
@@ -837,7 +766,6 @@ onMounted(() => {
             left: -53vw;
         }
     }
-    @i:0;
     html,
     body {
         height: 100%;
@@ -1022,41 +950,19 @@ onMounted(() => {
                     justify-content: center;
                     align-items: center;
                     .title1{
-                        display: flex;
-                        flex-direction: column;
-                        // width: 64.84vw;
+                        width: 64.84vw;
                         height: 10.41vw;
                         margin-top: 9vw;
-                        // font-size: 4.32vw;
+                        font-size: 4.32vw;
                         font-family: AlibabaPuHuiTi_2_105_Heavy;
                         color: #FFFFFF;
-                        // line-height: 5.205vw;
+                        line-height: 5.205vw;
                         letter-spacing: .26vw;
                         text-align: center;
                         font-weight: 900;
                         filter: drop-shadow( .155vw 0 0 #D236A5 )
                                 drop-shadow( -.15vw 0 0.05rem #72F0D9 );
                         cursor: pointer;
-                            .rolling-text{
-                                font-size: 4.32vw;
-                                line-height: 5.205vw;
-                                overflow: hidden;
-                                :deep(.letter){
-                                    display: inline-block;
-                                    transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
-                                }
-                                .loop(@i) when (@i < 20) {
-                                    .loop((@i  +  1 ));   // 递归调用自身
-                                    :deep(.letter:nth-child(@{i})) {
-                                        transition-delay: 0.015s * @i;
-                                    }
-                                }
-                                .loop(0);
-                            }
-                                
-                    }
-                    :deep(.title1:hover .letter){
-                        transform: translateY(-100%);
                     }
                     .title2{
                         margin-bottom: 5vw;
@@ -1226,43 +1132,24 @@ onMounted(() => {
             width: 100%;
             height: 100%;
             .title{
-                // height: 6.25vw;
+                height: 6.25vw;
+                line-height: 3vw;
                 margin-top: 4vw;
-                margin-left: 19vw;
+                margin-left: 19.6vw;
                 margin-right: auto;
                 color: #04FFA2;
-                // font-size: 2.6vw;
+                font-size: 2.6vw;
                 font-weight: bold;
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 cursor: pointer;
                 .white{
                     color: #fff;
                 }
-                .rolling-text{
-                    height: 2.4vw;
-                    font-size: 2.6vw;
-                    line-height: 2.4vw;
-                    overflow: hidden;
-                    :deep(.letter){
-                        display: inline-block;
-                        transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
-                    }
-                    .loop(@i) when (@i < 20) {
-                        .loop((@i  +  1 ));   // 递归调用自身
-                        :deep(.letter:nth-child(@{i})) {
-                            transition-delay: 0.015s * @i;
-                        }
-                    }
-                    .loop(0);
-                }
-            }
-            :deep(.title:hover .letter){
-                transform: translateY(-100%);
             }
             .desc{
                 width: 41vw;
                 height: 3.75vw;
-                margin-top: 1.2vw;
+                margin-top: .2vw;
                 margin-left: 19.58vw;
                 color: #fff;
                 font-size: 1.04vw;
@@ -1476,34 +1363,12 @@ onMounted(() => {
                 margin-right: 18vw;
                 text-align: right;
                 .title{
-                    margin-right: -.8vw;
-                    // line-height: 3.7vw;
-                    height: 7.14vw;
-                    // font-size: 2.6vw;
+                    line-height: 3.7vw;
+                    font-size: 2.6vw;
                     font-weight: bold;
                     color: #FFFFFF;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     cursor: pointer;
-                    .rolling-text{
-                        height: 3vw;
-                        font-size: 2.6vw;
-                        line-height: 3vw;
-                        overflow: hidden;
-                        :deep(.letter){
-                            display: inline-block;
-                            transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
-                        }
-                        .loop(@i) when (@i < 20) {
-                            .loop((@i  +  1 ));   // 递归调用自身
-                            :deep(.letter:nth-child(@{i})) {
-                                transition-delay: 0.015s * @i;
-                            }
-                        }
-                        .loop(0);
-                    }
-                }
-                :deep(.title:hover .letter){
-                    transform: translateY(-100%);
                 }
                 .subtitle{
                     font-size: 1.45vw;
@@ -1645,34 +1510,13 @@ onMounted(() => {
             margin-left: 19.53vw;
             .title{
                 height: 7.38vw;
-                margin-left: -.6vw;
                 margin-right: auto;
-                // font-size: 2.6vw;
+                font-size: 2.6vw;
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 color: #FFFFFF;
-                // line-height: 3.69vw;
+                line-height: 3.69vw;
                 font-weight: bold;
                 cursor: pointer;
-                .rolling-text{
-                    height: 2.8vw;
-                    font-size: 2.6vw;
-                    line-height: 3.2vw;
-                    overflow: hidden;
-                    :deep(.letter){
-                        display: inline-block;
-                        transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
-                    }
-                    .loop(@i) when (@i < 20) {
-                        .loop((@i  +  1 ));   // 递归调用自身
-                        :deep(.letter:nth-child(@{i})) {
-                            transition-delay: 0.015s * @i;
-                        }
-                    }
-                    .loop(0);
-                }
-            }
-            :deep(.title:hover .letter){
-                transform: translateY(-100%);
             }
             .subtitle{
                 font-size: 1.66vw;
@@ -1822,33 +1666,13 @@ onMounted(() => {
             align-items: center;
             height: 100%;
             .title{
-                // font-size: 2.6vw;
+                font-size: 2.6vw;
                 font-weight: bold;
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 color: #FFFFFF;
                 line-height: 3.69vw;
                 margin-bottom: 1.4vw;
                 cursor: pointer;
-                .rolling-text{
-                    height: 3.69vw;
-                    font-size: 2.6vw;
-                    line-height: 3.69vw;
-                    overflow: hidden;
-                    :deep(.letter){
-                        display: inline-block;
-                        transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
-                    }
-                    .loop(@i) when (@i < 20) {
-                        .loop((@i  +  1 ));   // 递归调用自身
-                        :deep(.letter:nth-child(@{i})) {
-                            transition-delay: 0.015s * @i;
-                        }
-                    }
-                    .loop(0);
-                }
-            }
-            :deep(.title:hover .letter){
-                transform: translateY(-100%);
             }
             .content{
                 position: relative;
@@ -2019,6 +1843,7 @@ onMounted(() => {
                     margin: 0 auto;
                     width: 1px;
                     height: 62vw;
+                    background-color: #C689FF;
                     border: 1px solid #C689FF;
                 }
             }
@@ -2034,32 +1859,12 @@ onMounted(() => {
                 margin-top: 1vw;
                 margin-bottom: 11.66vw;
                 color: #FFFFFF;
-                // font-size: 2.6vw;
-                // line-height: 3.69vw;
+                font-size: 2.6vw;
+                line-height: 3.69vw;
                 font-weight: bold;
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 text-align: center;
                 cursor: pointer;
-                .rolling-text{
-                    height: 3.69vw;
-                    font-size: 2.6vw;
-                    line-height: 3.69vw;
-                    overflow: hidden;
-                    :deep(.letter){
-                        display: inline-block;
-                        transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
-                    }
-                    .loop(@i) when (@i < 20) {
-                        .loop((@i  +  1 ));   // 递归调用自身
-                        :deep(.letter:nth-child(@{i})) {
-                            transition-delay: 0.015s * @i;
-                        }
-                    }
-                    .loop(0);
-                }
-            }
-            :deep(.title:hover .letter){
-                transform: translateY(-100%);
             }
             .timeWidth-l{
                 width: 50%;
@@ -2079,7 +1884,7 @@ onMounted(() => {
                 display: inline-block;
                 width: 1.25vw;
                 height: .1vw;
-                color: #C689FF;
+                background-color: #C689FF;
                 border: 1px solid #C689FF;
             }
              .span-r{
@@ -2089,7 +1894,7 @@ onMounted(() => {
                 display: inline-block;
                 width: 1.25vw;
                 height: .1vw;
-                color: #C689FF;
+                background-color: #C689FF;
                 border: 1px solid #C689FF;
             }
             .time1,.time2,.time3,.time4,.time5{
@@ -2134,32 +1939,12 @@ onMounted(() => {
             height: 3.69vw;
             margin: 0 auto;
             text-align: center;
-            // font-size: 2.6vw;
+            font-size: 2.6vw;
             font-weight: bold;
             font-family: AlibabaPuHuiTi_2_115_Black;
             color: #FFFFFF;
-            // line-height: 3.69vw;
+            line-height: 3.69vw;
             cursor: pointer;
-            .rolling-text{
-                height: 3.69vw;
-                font-size: 2.6vw;
-                line-height: 3.69vw;
-                overflow: hidden;
-                :deep(.letter){
-                    display: inline-block;
-                    transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
-                }
-                .loop(@i) when (@i < 25) {
-                    .loop((@i  +  1 ));   // 递归调用自身
-                    :deep(.letter:nth-child(@{i})) {
-                        transition-delay: 0.015s * @i;
-                    }
-                }
-                .loop(0);
-            }
-        }
-        :deep(.title:hover .letter){
-            transform: translateY(-100%);
         }
         .logo{
             display: flex;
@@ -2169,9 +1954,7 @@ onMounted(() => {
             img:nth-child(1){
                 width: 12.29vw;
                 height: 9.21vw;
-                margin-left: 31.4vw;
-                margin-right: 2vw;
-                margin-bottom: -.1vw;
+                margin: -.1vw 2vw -.1vw 31.4vw;
             }
             img:nth-child(2){
                 width: 19.47vw;

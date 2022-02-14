@@ -64,17 +64,45 @@ onMounted(() => {
             transform: translateX(-2000px);
         }
         60% {
+            opacity: .4;
+            -webkit-transform: translateX(-100px);
+            -ms-transform: translateX(-100px);
+            transform: translateX(-100px);
+        }
+        80% {
+            opacity: .8;
+            -webkit-transform: translateX(-30px);
+            -ms-transform: translateX(-30px);
+            transform: translateX(-30px);
+        }
+        100% {
             opacity: 1;
+            -webkit-transform: translateX(0);
+            -ms-transform: translateX(0);
+            transform: translateX(0);
+        }
+    }
+    @keyframes bounceInRight {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateX(2000px);
+            -ms-transform: translateX(2000px);
+            transform: translateX(2000px);
+        }
+        60% {
+            opacity: .4;
+            -webkit-transform: translateX(100px);
+            -ms-transform: translateX(100px);
+            transform: translateX(100px);
+        }
+        80% {
+            opacity: .8;
             -webkit-transform: translateX(30px);
             -ms-transform: translateX(30px);
             transform: translateX(30px);
         }
-        80% {
-            -webkit-transform: translateX(-10px);
-            -ms-transform: translateX(-10px);
-            transform: translateX(-10px);
-        }
         100% {
+            opacity: 1;
             -webkit-transform: translateX(0);
             -ms-transform: translateX(0);
             transform: translateX(0);
@@ -189,30 +217,6 @@ onMounted(() => {
         }
     }
 
-     @keyframes bounceInRight {
-        0% {
-            opacity: 0;
-            -webkit-transform: translateX(2000px);
-            -ms-transform: translateX(2000px);
-            transform: translateX(2000px);
-        }
-        60% {
-            opacity: 1;
-            -webkit-transform: translateX(-30px);
-            -ms-transform: translateX(-30px);
-            transform: translateX(-30px);
-        }
-        80% {
-            -webkit-transform: translateX(10px);
-            -ms-transform: translateX(10px);
-            transform: translateX(10px);
-        }
-        100% {
-            -webkit-transform: translateX(0);
-            -ms-transform: translateX(0);
-            transform: translateX(0);
-        }
-    }
     .fadeInUp{
         animation: fadeInUp 1s linear;
     }
@@ -233,6 +237,6 @@ onMounted(() => {
         animation: bounceInLeft 1s linear;
     }
     .bounceInRight{
-         animation: bounceInRight 1s linear;
+         animation: bounceInRight 1.5s linear;
     }
 </style>
