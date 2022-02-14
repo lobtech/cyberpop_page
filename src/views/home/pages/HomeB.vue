@@ -216,13 +216,16 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     </li>
                 </ul>
             </div>
-            <div class="opensea" @mouseenter="openseaEnter()" @mouseleave="openseaLeave()">
+            <!-- <div class="opensea" @mouseenter="openseaEnter()" @mouseleave="openseaLeave()"> -->
+            <div class="opensea">
                 <div class="opensea-title">View the claimed lands on</div>
                 <div class="openUrl" target="view_window">
-                    <a href="">
+                    <!-- <a href=""> -->
+                    <div>
                         <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/openSea.png" alt="">
                         <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-rightArrow.svg" alt="">
-                    </a>
+                    </div>
+                    <!-- </a> -->
                 </div>
                 <div id="openMask" class="mask"></div>
             </div>  
@@ -1613,7 +1616,8 @@ onMounted(() => {
                 width: 357px;
                 height: 175px;
                 margin-top: 60px;
-                background: #EDFF00;
+                // background: #EDFF00;
+                background-color: #565656;
                 clip-path: polygon(0 0, 100% 0, 100% 66%, 94% 100%, 0 100%);
                 .opensea-title{
                     height: 26px;
@@ -1627,7 +1631,8 @@ onMounted(() => {
                     text-align: center;
                 }
                 .openUrl{
-                    a{
+                    // a{
+                    div{
                         display: flex;
                         flex-direction: column;
                         align-items: center;
