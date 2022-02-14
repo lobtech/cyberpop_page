@@ -375,7 +375,7 @@ SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
 
 // whitepaper
 const openPaper = () => {
-    window.open("public/CyberpopWhitePaper.pdf");
+    window.open("./CyberpopWhitePaper.pdf");
 }
 
 

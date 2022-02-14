@@ -49,7 +49,7 @@ import Web3 from '@/tools/web3'
 
 // whitepaper
 const openPaper = () => {
-    window.open("public/CyberpopWhitePaper.pdf");
+    window.open("./CyberpopWhitePaper.pdf");
 }
 
 

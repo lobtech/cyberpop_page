@@ -123,7 +123,7 @@ import { log } from 'util';
 
 // whitepaper
 const openPaper = () => {
-    window.open("public/CyberpopWhitePaper.pdf");
+    window.open("./CyberpopWhitePaper.pdf");
 }
 
 
