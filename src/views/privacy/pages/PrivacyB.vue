@@ -2,8 +2,8 @@
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" :src="logoHSrc" @mouseover="changeHGif()" @mouseout="stopHGif()" alt="">
-                <!-- <img class="logo" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-logo.svg" alt="logo"> -->
+                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="changeHGif()" alt="">
+                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="stopHGif()" alt="">
                 <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
             <div class="menuMask" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
@@ -24,8 +24,7 @@
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
                     <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
-                    <!-- <li @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li> -->
-                    <li @mouseover="menuHover(2)" @click="openPaper()">Whitepaper</li>
+                    <li @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li>
                     <li @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">Mystery Box</li>
                     <li @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">Cyberspace</li>
                 </ul>
@@ -112,7 +111,8 @@
     <div class="footer">
         <div class="mask"></div>
         <div class="footer-wrap">
-            <img class="logo" :src="logoSrc" @mouseover="changeGif()" @mouseout="stopGif()" alt="">
+            <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="changeGif()" alt="">
+            <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="stopGif()" alt="">
             <div class="clause">
                 <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
                 <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
@@ -137,13 +137,6 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
-
-
-// whitepaper
-const openPaper = () => {
-    window.open("./CyberpopWhitePaper.pdf");
-}
-
 
 
 // language
@@ -171,23 +164,36 @@ const showUl = () => {
 
 
 
-//header
-let logoHSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
+let logoHSrcP:any = ref(''); 
+let logoHSrcG:any = ref(''); 
+const logoHImport = async() => {
+    const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
+    const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
+    logoHSrcP.value = logoHSrcPng.default;
+    logoHSrcG.value = logoHSrcGif.default;
+}
+
+// header
+let logoHFlag: any = ref(false) ;
 const changeHGif = () => {
-    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
+    logoHFlag.value = true;
 }
 const stopHGif = () => {
-    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png';
+    logoHFlag.value = false;
 }
 
 // footer
-let logoSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
+let logoFlag: any = ref(false) ;
 const changeGif = () => {
-    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
+    logoFlag.value = true;
 }
 const stopGif = () => {
-    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome//logo_101.png';
+    logoFlag.value = false;
 }
+
+
+
+
 
 const { proxy } = getCurrentInstance() as any;
 
@@ -218,7 +224,7 @@ const changeMenu = (type: any, route?: any) => {
     showMenuAni.value = false;
     menuFlag.value = type;
     if(type == 2) {
-        window.open('https://medium.com/@Cyberpopnewworld')
+        window.open('./CyberpopWhitePaper.pdf')
         return
     }
     store.dispatch('user/changeActive', type)
@@ -243,6 +249,7 @@ const connect: any = async () => {
 
 onMounted(() => {
     connect();
+    logoHImport();
     window.scrollTo(0,0);
 })
 

@@ -4,6 +4,8 @@ import router from './router/index' // 引入vue-router
 import store, { key } from './store'
 import './index.css' // 自定义全局样式
 import MyVideo from './components/video/video.vue'
+import ComingA from './components/coming/comingA.vue'
+import ComingB from './components/coming/comingB.vue'
 import api from './api/request'
 import VideoBg from 'vue-videobg'
 import 'swiper/css';
@@ -16,5 +18,7 @@ app.use(router) // 挂载路由
 app.use(store, key) // 挂载vuex
 
 app.component('MyVideo', MyVideo) //视频组件
+app.component('ComingA', ComingA)
+app.component('ComingB', ComingB)
 app.component('video-bg', VideoBg)
 app.mount('#app')

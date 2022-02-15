@@ -2,8 +2,8 @@
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" :src="logoHSrc" @mouseover="changeHGif()" @mouseout="stopHGif()" alt="">
-                <!-- <img class="logo" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-logo.svg" alt="logo"> -->
+                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="changeHGif()" alt="">
+                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="stopHGif()" alt="">
                 <div class="user" @click="connect()">
                     <!-- <div class="language">
                         <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
@@ -25,12 +25,21 @@
                 </div>
                 <div class="menu">
                     <ul id="menuUl">
-                        <li @mouseover="menuHover(0)" @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
-                        <li @mouseover="menuHover(1)" @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
-                        <!-- <li @mouseover="menuHover(2)" @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li> -->
-                        <li @mouseover="menuHover(2)" @click="openPaper()">Whitepaper</li>
-                        <li @mouseover="menuHover(3)" @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">Mystery Box</li>
-                        <li @mouseover="menuHover(4)" @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">Cyberspace</li>
+                        <li @mouseover="menuHover(0)" @click="changeMenu(0, '/')" :class="{'active': active == 0}">
+                            <span>Home</span>
+                        </li>
+                        <li @mouseover="menuHover(1)" @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">
+                            <span>Mining</span>
+                        </li>
+                        <li @mouseover="menuHover(2)" @click="changeMenu(2)" :class="{'active': active == 2}">
+                            <span>Whitepaper</span>
+                        </li>
+                        <li @mouseover="menuHover(3)" @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">
+                            <span>Mystery Box</span>
+                        </li>
+                        <li @mouseover="menuHover(4)" @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">
+                            <span>Cyberspace</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -140,11 +149,6 @@ import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 import { log } from 'util';
 
-// whitepaper
-const openPaper = () => {
-    window.open("./CyberpopWhitePaper.pdf");
-}
-
 
 // card filp
 const flipMove = () => {
@@ -194,23 +198,36 @@ let lockedBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pl
 
 
 
-//header
-let logoHSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
+
+let logoHSrcP:any = ref(''); 
+let logoHSrcG:any = ref(''); 
+const logoHImport = async() => {
+    const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
+    const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
+    logoHSrcP.value = logoHSrcPng.default;
+    logoHSrcG.value = logoHSrcGif.default;
+}
+
+// header
+let logoHFlag: any = ref(false) ;
 const changeHGif = () => {
-    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
+    logoHFlag.value = true;
 }
 const stopHGif = () => {
-    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png';
+    logoHFlag.value = false;
 }
 
 // footer
-let logoSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
+let logoFlag: any = ref(false) ;
 const changeGif = () => {
-    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
+    logoFlag.value = true;
 }
 const stopGif = () => {
-    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome//logo_101.png';
+    logoFlag.value = false;
 }
+
+
+
 
 const { proxy } = getCurrentInstance() as any;
 
@@ -238,11 +255,11 @@ const menuHover = (type: any) => {
 
 let menuFlag:any = ref(1);
 const changeMenu = (type: any, route?: any) => {
-    menuFlag.value = type;
     if(type == 2) {
-        window.open('https://medium.com/@Cyberpopnewworld')
+        window.open('./CyberpopWhitePaper.pdf')
         return
     }
+    menuFlag.value = type;
     store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
@@ -268,6 +285,7 @@ const connect: any = async () => {
 
 onMounted(() => {
     connect();
+    logoHImport();
     store.dispatch('user/changeActive', 1)
 })
 
@@ -470,19 +488,24 @@ onMounted(() => {
                     ul{
                         width: 100%;
                         height: 100%;
-                        overflow: hidden;
                     }
                     ul > li{
                         float: left;
                         width: 8.3vw;
                         height: 100%;
-                        margin-top: 1.6vw;
+                        padding-top: 1.6vw;
+                        padding-right: .8vw;
                         text-align: center;
                         font-size: 1.04vw;
                         font-family: AlibabaPuHuiTi_2_75_SemiBold;
                         color: #FFFFFF;
                         line-height: 1.45vw;
                         cursor: pointer;
+                        transform: skew(-18deg);
+                        span{
+                            display: inline-block;
+                            transform: skew(18deg);
+                        }
                     }
                     li:nth-child(3){
                         width: 9.8vw;
@@ -490,8 +513,8 @@ onMounted(() => {
                     .active{
                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-titleBg.svg');
                         background-repeat: no-repeat;
-                        background-size: 110% 110%;
-                        background-position: left -1.6vw;
+                        background-size: 180% 120%;
+                        background-position: -3vw bottom;
                     }  
                 }
             }

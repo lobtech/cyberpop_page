@@ -3,8 +3,8 @@
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" :src="logoHSrc" @mouseover="changeHGif()" @mouseout="stopHGif()" alt="">
-                <!-- <img class="logo" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-logo.svg" alt="logo"> -->
+                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="changeHGif()" alt="">
+                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="stopHGif()" alt="">
                 <div class="user" @click="connect()">
                     <!-- <div class="language">
                         <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
@@ -26,12 +26,33 @@
                 </div>
                 <div class="menu">
                     <ul id="menuUl">
-                        <li @mouseover="menuHover(0)" @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
-                        <li @mouseover="menuHover(1)" @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
-                        <!-- <li @mouseover="menuHover(2)" @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li> -->
-                        <li @mouseover="menuHover(2)" @click="openPaper()">Whitepaper</li>
-                        <li @mouseover="menuHover(3)" @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">Mystery Box</li>
-                        <li @mouseover="menuHover(4)" @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">Cyberspace</li>
+                        <li @mouseover="menuHover(0)" @click="changeMenu(0, '/')" :class="{'active': active == 0}">
+                            <span>Home</span>
+                        </li>
+                        <!-- <li @mouseover="menuHover(1)" @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">
+                            <span>Mining</span>
+                        </li>
+                        <li @mouseover="menuHover(2)" @click="changeMenu(2)" :class="{'active': active == 2}">
+                            <span>Whitepaper</span>
+                        </li>
+                        <li @mouseover="menuHover(3)" @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">
+                            <span>Mystery Box</span>
+                        </li>
+                        <li @mouseover="menuHover(4)" @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">
+                            <span>Cyberspace</span>
+                        </li> -->
+                        <li @mouseover="menuHover(1)" @click="showComing()" :class="{'active': active == 1}">
+                            <span>Mining</span>
+                        </li>
+                        <li @mouseover="menuHover(2)" @click="changeMenu(2)" :class="{'active': active == 2}">
+                            <span>Whitepaper</span>
+                        </li>
+                        <li @mouseover="menuHover(3)" @click="showComing()" :class="{'active': active == 3}">
+                            <span>Mystery Box</span>
+                        </li>
+                        <li @mouseover="menuHover(4)" @click="showComing()" :class="{'active': active == 4}">
+                            <span>Cyberspace</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -45,7 +66,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     <!-- <div class="title1" id="magic"></div> -->
                     <div class="title1">FIND REAL YOU <br/> IN THIS NEW WORLD</div>
                     <div class="title2">
-                        THE GAMEFI TO THE FUTURE CYBERSPACE CAN NOT BE MISSED
+                        The Metaverse Combines Exploration, Combat, X-To-Earn and UGC
                     </div>
                     <div class="btnbox">
                         <div class="btn-register">REGISTER</div>
@@ -339,7 +360,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="footer">
-        <img class="logo" :src="logoSrc" @mouseover="changeGif()" @mouseout="stopGif()" alt="">
+        <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="changeGif()" alt="">
+        <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="stopGif()" alt="">
         <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
         <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
         <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
@@ -355,6 +377,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </a>
         </div>
     </div>
+    <coming-a v-show="showComingFlag"></coming-a>
 </template>
 
 <script setup lang="ts">
@@ -371,14 +394,16 @@ import { AnyMxRecord } from 'dns';
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
 
 
-
-
-// whitepaper
-const openPaper = () => {
-    window.open("./CyberpopWhitePaper.pdf");
+// coming soon
+let showComingFlag:any = ref(false);
+const ctimer:any = ref(null)
+const showComing = () => {
+    clearTimeout(ctimer.value);
+    showComingFlag.value = true;
+    ctimer.value = setTimeout(() => {
+        showComingFlag.value = false;
+    },3000)
 }
-
-
 
 
 
@@ -540,23 +565,35 @@ const openseaLeave = () => {
 
 
 
-//header
-let logoHSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
+let logoHSrcP:any = ref(''); 
+let logoHSrcG:any = ref(''); 
+const logoHImport = async() => {
+    const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
+    const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
+    logoHSrcP.value = logoHSrcPng.default;
+    logoHSrcG.value = logoHSrcGif.default;
+}
+
+// header
+let logoHFlag: any = ref(false) ;
 const changeHGif = () => {
-    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
+    logoHFlag.value = true;
 }
 const stopHGif = () => {
-    logoHSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png';
+    logoHFlag.value = false;
 }
 
 // footer
-let logoSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png') ;
+let logoFlag: any = ref(false) ;
 const changeGif = () => {
-    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.gif';
+    logoFlag.value = true;
 }
 const stopGif = () => {
-    logoSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo_101.png';
+    logoFlag.value = false;
 }
+
+
+
 
 const { proxy } = getCurrentInstance() as any;
 
@@ -584,11 +621,11 @@ const menuHover = (type: any) => {
 
 let menuFlag:any = ref(0);
 const changeMenu = (type: any, route?: any) => {
-    menuFlag.value = type;
     if(type == 2) {
-        window.open('https://medium.com/@Cyberpopnewworld')
+        window.open('./CyberpopWhitePaper.pdf')
         return
     }
+    menuFlag.value = type;
     store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
@@ -731,6 +768,7 @@ const deckd = () => {
 
 onUnmounted(() => {
     window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
+    window.removeEventListener('scroll', windowScroll, true);
 })
 
 onMounted(() => {
@@ -738,6 +776,7 @@ onMounted(() => {
     window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
     window.addEventListener('scroll', windowScroll, true);
     store.dispatch('user/changeActive', 0);
+    logoHImport();
 })
 
 </script>
@@ -938,19 +977,24 @@ onMounted(() => {
                     ul{
                         width: 100%;
                         height: 100%;
-                        overflow: hidden;
                     }
                     ul > li{
                         float: left;
                         width: 8.3vw;
                         height: 100%;
-                        margin-top: 1.6vw;
+                        padding-top: 1.6vw;
+                        padding-right: .8vw;
                         text-align: center;
                         font-size: 1.04vw;
                         font-family: AlibabaPuHuiTi_2_75_SemiBold;
                         color: #FFFFFF;
                         line-height: 1.45vw;
                         cursor: pointer;
+                        transform: skew(-18deg);
+                        span{
+                            display: inline-block;
+                            transform: skew(18deg);
+                        }
                     }
                     li:nth-child(3){
                         width: 9.8vw;
@@ -958,8 +1002,8 @@ onMounted(() => {
                     .active{
                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-titleBg.svg');
                         background-repeat: no-repeat;
-                        background-size: 110% 110%;
-                        background-position: left -1.6vw;
+                        background-size: 180% 120%;
+                        background-position: -3vw bottom;
                     }  
                 }
             }
@@ -1307,21 +1351,21 @@ onMounted(() => {
                     .swiper-img{
                         position: relative;//
                         width: 56.4vw;
-                        height: 24.42vw;
+                        height: 24.33vw;
                         margin-top: 6.9vw;
                         margin-left: 2.5vw;
                         .swiper-bg3{
                             overflow: hidden;//
                             width: 56.4vw;
-                            height: 24.42vw;
+                            // height: 24.42vw;
+                            height: 24.33vw;
                             img{
-                                width: 100%;
-                                height: 24.42vw;
+                                width: 100.1%;
+                                // height: 24.42vw;
+                                height: 24.33vw;
+                                margin-left: -.1vw;
                             }
                         }
-                        // ::v-deep .swiper-vertical > .swiper-wrapper{
-                        //     transition-timing-function: ease-in !important;
-                        // }
                         :deep(.swiper-vertical > .swiper-wrapper){
                             transition-timing-function: ease-in !important;
                         }
@@ -1356,7 +1400,9 @@ onMounted(() => {
                 height: 44vw;
                 margin-left: 8vw;
                 img{
-                    height: 100%;
+                    height: 95%;
+                    margin-top: 2vw;
+                    margin-left: 1vw;
                 }
                 .nobody-left-tip{
                     z-index: 2;
@@ -1802,6 +1848,10 @@ onMounted(() => {
                                     font-size: 1.04vw;
                                     font-family: AlibabaPuHuiTi_2_55_Regular;
                                     text-decoration: none;
+                                    cursor: pointer;
+                                }
+                                .toRead:hover{
+                                    text-decoration: underline;
                                 }
                             }
                         }
