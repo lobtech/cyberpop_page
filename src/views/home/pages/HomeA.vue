@@ -50,6 +50,9 @@
                         <li @mouseover="menuHover(3)" @click="showComing()" :class="{'active': active == 3}">
                             <span>Mystery Box</span>
                         </li>
+                        <!-- <li @mouseover="menuHover(3)" @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">
+                            <span>Mystery Box</span>
+                        </li> -->
                         <li @mouseover="menuHover(4)" @click="showComing()" :class="{'active': active == 4}">
                             <span>Cyberspace</span>
                         </li>
