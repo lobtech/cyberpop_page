@@ -301,9 +301,9 @@ const connect: any = async () => {
     })
     Web3.getBalance(accounts).then((res) => {
         token0Number.value = res[0];
-        if(token0Number.value <= 0){
-            window.location.href = 'https://game.cyberpop.online/';
-        }
+        // if(token0Number.value <= 0){
+        //     window.location.href = 'https://game.cyberpop.online/';
+        // }
     })
     id.value = accounts;
     let len = id.value.length-1;
