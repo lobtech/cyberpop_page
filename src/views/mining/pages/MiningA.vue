@@ -449,7 +449,7 @@ onMounted(() => {
                             li{
                                 color: #8F8F8F;
                                 font-size: .72vw;
-                                font-family: PingFangSC-Regular, PingFang SC;
+                                font-family: AlibabaPuHuiTi_2_55_Regular;
                                 font-weight: 400;
                                 line-height: 2vw;
                             }
@@ -793,7 +793,7 @@ onMounted(() => {
 //         padding-right: 6vw;
 //         padding-left: 18.9vw;
 //         font-size: 1.09vw;
-//         font-family: Poppins-Regular, Poppins;
+//         font-family: AlibabaPuHuiTi_2_55_Regular;
 //         font-weight: 400;
 //         color: #FFFFFF;
 //         line-height: 1.82vw;

@@ -21,6 +21,7 @@
                         <div class="myassets">My assets</div>
                         <div class="logout">Logout</div>
                     </div>
+                    <div class="mask"></div>
                 </div>
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
@@ -33,6 +34,9 @@
                     <li @click="showComing()" :class="{'active': active == 3}">Mystery Box</li>
                     <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li>
                 </ul>
+                <div class="xplan" @click="showxplan()">
+                    <img src="@/assets/nwhome/xplan.svg" alt="" >
+                </div>
                 <!-- <div class="language">
                     <div @click="showUl()">Language switch</div>
                     <ul v-show="showul">
@@ -54,7 +58,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         The Metaverse Combines Exploration, Combat, X-To-Earn and UGC 
                     </div>
                     <div class="btnbox">
-                        <div class="btn-register"><div>REGISTER</div></div>
+                        <div class="btn-register" @click="showDownload()"><div>REGISTER</div></div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
                             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section-btnPlay.svg" alt="">
@@ -68,6 +72,19 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section_buttom.svg" alt="" class="buttom">
         </footer>
     </div>
+    <div class="download" v-show="showDown">
+        <div class="cover"></div>
+        <div class="coverborder"></div>
+        <div class="wrap">
+            <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
+            <img class="close" src="@/assets/nwhome/closexplan.svg" alt="" @click="closeDownload()">
+            <div class="message">
+                Sorry, you are unable to download. The game is currently open only to authorized internal testers and communities. Contact us to get qualify.
+            </div>
+            <div class="btn">Download</div>
+        </div>
+    </div>
+    <xplanpro-b v-if="xplanActive"></xplanpro-b>
     <div class="nav-logos" ref="myNav">
         <a href="#">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/joinus.svg" alt="" class="joinus">
@@ -330,9 +347,36 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="partners">
         <div class="title" id="ele6">ECOLOGICAL PARTNERS</div>
         <div class="logo">
-            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/partners1.png" alt="">
-            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/partners2.png" alt="">
+            <div>
+                <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners1.png" alt="">
+                <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt="">
+            </div>
+            <div>
+                <img class="logo3" src="@/assets/nwhome/partners4.png" alt="">
+                <img class="logo4" src="@/assets/nwhome/partners3.png" alt="">
+            </div>
         </div>
+    </div>
+    <div class="will">
+        <div class="title" id="ele6">We will suppport Multi-end interoperability</div>
+        <ul class="logo">
+            <li>
+                <img class="logo1" src="@/assets/nwhome/windows-fill.svg" alt="">
+                <div class="window">Window</div>
+            </li>
+            <li>
+                <img class="logo2" src="@/assets/nwhome/steam.svg" alt="">
+                <div class="steam">STEAM</div>
+            </li>
+            <li>
+                <img class="logo3" src="@/assets/nwhome/googleplay.svg" alt="">
+                <div class="googleplay">Google Play</div>
+            </li>
+            <li>
+                <img class="logo4" src="@/assets/nwhome/apple.svg" alt="">
+                <div class="store">App store</div>
+            </li>
+        </ul>
     </div>
     <div class="register">
         <div class="title">READY FOR YOUR JOURNEY?</div>
@@ -377,8 +421,26 @@ import Web3 from '@/tools/web3'
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
-import { log } from 'console';
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
+
+
+// xplan
+const xplanActive = computed(() => store?.state.user?.xplanActive);
+const showxplan = () => {
+    store.dispatch('user/changeXplan',true);
+    // window.open('https://game.cyberpop.online/xplan');
+    showMenuAni.value = false;
+}
+
+// register
+let showDown:any = ref(false);
+const showDownload = () => {
+    showDown.value = true;
+}
+const closeDownload = () => {
+    showDown.value = false;
+}
+
 
 
 // coming soon
@@ -798,7 +860,6 @@ onMounted(() => {
         overflow: hidden;
         header{
             z-index: 9;
-            position: relative;
             position: fixed;
             top: 0;
             right: 0;
@@ -817,9 +878,8 @@ onMounted(() => {
                     height: 41px;
                 }
                 .menu{
-                    width: 22px;
-                    height: 22px;
-                    // margin: 12px 17px 0 0;
+                    width: 30px;
+                    height: 30px;
                     margin-right: 17px;
                 }
             }
@@ -828,9 +888,9 @@ onMounted(() => {
                 top: 0;
                 right: -316px;
                 width: 316px;
-                height: 100vh;
-                background: #000000;
-                opacity: 0.92;
+                min-height: 100vh;
+                // height: 100vh;
+                background-color: rgba(0,0,0,.92);
                 .close-menu{
                     width: 100%;
                     height: 44px;
@@ -847,6 +907,7 @@ onMounted(() => {
                     height: 100px;
                     overflow: hidden;
                     cursor: pointer;
+                    text-align: center;
                     .txt{
                         width: 238px;
                         height: 54px;
@@ -864,10 +925,22 @@ onMounted(() => {
                     }
                 }
                 .logged_in{
+                    position: relative;
                     width: 100%;
-                    height: 163px;
+                    height: 180px;
                     margin-top: 10px;
                     text-align: center;
+                    .mask{
+                        z-index: -1;
+                        position: absolute;
+                        top: 28px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 287px;
+                        height: 150px;
+                        background-color: #452CB6;
+                        border-radius: 4px;
+                    }
                     .portrait{
                         width: 50px;
                         height: 50px;
@@ -890,7 +963,7 @@ onMounted(() => {
                         padding-right: 30px;
                         .myassets,.logout{
                             font-size: 16px;
-                            font-family: Poppins-Regular, Poppins;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
                             font-weight: 400;
                             color: #FFFFFF;
                             line-height: 60px;
@@ -904,7 +977,7 @@ onMounted(() => {
                         width: 286px;
                         height: 60px;
                         margin-left: 30px;
-                        font-family: Poppins-Regular, Poppins;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
                         font-weight: 400;
                         color: #FFFFFF;
                         line-height: 60px;
@@ -914,6 +987,16 @@ onMounted(() => {
                     }
                     .active{
                         color: #04FF55;
+                    }
+                }
+                .xplan{
+                    width: 100%;
+                    height: 45px;
+                    margin-top: 20px;
+                    text-align: center;
+                    img{
+                        width: 46px;
+                        height: 45px;
                     }
                 }
                 .language{
@@ -926,7 +1009,7 @@ onMounted(() => {
                         margin-top: 10px;
                         margin-bottom: 10px;
                         font-size: 16px;
-                        font-family: Poppins-Regular, Poppins;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
                         font-weight: 400;
                         color: #FFFFFF;
                         line-height: 30px;
@@ -947,7 +1030,7 @@ onMounted(() => {
                         li{
                             height: 40px;
                             font-size: 14px;
-                            font-family: PingFangSC-Regular, PingFang SC;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
                             font-weight: 400;
                             color: #FFFFFF;
                             line-height: 20px;
@@ -993,8 +1076,10 @@ onMounted(() => {
                         color: #FFFFFF;
                         line-height: 23px;
                         text-align: center;
-                        filter: drop-shadow( .155vw 0 0 #D236A5 )
-                                drop-shadow( -.15vw 0 0.05rem #72F0D9 );
+                        font-weight: 900;
+                        filter: drop-shadow( .4vw 0 0 #D236A5 )
+                                drop-shadow( -.4vw 0 0#72F0D9 );
+                        cursor: pointer;
                     }
                     .title2{
                         width: 227px;
@@ -1067,7 +1152,7 @@ onMounted(() => {
                 width: 100%;
                 text-align: center;
                 font-size: 14px;
-                font-family: Menlo-Regular, Menlo;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
                 font-weight: 400;
                 color: #04FFA2;
                 line-height: 16px;
@@ -1076,7 +1161,7 @@ onMounted(() => {
                 .txt2{
                     font-size: 12px;
                     color: #ffffff;
-                    font-weight: bold;
+                    font-family: AlibabaPuHuiTi_2_105_Heavy;
                 }
             }
         }
@@ -1088,6 +1173,80 @@ onMounted(() => {
             width: 18px;
             height: 18px;
             margin: 0 auto;
+        }
+    }
+    .download{
+        z-index: 8;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 314px;
+        height: 354px;
+        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+        border: 5px solid;
+        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 5 5;
+        clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
+        .cover{
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #293041;
+            clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
+        }
+        .coverborder{
+            z-index: -1;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            content: '';
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: #2d2942;
+        }
+        .wrap{
+            position: relative;
+            .bg{
+                width: 33.02vw;
+                height: 18.17vw;
+                margin-top: .93vw;
+                margin-left: 9.94vw;
+            }
+            .close{
+                width: 10.72vw;
+                height: 10.72vw;
+                position: absolute;
+                top: -2.8vw;
+                right: -2vw;
+            }
+            .message{
+                width: 40.88vw;
+                height: 2.91vw;
+                margin: .41vw auto .93vw;
+                font-size: .93vw;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
+                color: #FFFFFF;
+                line-height: 1.45vw;
+                text-align: center;
+            }
+            .btn{
+                width: 14.53vw;
+                height: 4.16vw;
+                margin: 0 auto;
+                font-size: 1.3vw;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #FFFFFF;
+                line-height: 1.77vw;
+                text-align: center;
+                // background-image: url('../../../assets/nwhome/download.svg');
+                background-size: auto 100%;
+                line-height: 4.16vw;
+                clip-path: polygon(0% 33.4%, 10.8% 0%, 100% 0, 100% 80.5%, 90.8% 100%, 0 100%);
+                cursor: pointer;
+                background-color: gray;
+            }
         }
     }
     .nav-logos{
@@ -1651,7 +1810,7 @@ onMounted(() => {
                     margin-top: 18px;
                     margin-bottom: 12px;
                     font-size: 17px;
-                    font-family: OPPOSans-B, OPPOSans;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
                     font-weight: normal;
                     color: #000000;
                     line-height: 26px;
@@ -1935,7 +2094,7 @@ onMounted(() => {
                 .date{
                     position: relative;
                     font-size: 20px;
-                    font-family: AiDeep-Bold, AiDeep;
+                    font-family: AlibabaPuHuiTi_2_85_Bold;
                     font-weight: bold;
                     color: #04FFA2;
                     line-height: 18px;
@@ -1967,7 +2126,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 200px;
+        height: 240px;
         background-color: #000000;
         overflow: hidden;
         .title{
@@ -1981,19 +2140,84 @@ onMounted(() => {
         }
         .logo{
             display: flex;
+            flex-direction: column;
             align-items: center;
-            overflow: hidden;
-            img:nth-child(1){
-                width: 93px;
-                height: 71px;
-                margin-left: 66px;
-                margin-bottom: -2px;
-            }
-            img:nth-child(2){
-                width: 147px;
-                height: 47px;
+            div{
+                display: flex;
+                align-items: center;
+                margin-bottom: 3vw;
+                .logo1{
+                    width: 93px;
+                    height: 71px;
+                    margin-right: 1vw;
+                    margin-bottom: -2px;
+                }
+                .logo2{
+                    width: 147px;
+                    height: 47px;
+                }
+                .logo3{
+                    width: 60px;
+                    margin-left: 4vw;
+                    margin-right: 8vw;
+                }
+                .logo4{
+                    height: 50px;
+                }
             }
 
+        }
+    }
+    .will{
+        width: 100%;
+        height: 260px;
+        background-color: #000000;
+        overflow: hidden;
+        .title{
+            // height: 31px;
+            margin-bottom: 7px;
+            font-size: 22px;
+            font-family: AlibabaPuHuiTi_2_115_Black;
+            color: #FFFFFF;
+            line-height: 28px;
+            text-align: center;
+        }
+        .logo{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            // overflow: hidden;  
+            li{
+                display: flex;
+                align-items: center;
+                height: 45px;
+                margin-bottom: 18px;
+                font-size: 20px;
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                color: #FFFFFF;
+                line-height: 45px;
+                img{
+                    width: 30px;
+                    margin-right: 8px;
+                }
+                div{
+                    width: 90px;
+                }
+                .googleplay{
+                    width: 130px;
+                }
+                .store{
+                    width: 100px;
+                }
+            }
+            li:nth-child(1){
+                margin-right: 18px;
+            }
+            li:nth-child(2){
+                margin-left: 20px;
+                margin-right: 10px;
+            }
         }
     }
     .register{
@@ -2101,7 +2325,7 @@ onMounted(() => {
                 margin-bottom: 25px;
                 height: 23px;
                 font-size: 14px;
-                font-family: Poppins-Regular, Poppins;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
                 font-weight: 400;
                 color: #FFFFFF;
                 line-height: 23px;
@@ -2140,7 +2364,7 @@ onMounted(() => {
             .desc{
                 height: 13px;
                 font-size: 8px;
-                font-family: Poppins-Regular, Poppins;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
                 font-weight: 400;
                 color: #FFFFFF;
                 line-height: 13px;

@@ -10,7 +10,8 @@ const states = {
     name: 'test' as string,
     age: 0 as number,
     roles: [] as role[],
-    active: 0
+    active: 0,
+    xplanActive: false
 }
 export type typeof_user = typeof states
 export default {
@@ -39,6 +40,9 @@ export default {
         // 添加用户角色
         changeActive(state, payload: any) {
             state.active = payload;
+        },
+        changeXplan(state, payload: any) {
+            state.xplanActive = payload;
         }
     },
     actions: {
@@ -54,5 +58,8 @@ export default {
         changeActive({ commit }, paylaod: any) {
             commit('changeActive', paylaod)
         },
+        changeXplan({ commit }, paylaod: any) {
+            commit('changeXplan', paylaod)
+        }
     },
 } as Module<typeof_user, State>

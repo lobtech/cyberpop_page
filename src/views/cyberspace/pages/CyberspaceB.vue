@@ -216,8 +216,8 @@ onMounted(() => {
                     height: 41px;
                 }
                 .menu{
-                    width: 22px;
-                    height: 22px;
+                    width: 30px;
+                    height: 30px;
                     margin-right: 17px;
                 }
             }
@@ -288,7 +288,7 @@ onMounted(() => {
                         padding-right: 30px;
                         .myassets,.logout{
                             font-size: 16px;
-                            font-family: Poppins-Regular, Poppins;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
                             font-weight: 400;
                             color: #FFFFFF;
                             line-height: 60px;
@@ -302,7 +302,7 @@ onMounted(() => {
                         width: 286px;
                         height: 60px;
                         margin-left: 30px;
-                        font-family: Poppins-Regular, Poppins;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
                         font-weight: 400;
                         color: #FFFFFF;
                         line-height: 60px;
@@ -324,7 +324,7 @@ onMounted(() => {
                         margin-top: 10px;
                         margin-bottom: 10px;
                         font-size: 16px;
-                        font-family: Poppins-Regular, Poppins;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
                         font-weight: 400;
                         color: #FFFFFF;
                         line-height: 30px;
@@ -345,7 +345,7 @@ onMounted(() => {
                         li{
                             height: 40px;
                             font-size: 14px;
-                            font-family: PingFangSC-Regular, PingFang SC;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
                             font-weight: 400;
                             color: #FFFFFF;
                             line-height: 20px;

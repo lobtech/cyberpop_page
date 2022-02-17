@@ -307,7 +307,7 @@ onMounted(() => {
                             li{
                                 color: #8F8F8F;
                                 font-size: .72vw;
-                                font-family: PingFangSC-Regular, PingFang SC;
+                                font-family: AlibabaPuHuiTi_2_55_Regular;
                                 font-weight: 400;
                                 line-height: 2vw;
                             }

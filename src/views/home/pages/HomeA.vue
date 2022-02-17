@@ -14,6 +14,9 @@
                             <li :class="select == 2 ? 'active' : ''" @click="selectLang(2)">Japanese</li>
                         </ul>
                     </div> -->
+                    <div class="xplan" @click="showxplan()">
+                        <img src="@/assets/nwhome/xplan.svg" alt="" >
+                    </div>
                     <div class="login_in" v-if="!loggined" @click="connect()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
                         <div class="txt">CONNECT WALLET</div>
                         <div class="mask" id="mask"></div>
@@ -72,7 +75,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         The Metaverse Combines Exploration, Combat, X-To-Earn and UGC
                     </div>
                     <div class="btnbox">
-                        <div class="btn-register">REGISTER</div>
+                        <div class="btn-register" @click="showDownload()">REGISTER</div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
                             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-btnPlay.svg" alt="">
@@ -86,6 +89,19 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section_buttom.svg" alt="" class="buttom">
         </footer>
     </div>
+    <div class="download" v-show="showDown">
+        <div class="cover"></div>
+        <div class="coverborder"></div>
+        <div class="wrap">
+            <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
+            <img class="close" src="@/assets/nwhome/closexplan.svg" alt="" @click="closeDownload()">
+            <div class="message">
+                Sorry, you are unable to download. The game is currently open only to authorized internal testers and communities. Contact us to get qualify.
+            </div>
+            <div class="btn">Download</div>
+        </div>
+    </div>
+    <xplanpro-a v-if="xplanActive" :anim="outComingAni"></xplanpro-a>
     <div class="nav-logos" ref="myNav">
         <a href="#" target="view_window">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/joinus.svg" alt="" class="joinus">
@@ -303,7 +319,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="title" id="ele5">ROADMAP</div>
             <div class="time1 timeWidth-r" id="time1">
                 <div class="date"><span class="span-l"></span>2021.03</div>
-                <div class="event">
+                <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
+                <div class="event checkgreen">
                     Project Concept <br/>
                     Basic gameplay design <br/>
                     Game scene <br/>
@@ -313,7 +330,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time2 timeWidth-l" id="time2">
                 <div class="date">2021.10<span class="span-r"></span></div>
-                <div class="event">
+                <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
+                <div class="event checkgreen">
                     UGC project approval <br/>
                     web launched <br/>
                     Game demo online <br/>
@@ -348,9 +366,32 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="partners">
         <div class="title" id="ele6">ECOLOGICAL PARTNERS</div>
         <div class="logo">
+            <img src="@/assets/nwhome/partners4.png" alt="">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners1.png" alt="">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt="">
+            <img src="@/assets/nwhome/partners3.png" alt="">
         </div>
+    </div>
+    <div class="will">
+        <div class="title" id="ele6">We will suppport Multi-end interoperability</div>
+        <ul class="logo">
+            <li>
+                <img src="@/assets/nwhome/windows-fill.svg" alt="">
+                <div>Window</div>
+            </li>
+            <li>
+                <img src="@/assets/nwhome/steam.svg" alt="">
+                <div>STEAM</div>
+            </li>
+            <li>
+                <img src="@/assets/nwhome/googleplay.svg" alt="">
+                <div class="googleplay">Google Play</div>
+            </li>
+            <li>
+                <img src="@/assets/nwhome/apple.svg" alt="">
+                <div class="store">App store</div>
+            </li>
+        </ul>
     </div>
     <div class="register">
         <div class="title">READY FOR YOUR JOURNEY?</div>
@@ -392,18 +433,34 @@ import Web3 from '@/tools/web3'
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
-import { title } from 'process';
-import { AnyMxRecord } from 'dns';
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
+
+// xplan
+const xplanActive = computed(() => store?.state.user?.xplanActive);
+const showxplan = () => {
+    store.dispatch('user/changeXplan',true);
+    // window.open('https://game.cyberpop.online/xplan');
+}
+
+// register
+let showDown:any = ref(false);
+const showDownload = () => {
+    showDown.value = true;
+}
+const closeDownload = () => {
+    showDown.value = false;
+}
 
 
 // coming soon
 let showComingFlag:any = ref(false);
+let outComingAni:any = ref(true);
 const ctimer:any = ref(null)
 const showComing = () => {
     clearTimeout(ctimer.value);
     showComingFlag.value = true;
     ctimer.value = setTimeout(() => {
+        outComingAni.value = true;
         showComingFlag.value = false;
     },3000)
 }
@@ -657,6 +714,8 @@ const connect: any = async () => {
 
 
 
+
+
 const down = () => {
     window.location.href = '../cyberpop.docx';
 }
@@ -676,13 +735,14 @@ const submit = () => {
 　　 }
 
 
-    proxy.$api.get('http://127.0.0.1:3001/addUser?email=' + email.value ).then((res: any) => {
-        if( res.serverStatus === 2 && res.affectedRows === 1){
-            email.value = "";
-            // alert('success');
-        }else{
-            alert(res.message);
-        }
+    // proxy.$api.get('http://127.0.0.1:3001/addUser?email=' + email.value ).then((res: any) => {
+    proxy.$api.get('https://data.cyberpop.online/setEmail?email=' + email.value ).then((res: any) => {
+        // if( res.code === 200 ){
+        //     email.value = "";
+        // }else{
+        //     alert(res.message);
+        // }
+        console.log(res);
     }).catch( (err: any) => {
         console.log(err)
     })
@@ -851,7 +911,17 @@ onMounted(() => {
                 }
                 .user{
                     display: flex;
-                    cursor: pointer;
+                    .xplan{
+                        width: 2.39vw;
+                        height: 2.34vw;
+                        margin-top: 1.2vw;
+                        margin-right: 4px;
+                        cursor: pointer;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
                     .login_in{
                         position: relative;
                         display: flex;
@@ -864,6 +934,7 @@ onMounted(() => {
                         background-size: 100% 100%;
                         background-position: left top;
                         overflow: hidden;
+                        cursor: pointer;
                         .txt{
                             z-index: 2;
                             color: #000000;
@@ -897,16 +968,17 @@ onMounted(() => {
                     .logged_in{
                         display: flex;
                         align-items: center;
-                        justify-content: space-between;
-                        width: 12.13vw;
+                        justify-content: center;
+                        // width: 12.13vw;
                         height: 2.3vw;
-                        margin-top: 1.1vw;
+                        margin-top: 1.3vw;
                         .wallet{
                             width: 1.4vw;
                             height: .98vw;
                         }
                         .idtxt{
-                            width: 8vw;
+                            // width: 8vw;
+                            margin: 0 .6vw;
                             height: 1.56vw;
                             font-size: .98vw;
                             font-family: AlibabaPuHuiTi_2_55_Regular;
@@ -941,7 +1013,7 @@ onMounted(() => {
                             li{
                                 color: #8F8F8F;
                                 font-size: .72vw;
-                                font-family: PingFangSC-Regular, PingFang SC;
+                                font-family: AlibabaPuHuiTi_2_55_Regular;
                                 font-weight: 400;
                                 line-height: 2vw;
                             }
@@ -1115,7 +1187,7 @@ onMounted(() => {
                 font-size: 1.4vw;
                 color: #04FFA2;
                 line-height: 1.61vw;
-                font-family: Menlo-Regular, Menlo;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
                 font-weight: 400;
                 .txt1{
                     font-size: 1vw;
@@ -1124,7 +1196,7 @@ onMounted(() => {
                 }
                 .txt2{
                     font-size: .85vw;
-                    font-weight: bold;
+                    font-family: AlibabaPuHuiTi_2_105_Heavy;
                     color: #fff;
                 }
             }
@@ -1136,6 +1208,80 @@ onMounted(() => {
             left: 0;
             right: 0;
             margin: 0 auto;
+        }
+    }
+    .download{
+        z-index: 8;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 48.8vw;
+        height: 28.9vw;
+        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+        border: .26vw solid;
+        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 5 5;
+        clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
+        .cover{
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #293041;
+            clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
+        }
+        .coverborder{
+            z-index: -1;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            content: '';
+            display: inline-block;
+            width: 8vw;
+            height: 8vw;
+            background-color: #2d2942;
+        }
+        .wrap{
+            position: relative;
+            .bg{
+                width: 33.02vw;
+                height: 18.17vw;
+                margin-top: .93vw;
+                margin-left: 9.94vw;
+            }
+            .close{
+                width: 10.72vw;
+                height: 10.72vw;
+                position: absolute;
+                top: -2.8vw;
+                right: -2vw;
+            }
+            .message{
+                width: 40.88vw;
+                height: 2.91vw;
+                margin: .41vw auto .93vw;
+                font-size: .93vw;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
+                color: #FFFFFF;
+                line-height: 1.45vw;
+                text-align: center;
+            }
+            .btn{
+                width: 14.53vw;
+                height: 4.16vw;
+                margin: 0 auto;
+                font-size: 1.3vw;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #FFFFFF;
+                line-height: 1.77vw;
+                text-align: center;
+                // background-image: url('../../../assets/nwhome/download.svg');
+                background-size: auto 100%;
+                line-height: 4.16vw;
+                clip-path: polygon(0% 33.4%, 10.8% 0%, 100% 0, 100% 80.5%, 90.8% 100%, 0 100%);
+                cursor: pointer;
+                background-color: gray;
+            }
         }
     }
     .nav-logos{
@@ -1602,7 +1748,7 @@ onMounted(() => {
             }
             .subtitle{
                 font-size: 1.66vw;
-                font-family: Arial-Black, Arial;
+                font-family: AlibabaPuHuiTi_2_115_Black;
                 font-weight: 900;
                 color: #04FFA2;
                 line-height: 3.12vw;
@@ -1610,7 +1756,7 @@ onMounted(() => {
             .desc{
                 margin-bottom: 2vw;
                 font-size: 1.04vw;
-                font-family: OPPOSans-B, OPPOSans;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
                 font-weight: normal;
                 color: #FFFFFF;
                 line-height: 1.61vw;
@@ -1654,6 +1800,9 @@ onMounted(() => {
                         width: 100%;
                         height: 100%;
                     }
+                    img:hover{
+                        filter: drop-shadow(0 0 .5vw #ccc);
+                    }
                     div{
                         position: absolute;
                         bottom: .7vw;
@@ -1690,7 +1839,7 @@ onMounted(() => {
                     height: 1.97vw;
                     margin: .625vw 0;
                     font-size: 1.25vw;
-                    font-family: OPPOSans-B, OPPOSans;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
                     font-weight: normal;
                     color: #000000;
                     line-height: 1.97vw;
@@ -1984,11 +2133,11 @@ onMounted(() => {
                 border: 1px solid #C689FF;
             }
             .time1,.time2,.time3,.time4,.time5{
+                position: relative;
                 .date{
                     position: relative;
                     font-size: 2.2vw;
-                    font-family: AiDeep-Bold, AiDeep;
-                    font-weight: bold;
+                    font-family: AlibabaPuHuiTi_2_85_Bold;
                     color: #04FFA2;
                     line-height: 2.65vw;
                 }
@@ -2001,18 +2150,35 @@ onMounted(() => {
                 }
                 
             }
+            .checkgreen{
+                color: #04ffa2 !important;
+            }
+            .time1 > .check{
+                position: absolute;
+                top: 17px;
+                left: 1.6vw;
+                width: 1.02vw;
+                height: 1vw;
+            }
+            .time2 > .check{
+                position: absolute;
+                top: 17px;
+                right: 1.6vw;
+                width: 1.02vw;
+                height: 1vw;
+            }
             .time2{
-                margin-top: 4.94vw;
+                margin-top: -3vw;
             }
             .time3{
-                margin-top: -1.6vw;
+                // margin-top: -3vw;
             }
             .time4{
-                margin-top: 2.23vw;
+                // margin-top: -3vw;
             }
             .time5{
-                margin-top: 1.92vw;
-                margin-bottom: 8.69vw;
+                margin-top: -vw;
+                margin-bottom: 20vw;
             }
         }
     }
@@ -2034,20 +2200,98 @@ onMounted(() => {
         }
         .logo{
             display: flex;
-            align-items: center;
-            margin-bottom: 4.27vw;
+            justify-content: center;
+            margin-top: 3px;
+            height: 9.21vw;
+            margin-bottom: 4.63vw;
             overflow: hidden;
             img:nth-child(1){
-                width: 12.29vw;
-                height: 9.21vw;
-                margin: -.1vw 2vw -.1vw 31.4vw;
+                width: 6.77vw;
+                height: 6.61vw;
+                margin-right: 2vw;
+                margin-top: .8vw;
             }
             img:nth-child(2){
+                width: 12.29vw;
+                height: 9.41vw;
+                margin-top: -.1vw;
+                margin-bottom: -.1vw;
+            }
+            img:nth-child(3){
                 width: 19.47vw;
                 height: 6.2vw;
-                margin-right: 35.15vw;
+                margin-top: 1.4vw;
+                margin-right: 2vw;
+            }
+            img:nth-child(4){
+                width: 13.17vw;
+                height: 4.58vw;
+                margin-top: 2.3vw;
+                margin-right: 1vw;
             }
 
+        }
+    }
+    .will{
+        width: 100%;
+        background-color: #000;
+        overflow: hidden;
+        .title{
+            width: 60vw;
+            height: 4.11;
+            margin: 0 auto;
+            font-size: 2.08vw;
+            font-family: AlibabaPuHuiTi_2_115_Black;
+            color: #FFFFFF;
+            line-height: 3.69vw;
+            text-align: center;
+            cursor: pointer;
+        }
+        .logo{
+            display: flex;
+            justify-content: center;
+            margin-top: 3.22vw;
+            margin-bottom: 3.59vw;
+            overflow: hidden;  
+            li{
+                display: flex;
+                align-items: center;
+                margin-right: 1vw;
+                height: 2.34vw;
+                font-size: 1.56vw;
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                color: #FFFFFF;
+                line-height: 1.56vw;
+                img{
+                    margin-right: .4vw;
+                }
+                img:nth-child(1){
+                    width: 1.97vw;
+                    height: 1.97vw;
+                }
+                img:nth-child(2){
+                    width: 2.6vw;
+                    height: 2.6vw;
+                }
+                img:nth-child(3){
+                    width: 2.39vw;
+                    height: 2.39vw;
+                }
+                img:nth-child(4){
+                    width: 2.6vw;
+                    height: 2.6vw;
+                }
+                div{
+                    width: 8vw;
+                }
+                .googleplay{
+                    width: 10.36vw;
+                    margin-right: .6vw;
+                }
+            }
+            li:nth-child(1){
+                margin-left: 1vw;
+            }
         }
     }
     .register{
@@ -2130,7 +2374,7 @@ onMounted(() => {
         // padding-left: 2.23vw;
         padding-right: 6vw;
         font-size: 1.09vw;
-        font-family: Poppins-Regular, Poppins;
+        font-family: AlibabaPuHuiTi_2_55_Regular;
         font-weight: 400;
         color: #FFFFFF;
         line-height: 1.82vw;

@@ -1,12 +1,27 @@
 <template>
-    <div class="title">COMING SOON</div>
+    <div class="title" :class="outComingAni ? 'comingOut' : ''">COMING SOON</div>
 </template>
 
 <script setup lang="ts">
 import { computed, readonly, ref } from 'vue'
+const props = defineProps({
+    outComingAni: Boolean
+})
+console.log(props.outComingAni)
 </script>
 
 <style lang="less" scoped>
+@keyframes comingOut {
+    0%{
+        top: 3vw;
+    }
+    100%{
+        top: -3vw;
+    }
+}
+.comingOut{
+    animation: comingOut .4s ease-in;
+}
 @keyframes comingIn {
     0%{
         top: -3vw;

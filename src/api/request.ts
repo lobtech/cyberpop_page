@@ -26,7 +26,6 @@ axios.interceptors.response.use(
         }
     },
     error => {
-
         console.log(error);
     }
 );
