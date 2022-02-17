@@ -314,18 +314,14 @@ const submit = () => {
 　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
 　　　　alert("please input email!");
 　　　　return false;
-　　 }else{
-　　　　alert("received!");
-    //    email.value = "";
 　　 }
 
-
-    proxy.$api.get('http://127.0.0.1:3001/addUser?email=' + email.value ).then((res: any) => {
-        if( res.serverStatus === 2 && res.affectedRows === 1){
+    proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
+        if(res.data){
             email.value = "";
-            // alert('success');
+            alert('success');
         }else{
-            alert(res.message);
+            alert(res.msg);
         }
     }).catch( (err: any) => {
         console.log(err)
