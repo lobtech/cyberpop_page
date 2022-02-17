@@ -1095,4 +1095,5 @@ const airdrop = {
     ],
 }
 
+
 export default { test, GameItems, nftTreader, money, airdrop }

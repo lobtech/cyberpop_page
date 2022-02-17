@@ -72,7 +72,7 @@ const closexplan = () => {
         position: relative;
         width: 100%;
         height: 174px;
-        background-image: url('../../assets/nwhome/xplanpro.png');
+        background-image: url('../../assets/nwhomePhone/xplanpro.png');
         background-size: 101% 100%;
         background-position: left -11px;
         overflow: hidden;
@@ -100,7 +100,7 @@ const closexplan = () => {
         padding: 2px 45px 0 15px;
         .line{
             position: absolute;
-            top: -21px;
+            top: -14px;
             left: 50%;
             transform: translateX(-50%);
             width: 288px;

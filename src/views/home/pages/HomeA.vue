@@ -24,7 +24,13 @@
                     <div class="logged_in" v-if="loggined">
                         <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
                         <div class="idtxt">{{id}}</div>
-                        <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="" @click="showloggedMenu(e)" >
+                        <div class="logged_menu" v-show="showloggedFlag">
+                            <div class="cover"></div>
+                            <div class="coverborder"></div>
+                            <div>My Assets</div>
+                            <div>Log out</div>
+                        </div>
                     </div>
                 </div>
                 <div class="menu">
@@ -69,7 +75,6 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </video-bg>
             <div class="titles"> 
                 <div class="title-wrap">
-                    <!-- <div class="title1" id="magic"></div> -->
                     <div class="title1">FIND REAL YOU <br/> IN THIS NEW WORLD</div>
                     <div class="title2">
                         The Metaverse Combines Exploration, Combat, X-To-Earn and UGC
@@ -317,7 +322,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
         <div class="roadmap-wrap">
             <div class="title" id="ele5">ROADMAP</div>
-            <div class="time1 timeWidth-r" id="time1">
+            <div class="time1 timeWidth-r maptime" id="time1">
                 <div class="date"><span class="span-l"></span>2021.03</div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
                 <div class="event checkgreen">
@@ -328,7 +333,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     Game Art Modeling
                 </div>
             </div>
-            <div class="time2 timeWidth-l" id="time2">
+            <div class="time2 timeWidth-l maptime" id="time2">
                 <div class="date">2021.10<span class="span-r"></span></div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
                 <div class="event checkgreen">
@@ -338,7 +343,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     Character Modeling
                 </div>
             </div>
-            <div class="time3 timeWidth-r" id="time3">
+            <div class="time3 timeWidth-r maptime" id="time3">
                 <div class="date"><span class="span-l"></span>2022.03</div>
                 <div class="event">
                     Game trial launch <br/>
@@ -347,18 +352,53 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     Token CYT released
                 </div>
             </div>
-            <div class="time4 timeWidth-l" id="time4">
+            <div class="time4 timeWidth-l maptime" id="time4">
                 <div class="date">2022.06<span class="span-r"></span></div>
                 <div class="event">
+                    with the further development of UGC, users construct DAOs <br/>
+                    online DAO pledge and voting system <br/>
                     The socialFi mechanism <br/>
-                    Game unions system
+                    game unions system <br/>
+                    NFT derivatives are available in the metaverse
                 </div>
             </div>
-            <div class="time5 timeWidth-r" id="time5">
+            <div class="time5 timeWidth-r maptime" id="time5">
                 <div class="date"><span class="span-l"></span>2022.10</div>
                 <div class="event">
-                    Create virtual idols <br/>
-                    Support for multiple currency system
+                    e-commerce and virtual idol <br/>
+                    multiple chain access support <br/>
+                    PVP combat system of urban construction trade union <br/>
+                    user-defined wallet <br/>
+                    user-defined idol token <br/>
+                    HashRate coin access
+                </div>
+            </div>
+            <div class="time6 timeWidth-l maptime" id="time6">
+                <div class="date"><span class="span-r"></span>2023.01</div>
+                <div class="event">
+                    launch of new world datagram <br/>
+                    improvement of user-defined system <br/>
+                    AR /VR device base revision <br/>
+                    enhancement of in-game financial confrontation attribute <br/>
+                    launch of all-platform cyber world
+                </div>
+            </div>
+            <div class="time7 timeWidth-r maptime" id="time7">
+                <div class="date"><span class="span-l"></span>2023.06</div>
+                <div class="event">
+                    open of 3A level UGC tool-chain platform <br/>
+                    DAOs construction: self-management of trade union and communities <br/>
+                    launch of alternation rules and content in the new season <br/>
+                    combination of VR and AR (with e-commerce and social contact)
+                </div>
+            </div>
+            <div class="time8 timeWidth-l maptime" id="time8">
+                <div class="date"><span class="span-r"></span>2023.12</div>
+                <div class="event">
+                    full presentation of cyber world VR version (stage 1)  <br/>
+                    further integration of AR /VR with the real world <br/>
+                    open of the NFT financial derivative platform <br/>
+                    Cyber Pop Artists Association
                 </div>
             </div>
         </div>
@@ -440,6 +480,14 @@ const xplanActive = computed(() => store?.state.user?.xplanActive);
 const showxplan = () => {
     store.dispatch('user/changeXplan',true);
     // window.open('https://game.cyberpop.online/xplan');
+}
+
+
+//logged_menu
+let showloggedFlag:any = ref(false);
+const showloggedMenu = (e:any) => {
+    showloggedFlag.value = !showloggedFlag.value;
+    // e.stopPropagation;
 }
 
 // register
@@ -729,20 +777,16 @@ const submit = () => {
 　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
 　　　　alert("please input email!");
 　　　　return false;
-　　 }else{
-　　　　alert("received!");
-    //    email.value = "";
 　　 }
 
 
-    // proxy.$api.get('http://127.0.0.1:3001/addUser?email=' + email.value ).then((res: any) => {
-    proxy.$api.get('https://data.cyberpop.online/setEmail?email=' + email.value ).then((res: any) => {
-        // if( res.code === 200 ){
-        //     email.value = "";
-        // }else{
-        //     alert(res.message);
-        // }
-        console.log(res);
+    proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
+        if(res.data){
+            email.value = "";
+            alert('success');
+        }else{
+            alert(res.msg);
+        }
     }).catch( (err: any) => {
         console.log(err)
     })
@@ -758,11 +802,8 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         let ele4 = document.getElementById("ele4") as HTMLElement;
         let ele5 = document.getElementById("ele5") as HTMLElement;
         let ele6 = document.getElementById("ele6") as HTMLElement;
-        let time1 = document.getElementById("time1") as HTMLElement;
-        let time2 = document.getElementById("time2") as HTMLElement;
-        let time3 = document.getElementById("time3") as HTMLElement;
-        let time4 = document.getElementById("time4") as HTMLElement;
-        let time5 = document.getElementById("time5") as HTMLElement;
+        let mapList = document.getElementsByClassName('maptime');
+        const mapListLen = mapList.length;
         let role = document.getElementById("role") as HTMLElement;
         const ele1Top: Number = ele1.getBoundingClientRect().top; //距离屏幕顶部的距离
         const ele2Top: Number = ele2.getBoundingClientRect().top; 
@@ -770,12 +811,12 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         const ele4Top: Number = ele4.getBoundingClientRect().top; 
         const ele5Top: Number = ele5.getBoundingClientRect().top; 
         const ele6Top: Number = ele6.getBoundingClientRect().top; 
-        const time1Top: Number = time1.getBoundingClientRect().top; 
-        const time2Top: Number = time2.getBoundingClientRect().top; 
-        const time3Top: Number = time3.getBoundingClientRect().top; 
-        const time4Top: Number = time4.getBoundingClientRect().top; 
-        const time5Top: Number = time5.getBoundingClientRect().top; 
         const roleTop: Number = role.getBoundingClientRect().top; 
+
+        let timeTop:any = {};
+        for( let t = 0; t < mapListLen; t++){
+            timeTop['timeTop' + t] = mapList[t].getBoundingClientRect().top;
+        }
 
         let arr = [
             {
@@ -812,11 +853,14 @@ const checkScrollHeightAndLoadAnimation: any = () => {
                 arr[i].el.classList.add('fadeInUp');
             }
         }
-        if(time1Top < windowHeight) time1.classList.add('bounceInRight')
-        if(time3Top < windowHeight) time3.classList.add('bounceInRight')
-        if(time5Top < windowHeight) time5.classList.add('bounceInRight')
-        if(time2Top < windowHeight) time2.classList.add('bounceInLeft')
-        if(time4Top < windowHeight) time4.classList.add('bounceInLeft')
+        if( timeTop.timeTop0 < windowHeight) mapList[0].classList.add('bounceInRight')
+        if( timeTop.timeTop2 < windowHeight) mapList[2].classList.add('bounceInRight')
+        if( timeTop.timeTop3 < windowHeight) mapList[4].classList.add('bounceInRight')
+        if( timeTop.timeTop6 < windowHeight) mapList[6].classList.add('bounceInRight')
+        if( timeTop.timeTop1 < windowHeight) mapList[1].classList.add('bounceInLeft')
+        if( timeTop.timeTop3 < windowHeight) mapList[3].classList.add('bounceInLeft')
+        if( timeTop.timeTop5 < windowHeight) mapList[5].classList.add('bounceInLeft')
+        if( timeTop.timeTop7 < windowHeight) mapList[7].classList.add('bounceInLeft')
         if(role.className == 'fadeInUp'){
             setTimeout(() => {
                 if(role.className == 'fadeInUp') role.classList.add('fadeInDown')
@@ -969,6 +1013,7 @@ onMounted(() => {
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        position: relative;
                         // width: 12.13vw;
                         height: 2.3vw;
                         margin-top: 1.3vw;
@@ -989,6 +1034,63 @@ onMounted(() => {
                         .portrait{
                             width: 2.6vw;
                             height: 2.6vw;
+                        }
+                        .logged_menu{
+                            position: absolute;
+                            top: 2.8vw;
+                            right: -0.4vw;
+                            width: 9.27vw;
+                            height: 5.1vw;
+                            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                            border: .15vw solid;
+                            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
+                            clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
+                            .cover{
+                                position: absolute;
+                                top: 0vw;
+                                width: 100%;
+                                height: 100%;
+                                background: #293041;
+                                clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
+                            }
+                            .coverborder{
+                                z-index: -1;
+                                position: absolute;
+                                bottom: 0;
+                                right: 0;
+                                content: '';
+                                display: inline-block;
+                                width: 8vw;
+                                height: 8vw;
+                                background-color: #2d2942;
+                            }
+                            div:nth-child(3){
+                                position: absolute;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                width: 8.43vw;
+                                height: 1.3vw;
+                                padding-right: .8vw;
+                                margin: 1vw auto .4vw;
+                                font-size: .93vw;
+                                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                color: #FFFFFF;
+                                line-height: .4vw;
+                                text-align: right;
+                                border-bottom: .15vw solid #534968;
+                            }
+                            div:nth-child(4){
+                                position: absolute;
+                                right: 1.1vw;
+                                bottom: .9vw;
+                                width: 8.43vw;
+                                height: 1.3vw;
+                                font-size: .93vw;
+                                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                color: #6D4AFF;
+                                line-height: 1.3vw;
+                                text-align: right;
+                            }
                         }
                     }  
                     .language{
@@ -2077,7 +2179,7 @@ onMounted(() => {
                     right: 0;
                     margin: 0 auto;
                     width: 1px;
-                    height: 62vw;
+                    height: 80vw;
                     background-color: #C689FF;
                     border: 1px solid #C689FF;
                 }
@@ -2132,7 +2234,8 @@ onMounted(() => {
                 background-color: #C689FF;
                 border: 1px solid #C689FF;
             }
-            .time1,.time2,.time3,.time4,.time5{
+            .time1,.time2,.time3,.time4,.time5,.time6,.time7,.time8{
+                margin-top: -3vw;
                 position: relative;
                 .date{
                     position: relative;
@@ -2155,30 +2258,26 @@ onMounted(() => {
             }
             .time1 > .check{
                 position: absolute;
-                top: 17px;
+                top: 4.5vw;
                 left: 1.6vw;
                 width: 1.02vw;
                 height: 1vw;
             }
             .time2 > .check{
                 position: absolute;
-                top: 17px;
+                top: 4.5vw;
                 right: 1.6vw;
                 width: 1.02vw;
                 height: 1vw;
             }
-            .time2{
-                margin-top: -3vw;
+            .time1{
+                margin-top: 0;
             }
-            .time3{
-                // margin-top: -3vw;
+            .time8{
+                margin-bottom: 14vw;
             }
-            .time4{
-                // margin-top: -3vw;
-            }
-            .time5{
-                margin-top: -vw;
-                margin-bottom: 20vw;
+            .time5,.time6,.time7,.time8{
+                margin-top: -3.5vw;
             }
         }
     }
