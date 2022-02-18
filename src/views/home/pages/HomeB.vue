@@ -34,9 +34,6 @@
                     <li @click="showComing()" :class="{'active': active == 3}">Mystery Box</li>
                     <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li>
                 </ul>
-                <div class="xplan" @click="showxplan()">
-                    <img src="@/assets/nwhome/xplan.svg" alt="" >
-                </div>
                 <!-- <div class="language">
                     <div @click="showUl()">Language switch</div>
                     <ul v-show="showul">
@@ -303,7 +300,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="time1 timeWidth-r maptime" id="time1">
                 <div class="date"><span class="span-l"></span>2021.03</div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
-                <div class="event checkgreen">
+                <div class="event-r checkgreen">
                     Project Concept <br/>
                     Basic gameplay design <br/>
                     Game scene <br/>
@@ -314,7 +311,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="time2 timeWidth-l maptime" id="time2">
                 <div class="date">2021.10<span class="span-r"></span></div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
-                <div class="event checkgreen">
+                <div class="event-l checkgreen">
                     UGC project approval <br/>
                     web launched <br/>
                     Game demo online <br/>
@@ -323,7 +320,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time3 timeWidth-r maptime" id="time3">
                 <div class="date"><span class="span-l"></span>2022.03</div>
-                <div class="event">
+                <div class="event-r">
                     Game trial launch <br/>
                     Game NFT Mall <br/>
                     Release UGC toolchain <br/>
@@ -332,7 +329,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time4 timeWidth-l maptime" id="time4">
                 <div class="date">2022.06<span class="span-r"></span></div>
-                <div class="event">
+                <div class="event-l">
                     with the further development of UGC, users construct DAOs <br/>
                     online DAO pledge and voting system <br/>
                     The socialFi mechanism <br/>
@@ -342,7 +339,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time5 timeWidth-r maptime" id="time5">
                 <div class="date"><span class="span-l"></span>2022.10</div>
-                <div class="event">
+                <div class="event-r">
                     e-commerce and virtual idol <br/>
                     multiple chain access support <br/>
                     PVP combat system of urban construction trade union <br/>
@@ -353,7 +350,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time6 timeWidth-l maptime" id="time6">
                 <div class="date"><span class="span-r"></span>2023.01</div>
-                <div class="event">
+                <div class="event-l">
                     launch of new world datagram <br/>
                     improvement of user-defined system <br/>
                     AR /VR device base revision <br/>
@@ -363,7 +360,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time7 timeWidth-r maptime" id="time7">
                 <div class="date"><span class="span-l"></span>2023.06</div>
-                <div class="event">
+                <div class="event-r">
                     open of 3A level UGC tool-chain platform <br/>
                     DAOs construction: self-management of trade union and communities <br/>
                     launch of alternation rules and content in the new season <br/>
@@ -372,7 +369,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time8 timeWidth-l maptime" id="time8">
                 <div class="date"><span class="span-r"></span>2023.12</div>
-                <div class="event">
+                <div class="event-l">
                     full presentation of cyber world VR version (stage 1)  <br/>
                     further integration of AR /VR with the real world <br/>
                     open of the NFT financial derivative platform <br/>
@@ -382,7 +379,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="partners">
-        <div class="title" id="ele6">ECOLOGICAL PARTNERS</div>
+        <div class="title" id="ele6">ECOLOGICAL PARTNERS
+            <img class="xplan" @click="showxplan()" src="@/assets/nwhome/xplan.svg" alt="" >
+        </div>
         <div class="logo">
             <div>
                 <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners1.png" alt="">
@@ -391,6 +390,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div>
                 <img class="logo3" src="@/assets/nwhome/partners4.png" alt="">
                 <img class="logo4" src="@/assets/nwhome/partners3.png" alt="">
+            </div>
+            <div>
+                <img class="logo5" src="@/assets/nwhome/partners5.png" alt="">
             </div>
         </div>
     </div>
@@ -464,9 +466,20 @@ SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
 // xplan
 const xplanActive = computed(() => store?.state.user?.xplanActive);
 const showxplan = () => {
-    store.dispatch('user/changeXplan',true);
-    // window.open('https://game.cyberpop.online/xplan');
     showMenuAni.value = false;
+    if( id.value !== 0 ){
+        Web3.getBalance(idTemp.value).then((res) => {
+            token0Number.value = res[0];
+            console.log(token0Number.value);
+            if(token0Number.value <= 0){
+                store.dispatch('user/changeXplan',true);
+            }else{
+                window.open('https://game.cyberpop.online/xplan');
+            }
+        })
+    }else{
+        alert('please connect wallet！')
+    }
 }
 
 // register
@@ -479,15 +492,21 @@ const closeDownload = () => {
 }
 
 
-
 // coming soon
-let showComingFlag:any = ref(false);
+let showComingFlag:any = ref(false)
 const ctimer:any = ref(null)
+
 const showComing = () => {
     clearTimeout(ctimer.value);
+    // Stow menu
+    showMenuAni.value = false;
+    // default animation
+    store.dispatch('user/addComingOut', false)
+    // show coming view
     showComingFlag.value = true;
     ctimer.value = setTimeout(() => {
-        showComingFlag.value = false;
+        // change animation
+        store.dispatch('user/addComingOut', true)
     },3000)
 }
 
@@ -657,9 +676,6 @@ const stopGif = () => {
 
 
 
-
-
-
 const { proxy } = getCurrentInstance() as any;
 
 const router = useRouter()
@@ -700,6 +716,9 @@ const changeMenu = (type: any, route?: any) => {
 
 // play video
 const id: any = ref(0)
+const idTemp: any = ref(0)
+const token0Number:any = ref(0)
+
 let type2: any = ref(1);
 let isPlay: any = ref(false);
 const playVideo = (type: any) => {
@@ -710,8 +729,10 @@ const playVideo = (type: any) => {
 const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
+        loggined.value = true;
         return res;
     })
+    idTemp.value = accounts;
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
@@ -839,12 +860,19 @@ const deckd = () => {
     window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf';
 }
 
+const stopPlay = () => {
+    let videobg = document.querySelector("#videobg") as HTMLElement;
+    let relVideo = <HTMLVideoElement>videobg.querySelector("video");
+    relVideo.play();
+}
+
 onUnmounted(() => {
     window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
     window.removeEventListener('scroll', windowScroll, true);
 })
 
 onMounted(() => {
+    stopPlay();
     connect()
     window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
     window.addEventListener('scroll', windowScroll, true);
@@ -1246,41 +1274,42 @@ onMounted(() => {
         }
         .wrap{
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             .bg{
-                width: 33.02vw;
-                height: 18.17vw;
-                margin-top: .93vw;
-                margin-left: 9.94vw;
+                width: 250px;
+                margin-top: 10px;
+                margin-left: 30px;
             }
             .close{
-                width: 10.72vw;
-                height: 10.72vw;
+                width: 100px;
+                height: 100px;
                 position: absolute;
-                top: -2.8vw;
-                right: -2vw;
+                top: -34px;
+                right: -34px;
             }
             .message{
-                width: 40.88vw;
-                height: 2.91vw;
-                margin: .41vw auto .93vw;
-                font-size: .93vw;
+                // background: #00FF9C;
+                width: 280px;
+                margin: 14px 0 18px;
+                font-size: 16px;
                 font-family: AlibabaPuHuiTi_2_55_Regular;
                 color: #FFFFFF;
-                line-height: 1.45vw;
+                line-height: 20px;
                 text-align: center;
             }
             .btn{
-                width: 14.53vw;
-                height: 4.16vw;
+                width: 150px;
+                height: 43px;
                 margin: 0 auto;
-                font-size: 1.3vw;
+                font-size: 16px;
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 color: #FFFFFF;
-                line-height: 1.77vw;
+                line-height: 43px;
                 text-align: center;
                 // background-image: url('../../../assets/nwhome/download.svg');
                 background-size: auto 100%;
-                line-height: 4.16vw;
                 clip-path: polygon(0% 33.4%, 10.8% 0%, 100% 0, 100% 80.5%, 90.8% 100%, 0 100%);
                 cursor: pointer;
                 background-color: gray;
@@ -2042,7 +2071,7 @@ onMounted(() => {
     .roadmap{
         width: 100%;
         // height: 731px;
-        height: 1080px;
+        height: 1280px;
         background-color: #000000;
         overflow: hidden;
         .roadmap-bg{
@@ -2079,7 +2108,7 @@ onMounted(() => {
                     right: 0;
                     margin: 0 auto;
                     width: 1px;
-                    height: 800px;
+                    height: 1000px;
                     background-color: #C689FF;
                     border: 1px solid #C689FF;
                 }
@@ -2133,7 +2162,7 @@ onMounted(() => {
                 border: 1px solid #C689FF;
             }
             .time1,.time2,.time3,.time4,.time5,.time6,.time7,.time8{
-                margin-top: -20px;
+                margin-top: -10px;
                 position: relative;
                 .date{
                     position: relative;
@@ -2143,12 +2172,26 @@ onMounted(() => {
                     color: #04FFA2;
                     line-height: 18px;
                 }
-                .event{
+                .event-l{
+                    width: 40vw;
+                    padding: 5px 4px 5px 0;
+                    margin-top: 16px;
+                    margin-left: 4vw;
+                    font-size: 8px;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    color: #FFFFFF;
+                    line-height: 12px;
+                    background: #141314;
+                }
+                .event-r{
+                    width: 40vw;
+                    padding: 5px 0 5px 4px;
                     margin-top: 16px;
                     font-size: 8px;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
                     line-height: 12px;
+                    background: #141314;
                 }
             }
             .checkgreen{
@@ -2156,14 +2199,14 @@ onMounted(() => {
             }
             .time1 > .check{
                 position: absolute;
-                top: 35px;
+                top: 39px;
                 left: 4px;
                 width: 10px;
                 height: 10px;
             }
             .time2 > .check{
                 position: absolute;
-                top: 35px;
+                top: 39px;
                 right: 4px;
                 width: 10px;
                 height: 10px;
@@ -2172,23 +2215,34 @@ onMounted(() => {
                 margin-top: 47px;
             }
             .time5,.time6,.time7,.time8{
-                margin-top: -45px;
+                margin-top: -25px;
             }
         }
     }
     .partners{
         width: 100%;
-        height: 240px;
+        height: 400px;
+        margin: -2px 0;
         background-color: #000000;
         overflow: hidden;
         .title{
+            display: flex;
+            align-items: center;
+            justify-content: center;
             height: 31px;
-            margin-bottom: 7px;
+            margin-bottom: 20px;
             font-size: 22px;
             font-family: AlibabaPuHuiTi_2_115_Black;
             color: #FFFFFF;
             line-height: 28px;
             text-align: center;
+            .xplan{
+                width: 38px;
+                margin-left: 12px;
+            }
+            .xplan:hover{
+                filter: drop-shadow(0 0 .6vw #776fe5);
+            }
         }
         .logo{
             display: flex;
@@ -2197,11 +2251,11 @@ onMounted(() => {
             div{
                 display: flex;
                 align-items: center;
-                margin-bottom: 3vw;
+                margin-bottom: 18px;
                 .logo1{
                     width: 93px;
                     height: 71px;
-                    margin-right: 1vw;
+                    margin-right: 10px;
                     margin-bottom: -2px;
                 }
                 .logo2{
@@ -2216,18 +2270,22 @@ onMounted(() => {
                 .logo4{
                     height: 50px;
                 }
+                .logo5{
+                    height: 90px;
+                    margin-top: 18px;
+                }
             }
 
         }
     }
     .will{
         width: 100%;
-        height: 260px;
+        height: 270px;
         background-color: #000000;
         overflow: hidden;
         .title{
             // height: 31px;
-            margin-bottom: 7px;
+            margin-bottom: 8px;
             font-size: 22px;
             font-family: AlibabaPuHuiTi_2_115_Black;
             color: #FFFFFF;
@@ -2244,31 +2302,35 @@ onMounted(() => {
                 display: flex;
                 align-items: center;
                 height: 45px;
-                margin-bottom: 18px;
-                font-size: 20px;
+                margin-bottom: 8px;
+                font-size: 16px;
                 font-family: AlibabaPuHuiTi_2_75_SemiBold;
                 color: #FFFFFF;
                 line-height: 45px;
                 img{
-                    width: 30px;
+                    width: 26px;
                     margin-right: 8px;
                 }
                 div{
                     width: 90px;
                 }
                 .googleplay{
-                    width: 130px;
+                    width: 120px;
                 }
                 .store{
                     width: 100px;
                 }
             }
             li:nth-child(1){
-                margin-right: 18px;
+                margin-left: 14px;
+                margin-right: 16px;
             }
             li:nth-child(2){
-                margin-left: 20px;
+                margin-left: 15px;
                 margin-right: 10px;
+            }
+            li:nth-child(3){
+                margin-left: 15px;
             }
         }
     }

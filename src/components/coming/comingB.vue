@@ -1,12 +1,29 @@
 <template>
-    <div class="title">COMING SOON</div>
+    <div class="title" :class="comingOutFlag ? 'comingOut' : 'comingIn'">COMING SOON</div>
 </template>
 
 <script setup lang="ts">
 import { computed, readonly, ref } from 'vue'
+import store from '@/store'
+const comingOutFlag = computed(() => store?.state.user?.comingOutFlag);
+
 </script>
 
 <style lang="less" scoped>
+@keyframes comingOut {
+    0%{
+        top: 13px;
+    }
+    100%{
+        top: -100px;
+    }
+}
+.comingOut{
+    animation: comingOut .4s ease-in;
+}
+.comingIn{
+    animation: comingIn .4s ease-out;
+}
 @keyframes comingIn {
     0%{
         top: -46px;
@@ -34,7 +51,6 @@ import { computed, readonly, ref } from 'vue'
     background-repeat: no-repeat;
     background-position: left top;
     background-size: auto 100%;
-    animation: comingIn .4s ease-out;
     animation-fill-mode: forwards;
 }
 </style>

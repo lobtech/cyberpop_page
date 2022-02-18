@@ -20,13 +20,18 @@
                         <div class="myassets">My assets</div>
                         <div class="logout">Logout</div>
                     </div>
+                    <div class="mask"></div>
                 </div>
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
-                    <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
+                    <!-- <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
                     <li @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li>
                     <li @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">Mystery Box</li>
-                    <li @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">Cyberspace</li>
+                    <li @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">Cyberspace</li> -->
+                    <li @click="showComing()" :class="{'active': active == 1}">Mining</li>
+                    <li @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li>
+                    <li @click="showComing()" :class="{'active': active == 3}">Mystery Box</li>
+                    <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li>
                 </ul>
                 <!-- <div class="language">
                     <div @click="showUl()">Language switch</div>
@@ -131,12 +136,33 @@
             <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
         </div>
     </div>
+    <coming-b v-show="showComingFlag"></coming-b>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+
+
+// coming soon
+let showComingFlag:any = ref(false)
+const ctimer:any = ref(null)
+
+const showComing = () => {
+    clearTimeout(ctimer.value);
+    // Stow menu
+    showMenuAni.value = false;
+    // default animation
+    store.dispatch('user/addComingOut', false)
+    // show coming view
+    showComingFlag.value = true;
+    ctimer.value = setTimeout(() => {
+        // change animation
+        store.dispatch('user/addComingOut', true)
+    },3000)
+}
+
 
 
 // language
@@ -309,9 +335,9 @@ onMounted(() => {
                 top: 0;
                 right: -316px;
                 width: 316px;
-                height: 100vh;
-                background: #000000;
-                opacity: 0.92;
+                min-height: 100vh;
+                // height: 100vh;
+                background-color: rgba(0,0,0,.92);
                 .close-menu{
                     width: 100%;
                     height: 44px;
@@ -328,6 +354,7 @@ onMounted(() => {
                     height: 100px;
                     overflow: hidden;
                     cursor: pointer;
+                    text-align: center;
                     .txt{
                         width: 238px;
                         height: 54px;
@@ -345,10 +372,22 @@ onMounted(() => {
                     }
                 }
                 .logged_in{
+                    position: relative;
                     width: 100%;
-                    height: 163px;
+                    height: 180px;
                     margin-top: 10px;
                     text-align: center;
+                    .mask{
+                        z-index: -1;
+                        position: absolute;
+                        top: 28px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 287px;
+                        height: 150px;
+                        background-color: #452CB6;
+                        border-radius: 4px;
+                    }
                     .portrait{
                         width: 50px;
                         height: 50px;
@@ -379,7 +418,7 @@ onMounted(() => {
                             cursor: pointer;
                         }
                     }
-                }
+                } 
                 .menuul{
                     li{
                         width: 286px;
@@ -395,6 +434,16 @@ onMounted(() => {
                     }
                     .active{
                         color: #04FF55;
+                    }
+                }
+                .xplan{
+                    width: 100%;
+                    height: 45px;
+                    margin-top: 20px;
+                    text-align: center;
+                    img{
+                        width: 46px;
+                        height: 45px;
                     }
                 }
                 .language{
@@ -444,6 +493,15 @@ onMounted(() => {
                 animation: menuEnd .4s ease-out;
                 animation-fill-mode: forwards;
             }
+        }
+        .buttom{
+            position: absolute;
+            bottom: 7px;
+            left: 0;
+            right: 0;
+            width: 18px;
+            height: 18px;
+            margin: 0 auto;
         }
     }
     .privacy{

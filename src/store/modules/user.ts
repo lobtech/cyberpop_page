@@ -11,7 +11,8 @@ const states = {
     age: 0 as number,
     roles: [] as role[],
     active: 0,
-    xplanActive: false
+    xplanActive: false,
+    comingOutFlag: false
 }
 export type typeof_user = typeof states
 export default {
@@ -43,6 +44,9 @@ export default {
         },
         changeXplan(state, payload: any) {
             state.xplanActive = payload;
+        },
+        addComingOut(state, payload: any) {
+            state.comingOutFlag = payload;
         }
     },
     actions: {
@@ -60,6 +64,9 @@ export default {
         },
         changeXplan({ commit }, paylaod: any) {
             commit('changeXplan', paylaod)
-        }
+        },
+        addComingOut({ commit }, paylaod: any) {
+            commit('addComingOut', paylaod)
+        },
     },
 } as Module<typeof_user, State>

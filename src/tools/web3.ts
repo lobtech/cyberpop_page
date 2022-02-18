@@ -21,13 +21,19 @@ const getAccounts = async () => {
     return res;
 }
 
+
+
 // 查询余额
-const getBalance = async (address: string = '0xF55c6Be2F9390301bFc66Dd9f7f52495B56301dC') => {
+const getBalance = async (id: string) => {
+    const { abi, address }  = (contracts as any)['nft']
     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
-    const res = await web3.eth.getBalance(address)
-    console.log(`---------->:getBalance`, res)
-    return res
+    const contract = new web3.eth.Contract(abi, address) // 创建合约
+    let res = await contract.methods.batchBalanceOf(id).call();
+    return res;
 }
+
+
+
 
 // 查询合约对象
 const getContract = async (contractName: string = 'test') => {
@@ -194,6 +200,9 @@ const purchase = () => {
             console.log(`---------->:err`, err)
         })
 }
+
+
+
 
 export default {
     login,

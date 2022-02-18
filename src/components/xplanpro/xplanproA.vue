@@ -34,6 +34,7 @@ const closexplan = () => {
 
 <style lang="less" scoped>
 .xplanpro{
+    z-index: 8;
     position: fixed;
     top: 50%;
     left: 50%;

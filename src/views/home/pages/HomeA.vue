@@ -5,7 +5,7 @@
             <div class="content" id="header">
                 <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="changeHGif()" alt="">
                 <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="stopHGif()" alt="">
-                <div class="user" @click="connect()">
+                <div class="user">
                     <!-- <div class="language">
                         <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
                         <ul :class="lang == true ? 'showLang' : ''">
@@ -14,9 +14,6 @@
                             <li :class="select == 2 ? 'active' : ''" @click="selectLang(2)">Japanese</li>
                         </ul>
                     </div> -->
-                    <div class="xplan" @click="showxplan()">
-                        <img src="@/assets/nwhome/xplan.svg" alt="" >
-                    </div>
                     <div class="login_in" v-if="!loggined" @click="connect()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
                         <div class="txt">CONNECT WALLET</div>
                         <div class="mask" id="mask"></div>
@@ -24,13 +21,13 @@
                     <div class="logged_in" v-if="loggined">
                         <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
                         <div class="idtxt">{{id}}</div>
-                        <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="" @click="showloggedMenu(e)" >
-                        <div class="logged_menu" v-show="showloggedFlag">
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="" @click="showloggedMenu($event)" >
+                        <!-- <div class="logged_menu" v-show="showloggedFlag">
                             <div class="cover"></div>
                             <div class="coverborder"></div>
                             <div>My Assets</div>
                             <div>Log out</div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="menu">
@@ -94,6 +91,12 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section_buttom.svg" alt="" class="buttom">
         </footer>
     </div>
+    <div class="logged_menu" v-show="showloggedFlag">
+        <div class="cover"></div>
+        <div class="coverborder"></div>
+        <div>My Assets</div>
+        <div>Log out</div>
+    </div>
     <div class="download" v-show="showDown">
         <div class="cover"></div>
         <div class="coverborder"></div>
@@ -106,7 +109,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="btn">Download</div>
         </div>
     </div>
-    <xplanpro-a v-if="xplanActive" :anim="outComingAni"></xplanpro-a>
+    <xplanpro-a v-if="xplanActive"></xplanpro-a>
     <div class="nav-logos" ref="myNav">
         <a href="#" target="view_window">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/joinus.svg" alt="" class="joinus">
@@ -191,7 +194,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
             </div>
             <div class="nobody-right">
-                <div class="title" id="ele2">YOU ARE NOBODY<br/> AND SOMEBODY</div>
+                <div class="title" id="ele2">YOU CAN BE NOBODY<br/> AND SOMEBODY</div>
                 <div class="subtitle">IN DIFFERENT CYBERSPACE</div>
                 <div class="desc">
                     By teleporting into different cyberspace， Players will  <br/>
@@ -325,7 +328,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="time1 timeWidth-r maptime" id="time1">
                 <div class="date"><span class="span-l"></span>2021.03</div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
-                <div class="event checkgreen">
+                <div class="event-r checkgreen">
                     Project Concept <br/>
                     Basic gameplay design <br/>
                     Game scene <br/>
@@ -336,7 +339,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="time2 timeWidth-l maptime" id="time2">
                 <div class="date">2021.10<span class="span-r"></span></div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
-                <div class="event checkgreen">
+                <div class="event-l checkgreen">
                     UGC project approval <br/>
                     web launched <br/>
                     Game demo online <br/>
@@ -345,7 +348,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time3 timeWidth-r maptime" id="time3">
                 <div class="date"><span class="span-l"></span>2022.03</div>
-                <div class="event">
+                <div class="event-r">
                     Game trial launch <br/>
                     Game NFT Mall <br/>
                     Release UGC toolchain <br/>
@@ -354,7 +357,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time4 timeWidth-l maptime" id="time4">
                 <div class="date">2022.06<span class="span-r"></span></div>
-                <div class="event">
+                <div class="event-l">
                     with the further development of UGC, users construct DAOs <br/>
                     online DAO pledge and voting system <br/>
                     The socialFi mechanism <br/>
@@ -364,7 +367,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time5 timeWidth-r maptime" id="time5">
                 <div class="date"><span class="span-l"></span>2022.10</div>
-                <div class="event">
+                <div class="event-r">
                     e-commerce and virtual idol <br/>
                     multiple chain access support <br/>
                     PVP combat system of urban construction trade union <br/>
@@ -375,7 +378,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time6 timeWidth-l maptime" id="time6">
                 <div class="date"><span class="span-r"></span>2023.01</div>
-                <div class="event">
+                <div class="event-l">
                     launch of new world datagram <br/>
                     improvement of user-defined system <br/>
                     AR /VR device base revision <br/>
@@ -385,7 +388,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time7 timeWidth-r maptime" id="time7">
                 <div class="date"><span class="span-l"></span>2023.06</div>
-                <div class="event">
+                <div class="event-r">
                     open of 3A level UGC tool-chain platform <br/>
                     DAOs construction: self-management of trade union and communities <br/>
                     launch of alternation rules and content in the new season <br/>
@@ -394,7 +397,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div class="time8 timeWidth-l maptime" id="time8">
                 <div class="date"><span class="span-r"></span>2023.12</div>
-                <div class="event">
+                <div class="event-l">
                     full presentation of cyber world VR version (stage 1)  <br/>
                     further integration of AR /VR with the real world <br/>
                     open of the NFT financial derivative platform <br/>
@@ -404,12 +407,15 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="partners">
-        <div class="title" id="ele6">ECOLOGICAL PARTNERS</div>
+        <div class="title" id="ele6">ECOLOGICAL PARTNERS 
+            <img class="xplan" @click="showxplan()" src="@/assets/nwhome/xplan.svg" alt="" >
+        </div>
         <div class="logo">
             <img src="@/assets/nwhome/partners4.png" alt="">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners1.png" alt="">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt="">
             <img src="@/assets/nwhome/partners3.png" alt="">
+            <img src="@/assets/nwhome/partners5.png" alt="">
         </div>
     </div>
     <div class="will">
@@ -478,8 +484,20 @@ SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
 // xplan
 const xplanActive = computed(() => store?.state.user?.xplanActive);
 const showxplan = () => {
-    store.dispatch('user/changeXplan',true);
-    // window.open('https://game.cyberpop.online/xplan');
+
+    if( id.value !== 0 ){
+        Web3.getBalance(idTemp.value).then((res) => {
+            token0Number.value = res[0];
+            console.log(token0Number.value);
+            if(token0Number.value <= 0){
+                store.dispatch('user/changeXplan',true);
+            }else{
+                window.open('https://game.cyberpop.online/xplan');
+            }
+        })
+    }else{
+        alert('please connect wallet！')
+    }
 }
 
 
@@ -487,7 +505,7 @@ const showxplan = () => {
 let showloggedFlag:any = ref(false);
 const showloggedMenu = (e:any) => {
     showloggedFlag.value = !showloggedFlag.value;
-    // e.stopPropagation;
+    e.stopPropagation;
 }
 
 // register
@@ -501,15 +519,18 @@ const closeDownload = () => {
 
 
 // coming soon
-let showComingFlag:any = ref(false);
-let outComingAni:any = ref(true);
+let showComingFlag:any = ref(false)
 const ctimer:any = ref(null)
+
 const showComing = () => {
     clearTimeout(ctimer.value);
+    // default animation
+    store.dispatch('user/addComingOut', false)
+    // show coming view
     showComingFlag.value = true;
     ctimer.value = setTimeout(() => {
-        outComingAni.value = true;
-        showComingFlag.value = false;
+        // change animation
+        store.dispatch('user/addComingOut', true)
     },3000)
 }
 
@@ -742,6 +763,9 @@ const changeMenu = (type: any, route?: any) => {
 
 // play video
 const id: any = ref(0)
+const idTemp: any = ref(0)
+const token0Number:any = ref(0)
+
 let type2: any = ref(1);
 let isPlay: any = ref(false);
 const playVideo = (type: any) => {
@@ -752,8 +776,10 @@ const playVideo = (type: any) => {
 const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
+        loggined.value = true;
         return res;
     })
+    idTemp.value = accounts;
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
@@ -873,12 +899,19 @@ const deckd = () => {
     window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf';
 }
 
+const stopPlay = () => {
+    let videobg = document.querySelector("#videobg") as HTMLElement;
+    let relVideo = <HTMLVideoElement>videobg.querySelector("video");
+    relVideo.play();
+}
+
 onUnmounted(() => {
     window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
     window.removeEventListener('scroll', windowScroll, true);
 })
 
 onMounted(() => {
+    stopPlay();
     connect();
     window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
     window.addEventListener('scroll', windowScroll, true);
@@ -888,6 +921,13 @@ onMounted(() => {
 
 </script>
 <style lang="less" scoped>
+    .shoeComing-enter-active,.shoeComing-leave-active {
+        transition: all 1s ease;
+    }
+    .slide-fade-enter, .slide-fade-leave-to{
+        transform: translateY(30px);
+        opacity: 0;
+    }
     @keyframes submitAnimation {
         0%{
             left: -13vw;
@@ -1035,63 +1075,63 @@ onMounted(() => {
                             width: 2.6vw;
                             height: 2.6vw;
                         }
-                        .logged_menu{
-                            position: absolute;
-                            top: 2.8vw;
-                            right: -0.4vw;
-                            width: 9.27vw;
-                            height: 5.1vw;
-                            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-                            border: .15vw solid;
-                            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
-                            clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
-                            .cover{
-                                position: absolute;
-                                top: 0vw;
-                                width: 100%;
-                                height: 100%;
-                                background: #293041;
-                                clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
-                            }
-                            .coverborder{
-                                z-index: -1;
-                                position: absolute;
-                                bottom: 0;
-                                right: 0;
-                                content: '';
-                                display: inline-block;
-                                width: 8vw;
-                                height: 8vw;
-                                background-color: #2d2942;
-                            }
-                            div:nth-child(3){
-                                position: absolute;
-                                left: 50%;
-                                transform: translateX(-50%);
-                                width: 8.43vw;
-                                height: 1.3vw;
-                                padding-right: .8vw;
-                                margin: 1vw auto .4vw;
-                                font-size: .93vw;
-                                font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                                color: #FFFFFF;
-                                line-height: .4vw;
-                                text-align: right;
-                                border-bottom: .15vw solid #534968;
-                            }
-                            div:nth-child(4){
-                                position: absolute;
-                                right: 1.1vw;
-                                bottom: .9vw;
-                                width: 8.43vw;
-                                height: 1.3vw;
-                                font-size: .93vw;
-                                font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                                color: #6D4AFF;
-                                line-height: 1.3vw;
-                                text-align: right;
-                            }
-                        }
+                        // .logged_menu{
+                        //     position: absolute;
+                        //     top: 2.8vw;
+                        //     right: -0.4vw;
+                        //     width: 9.27vw;
+                        //     height: 5.1vw;
+                        //     background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                        //     border: .15vw solid;
+                        //     border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
+                        //     clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
+                        //     .cover{
+                        //         position: absolute;
+                        //         top: 0vw;
+                        //         width: 100%;
+                        //         height: 100%;
+                        //         background: #293041;
+                        //         clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
+                        //     }
+                        //     .coverborder{
+                        //         z-index: -1;
+                        //         position: absolute;
+                        //         bottom: 0;
+                        //         right: 0;
+                        //         content: '';
+                        //         display: inline-block;
+                        //         width: 8vw;
+                        //         height: 8vw;
+                        //         background-color: #2d2942;
+                        //     }
+                        //     div:nth-child(3){
+                        //         position: absolute;
+                        //         left: 50%;
+                        //         transform: translateX(-50%);
+                        //         width: 8.43vw;
+                        //         height: 1.3vw;
+                        //         padding-right: .8vw;
+                        //         margin: 1vw auto .4vw;
+                        //         font-size: .93vw;
+                        //         font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                        //         color: #FFFFFF;
+                        //         line-height: .4vw;
+                        //         text-align: right;
+                        //         border-bottom: .15vw solid #534968;
+                        //     }
+                        //     div:nth-child(4){
+                        //         position: absolute;
+                        //         right: 1.1vw;
+                        //         bottom: .9vw;
+                        //         width: 8.43vw;
+                        //         height: 1.3vw;
+                        //         font-size: .93vw;
+                        //         font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                        //         color: #6D4AFF;
+                        //         line-height: 1.3vw;
+                        //         text-align: right;
+                        //     }
+                        // }
                     }  
                     .language{
                         position: relative;
@@ -1312,6 +1352,66 @@ onMounted(() => {
             margin: 0 auto;
         }
     }
+    .logged_menu{
+        z-index: 9;
+        position: fixed;
+        top: 4.2vw;
+        right: 1.8vw;
+        width: 9.27vw;
+        height: 5.1vw;
+        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+        border: .15vw solid;
+        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
+        clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
+        .cover{
+            position: absolute;
+            top: 0vw;
+            width: 100%;
+            height: 100%;
+            background: #293041;
+            clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
+        }
+        .coverborder{
+            z-index: -1;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            content: '';
+            display: inline-block;
+            width: 8vw;
+            height: 8vw;
+            background-color: #2d2942;
+        }
+        div:nth-child(3){
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8.43vw;
+            height: 1.3vw;
+            padding-right: .8vw;
+            margin: 1vw auto .4vw;
+            font-size: .93vw;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            color: #FFFFFF;
+            line-height: .4vw;
+            text-align: right;
+            border-bottom: .15vw solid #534968;
+            cursor: pointer;
+        }
+        div:nth-child(4){
+            position: absolute;
+            right: 1.1vw;
+            bottom: .9vw;
+            width: 8.43vw;
+            height: 1.3vw;
+            font-size: .93vw;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            color: #6D4AFF;
+            line-height: 1.3vw;
+            text-align: right;
+            cursor: pointer;
+        }
+    }
     .download{
         z-index: 8;
         position: fixed;
@@ -1375,7 +1475,6 @@ onMounted(() => {
                 font-size: 1.3vw;
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 color: #FFFFFF;
-                line-height: 1.77vw;
                 text-align: center;
                 // background-image: url('../../../assets/nwhome/download.svg');
                 background-size: auto 100%;
@@ -1550,6 +1649,10 @@ onMounted(() => {
                         width: 66vw;
                         height: 80%;
                         filter: blur(2vw);
+                        -webkit-filter: blur(2vw);
+                        -moz-filter: blur(2vw);
+                        -ms-filter: blur(2vw);   
+                        -o-filter: blur(2vw);   
                         img{
                             width: 100%;
                             height: 100%;
@@ -2179,7 +2282,7 @@ onMounted(() => {
                     right: 0;
                     margin: 0 auto;
                     width: 1px;
-                    height: 80vw;
+                    height: 104vw;
                     background-color: #C689FF;
                     border: 1px solid #C689FF;
                 }
@@ -2235,7 +2338,7 @@ onMounted(() => {
                 border: 1px solid #C689FF;
             }
             .time1,.time2,.time3,.time4,.time5,.time6,.time7,.time8{
-                margin-top: -3vw;
+                margin-top: -1vw;
                 position: relative;
                 .date{
                     position: relative;
@@ -2244,12 +2347,26 @@ onMounted(() => {
                     color: #04FFA2;
                     line-height: 2.65vw;
                 }
-                .event{
+                .event-l{
+                    width: 34.94vw;
+                    padding: .46vw .4vw .46vw 0;
+                    margin-top: 1.66vw;
+                    margin-left: 11.48vw;
+                    font-size: 1.04vw;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    color: #FFFFFF;
+                    line-height: 1.56vw;
+                    background: #141314;
+                }
+                .event-r{
+                    width: 34.94vw;
+                    padding: .46vw 0 .46vw .4vw;
                     margin-top: 1.66vw;
                     font-size: 1.04vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
                     line-height: 1.56vw;
+                    background: #141314;
                 }
                 
             }
@@ -2258,14 +2375,14 @@ onMounted(() => {
             }
             .time1 > .check{
                 position: absolute;
-                top: 4.5vw;
+                top: 5vw;
                 left: 1.6vw;
                 width: 1.02vw;
                 height: 1vw;
             }
             .time2 > .check{
                 position: absolute;
-                top: 4.5vw;
+                top: 5vw;
                 right: 1.6vw;
                 width: 1.02vw;
                 height: 1vw;
@@ -2277,7 +2394,7 @@ onMounted(() => {
                 margin-bottom: 14vw;
             }
             .time5,.time6,.time7,.time8{
-                margin-top: -3.5vw;
+                // margin-top: -3.5vw;
             }
         }
     }
@@ -2286,7 +2403,9 @@ onMounted(() => {
         background-color: #000000;
         overflow: hidden;
         .title{
-            width: 35vw;
+            display: flex;
+            align-items: center;
+            width: 36.5vw;
             height: 3.69vw;
             margin: 0 auto;
             text-align: center;
@@ -2296,6 +2415,14 @@ onMounted(() => {
             color: #FFFFFF;
             line-height: 3.69vw;
             cursor: pointer;
+            .xplan{
+                width: 4.06vw;
+                height: 2.6vw;
+                margin-left: 1.5vw;
+            }
+            .xplan:hover{
+                filter: drop-shadow(0 0 .1vw #776fe5);
+            }
         }
         .logo{
             display: flex;
@@ -2307,8 +2434,7 @@ onMounted(() => {
             img:nth-child(1){
                 width: 6.77vw;
                 height: 6.61vw;
-                margin-right: 2vw;
-                margin-top: .8vw;
+                margin: .8vw 2vw 0 3vw;
             }
             img:nth-child(2){
                 width: 12.29vw;
@@ -2320,13 +2446,18 @@ onMounted(() => {
                 width: 19.47vw;
                 height: 6.2vw;
                 margin-top: 1.4vw;
-                margin-right: 2vw;
+                margin-right: 3.6vw;
             }
             img:nth-child(4){
                 width: 13.17vw;
                 height: 4.58vw;
                 margin-top: 2.3vw;
-                margin-right: 1vw;
+                margin-right: 2.8vw;
+            }
+            img:nth-child(5){
+                width: 7.29vw;
+                height: 6.51vw;
+                margin-top: 1.3vw;
             }
 
         }
@@ -2350,7 +2481,7 @@ onMounted(() => {
             display: flex;
             justify-content: center;
             margin-top: 3.22vw;
-            margin-bottom: 3.59vw;
+            margin-bottom: 7vw;
             overflow: hidden;  
             li{
                 display: flex;

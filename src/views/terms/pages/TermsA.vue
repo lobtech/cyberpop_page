@@ -4,7 +4,7 @@
             <div class="content" id="header">
                 <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="changeHGif()" alt="">
                 <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="stopHGif()" alt="">
-                <div class="user" @click="connect()">
+                <div class="user">
                     <!-- <div class="language">
                         <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
                         <ul :class="lang == true ? 'showLang' : ''">
@@ -20,7 +20,13 @@
                     <div class="logged_in" v-if="loggined">
                         <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
                         <div class="idtxt">{{id}}</div>
-                        <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="" @click="showloggedMenu($event)" >
+                        <!-- <div class="logged_menu" v-show="showloggedFlag">
+                            <div class="cover"></div>
+                            <div class="coverborder"></div>
+                            <div>My Assets</div>
+                            <div>Log out</div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="menu">
@@ -28,7 +34,7 @@
                         <li @mouseover="menuHover(0)" @click="changeMenu(0, '/')" :class="{'active': active == 0}">
                             <span>Home</span>
                         </li>
-                        <li @mouseover="menuHover(1)" @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">
+                        <!-- <li @mouseover="menuHover(1)" @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">
                             <span>Mining</span>
                         </li>
                         <li @mouseover="menuHover(2)" @click="changeMenu(2)" :class="{'active': active == 2}">
@@ -39,11 +45,32 @@
                         </li>
                         <li @mouseover="menuHover(4)" @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">
                             <span>Cyberspace</span>
+                        </li> -->
+                        <li @mouseover="menuHover(1)" @click="showComing()" :class="{'active': active == 1}">
+                            <span>Mining</span>
+                        </li>
+                        <li @mouseover="menuHover(2)" @click="changeMenu(2)" :class="{'active': active == 2}">
+                            <span>Whitepaper</span>
+                        </li>
+                        <li @mouseover="menuHover(3)" @click="showComing()" :class="{'active': active == 3}">
+                            <span>Mystery Box</span>
+                        </li>
+                        <!-- <li @mouseover="menuHover(3)" @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">
+                            <span>Mystery Box</span>
+                        </li> -->
+                        <li @mouseover="menuHover(4)" @click="showComing()" :class="{'active': active == 4}">
+                            <span>Cyberspace</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </header>
+    </div>
+    <div class="logged_menu" v-show="showloggedFlag">
+        <div class="cover"></div>
+        <div class="coverborder"></div>
+        <div>My Assets</div>
+        <div>Log out</div>
     </div>
     <div class="termas">
         <div class="termas-wrap">
@@ -130,12 +157,38 @@
             </a>
         </div>
     </div>
+    <coming-a v-show="showComingFlag"></coming-a>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+
+
+//logged_menu
+let showloggedFlag:any = ref(false);
+const showloggedMenu = (e:any) => {
+    showloggedFlag.value = !showloggedFlag.value;
+    e.stopPropagation;
+}
+
+
+// coming soon
+let showComingFlag:any = ref(false)
+const ctimer:any = ref(null)
+
+const showComing = () => {
+    clearTimeout(ctimer.value);
+    // default animation
+    store.dispatch('user/addComingOut', false)
+    // show coming view
+    showComingFlag.value = true;
+    ctimer.value = setTimeout(() => {
+        // change animation
+        store.dispatch('user/addComingOut', true)
+    },3000)
+}
 
 
 // connect
@@ -451,6 +504,64 @@ onMounted(() => {
                     }  
                 }
             }
+        }
+    }
+    .logged_menu{
+        z-index: 9;
+        position: fixed;
+        top: 4.2vw;
+        right: 1.8vw;
+        width: 9.27vw;
+        height: 5.1vw;
+        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+        border: .15vw solid;
+        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
+        clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
+        .cover{
+            position: absolute;
+            top: 0vw;
+            width: 100%;
+            height: 100%;
+            background: #293041;
+            clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
+        }
+        .coverborder{
+            z-index: -1;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            content: '';
+            display: inline-block;
+            width: 8vw;
+            height: 8vw;
+            background-color: #2d2942;
+        }
+        div:nth-child(3){
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8.43vw;
+            height: 1.3vw;
+            padding-right: .8vw;
+            margin: 1vw auto .4vw;
+            font-size: .93vw;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            color: #FFFFFF;
+            line-height: .4vw;
+            text-align: right;
+            border-bottom: .15vw solid #534968;
+        }
+        div:nth-child(4){
+            position: absolute;
+            right: 1.1vw;
+            bottom: .9vw;
+            width: 8.43vw;
+            height: 1.3vw;
+            font-size: .93vw;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            color: #6D4AFF;
+            line-height: 1.3vw;
+            text-align: right;
         }
     }
     .termas{
