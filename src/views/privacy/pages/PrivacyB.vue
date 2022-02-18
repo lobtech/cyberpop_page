@@ -343,10 +343,10 @@ onMounted(() => {
                     height: 44px;
                     text-align: right;
                     img{
-                        width: 22px;
-                        height: 22px;
+                        width: 30px;
+                        height: 30px;
                         margin-top: 12px;
-                        margin-right: 18px;
+                        margin-right: 17px;
                     }
                 }
                 .login_in{

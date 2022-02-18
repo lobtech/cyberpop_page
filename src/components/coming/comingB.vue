@@ -15,7 +15,7 @@ const comingOutFlag = computed(() => store?.state.user?.comingOutFlag);
         top: 13px;
     }
     100%{
-        top: -100px;
+        top: -300px;
     }
 }
 .comingOut{

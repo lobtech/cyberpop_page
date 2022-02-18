@@ -94,6 +94,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="logged_menu" v-show="showloggedFlag">
         <div class="cover"></div>
         <div class="coverborder"></div>
+        <!-- <div @click="toAssets()">My Assets</div> -->
         <div>My Assets</div>
         <div>Log out</div>
     </div>
@@ -329,10 +330,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="date"><span class="span-l"></span>2021.03</div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
                 <div class="event-r checkgreen">
-                    Project Concept <br/>
+                    Project Concept Start <br/>
                     Basic gameplay design <br/>
-                    Game scene <br/>
-                    Development <br/>
+                    game scene development <br/>
                     Game Art Modeling
                 </div>
             </div>
@@ -341,7 +341,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
                 <div class="event-l checkgreen">
                     UGC project approval <br/>
-                    web launched <br/>
+                    website launched <br/>
                     Game demo online <br/>
                     Character Modeling
                 </div>
@@ -349,6 +349,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="time3 timeWidth-r maptime" id="time3">
                 <div class="date"><span class="span-l"></span>2022.03</div>
                 <div class="event-r">
+                    White Paper Release <br/>
                     Game trial launch <br/>
                     Game NFT Mall <br/>
                     Release UGC toolchain <br/>
@@ -358,11 +359,11 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="time4 timeWidth-l maptime" id="time4">
                 <div class="date">2022.06<span class="span-r"></span></div>
                 <div class="event-l">
-                    with the further development of UGC, users construct DAOs <br/>
-                    online DAO pledge and voting system <br/>
+                    further development of UGC, users construct DAOs <br/>
+                    online DAO pledge and voting system  <br/>
                     The socialFi mechanism <br/>
                     game unions system <br/>
-                    NFT derivatives are available in the metaverse
+                    NFT derivatives available in the metaverse
                 </div>
             </div>
             <div class="time5 timeWidth-r maptime" id="time5">
@@ -370,8 +371,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-r">
                     e-commerce and virtual idol <br/>
                     multiple chain access support <br/>
-                    PVP combat system of urban construction trade union <br/>
-                    user-defined wallet <br/>
+                    PVP combat system of urban construction trade integrated <br/>
+                    user-defined wallet integrated <br/>
                     user-defined idol token <br/>
                     HashRate coin access
                 </div>
@@ -382,17 +383,17 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     launch of new world datagram <br/>
                     improvement of user-defined system <br/>
                     AR /VR device base revision <br/>
-                    enhancement of in-game financial confrontation attribute <br/>
-                    launch of all-platform cyber world
+                    enhancement financial confrontation attribute  <br/>
+                    launch of all-platform cyber world 
                 </div>
             </div>
             <div class="time7 timeWidth-r maptime" id="time7">
                 <div class="date"><span class="span-l"></span>2023.06</div>
                 <div class="event-r">
-                    open of 3A level UGC tool-chain platform <br/>
-                    DAOs construction: self-management of trade union and communities <br/>
-                    launch of alternation rules and content in the new season <br/>
-                    combination of VR and AR (with e-commerce and social contact)
+                    open of 3A level UGC tool-chain platform  <br/>
+                    DAO: self-management of trading and communities <br/>
+                    launch of alternation rules and content in the seasons <br/>
+                    combination of VR/AR (with ecommerce and social)
                 </div>
             </div>
             <div class="time8 timeWidth-l maptime" id="time8">
@@ -400,7 +401,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-l">
                     full presentation of cyber world VR version (stage 1)  <br/>
                     further integration of AR /VR with the real world <br/>
-                    open of the NFT financial derivative platform <br/>
+                    open of the NFT financial derivative platform  <br/>
                     Cyber Pop Artists Association
                 </div>
             </div>
@@ -507,6 +508,10 @@ const showloggedMenu = (e:any) => {
     showloggedFlag.value = !showloggedFlag.value;
     e.stopPropagation;
 }
+
+//assets
+// const 
+
 
 // register
 let showDown:any = ref(false);
