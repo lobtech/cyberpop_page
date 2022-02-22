@@ -12,7 +12,8 @@ const states = {
     roles: [] as role[],
     active: 0,
     xplanActive: false,
-    comingOutFlag: false
+    comingOutFlag: false,
+    showDialog: false
 }
 export type typeof_user = typeof states
 export default {
@@ -47,6 +48,9 @@ export default {
         },
         addComingOut(state, payload: any) {
             state.comingOutFlag = payload;
+        },
+        showDialog(state, payload: any) {
+            state.showDialog = payload;
         }
     },
     actions: {
@@ -67,6 +71,9 @@ export default {
         },
         addComingOut({ commit }, paylaod: any) {
             commit('addComingOut', paylaod)
+        },
+        showDialog({ commit }, paylaod: any) {
+            commit('showDialog', paylaod)
         },
     },
 } as Module<typeof_user, State>

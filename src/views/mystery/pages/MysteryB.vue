@@ -2,11 +2,11 @@
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="changeHGif()" alt="">
-                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="stopHGif()" alt="">
+                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt="">
+                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt="">
                 <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
-            <div class="menuMask"  :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
+            <div class="menuMask" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
                 <div class="close-menu">
                     <img @click="showMenu()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
@@ -20,13 +20,22 @@
                         <div class="myassets">My assets</div>
                         <div class="logout">Logout</div>
                     </div>
+                    <div class="mask"></div>
                 </div>
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
                     <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
-                    <li @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li>
-                    <li @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">Mystery Box</li>
-                    <li @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">Cyberspace</li>
+                    <li @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">Mystery Box</li>
+                    <!-- <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li> -->
+                    <li @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">Cyberspace</li>
+                    <li :class="{'active': active == 4}">
+                        <div class="doc" @click="docMenu()">Doc <span :class="changeArrow ? 'change' : ''"></span></div>
+                        <div class="docmenu" v-show="showDoc">
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" target="view_window">Whitepaper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture.pdf" target="view_window">Green paper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">Deck</a>
+                        </div>
+                    </li>
                 </ul>
                 <!-- <div class="language">
                     <div @click="showUl()">Language switch</div>
@@ -38,6 +47,9 @@
                 </div> -->
             </div>
         </header>
+    </div>
+    <div class="section">
+        <div class="title">COMING SOON</div>
     </div>
     <div class="boxBg">
         <div class="titles"> 
@@ -87,14 +99,11 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             </div>
             <div class="tline"></div>
         </div>
-        <div class="nfts">
+        <!-- <div class="nfts">
             <div class="nfts-wrap">
                 <div class="top">
                     <div class="title">Featured NFTS</div>
                     <div class="rights">
-                        <!-- <ul class="select">
-                            <li>All</li>
-                        </ul> -->
                         <select name="" class="select">
                             <option value="All">All</option>
                             <option value="Out">Out</option>
@@ -200,12 +209,12 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> -->
         <div class="footer">
             <div class="mask"></div>
             <div class="footer-wrap">
-                <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="changeGif()" alt="">
-                <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="stopGif()" alt="">
+                <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
+                <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt="">
                 <div class="clause">
                     <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
                     <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
@@ -225,6 +234,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             </div>
         </div>
     </div>
+    <coming-b v-show="showComingFlag"></coming-b>
+    <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -236,23 +247,25 @@ import { log } from 'util';
 
 
 
-// whitepaper
-const openPaper = () => {
-    window.open("./CyberpopWhitePaper.pdf");
+
+// coming soon
+let showComingFlag:any = ref(false)
+const ctimer:any = ref(null)
+
+const showComing = () => {
+    clearTimeout(ctimer.value);
+    // Stow menu
+    showMenuAni.value = false;
+    // default animation
+    store.dispatch('user/addComingOut', false)
+    // show coming view
+    showComingFlag.value = true;
+    ctimer.value = setTimeout(() => {
+        // change animation
+        store.dispatch('user/addComingOut', true)
+    },3000)
 }
 
-
-
-// language
-let showLang:any = ref(false);
-const changeLanguage = () => {
-    showLang.value = !showLang.value;
-}
-
-let select:any = ref(0);
-const selectLang = (index:any) => {
-    select.value = index;
-}
 
 
 
@@ -264,10 +277,22 @@ const showMenu = () => {
     showMenuAni.value = !showMenuAni.value
 
 }
-let showul:any = ref(true);
-const showUl = () => {
-    showul.value = !showul.value;
+
+// docMenu
+let showDoc:any = ref(false); 
+let changeArrow:any = ref(false)
+const docMenu = () => {
+    showDoc.value = !showDoc.value
+    changeArrow.value = !changeArrow.value
 }
+
+// pdf click
+const closeMenu = () => {
+    showMenuAni.value = !showMenuAni.value
+}
+
+
+
 
 // connect
 let connectMove: any = ref(false);
@@ -281,8 +306,8 @@ const mouseLeave = () => {
 
 
 
-let logoHSrcP:any = ref(''); 
-let logoHSrcG:any = ref(''); 
+let logoHSrcP:any = ref('@/assets/nwhome/logo_101.png'); 
+let logoHSrcG:any = ref('@/assets/nwhome/logo.gif'); 
 const logoHImport = async() => {
     const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
     const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
@@ -292,21 +317,21 @@ const logoHImport = async() => {
 
 // header
 let logoHFlag: any = ref(false) ;
-const changeHGif = () => {
-    logoHFlag.value = true;
-}
-const stopHGif = () => {
-    logoHFlag.value = false;
-}
+// const changeHGif = () => {
+//     logoHFlag.value = true;
+// }
+// const stopHGif = () => {
+//     logoHFlag.value = false;
+// }
 
 // footer
 let logoFlag: any = ref(false) ;
-const changeGif = () => {
-    logoFlag.value = true;
-}
-const stopGif = () => {
-    logoFlag.value = false;
-}
+// const changeGif = () => {
+//     logoFlag.value = true;
+// }
+// const stopGif = () => {
+//     logoFlag.value = false;
+// }
 
 
 
@@ -337,14 +362,10 @@ const menuHover = (type: any) => {
     store.dispatch('user/changeActive', type);
 }
 
-let menuFlag:any = ref(3);
+let menuFlag:any = ref(2);
 const changeMenu = (type: any, route?: any) => {
     showMenuAni.value = false;
     menuFlag.value = type;
-    if(type == 2) {
-        window.open('./CyberpopWhitePaper.pdf')
-        return
-    }
     store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
@@ -352,47 +373,37 @@ const changeMenu = (type: any, route?: any) => {
 
 
 
-const submit = () => {
-    let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
-    
-    if(email.value === ""){ //输入不能为空
-　　　　alert("not null!");
-　　　　return false;
-　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
-　　　　alert("please input email!");
-　　　　return false;
-　　 }else{
-　　　　alert("received!");
-    //    email.value = "";
-　　 }
-
-
-    proxy.$api.get('http://127.0.0.1:3001/addUser?email=' + email.value ).then((res: any) => {
-        if( res.serverStatus === 2 && res.affectedRows === 1){
-            email.value = "";
-            // alert('success');
-        }else{
-            alert(res.message);
-        }
-    }).catch( (err: any) => {
-        console.log(err)
-    })
+// message dialog
+const showDialog = computed(() => store?.state.user?.showDialog);
+let messageState:any = ref(0)
+let messageContent:any = ref('')
+const mtimer:any = ref(null)
+const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
+    messageState.value = flag
+    store.dispatch('user/showDialog',true)
+    messageContent.value = message
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/showDialog',false)
+    },2000)
 }
 
 
-
-
-
-
 const id: any = ref(0)
-let type2: any = ref(1);
-let isPlay: any = ref(false);
-
+const idTemp: any = ref(0)
 const loggined: any = ref(false)
 const connect: any = async () => {
+    showMenuAni.value = false;
     const [accounts]: any = await Web3.login().then((res: any) => {
-        return res;
+        // loggined.value = true;
+        if( res == 'not dapp, install MetaMask！' ){
+            messageAlert(0, res)
+        }else{
+            loggined.value = true
+            return res
+        }
     })
+    idTemp.value = accounts;
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
@@ -464,7 +475,7 @@ const checkScrollHeightAndLoadAnimation: any = () => {
 onMounted(() => {
     connect();
     logoHImport();
-    store.dispatch('user/changeActive', 3);
+    store.dispatch('user/changeActive', 2);
 })
 
 </script>
@@ -511,6 +522,10 @@ onMounted(() => {
                 .logo{
                     width: 151px;
                     height: 41px;
+                    border: none;
+                }
+                .logo[src=""],.logo:not([src]){
+                    opacity:0;
                 }
                 .menu{
                     width: 30px;
@@ -521,20 +536,22 @@ onMounted(() => {
             .menuMask{
                 position: fixed;
                 top: 0;
-                right: -316px;
+                right: -740px;
                 width: 316px;
-                height: 100vh;
-                background: #000000;
-                opacity: 0.92;
+                min-height: 100vh;
+                max-height: 100vh;
+                background-color: rgba(0,0,0,.92);
+                overflow-x: hidden;
+                overflow-y: auto;
                 .close-menu{
                     width: 100%;
                     height: 44px;
                     text-align: right;
                     img{
-                        width: 22px;
-                        height: 22px;
+                        width: 30px;
+                        height: 30px;
                         margin-top: 12px;
-                        margin-right: 18px;
+                        margin-right: 17px;
                     }
                 }
                 .login_in{
@@ -542,6 +559,7 @@ onMounted(() => {
                     height: 100px;
                     overflow: hidden;
                     cursor: pointer;
+                    text-align: center;
                     .txt{
                         width: 238px;
                         height: 54px;
@@ -559,10 +577,22 @@ onMounted(() => {
                     }
                 }
                 .logged_in{
+                    position: relative;
                     width: 100%;
-                    height: 163px;
+                    height: 180px;
                     margin-top: 10px;
                     text-align: center;
+                    .mask{
+                        z-index: -1;
+                        position: absolute;
+                        top: 28px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 287px;
+                        height: 150px;
+                        background-color: #452CB6;
+                        border-radius: 4px;
+                    }
                     .portrait{
                         width: 50px;
                         height: 50px;
@@ -593,19 +623,50 @@ onMounted(() => {
                             cursor: pointer;
                         }
                     }
-                }
+                } 
                 .menuul{
                     li{
+                        position: relative;
                         width: 286px;
-                        height: 60px;
+                        // height: 60px;
                         margin-left: 30px;
                         font-family: AlibabaPuHuiTi_2_55_Regular;
                         font-weight: 400;
                         color: #FFFFFF;
-                        line-height: 60px;
+                        line-height: 58px;
                         font-size: 16px;
                         border-bottom: 1px solid rgba(255,255,255,.3);
                         cursor: pointer;
+                    }
+                    .doc > span{
+                        position: absolute;
+                        top: 21px;
+                        right: 17px;
+                        display: inline-block;
+                        width: 12px;
+                        height: 12px;
+                        border-left: 2px solid #fff;
+                        border-bottom: 2px solid #fff;
+                        transform: rotateZ(-45deg);
+                    }
+                    .doc > span.change{
+                        transform: rotateZ(135deg);
+                        top: 26px;
+                    }
+                    .docmenu{
+                        width: 100%;
+                        margin-top: -10px;
+                        margin-bottom: 12px;
+                        a{
+                            display: block;
+                            height: 35px;
+                            font-size: 14px;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            font-weight: 400;
+                            color: #999999;
+                            line-height: 35px;
+                            text-decoration: none;
+                        }
                     }
                     .active{
                         color: #04FF55;
@@ -658,6 +719,37 @@ onMounted(() => {
                 animation: menuEnd .4s ease-out;
                 animation-fill-mode: forwards;
             }
+        }
+        .buttom{
+            position: absolute;
+            bottom: 7px;
+            left: 0;
+            right: 0;
+            width: 18px;
+            height: 18px;
+            margin: 0 auto;
+        }
+    }
+    .section{
+        z-index: 8;
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0,0,0,.4);
+        overflow: hidden;
+        .title{
+            width: 100%;
+            height: 140px;
+            font-size: 38px;
+            color: #35F1C8;
+            line-height: 140px;
+            text-align: center;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(84, 2, 131) 38%, rgb(68, 2, 134) 50%,rgb(70, 2, 109) 62%,rgb(0, 0, 0) 100%);
         }
     }
     .boxBg{

@@ -3,8 +3,8 @@
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="changeHGif()" alt="">
-                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="stopHGif()" alt="">
+                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt="">
+                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt="">
                 <div class="user">
                     <!-- <div class="language">
                         <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
@@ -21,13 +21,7 @@
                     <div class="logged_in" v-if="loggined">
                         <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
                         <div class="idtxt">{{id}}</div>
-                        <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="" @click="showloggedMenu($event)" >
-                        <!-- <div class="logged_menu" v-show="showloggedFlag">
-                            <div class="cover"></div>
-                            <div class="coverborder"></div>
-                            <div>My Assets</div>
-                            <div>Log out</div>
-                        </div> -->
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag" >
                     </div>
                 </div>
                 <div class="menu">
@@ -35,32 +29,17 @@
                         <li @mouseover="menuHover(0)" @click="changeMenu(0, '/')" :class="{'active': active == 0}">
                             <span>Home</span>
                         </li>
-                        <!-- <li @mouseover="menuHover(1)" @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">
+                        <li @mouseover="menuHover(1)" @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">
                             <span>Mining</span>
                         </li>
-                        <li @mouseover="menuHover(2)" @click="changeMenu(2)" :class="{'active': active == 2}">
-                            <span>Whitepaper</span>
-                        </li>
-                        <li @mouseover="menuHover(3)" @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">
+                        <li @mouseover="menuHover(2)" @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">
                             <span>Mystery Box</span>
                         </li>
-                        <li @mouseover="menuHover(4)" @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">
+                        <li @mouseover="menuHover(3)" @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">
                             <span>Cyberspace</span>
-                        </li> -->
-                        <li @mouseover="menuHover(1)" @click="showComing()" :class="{'active': active == 1}">
-                            <span>Mining</span>
                         </li>
-                        <li @mouseover="menuHover(2)" @click="changeMenu(2)" :class="{'active': active == 2}">
-                            <span>Whitepaper</span>
-                        </li>
-                        <li @mouseover="menuHover(3)" @click="showComing()" :class="{'active': active == 3}">
-                            <span>Mystery Box</span>
-                        </li>
-                        <!-- <li @mouseover="menuHover(3)" @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">
-                            <span>Mystery Box</span>
-                        </li> -->
-                        <li @mouseover="menuHover(4)" @click="showComing()" :class="{'active': active == 4}">
-                            <span>Cyberspace</span>
+                        <li @mouseover="menuHover(4)" ref="clickCursor" @click="showDoc = !showDoc" :class="{'active': active == 4}">
+                            <span>Doc</span>
                         </li>
                     </ul>
                 </div>
@@ -77,7 +56,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         The Metaverse Combines Exploration, Combat, X-To-Earn and UGC
                     </div>
                     <div class="btnbox">
-                        <div class="btn-register" @click="showDownload()">REGISTER</div>
+                        <div class="btn-register" @click="showDown = true">REGISTER</div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
                             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-btnPlay.svg" alt="">
@@ -91,10 +70,16 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section_buttom.svg" alt="" class="buttom">
         </footer>
     </div>
-    <div class="logged_menu" v-show="showloggedFlag">
+    <div class="doc_menu" v-show="showDoc" ref="cursor">
         <div class="cover"></div>
         <div class="coverborder"></div>
-        <!-- <div @click="toAssets()">My Assets</div> -->
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" target="view_window">Whitepaper</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture.pdf" target="view_window">Green paper</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">Deck</a>
+    </div>
+    <div class="logged_menu" v-show="showloggedFlag" ref="cursor2">
+        <div class="cover"></div>
+        <div class="coverborder"></div>
         <div>My Assets</div>
         <div>Log out</div>
     </div>
@@ -103,7 +88,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="coverborder"></div>
         <div class="wrap">
             <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
-            <img class="close" src="@/assets/nwhome/closexplan.svg" alt="" @click="closeDownload()">
+            <img class="close" src="@/assets/nwhome/closexplan.svg" alt="" @click="showDown = false">
             <div class="message">
                 Sorry, you are unable to download. The game is currently open only to authorized internal testers and communities. Contact us to get qualify.
             </div>
@@ -234,6 +219,15 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 functional city components for assets production, and are <br/>
                 continuously being added.
             </div>
+            <div class="icon">
+                <div class="txt">Cross-chain support</div>
+                <div class="icon-img">
+                    <img src="@/assets/nwhome/make-flow.svg" alt="">
+                    <img src="@/assets/nwhome/make-polygon.svg" alt="">
+                    <img src="@/assets/nwhome/make-ethernet.png" alt="">
+                    <img src="@/assets/nwhome/make-heco.png" alt="">
+                </div>
+            </div>
             <div class="make-img">
                 <ul>
                     <li>
@@ -327,6 +321,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="roadmap-wrap">
             <div class="title" id="ele5">ROADMAP</div>
             <div class="time1 timeWidth-r maptime" id="time1">
+                <div class="stage">LONG ROAD</div>
                 <div class="date"><span class="span-l"></span>2021.03</div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
                 <div class="event-r checkgreen">
@@ -357,6 +352,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
             </div>
             <div class="time4 timeWidth-l maptime" id="time4">
+                <div class="stage">LOOM VERSION</div>
                 <div class="date">2022.06<span class="span-r"></span></div>
                 <div class="event-l">
                     further development of UGC, users construct DAOs <br/>
@@ -378,6 +374,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
             </div>
             <div class="time6 timeWidth-l maptime" id="time6">
+                <div class="stage">WORLD TRUTH</div>
                 <div class="date"><span class="span-r"></span>2023.01</div>
                 <div class="event-l">
                     launch of new world datagram <br/>
@@ -414,13 +411,14 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="logo">
             <img src="@/assets/nwhome/partners4.png" alt="">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners1.png" alt="">
-            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt="">
+            <!-- <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt=""> -->
+            <img src="@/assets/nwhome/skywater.png" alt="">
             <img src="@/assets/nwhome/partners3.png" alt="">
             <img src="@/assets/nwhome/partners5.png" alt="">
         </div>
     </div>
     <div class="will">
-        <div class="title" id="ele6">We will suppport Multi-end interoperability</div>
+        <div class="title" id="ele6">We suppport Multi-end interoperability</div>
         <ul class="logo">
             <li>
                 <img src="@/assets/nwhome/windows-fill.svg" alt="">
@@ -451,8 +449,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="footer">
-        <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="changeGif()" alt="">
-        <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="stopGif()" alt="">
+        <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
+        <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt="">
         <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
         <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
         <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
@@ -469,6 +467,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <coming-a v-show="showComingFlag"></coming-a>
+    <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
 </template>
 
 <script setup lang="ts">
@@ -481,6 +480,32 @@ import Web3 from '@/tools/web3'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
+
+
+// docMenu
+let showDoc:any = ref(false); 
+const cursor:any = ref(null)
+const clickCursor:any = ref(null)
+//logged_menu
+let showloggedFlag:any = ref(false)
+const cursor2:any = ref(null)
+const clickCursor2:any = ref(null)
+
+const handleOtherClick = (e:any) => {
+    if( cursor.value.contains(e.target) || clickCursor.value.contains(e.target)){
+        showloggedFlag.value = false;
+        return
+    }else{
+        showDoc.value = false;
+    }
+    if( cursor2.value.contains(e.target) || clickCursor2.value.contains(e.target)){
+        showDoc.value = false;
+        return
+    }else{
+        showloggedFlag.value = false;
+    }
+}
+
 
 // xplan
 const xplanActive = computed(() => store?.state.user?.xplanActive);
@@ -497,30 +522,13 @@ const showxplan = () => {
             }
         })
     }else{
-        alert('please connect wallet！')
+        messageAlert(false,'please connect wallet！')
     }
 }
 
 
-//logged_menu
-let showloggedFlag:any = ref(false);
-const showloggedMenu = (e:any) => {
-    showloggedFlag.value = !showloggedFlag.value;
-    e.stopPropagation;
-}
-
-//assets
-// const 
-
-
 // register
 let showDown:any = ref(false);
-const showDownload = () => {
-    showDown.value = true;
-}
-const closeDownload = () => {
-    showDown.value = false;
-}
 
 
 // coming soon
@@ -699,8 +707,8 @@ const openseaLeave = () => {
 
 
 
-let logoHSrcP:any = ref(''); 
-let logoHSrcG:any = ref(''); 
+let logoHSrcP:any = ref('@/assets/nwhome/logo_101.png'); 
+let logoHSrcG:any = ref('@/assets/nwhome/logo.gif'); 
 const logoHImport = async() => {
     const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
     const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
@@ -710,21 +718,21 @@ const logoHImport = async() => {
 
 // header
 let logoHFlag: any = ref(false) ;
-const changeHGif = () => {
-    logoHFlag.value = true;
-}
-const stopHGif = () => {
-    logoHFlag.value = false;
-}
+// const changeHGif = () => {
+//     logoHFlag.value = true;
+// }
+// const stopHGif = () => {
+//     logoHFlag.value = false;
+// }
 
 // footer
 let logoFlag: any = ref(false) ;
-const changeGif = () => {
-    logoFlag.value = true;
-}
-const stopGif = () => {
-    logoFlag.value = false;
-}
+// const changeGif = () => {
+//     logoFlag.value = true;
+// }
+// const stopGif = () => {
+//     logoFlag.value = false;
+// }
 
 
 
@@ -755,10 +763,6 @@ const menuHover = (type: any) => {
 
 let menuFlag:any = ref(0);
 const changeMenu = (type: any, route?: any) => {
-    if(type == 2) {
-        window.open('./CyberpopWhitePaper.pdf')
-        return
-    }
     menuFlag.value = type;
     store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
@@ -781,32 +785,43 @@ const playVideo = (type: any) => {
 const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
-        loggined.value = true;
-        return res;
+        if( res == 'not dapp, install MetaMask！' ){
+            messageAlert(false, res)
+        }else{
+            loggined.value = true
+            return res
+        }
     })
     idTemp.value = accounts;
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-    loggined.value = true;
 }
 
 
 
 
-
-const down = () => {
-    window.location.href = '../cyberpop.docx';
+// message dialog
+const showDialog = computed(() => store?.state.user?.showDialog);
+let messageState:any = ref(false)
+let messageContent:any = ref('')
+const messageAlert = (flag:any, message:any) => {
+    messageState.value = flag
+    store.dispatch('user/showDialog',true)
+    messageContent.value = message
+    store.dispatch('user/addComingOut', false)
 }
+
+
 
 const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     
     if(email.value === ""){ //输入不能为空
-　　　　alert("not null!");
+        messageAlert(false,'not null!')
 　　　　return false;
 　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
-　　　　alert("please input email!");
+        messageAlert(false,'please input email!')
 　　　　return false;
 　　 }
 
@@ -814,9 +829,9 @@ const submit = () => {
     proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
         if(res.data){
             email.value = "";
-            alert('success');
+            messageAlert(true,'success!')
         }else{
-            alert(res.msg);
+            messageAlert(false,res.msg)
         }
     }).catch( (err: any) => {
         console.log(err)
@@ -904,23 +919,25 @@ const deckd = () => {
     window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf';
 }
 
-const stopPlay = () => {
-    let videobg = document.querySelector("#videobg") as HTMLElement;
-    let relVideo = <HTMLVideoElement>videobg.querySelector("video");
-    relVideo.play();
-}
+// const stopPlay = () => {
+//     let videobg = document.querySelector("#videobg") as HTMLElement;
+//     let relVideo = <HTMLVideoElement>videobg.querySelector("video");
+//     relVideo.play();
+// }
 
 onUnmounted(() => {
     window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
     window.removeEventListener('scroll', windowScroll, true);
+    window.removeEventListener('click', handleOtherClick, true);
 })
 
 onMounted(() => {
-    stopPlay();
     connect();
     window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
     window.addEventListener('scroll', windowScroll, true);
+    window.addEventListener('click', handleOtherClick, true);
     store.dispatch('user/changeActive', 0);
+    store.dispatch('user/showDialog',false);
     logoHImport();
 })
 
@@ -983,13 +1000,9 @@ onMounted(() => {
             opacity: .86;
             color: #fff;
             background-color: #000000;
-            // background-image: linear-gradient(to right, #000 , #1C0B3D, #000);
-            // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-bg.svg');
-            // background-size: auto 100%;
             .content{
-                height: 98.9%;
-                // margin: 0 2vw 0 1.8vw;
-                margin: 0 2vw 0 0vw;
+                height: 100%;
+                margin: 0 2.91vw 0 0vw;
                 display: flex;
                 justify-content: space-between;
                 position: relative;
@@ -997,6 +1010,10 @@ onMounted(() => {
                     width: 20.20vw;
                     height: 100%;
                     // margin-top: .88vw;
+                    border: none;
+                }
+                .logo[src=""],.logo:not([src]){
+                    opacity:0;
                 }
                 .user{
                     display: flex;
@@ -1080,63 +1097,6 @@ onMounted(() => {
                             width: 2.6vw;
                             height: 2.6vw;
                         }
-                        // .logged_menu{
-                        //     position: absolute;
-                        //     top: 2.8vw;
-                        //     right: -0.4vw;
-                        //     width: 9.27vw;
-                        //     height: 5.1vw;
-                        //     background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-                        //     border: .15vw solid;
-                        //     border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
-                        //     clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
-                        //     .cover{
-                        //         position: absolute;
-                        //         top: 0vw;
-                        //         width: 100%;
-                        //         height: 100%;
-                        //         background: #293041;
-                        //         clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
-                        //     }
-                        //     .coverborder{
-                        //         z-index: -1;
-                        //         position: absolute;
-                        //         bottom: 0;
-                        //         right: 0;
-                        //         content: '';
-                        //         display: inline-block;
-                        //         width: 8vw;
-                        //         height: 8vw;
-                        //         background-color: #2d2942;
-                        //     }
-                        //     div:nth-child(3){
-                        //         position: absolute;
-                        //         left: 50%;
-                        //         transform: translateX(-50%);
-                        //         width: 8.43vw;
-                        //         height: 1.3vw;
-                        //         padding-right: .8vw;
-                        //         margin: 1vw auto .4vw;
-                        //         font-size: .93vw;
-                        //         font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                        //         color: #FFFFFF;
-                        //         line-height: .4vw;
-                        //         text-align: right;
-                        //         border-bottom: .15vw solid #534968;
-                        //     }
-                        //     div:nth-child(4){
-                        //         position: absolute;
-                        //         right: 1.1vw;
-                        //         bottom: .9vw;
-                        //         width: 8.43vw;
-                        //         height: 1.3vw;
-                        //         font-size: .93vw;
-                        //         font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                        //         color: #6D4AFF;
-                        //         line-height: 1.3vw;
-                        //         text-align: right;
-                        //     }
-                        // }
                     }  
                     .language{
                         position: relative;
@@ -1192,10 +1152,9 @@ onMounted(() => {
                 .menu{
                     position: absolute;
                     top: 0;
-                    // left: 21.7vw;
                     left: 23.5vw;
                     width: 43.6vw;
-                    height: 102%;
+                    height: 100%;
                     ul{
                         width: 100%;
                         height: 100%;
@@ -1222,10 +1181,11 @@ onMounted(() => {
                         width: 9.8vw;
                     }
                     .active{
-                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-titleBg.svg');
-                        background-repeat: no-repeat;
-                        background-size: 180% 120%;
-                        background-position: -3vw bottom;
+                        // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-titleBg.svg');
+                        // background-repeat: no-repeat;
+                        // background-size: 180% 120%;
+                        // background-position: -3vw bottom;
+                        background: linear-gradient(180deg, rgba(0,0,0,0),rgba(255, 24, 255, 0) 65%, rgba(255, 24, 255, 0.62) 100%);
                     }  
                 }
             }
@@ -1355,6 +1315,69 @@ onMounted(() => {
             left: 0;
             right: 0;
             margin: 0 auto;
+        }
+    }
+    .doc_menu{
+        z-index: 9;
+        position: fixed;
+        top: 4.2vw;
+        left: 55vw;
+        width: 9.27vw;
+        height: 7.96vw;
+        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+        border: .15vw solid;
+        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
+        clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
+        .cover{
+            position: absolute;
+            top: 0vw;
+            width: 100%;
+            height: 100%;
+            background: #293041;
+            clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
+        }
+        .coverborder{
+            z-index: -1;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            content: '';
+            display: inline-block;
+            width: 8vw;
+            height: 8vw;
+            background-color: #2d2942;
+        }
+        a{
+            display: inline-block;
+            text-decoration: none;
+            position: absolute;
+            right: 0;
+            width: 8vw;
+            height: 1.3vw;
+            padding-right: .8vw;
+            margin-right: .49vw;
+            font-size: .93vw;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            text-align: right;
+            color: #fff;
+            white-space: nowrap;
+        }
+        a:nth-child(3){
+            top: .8vw;
+            cursor: pointer;
+        }
+        a:nth-child(4){
+            top: 2.4vw;
+            padding-top: .5vw;
+            cursor: pointer;
+        }
+        a:nth-child(5){
+            top: 4.6vw;
+            padding-top: .5vw;
+            cursor: pointer;
+        }
+        a + a{
+            border-top: 2px solid #534968;
         }
     }
     .logged_menu{
@@ -1934,8 +1957,8 @@ onMounted(() => {
     .make{
         position: relative;
         width: 100%;
-        min-height: 120vh;
-        height: 120vh;
+        min-height: 130vh;
+        height: 130vh;
         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/make-bg.png');
         background-position: right top;
         background-size: 100% 100%;
@@ -1964,12 +1987,48 @@ onMounted(() => {
                 line-height: 3.12vw;
             }
             .desc{
-                margin-bottom: 2vw;
+                // margin-bottom: 2vw;
                 font-size: 1.04vw;
                 font-family: AlibabaPuHuiTi_2_55_Regular;
                 font-weight: normal;
                 color: #FFFFFF;
                 line-height: 1.61vw;
+            }
+            .icon{
+                margin-top: .6vw;
+                .txt{
+                    width: 27.7vw;
+                    height: 3.125vw;
+                    font-size: 1.04vw;
+                    font-family: Arial-Black, Arial;
+                    font-weight: 900;
+                    color: #FFFFFF;
+                    line-height: 3.125vw;
+                }
+                .icon-img{
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 1vw;
+                    img:nth-child(1){
+                        width: 5.26vw;
+                        height: 2.18vw;
+                        margin-right: 2.08vw;
+                    }
+                    img:nth-child(2){
+                        width: 8.85vw;
+                        height: 1.92vw;
+                        margin-right: 2.08vw;
+                    }
+                    img:nth-child(3){
+                        width: 7.96vw;
+                        height: 2.44vw;
+                        margin-right: 1vw;
+                    }
+                    img:nth-child(4){
+                        width: 6.3vw;
+                        height: 1.56vw;
+                    }
+                }
             }
             .make-img{
                 position: relative;
@@ -2287,7 +2346,7 @@ onMounted(() => {
                     right: 0;
                     margin: 0 auto;
                     width: 1px;
-                    height: 104vw;
+                    height: 112vw;
                     background-color: #C689FF;
                     border: 1px solid #C689FF;
                 }
@@ -2345,6 +2404,13 @@ onMounted(() => {
             .time1,.time2,.time3,.time4,.time5,.time6,.time7,.time8{
                 margin-top: -1vw;
                 position: relative;
+                .stage{
+                    margin-bottom: .57vw;
+                    font-size: 2.6vw;
+                    font-family: AlibabaPuHuiTi_2_85_Bold;
+                    color: #ffffff;
+                    line-height: 2.6vw;
+                }  
                 .date{
                     position: relative;
                     font-size: 2.2vw;
@@ -2354,9 +2420,9 @@ onMounted(() => {
                 }
                 .event-l{
                     width: 34.94vw;
-                    padding: .46vw .4vw .46vw 0;
+                    padding: .46vw .8vw .46vw 0;
                     margin-top: 1.66vw;
-                    margin-left: 11.48vw;
+                    margin-left: 12vw;
                     font-size: 1.04vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
@@ -2365,8 +2431,9 @@ onMounted(() => {
                 }
                 .event-r{
                     width: 34.94vw;
-                    padding: .46vw 0 .46vw .4vw;
+                    padding: .46vw 0 .46vw .8vw;
                     margin-top: 1.66vw;
+                    margin-left: -.6vw;
                     font-size: 1.04vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
@@ -2380,15 +2447,15 @@ onMounted(() => {
             }
             .time1 > .check{
                 position: absolute;
-                top: 5vw;
-                left: 1.6vw;
+                top: 8.1vw;
+                left: 1.3vw;
                 width: 1.02vw;
                 height: 1vw;
             }
             .time2 > .check{
                 position: absolute;
                 top: 5vw;
-                right: 1.6vw;
+                right: 1.4vw;
                 width: 1.02vw;
                 height: 1vw;
             }
@@ -2396,7 +2463,7 @@ onMounted(() => {
                 margin-top: 0;
             }
             .time8{
-                margin-bottom: 14vw;
+                margin-bottom: 16vw;
             }
             .time5,.time6,.time7,.time8{
                 // margin-top: -3.5vw;
@@ -2406,7 +2473,8 @@ onMounted(() => {
     .partners{
         width: 100%;
         background-color: #000000;
-        overflow: hidden;
+        // overflow: hidden;
+        border: 1px solid #000;
         .title{
             display: flex;
             align-items: center;
@@ -2419,6 +2487,7 @@ onMounted(() => {
             font-family: AlibabaPuHuiTi_2_115_Black;
             color: #FFFFFF;
             line-height: 3.69vw;
+            white-space: nowrap;
             cursor: pointer;
             .xplan{
                 width: 4.06vw;
@@ -2447,11 +2516,17 @@ onMounted(() => {
                 margin-top: -.1vw;
                 margin-bottom: -.1vw;
             }
+            // img:nth-child(3){
+            //     width: 19.47vw;
+            //     height: 6.2vw;
+            //     margin-top: 1.4vw;
+            //     margin-right: 3.6vw;
+            // }
             img:nth-child(3){
-                width: 19.47vw;
+                // width: 19.47vw;
                 height: 6.2vw;
-                margin-top: 1.4vw;
-                margin-right: 3.6vw;
+                margin-top: 1.8vw;
+                margin-right: 3vw;
             }
             img:nth-child(4){
                 width: 13.17vw;
@@ -2651,5 +2726,4 @@ onMounted(() => {
             }
         }
     }
-
 </style>

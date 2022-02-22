@@ -2,8 +2,8 @@
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="changeHGif()" alt="">
-                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="stopHGif()" alt="">
+                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt="">
+                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt="">
                 <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
             <div class="menuMask" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
@@ -24,14 +24,18 @@
                 </div>
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
-                    <!-- <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
-                    <li @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li>
-                    <li @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">Mystery Box</li>
-                    <li @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">Cyberspace</li> -->
-                    <li @click="showComing()" :class="{'active': active == 1}">Mining</li>
-                    <li @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li>
-                    <li @click="showComing()" :class="{'active': active == 3}">Mystery Box</li>
-                    <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li>
+                    <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
+                    <li @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">Mystery Box</li>
+                    <!-- <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li> -->
+                    <li @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">Cyberspace</li>
+                    <li :class="{'active': active == 4}">
+                        <div class="doc" @click="docMenu()">Doc <span :class="changeArrow ? 'change' : ''"></span></div>
+                        <div class="docmenu" v-show="showDoc">
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" target="view_window">Whitepaper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture.pdf" target="view_window">Green paper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">Deck</a>
+                        </div>
+                    </li>
                 </ul>
                 <!-- <div class="language">
                     <div @click="showUl()">Language switch</div>
@@ -116,8 +120,8 @@
     <div class="footer">
         <div class="mask"></div>
         <div class="footer-wrap">
-            <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="changeGif()" alt="">
-            <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="stopGif()" alt="">
+            <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
+            <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt="">
             <div class="clause">
                 <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
                 <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
@@ -137,12 +141,15 @@
         </div>
     </div>
     <coming-b v-show="showComingFlag"></coming-b>
+    <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+
+
 
 
 // coming soon
@@ -165,16 +172,6 @@ const showComing = () => {
 
 
 
-// language
-let lang:any = ref(false);
-const changeLanguage = () => {
-    lang.value = !lang.value;
-}
-
-let select:any = ref(0);
-const selectLang = (index:any) => {
-    select.value = index;
-}
 
 // menu
 let showMenuAni:any = ref(false);
@@ -183,15 +180,25 @@ const showMenu = () => {
     isPage.value = true;
     showMenuAni.value = !showMenuAni.value
 }
-let showul:any = ref(true);
-const showUl = () => {
-    showul.value = !showul.value;
+
+// docMenu
+let showDoc:any = ref(false); 
+let changeArrow:any = ref(false)
+const docMenu = () => {
+    showDoc.value = !showDoc.value
+    changeArrow.value = !changeArrow.value
+}
+
+// pdf click
+const closeMenu = () => {
+    showMenuAni.value = !showMenuAni.value
 }
 
 
 
-let logoHSrcP:any = ref(''); 
-let logoHSrcG:any = ref(''); 
+
+let logoHSrcP:any = ref('@/assets/nwhome/logo_101.png'); 
+let logoHSrcG:any = ref('@/assets/nwhome/logo.gif');  
 const logoHImport = async() => {
     const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
     const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
@@ -201,21 +208,21 @@ const logoHImport = async() => {
 
 // header
 let logoHFlag: any = ref(false) ;
-const changeHGif = () => {
-    logoHFlag.value = true;
-}
-const stopHGif = () => {
-    logoHFlag.value = false;
-}
+// const changeHGif = () => {
+//     logoHFlag.value = true;
+// }
+// const stopHGif = () => {
+//     logoHFlag.value = false;
+// }
 
 // footer
 let logoFlag: any = ref(false) ;
-const changeGif = () => {
-    logoFlag.value = true;
-}
-const stopGif = () => {
-    logoFlag.value = false;
-}
+// const changeGif = () => {
+//     logoFlag.value = true;
+// }
+// const stopGif = () => {
+//     logoFlag.value = false;
+// }
 
 
 
@@ -245,27 +252,47 @@ const menuHover = (type: any) => {
     store.dispatch('user/changeActive', type);
 }
 
-let menuFlag:any = ref(3);
+let menuFlag:any = ref(0);
 const changeMenu = (type: any, route?: any) => {
     showMenuAni.value = false;
     menuFlag.value = type;
-    if(type == 2) {
-        window.open('./CyberpopWhitePaper.pdf')
-        return
-    }
     store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
 
 
 
+// message dialog
+const showDialog = computed(() => store?.state.user?.showDialog);
+let messageState:any = ref(0)
+let messageContent:any = ref('')
+const mtimer:any = ref(null)
+const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
+    messageState.value = flag
+    store.dispatch('user/showDialog',true)
+    messageContent.value = message
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/showDialog',false)
+    },2000)
+}
+
 
 const id: any = ref(0)
+const idTemp: any = ref(0)
 const loggined: any = ref(false)
 const connect: any = async () => {
+    showMenuAni.value = false;
     const [accounts]: any = await Web3.login().then((res: any) => {
-        return res;
+        // loggined.value = true;
+        if( res == 'not dapp, install MetaMask！' ){
+            messageAlert(0, res)
+        }else{
+            loggined.value = true
+            return res
+        }
     })
+    idTemp.value = accounts;
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
@@ -323,6 +350,10 @@ onMounted(() => {
                 .logo{
                     width: 151px;
                     height: 41px;
+                    border: none;
+                }
+                .logo[src=""],.logo:not([src]){
+                    opacity:0;
                 }
                 .menu{
                     width: 30px;
@@ -333,11 +364,13 @@ onMounted(() => {
             .menuMask{
                 position: fixed;
                 top: 0;
-                right: -316px;
+                right: -740px;
                 width: 316px;
                 min-height: 100vh;
-                // height: 100vh;
+                max-height: 100vh;
                 background-color: rgba(0,0,0,.92);
+                overflow-x: hidden;
+                overflow-y: auto;
                 .close-menu{
                     width: 100%;
                     height: 44px;
@@ -421,29 +454,50 @@ onMounted(() => {
                 } 
                 .menuul{
                     li{
+                        position: relative;
                         width: 286px;
-                        height: 60px;
+                        // height: 60px;
                         margin-left: 30px;
                         font-family: AlibabaPuHuiTi_2_55_Regular;
                         font-weight: 400;
                         color: #FFFFFF;
-                        line-height: 60px;
+                        line-height: 58px;
                         font-size: 16px;
                         border-bottom: 1px solid rgba(255,255,255,.3);
                         cursor: pointer;
                     }
+                    .doc > span{
+                        position: absolute;
+                        top: 21px;
+                        right: 17px;
+                        display: inline-block;
+                        width: 12px;
+                        height: 12px;
+                        border-left: 2px solid #fff;
+                        border-bottom: 2px solid #fff;
+                        transform: rotateZ(-45deg);
+                    }
+                    .doc > span.change{
+                        transform: rotateZ(135deg);
+                        top: 26px;
+                    }
+                    .docmenu{
+                        width: 100%;
+                        margin-top: -10px;
+                        margin-bottom: 12px;
+                        a{
+                            display: block;
+                            height: 35px;
+                            font-size: 14px;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            font-weight: 400;
+                            color: #999999;
+                            line-height: 35px;
+                            text-decoration: none;
+                        }
+                    }
                     .active{
                         color: #04FF55;
-                    }
-                }
-                .xplan{
-                    width: 100%;
-                    height: 45px;
-                    margin-top: 20px;
-                    text-align: center;
-                    img{
-                        width: 46px;
-                        height: 45px;
                     }
                 }
                 .language{

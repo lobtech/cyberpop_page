@@ -41,7 +41,7 @@ const closexplan = () => {
     width: 59.68vw;
     height: 33.12vw;
     transform: translate(-50%,-50%);
-    background-image: url('../../assets/nwhome/xplanpro.png');
+    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/xplanpro.png');
     background-size: 100% 100%;
     .wrap{ 
         position: relative;

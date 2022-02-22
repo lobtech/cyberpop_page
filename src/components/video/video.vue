@@ -50,7 +50,7 @@ const playVideo = (type: any = props.videotype) => {
 }
 
 onMounted(() => {
-    console.log(props);
+    // console.log(props);
       if(mp4?.paused) {
 
         }else{

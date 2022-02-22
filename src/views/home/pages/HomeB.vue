@@ -1,10 +1,10 @@
 <template>
-    <my-video v-if="isPlay" @touchmove.prevent :videotype="type2" :videoSrc="'/assets/video/6dff55c4018832a1528ecbc410ec6094.mp4'" @click="playVideo"></my-video>
+    <my-video v-if="isPlay" @touchmove.prevent :mobel="true" :videotype="type2" :videoSrc="'/assets/video/6dff55c4018832a1528ecbc410ec6094.mp4'" @click="playVideo"></my-video>
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="changeHGif()" alt="">
-                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="stopHGif()" alt="">
+                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt="">
+                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt="">
                 <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
             <div class="menuMask" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
@@ -25,14 +25,18 @@
                 </div>
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
-                    <!-- <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
-                    <li @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li>
-                    <li @click="changeMenu(3, '/mystery')" :class="{'active': active == 3}">Mystery Box</li>
-                    <li @click="changeMenu(4, '/cyberspace')" :class="{'active': active == 4}">Cyberspace</li> -->
-                    <li @click="showComing()" :class="{'active': active == 1}">Mining</li>
-                    <li @click="changeMenu(2)" :class="{'active': active == 2}">Whitepaper</li>
-                    <li @click="showComing()" :class="{'active': active == 3}">Mystery Box</li>
-                    <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li>
+                    <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
+                    <li @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">Mystery Box</li>
+                    <!-- <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li> -->
+                    <li @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">Cyberspace</li>
+                    <li :class="{'active': active == 4}">
+                        <div class="doc" @click="docMenu()">Doc <span :class="changeArrow ? 'change' : ''"></span></div>
+                        <div class="docmenu" v-show="showDoc">
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" target="view_window">Whitepaper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture.pdf" target="view_window">Green paper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">Deck</a>
+                        </div>
+                    </li>
                 </ul>
                 <!-- <div class="language">
                     <div @click="showUl()">Language switch</div>
@@ -55,7 +59,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         The Metaverse Combines Exploration, Combat, X-To-Earn and UGC 
                     </div>
                     <div class="btnbox">
-                        <div class="btn-register" @click="showDownload()"><div>REGISTER</div></div>
+                        <div class="btn-register" @click="showDown = true"><div>REGISTER</div></div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
                             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section-btnPlay.svg" alt="">
@@ -74,7 +78,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="coverborder"></div>
         <div class="wrap">
             <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
-            <img class="close" src="@/assets/nwhome/closexplan.svg" alt="" @click="closeDownload()">
+            <img class="close" src="@/assets/nwhome/closexplan.svg" alt="" @click="showDown = false">
             <div class="message">
                 Sorry, you are unable to download. The game is currently open only to authorized internal testers and communities. Contact us to get qualify.
             </div>
@@ -200,7 +204,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="make">
         <div class="make-wrap">
-            <img class="title-bg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/title-bg.png" alt="">
+            <!-- <img class="title-bg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/title-bg.png" alt=""> -->
             <div class="title" id="ele3">MAKE CYBERSPACE BELONGS TO YOU</div>
             <div class="subtitle">THE NFT MADE BY YOURSELF</div>
             <div class="desc">
@@ -210,6 +214,19 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 and development of future cybercities. We already support
                 functional city components for assets production, and are
                 continuously being added.
+            </div>
+            <div class="icon">
+                <div class="txt">Cross-chain support</div>
+                <div class="icon-img">
+                    <div>
+                        <img class="icon1" src="@/assets/nwhome/make-flow.svg" alt="">
+                        <img class="icon2" src="@/assets/nwhome/make-polygon.svg" alt="">
+                    </div>
+                    <div>
+                        <img class="icon3" src="@/assets/nwhome/make-ethernet.png" alt="">
+                        <img class="icon4" src="@/assets/nwhome/make-heco.png" alt="">
+                    </div>
+                </div>
             </div>
             <div class="make-img">
                 <img class="yellowBg-r" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/yellowBg-r.svg" alt="">
@@ -298,6 +315,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="roadmap-wrap">
             <div class="title" id="ele5">ROADMAP</div>
             <div class="time1 timeWidth-r maptime" id="time1">
+                <div class="stage">LONG ROAD</div>
                 <div class="date"><span class="span-l"></span>2021.03</div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
                 <div class="event-r checkgreen">
@@ -328,6 +346,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
             </div>
             <div class="time4 timeWidth-l maptime" id="time4">
+                <div class="stage">LOOM VERSION</div>
                 <div class="date">2022.06<span class="span-r"></span></div>
                 <div class="event-l">
                     further development of UGC, users construct DAOs <br/>
@@ -349,6 +368,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
             </div>
             <div class="time6 timeWidth-l maptime" id="time6">
+                <div class="stage">WORLD TRUTH</div>
                 <div class="date"><span class="span-r"></span>2023.01</div>
                 <div class="event-l">
                     launch of new world datagram <br/>
@@ -385,7 +405,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="logo">
             <div>
                 <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners1.png" alt="">
-                <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt="">
+                <!-- <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt=""> -->
+                <img class="logo2" src="@/assets/nwhome/skywater.png" alt="">
             </div>
             <div>
                 <img class="logo3" src="@/assets/nwhome/partners4.png" alt="">
@@ -397,7 +418,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="will">
-        <div class="title" id="ele6">We will suppport Multi-end interoperability</div>
+        <div class="title" id="ele6">We suppport Multi-end interoperability</div>
         <ul class="logo">
             <li>
                 <img class="logo1" src="@/assets/nwhome/windows-fill.svg" alt="">
@@ -430,8 +451,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="footer">
         <div class="mask"></div>
         <div class="footer-wrap">
-            <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="changeGif()" alt="">
-            <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="stopGif()" alt="">
+            <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
+            <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt="">
             <div class="clause">
                 <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
                 <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
@@ -451,6 +472,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <coming-b v-show="showComingFlag"></coming-b>
+    <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -460,7 +482,9 @@ import Web3 from '@/tools/web3'
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
+import { clear } from 'console';
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
+
 
 
 // xplan
@@ -478,18 +502,12 @@ const showxplan = () => {
             }
         })
     }else{
-        alert('please connect wallet！')
+        messageAlert(0,'please connect wallet！')
     }
 }
 
 // register
 let showDown:any = ref(false);
-const showDownload = () => {
-    showDown.value = true;
-}
-const closeDownload = () => {
-    showDown.value = false;
-}
 
 
 // coming soon
@@ -511,16 +529,7 @@ const showComing = () => {
 }
 
 
-// language
-let lang:any = ref(false);
-const changeLanguage = () => {
-    lang.value = !lang.value;
-}
 
-let select:any = ref(0);
-const selectLang = (index:any) => {
-    select.value = index;
-}
 
 // menu
 let showMenuAni:any = ref(false);
@@ -529,12 +538,25 @@ const showMenu = () => {
     isPage.value = true;
     showMenuAni.value = !showMenuAni.value
 }
-let showul:any = ref(true);
-const showUl = () => {
-    showul.value = !showul.value;
+
+// docMenu
+let showDoc:any = ref(false); 
+let changeArrow:any = ref(false)
+const docMenu = () => {
+    showDoc.value = !showDoc.value
+    changeArrow.value = !changeArrow.value
 }
 
+// pdf click
+const closeMenu = () => {
+    showMenuAni.value = !showMenuAni.value
+}
 
+// language
+// let showul:any = ref(true);
+// const showUl = () => {
+//     showul.value = !showul.value;
+// }
 
 
 
@@ -646,8 +668,8 @@ const openseaLeave = () => {
 }
 
 
-let logoHSrcP:any = ref(''); 
-let logoHSrcG:any = ref(''); 
+let logoHSrcP:any = ref('@/assets/nwhome/logo_101.png'); 
+let logoHSrcG:any = ref('@/assets/nwhome/logo.gif'); 
 const logoHImport = async() => {
     const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
     const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
@@ -657,21 +679,21 @@ const logoHImport = async() => {
 
 // header
 let logoHFlag: any = ref(false) ;
-const changeHGif = () => {
-    logoHFlag.value = true;
-}
-const stopHGif = () => {
-    logoHFlag.value = false;
-}
+// const changeHGif = () => {
+//     logoHFlag.value = true;
+// }
+// const stopHGif = () => {
+//     logoHFlag.value = false;
+// }
 
 // footer
 let logoFlag: any = ref(false) ;
-const changeGif = () => {
-    logoFlag.value = true;
-}
-const stopGif = () => {
-    logoFlag.value = false;
-}
+// const changeGif = () => {
+//     logoFlag.value = true;
+// }
+// const stopGif = () => {
+//     logoFlag.value = false;
+// }
 
 
 
@@ -704,13 +726,12 @@ let menuFlag:any = ref(0);
 const changeMenu = (type: any, route?: any) => {
     showMenuAni.value = false;
     menuFlag.value = type;
-    if(type == 2) {
-        window.open('./CyberpopWhitePaper.pdf')
-        return
-    }
     store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
 }
+
+
+
 
 
 
@@ -728,15 +749,22 @@ const playVideo = (type: any) => {
 
 const loggined: any = ref(false)
 const connect: any = async () => {
+    showMenuAni.value = false;
     const [accounts]: any = await Web3.login().then((res: any) => {
-        loggined.value = true;
-        return res;
+        // loggined.value = true;
+        if( res == 'not dapp, install MetaMask！' ){
+            messageAlert(0, res)
+        }else{
+            loggined.value = true
+            return res
+        }
     })
     idTemp.value = accounts;
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
     loggined.value = true;
+
 }
 
 
@@ -745,14 +773,32 @@ const down = () => {
     window.location.href = '../cyberpop.docx';
 }
 
+
+
+// message dialog
+const showDialog = computed(() => store?.state.user?.showDialog);
+let messageState:any = ref(0)
+let messageContent:any = ref('')
+const mtimer:any = ref(null)
+const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
+    messageState.value = flag
+    store.dispatch('user/showDialog',true)
+    messageContent.value = message
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/showDialog',false)
+    },2000)
+}
+
+
 const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     
     if(email.value === ""){ //输入不能为空
-　　　　alert("not null!");
+　　　　messageAlert(0,'not null!')
 　　　　return false;
 　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
-　　　　alert("please input email!");
+　　　　messageAlert(0,'please input email!')
 　　　　return false;
 　　 }
 
@@ -760,9 +806,9 @@ const submit = () => {
     proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
         if(res.data){
             email.value = "";
-            alert('success');
+            messageAlert(1,'success!')
         }else{
-            alert(res.msg);
+            messageAlert(0,res.msg)
         }
     }).catch( (err: any) => {
         console.log(err)
@@ -860,11 +906,11 @@ const deckd = () => {
     window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf';
 }
 
-const stopPlay = () => {
-    let videobg = document.querySelector("#videobg") as HTMLElement;
-    let relVideo = <HTMLVideoElement>videobg.querySelector("video");
-    relVideo.play();
-}
+// const stopPlay = () => {
+//     let videobg = document.querySelector("#videobg") as HTMLElement;
+//     let relVideo = <HTMLVideoElement>videobg.querySelector("video");
+//     relVideo.play();
+// }
 
 onUnmounted(() => {
     window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
@@ -872,10 +918,11 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-    stopPlay();
+    // stopPlay();
     connect()
     window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
     window.addEventListener('scroll', windowScroll, true);
+    store.dispatch('user/showDialog',false);
     logoHImport();
 })
 
@@ -942,6 +989,10 @@ onMounted(() => {
                 .logo{
                     width: 151px;
                     height: 41px;
+                    border: none;
+                }
+                .logo[src=""],.logo:not([src]){
+                    opacity:0;
                 }
                 .menu{
                     width: 30px;
@@ -952,11 +1003,13 @@ onMounted(() => {
             .menuMask{
                 position: fixed;
                 top: 0;
-                right: -316px;
+                right: -740px;
                 width: 316px;
                 min-height: 100vh;
-                // height: 100vh;
+                max-height: 100vh;
                 background-color: rgba(0,0,0,.92);
+                overflow-x: hidden;
+                overflow-y: auto;
                 .close-menu{
                     width: 100%;
                     height: 44px;
@@ -1040,29 +1093,50 @@ onMounted(() => {
                 } 
                 .menuul{
                     li{
+                        position: relative;
                         width: 286px;
-                        height: 60px;
+                        // height: 60px;
                         margin-left: 30px;
                         font-family: AlibabaPuHuiTi_2_55_Regular;
                         font-weight: 400;
                         color: #FFFFFF;
-                        line-height: 60px;
+                        line-height: 58px;
                         font-size: 16px;
                         border-bottom: 1px solid rgba(255,255,255,.3);
                         cursor: pointer;
                     }
+                    .doc > span{
+                        position: absolute;
+                        top: 21px;
+                        right: 17px;
+                        display: inline-block;
+                        width: 12px;
+                        height: 12px;
+                        border-left: 2px solid #fff;
+                        border-bottom: 2px solid #fff;
+                        transform: rotateZ(-45deg);
+                    }
+                    .doc > span.change{
+                        transform: rotateZ(135deg);
+                        top: 26px;
+                    }
+                    .docmenu{
+                        width: 100%;
+                        margin-top: -10px;
+                        margin-bottom: 12px;
+                        a{
+                            display: block;
+                            height: 35px;
+                            font-size: 14px;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            font-weight: 400;
+                            color: #999999;
+                            line-height: 35px;
+                            text-decoration: none;
+                        }
+                    }
                     .active{
                         color: #04FF55;
-                    }
-                }
-                .xplan{
-                    width: 100%;
-                    height: 45px;
-                    margin-top: 20px;
-                    text-align: center;
-                    img{
-                        width: 46px;
-                        height: 45px;
                     }
                 }
                 .language{
@@ -1553,6 +1627,7 @@ onMounted(() => {
     .nobody{
         width: 100%;
         height: 881px;
+        margin-top: -1px;
         background-color: #000;
         display: flex;
         .nobody-wrap{
@@ -1746,10 +1821,12 @@ onMounted(() => {
         position: relative;
         width: 100%;
         // height: 1391px;
-        height: 1670px;
-        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-bg.png');
-        background-position: left top;
-        background-size: 100% 100%;
+        height: 1760px;
+        // background-image: url('../../../assets/nwhomePhone/make-bg.png');
+        // background-position: -1346px -2px;
+        // // background-position: left top;
+        // background-size: auto 100.1%;
+        background-color: #000000;
         overflow: hidden;
         .make-wrap{
             position: relative;
@@ -1759,13 +1836,17 @@ onMounted(() => {
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 100%;
+            height: 90%;
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-bg2.png');
+            // background-position: -1210px -2px;
+            background-position: center top;
+            background-size: auto 100%;
             .title-bg{
                 z-index: 0;
                 position: absolute;
                 top: -4px;
                 width: 100%;
-                height: 400px;
+                height: 450px;
             }
             .title{
                 z-index: 1;
@@ -1789,7 +1870,7 @@ onMounted(() => {
             }
             .desc{
                 z-index: 1;
-                margin-bottom: 101px;
+                // margin-bottom: 101px;
                 width: 332px;
                 height: 118px;
                 font-size: 14px;
@@ -1797,10 +1878,52 @@ onMounted(() => {
                 color: #FFFFFF;
                 line-height: 20px;
             }
+            .icon{
+                z-index: 1;
+                margin-top: 66px;
+                margin-bottom: 90px;
+                .txt{
+                    width: 100%;
+                    height: 24px;
+                    margin-bottom: 24px;
+                    font-size: 14px;
+                    font-family: AlibabaPuHuiTi_2_95_ExtraBold;
+                    font-weight: 900;
+                    color: #FFFFFF;
+                    line-height: 24px;
+                }
+                .icon-img{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    div{
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 18px;
+                    }
+                    .icon1{
+                        width: 60px;
+                        margin-right: 38px;
+                        margin-left: 10px;
+                    }
+                    .icon2{
+                        width: 96px;
+                    }
+                    .icon3{
+                        width: 90px;
+                        margin-right: 10px;
+                    }
+                    .icon4{
+                        width: 70px;
+                        margin-right: 6px;
+                    }
+                }
+            }
             .make-img{
                 position: relative;
                 width: 319px;
-                height: 988px;
+                // height: 1200px;
+                padding-bottom: 38px;
                 background: linear-gradient(90deg, #000000 0%, #000000 100%);
                 opacity: 0.83;
                 .yellowBg-r{
@@ -1823,7 +1946,8 @@ onMounted(() => {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    margin-top: 29px;
+                    height: 100%;
+                    // margin-top: 20px;
                     li{
                         display: flex;
                         flex-direction: column;
@@ -1832,21 +1956,21 @@ onMounted(() => {
                     }
                     li:nth-child(1){
                         width: 131px;
-                        width: 155px;
+                        height: 150px;
                     }
                     li:nth-child(2){
                         width: 84px;
                         height: 199px;
-                        margin-top: -28px;
+                        // margin-top: -30px;
                     }
                     li:nth-child(3){
                         width: 205px;
-                        height: 210px;
-                        margin-bottom: 48px;
+                        height: 180px;
+                        margin-bottom: 38px;
                     }
                     li:nth-child(4){
                         width: 89px;
-                        height: 230px;
+                        height: 200px;
                     }
                     img{
                         width: 100%;
@@ -1878,7 +2002,7 @@ onMounted(() => {
                 position: relative;
                 width: 357px;
                 height: 175px;
-                margin-top: 60px;
+                margin-top: 70px;
                 // background: #EDFF00;
                 background-color: #565656;
                 clip-path: polygon(0 0, 100% 0, 100% 66%, 94% 100%, 0 100%);
@@ -2077,7 +2201,7 @@ onMounted(() => {
     .roadmap{
         width: 100%;
         // height: 731px;
-        height: 1250px;
+        height: 1420px;
         background-color: #000000;
         overflow: hidden;
         .roadmap-bg{
@@ -2114,7 +2238,7 @@ onMounted(() => {
                     right: 0;
                     margin: 0 auto;
                     width: 1px;
-                    height: 960px;
+                    height: 1125px;
                     background-color: #C689FF;
                     border: 1px solid #C689FF;
                 }
@@ -2170,9 +2294,16 @@ onMounted(() => {
             .time1,.time2,.time3,.time4,.time5,.time6,.time7,.time8{
                 margin-top: -10px;
                 position: relative;
+                .stage{
+                    margin-bottom: 6px;
+                    font-size: 20px;
+                    font-family: AlibabaPuHuiTi_2_85_Bold;
+                    color: #ffffff;
+                    line-height: 22px;
+                }  
                 .date{
                     position: relative;
-                    font-size: 20px;
+                    font-size: 18px;
                     font-family: AlibabaPuHuiTi_2_85_Bold;
                     font-weight: bold;
                     color: #04FFA2;
@@ -2180,23 +2311,24 @@ onMounted(() => {
                 }
                 .event-l{
                     width: 40vw;
-                    padding: 5px 4px 5px 0;
+                    padding: 5px 7px 5px 0;
                     margin-top: 16px;
-                    margin-left: 4vw;
-                    font-size: 8px;
+                    margin-left: 5.2vw;
+                    font-size: 10px;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
-                    line-height: 12px;
+                    line-height: 14px;
                     background: #141314;
                 }
                 .event-r{
                     width: 40vw;
-                    padding: 5px 0 5px 4px;
+                    padding: 5px 0 5px 7px;
                     margin-top: 16px;
-                    font-size: 8px;
+                    margin-left: -5px;
+                    font-size: 10px;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
-                    line-height: 12px;
+                    line-height: 14px;
                     background: #141314;
                 }
             }
@@ -2205,15 +2337,15 @@ onMounted(() => {
             }
             .time1 > .check{
                 position: absolute;
-                top: 39px;
-                left: 4px;
+                top: 69px;
+                left: 3px;
                 width: 10px;
                 height: 10px;
             }
             .time2 > .check{
                 position: absolute;
                 top: 39px;
-                right: 4px;
+                right: 3px;
                 width: 10px;
                 height: 10px;
             }
@@ -2258,15 +2390,20 @@ onMounted(() => {
                 display: flex;
                 align-items: center;
                 margin-bottom: 18px;
+                overflow: hidden;
                 .logo1{
                     width: 93px;
                     height: 71px;
-                    margin-right: 10px;
-                    margin-bottom: -2px;
+                    margin: -1px 10px -1px 0;
                 }
+                // .logo2{
+                    // width: 147px;
+                    // height: 47px;
+                // }
                 .logo2{
-                    width: 147px;
-                    height: 47px;
+                    // width: 147px;
+                    height: 55px;
+                    margin: 4px 24px 0 48px;
                 }
                 .logo3{
                     width: 60px;
@@ -2491,4 +2628,5 @@ onMounted(() => {
             }
        }
     }
+
 </style>

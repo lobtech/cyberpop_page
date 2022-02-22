@@ -3,14 +3,21 @@ import contracts from '@/tools/contracts'
 const Web3 = (window as any).Web3 // 引用全局的web3 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/moralis@latest/dist/moralis.min.js"></script>
 
+
+
+
 // 登录钱包
 const login = async () => {
     const ethereum = (window as any).ethereum // 获取小狐狸实例
-    if (typeof ethereum.isMetaMask === 'undefined') {
-        alert('not dapp')
-        alert('install MetaMask！')
+    if (!ethereum) {
+        return 'not dapp, install MetaMask！';
     }
     return ethereum.request({ method: 'eth_requestAccounts' })
+}
+
+// 退出钱包
+const signout = async () => {
+
 }
 
 // 账户列表

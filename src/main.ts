@@ -6,6 +6,8 @@ import './index.css' // 自定义全局样式
 import MyVideo from './components/video/video.vue'
 import ComingA from './components/coming/comingA.vue'
 import ComingB from './components/coming/comingB.vue'
+import MessageA from './components/dialog/MessageA.vue'
+import MessageB from './components/dialog/MessageB.vue'
 import XplanproA from './components/xplanpro/xplanproA.vue'
 import XplanproB from './components/xplanpro/xplanproB.vue'
 import api from './api/request'
@@ -22,6 +24,8 @@ app.use(store, key) // 挂载vuex
 app.component('MyVideo', MyVideo) //视频组件
 app.component('ComingA', ComingA)
 app.component('ComingB', ComingB)
+app.component('MessageA', MessageA)
+app.component('MessageB', MessageB)
 app.component('XplanproA', XplanproA)
 app.component('XplanproB', XplanproB)
 app.component('video-bg', VideoBg)
