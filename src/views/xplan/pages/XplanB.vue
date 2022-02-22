@@ -29,7 +29,7 @@
             </div>
             <div class="nft_box">
                 <div>
-                    <img src="https://lh3.googleusercontent.com/L4CNumJrsy2P3MhtzF1f18kLmAt2YzLu3u_vY5ksaSkEKHwFxK852X8ZIhU8Cf5snR9ocKA-ZxuAu_EBqoL4wbLOYthdgkM3t8a-=w600" alt="">
+                    <img src="https://cyberpop.mypinata.cloud/ipfs/QmasqFt6yffS7cyUq4gZKQ5fxXuxFPQ1jbcar17z9dYUku" alt="">
                     <span class="number">Number of owned: {{ token1Number }}</span>
                 </div>
             </div>
@@ -39,9 +39,9 @@
             <div class="round">
                 <ul class="round-wrap">
                     <li>
-                        <div class="round-title">Round A</div>
+                        <div class="round-title">Seed &nbsp;&nbsp;&nbsp;&nbsp;</div>
                         <div>7%</div>
-                        <div class="round-price">$0.13</div>
+                        <!-- <div class="round-price">$0.13</div> -->
                         <div class="round-month">10 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
@@ -53,9 +53,9 @@
                         </div>
                     </li>
                     <li>
-                        <div class="round-title">Round B</div>
+                        <div class="round-title">Round A</div>
                         <div>8%</div>
-                        <div class="round-price">$0.25</div>
+                        <!-- <div class="round-price">$0.25</div> -->
                         <div class="round-month">10 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
@@ -69,9 +69,9 @@
                         </div>
                     </li>
                     <li>
-                        <div class="round-title">Round C</div>
+                        <div class="round-title">Round B</div>
                         <div>3%</div>
-                        <div class="round-price">$0.42</div>
+                        <!-- <div class="round-price">$0.42</div> -->
                         <div class="round-month third-month">8 month</div>
                         <div class="round-schedule">
                             <!-- <div class="percent">0%</div> -->
@@ -167,10 +167,10 @@
             </div>
             <div class="category" id="ele1">
                 <div class="category-wrap">
-                    <img class="category-info" src="https://d3bhixjyozyk2o.cloudfront.net/category-info.png" alt="">
-                    <img class="category-arrow1" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow1.png" alt="">
+                    <img class="category-info" src="https://d3bhixjyozyk2o.cloudfront.net/category-info3.png" alt="">
+                    <!-- <img class="category-arrow1" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow1.png" alt="">
                     <img class="category-arrow2" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow2.png" alt="">
-                    <img class="category-arrow3" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow3.png" alt="">
+                    <img class="category-arrow3" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow3.png" alt=""> -->
                 </div>
             </div>
             <div class="rordmap">
@@ -425,6 +425,7 @@ onMounted(() => {
         text-align: center;
         margin-top: 11vw;
         color: #fff;
+        font-size: 12px;
     }
     
     .router-link-active {

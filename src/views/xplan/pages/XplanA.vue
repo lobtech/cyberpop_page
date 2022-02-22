@@ -41,9 +41,9 @@
             <div class="round">
                 <ul class="round-wrap">
                     <li>
-                        <div class="round-title">Round A</div>
+                        <div class="round-title">Seed &nbsp;&nbsp;&nbsp;&nbsp;</div>
                         <div>7%</div>
-                        <div class="round-price">$0.13</div>
+                        <!-- <div class="round-price">$0.13</div> -->
                         <div class="round-month">10 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
@@ -55,9 +55,9 @@
                         </div>
                     </li>
                     <li>
-                        <div class="round-title">Round B</div>
+                        <div class="round-title">Round A</div>
                         <div>8%</div>
-                        <div class="round-price">$0.25</div>
+                        <!-- <div class="round-price">$0.25</div> -->
                         <div class="round-month">10 month</div>
                         <div class="round-schedule">
                             <div class="schedule-line">
@@ -71,9 +71,9 @@
                         </div>
                     </li>
                     <li>
-                        <div class="round-title">Round C</div>
+                        <div class="round-title">Round B</div>
                         <div>3%</div>
-                        <div class="round-price">$0.42</div>
+                        <!-- <div class="round-price">$0.42</div> -->
                         <div class="round-month third-month">8 month</div>
                         <div class="round-schedule">
                             <!-- <div class="percent">0%</div> -->
@@ -164,10 +164,10 @@
             </div>
             <div class="category" id="ele3">
                 <div class="category-wrap">
-                    <img class="category-info" src="https://d3bhixjyozyk2o.cloudfront.net/category-info.png" alt="">
-                    <img class="category-arrow1" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow1.png" alt="">
-                    <img class="category-arrow2" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow2.png" alt="">
-                    <img class="category-arrow3" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow3.png" alt="">
+                    <img class="category-info" src="https://d3bhixjyozyk2o.cloudfront.net/category-info3.png" alt="">
+                    <!-- <img class="category-arrow1" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow1.png" alt=""> -->
+                    <!-- <img class="category-arrow2" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow2.png" alt=""> -->
+                    <!-- <img class="category-arrow3" src="https://d3bhixjyozyk2o.cloudfront.net/category-arrow3.png" alt=""> -->
                 </div>
             </div>
             <div class="rordmap">
