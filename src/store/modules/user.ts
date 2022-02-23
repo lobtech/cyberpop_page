@@ -13,7 +13,10 @@ const states = {
     active: 0,
     xplanActive: false,
     comingOutFlag: false,
-    showDialog: false
+    showDialog: false,
+    realId: 0, // 带星号id，用于页面显示
+    idTemp: '' as string,  // 完整id，用于判断
+    xplanAni: false
 }
 export type typeof_user = typeof states
 export default {
@@ -51,7 +54,16 @@ export default {
         },
         showDialog(state, payload: any) {
             state.showDialog = payload;
-        }
+        },
+        walletId(state, payload: any) {
+            state.realId = payload;
+        },
+        walletIdTemp(state, payload: any) {
+            state.idTemp = payload;
+        },
+        xplanChangeAni(state, payload: any) {
+            state.xplanAni = payload;
+        },
     },
     actions: {
         init({ commit }, paylaod: typeof_user) {
@@ -74,6 +86,15 @@ export default {
         },
         showDialog({ commit }, paylaod: any) {
             commit('showDialog', paylaod)
+        },
+        walletId({ commit }, paylaod: any) {
+            commit('walletId', paylaod)
+        },
+        walletIdTemp({ commit }, paylaod: any) {
+            commit('walletIdTemp', paylaod)
+        },
+        xplanChangeAni({ commit }, paylaod: any) {
+            commit('xplanChangeAni', paylaod)
         },
     },
 } as Module<typeof_user, State>

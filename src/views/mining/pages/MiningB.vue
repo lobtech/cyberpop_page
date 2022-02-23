@@ -2,8 +2,10 @@
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt="">
-                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt="">
+                <div class="logo">
+                    <img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" @click="changeMenu(0, '/')" alt="">
+                    <img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" @click="changeMenu(0, '/')" alt="">
+                </div>
                 <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
             <div class="menuMask" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
@@ -15,7 +17,7 @@
                 </div>
                 <div class="logged_in" v-if="loggined">
                     <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
-                    <div class="idtxt">{{id}}</div>
+                    <div class="idtxt">{{realId}}</div>
                     <div class="submenu">
                         <div class="myassets">My assets</div>
                         <div class="logout">Logout</div>
@@ -27,13 +29,13 @@
                     <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
                     <li @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">Mystery Box</li>
                     <!-- <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li> -->
-                    <li @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">Cyberspace</li>
+                    <!-- <li @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">Cyberspace</li> -->
                     <li :class="{'active': active == 4}">
                         <div class="doc" @click="docMenu()">Doc <span :class="changeArrow ? 'change' : ''"></span></div>
                         <div class="docmenu" v-show="showDoc">
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" target="view_window">Whitepaper</a>
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture.pdf" target="view_window">Green paper</a>
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">Deck</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" target="view_window">Whitepaper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" target="view_window">Green paper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" target="view_window">Deck</a>
                         </div>
                     </li>
                 </ul>
@@ -64,7 +66,7 @@
             <div class="right">
                 <div class="total-title">TOTAL POOL REWARDS</div>
                 <div class="total-subtitle">（BUSD）</div>
-                <div class="price">$393,441,130</div>
+                <div class="price">$- -</div>
             </div>
         </div>
         <ul class="data">
@@ -74,15 +76,15 @@
             </li>
             <li>
                 <div class="txt">Your Weight Percentage</div>
-                <div class="percent">0%</div>
+                <div class="percent">- -%</div>
             </li>
             <li>
                 <div class="txt">Your Mining Rewards</div>
-                <div class="percent">≈$0</div>
+                <div class="percent">≈$- -</div>
             </li>
         </ul>
         <div class="pledge">
-            <div class="title">Current Pledge <span>1/4</span></div>
+            <div class="title">Current Pledge <span>2/4</span></div>
             <ul>
                 <!-- <li>
                     <div class="img-wrap">
@@ -94,6 +96,16 @@
                         <img :src="greenBorderSrc" alt="">
                     </div>
                 </li> -->
+                <li>
+                    <div class="img-wrap">
+                        <img class="pledge-img" :src="whiteImgSrc" alt="">
+                    </div>
+                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="bot-txt whiteNft">
+                        <div>Select NFT to stake</div>
+                        <img :src="whiteBorderSrc" alt="">
+                    </div>
+                </li>
                 <li>
                     <div class="img-wrap">
                         <img class="pledge-img" :src="whiteImgSrc" alt="">
@@ -124,22 +136,13 @@
                         <img :src="lockedBorderSrc" alt="">
                     </div>
                 </li>
-                <li>
-                    <div class="img-wrap">
-                        <img class="pledge-img lockedImg" :src="lockedImgSrc" alt="">
-                    </div>
-                    <div class="top-txt">Position HashRate:1</div>
-                    <div class="bot-txt grayNft">
-                        <div>Coming soon</div>
-                        <img :src="lockedBorderSrc" alt="">
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
     <div class="footer">
-        <div class="mask"></div>
         <div class="footer-wrap">
+            <!-- <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
+            <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt=""> -->
             <div class="clause">
                 <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
                 <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
@@ -232,8 +235,8 @@ let whiteBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwminingPhon
 let lockedBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwminingPhone/pledge-border3.svg')
 
 
-let logoHSrcP:any = ref('@/assets/nwhome/logo_101.png'); 
-let logoHSrcG:any = ref('@/assets/nwhome/logo.gif'); 
+let logoHSrcP:any = ref(''); 
+let logoHSrcG:any = ref(''); 
 const logoHImport = async() => {
     const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
     const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
@@ -313,13 +316,13 @@ const messageAlert = (flag:any, message:any) => {
 }
 
 
+const realId = computed(() => store?.state.user?.realId);
+const idTemp = computed(() => store?.state.user?.idTemp);
 const id: any = ref(0)
-const idTemp: any = ref(0)
 const loggined: any = ref(false)
 const connect: any = async () => {
     showMenuAni.value = false;
     const [accounts]: any = await Web3.login().then((res: any) => {
-        // loggined.value = true;
         if( res == 'not dapp, install MetaMask！' ){
             messageAlert(0, res)
         }else{
@@ -327,20 +330,23 @@ const connect: any = async () => {
             return res
         }
     })
-    idTemp.value = accounts;
+    store.dispatch('user/walletIdTemp',accounts);// 存放完整id
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-    loggined.value = true;
+    store.dispatch('user/walletId',id.value);
 }
 
 
 
 
 onMounted(() => {
-    connect();
+    if( realId.value != 0){
+        loggined.value = true;
+    }
     logoHImport();
     store.dispatch('user/changeActive', 1);
+    window.scrollTo(0,0);
 })
 
 
@@ -398,10 +404,16 @@ onMounted(() => {
                 .logo{
                     width: 151px;
                     height: 41px;
-                    border: none;
-                }
-                .logo[src=""],.logo:not([src]){
-                    opacity:0;
+                    overflow: hidden;
+                    img{
+                        width: 100.2%;
+                        height: 100.2%;
+                        border: none;
+                        margin: -2px;
+                    }
+                    img[src=""],img:not([src]){
+                        opacity:0;
+                    }
                 }
                 .menu{
                     width: 30px;
@@ -611,21 +623,26 @@ onMounted(() => {
         position: fixed;
         display: flex;
         justify-content: center;
-        align-items: center;
         top: 0;
         width: 100%;
-        height: 100vh;
-        background-color: rgba(0,0,0,.4);
+        height: 120vh;
+        background: rgba(0,0,0,.46);
         overflow: hidden;
         .title{
             width: 100%;
-            height: 140px;
-            font-size: 38px;
-            color: #35F1C8;
-            line-height: 140px;
-            text-align: center;
+            height: 90px;
+            margin-top: 200px;
+            font-size: 18px;
             font-family: AlibabaPuHuiTi_2_75_SemiBold;
-            background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(84, 2, 131) 38%, rgb(68, 2, 134) 50%,rgb(70, 2, 109) 62%,rgb(0, 0, 0) 100%);
+            color: #FFFFFF;
+            line-height: 90px;
+            letter-spacing: 18px;
+            text-align: center;
+            text-indent: 14px;
+            background-image: url('../../../assets/nwmining/coming-bg.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 110% auto;
         }
     }
     .mining{
@@ -823,6 +840,7 @@ onMounted(() => {
                             left: 0;
                             right: 0;
                             width: 101%;
+                            opacity: 0.46;
                             // height: 100%;
                         }
                     }
@@ -863,14 +881,6 @@ onMounted(() => {
         a{
             color: #ffffff;
             text-decoration: none;
-        }
-        .mask{
-            position: absolute;
-            width: 96%;
-            height: 100%;
-            margin-left: 4%;
-            // background-color: #121122;
-            background-color: #121122;
         }
        .footer-wrap{
            position: absolute;

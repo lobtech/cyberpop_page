@@ -2,8 +2,10 @@
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt="">
-                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt="">
+                <div class="logo">
+                    <img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" @click="changeMenu(0, '/')" alt="">
+                    <img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" @click="changeMenu(0, '/')" alt="">
+                </div>
                 <div class="user">
                     <!-- <div class="language">
                         <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
@@ -19,8 +21,8 @@
                     </div>
                     <div class="logged_in" v-if="loggined">
                         <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
-                        <div class="idtxt">{{id}}</div>
-                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag" >
+                        <div class="idtxt">{{realId}}</div>
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true">
                     </div>
                 </div>
                 <div class="menu">
@@ -34,11 +36,11 @@
                         <li @mouseover="menuHover(2)" @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">
                             <span>Mystery Box</span>
                         </li>
-                        <li @mouseover="menuHover(3)" @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">
+                        <!-- <li @mouseover="menuHover(3)" @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">
                             <span>Cyberspace</span>
-                        </li>
-                        <li @mouseover="menuHover(4)" ref="clickCursor" @click="showDoc = !showDoc" :class="{'active': active == 4}">
-                            <span>Doc</span>
+                        </li> -->
+                        <li @mouseover="menuHover(4)" @mouseleave="hoverDoc = false" ref="clickCursor" @click="showDoc = !showDoc,hoverDoc = false" :class="{'active': active == 4}">
+                            <span @mouseenter="hoverDoc = true">Doc</span>
                         </li>
                     </ul>
                 </div>
@@ -48,14 +50,14 @@
     <div class="section">
         <div class="title">COMING SOON</div>
     </div>
-    <div class="doc_menu" v-show="showDoc" ref="cursor">
+    <div class="doc_menu" v-show="showDoc || hoverDoc" ref="cursor" @mouseenter="hoverDoc = true" @mouseleave="hoverDoc = false">
         <div class="cover"></div>
         <div class="coverborder"></div>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" target="view_window">Whitepaper</a>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture.pdf" target="view_window">Green paper</a>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">Deck</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">Whitepaper</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" @click="showDoc = false" target="view_window">Deck</a>
     </div>
-    <div class="logged_menu" v-show="showloggedFlag" ref="cursor2">
+    <div class="logged_menu" v-show="showloggedFlag || hoverLogged" ref="cursor2" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
         <div class="cover"></div>
         <div class="coverborder"></div>
         <div>My Assets</div>
@@ -108,9 +110,9 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                     <div class="right">
                         <div class="title">Sale Start time</div>
                         <div class="countDown">
-                            <div class="hour">23H</div>:
-                            <div class="minute">11M</div>:
-                            <div class="millisecond">325</div>
+                            <div class="hour">- -H</div>:
+                            <div class="minute">- -M</div>:
+                            <div class="millisecond">- -S</div>
                         </div>
                     </div>
                 </div>
@@ -345,10 +347,12 @@ import { log } from 'util';
 
 // docMenu
 let showDoc:any = ref(false); 
+let hoverDoc:any = ref(false); 
 const cursor:any = ref(null)
 const clickCursor:any = ref(null)
 //logged_menu
 let showloggedFlag:any = ref(false)
+let hoverLogged:any = ref(false)
 const cursor2:any = ref(null)
 const clickCursor2:any = ref(null)
 
@@ -359,11 +363,13 @@ const handleOtherClick = (e:any) => {
     }else{
         showDoc.value = false;
     }
-    if( cursor2.value.contains(e.target) || clickCursor2.value.contains(e.target)){
-        showDoc.value = false;
-        return
-    }else{
-        showloggedFlag.value = false;
+    if( loggined.value ){
+        if( cursor2.value.contains(e.target) || clickCursor2.value.contains(e.target) ){
+            showDoc.value = false;
+            return
+        }else{
+            showloggedFlag.value = false;
+        }
     }
 }
 
@@ -414,8 +420,8 @@ const mouseLeave = () => {
 
 
 
-let logoHSrcP:any = ref('@/assets/nwhome/logo_101.png'); 
-let logoHSrcG:any = ref('@/assets/nwhome/logo.gif'); 
+let logoHSrcP:any = ref(''); 
+let logoHSrcG:any = ref(''); 
 const logoHImport = async() => {
     const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
     const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
@@ -492,8 +498,9 @@ const messageAlert = (flag:any, message:any) => {
 }
 
 
+const realId = computed(() => store?.state.user?.realId);
+const idTemp = computed(() => store?.state.user?.idTemp);
 const id: any = ref(0)
-const idTemp: any = ref(0)
 const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
@@ -504,10 +511,11 @@ const connect: any = async () => {
             return res
         }
     })
-    idTemp.value = accounts;
+    store.dispatch('user/walletIdTemp',accounts);// 存放完整id
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+    store.dispatch('user/walletId',id.value);
 }
 
 
@@ -577,11 +585,14 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-    connect();
+    if( realId.value != 0){
+        loggined.value = true;
+    }
     logoHImport();
     window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
     window.addEventListener('click', handleOtherClick, true);
-    store.dispatch('user/changeActive', 3)
+    store.dispatch('user/changeActive', 3);
+    window.scrollTo(0,0);
 })
 
 </script>
@@ -630,11 +641,16 @@ onMounted(() => {
                 .logo{
                     width: 20.20vw;
                     height: 100%;
-                    // margin-top: .88vw;
-                    border: none;
-                }
-                .logo[src=""],.logo:not([src]){
-                    opacity:0;
+                    overflow: hidden;
+                    img{
+                        width: 100.2%;
+                        height: 100.2%;
+                        border: none;
+                        margin: -.1vw;
+                    }
+                    img[src=""],img:not([src]){
+                        opacity:0;
+                    }
                 }
                 .user{
                     display: flex;
@@ -691,6 +707,9 @@ onMounted(() => {
                             animation: stopSubmitAnimation 0.15s linear;
                             animation-fill-mode: forwards;
                         }
+                    }
+                    .login_in:hover > .txt{
+                        color: #EDFF00;
                     }
                     .logged_in{
                         display: flex;
@@ -801,6 +820,11 @@ onMounted(() => {
                     li:nth-child(3){
                         width: 9.8vw;
                     }
+                    li:last-child > span{
+                        display: inline-block;
+                        width: 100%;
+                        height: 100%;
+                    }
                     .active{
                         background: linear-gradient(180deg, rgba(0,0,0,0),rgba(255, 24, 255, 0) 65%, rgba(255, 24, 255, 0.62) 100%);
                     }  
@@ -813,28 +837,31 @@ onMounted(() => {
         position: fixed;
         display: flex;
         justify-content: center;
-        align-items: center;
         top: 0;
         width: 100%;
         height: 100vh;
-        background-color: rgba(0,0,0,.4);
+        background: rgba(0,0,0,.46);
         overflow: hidden;
         .title{
-            width: 100%;
-            height: 10vw;
-            font-size: 5vw;
-            color: #35F1C8;
-            line-height: 10vw;
-            text-align: center;
+            width: 39.58vw;
+            height: 8.85vw;
+            margin-top: 17.4vw;
+            font-size: 2.08vw;
             font-family: AlibabaPuHuiTi_2_75_SemiBold;
-            background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(84, 2, 131) 38%, rgb(68, 2, 134) 50%,rgb(70, 2, 109) 62%,rgb(0, 0, 0) 100%);
+            color: #FFFFFF;
+            line-height: 8.85vw;
+            letter-spacing: 1.04vw;
+            text-align: center;
+            background-image: url('../../../assets/nwmining/coming-bg.png');
+            background-position: center;
+            background-size: auto 100%;
         }
     }
     .doc_menu{
         z-index: 9;
         position: fixed;
         top: 4.2vw;
-        left: 55vw;
+        left: 47vw;
         width: 9.27vw;
         height: 7.96vw;
         background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
@@ -892,6 +919,9 @@ onMounted(() => {
         a + a{
             border-top: 2px solid #534968;
         }
+        a:hover{
+            color: #35F1C8;
+        }
     }
     .logged_menu{
         z-index: 9;
@@ -937,6 +967,7 @@ onMounted(() => {
             line-height: .4vw;
             text-align: right;
             border-bottom: .15vw solid #534968;
+            cursor: pointer;
         }
         div:nth-child(4){
             position: absolute;
@@ -949,6 +980,7 @@ onMounted(() => {
             color: #6D4AFF;
             line-height: 1.3vw;
             text-align: right;
+            cursor: pointer;
         }
     }
     .boxBg{
@@ -1011,8 +1043,9 @@ onMounted(() => {
                             }
                         }
                         .subtitle{
-                            font-size: .98vw;
-                            font-family: Arial-Black, Arial;
+                            font-size: 1.04vw;
+                            font-family: AlibabaPuHuiTi_2_105_Heavy;
+                            letter-spacing: .08vw;
                             font-weight: 900;
                             color: #04FFA2;
                             // line-height: 2.08vw;
@@ -1494,9 +1527,9 @@ onMounted(() => {
             width: 100%;
             height: 5.54vw;
             padding-right: 6vw;
-            padding-left: 18.9vw;  
+            // padding-left: 18.9vw;  
             font-size: 1.09vw;
-            font-family: Poppins-Regular, Poppins;
+            font-family: AlibabaPuHuiTi_2_55_Regular;
             font-weight: 400;
             color: #FFFFFF;
             line-height: 1.82vw;
@@ -1510,6 +1543,7 @@ onMounted(() => {
                 height: 5.54vw;
             }
             .policy{
+                margin-left: 22vw;
                 margin-right: 3vw;
                 white-space: nowrap;
             }

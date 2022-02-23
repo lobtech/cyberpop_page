@@ -2,8 +2,10 @@
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt="">
-                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt="">
+                <div class="logo">
+                    <img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" @click="changeMenu(0, '/')" alt="">
+                    <img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" @click="changeMenu(0, '/')" alt="">
+                </div>
                 <div class="user">
                     <!-- <div class="language">
                         <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
@@ -19,8 +21,8 @@
                     </div>
                     <div class="logged_in" v-if="loggined">
                         <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
-                        <div class="idtxt">{{id}}</div>
-                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag" >
+                        <div class="idtxt">{{realId}}</div>
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true">
                     </div>
                 </div>
                 <div class="menu">
@@ -34,25 +36,25 @@
                         <li @mouseover="menuHover(2)" @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">
                             <span>Mystery Box</span>
                         </li>
-                        <li @mouseover="menuHover(3)" @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">
+                        <!-- <li @mouseover="menuHover(3)" @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">
                             <span>Cyberspace</span>
-                        </li>
-                        <li @mouseover="menuHover(4)" ref="clickCursor" @click="showDoc = !showDoc" :class="{'active': active == 4}">
-                            <span>Doc</span>
+                        </li> -->
+                        <li @mouseover="menuHover(4)" @mouseleave="hoverDoc = false" ref="clickCursor" @click="showDoc = !showDoc,hoverDoc = false" :class="{'active': active == 4}">
+                            <span @mouseenter="hoverDoc = true">Doc</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </header>
     </div>
-    <div class="doc_menu" v-show="showDoc" ref="cursor">
+    <div class="doc_menu" v-show="showDoc || hoverDoc" ref="cursor" @mouseenter="hoverDoc = true" @mouseleave="hoverDoc = false">
         <div class="cover"></div>
         <div class="coverborder"></div>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" target="view_window">Whitepaper</a>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture.pdf" target="view_window">Green paper</a>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">Deck</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">Whitepaper</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" @click="showDoc = false" target="view_window">Deck</a>
     </div>
-    <div class="logged_menu" v-show="showloggedFlag" ref="cursor2">
+    <div class="logged_menu" v-show="showloggedFlag || hoverLogged" ref="cursor2" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
         <div class="cover"></div>
         <div class="coverborder"></div>
         <div>My Assets</div>
@@ -128,8 +130,8 @@
         </div>
     </div>
     <div class="footer">
-        <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
-        <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt="">
+        <!-- <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
+        <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt=""> -->
         <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
         <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
         <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
@@ -157,10 +159,12 @@ import Web3 from '@/tools/web3'
 
 // docMenu
 let showDoc:any = ref(false); 
+let hoverDoc:any = ref(false); 
 const cursor:any = ref(null)
 const clickCursor:any = ref(null)
 //logged_menu
 let showloggedFlag:any = ref(false)
+let hoverLogged:any = ref(false)
 const cursor2:any = ref(null)
 const clickCursor2:any = ref(null)
 
@@ -171,11 +175,13 @@ const handleOtherClick = (e:any) => {
     }else{
         showDoc.value = false;
     }
-    if( cursor2.value.contains(e.target) || clickCursor2.value.contains(e.target)){
-        showDoc.value = false;
-        return
-    }else{
-        showloggedFlag.value = false;
+    if( loggined.value ){
+        if( cursor2.value.contains(e.target) || clickCursor2.value.contains(e.target) ){
+            showDoc.value = false;
+            return
+        }else{
+            showloggedFlag.value = false;
+        }
     }
 }
 
@@ -213,8 +219,8 @@ const mouseLeave = () => {
 
 
 
-let logoHSrcP:any = ref('@/assets/nwhome/logo_101.png'); 
-let logoHSrcG:any = ref('@/assets/nwhome/logo.gif'); 
+let logoHSrcP:any = ref(''); 
+let logoHSrcG:any = ref(''); 
 const logoHImport = async() => {
     const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
     const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
@@ -289,8 +295,10 @@ const messageAlert = (flag:any, message:any) => {
 }
 
 
+
+const realId = computed(() => store?.state.user?.realId);
+const idTemp = computed(() => store?.state.user?.idTemp);
 const id: any = ref(0)
-const idTemp: any = ref(0)
 const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
@@ -301,10 +309,11 @@ const connect: any = async () => {
             return res
         }
     })
-    idTemp.value = accounts;
+    store.dispatch('user/walletIdTemp',accounts);// 存放完整id
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+    store.dispatch('user/walletId',id.value);
 }
 
 
@@ -313,7 +322,9 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-    connect();
+    if( realId.value != 0){
+        loggined.value = true;
+    }
     logoHImport();
     window.addEventListener('click', handleOtherClick, true);
     window.scrollTo(0,0);
@@ -365,11 +376,16 @@ onMounted(() => {
                 .logo{
                     width: 20.20vw;
                     height: 100%;
-                    // margin-top: .88vw;
-                    border: none;
-                }
-                .logo[src=""],.logo:not([src]){
-                    opacity:0;
+                    overflow: hidden;
+                    img{
+                        width: 100.2%;
+                        height: 100.2%;
+                        border: none;
+                        margin: -.1vw;
+                    }
+                    img[src=""],img:not([src]){
+                        opacity:0;
+                    }
                 }
                 .user{
                     display: flex;
@@ -426,6 +442,9 @@ onMounted(() => {
                             animation: stopSubmitAnimation 0.15s linear;
                             animation-fill-mode: forwards;
                         }
+                    }
+                    .login_in:hover > .txt{
+                        color: #EDFF00;
                     }
                     .logged_in{
                         display: flex;
@@ -536,6 +555,11 @@ onMounted(() => {
                     li:nth-child(3){
                         width: 9.8vw;
                     }
+                    li:last-child > span{
+                        display: inline-block;
+                        width: 100%;
+                        height: 100%;
+                    }
                     .active{
                         // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-titleBg.svg');
                         // background-repeat: no-repeat;
@@ -551,7 +575,7 @@ onMounted(() => {
         z-index: 9;
         position: fixed;
         top: 4.2vw;
-        left: 55vw;
+        left: 47vw;
         width: 9.27vw;
         height: 7.96vw;
         background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
@@ -609,6 +633,9 @@ onMounted(() => {
         a + a{
             border-top: 2px solid #534968;
         }
+        a:hover{
+            color: #35F1C8;
+        }
     }
     .logged_menu{
         z-index: 9;
@@ -654,6 +681,7 @@ onMounted(() => {
             line-height: .4vw;
             text-align: right;
             border-bottom: .15vw solid #534968;
+            cursor: pointer;
         }
         div:nth-child(4){
             position: absolute;
@@ -666,6 +694,7 @@ onMounted(() => {
             color: #6D4AFF;
             line-height: 1.3vw;
             text-align: right;
+            cursor: pointer;
         }
     }
     .privacy{
@@ -724,6 +753,7 @@ onMounted(() => {
             height: 5.54vw;
         }
         .policy{
+            margin-left: 22vw;
             margin-right: 3vw;
             white-space: nowrap;
         }

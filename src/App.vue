@@ -216,6 +216,46 @@ onMounted(() => {
             background-size: auto 100%;
         }
     }
+    @keyframes bounceShow {
+        0% {
+            opacity: 0;
+            -webkit-transform: scale(0.3);
+            -ms-transform: scale(0.3);
+            transform: scale(0.3);
+        }
+        50% {
+            opacity: 1;
+            -webkit-transform: scale(1.05);
+            -ms-transform: scale(1.05);
+            transform: scale(1.05);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+    @keyframes bounceHide {
+        0% {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+        }
+        50% {
+            opacity: 1;
+            -webkit-transform: scale(1.05);
+            -ms-transform: scale(1.05);
+            transform: scale(1.05);
+        }
+        100% {
+            opacity: 0;
+            -webkit-transform: scale(0.3);
+            -ms-transform: scale(0.3);
+            transform: scale(0.3);
+        }
+    }
 
     .fadeInUp{
         animation: fadeInUp 1s linear;
@@ -225,7 +265,13 @@ onMounted(() => {
     }
     .bounceIn{
         animation: bounceIn 1s linear;
-
+    }
+    .bounceShow{
+        animation: bounceShow 0.2s linear;
+    }
+    .bounceHide{
+        animation: bounceHide 0.2s linear;
+        animation-fill-mode: forwards;
     }
     .fadeInLeft{
          animation: fadeInLeft 1s linear;

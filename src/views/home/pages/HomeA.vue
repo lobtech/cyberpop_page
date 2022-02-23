@@ -1,10 +1,12 @@
 <template>
-    <my-video v-if="isPlay" @touchmove.prevent :videotype="type2" :videoSrc="'/assets/video/6dff55c4018832a1528ecbc410ec6094.mp4'" @click="playVideo"></my-video>
+    <my-video v-if="isPlay" @touchmove.prevent :videotype="type2" @click="playVideo"></my-video>
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt="">
-                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt="">
+                <div class="logo">
+                    <img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" @click="changeMenu(0, '/')" alt="">
+                    <img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" @click="changeMenu(0, '/')" alt="">
+                </div>
                 <div class="user">
                     <!-- <div class="language">
                         <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
@@ -14,14 +16,14 @@
                             <li :class="select == 2 ? 'active' : ''" @click="selectLang(2)">Japanese</li>
                         </ul>
                     </div> -->
-                    <div class="login_in" v-if="!loggined" @click="connect()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
+                    <div class="login_in" v-if="!loggined" @click="connect()" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
                         <div class="txt">CONNECT WALLET</div>
                         <div class="mask" id="mask"></div>
                     </div>
                     <div class="logged_in" v-if="loggined">
                         <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
-                        <div class="idtxt">{{id}}</div>
-                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag" >
+                        <div class="idtxt">{{realId}}</div>
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true">
                     </div>
                 </div>
                 <div class="menu">
@@ -35,11 +37,11 @@
                         <li @mouseover="menuHover(2)" @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">
                             <span>Mystery Box</span>
                         </li>
-                        <li @mouseover="menuHover(3)" @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">
+                        <!-- <li @mouseover="menuHover(3)" @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">
                             <span>Cyberspace</span>
-                        </li>
-                        <li @mouseover="menuHover(4)" ref="clickCursor" @click="showDoc = !showDoc" :class="{'active': active == 4}">
-                            <span>Doc</span>
+                        </li> -->
+                        <li @mouseover="menuHover(4)" @mouseleave="hoverDoc = false" ref="clickCursor" @click="showDoc = !showDoc,hoverDoc = false" :class="{'active': active == 4}">
+                            <span @mouseenter="hoverDoc = true">Doc</span>
                         </li>
                     </ul>
                 </div>
@@ -56,7 +58,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         The Metaverse Combines Exploration, Combat, X-To-Earn and UGC
                     </div>
                     <div class="btnbox">
-                        <div class="btn-register" @click="showDown = true">REGISTER</div>
+                        <div class="btn-register" @click="playToEarn()">Play to earn</div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
                             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-btnPlay.svg" alt="">
@@ -70,29 +72,32 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section_buttom.svg" alt="" class="buttom">
         </footer>
     </div>
-    <div class="doc_menu" v-show="showDoc" ref="cursor">
+    <div class="doc_menu" v-show="showDoc || hoverDoc" ref="cursor" @mouseenter="hoverDoc = true" @mouseleave="hoverDoc = false">
         <div class="cover"></div>
         <div class="coverborder"></div>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" target="view_window">Whitepaper</a>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture.pdf" target="view_window">Green paper</a>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">Deck</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">Whitepaper</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a>
+        <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" @click="showDoc = false" target="view_window">Deck</a>
     </div>
-    <div class="logged_menu" v-show="showloggedFlag" ref="cursor2">
+    <div class="logged_menu" v-show="showloggedFlag || hoverLogged" ref="cursor2" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
         <div class="cover"></div>
         <div class="coverborder"></div>
         <div>My Assets</div>
         <div>Log out</div>
     </div>
-    <div class="download" v-show="showDown">
+    <div class="download" v-show="showDown" :class="!isOut ? 'bounceShow' : 'bounceHide'">
         <div class="cover"></div>
         <div class="coverborder"></div>
         <div class="wrap">
             <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
-            <img class="close" src="@/assets/nwhome/closexplan.svg" alt="" @click="showDown = false">
+            <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="isDown = false,isOut = true">
             <div class="message">
-                Sorry, you are unable to download. The game is currently open only to authorized internal testers and communities. Contact us to get qualify.
+                Sorry, you are unable to download. The metaverse is currently open only to authorized internal testers and communities. Contact us to get qualify.
             </div>
-            <div class="btn">Download</div>
+            <div class="btn" @mouseenter="isDown = true,downFlag =true" @mouseleave="downFlag =false">
+                <div class="txt">Download</div>
+                <div class="mask" id="down" :class="isDown && (downFlag ? 'downloadAni' : 'stopDownloadAni')"></div>
+            </div>
         </div>
     </div>
     <xplanpro-a v-if="xplanActive"></xplanpro-a>
@@ -113,9 +118,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="welcome">
         <div class="warp">
-            <div class="title" id="ele1">WELCOMETO  TO<p class="white">CYBERPOP NEW WORLD</p></div>
+            <div class="title" id="ele1">WELCOME TO<p class="white">CYBERPOP NEW WORLD</p></div>
             <div class="desc">
-                A Metaverse adventure UGC game built on the ethereum blockchain. <br/>
+                A Metaverse adventure UGC metaverse built on the ethereum blockchain. <br/>
                 Travel through diverse cyberspace in search of mysterious digital artifacts <br/>
                 and creatures even Legend of the absolute beginning.
             </div>
@@ -327,8 +332,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-r checkgreen">
                     Project Concept Start <br/>
                     Basic gameplay design <br/>
-                    game scene development <br/>
-                    Game Art Modeling
+                    Metaverse scene development <br/>
+                    Metaverse Art Modeling
                 </div>
             </div>
             <div class="time2 timeWidth-l maptime" id="time2">
@@ -337,7 +342,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-l checkgreen">
                     UGC project approval <br/>
                     website launched <br/>
-                    Game demo online <br/>
+                    Metaverse demo online <br/>
                     Character Modeling
                 </div>
             </div>
@@ -345,8 +350,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="date"><span class="span-l"></span>2022.03</div>
                 <div class="event-r">
                     White Paper Release <br/>
-                    Game trial launch <br/>
-                    Game NFT Mall <br/>
+                    Metaverse trial launch <br/>
+                    Metaverse NFT Mall <br/>
                     Release UGC toolchain <br/>
                     Token CYT released
                 </div>
@@ -358,7 +363,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     further development of UGC, users construct DAOs <br/>
                     online DAO pledge and voting system  <br/>
                     The socialFi mechanism <br/>
-                    game unions system <br/>
+                    Metaverse unions system <br/>
                     NFT derivatives available in the metaverse
                 </div>
             </div>
@@ -414,6 +419,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <!-- <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt=""> -->
             <img src="@/assets/nwhome/skywater.png" alt="">
             <img src="@/assets/nwhome/partners3.png" alt="">
+            <img src="@/assets/nwhome/there.png" alt="">
             <img src="@/assets/nwhome/partners5.png" alt="">
         </div>
     </div>
@@ -449,8 +455,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="footer">
-        <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
-        <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt="">
+        <!-- <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
+        <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt=""> -->
         <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
         <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
         <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
@@ -479,44 +485,50 @@ import Web3 from '@/tools/web3'
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
+import { release } from 'os';
+import { log } from 'console';
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
 
 
 // docMenu
 let showDoc:any = ref(false); 
+let hoverDoc:any = ref(false); 
 const cursor:any = ref(null)
 const clickCursor:any = ref(null)
 //logged_menu
 let showloggedFlag:any = ref(false)
+let hoverLogged:any = ref(false)
 const cursor2:any = ref(null)
 const clickCursor2:any = ref(null)
 
 const handleOtherClick = (e:any) => {
-    if( cursor.value.contains(e.target) || clickCursor.value.contains(e.target)){
+    if( cursor.value.contains(e.target) || clickCursor.value.contains(e.target) ){
         showloggedFlag.value = false;
         return
     }else{
         showDoc.value = false;
     }
-    if( cursor2.value.contains(e.target) || clickCursor2.value.contains(e.target)){
-        showDoc.value = false;
-        return
-    }else{
-        showloggedFlag.value = false;
+    if( loggined.value ){
+        if( cursor2.value.contains(e.target) || clickCursor2.value.contains(e.target) ){
+            showDoc.value = false;
+            return
+        }else{
+            showloggedFlag.value = false;
+        }
     }
 }
 
 
 // xplan
 const xplanActive = computed(() => store?.state.user?.xplanActive);
+const xplanAni = computed(() => store?.state.user?.xplanAni);
 const showxplan = () => {
-
-    if( id.value !== 0 ){
+    if( realId.value != 0 ){
         Web3.getBalance(idTemp.value).then((res) => {
             token0Number.value = res[0];
-            console.log(token0Number.value);
             if(token0Number.value <= 0){
                 store.dispatch('user/changeXplan',true);
+                store.dispatch('user/xplanChangeAni',true);
             }else{
                 window.open('https://game.cyberpop.online/xplan');
             }
@@ -529,6 +541,14 @@ const showxplan = () => {
 
 // register
 let showDown:any = ref(false);
+const playToEarn = () => {
+    if( realId.value != 0 ){
+        showDown.value = true; 
+        isOut.value = false;
+    }else{
+        messageAlert(0,'please connect wallet！')
+    }
+}
 
 
 // coming soon
@@ -563,12 +583,16 @@ const mouseEnter = () => {
     mask.classList.add('submitAnimation');
     mask.classList.remove('stopSubmitAnimation');
 }
-
 const mouseLeave = () => {
     const mask = document.getElementById("mask") as HTMLElement;
     mask.classList.add('stopSubmitAnimation');
     mask.classList.remove('submitAnimation');
 }
+// download 
+let isDown:any = ref(false)
+let downFlag:any = ref(false)
+let isOut:any = ref(false)
+
 
 
 
@@ -707,8 +731,8 @@ const openseaLeave = () => {
 
 
 
-let logoHSrcP:any = ref('@/assets/nwhome/logo_101.png'); 
-let logoHSrcG:any = ref('@/assets/nwhome/logo.gif'); 
+let logoHSrcP:any = ref(''); 
+let logoHSrcG:any = ref(''); 
 const logoHImport = async() => {
     const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
     const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
@@ -771,8 +795,9 @@ const changeMenu = (type: any, route?: any) => {
 
 
 // play video
+const realId = computed(() => store?.state.user?.realId);
+const idTemp = computed(() => store?.state.user?.idTemp);
 const id: any = ref(0)
-const idTemp: any = ref(0)
 const token0Number:any = ref(0)
 
 let type2: any = ref(1);
@@ -792,10 +817,11 @@ const connect: any = async () => {
             return res
         }
     })
-    idTemp.value = accounts;
+    store.dispatch('user/walletIdTemp',accounts);// 存放完整id
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+    store.dispatch('user/walletId',id.value);
 }
 
 
@@ -916,7 +942,7 @@ const checkScrollHeightAndLoadAnimation: any = () => {
 
 
 const deckd = () => {
-    window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf';
+    window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf';
 }
 
 // const stopPlay = () => {
@@ -932,13 +958,17 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-    connect();
+    store.dispatch('user/changeXplan',false);
+    if( realId.value != 0){
+        loggined.value = true;
+    }
     window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
     window.addEventListener('scroll', windowScroll, true);
     window.addEventListener('click', handleOtherClick, true);
     store.dispatch('user/changeActive', 0);
     store.dispatch('user/showDialog',false);
     logoHImport();
+    window.scrollTo(0,0);
 })
 
 </script>
@@ -964,6 +994,23 @@ onMounted(() => {
         }
         100%{
             left: -13vw;
+        }
+    }
+
+    @keyframes downloadAni {
+        0%{
+            left: -22vw;
+        }
+        100%{
+            left: -2vw;
+        }
+    }
+    @keyframes stopDownloadAni {
+        0%{
+            left: -2vw;
+        }
+        100%{
+            left: -22vw;
         }
     }
     @keyframes openAnimation {
@@ -1000,6 +1047,7 @@ onMounted(() => {
             opacity: .86;
             color: #fff;
             background-color: #000000;
+            overflow: hidden;
             .content{
                 height: 100%;
                 margin: 0 2.91vw 0 0vw;
@@ -1009,11 +1057,16 @@ onMounted(() => {
                 .logo{
                     width: 20.20vw;
                     height: 100%;
-                    // margin-top: .88vw;
-                    border: none;
-                }
-                .logo[src=""],.logo:not([src]){
-                    opacity:0;
+                    overflow: hidden;
+                    img{
+                        width: 100.2%;
+                        height: 100.2%;
+                        border: none;
+                        margin: -.1vw;
+                    }
+                    img[src=""],img:not([src]){
+                        opacity:0;
+                    }
                 }
                 .user{
                     display: flex;
@@ -1070,6 +1123,9 @@ onMounted(() => {
                             animation: stopSubmitAnimation 0.15s linear;
                             animation-fill-mode: forwards;
                         }
+                    }
+                    .login_in:hover > .txt{
+                        color: #EDFF00;
                     }
                     .logged_in{
                         display: flex;
@@ -1180,6 +1236,11 @@ onMounted(() => {
                     li:nth-child(3){
                         width: 9.8vw;
                     }
+                    li:last-child > span{
+                        display: inline-block;
+                        width: 100%;
+                        height: 100%;
+                    }
                     .active{
                         // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-titleBg.svg');
                         // background-repeat: no-repeat;
@@ -1199,7 +1260,7 @@ onMounted(() => {
                 top: 0;
                 width: 100%;
                 height: 100%;
-                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-cover.png');
+                background-image: url('../../../assets/nwhome/section-cover.png');
                 background-size: 100% 103%;
                 background-position: left top;
                 .title-wrap{
@@ -1321,7 +1382,7 @@ onMounted(() => {
         z-index: 9;
         position: fixed;
         top: 4.2vw;
-        left: 55vw;
+        left: 47vw;
         width: 9.27vw;
         height: 7.96vw;
         background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
@@ -1378,6 +1439,9 @@ onMounted(() => {
         }
         a + a{
             border-top: 2px solid #534968;
+        }
+        a:hover{
+            color: #35F1C8;
         }
     }
     .logged_menu{
@@ -1443,9 +1507,11 @@ onMounted(() => {
     .download{
         z-index: 8;
         position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
         width: 48.8vw;
         height: 28.9vw;
         background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
@@ -1480,11 +1546,14 @@ onMounted(() => {
                 margin-left: 9.94vw;
             }
             .close{
-                width: 10.72vw;
-                height: 10.72vw;
+                width: 2vw;
+                height: 2vw;
                 position: absolute;
-                top: -2.8vw;
-                right: -2vw;
+                top: 1.5vw;
+                right: 2.2vw;
+            }
+            .close:hover{
+                filter: drop-shadow(0 0 .5vw #4d11db);
             }
             .message{
                 width: 40.88vw;
@@ -1497,19 +1566,44 @@ onMounted(() => {
                 text-align: center;
             }
             .btn{
+                position: relative;
                 width: 14.53vw;
                 height: 4.16vw;
                 margin: 0 auto;
-                font-size: 1.3vw;
-                font-family: AlibabaPuHuiTi_2_115_Black;
-                color: #FFFFFF;
-                text-align: center;
                 // background-image: url('../../../assets/nwhome/download.svg');
-                background-size: auto 100%;
-                line-height: 4.16vw;
                 clip-path: polygon(0% 33.4%, 10.8% 0%, 100% 0, 100% 80.5%, 90.8% 100%, 0 100%);
                 cursor: pointer;
                 background-color: gray;
+                .txt{
+                    z-index: 8;
+                    position: absolute;
+                    width: 14.53vw;
+                    height: 4.16vw;
+                    font-size: 1.3vw;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #FFFFFF;
+                    text-align: center;
+                    background-size: auto 100%;
+                    line-height: 4.16vw;
+                }
+                .mask{
+                    position: absolute;
+                    top: 0;
+                    left: -22vw;
+                    width: 19vw;
+                    height: 100%;
+                    background-color: rgb(65, 64, 64);
+                    opacity: .8;
+                    transform: skewX(-50deg);
+                }
+                .downloadAni{
+                    animation: downloadAni 0.15s linear;
+                    animation-fill-mode: forwards;
+                }
+                .stopDownloadAni{
+                    animation: stopDownloadAni 0.15s linear;
+                    animation-fill-mode: forwards;
+                }
             }
         }
     }
@@ -1778,6 +1872,7 @@ onMounted(() => {
             justify-content: space-around;
             align-items: center;
             .nobody-left{
+                position: relative;
                 width: 45.57vw;
                 height: 44vw;
                 margin-left: 8vw;
@@ -1793,8 +1888,8 @@ onMounted(() => {
                     width: 10vw;
                     height: 3vw;
                     position: absolute;
-                    bottom: 7.8vw;
-                    left: 28vw;
+                    bottom: 7.3vw;
+                    left: 19.3vw;
                     div{
                         // position: absolute;
                         // right: 8.9vw;
@@ -1848,7 +1943,9 @@ onMounted(() => {
                     position: relative;
                     width: 25.31vw;
                     height: 13.54vw;
+                    padding: .2vw;
                     margin-top: 2vw;
+                    background-color: #0F0F10;
                     .videoBg{
                         position: absolute;
                         right: -.45vw;
@@ -1862,6 +1959,7 @@ onMounted(() => {
                         left: 0;
                         width: 100%;
                         height: 100%;
+                        padding: .2vw;
                     }
                     .video-wrap{
                         position: relative;
@@ -1886,8 +1984,9 @@ onMounted(() => {
                         position: absolute;
                         left: 0;
                         bottom: 0;
-                        width: 100%;
-                        height: 4.16vw;
+                        width: 24.91vw;
+                        height: 3.86vw;
+                        margin: 0 .2vw .3vw;
                         background-color: #000000;
                         .video-title{
                             margin-top: .3vw;
@@ -2000,7 +2099,7 @@ onMounted(() => {
                     width: 27.7vw;
                     height: 3.125vw;
                     font-size: 1.04vw;
-                    font-family: Arial-Black, Arial;
+                    font-family: AlibabaPuHuiTi_2_95_ExtraBold;
                     font-weight: 900;
                     color: #FFFFFF;
                     line-height: 3.125vw;
@@ -2501,14 +2600,14 @@ onMounted(() => {
         .logo{
             display: flex;
             justify-content: center;
-            margin-top: 3px;
+            margin-top: 2.4vw;
             height: 9.21vw;
-            margin-bottom: 4.63vw;
+            margin-bottom: 6vw;
             overflow: hidden;
             img:nth-child(1){
                 width: 6.77vw;
                 height: 6.61vw;
-                margin: .8vw 2vw 0 3vw;
+                margin: .8vw 2vw 0 1vw;
             }
             img:nth-child(2){
                 width: 12.29vw;
@@ -2532,9 +2631,15 @@ onMounted(() => {
                 width: 13.17vw;
                 height: 4.58vw;
                 margin-top: 2.3vw;
-                margin-right: 2.8vw;
+                margin-right: 3vw;
             }
             img:nth-child(5){
+                width: 19.63vw;
+                height: 3.64vw;
+                margin-top: 2.7vw;
+                margin-right: 2.6vw;
+            }
+            img:nth-child(6){
                 width: 7.29vw;
                 height: 6.51vw;
                 margin-top: 1.3vw;
@@ -2560,7 +2665,7 @@ onMounted(() => {
         .logo{
             display: flex;
             justify-content: center;
-            margin-top: 3.22vw;
+            margin-top: 3.8vw;
             margin-bottom: 7vw;
             overflow: hidden;  
             li{
@@ -2697,6 +2802,7 @@ onMounted(() => {
             height: 5.54vw;
         }
         .policy{
+            margin-left: 22vw;
             margin-right: 3vw;
             white-space: nowrap;
         }

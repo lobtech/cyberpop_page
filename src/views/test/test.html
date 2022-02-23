@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mask{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    z-index: 1005;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    video{
+        width: 60%;
+        height: auto;
+        display: block;
+        object-fit: fill;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="mask">
+        <video id="mp4" preload="auto" width="100%"
+            autoplay loop controls 
+            webkit-playsinline="true" 
+            playsinline="true" 
+            x5-playsinline="true" 
+            x5-video-player-type="h5"
+            x-webkit-airplay="allow" 
+            x5-video-orientation="landscape"
+            v-if="videotype == 4">
+            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/output.mp4" type="video/mp4">
+        </video>
+    </div>
+
+</body>
+</html>

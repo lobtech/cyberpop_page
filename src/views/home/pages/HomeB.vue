@@ -1,10 +1,12 @@
 <template>
-    <my-video v-if="isPlay" @touchmove.prevent :mobel="true" :videotype="type2" :videoSrc="'/assets/video/6dff55c4018832a1528ecbc410ec6094.mp4'" @click="playVideo"></my-video>
+    <my-video v-if="isPlay" @touchmove.prevent :mobel="true" :videotype="type2" @click="playVideo"></my-video>
     <div class="home">
         <header>
             <div class="content" id="header">
-                <img class="logo" v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt="">
-                <img class="logo" v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt="">
+                <div class="logo">
+                    <img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" @click="changeMenu(0, '/')" alt="">
+                    <img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" @click="changeMenu(0, '/')" alt="">
+                </div>
                 <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
             <div class="menuMask" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
@@ -16,7 +18,7 @@
                 </div>
                 <div class="logged_in" v-if="loggined">
                     <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
-                    <div class="idtxt">{{id}}</div>
+                    <div class="idtxt">{{realId}}</div>
                     <div class="submenu">
                         <div class="myassets">My assets</div>
                         <div class="logout">Logout</div>
@@ -28,13 +30,13 @@
                     <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
                     <li @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">Mystery Box</li>
                     <!-- <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li> -->
-                    <li @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">Cyberspace</li>
+                    <!-- <li @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">Cyberspace</li> -->
                     <li :class="{'active': active == 4}">
                         <div class="doc" @click="docMenu()">Doc <span :class="changeArrow ? 'change' : ''"></span></div>
                         <div class="docmenu" v-show="showDoc">
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" target="view_window">Whitepaper</a>
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture.pdf" target="view_window">Green paper</a>
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">Deck</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" target="view_window">Whitepaper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" target="view_window">Green paper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" target="view_window">Deck</a>
                         </div>
                     </li>
                 </ul>
@@ -59,7 +61,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         The Metaverse Combines Exploration, Combat, X-To-Earn and UGC 
                     </div>
                     <div class="btnbox">
-                        <div class="btn-register" @click="showDown = true"><div>REGISTER</div></div>
+                        <div class="btn-register" @click="playToEarn()"><div>Play to earn</div></div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
                             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section-btnPlay.svg" alt="">
@@ -73,12 +75,12 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section_buttom.svg" alt="" class="buttom">
         </footer>
     </div>
-    <div class="download" v-show="showDown">
+    <div class="download" v-show="showDown" :class="!isOut ? 'bounceShow' : 'bounceHide'">
         <div class="cover"></div>
         <div class="coverborder"></div>
         <div class="wrap">
             <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
-            <img class="close" src="@/assets/nwhome/closexplan.svg" alt="" @click="showDown = false">
+            <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="isOut = true">
             <div class="message">
                 Sorry, you are unable to download. The game is currently open only to authorized internal testers and communities. Contact us to get qualify.
             </div>
@@ -103,7 +105,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="welcome">
         <div class="warp">
-            <div class="title" id="ele1">WELCOMETO  TO<p class="white">CYBERPOP NEW WORLD</p></div>
+            <div class="title" id="ele1">WELCOME TO<p class="white">CYBERPOP NEW WORLD</p></div>
             <div class="desc">
                 A Metaverse adventure UGC game built on the <br/> 
                 ethereum blockchain.Travel through diverse <br/> 
@@ -126,10 +128,18 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
                 <div class="swiper1">
                     <div class="swiper-bg">
-                        <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/timeRemnant.png" alt="">
-                        <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/digitalPujas.png" alt="">
-                        <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/moonlightCentury.png" alt="">
-                        <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/futureCity.png" alt="">
+                        <div>
+                            <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/timeRemnant.png" alt="">
+                        </div>
+                        <div>
+                            <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/digitalPujas.png" alt="">
+                        </div>
+                        <div>
+                            <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/moonlightCentury.png" alt="">
+                        </div>
+                        <div>
+                            <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/futureCity.png" alt="">
+                        </div>
                     </div>
                     <div class="swiper-bg2">
                         <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/swiper-bgBlack.png" alt="">
@@ -414,6 +424,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
             <div>
                 <img class="logo5" src="@/assets/nwhome/partners5.png" alt="">
+                <img class="logo6" src="@/assets/nwhome/there.png" alt="">
             </div>
         </div>
     </div>
@@ -449,7 +460,6 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="footer">
-        <div class="mask"></div>
         <div class="footer-wrap">
             <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
             <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt="">
@@ -489,14 +499,15 @@ SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
 
 // xplan
 const xplanActive = computed(() => store?.state.user?.xplanActive);
+const xplanAni = computed(() => store?.state.user?.xplanAni);
 const showxplan = () => {
     showMenuAni.value = false;
-    if( id.value !== 0 ){
+    if( realId.value != 0 ){
         Web3.getBalance(idTemp.value).then((res) => {
             token0Number.value = res[0];
-            console.log(token0Number.value);
             if(token0Number.value <= 0){
                 store.dispatch('user/changeXplan',true);
+                store.dispatch('user/xplanChangeAni',true);
             }else{
                 window.open('https://game.cyberpop.online/xplan');
             }
@@ -508,6 +519,19 @@ const showxplan = () => {
 
 // register
 let showDown:any = ref(false);
+const playToEarn = () => {
+    if( realId.value != 0 ){
+        showDown.value = true; 
+        isOut.value = false;
+    }else{
+        messageAlert(0,'please connect wallet！')
+    }
+}
+
+// download
+let isOut:any = ref(false)
+
+
 
 
 // coming soon
@@ -668,8 +692,8 @@ const openseaLeave = () => {
 }
 
 
-let logoHSrcP:any = ref('@/assets/nwhome/logo_101.png'); 
-let logoHSrcG:any = ref('@/assets/nwhome/logo.gif'); 
+let logoHSrcP:any = ref(''); 
+let logoHSrcG:any = ref(''); 
 const logoHImport = async() => {
     const logoHSrcPng:any = await import('@/assets/nwhome/logo_101.png');
     const logoHSrcGif:any = await import('@/assets/nwhome/logo.gif');
@@ -736,8 +760,9 @@ const changeMenu = (type: any, route?: any) => {
 
 
 // play video
+const realId = computed(() => store?.state.user?.realId);
+const idTemp = computed(() => store?.state.user?.idTemp);
 const id: any = ref(0)
-const idTemp: any = ref(0)
 const token0Number:any = ref(0)
 
 let type2: any = ref(1);
@@ -751,7 +776,6 @@ const loggined: any = ref(false)
 const connect: any = async () => {
     showMenuAni.value = false;
     const [accounts]: any = await Web3.login().then((res: any) => {
-        // loggined.value = true;
         if( res == 'not dapp, install MetaMask！' ){
             messageAlert(0, res)
         }else{
@@ -759,12 +783,11 @@ const connect: any = async () => {
             return res
         }
     })
-    idTemp.value = accounts;
+    store.dispatch('user/walletIdTemp',accounts);// 存放完整id
     id.value = accounts;
     let len = id.value.length-1;
     id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-    loggined.value = true;
-
+    store.dispatch('user/walletId',id.value);
 }
 
 
@@ -903,27 +926,32 @@ const checkScrollHeightAndLoadAnimation: any = () => {
 
 
 const deckd = () => {
-    window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf';
+    window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf';
 }
 
-// const stopPlay = () => {
-//     let videobg = document.querySelector("#videobg") as HTMLElement;
-//     let relVideo = <HTMLVideoElement>videobg.querySelector("video");
-//     relVideo.play();
-// }
+const stopPlay = () => {
+    let videobg = document.querySelector("#videobg") as HTMLElement;
+    let relVideo = <HTMLVideoElement>videobg.querySelector("video");
+    relVideo.play();
+}
 
 onUnmounted(() => {
     window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
     window.removeEventListener('scroll', windowScroll, true);
+    window.removeEventListener('click', stopPlay, true);
 })
 
 onMounted(() => {
-    // stopPlay();
-    connect()
+    store.dispatch('user/changeXplan',false);
+    if( realId.value != 0){
+        loggined.value = true;
+    }
     window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
     window.addEventListener('scroll', windowScroll, true);
+    // window.addEventListener('click', stopPlay, true);
     store.dispatch('user/showDialog',false);
     logoHImport();
+    window.scrollTo(0,0);
 })
 
 </script>
@@ -965,6 +993,7 @@ onMounted(() => {
     body {
         height: 100%;
         overflow-x: hidden;
+        overflow: hidden;
     }
     .home{
         position: relative;
@@ -989,10 +1018,16 @@ onMounted(() => {
                 .logo{
                     width: 151px;
                     height: 41px;
-                    border: none;
-                }
-                .logo[src=""],.logo:not([src]){
-                    opacity:0;
+                    overflow: hidden;
+                    img{
+                        width: 100.2%;
+                        height: 100.2%;
+                        border: none;
+                        margin: -2px;
+                    }
+                    img[src=""],img:not([src]){
+                        opacity:0;
+                    }
                 }
                 .menu{
                     width: 30px;
@@ -1197,7 +1232,7 @@ onMounted(() => {
                 top: 0;
                 width: 100%;
                 height: 100%;
-                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section-cover.png');
+                background-image: url('../../../assets/nwhome/section-cover.png');
                 background-size: 101% 101%;
                 // background-size: 100% 100%;
                 // background-position: left top;
@@ -1318,9 +1353,11 @@ onMounted(() => {
     .download{
         z-index: 8;
         position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
         width: 314px;
         height: 354px;
         background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
@@ -1357,11 +1394,14 @@ onMounted(() => {
                 margin-left: 30px;
             }
             .close{
-                width: 100px;
-                height: 100px;
                 position: absolute;
-                top: -34px;
-                right: -34px;
+                top: 7px;
+                right: 7px;
+                width: 22px;
+                height: 22px;
+            }
+            .close:hover{
+                filter: drop-shadow(0 0 .3rem #3f04ca);
             }
             .message{
                 // background: #00FF9C;
@@ -1549,18 +1589,20 @@ onMounted(() => {
                         left: 32px;
                         width: 326px;
                         height: 164px;
-                        filter: blur(4vw);
-                        -webkit-filter: blur(4vw);
-                        -moz-filter: blur(4vw);
-                        -ms-filter: blur(4vw);   
-                        -o-filter: blur(4vw);   
-                        img{
-                            width: 100%;
-                            height: 100%;
-                            display: none;
-                        }
-                        img.show{
-                            display: block;
+                        div{
+                            filter: blur(4vw);
+                            -webkit-filter: blur(4vw);
+                            -moz-filter: blur(4vw);
+                            -ms-filter: blur(4vw);   
+                            -o-filter: blur(4vw);
+                            img{
+                                width: 100%;
+                                height: 100%;
+                                display: none;
+                            }
+                            img.show{
+                                display: block;
+                            }
                         }
 
                     }
@@ -1628,7 +1670,7 @@ onMounted(() => {
         width: 100%;
         height: 881px;
         margin-top: -1px;
-        background-color: #000;
+        background-color: #000000;
         display: flex;
         .nobody-wrap{
             width: 100%;
@@ -1715,7 +1757,8 @@ onMounted(() => {
                     position: relative;
                     width: 284px;
                     height: 149px;
-                    background: #000000;
+                    padding: 2px;
+                    background-color: #0F0F10;
                     .videoBg{
                         position: absolute;
                         right: -4.4px;
@@ -1729,6 +1772,7 @@ onMounted(() => {
                         left: 0;
                         width: 100%;
                         height: 100%;
+                        padding: 2px;
                     }
                     .video-wrap{
                         display: flex;
@@ -1749,8 +1793,9 @@ onMounted(() => {
                         position: absolute;
                         left: 0;
                         bottom: 0;
-                        width: 100%;
-                        height: 44px;
+                        width: 280px;
+                        height: 41px;
+                        margin: 0 2px 3px;
                         background-color: #000000;
                         text-align: right;
                         .video-title{
@@ -1836,8 +1881,8 @@ onMounted(() => {
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 90%;
-            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-bg2.png');
+            height: 88%;
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-bg3.png');
             // background-position: -1210px -2px;
             background-position: center top;
             background-size: auto 100%;
@@ -2359,7 +2404,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 400px;
+        height: 380px;
         margin: -2px 0;
         background-color: #000000;
         overflow: hidden;
@@ -2414,8 +2459,14 @@ onMounted(() => {
                     height: 50px;
                 }
                 .logo5{
-                    height: 90px;
-                    margin-top: 18px;
+                    height: 60px;
+                    margin-top: 8px;
+                    margin-right: 20px;
+                    margin-left: 20px;
+                }
+                .logo6{
+                    height: 30px;
+                    margin-top:6px;
                 }
             }
 
@@ -2540,9 +2591,17 @@ onMounted(() => {
         }
         .email:hover{
             filter: drop-shadow(0 0 6px #000000);
+            -webkit-filter: drop-shadow(0 0 6px #000000);
+            -moz-filter: drop-shadow(0 0 6px #000000);
+            -ms-filter: drop-shadow(0 0 6px #000000);
+            -o-filter: drop-shadow(0 0 6px #000000);
         }
         .email:focus-within {
             filter: drop-shadow(0 0 6px #000000);
+            -webkit-filter: drop-shadow(0 0 6px #000000);
+            -moz-filter: drop-shadow(0 0 6px #000000);
+            -ms-filter: drop-shadow(0 0 6px #000000);
+            -o-filter: drop-shadow(0 0 6px #000000);
         }
     }
     .footer{
@@ -2556,14 +2615,6 @@ onMounted(() => {
         a{
             color: #ffffff;
             text-decoration: none;
-        }
-        .mask{
-            position: absolute;
-            width: 96%;
-            height: 100%;
-            margin-left: 4%;
-            // background-color: #121122;
-            background-color: #000000;
         }
        .footer-wrap{
            position: absolute;

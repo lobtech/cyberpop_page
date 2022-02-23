@@ -1,5 +1,5 @@
 <template>
-    <div class="xplanpro">
+    <div class="xplanpro" :class="xplanActive && (xplanAni ? 'bounceShow' : 'bounceHide') ">
         <div class="cover"></div>
         <div class="coverborder"></div>
         <div class="top">
@@ -28,10 +28,13 @@
 import { computed, readonly, ref } from 'vue'
 import store from '@/store'
 
-// const xplanActive = computed(() => store?.state.user?.xplanActive);
+
+const xplanAni = computed(() => store?.state.user?.xplanAni);
+const xplanActive = computed(() => store?.state.user?.xplanActive);
+
 
 const closexplan = () => {
-    store.dispatch('user/changeXplan',false);
+    store.dispatch('user/xplanChangeAni',false);
 }
 
 </script>
@@ -40,11 +43,13 @@ const closexplan = () => {
 .xplanpro{
     z-index: 8;
     position: fixed;
-    top: 53%;
-    left: 50%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
     width: 314px;
     height: 354px;
-    transform: translate(-50%,-50%);
     // background: linear-gradient(180deg, #090223 0%, #090223 52%, #090223 100%);
     border: 4px solid;
     border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 4 4;
