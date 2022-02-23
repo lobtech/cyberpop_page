@@ -1,5 +1,5 @@
 <template>
-    <div class="xplanpro">
+    <div class="xplanpro" :class="xplanActive && (xplanAni ? 'bounceShow' : 'bounceHide') ">
         <div class="wrap">
             <img class="closexplan" src="@/assets/nwhome/closexplan.svg" alt="" @click="closexplan()">
             <div class="title1">
@@ -20,13 +20,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, readonly, ref } from 'vue'
+import { computed, onMounted, readonly, ref } from 'vue'
 import store from '@/store'
 
-// const xplanActive = computed(() => store?.state.user?.xplanActive);
+const xplanAni = computed(() => store?.state.user?.xplanAni);
+const xplanActive = computed(() => store?.state.user?.xplanActive);
+
 
 const closexplan = () => {
-    store.dispatch('user/changeXplan',false);
+    store.dispatch('user/xplanChangeAni',false);
 }
 
 
@@ -36,13 +38,16 @@ const closexplan = () => {
 .xplanpro{
     z-index: 8;
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
     width: 59.68vw;
     height: 33.12vw;
-    transform: translate(-50%,-50%);
     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/xplanpro.png');
     background-size: 100% 100%;
+    overflow: hidden;
     .wrap{ 
         position: relative;
         overflow: hidden;

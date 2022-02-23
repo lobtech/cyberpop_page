@@ -17,6 +17,9 @@ const states = {
     account: '' as string, // 用户地址
     nativeBalance: '' as string, // 本地余额
     tokenBalances: '' as string, // 令牌余额
+    realId: 0, // 带星号id，用于页面显示
+    idTemp: '' as string,  // 完整id，用于判断
+    xplanAni: false
 }
 export type typeof_user = typeof states
 export default {
@@ -61,6 +64,15 @@ export default {
             state['nativeBalance'] = ''
             state['tokenBalances'] = ''
         },
+        walletId(state, payload: any) {
+            state.realId = payload;
+        },
+        walletIdTemp(state, payload: any) {
+            state.idTemp = payload;
+        },
+        xplanChangeAni(state, payload: any) {
+            state.xplanAni = payload;
+        },
     },
     actions: {
         init({ commit }, paylaod: typeof_user) {
@@ -87,6 +99,15 @@ export default {
         // 注销
         logout({ commit }, paylaod: boolean) {
             commit('logout', paylaod)
+        },
+        walletId({ commit }, paylaod: any) {
+            commit('walletId', paylaod)
+        },
+        walletIdTemp({ commit }, paylaod: any) {
+            commit('walletIdTemp', paylaod)
+        },
+        xplanChangeAni({ commit }, paylaod: any) {
+            commit('xplanChangeAni', paylaod)
         },
     },
 } as Module<typeof_user, State>

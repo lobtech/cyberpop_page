@@ -1,33 +1,43 @@
 <template>
     <div class="mask">
-        <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-if="videotype == 1">
+        <!-- <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-if="videotype == 1">
             <source src="https://d1td2c8hf7fv9k.cloudfront.net/6dff55c4018832a1528ecbc410ec6094.mp4" type="video/mp4">
-            <!-- <source :src="videoSrc" type="video/WebM">
-            <source :src="videoSrc" type="video/Ogg"> -->
         </video>
         <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-else-if="videotype == 2">
             <source src="https://d1td2c8hf7fv9k.cloudfront.net/efce5218ffe7d5bec009c95d7bb92e85.mp4" type="video/mp4">
-            <!-- <source :src="videoSrc" type="video/WebM">
-            <source :src="videoSrc" type="video/Ogg"> -->
         </video>
         <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-else-if="videotype == 3">
             <source src="https://d1td2c8hf7fv9k.cloudfront.net/fd9efe5ce1ffcc8f1ae3fd6fdfab31e4.mp4" type="video/mp4">
-            <!-- <source :src="videoSrc" type="video/WebM">
-            <source :src="videoSrc" type="video/Ogg"> -->
-        </video>
-        <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-else-if="videotype == 4">
+        </video> -->
+        <video :style="{'width': (mobel ? 100 : 60) + '%'}" id="mp4" preload="auto" width="100%"
+                autoplay loop controls 
+                webkit-playsinline="true" 
+                playsinline="true" 
+                x5-playsinline="true" 
+                x5-video-player-type="h5"
+                x-webkit-airplay="allow" 
+                x5-video-orientation="landscape"
+                v-if="videotype == 4">
             <source src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/output.mp4" type="video/mp4">
             <!-- <source :src="videoSrc" type="video/WebM">
             <source :src="videoSrc" type="video/Ogg"> -->
         </video>
-        <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="none" width="100%" height="100%" autoplay loop controls v-else-if="videotype == 5">
+        <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="auto" width="100%" 
+                autoplay loop controls 
+                webkit-playsinline="true" 
+                playsinline="true" 
+                x5-playsinline="true" 
+                x5-video-player-type="h5"
+                x-webkit-airplay="allow" 
+                x5-video-orientation="landscape"
+                v-if="videotype == 5">
             <source src="https://d3bhixjyozyk2o.cloudfront.net/banner.mp4" type="video/mp4">
             <!-- <source :src="videoSrc" type="video/WebM">
             <source :src="videoSrc" type="video/Ogg"> -->
         </video>
-        <div class="play" @click.stop="playVideo()" v-if="mobel && isPlay">
+        <!-- <div class="play" @click.stop="playVideo()" v-if="mobel && isPlay">
             <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play">
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -38,24 +48,39 @@ const props = defineProps({
     videotype: Number,
     mobel: Boolean,
 })
-let isPlay = ref(true)
-let mp4: any = document.getElementById('mp4');
-const playVideo = (type: any = props.videotype) => {
-    isPlay.value = false;
-    if(mp4?.paused) {
 
-    }else{
-        isPlay.value = false;
-    }
-}
+// webkit-playsinline="true" playsinline="true" x5-playsinline="true" x5-video-player-type="h5"
+// x5-video-player-fullscreen="true" x5-video-ignore-metadata="true" x5-video-orientation="landscape" x-webkit-airplay="true"
+
+
+
+
+
+
+// let isPlay = ref(true)
+// let mp4: any = document.getElementById('mp4');
+// const playVideo = (type: any = props.videotype) => {
+//     isPlay.value = false;
+//     if(mp4?.paused) {
+
+//     }else{
+//         isPlay.value = false;
+//     }
+// }
 
 onMounted(() => {
-    // console.log(props);
-      if(mp4?.paused) {
-
-        }else{
-            isPlay.value = false;
-        }
+    // let flag = 0;
+    // window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function () {
+    //     if (window.orientation === 180 || window.orientation === 0) {//竖屏
+    //         if (flag = 1) {
+    //             flag = 0;
+    //             window.history.go(-1);//横屏之后再竖屏，则刷新当前页
+    //         }            
+    //     }
+    //     if (window.orientation === 90 || window.orientation === -90) {//横屏
+    //         flag = 1;
+    //     }
+    // }, false)
 })
 </script>
 

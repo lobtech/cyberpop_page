@@ -26,7 +26,7 @@ const getAccounts = async () => {
 
 
 // 查询余额
-const getBalance = async (id: string) => {
+const getBalance = async (id: any) => {
     const { abi, address }  = (contracts as any)['nft']
     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
     const contract = new web3.eth.Contract(abi, address) // 创建合约
