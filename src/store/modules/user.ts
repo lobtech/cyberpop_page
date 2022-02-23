@@ -13,7 +13,10 @@ const states = {
     active: 0,
     xplanActive: false,
     comingOutFlag: false,
-    showDialog: false
+    showDialog: false,
+    account: '' as string, // 用户地址
+    nativeBalance: '' as string, // 本地余额
+    tokenBalances: '' as string, // 令牌余额
 }
 export type typeof_user = typeof states
 export default {
@@ -51,7 +54,13 @@ export default {
         },
         showDialog(state, payload: any) {
             state.showDialog = payload;
-        }
+        },
+        // logout
+        logout(state, paylaod: boolean) {
+            state['account'] = ''
+            state['nativeBalance'] = ''
+            state['tokenBalances'] = ''
+        },
     },
     actions: {
         init({ commit }, paylaod: typeof_user) {
@@ -74,6 +83,10 @@ export default {
         },
         showDialog({ commit }, paylaod: any) {
             commit('showDialog', paylaod)
+        },
+        // 注销
+        logout({ commit }, paylaod: boolean) {
+            commit('logout', paylaod)
         },
     },
 } as Module<typeof_user, State>

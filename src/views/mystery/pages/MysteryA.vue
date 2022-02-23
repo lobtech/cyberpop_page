@@ -13,7 +13,7 @@
                             <li :class="select == 2 ? 'active' : ''" @click="selectLang(2)">Japanese</li>
                         </ul>
                     </div> -->
-                    <div class="login_in" v-if="!loggined" @click="connect()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
+                    <div class="login_in" v-if="!loggined" @click="login()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
                         <div class="txt">CONNECT WALLET</div>
                         <div class="mask" id="mask"></div>
                     </div>
@@ -340,6 +340,7 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+import mrs from '@/tools/moralis'
 import { log } from 'util';
 
 
@@ -477,6 +478,30 @@ const changeMenu = (type: any, route?: any) => {
 }
 
 
+const login = () =>{
+   mrs.currentAsync().then(res=>{
+       if(!res){
+            mrs.authenticate().then(res => {
+                console.log('res', res);
+                connect();
+            }).catch(err => {
+                console.log('err', err);
+            })
+       }else{
+           connect();
+       }
+   })
+}
+
+const signout = () => {
+   mrs.logOut().then(res=>{
+       console.log(res);
+       loggined.value = false;
+       showloggedFlag.value = false;
+   }).catch(err=>{
+       console.log(err);
+   })
+}
 
 
 
@@ -577,11 +602,12 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-    connect();
+    // connect();
     logoHImport();
     window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
     window.addEventListener('click', handleOtherClick, true);
     store.dispatch('user/changeActive', 3)
+    mrs.start();
 })
 
 </script>

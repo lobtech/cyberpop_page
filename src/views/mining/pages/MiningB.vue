@@ -10,7 +10,7 @@
                 <div class="close-menu">
                     <img @click="showMenu()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
-                <div class="login_in" v-if="!loggined" @click="connect()">
+                <div class="login_in" v-if="!loggined" @click="login()">
                     <div class="txt">CONNECT WALLET</div>
                 </div>
                 <div class="logged_in" v-if="loggined">
@@ -18,7 +18,7 @@
                     <div class="idtxt">{{id}}</div>
                     <div class="submenu">
                         <div class="myassets">My assets</div>
-                        <div class="logout">Logout</div>
+                        <div class="logout" @click="signout">Logout</div>
                     </div>
                     <div class="mask"></div>
                 </div>
@@ -167,6 +167,7 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+import mrs from '@/tools/moralis'
 import { log } from 'util';
 
 
@@ -186,6 +187,31 @@ const showComing = () => {
         // change animation
         store.dispatch('user/addComingOut', true)
     },3000)
+}
+
+const login = () =>{
+   mrs.currentAsync().then(res=>{
+       if(!res){
+            mrs.authenticate().then(res => {
+                console.log('res', res);
+                connect();
+            }).catch(err => {
+                console.log('err', err);
+            })
+       }else{
+           connect();
+       }
+   })
+}
+
+const signout = () => {
+   mrs.logOut().then(res=>{
+       console.log(res);
+       loggined.value = false;
+       showloggedFlag.value = false;
+   }).catch(err=>{
+       console.log(err);
+   })
 }
 
 
@@ -338,9 +364,10 @@ const connect: any = async () => {
 
 
 onMounted(() => {
-    connect();
+    // connect();
     logoHImport();
     store.dispatch('user/changeActive', 1);
+    mrs.start();
 })
 
 
