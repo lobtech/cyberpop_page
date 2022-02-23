@@ -13,7 +13,7 @@
                 <div class="close-menu">
                     <img @click="showMenu()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
-                <div class="login_in" v-if="!loggined" @click="connect()">
+                <div class="login_in" v-if="!loggined" @click="login()">
                     <div class="txt">CONNECT WALLET</div>
                 </div>
                 <div class="logged_in" v-if="loggined">
@@ -21,7 +21,7 @@
                     <div class="idtxt">{{realId}}</div>
                     <div class="submenu">
                         <div class="myassets">My assets</div>
-                        <div class="logout">Logout</div>
+                        <div class="logout" @click="signout">Logout</div>
                     </div>
                     <div class="mask"></div>
                 </div>
@@ -489,6 +489,7 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+import mrs from '@/tools/moralis'
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
@@ -552,6 +553,31 @@ const showComing = () => {
     },3000)
 }
 
+
+const login = () =>{
+   mrs.currentAsync().then(res=>{
+       if(!res){
+            mrs.authenticate().then(res => {
+                console.log('res', res);
+                connect();
+            }).catch(err => {
+                console.log('err', err);
+            })
+       }else{
+           connect();
+       }
+   })
+}
+
+const signout = () => {
+   mrs.logOut().then(res=>{
+       console.log(res);
+       loggined.value = false;
+       showloggedFlag.value = false;
+   }).catch(err=>{
+       console.log(err);
+   })
+}
 
 
 
@@ -942,6 +968,8 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
+    // stopPlay();
+    // connect()
     store.dispatch('user/changeXplan',false);
     if( realId.value != 0){
         loggined.value = true;
@@ -951,6 +979,7 @@ onMounted(() => {
     // window.addEventListener('click', stopPlay, true);
     store.dispatch('user/showDialog',false);
     logoHImport();
+    mrs.start()
     window.scrollTo(0,0);
 })
 

@@ -15,11 +15,6 @@ const login = async () => {
     return ethereum.request({ method: 'eth_requestAccounts' })
 }
 
-// 退出钱包
-const signout = async () => {
-
-}
-
 // 账户列表
 const getAccounts = async () => {
     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象

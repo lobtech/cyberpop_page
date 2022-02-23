@@ -14,6 +14,9 @@ const states = {
     xplanActive: false,
     comingOutFlag: false,
     showDialog: false,
+    account: '' as string, // 用户地址
+    nativeBalance: '' as string, // 本地余额
+    tokenBalances: '' as string, // 令牌余额
     realId: 0, // 带星号id，用于页面显示
     idTemp: '' as string,  // 完整id，用于判断
     xplanAni: false
@@ -55,6 +58,12 @@ export default {
         showDialog(state, payload: any) {
             state.showDialog = payload;
         },
+        // logout
+        logout(state, paylaod: boolean) {
+            state['account'] = ''
+            state['nativeBalance'] = ''
+            state['tokenBalances'] = ''
+        },
         walletId(state, payload: any) {
             state.realId = payload;
         },
@@ -86,6 +95,10 @@ export default {
         },
         showDialog({ commit }, paylaod: any) {
             commit('showDialog', paylaod)
+        },
+        // 注销
+        logout({ commit }, paylaod: boolean) {
+            commit('logout', paylaod)
         },
         walletId({ commit }, paylaod: any) {
             commit('walletId', paylaod)

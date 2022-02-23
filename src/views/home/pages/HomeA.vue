@@ -16,7 +16,7 @@
                             <li :class="select == 2 ? 'active' : ''" @click="selectLang(2)">Japanese</li>
                         </ul>
                     </div> -->
-                    <div class="login_in" v-if="!loggined" @click="connect()" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
+                    <div class="login_in" v-if="!loggined" @click="login()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
                         <div class="txt">CONNECT WALLET</div>
                         <div class="mask" id="mask"></div>
                     </div>
@@ -83,8 +83,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="cover"></div>
         <div class="coverborder"></div>
         <div>My Assets</div>
-        <!-- <div @click="router.push('/assets')">My Assets</div> -->
-        <div>Log out</div>
+        <div @click="signout">Log out</div>
     </div>
     <div class="download" v-show="showDown" :class="!isOut ? 'bounceShow' : 'bounceHide'">
         <div class="cover"></div>
@@ -482,6 +481,7 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+import mrs from '@/tools/moralis'
 // import 'https://d2cimmz3cflrbm.cloudfront.net/js/titleThree'
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -519,6 +519,30 @@ const handleOtherClick = (e:any) => {
     }
 }
 
+const login = () =>{
+   mrs.currentAsync().then(res=>{
+       if(!res){
+            mrs.authenticate().then(res => {
+                console.log('res', res);
+                connect();
+            }).catch(err => {
+                console.log('err', err);
+            })
+       }else{
+           connect();
+       }
+   })
+}
+
+const signout = () => {
+   mrs.logOut().then(res=>{
+       console.log(res);
+       loggined.value = false;
+       showloggedFlag.value = false;
+   }).catch(err=>{
+       console.log(err);
+   })
+}
 
 // xplan
 const xplanActive = computed(() => store?.state.user?.xplanActive);
@@ -959,6 +983,7 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
+    // connect();
     store.dispatch('user/changeXplan',false);
     if( realId.value != 0){
         loggined.value = true;
@@ -969,6 +994,7 @@ onMounted(() => {
     store.dispatch('user/changeActive', 0);
     store.dispatch('user/showDialog',false);
     logoHImport();
+    mrs.start();  //连接moralis服务器  通过moralis服务器来控制
     window.scrollTo(0,0);
 })
 
