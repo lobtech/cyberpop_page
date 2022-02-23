@@ -83,6 +83,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="cover"></div>
         <div class="coverborder"></div>
         <div>My Assets</div>
+        <!-- <div @click="router.push('/assets')">My Assets</div> -->
         <div>Log out</div>
     </div>
     <div class="download" v-show="showDown" :class="!isOut ? 'bounceShow' : 'bounceHide'">

@@ -214,8 +214,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
         </div> -->
         <div class="footer">
             <div class="footer-wrap">
-                <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
-                <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt="">
+                <!-- <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
+                <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt=""> -->
                 <div class="clause">
                     <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
                     <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
@@ -1178,7 +1178,7 @@ onMounted(() => {
             }
         }
         .recent{
-            background-color: #2c1f1f;
+            background-color: #000000;
             overflow: hidden;
             .recent-wrap{
                 .title{
@@ -1191,6 +1191,8 @@ onMounted(() => {
                     text-align: center;
                 }
                 ul{
+                    margin-bottom: 19px;
+                    overflow: hidden;
                     li{
                         display: flex;
                         justify-content: space-between;
@@ -1198,13 +1200,14 @@ onMounted(() => {
                         padding: 16px;
                         width: 315px;
                         height: 133px;
+                        margin-bottom: 18px;
                         background: #1A1728;
                         .left{
                             display: flex;
                             .icon{
-                                width: 4.63vw;
-                                height: 4.73vw;   
-                                margin-right: .93vw;
+                                width: 69px;
+                                height: 70px;
+                                margin-right: 11px;
                                 background: #0F0B17;
                                 img{
                                     height: 100%;
@@ -1213,88 +1216,85 @@ onMounted(() => {
                             }
                             .text{
                                 .saletime{
-                                    width: 30vw;
-                                    height: 1.82vw;
-                                    margin-bottom: .98vw;
-                                    font-size: 1.19vw;
+                                    width: 180px;
+                                    margin-bottom: 7px;
+                                    height: 21px;
+                                    font-size: 14px;
                                     font-family: AlibabaPuHuiTi_2_85_Bold;
                                     color: #FFFFFF;
-                                    line-height: 1.66vw;
+                                    line-height: 20px;
                                     span{
-                                        margin: .6vw;
-                                        height: 1.66vw;
-                                        font-size: 1.19vw;
+                                        margin-left: 8px;
+                                        height: 20px;
+                                        font-size: 14px;
                                         font-family: AlibabaPuHuiTi_2_55_Regular;
                                         color: #B3B3B3;
-                                        line-height: 1.66vw;
+                                        line-height: 20px;
                                     }
                                 }
-                                .participant{
-                                    display: flex;
-                                    .buyer{
-                                        width: 14.2vw;
-                                        height: 1.4vw;
-                                        font-size: .93vw;
-                                        font-family: AlibabaPuHuiTi_2_55_Regular;
-                                        color: #35F1C8;
-                                        line-height: 1.3vw;
-                                        span{
-                                            width: 8.54vw;
-                                            height: 1.4vw;
-                                            margin-left: .36vw;
-                                            font-size: .93vw;
-                                            font-family: AlibabaPuHuiTi_2_55_Regular;
-                                            color: #B3B3B3;
-                                            line-height: 1.3vw;
-                                        }
-                                    }
-                                    .seller{
-                                        width: 14vw;
-                                        height: 1.4vw;
-                                        font-size: .93vw;
-                                        font-family: AlibabaPuHuiTi_2_55_Regular;
-                                        color: #6D4AFF;
-                                        line-height: 1.3vw;
-                                        span{
-                                            width: 8.54vw;
-                                            height: 1.4vw;
-                                            margin-left: .36vw;
-                                            font-size: .93vw;
-                                            font-family: AlibabaPuHuiTi_2_55_Regular;
-                                            color: #B3B3B3;
-                                            line-height: 1.3vw;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .right{
-                            display: flex;
-                            img{
-                                width: 1.61vw;
-                                height: 1.61vw;
-                                margin-top: .83vw;
-                                margin-right: .3vw;
-                            }
-                            .price{
-                                position: relative;
-                                width: 5.83vw;
-                                height: 2.18vw;
-                                margin-top: .52vw;
-                                font-size: 1.56vw;
-                                font-family: AlibabaPuHuiTi_2_105_Heavy;
-                                color: #FFFFFF;
-                                line-height: 2.18vw;
-                                text-align: right;
-                                span{
-                                    position: absolute;
-                                    top: 2.6vw;
-                                    right: 0;
-                                    height: 1.3vw;
-                                    font-size: .93vw;
+                                .buyer{
+                                    width: 120px;
+                                    height: 18px;
+                                    margin-bottom: 6px;
+                                    font-size: 11px;
                                     font-family: AlibabaPuHuiTi_2_55_Regular;
-                                    color: #B3B3B3;
-                                    line-height: 1.3vw;
+                                    color: #35F1C8;
+                                    line-height: 16px;
+                                    span{
+                                        height: 18px;
+                                        font-size: 11px;
+                                        margin-left: 5px;
+                                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                                        color: #B3B3B3;
+                                        line-height: 16px;
+                                    }
+                                }
+                                .seller{
+                                    width: 120px;
+                                    height: 18px;
+                                    margin-bottom: 6px;
+                                    font-size: 11px;
+                                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                                    color: #6D4AFF;
+                                    line-height: 16px;
+                                    span{
+                                        height: 18px;
+                                        font-size: 11px;
+                                        margin-left: 5px;
+                                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                                        color: #B3B3B3;
+                                        line-height: 16px;
+                                    }
+                                }
+                                .right{
+                                    display: flex;
+                                    img{
+                                        width: 20px;
+                                        height: 20px;
+                                        margin-top: 4px;
+                                        margin-right: 3px;
+                                    }
+                                    .price{
+                                        position: relative;
+                                        width: 67px;
+                                        height: 25px;
+                                        margin-top: 3px;
+                                        font-size: 18px;
+                                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                                        color: #FFFFFF;
+                                        line-height: 25px;
+                                        text-align: right;
+                                        span{
+                                            position: absolute;
+                                            top: 6px;
+                                            right: -40px;
+                                            height: 15px;
+                                            font-size: 11px;
+                                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                                            color: #B3B3B3;
+                                            line-height: 15px;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1308,8 +1308,10 @@ onMounted(() => {
             flex-direction: column;
             width: 100%;
             height: 206px;
-            background-color: #000000;
+            // background-color: #000000;
+            background: #121122;
             align-items: center;
+            overflow: hidden;
             a{
                 color: #ffffff;
                 text-decoration: none;
@@ -1318,6 +1320,7 @@ onMounted(() => {
                 position: absolute;
                 width: 100%;
                 height: 100%;
+                margin-top: 30px;
                 text-align: center;
                     .logo{
                         width: 181px;
