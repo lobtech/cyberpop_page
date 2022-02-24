@@ -60,27 +60,36 @@ const routes = [
             transition: 'slide-right',
         },
     },
-    {
-        name: 'assets',
-        path: '/assets',
-        component: () => import('../views/assets/index.vue'),
-        meta: {
-            keepAlive: false,
-            showFooter: true,
-            transition: 'slide-right',
-        },
-    },
+    // {
+    //     name: 'assets',
+    //     path: '/assets',
+    //     component: () => import('../views/assets/index.vue'),
+    //     meta: {
+    //         keepAlive: false,
+    //         showFooter: true,
+    //         transition: 'slide-right',
+    //         requiresAuth: true,
+    //     },
+    // },
 ]
 
 const router = createRouter({
     history: createWebHistory(),
-    routes,
-    scrollBehavior(to:any,from:any,saveTop:any){
-        if(saveTop){
-            return saveTop;
-        }else{
-            return { x:0, y:0 };
-        }
-    }
+    routes
 })
+
+// router.beforeEach((to , from, next) => {
+//     let realId = localStorage.getItem('realIdLocal');
+//     if( to.matched.some( record => record.meta.requiresAuth ) ){
+//         if( !realId ){
+//             return
+//         }else{
+//             next();
+//         }
+//     }else{
+//         next();
+//     }
+// })
+
+
 export default router
