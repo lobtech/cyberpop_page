@@ -12,7 +12,7 @@
                 <div class="close-menu">
                     <img @click="showMenu()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
-                <div class="login_in" v-if="!loggined" @click="connect()">
+                <div class="login_in" v-if="!loggined" @click="login()">
                     <div class="txt">CONNECT WALLET</div>
                 </div>
                 <div class="logged_in" v-if="loggined">
@@ -20,7 +20,7 @@
                     <div class="idtxt">{{realId}}</div>
                     <div class="submenu">
                         <div class="myassets">My assets</div>
-                        <div class="logout">Logout</div>
+                        <div class="logout" @click="signout">Logout</div>
                     </div>
                     <div class="mask"></div>
                 </div>
@@ -147,7 +147,7 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
-
+import mrs from '@/tools/moralis'
 
 
 
@@ -170,6 +170,33 @@ const showComing = () => {
     },3000)
 }
 
+
+
+const login = () =>{
+   mrs.currentAsync().then((res:any)=>{
+       if(!res){
+            mrs.authenticate().then((res:any) => {
+                console.log('res', res);
+                connect();
+            }).catch((err:any) => {
+                console.log('err', err);
+            })
+       }else{
+           connect();
+       }
+   })
+}
+
+const signout = () => {
+   mrs.logOut().then((res:any)=>{
+       console.log(res);
+       loggined.value = false;
+       showMenuAni.value = false;
+       store.dispatch('user/walletId',0);
+   }).catch((err:any)=>{
+       console.log(err);
+   })
+}
 
 
 
@@ -206,21 +233,8 @@ const logoHImport = async() => {
 
 // header
 let logoHFlag: any = ref(false) ;
-// const changeHGif = () => {
-//     logoHFlag.value = true;
-// }
-// const stopHGif = () => {
-//     logoHFlag.value = false;
-// }
-
 // footer
 let logoFlag: any = ref(false) ;
-// const changeGif = () => {
-//     logoFlag.value = true;
-// }
-// const stopGif = () => {
-//     logoFlag.value = false;
-// }
 
 
 

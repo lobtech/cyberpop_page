@@ -193,12 +193,12 @@ const showComing = () => {
 }
 
 const login = () =>{
-   mrs.currentAsync().then(res=>{
+   mrs.currentAsync().then((res:any)=>{
        if(!res){
-            mrs.authenticate().then(res => {
+            mrs.authenticate().then((res:any) => {
                 console.log('res', res);
                 connect();
-            }).catch(err => {
+            }).catch((err:any) => {
                 console.log('err', err);
             })
        }else{
@@ -208,11 +208,12 @@ const login = () =>{
 }
 
 const signout = () => {
-   mrs.logOut().then(res=>{
+   mrs.logOut().then((res:any)=>{
        console.log(res);
        loggined.value = false;
-       showloggedFlag.value = false;
-   }).catch(err=>{
+       showMenuAni.value = false;
+       store.dispatch('user/walletId',0);
+   }).catch((err:any)=>{
        console.log(err);
    })
 }
@@ -272,21 +273,9 @@ const logoHImport = async() => {
 
 // header
 let logoHFlag: any = ref(false) ;
-// const changeHGif = () => {
-//     logoHFlag.value = true;
-// }
-// const stopHGif = () => {
-//     logoHFlag.value = false;
-// }
 
 // footer
 let logoFlag: any = ref(false) ;
-// const changeGif = () => {
-//     logoFlag.value = true;
-// }
-// const stopGif = () => {
-//     logoFlag.value = false;
-// }
 
 
 
