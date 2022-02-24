@@ -66,7 +66,10 @@
     <div class="assets">
         <div class="wrap">
             <div class="welcome">
-                <img src="" alt="">
+                <div class="icon">
+                    <img src="@/assets/nwAssets/portrait.svg" alt="">
+                    <img src="@/assets/nwAssets/portraitBg.svg" alt="">
+                </div>
                 <div class="title">Hi,Wade Warren</div>
                 <div class="id">0xab5801a7d39...259aec9b</div>
                 <div class="desc">Your Cyberpop NFT item, which changed in my assets, will be synchronized to opensea and within the game in Multi-
@@ -80,17 +83,23 @@
                         <input type="text" placeholder="placeholder">
                     </div>
                     <div class="type">
-                        <input type="radio" name="type" value="character">
-                        <input type="radio" name="type" value="weapon">
-                        <input type="radio" name="type" value="supportcard">
-                        <input type="radio" name="type" value="item">
-                        <input type="radio" name="type" value="blindbox">
+                        <div class="name">Type</div>
+                        <div class="check">
+                            <input type="radio" name="type" value="character">Character
+                            <input type="radio" name="type" value="weapon">Weapon
+                            <input type="radio" name="type" value="supportcard">Support card
+                            <input type="radio" name="type" value="item">Item
+                            <input type="radio" name="type" value="blindbox">Blind box
+                        </div>
                     </div>
                     <div class="quality">
-                        <input type="radio" name="type" value="legend">
-                        <input type="radio" name="type" value="epic">
-                        <input type="radio" name="type" value="rare">
-                        <input type="radio" name="type" value="common">
+                        <div class="name">Quality</div>
+                        <div class="check">
+                            <input type="radio" name="type" value="legend">Legend
+                            <input type="radio" name="type" value="epic">Epic
+                            <input type="radio" name="type" value="rare">Rare
+                            <input type="radio" name="type" value="common">Common
+                        </div>
                     </div>
                 </div>
                 <div class="ecrchange">
@@ -333,20 +342,6 @@ onMounted(() => {
             left: -13vw;
         }
     }
-    @keyframes wave{
-        from {
-            -webkit-transform: rotateZ(0deg) ;
-            transform: rotateZ(0deg);
-        }
-        to {
-            -webkit-transform: rotateZ(360deg);
-            transform: rotateZ(360deg);
-        }
-    }
-    a {
-    text-decoration: none;
-    }
-    
     .router-link-active {
     text-decoration: none;
     }
@@ -711,6 +706,21 @@ onMounted(() => {
             line-height: 1.3vw;
             text-align: right;
             cursor: pointer;
+        }
+    }
+    .assets{
+        width: 100%;
+        // padding-top: 5.5vw;
+        background-color: #000000;
+        .wrap{
+            width: 100%;
+            padding-top: 5.5vw;
+            background-image: url('../../../assets/nwAssets/bodyBg.png');
+            background-position: left top;
+            background-size: 100% auto;
+            .welcome{
+                width: 100%;
+            }
         }
     }
    .footer{
