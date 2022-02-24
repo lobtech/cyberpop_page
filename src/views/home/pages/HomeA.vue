@@ -481,7 +481,6 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
-import mrs from '@/tools/moralis'
 // import 'https://d2cimmz3cflrbm.cloudfront.net/js/titleThree'
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -520,29 +519,13 @@ const handleOtherClick = (e:any) => {
 }
 
 const login = () =>{
-   mrs.currentAsync().then((res:any)=>{
-       if(!res){
-            mrs.authenticate().then((res:any) => {
-                console.log('res', res);
-                connect();
-            }).catch((err:any) => {
-                console.log('err', err);
-            })
-       }else{
-           connect();
-       }
-   })
+   connect()
 }
 
 const signout = () => {
-   mrs.logOut().then((res:any)=>{
-       console.log(res);
-       loggined.value = false;
-       showloggedFlag.value = false;
-       store.dispatch('user/walletId',0);
-   }).catch((err:any)=>{
-       console.log(err);
-   })
+    loggined.value = false;
+    showloggedFlag.value = false;
+    store.dispatch('user/walletId',0);
 }
 
 // xplan
@@ -983,7 +966,6 @@ onMounted(() => {
     store.dispatch('user/changeActive', 0);
     store.dispatch('user/showDialog',false);
     logoHImport();
-    mrs.start();  //连接moralis服务器  通过moralis服务器来控制
     window.scrollTo(0,0);
 })
 

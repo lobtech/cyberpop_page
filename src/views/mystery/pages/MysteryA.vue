@@ -342,7 +342,6 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
-import mrs from '@/tools/moralis'
 import { log } from 'util';
 
 
@@ -473,28 +472,13 @@ const changeMenu = (type: any, route?: any) => {
 
 
 const login = () =>{
-   mrs.currentAsync().then((res:any)=>{
-       if(!res){
-            mrs.authenticate().then((res:any) => {
-                console.log('res', res);
-                connect();
-            }).catch((err:any) => {
-                console.log('err', err);
-            })
-       }else{
-           connect();
-       }
-   })
+    connect();
 }
 
 const signout = () => {
-   mrs.logOut().then((err:any)=>{
-       loggined.value = false;
-       showloggedFlag.value = false;
-       store.dispatch('user/walletId',0);
-   }).catch((err:any)=>{
-       console.log(err);
-   })
+    loggined.value = false;
+    showloggedFlag.value = false;
+    store.dispatch('user/walletId',0);
 }
 
 
@@ -611,7 +595,6 @@ onMounted(() => {
     window.addEventListener('click', handleOtherClick, true);
     store.dispatch('user/changeActive', 3);
     window.scrollTo(0,0);
-    mrs.start();
 })
 
 </script>

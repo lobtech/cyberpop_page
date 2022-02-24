@@ -149,8 +149,6 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
-import mrs from '@/tools/moralis'
-
 
 
 // coming soon
@@ -215,29 +213,13 @@ let logoFlag: any = ref(false) ;
 
 
 const login = () =>{
-   mrs.currentAsync().then((res:any)=>{
-       if(!res){
-            mrs.authenticate().then((res:any) => {
-                console.log('res', res);
-                connect();
-            }).catch((err:any) => {
-                console.log('err', err);
-            })
-       }else{
-           connect();
-       }
-   })
+    connect();
 }
 
 const signout = () => {
-   mrs.logOut().then((res:any)=>{
-       console.log(res);
-       loggined.value = false;
-       showMenuAni.value = false;
-       store.dispatch('user/walletId',0);
-   }).catch((err:any)=>{
-       console.log(err);
-   })
+    loggined.value = false;
+    showMenuAni.value = false;
+    store.dispatch('user/walletId',0);
 }
 
 
@@ -321,7 +303,6 @@ onMounted(() => {
     }
     logoHImport();
     window.scrollTo(0,0);
-    mrs.start();
 })
 
 </script>
