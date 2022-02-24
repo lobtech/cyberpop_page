@@ -60,16 +60,16 @@ const routes = [
             transition: 'slide-right',
         },
     },
-    {
-        name: 'assets',
-        path: '/assets',
-        component: () => import('../views/assets/index.vue'),
-        meta: {
-            keepAlive: false,
-            showFooter: true,
-            transition: 'slide-right',
-        },
-    },
+    // {
+    //     name: 'assets',
+    //     path: '/assets',
+    //     component: () => import('../views/assets/index.vue'),
+    //     meta: {
+    //         keepAlive: false,
+    //         showFooter: true,
+    //         transition: 'slide-right',
+    //     },
+    // },
 ]
 
 const router = createRouter({

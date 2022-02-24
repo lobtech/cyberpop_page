@@ -3,7 +3,10 @@
         <div class="cover"></div>
         <div class="coverborder"></div>
         <div class="top">
-            <img class="closexplan" src="@/assets/nwhome/closexplan.svg" alt="" @click="closexplan()">
+            <div class="close">
+                <img src="@/assets/nwhome/close.svg" alt="" @click="closexplan()">
+                <div class="closebg"></div>
+            </div>
             <div class="title1">
                 X-PLAN IS A PLAN THAT MAKE INVESTORS AND SHAREHOLDERS TO WATCH THE PROGRESS OF THE PROJECT.
             </div>
@@ -77,16 +80,37 @@ const closexplan = () => {
         position: relative;
         width: 100%;
         height: 174px;
-        background-image: url('../../assets/nwhomePhone/xplanpro.png');
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/xplanpro2-phone-home.png');
         background-size: 101% 100%;
         background-position: left -11px;
         overflow: hidden;
-        .closexplan{
+        .close{
             position: absolute;
-            right: -51px;
-            top: -49px;
-            width: 130px;
-            height: 130px
+            top: 0vw;
+            right: 0vw;
+            width: 70px;
+            height: 70px;
+            img{
+                z-index: 2;
+                width: 24px;
+                height: 24px;
+                position: absolute;
+                top: 3px;
+                right: 3px;
+            }
+            div{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: -17px;
+                right: -20px;
+            }
+            img:hover + .closebg{
+                background-image: url('../../assets/nwhome/closeBg.svg');
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
         }
         .title1{
             width: 156px;

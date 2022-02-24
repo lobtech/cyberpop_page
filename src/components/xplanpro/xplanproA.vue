@@ -1,7 +1,10 @@
 <template>
     <div class="xplanpro" :class="xplanActive && (xplanAni ? 'bounceShow' : 'bounceHide') ">
         <div class="wrap">
-            <img class="closexplan" src="@/assets/nwhome/closexplan.svg" alt="" @click="closexplan()">
+            <div class="close">
+                <img src="@/assets/nwhome/close.svg" alt="" @click="closexplan()">
+                <div class="closebg"></div>
+            </div>
             <div class="title1">
                 X-PLAN IS A PLAN THAT MAKE INVESTORS AND SHAREHOLDERS TO WATCH THE PROGRESS OF THE PROJECT.
             </div>
@@ -45,18 +48,39 @@ const closexplan = () => {
     margin: auto;
     width: 59.68vw;
     height: 33.12vw;
-    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/xplanpro.png');
+    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/xplanpro2-home.png');
     background-size: 100% 100%;
     overflow: hidden;
     .wrap{ 
         position: relative;
         overflow: hidden;
-        .closexplan{
+        .close{
             position: absolute;
-            right: -2.8vw;
-            top: -1vw;
-            width: 10.72vw;
-            height: 10.78vw;
+            top: 2vw;
+            right: 0vw;
+            width: 10vw;
+            height: 10vw;
+            img{
+                z-index: 2;
+                width: 2.4vw;
+                height: 2.4vw;
+                position: absolute;
+                top: 1.5vw;
+                right: 1.8vw;
+            }
+            div{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: -2vw;
+                right: -2.1vw;
+            }
+            img:hover + .closebg{
+                background-image: url('../../assets/nwhome/closeBg.svg');
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
         }
         .title1{
             width: 28.12vw;

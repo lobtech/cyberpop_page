@@ -52,7 +52,7 @@
         </header>
         <section>
             <video-bg 
-id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg.png">
+id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg2.png">
             </video-bg>
             <div class="titles"> 
                 <div class="title-wrap">
@@ -80,7 +80,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="coverborder"></div>
         <div class="wrap">
             <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
-            <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="isOut = true">
+            <div class="close">
+                <img src="@/assets/nwhome/close.svg" alt="" @click="isOut = true">
+                <div class="closebg"></div>
+            </div>
             <div class="message">
                 Sorry, you are unable to download. The game is currently open only to authorized internal testers and communities. Contact us to get qualify.
             </div>
@@ -129,16 +132,16 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="swiper1">
                     <div class="swiper-bg">
                         <div>
-                            <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/timeRemnant.png" alt="">
+                            <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant2.png" alt="">
                         </div>
                         <div>
-                            <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/digitalPujas.png" alt="">
+                            <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas2.png" alt="">
                         </div>
                         <div>
-                            <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/moonlightCentury.png" alt="">
+                            <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury2.png" alt="">
                         </div>
                         <div>
-                            <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/futureCity.png" alt="">
+                            <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity2.png" alt="">
                         </div>
                     </div>
                     <div class="swiper-bg2">
@@ -164,10 +167,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :speed="200"
                             :autoplay="true"
                         >
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/timeRemnant.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/digitalPujas.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/moonlightCentury.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/futureCity.png"  alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant2.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas2.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury2.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity2.png"  alt=""></swiper-slide>
                         </swiper>
                     </div>
                 </div>
@@ -177,7 +180,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="nobody">
         <div class="nobody-wrap">
             <div class="nobody-left">
-                <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg.png" alt="">
+                <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg2.png" alt="">
                 <div class="nobody-img"></div>
                 <div class="nobody-left-tip">
                     <div>Scarlet Witch <br/> in cyberspace</div>
@@ -287,8 +290,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
             </div>
             <div class="news-img" @click="newsActiveSrc()">
-                <img :class="{'newsShow': showNewsImg == 0}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-bg.png" alt="">
-                <img :class="{'newsShow': showNewsImg == 1}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-bg2.png" alt="">
+                <img :class="{'newsShow': showNewsImg == 0}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg-2.png" alt="">
+                <img :class="{'newsShow': showNewsImg == 1}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg2-2.png" alt="">
                 <div class="desc">
                     <div>{{newsTitle1}}</div>
                 </div>
@@ -1401,8 +1404,33 @@ onMounted(() => {
                 width: 22px;
                 height: 22px;
             }
-            .close:hover{
-                filter: drop-shadow(0 0 .3rem #3f04ca);
+            .close{
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                width: 45px;
+                height: 45px;
+                img{
+                    z-index: 2;
+                    width: 24px;
+                    height: 24px;
+                    position: absolute;
+                    top: 1.1vw;
+                    right: 1.8vw;
+                }
+                div{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: -1.4vw;
+                    right: -1.2vw;
+                }
+                img:hover + .closebg{
+                    background-image: url('../../../assets/nwhome/closeBg.svg');
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                }
             }
             .message{
                 // background: #00FF9C;

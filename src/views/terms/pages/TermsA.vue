@@ -207,6 +207,7 @@ const login = () =>{
 const signout = () => {
     loggined.value = false;
     showloggedFlag.value = false;
+    hoverLogged.value = false;
     store.dispatch('user/walletId',0);
 }
 

@@ -653,7 +653,7 @@ onMounted(() => {
         .banner{
             width: 100%;
             height: 387px;
-            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwminingPhone/banner.png');
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwminingPhone/banner-phone.png');
             background-repeat: no-repeat;
             background-position: -311px top;
             background-size: auto 100%; 

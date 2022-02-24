@@ -215,6 +215,7 @@ const login = () =>{
 const signout = () => {
     loggined.value = false;
     showloggedFlag.value = false;
+    hoverLogged.value = false;
     store.dispatch('user/walletId',0);
 }
 
@@ -826,7 +827,7 @@ onMounted(() => {
         .banner{
             width: 100%;
             height: 25.78vw;
-            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwmining/banner.png');
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwmining/banner-home.png');
             background-repeat: no-repeat;
             background-position: left bottom;
             background-size: 100% 100%; 

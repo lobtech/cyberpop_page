@@ -61,7 +61,7 @@
         <div class="cover"></div>
         <div class="coverborder"></div>
         <div>My Assets</div>
-        <div>Log out</div>
+        <div @click="signout">Log out</div>
     </div>
     <div class="boxBg">
         <div class="video">
@@ -478,6 +478,7 @@ const login = () =>{
 const signout = () => {
     loggined.value = false;
     showloggedFlag.value = false;
+    hoverLogged.value = false;
     store.dispatch('user/walletId',0);
 }
 
