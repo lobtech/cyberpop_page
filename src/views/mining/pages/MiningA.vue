@@ -378,10 +378,6 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-    // connect();
-    logoHImport();
-    window.addEventListener('click', handleOtherClick, true);
-    store.dispatch('user/changeActive', 1)
     if( realId.value != 0){
         loggined.value = true;
     }

@@ -300,6 +300,7 @@ onMounted(() => {
         loggined.value = true;
     }
     logoHImport();
+    store.dispatch('user/changeActive', 0);
     window.scrollTo(0,0);
 })
 

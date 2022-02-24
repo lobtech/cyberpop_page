@@ -239,21 +239,8 @@ const logoHImport = async() => {
 
 // header
 let logoHFlag: any = ref(false) ;
-// const changeHGif = () => {
-//     logoHFlag.value = true;
-// }
-// const stopHGif = () => {
-//     logoHFlag.value = false;
-// }
-
 // footer
 let logoFlag: any = ref(false) ;
-// const changeGif = () => {
-//     logoFlag.value = true;
-// }
-// const stopGif = () => {
-//     logoFlag.value = false;
-// }
 
 
 
@@ -336,6 +323,7 @@ onMounted(() => {
     }
     logoHImport();
     window.addEventListener('click', handleOtherClick, true);
+    store.dispatch('user/changeActive', 0);
     window.scrollTo(0,0);
 })
 

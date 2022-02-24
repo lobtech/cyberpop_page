@@ -467,9 +467,6 @@ const checkScrollHeightAndLoadAnimation: any = () => {
 
 
 onMounted(() => {
-    // connect();
-    logoHImport();
-    store.dispatch('user/changeActive', 2);
     if( realId.value != 0){
         loggined.value = true;
     }

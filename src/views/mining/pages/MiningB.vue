@@ -339,9 +339,6 @@ const connect: any = async () => {
 
 
 onMounted(() => {
-    // connect();
-    logoHImport();
-    store.dispatch('user/changeActive', 1);
     if( realId.value != 0){
         loggined.value = true;
     }

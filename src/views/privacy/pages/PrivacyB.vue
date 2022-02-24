@@ -297,11 +297,11 @@ const connect: any = async () => {
 
 
 onMounted(() => {
-    // connect();
     if( realId.value != 0){
         loggined.value = true;
     }
     logoHImport();
+    store.dispatch('user/changeActive', 0);
     window.scrollTo(0,0);
 })
 

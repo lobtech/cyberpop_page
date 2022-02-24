@@ -583,11 +583,6 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-    // connect();
-    logoHImport();
-    window.addEventListener('scroll', checkScrollHeightAndLoadAnimation, true);
-    window.addEventListener('click', handleOtherClick, true);
-    store.dispatch('user/changeActive', 3)
     if( realId.value != 0){
         loggined.value = true;
     }

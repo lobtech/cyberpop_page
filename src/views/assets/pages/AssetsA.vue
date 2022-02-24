@@ -306,13 +306,12 @@ onUnmounted(() => {
 })
 
 onMounted(() => {
-    // connect();
-    logoHImport();
-    window.addEventListener('click', handleOtherClick, true);
-    store.dispatch('user/changeActive', 0)
     if( realId.value != 0){
         loggined.value = true;
     }
+    logoHImport();
+    window.addEventListener('click', handleOtherClick, true);
+    store.dispatch('user/changeActive', 0)
     window.scrollTo(0,0);
 })
 
