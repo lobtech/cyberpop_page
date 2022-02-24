@@ -68,9 +68,8 @@
             <div class="welcome">
                 <div class="icon">
                     <img src="@/assets/nwAssets/portrait.svg" alt="">
-                    <img src="@/assets/nwAssets/portraitBg.svg" alt="">
                 </div>
-                <div class="title">Hi,Wade Warren</div>
+                <div class="title">Hi, Wade Warren</div>
                 <div class="id">0xab5801a7d39...259aec9b</div>
                 <div class="desc">Your Cyberpop NFT item, which changed in my assets, will be synchronized to opensea and within the game in Multi-
                     terminal. Any small act you do in Cyberpop New World is valuable to Cyberpop DAO.
@@ -80,37 +79,80 @@
                 <div class="search">
                     <div class="title">Search</div>
                     <div class="input">
-                        <input type="text" placeholder="placeholder">
+                        <input type="text" placeholder="Placeholder">
                     </div>
                     <div class="type">
                         <div class="name">Type</div>
                         <div class="check">
-                            <input type="radio" name="type" value="character">Character
-                            <input type="radio" name="type" value="weapon">Weapon
-                            <input type="radio" name="type" value="supportcard">Support card
-                            <input type="radio" name="type" value="item">Item
-                            <input type="radio" name="type" value="blindbox">Blind box
+                            <div>
+                                <input checked=false type="radio" name="type" id="type1" value="character">
+                                <label for="type1"><span>Character</span></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="type" id="type2" value="character">
+                                <label for="type2"><span>Weapon</span></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="type" id="type3" value="character">
+                                <label for="type3"><span>Support card</span></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="type" id="type4" value="character">
+                                <label for="type4"><span>Item</span></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="type" id="type5" value="character">
+                                <label for="type5"><span>Blind box</span></label>
+                            </div>
                         </div>
                     </div>
                     <div class="quality">
                         <div class="name">Quality</div>
                         <div class="check">
-                            <input type="radio" name="type" value="legend">Legend
-                            <input type="radio" name="type" value="epic">Epic
-                            <input type="radio" name="type" value="rare">Rare
-                            <input type="radio" name="type" value="common">Common
+                            <div>
+                                <input type="radio" name="quality" id="quality1" value="character">
+                                <label for="quality1"><span>Legend</span></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="quality" id="quality2" value="character">
+                                <label for="quality2"><span>Epic</span></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="quality" id="quality3" value="character">
+                                <label for="quality3"><span>Rare</span></label>
+                            </div>
+                            <div>
+                                <input type="radio" name="quality" id="quality4" value="character">
+                                <label for="quality4"><span>Common</span></label>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="ecrchange">
-                    <div class="title">
-                        <div class="type1">ECR 721</div>
-                        <div class="type2">ECR 115</div>
+                    <div class="top">
+                        <div class="type1 active" @click="ecrType = true">ECR 721</div>
+                        <div class="type2" @click="ecrType = false">ECR 115</div>
                     </div>
-                    <div class="ecr721">
-                        <ul>
+                    <div class="ecr721" v-show="ecrType">
+                        <ul class="prince">
                             <li>
-                                <img src="" alt="">
+                                <img src="@/assets/nwAssets/testItem.png" alt="">
+                                <div class="name">Prince of Shadows</div>
+                                <div class="btn">
+                                    <div class="transfer">TRANSFER</div>
+                                    <div class="sell">SELL</div>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="@/assets/nwAssets/testItem.png" alt="">
+                                <div class="name">Prince of Shadows</div>
+                                <div class="btn">
+                                    <div class="transfer">TRANSFER</div>
+                                    <div class="sell">SELL</div>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Prince of Shadows</div>
                                 <div class="btn">
                                     <div class="transfer">TRANSFER</div>
@@ -118,15 +160,30 @@
                                 </div>
                             </li>
                         </ul>
+                        <ul class="box">
+                            <li>
+                                <img src="@/assets/nwAssets/testItem.png" alt="">
+                                <div class="name">Mystery box</div>
+                                <div class="btn">
+                                    <div class="unpack">UNPACK</div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="ecr115">
+                    <div class="ecr115" v-show="!ecrType">
 
                     </div>
                 </div>
             </div>
+            <!-- <div class="nothing">
+                <div class="txt">Oops, There‘s nothing left here. Go to <span>Home page</span></div>
+                <img src="@/assets/nwAssets/nothing.svg" alt="">
+            </div> -->
         </div>
     </div>
     <div class="footer">
+        <!-- <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
+        <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt=""> -->
         <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
         <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
         <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
@@ -150,7 +207,9 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
-import { log } from 'util';
+
+// ecr exchange
+let ecrType:any = ref(true);
 
 
 
@@ -710,16 +769,277 @@ onMounted(() => {
     }
     .assets{
         width: 100%;
-        // padding-top: 5.5vw;
         background-color: #000000;
         .wrap{
             width: 100%;
             padding-top: 5.5vw;
+            // padding-bottom: 13.75vw;
             background-image: url('../../../assets/nwAssets/bodyBg.png');
+            background-repeat: no-repeat;
             background-position: left top;
             background-size: 100% auto;
             .welcome{
-                width: 100%;
+                text-align: center;
+                .icon{
+                    width: 8.75vw;
+                    height: 7.6vw;
+                    margin-top: 2.5vw;
+                    margin: 2.5vw auto 0;
+                    text-align: center;
+                    background-image: url('../../../assets/nwAssets/portraitBg.svg');
+                    background-size: 100% auto;
+                    img{
+                        width: 6.04vw;
+                        height: 6.04vw;
+                        margin: .57vw 1.09vw 0 1.61vw;
+                    }
+                }
+                .title{
+                    // width: 10.46vw;
+                    height: 1.77vw;
+                    margin: 1.04vw 0;
+                    font-size: 1.25vw;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    font-weight: normal;
+                    color: #FFFFFF;
+                    line-height: 1.45vw;
+                    white-space: nowrap;
+                }
+                .id{
+                    // width: 12.13vw;
+                    height: 1.04vw;
+                    font-size: .83vw;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    font-weight: normal;
+                    color: #FFFFFF;
+                    letter-spacing: .02vw;
+                    line-height: 1.04vw;
+                }
+                .desc{
+                    width: 47.5vw;
+                    height: 2.08vw;
+                    margin: 1.14vw auto 3.22vw;
+                    font-size: .83vw;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    font-weight: normal;
+                    color: #B1B5C3;
+                    line-height: 1.04vw;
+                }
+            }
+            .ecr{
+                display: flex;
+                padding-bottom: 13vw;
+                .search{
+                    width: 15.98vw;
+                    height: 56.66vw;
+                    margin: 4.27vw 1.66vw 9.68vw 3.43vw;
+                    padding: 2.08vw 1.04vw;
+                    background: #1B1A22;
+                    border-radius: 2px;
+                    .title{
+                        width: 9.58vw;
+                        height: 1.61vw;
+                        margin-bottom: .78vw;
+                        font-size: 1.04vw;
+                        font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                        color: #FFFFFF;
+                        line-height: 1.19vw;
+                    }
+                    .input{
+                        width: 100%;
+                        height: 2.5vw;
+                        background: #3F3356;
+                        box-shadow: 0px 7px 64px 1px rgba(0, 0, 0, 0.07);
+                        border-radius: .31vw;
+                        input{
+                            width: 100%;
+                            height: 100%;
+                            text-indent: .83vw;
+                            font-size: .78vw;
+                            color: #777E90;
+                            background-color: transparent;
+                            border: none;
+                            outline: none;
+                        }
+                    }
+                    .type,.quality{
+                        .name{
+                            height: 1.61vw;
+                            margin: 2.7vw 0 1.25vw 0;
+                            font-size: 1.04vw;
+                            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                            font-weight: normal;
+                            color: #FFFFFF;
+                            line-height: 1.19vw;
+                        }
+                        .check{
+                            div{
+                                display: flex;
+                                align-items: center;
+                                position: relative;
+                                width: 100%;
+                                height: 1.14vw;
+                                input[type="radio"] {
+                                    width: 1.14vw;
+                                    height: 1.14vw;
+                                    opacity: 0;
+                                }
+                                label {
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    width: 1.14vw;
+                                    height: 1.14vw;
+                                    background-color: #ffffff;
+                                    border-radius: .31vw;
+                                    border: 2px solid #B1B5C3;
+                                    span{
+                                        height: 1.14vw;
+                                        margin-left: 1.7vw;
+                                        font-size: .83vw;
+                                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                                        color: #FFFFFF;
+                                        line-height: 1.04vw;
+                                        white-space: nowrap;
+                                        cursor: pointer;
+                                    }
+                                }
+                                input:checked + label {
+                                    background: #8478FF;
+                                    border-radius: .31vw;
+                                    border: 2px solid #8478FF;
+                                }
+                        
+                                input:checked + label::after {
+                                    content: "";
+                                    position: absolute;
+                                    top: .06vw;
+                                    left: .3vw;
+                                    width: .3vw;
+                                    height: .56vw;
+                                    color: #FFFFFF;
+                                    border: 2px solid #fff;
+                                    border-top: none;
+                                    border-left: none;
+                                    transform: rotate(45deg);
+                                }
+                            }
+                        }
+                        div + div{
+                            margin-top: 1.25vw;
+                        }
+                    }
+                }
+                .ecrchange{
+                    width: 57.76vw;
+                    .top{
+                        display: flex;
+                        justify-content: center;
+                        margin-bottom: 2.45vw;
+                        div{
+                            height: 1.87vw;
+                            font-size: 1.04vw;
+                            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                            color: #ffffff;
+                            line-height: 1.19vw;
+                            cursor: pointer;
+                        }
+                        .type1{
+                            margin-right: 2vw;
+                        }
+                        div.active{
+                            color: #DE2DCF;
+                            background-image: url('../../../assets/nwAssets/ercbot-bg.svg');
+                            background-position: center bottom;
+                            background-repeat: no-repeat;
+                            background-size: 100% auto;
+                        }
+                    }
+                    .ecr721,.ecr115{
+                        ul{
+                            display: flex;
+                            margin-bottom: 2.65vw;
+                            li{
+                                width: 17.96vw;
+                                height: 23.22vw;
+                                padding: .78vw .83vw;
+                                background-image: url('../../../assets/nwAssets/ecrcard-bg.svg');
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                background-size: 100% 100%;
+                                img{
+                                    width: 16.61vw;
+                                    height: 16.4vw;
+                                }
+                                .name{
+                                    height: 1.61vw;
+                                    margin: 1.04vw 0 1.6vw 0;
+                                    font-size: 1.04vw;
+                                    font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                    color: #FFFFFF;
+                                    line-height: 1.19vw;
+                                }
+                                .btn{
+                                    display: flex;
+                                    justify-content: center;
+                                    div{
+                                        height: 2.5vw;
+                                        font-size: .83vw;
+                                        font-family: AlibabaPuHuiTi_2_115_Black;
+                                        color: #FFFFFF;
+                                        line-height: 2.5vw;
+                                        text-align: center;
+                                    }
+                                    .transfer{
+                                        width: 8.07vw;
+                                        background-image: url('../../../assets/nwAssets/blackbg.svg');
+                                        background-position: left top;
+                                        background-size: 100% auto;
+                                    }
+                                    .sell{
+                                        width: 8.22vw;
+                                        background-image: url('../../../assets/nwAssets/purplebg.svg');
+                                        background-position: left top;
+                                        background-size: 100% auto;
+                                    }
+                                    .unpack{
+                                        width: 10.93vw;
+                                        height: 2.91vw;
+                                        margin-top: -.4vw;
+                                        line-height: 2.91vw;
+                                        background-image: url('../../../assets/nwAssets/unpackbg.svg');
+                                        background-position: left top;
+                                        background-size: 100% auto;
+                                    }
+                                }
+                            }
+                            li + li{
+                                margin-left: 1.92vw;
+                            }
+                        }
+                    }
+                }
+            }
+            .nothing{
+                text-align: center;
+                padding-bottom: 7.55vw;
+                .txt{
+                    width: 47.5vw;
+                    height: 1.04vw;
+                    margin: -2.18vw auto 7.65vw;
+                    font-size: .83vw;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    color: #B1B5C3;
+                    line-height: 1.04vw;
+                    text-align: center;
+                    span{
+                        color: #04FFA2;
+                    }
+                }
+                img{
+                    width: 11.71vw;
+                    height: 12.5vw;
+                }
             }
         }
     }
@@ -736,7 +1056,7 @@ onMounted(() => {
         font-weight: 400;
         color: #FFFFFF;
         line-height: 1.82vw;
-        background-color: #121122;
+        background-color: #000000;
         a{
             color: #ffffff;
             text-decoration: none;
