@@ -61,7 +61,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         The Metaverse Combines Exploration, Combat, X-To-Earn and UGC 
                     </div>
                     <div class="btnbox">
-                        <div class="btn-register" @click="playToEarn()"><div>Play to earn</div></div>
+                        <div class="btn-register" @click="playToEarn()"><div>PLAY TO EARN</div></div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
                             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section-btnPlay.svg" alt="">
@@ -85,7 +85,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="closebg"></div>
             </div>
             <div class="message">
-                Sorry, you are unable to download. The game is currently open only to authorized internal testers and communities. Contact us to get qualify.
+                Sorry, you are unable to download. The Metaverse is currently open only to authorized internal testers and communities. Contact us to get qualify.
             </div>
             <div class="btn">Download</div>
         </div>
@@ -110,7 +110,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="warp">
             <div class="title" id="ele1">WELCOME TO<p class="white">CYBERPOP NEW WORLD</p></div>
             <div class="desc">
-                A Metaverse adventure UGC game built on the <br/> 
+                A Metaverse adventure UGC Metaverse built on the <br/> 
                 ethereum blockchain.Travel through diverse <br/> 
                 cyberspace in search of mysterious digital artifacts <br/>
                 and creatures even Legend of the absolute <br/>
@@ -334,8 +334,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-r checkgreen">
                     Project Concept Start <br/>
                     Basic gameplay design <br/>
-                    game scene development <br/>
-                    Game Art Modeling
+                    Metaverse scene development <br/>
+                    Metaverse Art Modeling
                 </div>
             </div>
             <div class="time2 timeWidth-l maptime" id="time2">
@@ -343,8 +343,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
                 <div class="event-l checkgreen">
                     UGC project approval <br/>
-                    website launched <br/>
-                    Game demo online <br/>
+                    Website launched <br/>
+                    Metaverse demo online <br/>
                     Character Modeling
                 </div>
             </div>
@@ -352,8 +352,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="date"><span class="span-l"></span>2022.03</div>
                 <div class="event-r">
                     White Paper Release <br/>
-                    Game trial launch <br/>
-                    Game NFT Mall <br/>
+                    Metaverse trial launch <br/>
+                    Metaverse NFT Mall <br/>
                     Release UGC toolchain <br/>
                     Token CYT released
                 </div>
@@ -362,21 +362,21 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="stage">LOOM VERSION</div>
                 <div class="date">2022.06<span class="span-r"></span></div>
                 <div class="event-l">
-                    further development of UGC, users construct DAOs <br/>
-                    online DAO pledge and voting system  <br/>
+                    Further development of UGC, users construct DAOs <br/>
+                    Online DAO pledge and voting system  <br/>
                     The socialFi mechanism <br/>
-                    game unions system <br/>
-                    NFT derivatives available in the metaverse
+                    Metaverse unions system <br/>
+                    NFT derivatives available in the Metaverse
                 </div>
             </div>
             <div class="time5 timeWidth-r maptime" id="time5">
                 <div class="date"><span class="span-l"></span>2022.10</div>
                 <div class="event-r">
-                    e-commerce and virtual idol <br/>
-                    multiple chain access support <br/>
+                    E-commerce and virtual idol <br/>
+                    Multiple chain access support <br/>
                     PVP combat system of urban construction trade integrated <br/>
-                    user-defined wallet integrated <br/>
-                    user-defined idol token <br/>
+                    User-defined wallet integrated <br/>
+                    User-defined idol token <br/>
                     HashRate coin access
                 </div>
             </div>
@@ -384,28 +384,28 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="stage">WORLD TRUTH</div>
                 <div class="date"><span class="span-r"></span>2023.01</div>
                 <div class="event-l">
-                    launch of new world datagram <br/>
-                    improvement of user-defined system <br/>
+                    Launch of new world datagram <br/>
+                    Improvement of user-defined system <br/>
                     AR /VR device base revision <br/>
-                    enhancement financial confrontation attribute  <br/>
-                    launch of all-platform cyber world 
+                    Enhancement financial confrontation attribute  <br/>
+                    Launch of all-platform cyber world 
                 </div>
             </div>
             <div class="time7 timeWidth-r maptime" id="time7">
                 <div class="date"><span class="span-l"></span>2023.06</div>
                 <div class="event-r">
-                    open of 3A level UGC tool-chain platform  <br/>
+                    Open of 3A level UGC tool-chain platform  <br/>
                     DAO: self-management of trading and communities <br/>
-                    launch of alternation rules and content in the seasons <br/>
-                    combination of VR/AR (with ecommerce and social)
+                    Launch of alternation rules and content in the seasons <br/>
+                    Combination of VR/AR (with ecommerce and social)
                 </div>
             </div>
             <div class="time8 timeWidth-l maptime" id="time8">
                 <div class="date"><span class="span-r"></span>2023.12</div>
                 <div class="event-l">
-                    full presentation of cyber world VR version (stage 1)  <br/>
-                    further integration of AR /VR with the real world <br/>
-                    open of the NFT financial derivative platform  <br/>
+                    Full presentation of cyber world VR version (stage 1)  <br/>
+                    Further integration of AR /VR with the real world <br/>
+                    Open of the NFT financial derivative platform  <br/>
                     Cyber Pop Artists Association
                 </div>
             </div>
@@ -517,7 +517,7 @@ const showxplan = () => {
             }
         })
     }else{
-        messageAlert(0,'please connect wallet！')
+        messageAlert(0,'Please connect to a wallet.')
     }
 }
 
@@ -528,7 +528,7 @@ const playToEarn = () => {
         showDown.value = true; 
         isOut.value = false;
     }else{
-        messageAlert(0,'please connect wallet！')
+        messageAlert(0,'Please connect to a wallet.')
     }
 }
 
@@ -778,7 +778,7 @@ const loggined: any = ref(false)
 const connect: any = async () => {
     showMenuAni.value = false;
     const [accounts]: any = await Web3.login().then((res: any) => {
-        if( res == 'not dapp, install MetaMask！' ){
+        if( res == 'Not dapp, install MetaMask！' ){
             messageAlert(0, res)
         }else{
             loggined.value = true
@@ -820,10 +820,10 @@ const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     
     if(email.value === ""){ //输入不能为空
-　　　　messageAlert(0,'not null!')
+　　　　messageAlert(0,'Not null!')
 　　　　return false;
 　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
-　　　　messageAlert(0,'please input email!')
+　　　　messageAlert(0,'Please input email!')
 　　　　return false;
 　　 }
 
@@ -831,7 +831,7 @@ const submit = () => {
     proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
         if(res.data){
             email.value = "";
-            messageAlert(1,'success!')
+            messageAlert(1,'Success!')
         }else{
             messageAlert(0,res.msg)
         }
@@ -2490,12 +2490,12 @@ onMounted(() => {
                 .logo5{
                     height: 60px;
                     margin-top: 8px;
-                    margin-right: 20px;
-                    margin-left: 20px;
+                    margin-right: 24px;
+                    margin-left: 18px;
                 }
                 .logo6{
                     height: 30px;
-                    margin-top:6px;
+                    margin-top: 9px;
                 }
             }
 
@@ -2602,10 +2602,10 @@ onMounted(() => {
                     text-align: left;
 
                 }
-                input:focus::-webkit-input-placeholder {
-                    font-size: 9px;
-                    text-align: right;
-                }
+                // input:focus::-webkit-input-placeholder {
+                //     font-size: 9px;
+                //     text-align: right;
+                // }
             }
             .register{
                 width: 31%;

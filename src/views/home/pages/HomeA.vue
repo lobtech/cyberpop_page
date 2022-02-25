@@ -58,7 +58,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                         The Metaverse Combines Exploration, Combat, X-To-Earn and UGC
                     </div>
                     <div class="btnbox">
-                        <div class="btn-register" @click="playToEarn()">Play to earn</div>
+                        <div class="btn-register" @click="playToEarn()">PLAY TO EARN</div>
                         <div class="btn-video" @click="playVideo(5)">
                             <div>DEMO VIDEO</div>
                             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section-btnPlay.svg" alt="">
@@ -96,7 +96,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="closebg"></div>
             </div>
             <div class="message">
-                Sorry, you are unable to download. The metaverse is currently open only to authorized internal testers and communities. Contact us to get qualify.
+                Sorry, you are unable to download. The Metaverse is currently open only to authorized internal testers and communities. Contact us to get qualify.
             </div>
             <div class="btn" @mouseenter="isDown = true,downFlag =true" @mouseleave="downFlag =false">
                 <div class="txt">Download</div>
@@ -124,7 +124,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="warp">
             <div class="title" id="ele1">WELCOME TO<p class="white">CYBERPOP NEW WORLD</p></div>
             <div class="desc">
-                A Metaverse adventure UGC metaverse built on the ethereum blockchain. <br/>
+                A Metaverse adventure UGC Metaverse built on the ethereum blockchain. <br/>
                 Travel through diverse cyberspace in search of mysterious digital artifacts <br/>
                 and creatures even Legend of the absolute beginning.
             </div>
@@ -345,7 +345,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
                 <div class="event-l checkgreen">
                     UGC project approval <br/>
-                    website launched <br/>
+                    Website launched <br/>
                     Metaverse demo online <br/>
                     Character Modeling
                 </div>
@@ -364,21 +364,21 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="stage">LOOM VERSION</div>
                 <div class="date">2022.06<span class="span-r"></span></div>
                 <div class="event-l">
-                    further development of UGC, users construct DAOs <br/>
-                    online DAO pledge and voting system  <br/>
+                    Further development of UGC, users construct DAOs <br/>
+                    Online DAO pledge and voting system  <br/>
                     The socialFi mechanism <br/>
                     Metaverse unions system <br/>
-                    NFT derivatives available in the metaverse
+                    NFT derivatives available in the Metaverse
                 </div>
             </div>
             <div class="time5 timeWidth-r maptime" id="time5">
                 <div class="date"><span class="span-l"></span>2022.10</div>
                 <div class="event-r">
-                    e-commerce and virtual idol <br/>
-                    multiple chain access support <br/>
+                    E-commerce and virtual idol <br/>
+                    Multiple chain access support <br/>
                     PVP combat system of urban construction trade integrated <br/>
-                    user-defined wallet integrated <br/>
-                    user-defined idol token <br/>
+                    User-defined wallet integrated <br/>
+                    User-defined idol token <br/>
                     HashRate coin access
                 </div>
             </div>
@@ -386,28 +386,28 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="stage">WORLD TRUTH</div>
                 <div class="date"><span class="span-r"></span>2023.01</div>
                 <div class="event-l">
-                    launch of new world datagram <br/>
-                    improvement of user-defined system <br/>
+                    Launch of new world datagram <br/>
+                    Improvement of user-defined system <br/>
                     AR /VR device base revision <br/>
-                    enhancement financial confrontation attribute  <br/>
-                    launch of all-platform cyber world 
+                    Enhancement financial confrontation attribute  <br/>
+                    Launch of all-platform cyber world 
                 </div>
             </div>
             <div class="time7 timeWidth-r maptime" id="time7">
                 <div class="date"><span class="span-l"></span>2023.06</div>
                 <div class="event-r">
-                    open of 3A level UGC tool-chain platform  <br/>
+                    Open of 3A level UGC tool-chain platform  <br/>
                     DAO: self-management of trading and communities <br/>
-                    launch of alternation rules and content in the seasons <br/>
-                    combination of VR/AR (with ecommerce and social)
+                    Launch of alternation rules and content in the seasons <br/>
+                    Combination of VR/AR (with ecommerce and social)
                 </div>
             </div>
             <div class="time8 timeWidth-l maptime" id="time8">
                 <div class="date"><span class="span-r"></span>2023.12</div>
                 <div class="event-l">
-                    full presentation of cyber world VR version (stage 1)  <br/>
-                    further integration of AR /VR with the real world <br/>
-                    open of the NFT financial derivative platform  <br/>
+                    Full presentation of cyber world VR version (stage 1)  <br/>
+                    Further integration of AR /VR with the real world <br/>
+                    Open of the NFT financial derivative platform  <br/>
                     Cyber Pop Artists Association
                 </div>
             </div>
@@ -454,6 +454,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="email">
             <div class="email-wrap">
                 <input id="email" class="email-input" type="text" v-model="email" placeholder="Email">
+                <div>Youraddress</div>
             </div>
             <div class="register" @click="submit()">Register</div>
         </div>
@@ -548,7 +549,7 @@ const showxplan = () => {
             }
         })
     }else{
-        messageAlert(false,'please connect wallet！')
+        messageAlert(false,'Please connect to a wallet.')
     }
 }
 
@@ -560,7 +561,7 @@ const playToEarn = () => {
         showDown.value = true; 
         isOut.value = false;
     }else{
-        messageAlert(0,'please connect wallet！')
+        messageAlert(0,'Please connect to a wallet.')
     }
 }
 
@@ -812,7 +813,7 @@ const playVideo = (type: any) => {
 const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
-        if( res == 'not dapp, install MetaMask！' ){
+        if( res == 'Not dapp, install MetaMask！' ){
             messageAlert(false, res)
         }else{
             loggined.value = true
@@ -833,11 +834,16 @@ const connect: any = async () => {
 const showDialog = computed(() => store?.state.user?.showDialog);
 let messageState:any = ref(false)
 let messageContent:any = ref('')
+const mtimer:any = ref(null)
 const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
     messageState.value = flag
     store.dispatch('user/showDialog',true)
     messageContent.value = message
     store.dispatch('user/addComingOut', false)
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/addComingOut',true)
+    },5000)
 }
 
 
@@ -846,10 +852,10 @@ const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     
     if(email.value === ""){ //输入不能为空
-        messageAlert(false,'not null!')
+        messageAlert(false,'Not null!')
 　　　　return false;
 　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
-        messageAlert(false,'please input email!')
+        messageAlert(false,'Please input email!')
 　　　　return false;
 　　 }
 
@@ -857,7 +863,7 @@ const submit = () => {
     proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
         if(res.data){
             email.value = "";
-            messageAlert(true,'success!')
+            messageAlert(true,'Success!')
         }else{
             messageAlert(false,res.msg)
         }
@@ -972,6 +978,7 @@ onMounted(() => {
     store.dispatch('user/showDialog',false);
     logoHImport();
     window.scrollTo(0,0);
+    store.dispatch('user/showDialog',false);// close message dialog
 })
 
 </script>
@@ -1093,8 +1100,8 @@ onMounted(() => {
                         height: 2.3vw;
                         margin-top: 1.1vw;
                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-loginBg.svg');
-                        background-size: 100% 100%;
-                        background-position: left top;
+                        background-size: 102% 100%;
+                        background-position: -.1vw top;
                         overflow: hidden;
                         cursor: pointer;
                         .txt{
@@ -1114,7 +1121,7 @@ onMounted(() => {
                             left: -13vw;
                             width: 12vw;
                             height: 100%;
-                            background-color: #cd2e86;
+                            background-color: #EDFF00;
                             opacity: .6;
                             transform: skewX(-38deg);
                         }
@@ -1126,9 +1133,6 @@ onMounted(() => {
                             animation: stopSubmitAnimation 0.15s linear;
                             animation-fill-mode: forwards;
                         }
-                    }
-                    .login_in:hover > .txt{
-                        color: #EDFF00;
                     }
                     .logged_in{
                         display: flex;
@@ -2326,7 +2330,11 @@ onMounted(() => {
                                 height: 5.05vw;
                                 margin-top: 2.76vw;
                             }
+                            img:nth-child(1):hover{
+                                transform: scale(1.1);
+                            }
                             img:nth-child(2){
+                                z-index: 2;
                                 width: 2.18vw;
                                 height: 2.18vw;
                                 margin-top: -1vw;
@@ -2628,7 +2636,7 @@ onMounted(() => {
             img:nth-child(1){
                 width: 6.77vw;
                 height: 6.61vw;
-                margin: .8vw 2vw 0 1vw;
+                margin: 1.1vw 2vw 0 1vw;
             }
             img:nth-child(2){
                 width: 12.29vw;
@@ -2658,12 +2666,12 @@ onMounted(() => {
                 width: 19.63vw;
                 height: 3.64vw;
                 margin-top: 2.7vw;
-                margin-right: 2.6vw;
+                margin-right: 1.6vw;
             }
             img:nth-child(6){
-                width: 7.29vw;
-                height: 6.51vw;
-                margin-top: 1.3vw;
+                width: 5vw;
+                height: 5vw;
+                margin-top: 1.8vw;
             }
 
         }
@@ -2759,6 +2767,7 @@ onMounted(() => {
             height: 3.69vw;
             margin-top: 1.61vw;
             .email-wrap{
+                position: relative;
                 width: 69%;
                 height: 3.69vw;
                 input{
@@ -2775,9 +2784,22 @@ onMounted(() => {
                     outline: none;
                     text-align: left;
                 }
-                input:focus::-webkit-input-placeholder {
-                    font-size: .8vw;
-                    text-align: right;
+                // input:focus::-webkit-input-placeholder {
+                //     font-size: .8vw;
+                //     text-align: right;
+                // }
+                div{
+                    position: absolute;
+                    top: 50%;
+                    right: 1vw;
+                    bottom: 0;
+                    transform: translateY(-50%);
+                    height: 1.04vw;
+                    color: #565656; 
+                    font-size: 1.04vw;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    line-height: 1.04vw;
+                    display: none;
                 }
             }
             .register{

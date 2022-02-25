@@ -488,11 +488,16 @@ const signout = () => {
 const showDialog = computed(() => store?.state.user?.showDialog);
 let messageState:any = ref(false)
 let messageContent:any = ref('')
+const mtimer:any = ref(null)
 const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
     messageState.value = flag
     store.dispatch('user/showDialog',true)
     messageContent.value = message
     store.dispatch('user/addComingOut', false)
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/addComingOut',true)
+    },5000)
 }
 
 
@@ -502,7 +507,7 @@ const id: any = ref(0)
 const loggined: any = ref(false)
 const connect: any = async () => {
     const [accounts]: any = await Web3.login().then((res: any) => {
-        if( res == 'not dapp, install MetaMask！' ){
+        if( res == 'Not dapp, install MetaMask！' ){
             messageAlert(false, res)
         }else{
             loggined.value = true
@@ -591,6 +596,7 @@ onMounted(() => {
     window.addEventListener('click', handleOtherClick, true);
     store.dispatch('user/changeActive', 3);
     window.scrollTo(0,0);
+    store.dispatch('user/showDialog',false);// close message dialog
 })
 
 </script>
@@ -672,8 +678,8 @@ onMounted(() => {
                         height: 2.3vw;
                         margin-top: 1.1vw;
                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-loginBg.svg');
-                        background-size: 100% 100%;
-                        background-position: left top;
+                        background-size: 102% 100%;
+                        background-position: -.1vw top;
                         overflow: hidden;
                         cursor: pointer;
                         .txt{
@@ -693,7 +699,7 @@ onMounted(() => {
                             left: -13vw;
                             width: 12vw;
                             height: 100%;
-                            background-color: #cd2e86;
+                            background-color: #EDFF00;
                             opacity: .6;
                             transform: skewX(-38deg);
                         }
@@ -705,9 +711,6 @@ onMounted(() => {
                             animation: stopSubmitAnimation 0.15s linear;
                             animation-fill-mode: forwards;
                         }
-                    }
-                    .login_in:hover > .txt{
-                        color: #EDFF00;
                     }
                     .logged_in{
                         display: flex;
@@ -838,7 +841,7 @@ onMounted(() => {
         top: 0;
         width: 100%;
         height: 100vh;
-        background: rgba(0,0,0,.46);
+        background: rgba(0,0,0,.2);
         overflow: hidden;
         .title{
             width: 39.58vw;
@@ -1177,6 +1180,7 @@ onMounted(() => {
                                 text-align: center;
                                 line-height: 2.44vw;
                                 background-color: #171C28;
+                                white-space: nowrap;
                             }
                         }
                     }

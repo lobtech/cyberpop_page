@@ -63,13 +63,16 @@
                 </div>
                 <div class="search">
                     <div class="input">
-                        <input type="text" placeholder="Placeholder">
+                        <input type="text" placeholder="Keywords, name, number">
                         <img src="@/assets/nwAssets/search-icon.svg" alt="">
                     </div>
                     <div class="menuSelect">
                         <ul class="token">
-                            <li>ECR721</li>
-                            <li>ECR115</li>
+                            <li>ECR 721</li>
+                            <li>
+                                <div @click="ecrType = true">ECR 721</div>
+                                <div @click="ecrType = false">ECR 115</div>
+                            </li>
                         </ul>
                         <ul class="type">
                             <li>All type</li>
@@ -99,10 +102,6 @@
             </div>
             <div class="ecr">
                 <div class="ecrchange">
-                    <div class="top">
-                        <div class="type1" :class="ecrType ? 'active' : ''" @click="ecrType = true">ECR 721</div>
-                        <div class="type2" :class="!ecrType ? 'active' : ''" @click="ecrType = false">ECR 115</div>
-                    </div>
                     <div class="ecr721" v-show="ecrType">
                         <ul class="prince">
                             <li>
@@ -338,7 +337,7 @@ const loggined: any = ref(false)
 const connect: any = async () => {
     showMenuAni.value = false;
     const [accounts]: any = await Web3.login().then((res: any) => {
-        if( res == 'not dapp, install MetaMask！' ){
+        if( res == 'Not dapp, install MetaMask！' ){
             messageAlert(0, res)
         }else{
             loggined.value = true
@@ -629,164 +628,143 @@ onMounted(() => {
         background-color: #080707;
         .wrap{
             width: 100%;
-            padding-top: 5.5vw;
-            background-image: url('../../../assets/nwAssets/bodyBg.png');
-            background-repeat: no-repeat;
-            background-position: left top;
-            background-size: 100% auto;
+            padding-top: 55px;
+            // background-image: url('../../../assets/nwAssets/bodyBg.png');
+            // background-repeat: no-repeat;
+            // background-position: left top;
+            // background-size: 100% auto;
             .welcome{
                 text-align: center;
                 .icon{
-                    width: 8.75vw;
-                    height: 7.6vw;
-                    margin-top: 2.5vw;
-                    margin: 2.5vw auto 0;
+                    width: 81px;
+                    height: 72px;
+                    margin: 36px auto 0;
                     text-align: center;
                     background-image: url('../../../assets/nwAssets/portraitBg.svg');
                     background-size: 100% auto;
                     img{
-                        width: 6.04vw;
-                        height: 6.04vw;
-                        margin: .57vw 1.09vw 0 1.61vw;
+                        width: 58px;
+                        height: 58px;
+                        margin: 5px 12px 0 11px;
                     }
                 }
                 .title{
-                    // width: 10.46vw;
-                    height: 1.77vw;
-                    margin: 1.04vw 0;
-                    font-size: 1.25vw;
+                    // width: 151px;
+                    height: 20px;
+                    margin: 12px 0;
+                    font-size: 16px;
                     font-family: AlibabaPuHuiTi_2_115_Black;
-                    font-weight: normal;
                     color: #FFFFFF;
-                    line-height: 1.45vw;
+                    line-height: 20px;
                     white-space: nowrap;
                 }
                 .id{
-                    // width: 12.13vw;
-                    height: 1.04vw;
-                    font-size: .83vw;
-                    font-family: AlibabaPuHuiTi_2_115_Black;
-                    font-weight: normal;
+                    // width: 184px;
+                    height: 20px;
+                    font-size: 14px;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
-                    letter-spacing: .02vw;
-                    line-height: 1.04vw;
+                    line-height: 16px;
                 }
                 .desc{
-                    width: 47.5vw;
-                    height: 2.08vw;
-                    margin: 1.14vw auto 3.22vw;
-                    font-size: .83vw;
+                    width: 303px;
+                    height: 64px;
+                    margin: 12px auto 28px;
+                    font-size: 12px;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
-                    font-weight: normal;
                     color: #B1B5C3;
-                    line-height: 1.04vw;
+                    line-height: 16px;
+                }
+                .search{
+                    .input{
+                        width: 303px;
+                        height: 40px;
+                        margin: 0 auto;
+                        border-radius: 2px 2px 2px 2px;
+                        border: 2px solid #8478FF;
+                        input[type='text']{
+                            width: 253px;
+                            height: 100%;
+                            font-size: 14px;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            color: #8478FF;
+                            line-height: 16px;
+                            background-color: transparent;
+                            border: none;
+                            outline: none;
+                        }
+                        input::-webkit-input-placeholder { 
+                            color: #8478FF;
+                        }
+                        input:-moz-placeholder { 
+                            color: #8478FF;
+                        }
+                        input::-moz-placeholder {
+                            color: #8478FF;
+                        }
+                        input:-ms-input-placeholder {
+                            color: #8478FF;
+                        }
+                        img{
+                            width: 16px;
+                            height: 16px;
+                            margin-left: 10px;
+                            vertical-align: middle;
+                        }
+                    }
+                    .menuSelect{
+                        margin-left: 26px;
+                        margin-top: 24px;
+                        .token{
+                            width: 109px;
+                            li{
+                                width: 109px;
+                                height: 40px;
+                                font-size: 14px;
+                                font-family: AlibabaPuHuiTi_2_115_Black;
+                                color: #FFFFFF;
+                                line-height: 40px;
+                                text-align: left;
+                                text-indent: 12px;
+
+                            }
+                            li:first-child{
+                                background: #8478FF;
+                                background-image: url('../../../assets/nwAssets/dropdown.svg');
+                                background-repeat: no-repeat;
+                                background-position: 77px center;
+                                background-size: 20px 20px;
+                            }
+                            li:last-child{
+                                width: 148px;
+                                height: 112px;
+                                margin-top: 8px;
+                                background: #514A9C linear-gradient(221deg, rgba(132, 120, 255, 0.54) 0%, rgba(12, 9, 17, 0) 100%) linear-gradient(77deg, rgba(120, 34, 187, 0.19) 0%, rgba(12, 9, 17, 0) 100%);
+                                box-shadow: -4px 4px 2px 1px rgba(0, 0, 0, 0.25);
+                                border-radius: 2px 2px 2px 2px;
+                                opacity: 0.98;
+                                background-color: #514A9C;
+                                div{
+                                    height: 18px;
+                                    font-size: 14px;
+                                    font-family: AlibabaPuHuiTi_2_105_Heavy;
+                                    color: #FFFFFF;
+                                    line-height: 18px;
+                                }
+                                div:nth-child(1){
+                                    
+                                }
+                                div:nth-child(2){
+                                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             .ecr{
                 display: flex;
                 // padding-bottom: 13vw;
-                .search{
-                    width: 15.98vw;
-                    height: 56.66vw;
-                    // margin: 4.27vw 1.66vw 9.68vw 3.43vw;
-                    margin: 4.27vw 1.66vw 15vw 3.43vw;
-                    padding: 2.08vw 1.04vw;
-                    background: #1B1A22;
-                    border-radius: 2px;
-                    .title{
-                        width: 9.58vw;
-                        height: 1.61vw;
-                        margin-bottom: .78vw;
-                        font-size: 1.04vw;
-                        font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                        color: #FFFFFF;
-                        line-height: 1.19vw;
-                    }
-                    .input{
-                        width: 100%;
-                        height: 2.5vw;
-                        background: #3F3356;
-                        box-shadow: 0px 7px 64px 1px rgba(0, 0, 0, 0.07);
-                        border-radius: .31vw;
-                        input{
-                            width: 100%;
-                            height: 100%;
-                            text-indent: .83vw;
-                            font-size: .78vw;
-                            color: #777E90;
-                            background-color: transparent;
-                            border: none;
-                            outline: none;
-                        }
-                    }
-                    .type,.quality{
-                        .name{
-                            height: 1.61vw;
-                            margin: 2.7vw 0 1.25vw 0;
-                            font-size: 1.04vw;
-                            font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                            font-weight: normal;
-                            color: #FFFFFF;
-                            line-height: 1.19vw;
-                        }
-                        .check{
-                            div{
-                                display: flex;
-                                align-items: center;
-                                position: relative;
-                                width: 100%;
-                                height: 1.14vw;
-                                input[type="radio"] {
-                                    width: 1.14vw;
-                                    height: 1.14vw;
-                                    opacity: 0;
-                                }
-                                label {
-                                    position: absolute;
-                                    left: 0;
-                                    top: 0;
-                                    width: 1.14vw;
-                                    height: 1.14vw;
-                                    background-color: #ffffff;
-                                    border-radius: .31vw;
-                                    border: 2px solid #B1B5C3;
-                                    span{
-                                        height: 1.14vw;
-                                        margin-left: 1.7vw;
-                                        font-size: .83vw;
-                                        font-family: AlibabaPuHuiTi_2_55_Regular;
-                                        color: #FFFFFF;
-                                        line-height: 1.04vw;
-                                        white-space: nowrap;
-                                        cursor: pointer;
-                                    }
-                                }
-                                input:checked + label {
-                                    background: #8478FF;
-                                    border-radius: .31vw;
-                                    border: 2px solid #8478FF;
-                                }
-                        
-                                input:checked + label::after {
-                                    content: "";
-                                    position: absolute;
-                                    top: .06vw;
-                                    left: .3vw;
-                                    width: .3vw;
-                                    height: .56vw;
-                                    color: #FFFFFF;
-                                    border: 2px solid #fff;
-                                    border-top: none;
-                                    border-left: none;
-                                    transform: rotate(45deg);
-                                }
-                            }
-                        }
-                        div + div{
-                            margin-top: 1.25vw;
-                        }
-                    }
-                }
                 .ecrchange{
                     width: 57.76vw;
                     .top{

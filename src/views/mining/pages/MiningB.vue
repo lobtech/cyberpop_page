@@ -321,7 +321,7 @@ const loggined: any = ref(false)
 const connect: any = async () => {
     showMenuAni.value = false;
     const [accounts]: any = await Web3.login().then((res: any) => {
-        if( res == 'not dapp, install MetaMask！' ){
+        if( res == 'Not dapp, install MetaMask！' ){
             messageAlert(0, res)
         }else{
             loggined.value = true
@@ -624,7 +624,7 @@ onMounted(() => {
         top: 0;
         width: 100%;
         height: 120vh;
-        background: rgba(0,0,0,.46);
+        background: rgba(0,0,0,.2);
         overflow: hidden;
         .title{
             width: 100%;

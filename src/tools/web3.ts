@@ -10,7 +10,7 @@ const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html�
 const login = async () => {
     const ethereum = (window as any).ethereum // 获取小狐狸实例
     if (!ethereum) {
-        return 'not dapp, install MetaMask！';
+        return 'Not dapp, install MetaMask！';
     }
     return ethereum.request({ method: 'eth_requestAccounts' })
 }
