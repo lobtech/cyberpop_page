@@ -8,6 +8,7 @@ import ComingA from './components/coming/comingA.vue'
 import ComingB from './components/coming/comingB.vue'
 import MessageA from './components/dialog/MessageA.vue'
 import MessageB from './components/dialog/MessageB.vue'
+import PopupA from './components/popup/PopupA.vue'
 import XplanproA from './components/xplanpro/xplanproA.vue'
 import XplanproB from './components/xplanpro/xplanproB.vue'
 import api from './api/request'
@@ -26,6 +27,7 @@ app.component('ComingA', ComingA)
 app.component('ComingB', ComingB)
 app.component('MessageA', MessageA)
 app.component('MessageB', MessageB)
+app.component('PopupA', PopupA)
 app.component('XplanproA', XplanproA)
 app.component('XplanproB', XplanproB)
 app.component('video-bg', VideoBg)

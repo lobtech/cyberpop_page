@@ -19,7 +19,8 @@ const states = {
     tokenBalances: '' as string, // 令牌余额
     realId: 0, // 带星号id，用于页面显示
     idTemp: '' as string,  // 完整id，用于判断
-    xplanAni: false
+    xplanAni: false,
+    transferActive: false, // 背包页-TRANSFER按钮
 }
 export type typeof_user = typeof states
 export default {
@@ -73,6 +74,9 @@ export default {
         xplanChangeAni(state, payload: any) {
             state.xplanAni = payload;
         },
+        transferChange(state, payload: any) {
+            state.transferActive = payload;
+        },
     },
     actions: {
         init({ commit }, paylaod: typeof_user) {
@@ -108,6 +112,9 @@ export default {
         },
         xplanChangeAni({ commit }, paylaod: any) {
             commit('xplanChangeAni', paylaod)
+        },
+        transferChange({ commit }, paylaod: any) {
+            commit('transferChange', paylaod)
         },
     },
 } as Module<typeof_user, State>

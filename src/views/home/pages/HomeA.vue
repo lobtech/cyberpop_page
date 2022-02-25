@@ -1397,7 +1397,7 @@ onMounted(() => {
             top: 0vw;
             width: 100%;
             height: 100%;
-            background: #293041;
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
             clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
         }
         .coverborder{
@@ -1463,7 +1463,7 @@ onMounted(() => {
             top: 0vw;
             width: 100%;
             height: 100%;
-            background: #293041;
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
             clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
         }
         .coverborder{
@@ -1526,7 +1526,7 @@ onMounted(() => {
             top: 0;
             width: 100%;
             height: 100%;
-            background: #293041;
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
             clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
         }
         .coverborder{

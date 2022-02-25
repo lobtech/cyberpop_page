@@ -130,8 +130,8 @@
                 </div>
                 <div class="ecrchange">
                     <div class="top">
-                        <div class="type1 active" @click="ecrType = true">ECR 721</div>
-                        <div class="type2" @click="ecrType = false">ECR 115</div>
+                        <div class="type1" :class="ecrType ? 'active' : ''" @click="ecrType = true">ECR 721</div>
+                        <div class="type2" :class="!ecrType ? 'active' : ''" @click="ecrType = false">ECR 115</div>
                     </div>
                     <div class="ecr721" v-show="ecrType">
                         <ul class="prince">
@@ -139,7 +139,7 @@
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Prince of Shadows</div>
                                 <div class="btn">
-                                    <div class="transfer">TRANSFER</div>
+                                    <div class="transfer" @click="transferPopup()">TRANSFER</div>
                                     <div class="sell">SELL</div>
                                 </div>
                             </li>
@@ -147,7 +147,7 @@
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Prince of Shadows</div>
                                 <div class="btn">
-                                    <div class="transfer">TRANSFER</div>
+                                    <div class="transfer" @click="transferPopup()">TRANSFER</div>
                                     <div class="sell">SELL</div>
                                 </div>
                             </li>
@@ -155,7 +155,7 @@
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Prince of Shadows</div>
                                 <div class="btn">
-                                    <div class="transfer">TRANSFER</div>
+                                    <div class="transfer" @click="transferPopup()">TRANSFER</div>
                                     <div class="sell">SELL</div>
                                 </div>
                             </li>
@@ -200,6 +200,7 @@
         </div>
     </div>
     <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
+    <popup-a v-show="transferActive" :addressState="inputInfo"></popup-a>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -210,6 +211,14 @@ import Web3 from '@/tools/web3'
 
 // ecr exchange
 let ecrType:any = ref(true);
+
+
+// NFT transfer
+const transferActive = computed(() => store?.state.user?.transferActive);
+let inputInfo:any = ref('');
+const transferPopup = () => {
+    store.dispatch('user/transferChange',true);
+}
 
 
 
@@ -657,7 +666,7 @@ onMounted(() => {
             top: 0vw;
             width: 100%;
             height: 100%;
-            background: #293041;
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);;
             clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
         }
         .coverborder{
@@ -723,7 +732,7 @@ onMounted(() => {
             top: 0vw;
             width: 100%;
             height: 100%;
-            background: #293041;
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);;
             clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
         }
         .coverborder{
@@ -769,11 +778,11 @@ onMounted(() => {
     }
     .assets{
         width: 100%;
-        background-color: #000000;
+        // background-color: #000000;
+        background-color: #080707;
         .wrap{
             width: 100%;
             padding-top: 5.5vw;
-            // padding-bottom: 13.75vw;
             background-image: url('../../../assets/nwAssets/bodyBg.png');
             background-repeat: no-repeat;
             background-position: left top;
@@ -828,11 +837,12 @@ onMounted(() => {
             }
             .ecr{
                 display: flex;
-                padding-bottom: 13vw;
+                // padding-bottom: 13vw;
                 .search{
                     width: 15.98vw;
                     height: 56.66vw;
-                    margin: 4.27vw 1.66vw 9.68vw 3.43vw;
+                    // margin: 4.27vw 1.66vw 9.68vw 3.43vw;
+                    margin: 4.27vw 1.66vw 15vw 3.43vw;
                     padding: 2.08vw 1.04vw;
                     background: #1B1A22;
                     border-radius: 2px;
@@ -989,6 +999,7 @@ onMounted(() => {
                                         color: #FFFFFF;
                                         line-height: 2.5vw;
                                         text-align: center;
+                                        cursor: pointer;
                                     }
                                     .transfer{
                                         width: 8.07vw;
