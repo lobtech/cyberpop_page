@@ -10,10 +10,20 @@ const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html�
 const login = async () => {
     const ethereum = (window as any).ethereum // 获取小狐狸实例
     if (!ethereum) {
-        return 'Not dapp, install MetaMask！';
+        return 'Please install a wallet.';
     }
     return ethereum.request({ method: 'eth_requestAccounts' })
 }
+
+// 是否安装metamask
+const hasMetaMask = async () => {
+    const ethereum = (window as any).ethereum // 获取小狐狸实例
+    if (!ethereum) {
+        return 'Please install a wallet.';
+    }
+}
+
+
 
 // 账户列表
 const getAccounts = async () => {
@@ -208,6 +218,7 @@ const purchase = () => {
 
 export default {
     login,
+    hasMetaMask,
     getAccounts,
     getBalance,
     getContract,

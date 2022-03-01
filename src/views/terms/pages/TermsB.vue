@@ -139,6 +139,7 @@
             <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
         </div>
     </div>
+    <metamask-b v-if="metaMaskActive" :isInstall="isInstall"></metamask-b>
     <coming-b v-show="showComingFlag"></coming-b>
     <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
 </template>
@@ -276,22 +277,34 @@ const messageAlert = (flag:any, message:any) => {
 const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
 const id: any = ref(0)
+
+
+const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
+const isInstall:any = ref(false);
+
 const loggined: any = ref(false)
 const connect: any = async () => {
     showMenuAni.value = false;
-    const [accounts]: any = await Web3.login().then((res: any) => {
-        if( res == 'Not dapp, install MetaMask！' ){
-            messageAlert(0, res)
-        }else{
+    const ismessage: any = await Web3.hasMetaMask()
+    if( ismessage == 'Please install a wallet.' ){
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        isInstall.value = false;
+    }else{
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        isInstall.value = true;
+        const [accounts]: any = await Web3.login().then((res: any) => {
+            store.dispatch('user/metaChange',false);
             loggined.value = true
-            return res
-        }
-    })
-    store.dispatch('user/walletIdTemp',accounts);// 存放完整id
-    id.value = accounts;
-    let len = id.value.length-1;
-    id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-    store.dispatch('user/walletId',id.value);
+            return res;
+        })
+        store.dispatch('user/walletIdTemp',accounts);// 存放完整id
+        id.value = accounts;
+        let len = id.value.length-1;
+        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+        store.dispatch('user/walletId',id.value);
+    }
 }
 
 
@@ -301,6 +314,7 @@ onMounted(() => {
     }
     logoHImport();
     store.dispatch('user/changeActive', 0);
+    store.dispatch('user/metaChange',false);
     window.scrollTo(0,0);
 })
 

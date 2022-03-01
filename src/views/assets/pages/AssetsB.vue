@@ -75,15 +75,18 @@
                             </li>
                         </ul>
                         <ul class="type">
-                            <li>All type</li>
-                            <li>Character</li>
-                            <li>Weapon</li>
-                            <li>Support card</li>
-                            <li>Item</li>
-                            <li>Blind box</li>
+                            <li>Character,Weapon,Support Card,Item,Blind Box</li>
                             <li>
-                                <div class="cancel">CANCEL</div>
-                                <div class="ok">OK</div>
+                                <div>All type</div>
+                                <div>Character</div>
+                                <div>Weapon</div>
+                                <div>Support Card</div>
+                                <div>Item</div>
+                                <div>Blind Box</div>
+                                <div>
+                                    <div class="cancel">CANCEL</div>
+                                    <div class="ok">OK</div>
+                                </div>
                             </li>
                         </ul>
                         <ul class="quality">
@@ -337,7 +340,7 @@ const loggined: any = ref(false)
 const connect: any = async () => {
     showMenuAni.value = false;
     const [accounts]: any = await Web3.login().then((res: any) => {
-        if( res == 'Not dapp, install MetaMask！' ){
+        if( res == 'Please install a wallet.' ){
             messageAlert(0, res)
         }else{
             loggined.value = true
@@ -713,12 +716,14 @@ onMounted(() => {
                         }
                     }
                     .menuSelect{
+                        display: flex;
                         margin-left: 26px;
                         margin-top: 24px;
-                        .token{
+                        .token,.type{
                             width: 109px;
+                            margin-right: 16px;
                             li{
-                                width: 109px;
+                                width: 100%;
                                 height: 40px;
                                 font-size: 14px;
                                 font-family: AlibabaPuHuiTi_2_115_Black;
@@ -726,7 +731,6 @@ onMounted(() => {
                                 line-height: 40px;
                                 text-align: left;
                                 text-indent: 12px;
-
                             }
                             li:first-child{
                                 background: #8478FF;
@@ -736,8 +740,13 @@ onMounted(() => {
                                 background-size: 20px 20px;
                             }
                             li:last-child{
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: space-around;
+                                align-items: center;
                                 width: 148px;
                                 height: 112px;
+                                padding: 10px;
                                 margin-top: 8px;
                                 background: #514A9C linear-gradient(221deg, rgba(132, 120, 255, 0.54) 0%, rgba(12, 9, 17, 0) 100%) linear-gradient(77deg, rgba(120, 34, 187, 0.19) 0%, rgba(12, 9, 17, 0) 100%);
                                 box-shadow: -4px 4px 2px 1px rgba(0, 0, 0, 0.25);
@@ -746,6 +755,7 @@ onMounted(() => {
                                 background-color: #514A9C;
                                 div{
                                     height: 18px;
+                                    margin-right: 6px;
                                     font-size: 14px;
                                     font-family: AlibabaPuHuiTi_2_105_Heavy;
                                     color: #FFFFFF;
@@ -758,6 +768,9 @@ onMounted(() => {
                                     font-family: AlibabaPuHuiTi_2_55_Regular;
                                 }
                             }
+                        }
+                        .type{
+                            width: 288px;
                         }
                     }
                 }

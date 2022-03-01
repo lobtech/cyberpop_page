@@ -23,7 +23,7 @@
                     <div class="logged_in" v-if="loggined">
                         <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
                         <div class="idtxt">{{realId}}</div>
-                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true">
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
                     </div>
                 </div>
                 <div class="menu">
@@ -49,7 +49,7 @@
         </header>
         <section>
             <video-bg 
-id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg2.png">
+id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg3.png">
             </video-bg>
             <div class="titles"> 
                 <div class="title-wrap">
@@ -73,18 +73,21 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </footer>
     </div>
     <div class="doc_menu" v-show="showDoc || hoverDoc" ref="cursor" @mouseenter="hoverDoc = true" @mouseleave="hoverDoc = false">
-        <div class="cover"></div>
-        <div class="coverborder"></div>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">Whitepaper</a>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" @click="showDoc = false" target="view_window">Deck</a>
+        <div class="wrap">
+            <div class="cover"></div>
+            <div class="coverborder"></div>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">Whitepaper</a>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" @click="showDoc = false" target="view_window">Deck</a>
+        </div>
     </div>
     <div class="logged_menu" v-show="showloggedFlag || hoverLogged" ref="cursor2" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
-        <div class="cover"></div>
-        <div class="coverborder"></div>
-        <div>My Assets</div>
-        <!-- <div @click="router.push('/assets')">My Assets</div> -->
-        <div @click="signout">Log out</div>
+        <div class="wrap">
+            <div class="cover"></div>
+            <div class="coverborder"></div>
+            <div @click="router.push('/')">My Assets</div>
+            <div @click="signout">Log out</div>
+        </div>
     </div>
     <div class="download" v-show="showDown" :class="!isOut ? 'bounceShow' : 'bounceHide'">
         <div class="cover"></div>
@@ -104,7 +107,6 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
         </div>
     </div>
-    <xplanpro-a v-if="xplanActive"></xplanpro-a>
     <div class="nav-logos" ref="myNav">
         <a href="#" target="view_window">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/joinus.svg" alt="" class="joinus">
@@ -124,9 +126,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="warp">
             <div class="title" id="ele1">WELCOME TO<p class="white">CYBERPOP NEW WORLD</p></div>
             <div class="desc">
-                A Metaverse adventure UGC Metaverse built on the ethereum blockchain. <br/>
-                Travel through diverse cyberspace in search of mysterious digital artifacts <br/>
-                and creatures even Legend of the absolute beginning.
+                A Metaverse adventure UGC Metaverse built on the Ethereum blockchain.<br/>
+                Travel through diverse cyberspace searching for mysterious digital artifacts<br/>
+                and creatures, even Legend of the absolute beginning.
             </div>
             <div class="content">
                 <div class="left">
@@ -141,10 +143,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
                 <div class="swiper1">
                     <div class="swiper-bg">
-                        <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant2.png" alt="">
-                        <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas2.png" alt="">
-                        <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury2.png" alt="">
-                        <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity2.png" alt="">
+                        <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant3.png" alt="">
+                        <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt="">
+                        <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt="">
+                        <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png" alt="">
                     </div>
                     <div class="swiper-bg2">
                         <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/swiper-bg2.png" alt="">
@@ -169,10 +171,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :speed="200"
                             :autoplay="true"
                         >
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant2.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas2.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury2.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity2.png"  alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant3.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png"  alt=""></swiper-slide>
                         </swiper>
                     </div>
                 </div>
@@ -180,10 +182,11 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="nobody">
-        <img class="nobody-img" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-bg2.png" alt="">
+        <!-- <img class="nobody-img" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-bg2.png" alt=""> -->
+        <div class="nobody-img"></div>
         <div class="nobody-wrap">
             <div class="nobody-left">
-                <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg2.png" alt="">
+                <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
                 <div class="nobody-left-tip">
                     <div>Scarlet Witch <br/> in #0 cyberspace</div>
                 </div>
@@ -192,11 +195,11 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="title" id="ele2">YOU CAN BE NOBODY<br/> AND SOMEBODY</div>
                 <div class="subtitle">IN DIFFERENT CYBERSPACE</div>
                 <div class="desc">
-                    By teleporting into different cyberspace， Players will  <br/>
-                    become different NFT characters belonging to this space. <br/>
-                    Exploring the secrets of space to create your own <br/>
-                    personality and gain more assets.You can also compete <br/>
-                    with players in the same space or team up with them.
+                    By teleporting into different cyberspace， Players will<br/>
+                    become different NFT characters belonging to this space.<br/>
+                    Exploring the secrets of space to create your own<br/>
+                    personality and gain more assets. You can also compete<br/>
+                    with players in the same space or team up with them.                    
                 </div>
                 <div class="video">
                     <img class="videoBg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/yellowBg-r.svg" alt="">
@@ -206,7 +209,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     </div>
                     <div class="content">
                         <div class="video-title">#0 Cyberspace <span class="yellow">Exposure</span></div>
-                        <div class="video-subtitle">Ancient space in the remnants of time</div>
+                        <div class="video-subtitle">Ancient space in the remnants of a time</div>
                     </div>
                 </div>
                 <div class="getNft-wrap">
@@ -221,12 +224,11 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="title" id="ele3">MAKE CYBERSPACE <br/> BELONGS TO YOU</div>
             <div class="subtitle">THE NFT MADE BY YOURSELF</div>
             <div class="desc">
-                Through advanced collapse algorithms, cyberpop supports <br/>
-                the generation of UGC nft. Based on the security of chain <br/>
-                protocols, it effectively ensures the multiple player battles <br/>
-                and development of future cybercities. We already support <br/>
-                functional city components for assets production, and are <br/>
-                continuously being added.
+                Through advanced collapse algorithms, cyberpop supports<br/>
+                the generation of UGC NFT. The security of chain protocols <br/>
+                effectively ensures the multiple player battles and development <br/>
+                of future cybercities. We already support functional city <br/>
+                components for assets production and are continuously being added.
             </div>
             <div class="icon">
                 <div class="txt">Cross-chain support</div>
@@ -276,8 +278,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="title" id="ele4">NEWS</div>
             <div class="content" @click="newsActiveSrc()">
                 <div class="hover-img">
-                    <img :class="{'newsShow': showNewsImg == 0}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg-2.png" alt="">
-                    <img :class="{'newsShow': showNewsImg == 1}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg2-2.png" alt="">
+                    <img :class="{'newsShow': showNewsImg == 0}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg-3.png" alt="">
+                    <img :class="{'newsShow': showNewsImg == 1}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg2-3.png" alt="">
                 </div>
                 <div class="news-left">
                     <div class="news-top" @click="toYoutube($event)">
@@ -375,11 +377,11 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="date"><span class="span-l"></span>2022.10</div>
                 <div class="event-r">
                     E-commerce and virtual idol <br/>
-                    Multiple chain access support <br/>
-                    PVP combat system of urban construction trade integrated <br/>
+                    Support for multiple chain access <br/>
+                    The PVP combat system of urban construction trade integrated <br/>
                     User-defined wallet integrated <br/>
                     User-defined idol token <br/>
-                    HashRate coin access
+                    Support for HashRate coin access
                 </div>
             </div>
             <div class="time6 timeWidth-l maptime" id="time6">
@@ -390,7 +392,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     Improvement of user-defined system <br/>
                     AR /VR device base revision <br/>
                     Enhancement financial confrontation attribute  <br/>
-                    Launch of all-platform cyber world 
+                    Launch of the all-platform cyber world
                 </div>
             </div>
             <div class="time7 timeWidth-r maptime" id="time7">
@@ -399,7 +401,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     Open of 3A level UGC tool-chain platform  <br/>
                     DAO: self-management of trading and communities <br/>
                     Launch of alternation rules and content in the seasons <br/>
-                    Combination of VR/AR (with ecommerce and social)
+                    Combination of VR/AR (with e-commerce and social)
                 </div>
             </div>
             <div class="time8 timeWidth-l maptime" id="time8">
@@ -418,13 +420,24 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img class="xplan" @click="showxplan()" src="@/assets/nwhome/xplan.svg" alt="" >
         </div>
         <div class="logo">
-            <img src="@/assets/nwhome/partners4.png" alt="">
-            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners1.png" alt="">
-            <!-- <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt=""> -->
-            <img src="@/assets/nwhome/skywater.png" alt="">
-            <img src="@/assets/nwhome/partners3.png" alt="">
-            <img src="@/assets/nwhome/there.png" alt="">
-            <img src="@/assets/nwhome/partners5.png" alt="">
+            <div>
+                <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners4.png" alt="">
+            </div>
+            <div>
+                <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
+            </div>
+            <div>
+                <img class="logo3" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/skywater2.png" alt="">
+            </div>
+            <div>
+                <img class="logo4" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners3.png" alt="">
+            </div>
+            <div>
+                <img class="logo5" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/there.png" alt="">
+            </div>
+            <div>
+                <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5.png" alt="">
+            </div>
         </div>
     </div>
     <div class="will">
@@ -454,10 +467,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="email">
             <div class="email-wrap">
                 <input id="email" class="email-input" type="text" v-model="email" placeholder="Email">
-                <div>Youraddress</div>
             </div>
-            <div class="register" @click="submit()">Register</div>
+            <div class="sub" @click="submit()">Register</div>
         </div>
+        <a class="link" href="https://forms.gle/VvU8nZymrikgFipR7" target="view_window">Become an ambassador</a>
     </div>
     <div class="footer">
         <!-- <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
@@ -477,6 +490,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </a>
         </div>
     </div>
+    <metamask-a v-if="metaMaskActive" :isInstall="isInstall"></metamask-a>
+    <xplanpro-a v-if="xplanActive"></xplanpro-a>
     <coming-a v-show="showComingFlag"></coming-a>
     <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
 </template>
@@ -536,7 +551,6 @@ const signout = () => {
 
 // xplan
 const xplanActive = computed(() => store?.state.user?.xplanActive);
-const xplanAni = computed(() => store?.state.user?.xplanAni);
 const showxplan = () => {
     if( realId.value != 0 ){
         Web3.getBalance(idTemp.value).then((res) => {
@@ -545,7 +559,7 @@ const showxplan = () => {
                 store.dispatch('user/changeXplan',true);
                 store.dispatch('user/xplanChangeAni',true);
             }else{
-                window.open('https://game.cyberpop.online/xplan');
+                window.open('https://testxplan.cyberpop.online');
             }
         })
     }else{
@@ -810,21 +824,47 @@ const playVideo = (type: any) => {
     isPlay.value = !isPlay.value;
 }
 
+
+const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
+const isInstall:any = ref(false);
+
 const loggined: any = ref(false)
 const connect: any = async () => {
-    const [accounts]: any = await Web3.login().then((res: any) => {
-        if( res == 'Not dapp, install MetaMask！' ){
-            messageAlert(false, res)
-        }else{
+    
+    // const [accounts]: any = await Web3.login().then((res: any) => {
+    //     store.dispatch('user/metaChange',true);
+    //     store.dispatch('user/metaChangeAni',true);
+    //     if( res == 'Please install a wallet.' ){
+    //         // messageAlert(false, res)
+    //         isInstall.value = false;
+    //     }else{
+    //         isInstall.value = true;
+    //         // loggined.value = true
+    //         alert(res);
+    //         return res
+    //     }
+    // })
+
+    const ismessage: any = await Web3.hasMetaMask()
+    if( ismessage == 'Please install a wallet.' ){
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        isInstall.value = false;
+    }else{
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        isInstall.value = true;
+        const [accounts]: any = await Web3.login().then((res: any) => {
+            store.dispatch('user/metaChange',false);
             loggined.value = true
-            return res
-        }
-    })
-    store.dispatch('user/walletIdTemp',accounts);// 存放完整id
-    id.value = accounts;
-    let len = id.value.length-1;
-    id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-    store.dispatch('user/walletId',id.value);
+            return res;
+        })
+        store.dispatch('user/walletIdTemp',accounts);// 存放完整id
+        id.value = accounts;
+        let len = id.value.length-1;
+        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+        store.dispatch('user/walletId',id.value);
+    }
 }
 
 
@@ -852,10 +892,10 @@ const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     
     if(email.value === ""){ //输入不能为空
-        messageAlert(false,'Not null!')
+        messageAlert(false,'Required can not be empty.')
 　　　　return false;
 　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
-        messageAlert(false,'Please input email!')
+        messageAlert(false,'Please input your email.')
 　　　　return false;
 　　 }
 
@@ -968,6 +1008,7 @@ onUnmounted(() => {
 onMounted(() => {
     // connect();
     store.dispatch('user/changeXplan',false);
+    store.dispatch('user/metaChange',false);
     if( realId.value != 0){
         loggined.value = true;
     }
@@ -1122,7 +1163,6 @@ onMounted(() => {
                             width: 12vw;
                             height: 100%;
                             background-color: #EDFF00;
-                            opacity: .6;
                             transform: skewX(-38deg);
                         }
                         .submitAnimation{
@@ -1388,127 +1428,135 @@ onMounted(() => {
     .doc_menu{
         z-index: 9;
         position: fixed;
-        top: 4.2vw;
-        left: 47vw;
-        width: 9.27vw;
-        height: 7.96vw;
-        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-        border: .15vw solid;
-        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
-        clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
-        .cover{
-            position: absolute;
-            top: 0vw;
-            width: 100%;
-            height: 100%;
+        top: 5.2vw;
+        left: 49vw;
+        .wrap{
+            position: relative;
+            width: 8.3vw;
+            height: 7.96vw;
+            margin-top: .6vw;
             background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+            border: .15vw solid;
+            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
             clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
-        }
-        .coverborder{
-            z-index: -1;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            content: '';
-            display: inline-block;
-            width: 8vw;
-            height: 8vw;
-            background-color: #2d2942;
-        }
-        a{
-            display: inline-block;
-            text-decoration: none;
-            position: absolute;
-            right: 0;
-            width: 8vw;
-            height: 1.3vw;
-            padding-right: .8vw;
-            margin-right: .49vw;
-            font-size: .93vw;
-            font-family: AlibabaPuHuiTi_2_75_SemiBold;
-            text-align: right;
-            color: #fff;
-            white-space: nowrap;
-        }
-        a:nth-child(3){
-            top: .8vw;
-            cursor: pointer;
-        }
-        a:nth-child(4){
-            top: 2.4vw;
-            padding-top: .5vw;
-            cursor: pointer;
-        }
-        a:nth-child(5){
-            top: 4.6vw;
-            padding-top: .5vw;
-            cursor: pointer;
-        }
-        a + a{
-            border-top: 2px solid #534968;
-        }
-        a:hover{
-            color: #35F1C8;
+            .cover{
+                position: absolute;
+                top: 0vw;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
+            }
+            .coverborder{
+                z-index: -1;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                content: '';
+                display: inline-block;
+                width: 8vw;
+                height: 8vw;
+                background-color: #2d2942;
+            }
+            a{
+                display: inline-block;
+                text-decoration: none;
+                position: absolute;
+                right: 0;
+                width: 7vw;
+                height: 1.3vw;
+                padding-right: .8vw;
+                margin-right: .49vw;
+                font-size: .93vw;
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                text-align: right;
+                color: #fff;
+                white-space: nowrap;
+            }
+            a:nth-child(3){
+                top: .8vw;
+                cursor: pointer;
+            }
+            a:nth-child(4){
+                top: 2.4vw;
+                padding-top: .5vw;
+                cursor: pointer;
+            }
+            a:nth-child(5){
+                top: 4.6vw;
+                padding-top: .5vw;
+                cursor: pointer;
+            }
+            a + a{
+                border-top: 2px solid #534968;
+            }
+            a:hover{
+                color: rgb(255, 24, 255);
+            }
         }
     }
     .logged_menu{
         z-index: 9;
         position: fixed;
-        top: 4.2vw;
+        top: 3.8vw;
         right: 1.8vw;
-        width: 9.27vw;
-        height: 5.1vw;
-        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-        border: .15vw solid;
-        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
-        clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
-        .cover{
-            position: absolute;
-            top: 0vw;
-            width: 100%;
-            height: 100%;
+        .wrap{
+            width: 9.27vw;
+            height: 5.1vw;
+            margin-top: 2vw;
             background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+            border: .15vw solid;
+            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
             clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
-        }
-        .coverborder{
-            z-index: -1;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            content: '';
-            display: inline-block;
-            width: 8vw;
-            height: 8vw;
-            background-color: #2d2942;
-        }
-        div:nth-child(3){
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8.43vw;
-            height: 1.3vw;
-            padding-right: .8vw;
-            margin: 1vw auto .4vw;
-            font-size: .93vw;
-            font-family: AlibabaPuHuiTi_2_75_SemiBold;
-            color: #FFFFFF;
-            line-height: .4vw;
-            text-align: right;
-            border-bottom: .15vw solid #534968;
-            cursor: pointer;
-        }
-        div:nth-child(4){
-            position: absolute;
-            right: 1.1vw;
-            bottom: .9vw;
-            width: 8.43vw;
-            height: 1.3vw;
-            font-size: .93vw;
-            font-family: AlibabaPuHuiTi_2_75_SemiBold;
-            color: #6D4AFF;
-            line-height: 1.3vw;
-            text-align: right;
-            cursor: pointer;
+
+            .cover{
+                position: absolute;
+                top: 0vw;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
+            }
+            .coverborder{
+                z-index: -1;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                content: '';
+                display: inline-block;
+                width: 8vw;
+                height: 8vw;
+                background-color: #2d2942;
+            }
+            div:nth-child(3){
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 8.43vw;
+                height: 1.3vw;
+                padding-right: .8vw;
+                margin: 1vw auto .4vw;
+                font-size: .93vw;
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                color: #FFFFFF;
+                line-height: .4vw;
+                text-align: right;
+                border-bottom: .15vw solid #534968;
+                cursor: pointer;
+            }
+            div:nth-child(4){
+                position: absolute;
+                right: 1.1vw;
+                bottom: .9vw;
+                width: 8.43vw;
+                height: 1.3vw;
+                font-size: .93vw;
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                color: rgb(255, 24, 255);
+                line-height: 1.3vw;
+                text-align: right;
+                cursor: pointer;
+            }
         }
     }
     .download{
@@ -1721,7 +1769,7 @@ onMounted(() => {
                 }
             }
             .desc{
-                width: 41vw;
+                width: 38.54vw;
                 height: 3.75vw;
                 margin-top: .2vw;
                 margin-left: 19.58vw;
@@ -1886,8 +1934,9 @@ onMounted(() => {
             position: absolute;
             top: 0;
             right: 0;
-            width: 80%;
+            width: 67%;
             height: 100%;
+            background: linear-gradient(90deg, rgba(111, 38, 190, 0) 0%, rgba(156, 0, 248, 0.64) 64%, #7A00F8 100%);
         }
         .nobody-wrap{
             width: 100%;
@@ -2083,9 +2132,10 @@ onMounted(() => {
         width: 100%;
         min-height: 130vh;
         height: 130vh;
-        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/make-bg2.png');
-        background-position: right top;
-        background-size: 100% 100%;
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/make-bg3.png');
+        background-repeat: no-repeat;
+        background-position: right -.4vw;
+        background-size: 88% 101%;
         background-color: #000000;
         .make-wrap{
             display: flex;
@@ -2628,52 +2678,47 @@ onMounted(() => {
         }
         .logo{
             display: flex;
-            justify-content: center;
-            margin-top: 2.4vw;
-            height: 9.21vw;
-            margin-bottom: 6vw;
+            flex-wrap: wrap;
+            width: 63.54vw;
+            margin: 4vw auto 6vw;
             overflow: hidden;
-            img:nth-child(1){
-                width: 6.77vw;
-                height: 6.61vw;
-                margin: 1.1vw 2vw 0 1vw;
+            div{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 14.32vw;
+                height: 8.9vw;
+                margin: 0 .78vw 1.56vw;
+                background: #282626;
+                border-radius: .88vw;
+                .logo1{
+                    width: 6.19vw;
+                    height: 6.09vw;
+                }
+                .logo2{
+                    width: 6.82vw;
+                    height: 4.53vw;
+                }
+                .logo3{
+                    height: 4.2vw;
+                    margin-right: .8vw;
+                }
+                .logo4{
+                    width: 10.88vw;
+                    height: 3.8vw;
+                }
+                .logo5{
+                    height: 2.2vw;
+                }
+                .logo6{
+                    width: 5.1vw;
+                    height: 5.1vw;
+                }
+                
             }
-            img:nth-child(2){
-                width: 12.29vw;
-                height: 9.41vw;
-                margin-top: -.1vw;
-                margin-bottom: -.1vw;
+            div:hover{
+                background: rgba(40, 38, 38,.6);
             }
-            // img:nth-child(3){
-            //     width: 19.47vw;
-            //     height: 6.2vw;
-            //     margin-top: 1.4vw;
-            //     margin-right: 3.6vw;
-            // }
-            img:nth-child(3){
-                // width: 19.47vw;
-                height: 6.2vw;
-                margin-top: 1.8vw;
-                margin-right: 3vw;
-            }
-            img:nth-child(4){
-                width: 13.17vw;
-                height: 4.58vw;
-                margin-top: 2.3vw;
-                margin-right: 3vw;
-            }
-            img:nth-child(5){
-                width: 19.63vw;
-                height: 3.64vw;
-                margin-top: 2.7vw;
-                margin-right: 1.6vw;
-            }
-            img:nth-child(6){
-                width: 5vw;
-                height: 5vw;
-                margin-top: 1.8vw;
-            }
-
         }
     }
     .will{
@@ -2788,21 +2833,8 @@ onMounted(() => {
                 //     font-size: .8vw;
                 //     text-align: right;
                 // }
-                div{
-                    position: absolute;
-                    top: 50%;
-                    right: 1vw;
-                    bottom: 0;
-                    transform: translateY(-50%);
-                    height: 1.04vw;
-                    color: #565656; 
-                    font-size: 1.04vw;
-                    font-family: AlibabaPuHuiTi_2_55_Regular;
-                    line-height: 1.04vw;
-                    display: none;
-                }
             }
-            .register{
+            .sub{
                 width: 31%;
                 height: 3.69vw;
                 line-height: 3.69vw;
@@ -2811,6 +2843,7 @@ onMounted(() => {
                 font-weight: bold;
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 color: #04FF84;
+                text-align: center;
                 cursor: pointer;
             }
         }
@@ -2820,10 +2853,18 @@ onMounted(() => {
         .email:focus-within {
             filter: drop-shadow(0 0 0.7vw #000000);
         }
+        .link{
+            margin-top: 2vw;
+            font-size: 1.25vw;
+            font-family: AlibabaPuHuiTi_2_55_Regular;
+            color: #000000;
+            line-height: 1.25vw;
+        }
+        .link:hover{
+            color: #ff18ff;
+        }
     }
     .footer{
-        // background-color: #121122;
-        background-color: #000000;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -2836,6 +2877,8 @@ onMounted(() => {
         font-weight: 400;
         color: #FFFFFF;
         line-height: 1.82vw;
+        // background-color: #000000;
+        background-color: #121122;
         a{
             color: #ffffff;
             text-decoration: none;

@@ -22,7 +22,7 @@
                     <div class="logged_in" v-if="loggined">
                         <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
                         <div class="idtxt">{{realId}}</div>
-                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true">
+                        <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
                     </div>
                 </div>
                 <div class="menu">
@@ -48,17 +48,21 @@
         </header>
     </div>
     <div class="doc_menu" v-show="showDoc || hoverDoc" ref="cursor" @mouseenter="hoverDoc = true" @mouseleave="hoverDoc = false">
-        <div class="cover"></div>
-        <div class="coverborder"></div>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">Whitepaper</a>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a>
-        <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" @click="showDoc = false" target="view_window">Deck</a>
+        <div class="wrap">
+            <div class="cover"></div>
+            <div class="coverborder"></div>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">Whitepaper</a>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" @click="showDoc = false" target="view_window">Deck</a>
+        </div>
     </div>
     <div class="logged_menu" v-show="showloggedFlag || hoverLogged" ref="cursor2" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
-        <div class="cover"></div>
-        <div class="coverborder"></div>
-        <div>My Assets</div>
-        <div @click="signout">Log out</div>
+        <div class="wrap">
+            <div class="cover"></div>
+            <div class="coverborder"></div>
+            <div>My Assets</div>
+            <div @click="signout">Log out</div>
+        </div>
     </div>
     <div class="termas">
         <div class="termas-wrap">
@@ -145,6 +149,7 @@
             </a>
         </div>
     </div>
+    <metamask-a v-if="metaMaskActive" :isInstall="isInstall"></metamask-a>
     <coming-a v-show="showComingFlag"></coming-a>
     <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
 </template>
@@ -301,21 +306,31 @@ const messageAlert = (flag:any, message:any) => {
 const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
 const id: any = ref(0)
+const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
+const isInstall:any = ref(false);
+
 const loggined: any = ref(false)
 const connect: any = async () => {
-    const [accounts]: any = await Web3.login().then((res: any) => {
-        if( res == 'Not dapp, install MetaMask！' ){
-            messageAlert(false, res)
-        }else{
+    const ismessage: any = await Web3.hasMetaMask()
+    if( ismessage == 'Please install a wallet.' ){
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        isInstall.value = false;
+    }else{
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        isInstall.value = true;
+        const [accounts]: any = await Web3.login().then((res: any) => {
+            store.dispatch('user/metaChange',false);
             loggined.value = true
-            return res
-        }
-    })
-    store.dispatch('user/walletIdTemp',accounts);// 存放完整id
-    id.value = accounts;
-    let len = id.value.length-1;
-    id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-    store.dispatch('user/walletId',id.value);
+            return res;
+        })
+        store.dispatch('user/walletIdTemp',accounts);// 存放完整id
+        id.value = accounts;
+        let len = id.value.length-1;
+        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+        store.dispatch('user/walletId',id.value);
+    }
 }
 
 
@@ -333,6 +348,7 @@ onMounted(() => {
     store.dispatch('user/changeActive', 0);
     window.scrollTo(0,0);
     store.dispatch('user/showDialog',false);// close message dialog
+    store.dispatch('user/metaChange',false);
 })
 
 </script>
@@ -436,7 +452,6 @@ onMounted(() => {
                             width: 12vw;
                             height: 100%;
                             background-color: #EDFF00;
-                            opacity: .6;
                             transform: skewX(-38deg);
                         }
                         .submitAnimation{
@@ -576,127 +591,135 @@ onMounted(() => {
     .doc_menu{
         z-index: 9;
         position: fixed;
-        top: 4.2vw;
-        left: 47vw;
-        width: 9.27vw;
-        height: 7.96vw;
-        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-        border: .15vw solid;
-        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
-        clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
-        .cover{
-            position: absolute;
-            top: 0vw;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);;
+        top: 5.2vw;
+        left: 49vw;
+        .wrap{
+            position: relative;
+            width: 8.3vw;
+            height: 7.96vw;
+            margin-top: .6vw;
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+            border: .15vw solid;
+            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
             clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
-        }
-        .coverborder{
-            z-index: -1;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            content: '';
-            display: inline-block;
-            width: 8vw;
-            height: 8vw;
-            background-color: #2d2942;
-        }
-        a{
-            display: inline-block;
-            text-decoration: none;
-            position: absolute;
-            right: 0;
-            width: 8vw;
-            height: 1.3vw;
-            padding-right: .8vw;
-            margin-right: .49vw;
-            font-size: .93vw;
-            font-family: AlibabaPuHuiTi_2_75_SemiBold;
-            text-align: right;
-            color: #fff;
-            white-space: nowrap;
-        }
-        a:nth-child(3){
-            top: .8vw;
-            cursor: pointer;
-        }
-        a:nth-child(4){
-            top: 2.4vw;
-            padding-top: .5vw;
-            cursor: pointer;
-        }
-        a:nth-child(5){
-            top: 4.6vw;
-            padding-top: .5vw;
-            cursor: pointer;
-        }
-        a + a{
-            border-top: 2px solid #534968;
-        }
-        a:hover{
-            color: #35F1C8;
+            .cover{
+                position: absolute;
+                top: 0vw;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
+            }
+            .coverborder{
+                z-index: -1;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                content: '';
+                display: inline-block;
+                width: 8vw;
+                height: 8vw;
+                background-color: #2d2942;
+            }
+            a{
+                display: inline-block;
+                text-decoration: none;
+                position: absolute;
+                right: 0;
+                width: 7vw;
+                height: 1.3vw;
+                padding-right: .8vw;
+                margin-right: .49vw;
+                font-size: .93vw;
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                text-align: right;
+                color: #fff;
+                white-space: nowrap;
+            }
+            a:nth-child(3){
+                top: .8vw;
+                cursor: pointer;
+            }
+            a:nth-child(4){
+                top: 2.4vw;
+                padding-top: .5vw;
+                cursor: pointer;
+            }
+            a:nth-child(5){
+                top: 4.6vw;
+                padding-top: .5vw;
+                cursor: pointer;
+            }
+            a + a{
+                border-top: 2px solid #534968;
+            }
+            a:hover{
+                color: rgb(255, 24, 255);
+            }
         }
     }
     .logged_menu{
         z-index: 9;
         position: fixed;
-        top: 4.2vw;
+        top: 3.8vw;
         right: 1.8vw;
-        width: 9.27vw;
-        height: 5.1vw;
-        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-        border: .15vw solid;
-        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
-        clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
-        .cover{
-            position: absolute;
-            top: 0vw;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);;
+        .wrap{
+            width: 9.27vw;
+            height: 5.1vw;
+            margin-top: 2vw;
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+            border: .15vw solid;
+            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
             clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
-        }
-        .coverborder{
-            z-index: -1;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            content: '';
-            display: inline-block;
-            width: 8vw;
-            height: 8vw;
-            background-color: #2d2942;
-        }
-        div:nth-child(3){
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8.43vw;
-            height: 1.3vw;
-            padding-right: .8vw;
-            margin: 1vw auto .4vw;
-            font-size: .93vw;
-            font-family: AlibabaPuHuiTi_2_75_SemiBold;
-            color: #FFFFFF;
-            line-height: .4vw;
-            text-align: right;
-            border-bottom: .15vw solid #534968;
-            cursor: pointer;
-        }
-        div:nth-child(4){
-            position: absolute;
-            right: 1.1vw;
-            bottom: .9vw;
-            width: 8.43vw;
-            height: 1.3vw;
-            font-size: .93vw;
-            font-family: AlibabaPuHuiTi_2_75_SemiBold;
-            color: #6D4AFF;
-            line-height: 1.3vw;
-            text-align: right;
-            cursor: pointer;
+
+            .cover{
+                position: absolute;
+                top: 0vw;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                clip-path: polygon(0 0, 100% 0, 100% 75%, 93% 100%, 0 100%);
+            }
+            .coverborder{
+                z-index: -1;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                content: '';
+                display: inline-block;
+                width: 8vw;
+                height: 8vw;
+                background-color: #2d2942;
+            }
+            div:nth-child(3){
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 8.43vw;
+                height: 1.3vw;
+                padding-right: .8vw;
+                margin: 1vw auto .4vw;
+                font-size: .93vw;
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                color: #FFFFFF;
+                line-height: .4vw;
+                text-align: right;
+                border-bottom: .15vw solid #534968;
+                cursor: pointer;
+            }
+            div:nth-child(4){
+                position: absolute;
+                right: 1.1vw;
+                bottom: .9vw;
+                width: 8.43vw;
+                height: 1.3vw;
+                font-size: .93vw;
+                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                color: rgb(255, 24, 255);
+                line-height: 1.3vw;
+                text-align: right;
+                cursor: pointer;
+            }
         }
     }
     .termas{
@@ -728,8 +751,6 @@ onMounted(() => {
         }
     }
     .footer{
-        // background-color: #121122;
-        background-color: #000000;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -742,6 +763,8 @@ onMounted(() => {
         font-weight: 400;
         color: #FFFFFF;
         line-height: 1.82vw;
+        // background-color: #000000;
+        background-color: #121122;
         a{
             color: #ffffff;
             text-decoration: none;

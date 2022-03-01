@@ -146,10 +146,12 @@ onMounted(() => {
                 .add{
                     top: .6vw;
                     border-bottom: .6vw solid #ffffff;
+                    cursor: pointer;
                 }
                 .reduce{
                     bottom: .6vw;
                     border-top: .6vw solid #ffffff;
+                    cursor: pointer;
                 }
             }
             .desc{

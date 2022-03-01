@@ -12,6 +12,7 @@ const states = {
     roles: [] as role[],
     active: 0,
     xplanActive: false,
+    xplanAni: false,
     comingOutFlag: false,
     showDialog: false,
     account: '' as string, // 用户地址
@@ -19,8 +20,9 @@ const states = {
     tokenBalances: '' as string, // 令牌余额
     realId: 0, // 带星号id，用于页面显示
     idTemp: '' as string,  // 完整id，用于判断
-    xplanAni: false,
     transferActive: false, // 背包页-TRANSFER按钮
+    metaMaskActive: false, // install metamask
+    metaAni: false,
 }
 export type typeof_user = typeof states
 export default {
@@ -53,6 +55,9 @@ export default {
         changeXplan(state, payload: any) {
             state.xplanActive = payload;
         },
+        xplanChangeAni(state, payload: any) {
+            state.xplanAni = payload;
+        },
         addComingOut(state, payload: any) {
             state.comingOutFlag = payload;
         },
@@ -71,11 +76,14 @@ export default {
         walletIdTemp(state, payload: any) {
             state.idTemp = payload;
         },
-        xplanChangeAni(state, payload: any) {
-            state.xplanAni = payload;
-        },
         transferChange(state, payload: any) {
             state.transferActive = payload;
+        },
+        metaChange(state, payload: any){
+            state.metaMaskActive = payload;
+        },
+        metaChangeAni(state, payload: any) {
+            state.metaAni = payload;
         },
     },
     actions: {
@@ -94,6 +102,9 @@ export default {
         changeXplan({ commit }, paylaod: any) {
             commit('changeXplan', paylaod)
         },
+        xplanChangeAni({ commit }, paylaod: any) {
+            commit('xplanChangeAni', paylaod)
+        },
         addComingOut({ commit }, paylaod: any) {
             commit('addComingOut', paylaod)
         },
@@ -110,11 +121,14 @@ export default {
         walletIdTemp({ commit }, paylaod: any) {
             commit('walletIdTemp', paylaod)
         },
-        xplanChangeAni({ commit }, paylaod: any) {
-            commit('xplanChangeAni', paylaod)
-        },
         transferChange({ commit }, paylaod: any) {
             commit('transferChange', paylaod)
+        },
+        metaChange({ commit }, paylaod: any) {
+            commit('metaChange', paylaod)
+        },
+        metaChangeAni({ commit }, paylaod: any) {
+            commit('metaChangeAni', paylaod)
         },
     },
 } as Module<typeof_user, State>

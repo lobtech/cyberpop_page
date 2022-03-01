@@ -52,7 +52,7 @@
         </header>
         <section>
             <video-bg 
-id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg2.png">
+id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed6255c8406b7294d.mp4`]" img="https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg3.png">
             </video-bg>
             <div class="titles"> 
                 <div class="title-wrap">
@@ -90,7 +90,6 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="btn">Download</div>
         </div>
     </div>
-    <xplanpro-b v-if="xplanActive"></xplanpro-b>
     <div class="nav-logos" ref="myNav">
         <a href="#">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/joinus.svg" alt="" class="joinus">
@@ -110,10 +109,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="warp">
             <div class="title" id="ele1">WELCOME TO<p class="white">CYBERPOP NEW WORLD</p></div>
             <div class="desc">
-                A Metaverse adventure UGC Metaverse built on the <br/> 
-                ethereum blockchain.Travel through diverse <br/> 
-                cyberspace in search of mysterious digital artifacts <br/>
-                and creatures even Legend of the absolute <br/>
+                A Metaverse adventure UGC Metaverse built on the <br/>
+                Ethereum blockchain.Travel through diverse <br/>
+                cyberspace searching for mysterious digital artifacts<br/>
+                and creatures, even Legend of the absolute <br/> 
                 beginning.
             </div>
             <div class="content">
@@ -132,16 +131,16 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="swiper1">
                     <div class="swiper-bg">
                         <div>
-                            <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant2.png" alt="">
+                            <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant3.png" alt="">
                         </div>
                         <div>
-                            <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas2.png" alt="">
+                            <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt="">
                         </div>
                         <div>
-                            <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury2.png" alt="">
+                            <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt="">
                         </div>
                         <div>
-                            <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity2.png" alt="">
+                            <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png" alt="">
                         </div>
                     </div>
                     <div class="swiper-bg2">
@@ -167,10 +166,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :speed="200"
                             :autoplay="true"
                         >
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant2.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas2.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury2.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity2.png"  alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant3.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png"  alt=""></swiper-slide>
                         </swiper>
                     </div>
                 </div>
@@ -180,7 +179,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="nobody">
         <div class="nobody-wrap">
             <div class="nobody-left">
-                <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg2.png" alt="">
+                <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
                 <div class="nobody-img"></div>
                 <div class="nobody-left-tip">
                     <div>Scarlet Witch <br/> in cyberspace</div>
@@ -190,12 +189,11 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="title" id="ele2">YOU CAN BE NOBODY <br/>AND SOMEBODY</div>
                 <div class="subtitle">IN DIFFERENT CYBERSPACE</div>
                 <div class="desc">
-                    By teleporting into different cyberspace， Players <br/>
-                    will become different NFT characters belonging to <br/>
-                    this space. Exploring the secrets of space to <br/>
-                    create your own personality and gain more <br/>
-                    assets.You can also compete with players in the <br/>
-                    same space or team up with them.
+                    By teleporting into different cyberspace, Players will<br/>
+                    become different NFT characters belonging to this space.<br/>
+                    Exploring the secrets of space to create your own<br/>
+                    personality and gain more assets. You can also compete<br/>
+                    with players in the same space or team up with them.
                 </div>
                 <div class="video">
                     <img class="videoBg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/yellowBg-r.svg" alt="">
@@ -205,7 +203,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     </div>>
                     <div class="content">
                         <div class="video-title">#0 Cyberspace <span class="yellow">Exposure</span></div>
-                        <div class="video-subtitle">Ancient space in the remnants of time</div>
+                        <div class="video-subtitle">Ancient space in the remnants of a time</div>
                     </div>
                 </div>
                 <div class="getNft-wrap">
@@ -222,11 +220,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="subtitle">THE NFT MADE BY YOURSELF</div>
             <div class="desc">
                 Through advanced collapse algorithms, cyberpop supports
-                the generation of UGC nft. Based on the security of chain
-                protocols, it effectively ensures the multiple player battles
-                and development of future cybercities. We already support
-                functional city components for assets production, and are
-                continuously being added.
+                the generation of UGC NFT. The security of chain protocols 
+                effectively ensures the multiple player battles and development 
+                of future cybercities. We already support functional city 
+                components for assets production and are continuously being added.
             </div>
             <div class="icon">
                 <div class="txt">Cross-chain support</div>
@@ -290,8 +287,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
             </div>
             <div class="news-img" @click="newsActiveSrc()">
-                <img :class="{'newsShow': showNewsImg == 0}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg-2.png" alt="">
-                <img :class="{'newsShow': showNewsImg == 1}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg2-2.png" alt="">
+                <img :class="{'newsShow': showNewsImg == 0}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg-3.png" alt="">
+                <img :class="{'newsShow': showNewsImg == 1}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg2-3.png" alt="">
                 <div class="desc">
                     <div>{{newsTitle1}}</div>
                 </div>
@@ -373,11 +370,11 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="date"><span class="span-l"></span>2022.10</div>
                 <div class="event-r">
                     E-commerce and virtual idol <br/>
-                    Multiple chain access support <br/>
-                    PVP combat system of urban construction trade integrated <br/>
+                    Support for multiple chain access <br/>
+                    The PVP combat system of urban construction trade integrated <br/>
                     User-defined wallet integrated <br/>
                     User-defined idol token <br/>
-                    HashRate coin access
+                    Support for HashRate coin access
                 </div>
             </div>
             <div class="time6 timeWidth-l maptime" id="time6">
@@ -388,7 +385,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     Improvement of user-defined system <br/>
                     AR /VR device base revision <br/>
                     Enhancement financial confrontation attribute  <br/>
-                    Launch of all-platform cyber world 
+                    Launch of the all-platform cyber world
                 </div>
             </div>
             <div class="time7 timeWidth-r maptime" id="time7">
@@ -397,7 +394,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     Open of 3A level UGC tool-chain platform  <br/>
                     DAO: self-management of trading and communities <br/>
                     Launch of alternation rules and content in the seasons <br/>
-                    Combination of VR/AR (with ecommerce and social)
+                    Combination of VR/AR (with e-commerce and social)
                 </div>
             </div>
             <div class="time8 timeWidth-l maptime" id="time8">
@@ -417,17 +414,22 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
         <div class="logo">
             <div>
-                <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners1.png" alt="">
-                <!-- <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners2.png" alt=""> -->
-                <img class="logo2" src="@/assets/nwhome/skywater.png" alt="">
+                <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners4.png" alt="">
             </div>
             <div>
-                <img class="logo3" src="@/assets/nwhome/partners4.png" alt="">
-                <img class="logo4" src="@/assets/nwhome/partners3.png" alt="">
+                <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
             </div>
             <div>
-                <img class="logo5" src="@/assets/nwhome/partners5.png" alt="">
-                <img class="logo6" src="@/assets/nwhome/there.png" alt="">
+                <img class="logo3" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/skywater2.png" alt="">
+            </div>
+            <div>
+                <img class="logo4" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners3.png" alt="">
+            </div>
+            <div>
+                <img class="logo5" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/there.png" alt="">
+            </div>
+            <div>
+                <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5.png" alt="">
             </div>
         </div>
     </div>
@@ -459,8 +461,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="email-wrap">
                 <input class="email-input" type="text" v-model="email" placeholder="Email">
             </div>
-            <div class="register" @click="submit()">Register</div>
+            <div class="sub" @click="submit()">Register</div>
         </div>
+        <a class="link" href="https://forms.gle/VvU8nZymrikgFipR7" target="view_window">Become an ambassador</a>
     </div>
     <div class="footer">
         <div class="footer-wrap">
@@ -484,6 +487,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
         </div>
     </div>
+    <metamask-b v-if="metaMaskActive" :isInstall="isInstall"></metamask-b>
+    <xplanpro-b v-if="xplanActive"></xplanpro-b>
     <coming-b v-show="showComingFlag"></coming-b>
     <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
 </template>
@@ -513,7 +518,7 @@ const showxplan = () => {
                 store.dispatch('user/changeXplan',true);
                 store.dispatch('user/xplanChangeAni',true);
             }else{
-                window.open('https://game.cyberpop.online/xplan');
+                window.open('ttps://testxplan.cyberpop.online');
             }
         })
     }else{
@@ -774,22 +779,34 @@ const playVideo = (type: any) => {
     isPlay.value = !isPlay.value;
 }
 
+
+
+const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
+const isInstall:any = ref(false);
+
 const loggined: any = ref(false)
 const connect: any = async () => {
     showMenuAni.value = false;
-    const [accounts]: any = await Web3.login().then((res: any) => {
-        if( res == 'Not dapp, install MetaMask！' ){
-            messageAlert(0, res)
-        }else{
+    const ismessage: any = await Web3.hasMetaMask()
+    if( ismessage == 'Please install a wallet.' ){
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        isInstall.value = false;
+    }else{
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        isInstall.value = true;
+        const [accounts]: any = await Web3.login().then((res: any) => {
+            store.dispatch('user/metaChange',false);
             loggined.value = true
-            return res
-        }
-    })
-    store.dispatch('user/walletIdTemp',accounts);// 存放完整id
-    id.value = accounts;
-    let len = id.value.length-1;
-    id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-    store.dispatch('user/walletId',id.value);
+            return res;
+        })
+        store.dispatch('user/walletIdTemp',accounts);// 存放完整id
+        id.value = accounts;
+        let len = id.value.length-1;
+        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+        store.dispatch('user/walletId',id.value);
+    }
 }
 
 
@@ -820,10 +837,10 @@ const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     
     if(email.value === ""){ //输入不能为空
-　　　　messageAlert(0,'Not null!')
+　　　　messageAlert(0,'Required can not be empty.')
 　　　　return false;
 　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
-　　　　messageAlert(0,'Please input email!')
+　　　　messageAlert(0,'Please input your email.')
 　　　　return false;
 　　 }
 
@@ -954,6 +971,7 @@ onMounted(() => {
     window.addEventListener('scroll', windowScroll, true);
     // window.addEventListener('click', stopPlay, true);
     store.dispatch('user/showDialog',false);
+    store.dispatch('user/metaChange',false);
     logoHImport();
     window.scrollTo(0,0);
 })
@@ -2433,7 +2451,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 380px;
+        height: 446px;
         margin: -2px 0;
         background-color: #000000;
         overflow: hidden;
@@ -2442,7 +2460,7 @@ onMounted(() => {
             align-items: center;
             justify-content: center;
             height: 31px;
-            margin-bottom: 20px;
+            margin-bottom: 36px;
             font-size: 22px;
             font-family: AlibabaPuHuiTi_2_115_Black;
             color: #FFFFFF;
@@ -2458,47 +2476,41 @@ onMounted(() => {
         }
         .logo{
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;     
             div{
                 display: flex;
+                justify-content: center;
                 align-items: center;
-                margin-bottom: 18px;
-                overflow: hidden;
+                width: 140px;
+                height: 87.5px;
+                margin: 0 10px 20px;
+                background: #282626;
+                border-radius: 7px;
                 .logo1{
-                    width: 93px;
-                    height: 71px;
-                    margin: -1px 10px -1px 0;
+                    height: 60px;
                 }
-                // .logo2{
-                    // width: 147px;
-                    // height: 47px;
-                // }
                 .logo2{
-                    // width: 147px;
-                    height: 55px;
-                    margin: 4px 24px 0 48px;
+                    height: 46px;
                 }
                 .logo3{
-                    width: 60px;
-                    margin-left: 4vw;
-                    margin-right: 8vw;
+                    width: 120px;
+                    margin-right: 6px;
                 }
                 .logo4{
-                    height: 50px;
+                    width: 100px;
                 }
                 .logo5{
-                    height: 60px;
-                    margin-top: 8px;
-                    margin-right: 24px;
-                    margin-left: 18px;
+                    width: 120px;
                 }
                 .logo6{
-                    height: 30px;
-                    margin-top: 9px;
+                    height: 60px;
                 }
             }
-
+            div:hover{
+                background: rgba(40, 38, 38,.6);
+            }
         }
     }
     .will{
@@ -2607,7 +2619,7 @@ onMounted(() => {
                 //     text-align: right;
                 // }
             }
-            .register{
+            .sub{
                 width: 31%;
                 height: 100%;
                 background-color: #0C0A0A;
@@ -2615,6 +2627,7 @@ onMounted(() => {
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 color: #04FF84;
                 line-height: 35px;
+                text-align: center;
                 cursor: pointer;
             }
         }
@@ -2631,6 +2644,16 @@ onMounted(() => {
             -moz-filter: drop-shadow(0 0 6px #000000);
             -ms-filter: drop-shadow(0 0 6px #000000);
             -o-filter: drop-shadow(0 0 6px #000000);
+        }
+        .link{
+            margin-top: 20px;
+            font-size: 16px;
+            font-family: AlibabaPuHuiTi_2_55_Regular;
+            color: #000000;
+            line-height: 16px;
+        }
+        .link:hover{
+            color: #ff18ff;
         }
     }
     .footer{
