@@ -5,19 +5,20 @@
         <div class="content">
             <div class="title">NFT TRANSFER</div>
             <div class="tips">Please input amount</div>
-            <div class="number" :class="addressState == 'empty' ? 'disableNum' : '' || addressState == 'error' ? 'errorNum' : ''">
+            <div class="number">
                 <input id="inputNum" type="number" value="1" ref="inputNum">
                 <div class="add" @click="addNft()"></div>
                 <div class="reduce" @click="reduceNft()"></div>
             </div>
             <div class="desc">NFT #3405454 send to the wallet address</div>
-            <div class="address" :class="addressState == 'empty' ? 'disableAddr' : '' || addressState == 'error' ? 'errorAddr' : ''">
-                <input class="inputTxt" type="text">
-                <div class="mess" v-show="addressState == 'error'">Address is empty</div>
+            <div class="address" :class="inputState == 'activated' ? 'activated':'' || inputState == 'success' ? 'success':'' || ( addressState == 'empty' || addressState == 'error' ) ? 'empty' : ''">
+                <input class="inputTxt" type="text" v-model="inputAddress" @focus="inputState = 'activated'" @blur="checkAddress()">
+                <div class="mess" v-if="addressState == 'empty'">Address is empty</div>
+                <div class="mess" v-if="addressState == 'error'">Address format error</div>
             </div>
             <div class="btn">
-                <div class="cancel" @click="store.dispatch('user/transferChange',false);">CANCEL</div>
-                <div class="transfer">TRANSFER</div>
+                <div class="cancel" @click="closeDialog()">CANCEL</div>
+                <div class="transfer" @click="transfer()">TRANSFER</div>
             </div>
         </div>
     </div>
@@ -26,17 +27,20 @@
 <script setup lang="ts">
 import { onMounted, computed, readonly, ref } from 'vue'
 import store from '@/store'
-const comingOutFlag = computed(() => store?.state.user?.comingOutFlag);
 
-const props = defineProps({
-    addressState: String,
-})
 
-// NFT transfer
+let addressState:any = ref('')
+
+
+
+// NFT Number
 const inputNum:any = ref(null)
+const haveNFT:number = 5
 const addNft = () => {
-    if( inputNum.value.value <= 1 ){
+    if( inputNum.value.value < 1 ){
         inputNum.value.value = 1 ;
+    }else if( inputNum.value.value >= haveNFT ){
+        
     }else{
         inputNum.value.value = parseInt(inputNum.value.value) + 1;
     }
@@ -47,13 +51,52 @@ const reduceNft = () => {
     }else{
         inputNum.value.value = parseInt(inputNum.value.value) - 1;
     }
-    
 }
 
 
+// input state
+let inputState:any = ref('')
+
+
+// check address
+const inputAddress:any = ref('')
+const checkAddress = () => {
+    let reg = /^[a-zA-Z0-9]+\s*$/
+    if( inputAddress.value == '' ){
+        inputState.value = ''
+        addressState.value = 'empty'
+    }else if( !reg.test(inputAddress.value) ){
+        inputState.value = ''
+        addressState.value = 'error'
+    }else{
+        inputState.value = 'success'
+        addressState.value = ''
+    }
+}
+
+
+// transfer submit
+const transfer = () => {
+    if( inputAddress.value == '' ){
+        inputState.value = ''
+        addressState.value = 'empty'
+    }else if( inputState.value == 'success' ){
+        let test = 'success'
+        if( test == 'disable' ){
+            inputState.value = ''
+        }else if( test == 'success' ){
+            inputState.value = 'success'
+        }
+    }
+}
+
 
 const closeDialog = () => {
-    store.dispatch('user/addComingOut',true)
+    store.dispatch('user/transferChange',false)
+    inputNum.value.value = 1 
+    inputAddress.value = ''
+    inputState.value = ''
+    addressState.value = ''
 }
 
 onMounted(() => {
@@ -118,13 +161,17 @@ onMounted(() => {
                 width: 4.47vw;
                 height: 2.81vw;
                 padding: .4vw .6vw;
-                border: 1px solid #ffffff;
+                border: 1px solid #8478FF;
                 input{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
                     width: 100%;
                     height: 100%;
                     font-size: .83vw;
+                    text-indent: .8vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
-                    color: #ffffff;
+                    color: rgba(255, 255, 255, 0.35);
                     line-height: .98vw;
                     border: none;
                     outline: none;
@@ -145,12 +192,12 @@ onMounted(() => {
                 }
                 .add{
                     top: .6vw;
-                    border-bottom: .6vw solid #ffffff;
+                    border-bottom: .6vw solid #8478FF;
                     cursor: pointer;
                 }
                 .reduce{
                     bottom: .6vw;
-                    border-top: .6vw solid #ffffff;
+                    border-top: .6vw solid #8478FF;
                     cursor: pointer;
                 }
             }
@@ -167,12 +214,14 @@ onMounted(() => {
                 width: 23.12vw;
                 height: 2.81vw;
                 margin-bottom: 2.91vw;
-                border: 1px solid #ffffff;
+                border: 1px solid #8478FF;
                 input{
                     width: 100%;
                     height: 100%;
                     padding: .83vw;
-                    color: #ffffff;
+                    color: rgba(255, 255, 255, 0.35);
+                    font-size: .83vw;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
                     background: transparent;
                     border: none;
                     outline: none;
@@ -203,6 +252,8 @@ onMounted(() => {
                     color: #FFFFFF;
                     line-height: 2.91vw;
                     text-align: center;
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-cancle.svg');
+                    background-size: 100% 100%;
                     cursor: pointer;
                 }
                 .transfer{    
@@ -213,33 +264,41 @@ onMounted(() => {
                     color: #FFFFFF;
                     line-height: 2.91vw;
                     text-align: center;
+                    background-image: url('../../assets/nwAssets/transferbg.png');
+                    background-size: 100% 100%;
                     cursor: pointer;
                 }
             }
         }
     }
-    .address.disableAddr{
-        border: 1px solid #8478FF !important;
+    .address.activated{
+        border: 1px solid #ffffff !important;
         input{
-            color: #73747F !important;
+            color: #ffffff !important;
         }
     }
-    .number.disableNum{
+    .address.success{
         border: 1px solid #8478FF !important;
         input{
-            color: rgba(255, 255, 255, 0.35) !important;
-        }
-        .add{
-            border-bottom: .6vw solid #8478FF !important;
-        }
-        .reduce{
-            border-top: .6vw solid #8478FF !important;
+            color: #ffffff !important;
         }
     }
-    .address.errorAddr{
+    .address.empty{
         border: 1px solid #FF5CA1 !important;
         input{
             color: #FF5CA1 !important;
+        }
+    }
+    .number.activated{
+        border: 1px solid #ffffff !important;
+        input{
+            color: #ffffff !important;
+        }
+        .add{
+            border-bottom: .6vw solid #ffffff !important;
+        }
+        .reduce{
+            border-top: .6vw solid #ffffff !important;
         }
     }
     .number.errorNum{

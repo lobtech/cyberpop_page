@@ -3,8 +3,8 @@
         <header>
             <div class="content" id="header">
                 <div class="logo">
-                    <img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" @click="changeMenu(0, '/')" alt="">
-                    <img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" @click="changeMenu(0, '/')" alt="">
+                    <a href="/assets"><img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt=""></a>
+                    <a href="/assets"><img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt=""></a>
                 </div>
                 <div class="user">
                     <!-- <div class="language">
@@ -55,8 +55,8 @@
             <div class="cover"></div>
             <div class="coverborder"></div>
             <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">Whitepaper</a>
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a>
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" @click="showDoc = false" target="view_window">Deck</a>
+            <!-- <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a> -->
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)3.pdf" @click="showDoc = false" target="view_window">Deck</a>
         </div>
     </div>
     <div class="logged_menu" v-show="showloggedFlag || hoverLogged" ref="cursor2" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
@@ -86,50 +86,54 @@
                         <input type="text" placeholder="Placeholder">
                     </div>
                     <div class="type">
+                        <!-- <div class="name" @click="checkall(1)">Type</div> -->
                         <div class="name">Type</div>
                         <div class="check">
-                            <div>
-                                <input checked=false type="radio" name="type" id="type1" value="character">
-                                <label for="type1"><span>Character</span></label>
-                            </div>
-                            <div>
-                                <input type="radio" name="type" id="type2" value="character">
-                                <label for="type2"><span>Weapon</span></label>
-                            </div>
-                            <div>
-                                <input type="radio" name="type" id="type3" value="character">
-                                <label for="type3"><span>Support card</span></label>
-                            </div>
-                            <div>
-                                <input type="radio" name="type" id="type4" value="character">
-                                <label for="type4"><span>Item</span></label>
-                            </div>
-                            <div>
-                                <input type="radio" name="type" id="type5" value="character">
-                                <label for="type5"><span>Blind box</span></label>
-                            </div>
+                            <form action="" class="check">
+                                <div>
+                                    <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type1" value="character">
+                                    <label for="type1"><span>Character</span></label>
+                                </div>
+                                <div>
+                                    <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type2" value="Weapon">
+                                    <label for="type2"><span>Weapon</span></label>
+                                </div>
+                                <div>
+                                    <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type3" value="Support card">
+                                    <label for="type3"><span>Support card</span></label>
+                                </div>
+                                <div>
+                                    <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type4" value="Item">
+                                    <label for="type4"><span>Item</span></label>
+                                </div>
+                                <div>
+                                    <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type5" value="Blind box">
+                                    <label for="type5"><span>Blind box</span></label>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="quality">
+                        <!-- <div class="name" @click="checkall(2)">Quality</div> -->
                         <div class="name">Quality</div>
-                        <div class="check">
+                        <form action="" class="check">
                             <div>
-                                <input type="radio" name="quality" id="quality1" value="character">
+                                <input :ref="qualityItem" :checked="qbool" type="checkbox" name="quality" id="quality1" value="Legend">
                                 <label for="quality1"><span>Legend</span></label>
                             </div>
                             <div>
-                                <input type="radio" name="quality" id="quality2" value="character">
+                                <input :ref="qualityItem" :checked="qbool" type="checkbox" name="quality" id="quality2" value="Epic">
                                 <label for="quality2"><span>Epic</span></label>
                             </div>
                             <div>
-                                <input type="radio" name="quality" id="quality3" value="character">
+                                <input :ref="qualityItem" :checked="qbool" type="checkbox" name="quality" id="quality3" value="Rare">
                                 <label for="quality3"><span>Rare</span></label>
                             </div>
                             <div>
-                                <input type="radio" name="quality" id="quality4" value="character">
+                                <input :ref="qualityItem" :checked="qbool" type="checkbox" name="quality" id="quality4" value="Common">
                                 <label for="quality4"><span>Common</span></label>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div class="ecrchange">
@@ -141,7 +145,7 @@
                         <ul class="prince">
                             <li>
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
-                                <div class="name">Prince of Shadows</div>
+                                <div class="name">Prince of Shadows<span>x4</span></div>
                                 <div class="btn">
                                     <div class="transfer" @click="transferPopup()">TRANSFER</div>
                                     <div class="sell">SELL</div>
@@ -205,7 +209,7 @@
     </div>
     <metamask-a v-if="metaMaskActive" :isInstall="isInstall"></metamask-a>
     <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
-    <popup-a v-show="transferActive" :addressState="inputInfo"></popup-a>
+    <popup-a v-show="transferActive"></popup-a>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -214,13 +218,42 @@ import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 
+
+// checkAll (no use)
+let selectArr = ref([])
+let tbool:any = ref(false)
+let qbool:any = ref(false)
+
+let typeRef = ref([])
+let qualityRef = ref([])
+const typeItem = (el:any) => {
+    (typeRef.value as Array<HTMLElement>).push(el)
+}
+const qualityItem = (el:any) => {
+    (qualityRef.value as Array<HTMLElement>).push(el)
+}
+const checkall = (index:any) => {
+    if( index == 1 ){
+        // typeRef.value.map( (item:HTMLElement) => {
+            // item.toggleAttribute('checked')
+            tbool.value = true
+        // })
+    }else{
+        qualityRef.value.map( (item:HTMLElement) => {
+            // item.toggleAttribute('checked')
+            qbool.value = true
+        })
+    }
+}
+
+
+
 // ecr exchange
 let ecrType:any = ref(true);
 
 
 // NFT transfer
 const transferActive = computed(() => store?.state.user?.transferActive);
-let inputInfo:any = ref('');
 const transferPopup = () => {
     store.dispatch('user/transferChange',true);
 }
@@ -675,7 +708,8 @@ onMounted(() => {
         .wrap{
             position: relative;
             width: 8.3vw;
-            height: 7.96vw;
+            // height: 7.96vw;
+            height: 5.1vw;
             margin-top: .6vw;
             background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
             border: .15vw solid;
@@ -887,10 +921,15 @@ onMounted(() => {
                             height: 100%;
                             text-indent: .83vw;
                             font-size: .78vw;
-                            color: #777E90;
                             background-color: transparent;
                             border: none;
                             outline: none;
+                            color: #ffffff;
+                            -webkit-text-fill-color: #ffffff;
+                        }
+                        input::-webkit-input-placeholder{
+                            color: #777E90;
+                            -webkit-text-fill-color: #777E90;
                         }
                     }
                     .type,.quality{
@@ -901,6 +940,7 @@ onMounted(() => {
                             font-family: AlibabaPuHuiTi_2_75_SemiBold;
                             color: #FFFFFF;
                             line-height: 1.19vw;
+                            cursor: pointer;
                         }
                         .check{
                             div{
@@ -916,7 +956,7 @@ onMounted(() => {
                                 }
                                 label {
                                     display: flex;
-                                    align-items: flex-start;
+                                    // align-items: flex-start;
                                     position: absolute;
                                     left: 0;
                                     top: 0;
@@ -945,8 +985,11 @@ onMounted(() => {
                                 input:checked + label::after {
                                     content: "";
                                     position: absolute;
-                                    top: .06vw;
-                                    left: .3vw;
+                                    top: -.2vw;
+                                    right: 0;
+                                    bottom: 0;
+                                    left: .1vw;
+                                    margin: auto;
                                     width: .3vw;
                                     height: .56vw;
                                     color: #FFFFFF;
@@ -995,21 +1038,33 @@ onMounted(() => {
                                 width: 17.96vw;
                                 height: 23.22vw;
                                 padding: .78vw .83vw;
-                                background-image: url('../../../assets/nwAssets/ecrcard-bg.svg');
-                                background-repeat: no-repeat;
-                                background-position: center;
-                                background-size: 100% 100%;
+                                // background-image: url('../../../assets/nwAssets/ecrcard-bg.svg');
+                                // background-repeat: no-repeat;
+                                // background-position: center;
+                                // background-size: 100% 100%;
+                                background: linear-gradient(110deg, rgba(8, 6, 19, 0.22) 0%, rgba(132, 120, 255, 0.38) 100%),
+                                            linear-gradient(100deg, rgba(4, 255, 162, 0.1) 0%, rgba(27, 54, 44, 0) 100%);
+                                border: 2px solid;
+                                border-image: linear-gradient(206deg, rgba(132, 120, 255, 0.48), rgba(71, 57, 128, 1)) 2 2;
+                                
                                 img{
-                                    width: 16.61vw;
+                                    width: 100%;
                                     height: 16.4vw;
                                 }
                                 .name{
-                                    height: 1.61vw;
-                                    margin: 1.04vw 0 1.6vw 0;
+                                    height: 1.56vw;
+                                    margin: .7vw 0 2vw 0;
                                     font-size: 1.04vw;
                                     font-family: AlibabaPuHuiTi_2_75_SemiBold;
                                     color: #FFFFFF;
-                                    line-height: 1.19vw;
+                                    line-height: 1.56vw;
+                                    span{
+                                        float: right;
+                                        height: 1.04vw;
+                                        font-size: 1.56vw;
+                                        font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                        line-height: 1.56vw;
+                                    }
                                 }
                                 .btn{
                                     display: flex;
@@ -1027,13 +1082,13 @@ onMounted(() => {
                                         width: 8.07vw;
                                         background-image: url('../../../assets/nwAssets/blackbg.svg');
                                         background-position: left top;
-                                        background-size: 100% auto;
+                                        background-size: 100% 100%;
                                     }
                                     .sell{
                                         width: 8.22vw;
                                         background-image: url('../../../assets/nwAssets/purplebg.svg');
                                         background-position: left top;
-                                        background-size: 100% auto;
+                                        background-size: 100% 100%;
                                     }
                                     .unpack{
                                         width: 10.93vw;
@@ -1042,7 +1097,7 @@ onMounted(() => {
                                         line-height: 2.91vw;
                                         background-image: url('../../../assets/nwAssets/unpackbg.svg');
                                         background-position: left top;
-                                        background-size: 100% auto;
+                                        background-size: 100% 100%;
                                     }
                                 }
                             }

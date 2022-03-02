@@ -22,7 +22,7 @@
             <!-- <source :src="videoSrc" type="video/WebM">
             <source :src="videoSrc" type="video/Ogg"> -->
         </video>
-        <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="auto" width="100%" 
+        <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="auto" width="100%"
                 autoplay loop controls 
                 webkit-playsinline="true" 
                 playsinline="true" 
@@ -30,7 +30,7 @@
                 x5-video-player-type="h5"
                 x-webkit-airplay="allow" 
                 x5-video-orientation="landscape"
-                v-if="videotype == 5">
+                v-else-if="videotype == 5">
             <source src="https://d3bhixjyozyk2o.cloudfront.net/banner.mp4" type="video/mp4">
             <!-- <source :src="videoSrc" type="video/WebM">
             <source :src="videoSrc" type="video/Ogg"> -->
@@ -49,10 +49,6 @@ const props = defineProps({
     mobel: Boolean,
 })
 
-// webkit-playsinline="true" playsinline="true" x5-playsinline="true" x5-video-player-type="h5"
-// x5-video-player-fullscreen="true" x5-video-ignore-metadata="true" x5-video-orientation="landscape" x-webkit-airplay="true"
-
-
 
 
 
@@ -69,18 +65,7 @@ const props = defineProps({
 // }
 
 onMounted(() => {
-    // let flag = 0;
-    // window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function () {
-    //     if (window.orientation === 180 || window.orientation === 0) {//竖屏
-    //         if (flag = 1) {
-    //             flag = 0;
-    //             window.history.go(-1);//横屏之后再竖屏，则刷新当前页
-    //         }            
-    //     }
-    //     if (window.orientation === 90 || window.orientation === -90) {//横屏
-    //         flag = 1;
-    //     }
-    // }, false)
+
 })
 </script>
 

@@ -3,8 +3,8 @@
         <header>
             <div class="content" id="header">
                 <div class="logo">
-                    <img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" @click="changeMenu(0, '/')" alt="">
-                    <img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" @click="changeMenu(0, '/')" alt="">
+                    <a href="/assets"><img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt=""></a>
+                    <a href="/assets"><img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt=""></a>
                 </div>
                 <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
@@ -34,8 +34,8 @@
                         <div class="doc" @click="docMenu()">Doc <span :class="changeArrow ? 'change' : ''"></span></div>
                         <div class="docmenu" v-show="showDoc">
                             <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" target="view_window">Whitepaper</a>
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" target="view_window">Green paper</a>
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" target="view_window">Deck</a>
+                            <!-- <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" target="view_window">Green paper</a> -->
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)3.pdf" target="view_window">Deck</a>
                         </div>
                     </li>
                 </ul>
@@ -62,44 +62,51 @@
                     terminal. Any small act you do in Cyberpop New World is valuable to Cyberpop DAO.
                 </div>
                 <div class="search">
-                    <div class="input">
-                        <input type="text" placeholder="Keywords, name, number">
-                        <img src="@/assets/nwAssets/search-icon.svg" alt="">
+                    <div class="input" :class="inputShow ? 'actived' : ''">
+                        <input v-model="inputValue" @focus="inputShow = true" ref="myInput" type="text" placeholder="Keywords, name, number">
+                        <img v-show="inputShow" @click="clearInput()" class="clear" src="@/assets/nwAssets/clear-input.svg" alt="">
+                        <img v-show="!inputShow" src="@/assets/nwAssets/search-icon.svg" alt="">
+                        <img v-show="inputShow" @click="searchSubmit()" src="@/assets/nwAssets/search-iconActived.svg" alt="">
                     </div>
                     <div class="menuSelect">
-                        <ul class="token">
-                            <li>ECR 721</li>
-                            <li>
-                                <div @click="ecrType = true">ECR 721</div>
-                                <div @click="ecrType = false">ECR 115</div>
-                            </li>
-                        </ul>
-                        <ul class="type">
-                            <li>Character,Weapon,Support Card,Item,Blind Box</li>
-                            <li>
-                                <div>All type</div>
-                                <div>Character</div>
-                                <div>Weapon</div>
-                                <div>Support Card</div>
-                                <div>Item</div>
-                                <div>Blind Box</div>
-                                <div>
-                                    <div class="cancel">CANCEL</div>
-                                    <div class="ok">OK</div>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul class="quality">
-                            <li>All quality</li>
-                            <li>Legend</li>
-                            <li>Epic</li>
-                            <li>Rare</li>
-                            <li>Common</li>
-                            <li>
-                                <div class="cancel">CANCEL</div>
-                                <div class="ok">OK</div>
-                            </li>
-                        </ul>
+                        <div class="wrapbox">
+                            <ul class="token">
+                                <li @click="showSelect(1)"><div>ECR 721, ECR 115</div></li>
+                                <li v-show="showItem1" class="item" @click="selectItem($event)">
+                                    <div class="ecr7 selected">ECR 721</div>
+                                    <div class="ecr1">ECR 115</div>
+                                </li>
+                            </ul>
+                            <ul class="type">
+                                <li @click="showSelect(2)"><div>Character, Weapon, Support Card, Item, Blind Box</div></li>
+                                <li v-show="showItem2" class="item" @click="selectItem($event)">
+                                    <div class="selected">All types</div>
+                                    <div>Character</div>
+                                    <div>Weapon</div>
+                                    <div>Support Card</div>
+                                    <div>Item</div>
+                                    <div>Blind Box</div>
+                                    <div class="btn">
+                                        <div class="cancel">CANCEL</div>
+                                        <div class="ok">OK</div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="quality">
+                                <li @click="showSelect(3)"><div>Legend, Epic, Rare, Common</div></li>
+                                <li v-show="showItem3" class="item" @click="selectItem($event)">
+                                    <div class="selected">All quality</div>
+                                    <div>Legend</div>
+                                    <div>Epic</div>
+                                    <div>Rare</div>
+                                    <div>Common</div>
+                                    <div class="btn">
+                                        <div class="cancel">CANCEL</div>
+                                        <div class="ok">OK</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,7 +116,7 @@
                         <ul class="prince">
                             <li>
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
-                                <div class="name">Prince of Shadows</div>
+                                <div class="name">Prince of Shadows<span>x4</span></div>
                                 <div class="btn">
                                     <div class="transfer" @click="transferPopup()">TRANSFER</div>
                                     <div class="sell">SELL</div>
@@ -148,7 +155,6 @@
                 </div>
             </div>
             <!-- <div class="nothing">
-                <div class="txt">Oops, There‘s nothing left here. Go to <span>Home page</span></div>
                 <img src="@/assets/nwAssets/nothing.svg" alt="">
             </div> -->
         </div>
@@ -175,7 +181,7 @@
             <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
         </div>
     </div>
-
+    <popup-b v-show="transferActive"></popup-b>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -183,7 +189,97 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
-import { log } from 'util';
+
+
+// input actived
+const myInput:any = ref(null)
+let inputShow:any = ref(false)
+let inputValue:any = ref('')
+const clearInput = () => {
+    inputValue.value = ''
+    myInput.value.focus()
+}
+const inputOtherClick = (e:any) => {
+    if( myInput.value.contains(e.target) ){
+        return
+    }else{
+        inputValue.value = ''
+        inputShow.value = false;
+    }
+}
+
+
+const changeText = (parentLi:any) => {
+    let longString:string = ''
+    let firstLi:string = ''
+    const selectedArr = parentLi.querySelectorAll('.selected')
+    const selectArrLen = selectedArr.length
+    if( selectArrLen == 0 ){
+        // 当不选择时，默认勾选第一项
+        firstLi = parentLi.parentElement.querySelectorAll('li')[1].querySelector('div').innerText;
+        (parentLi.parentElement.querySelector('li').querySelector('div') as HTMLElement).innerText = firstLi;
+        parentLi.parentElement.querySelectorAll('li')[1].querySelector('div').classList.add('selected');
+
+    }else{
+        for( let i = 0;i < selectArrLen; i++ ){
+        
+            if( i == selectArrLen-1 ){
+                longString += selectedArr[i].innerText
+            }else{
+                longString += selectedArr[i].innerText + ', '
+            }
+        }
+        (parentLi.parentElement.querySelector('li').querySelector('div') as HTMLElement).innerText = longString;
+    }
+}
+
+// select
+let showItem1:any = ref(false)
+let showItem2:any = ref(false)
+let showItem3:any = ref(false)
+const showSelect = (index:any) => {
+    switch (index){
+        case 1:
+            showItem1.value = !showItem1.value;
+            showItem2.value = false;
+            showItem3.value = false;
+            break;
+        case 2:
+            showItem2.value = !showItem2.value;
+            showItem1.value = false;
+            showItem3.value = false;
+            break;
+        default:
+            showItem3.value = !showItem3.value;
+            showItem1.value = false;
+            showItem2.value = false;
+            break;
+    }
+}
+const selectItem = (e:any) => {    
+    const parentLi = e.target.parentElement.parentElement
+    if( e.target.className == 'ok' ){
+        changeText(parentLi);
+        showItem1.value = false;
+        showItem2.value = false;
+        showItem3.value = false;
+
+    }else if( e.target.className == 'cancel' ){
+        showItem1.value = false;
+        showItem2.value = false;
+        showItem3.value = false;
+    }else{
+        (e.target as HTMLElement).classList.toggle('selected')
+        if(  e.target.innerText == 'ECR 721' || e.target.innerText == 'ECR 115' ){
+            changeText(parentLi);
+            showItem1.value = false;
+            showItem2.value = false;
+            showItem3.value = false;
+        }
+    }
+}
+
+
 
 
 
@@ -193,10 +289,10 @@ let ecrType:any = ref(true);
 
 // NFT transfer
 const transferActive = computed(() => store?.state.user?.transferActive);
-let inputInfo:any = ref('');
-const transferPopup = () => {
+const transferPopup = () => { // 预计点击传值（nft拥有的数量）
     store.dispatch('user/transferChange',true);
 }
+
 
 
 
@@ -282,7 +378,6 @@ let logoFlag: any = ref(false) ;
 
 
 
-
 const { proxy } = getCurrentInstance() as any;
 
 const router = useRouter()
@@ -355,7 +450,14 @@ const connect: any = async () => {
 }
 
 
+// search submit
+const searchSubmit = () => {
+    inputShow.value = false
+}
 
+onUnmounted(() => {
+    window.removeEventListener('click', inputOtherClick, true);
+})
 
 onMounted(() => {
     if( realId.value != 0){
@@ -364,6 +466,7 @@ onMounted(() => {
     logoHImport();
     store.dispatch('user/changeActive', 0);
     window.scrollTo(0,0);
+    window.addEventListener('click', inputOtherClick, true);
 })
 
 
@@ -627,8 +730,7 @@ onMounted(() => {
     }
     .assets{
         width: 100%;
-        // background-color: #000000;
-        background-color: #080707;
+        background-color: #121122;
         .wrap{
             width: 100%;
             padding-top: 55px;
@@ -679,10 +781,12 @@ onMounted(() => {
                     line-height: 16px;
                 }
                 .search{
+                    margin-bottom: 96px;
                     .input{
+                        position: relative;
                         width: 303px;
                         height: 40px;
-                        margin: 0 auto;
+                        margin-left: 36px;
                         border-radius: 2px 2px 2px 2px;
                         border: 2px solid #8478FF;
                         input[type='text']{
@@ -708,162 +812,269 @@ onMounted(() => {
                         input:-ms-input-placeholder {
                             color: #8478FF;
                         }
-                        img{
+                        img:not(.clear){
                             width: 16px;
                             height: 16px;
                             margin-left: 10px;
                             vertical-align: middle;
                         }
                     }
+                    .input.actived{
+                        border: 2px solid #ffffff;
+                        input[type='text']{
+                            color: #ffffff;
+                        }
+                        input::-webkit-input-placeholder { 
+                            color: #ffffff;
+                        }
+                        input:-moz-placeholder { 
+                            color: #ffffff;
+                        }
+                        input::-moz-placeholder {
+                            color: #ffffff;
+                        }
+                        input:-ms-input-placeholder {
+                            color: #ffffff;
+                        }
+                        .clear{
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            right: 40px;
+                            margin: auto 0;
+                        }
+                    }
                     .menuSelect{
-                        display: flex;
-                        margin-left: 26px;
-                        margin-top: 24px;
-                        .token,.type{
-                            width: 109px;
-                            margin-right: 16px;
-                            li{
-                                width: 100%;
-                                height: 40px;
-                                font-size: 14px;
-                                font-family: AlibabaPuHuiTi_2_115_Black;
-                                color: #FFFFFF;
-                                line-height: 40px;
-                                text-align: left;
-                                text-indent: 12px;
-                            }
-                            li:first-child{
-                                background: #8478FF;
-                                background-image: url('../../../assets/nwAssets/dropdown.svg');
-                                background-repeat: no-repeat;
-                                background-position: 77px center;
-                                background-size: 20px 20px;
-                            }
-                            li:last-child{
-                                display: flex;
-                                flex-direction: column;
-                                justify-content: space-around;
-                                align-items: center;
-                                width: 148px;
-                                height: 112px;
-                                padding: 10px;
-                                margin-top: 8px;
-                                background: #514A9C linear-gradient(221deg, rgba(132, 120, 255, 0.54) 0%, rgba(12, 9, 17, 0) 100%) linear-gradient(77deg, rgba(120, 34, 187, 0.19) 0%, rgba(12, 9, 17, 0) 100%);
-                                box-shadow: -4px 4px 2px 1px rgba(0, 0, 0, 0.25);
-                                border-radius: 2px 2px 2px 2px;
-                                opacity: 0.98;
-                                background-color: #514A9C;
-                                div{
-                                    height: 18px;
-                                    margin-right: 6px;
+                        position: absolute;
+                        width: 100%;
+                        margin: 24px 0 32px 0;
+                        .wrapbox{
+                            display: flex;
+                            height: 440px;
+                            overflow-x: scroll;
+                            overflow-y: hidden;
+                            white-space: nowrap;
+                            .token,.type,.quality{
+                                display: inline-block;
+                                margin-right: 16px;
+                                li{
+                                    height: 40px;
                                     font-size: 14px;
-                                    font-family: AlibabaPuHuiTi_2_105_Heavy;
+                                    font-family: AlibabaPuHuiTi_2_115_Black;
                                     color: #FFFFFF;
-                                    line-height: 18px;
+                                    line-height: 40px;
+                                    text-align: left;
+                                    text-indent: 12px;
                                 }
-                                div:nth-child(1){
-                                    
+                                li:first-child{
+                                    background: #8478FF;
+                                    position: relative;
                                 }
-                                div:nth-child(2){
-                                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                                li:first-child::after{
+                                    position: absolute;
+                                    top: 3vw;
+                                    right: 3vw;
+                                    display: inline-block;
+                                    content: "";
+                                    width: 8px;
+                                    height: 8px;
+                                    border: .8vw solid #fff;
+                                    border-top: none;
+                                    border-left: none;
+                                    transform: rotate(45deg);
+                                }
+                                li:last-child{
+                                    z-index: 3;
+                                    position: absolute;
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: left;
+                                    width: 148px;
+                                    height: 132px;
+                                    padding: 20px;
+                                    margin-top: 8px;
+                                    background: linear-gradient(221deg, rgba(132, 120, 255, .85) 0%, rgba(12, 9, 17, 0) 100%),
+                                                linear-gradient(77deg, rgba(120, 90, 187, .85) 0%, rgba(12, 9, 17, .9) 100%);
+                                    box-shadow: -4px 4px 2px 1px rgba(0, 0, 0, 0.25);
+                                    border-radius: 2px 2px 2px 2px;
+                                    div:not(.btn){
+                                        position: relative;
+                                        height: 46px;
+                                        padding-left: 20px;
+                                        font-size: 14px;
+                                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                                        color: #FFFFFF;
+                                        line-height: 46px;
+                                    }
+                                    div.selected{
+                                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                                    }
+                                    div.selected::before{
+                                        display: inline-block;
+                                        content: '';
+                                        position: absolute;
+                                        top: 4.2vw;
+                                        left: 2vw;
+                                        width: 1vw;
+                                        height: 2vw;
+                                        border: 2px solid #fff;
+                                        border-top: none;
+                                        border-left: none;
+                                        transform: rotate(45deg);
+                                    }
+                                    .btn{
+                                        display: flex;
+                                        justify-content: flex-end;
+                                        width: 100%;
+                                        div{
+                                            width: 88px;
+                                            height: 42px;
+                                            padding: 0;
+                                            font-size: 14px;
+                                            text-indent: 0;
+                                            text-align: center;
+                                            font-family: AlibabaPuHuiTi_2_105_Heavy;
+                                            background: #8478FF;
+                                            border-radius: 2px 2px 2px 2px;
+                                            cursor: pointer;
+                                        }
+                                        div + div{
+                                            margin-left: 12px;
+                                        }
+                                    }
+                                }
+                            }
+                            .token{
+                                width: 109px;
+                                margin-left: 36px;
+                                li:first-child{
+                                    width: 109px;
+                                    div{
+                                        width: 75%;
+                                        letter-spacing: .04vw;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                    }
+                                }
+                                li:last-child{
+                                    left: 36px;
+                                }
+                            }
+                            .type{
+                                width: 288px;
+                                li:first-child{
+                                    width: 288px;
+                                    div{
+                                        width: 90%;
+                                        letter-spacing: .04vw;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                    }
+                                }
+                                li:last-child{
+                                    right: 0px;
+                                    width: 288px;
+                                    height: 386px;
+                                }
+                            }
+                            .quality{
+                                width: 143px;
+                                li:first-child{
+                                    width: 143px;
+                                    div{
+                                        width: 80%;
+                                        letter-spacing: .04vw;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                    }
+                                }
+                                li:last-child{
+                                    right: 0px;
+                                    width: 228px;
+                                    height: 316px;
                                 }
                             }
                         }
-                        .type{
-                            width: 288px;
+                        .wrapbox::-webkit-scrollbar {
+                            width: 0;
+                            height: 0;
+                            color: transparent;
                         }
                     }
                 }
             }
             .ecr{
-                display: flex;
-                // padding-bottom: 13vw;
+                margin-bottom: -2px;
                 .ecrchange{
-                    width: 57.76vw;
-                    .top{
-                        display: flex;
-                        justify-content: center;
-                        margin-bottom: 2.45vw;
-                        div{
-                            height: 1.87vw;
-                            font-size: 1.04vw;
-                            font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                            color: #ffffff;
-                            line-height: 1.19vw;
-                            cursor: pointer;
-                        }
-                        .type1{
-                            margin-right: 2vw;
-                        }
-                        div.active{
-                            color: #DE2DCF;
-                            background-image: url('../../../assets/nwAssets/ercbot-bg.svg');
-                            background-position: center bottom;
-                            background-repeat: no-repeat;
-                            background-size: 100% auto;
-                        }
-                    }
                     .ecr721,.ecr115{
                         ul{
                             display: flex;
-                            margin-bottom: 2.65vw;
+                            align-items: center;
+                            flex-direction: column;
                             li{
-                                width: 17.96vw;
-                                height: 23.22vw;
-                                padding: .78vw .83vw;
-                                background-image: url('../../../assets/nwAssets/ecrcard-bg.svg');
-                                background-repeat: no-repeat;
-                                background-position: center;
-                                background-size: 100% 100%;
+                                width: 303px;
+                                height: 387px;
+                                padding: 16px;
+                                margin-bottom: 35px;
+                                background: linear-gradient(110deg, rgba(8, 6, 19, 0.22) 0%, rgba(132, 120, 255, 0.38) 100%),
+                                            linear-gradient(100deg, rgba(4, 255, 162, 0.1) 0%, rgba(27, 54, 44, 0) 100%);
+                                border: 2px solid;
+                                border-image: linear-gradient(206deg, rgba(132, 120, 255, 0.48), rgba(71, 57, 128, 1)) 2 2;
                                 img{
-                                    width: 16.61vw;
-                                    height: 16.4vw;
+                                    width: 100%;
+                                    height: 270px;
                                 }
                                 .name{
-                                    height: 1.61vw;
-                                    margin: 1.04vw 0 1.6vw 0;
-                                    font-size: 1.04vw;
+                                    height: 24px;
+                                    margin: 20px 0 24px 0;
+                                    font-size: 18px;
                                     font-family: AlibabaPuHuiTi_2_75_SemiBold;
                                     color: #FFFFFF;
-                                    line-height: 1.19vw;
+                                    line-height: 24px;
+                                    span{
+                                        float: right;
+                                        height: 24px;
+                                        font-size: 24px;
+                                        font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                        line-height: 24px;
+                                    }
                                 }
                                 .btn{
                                     display: flex;
                                     justify-content: center;
                                     div{
-                                        height: 2.5vw;
-                                        font-size: .83vw;
+                                        height: 48px;
+                                        font-size: 16px;
                                         font-family: AlibabaPuHuiTi_2_115_Black;
                                         color: #FFFFFF;
-                                        line-height: 2.5vw;
+                                        line-height: 48px;
                                         text-align: center;
                                         cursor: pointer;
                                     }
                                     .transfer{
-                                        width: 8.07vw;
+                                        width: 134px;
                                         background-image: url('../../../assets/nwAssets/blackbg.svg');
                                         background-position: left top;
-                                        background-size: 100% auto;
+                                        background-size: 100% 100%;
                                     }
                                     .sell{
-                                        width: 8.22vw;
+                                        width: 136px;
                                         background-image: url('../../../assets/nwAssets/purplebg.svg');
                                         background-position: left top;
-                                        background-size: 100% auto;
+                                        background-size: 100% 100%;
                                     }
                                     .unpack{
-                                        width: 10.93vw;
-                                        height: 2.91vw;
-                                        margin-top: -.4vw;
-                                        line-height: 2.91vw;
-                                        background-image: url('../../../assets/nwAssets/unpackbg.svg');
+                                        width: 271px;
+                                        height: 48px;
+                                        margin-top: -2px;
+                                        background-image: url('../../../assets/nwAssets/unpackbg-phone.png');
                                         background-position: left top;
-                                        background-size: 100% auto;
+                                        background-size: 100% 100%;
                                     }
                                 }
-                            }
-                            li + li{
-                                margin-left: 1.92vw;
                             }
                         }
                     }
@@ -871,23 +1082,11 @@ onMounted(() => {
             }
             .nothing{
                 text-align: center;
-                padding-bottom: 7.55vw;
-                .txt{
-                    width: 47.5vw;
-                    height: 1.04vw;
-                    margin: -2.18vw auto 7.65vw;
-                    font-size: .83vw;
-                    font-family: AlibabaPuHuiTi_2_55_Regular;
-                    color: #B1B5C3;
-                    line-height: 1.04vw;
-                    text-align: center;
-                    span{
-                        color: #04FFA2;
-                    }
-                }
+                margin-bottom: -2px;
                 img{
-                    width: 11.71vw;
-                    height: 12.5vw;
+                    width: 120px;
+                    height: 128px;
+                    margin: 80px auto;
                 }
             }
         }
@@ -968,5 +1167,141 @@ onMounted(() => {
                 line-height: 13px;
             }
        }
+    }
+
+    .popup{
+        z-index: 9;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(35, 38, 47, 0.9);
+        .content{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 387px;
+            padding: 24px;
+            background: linear-gradient(221deg, rgba(132, 120, 255, .8) 0%, rgba(12, 9, 17, .8) 100%),
+                        linear-gradient(81deg, rgba(45, 222, 211, .6) 0%, rgba(12, 9, 17, 1) 100%);
+            box-shadow: inset 0px 4px 0px 1px #5A5685;
+            .title{
+                height: 39px;
+                font-size: 28px;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                font-weight: normal;
+                color: #FFFFFF;
+                line-height: 39px;
+            }
+            .tips{
+                height: 22px;
+                margin: 30px 0 16px;
+                font-size: 16px;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
+                font-weight: normal;
+                color: #FFFFFF;
+                line-height: 22px;
+            }
+            .number{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                height: 40px;
+                .add,.reduce{
+                    width: 96px;
+                    height: 40px;
+                    font-size: 24px;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    color: #FFFFFF;
+                    line-height: 40px;
+                    text-align: center;
+                    background-color: #8478FF;
+                }
+                input{
+                    width: 95px;
+                    height: 34px;
+                    font-size: 24px;
+                    font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                    color: #FFFFFF;
+                    line-height: 34px;
+                    text-align: center;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                }
+            }
+            .desc{
+                width: 100%;
+                height: 22px;
+                margin: 32px 0 16px;
+                font-size: 16px;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
+                color: #FFFFFF;
+                line-height: 22px;
+            }
+            .address{
+                position: relative;
+                width: 327px;
+                height: 40px;
+                margin-bottom: 32px;
+                padding: 12px;
+                border: 1px solid #8478FF;
+                input{
+                    width: 100%;
+                    height: 16px;
+                    color: #ffffff;
+                    font-size: 12px;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    line-height: 16px;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                }
+                .mess{
+                    position: absolute;
+                    left: 0;
+                    bottom: -18px;
+                    height: 16px;
+                    font-size: 12px;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    font-weight: normal;
+                    color: #FF5CA1;
+                    line-height: 16px;
+                }
+            }
+            .btn{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                height: 48px;
+                .cancel{    
+                    width: 163px;
+                    height: 48px;
+                    font-size: 16px;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #FFFFFF;
+                    line-height: 48px;
+                    text-align: center;
+                    background-image: url('../../../assets/nwAssets/blackbg-phone.svg');
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                .transfer{    
+                    width: 164px;
+                    height: 48px;
+                    font-size: 16px;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #FFFFFF;
+                    line-height: 48px;
+                    text-align: center;
+                    background-image: url('../../../assets/nwAssets/purplebg-phone.svg');
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+            }
+        }
     }
 </style>

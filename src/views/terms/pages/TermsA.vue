@@ -3,8 +3,8 @@
         <header>
             <div class="content" id="header">
                 <div class="logo">
-                    <img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" @click="changeMenu(0, '/')" alt="">
-                    <img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" @click="changeMenu(0, '/')" alt="">
+                    <a href="/terms"><img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt=""></a>
+                    <a href="/terms"><img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt=""></a>
                 </div>
                 <div class="user">
                     <!-- <div class="language">
@@ -52,8 +52,8 @@
             <div class="cover"></div>
             <div class="coverborder"></div>
             <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">Whitepaper</a>
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a>
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" @click="showDoc = false" target="view_window">Deck</a>
+            <!-- <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a> -->
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)3.pdf" @click="showDoc = false" target="view_window">Deck</a>
         </div>
     </div>
     <div class="logged_menu" v-show="showloggedFlag || hoverLogged" ref="cursor2" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
@@ -596,7 +596,8 @@ onMounted(() => {
         .wrap{
             position: relative;
             width: 8.3vw;
-            height: 7.96vw;
+            // height: 7.96vw;
+            height: 5.1vw;
             margin-top: .6vw;
             background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
             border: .15vw solid;

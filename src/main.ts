@@ -9,6 +9,7 @@ import ComingB from './components/coming/comingB.vue'
 import MessageA from './components/dialog/MessageA.vue'
 import MessageB from './components/dialog/MessageB.vue'
 import PopupA from './components/popup/PopupA.vue'
+import PopupB from './components/popup/PopupB.vue'
 import MetaMaskA from './components/metamask/metamaskA.vue'
 import MetaMaskB from './components/metamask/metamaskB.vue'
 import XplanproA from './components/xplanpro/xplanproA.vue'
@@ -30,6 +31,7 @@ app.component('ComingB', ComingB)
 app.component('MessageA', MessageA)
 app.component('MessageB', MessageB)
 app.component('PopupA', PopupA)
+app.component('PopupB', PopupB)
 app.component('MetamaskA', MetaMaskA)
 app.component('MetamaskB', MetaMaskB)
 app.component('XplanproA', XplanproA)

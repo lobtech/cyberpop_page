@@ -4,8 +4,10 @@
         <header>
             <div class="content" id="header">
                 <div class="logo">
-                    <img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" @click="changeMenu(0, '/')" alt="">
-                    <img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" @click="changeMenu(0, '/')" alt="">
+                    <!-- <img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" @click="changeMenu(0, '/')" alt="">
+                    <img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" @click="changeMenu(0, '/')" alt=""> -->
+                    <a href="/"><img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt=""></a>
+                    <a href="/"><img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt=""></a>
                 </div>
                 <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
@@ -35,8 +37,8 @@
                         <div class="doc" @click="docMenu()">Doc <span :class="changeArrow ? 'change' : ''"></span></div>
                         <div class="docmenu" v-show="showDoc">
                             <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" target="view_window">Whitepaper</a>
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" target="view_window">Green paper</a>
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf" target="view_window">Deck</a>
+                            <!-- <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" target="view_window">Green paper</a> -->
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)3.pdf" target="view_window">Deck</a>
                         </div>
                     </li>
                 </ul>
@@ -216,14 +218,14 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="make">
         <div class="make-wrap">
             <!-- <img class="title-bg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/title-bg.png" alt=""> -->
-            <div class="title" id="ele3">MAKE CYBERSPACE BELONGS TO YOU</div>
-            <div class="subtitle">THE NFT MADE BY YOURSELF</div>
+            <div class="title" id="ele3">MAKE CYBERSPACE BELONG TO YOU</div>
+            <div class="subtitle">THE NFT MADE BY YOU</div>
             <div class="desc">
                 Through advanced collapse algorithms, cyberpop supports
                 the generation of UGC NFT. The security of chain protocols 
                 effectively ensures the multiple player battles and development 
-                of future cybercities. We already support functional city 
-                components for assets production and are continuously being added.
+                of future cybercities. We already support functional city
+                components for asset production and new assets are continuously being added.
             </div>
             <div class="icon">
                 <div class="txt">Cross-chain support</div>
@@ -414,19 +416,27 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
         <div class="logo">
             <div>
+                <a href="https://aws.amazon.com/" target="view_window">
+                    <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
+                </a>
+            </div>
+            <div>
                 <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners4.png" alt="">
             </div>
             <div>
-                <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
+                <a href="https://skywater.vc/" target="view_window">
+                    <img class="logo3" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/skywater2.png" alt="">
+                </a>
             </div>
             <div>
-                <img class="logo3" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/skywater2.png" alt="">
+                <a href="https://www.jinance.org/" target="view_window">
+                    <img class="logo4" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners3.png" alt="">
+                </a>
             </div>
             <div>
-                <img class="logo4" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners3.png" alt="">
-            </div>
-            <div>
-                <img class="logo5" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/there.png" alt="">
+                <a href="https://t3e.vc/" target="view_window">
+                    <img class="logo5" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/there.png" alt="">
+                </a>
             </div>
             <div>
                 <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5.png" alt="">
@@ -438,7 +448,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <ul class="logo">
             <li>
                 <img class="logo1" src="@/assets/nwhome/windows-fill.svg" alt="">
-                <div class="window">Window</div>
+                <div class="window">Windows</div>
             </li>
             <li>
                 <img class="logo2" src="@/assets/nwhome/steam.svg" alt="">
@@ -518,7 +528,7 @@ const showxplan = () => {
                 store.dispatch('user/changeXplan',true);
                 store.dispatch('user/xplanChangeAni',true);
             }else{
-                window.open('ttps://testxplan.cyberpop.online');
+                window.open('ttps://xplan.cyberpop.online');
             }
         })
     }else{
@@ -943,10 +953,6 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         // }
 }
 
-
-const deckd = () => {
-    window.location.href = 'https://d1td2c8hf7fv9k.cloudfront.net/(new)CyberPOPNewworlddeck(en)2.pdf';
-}
 
 const stopPlay = () => {
     let videobg = document.querySelector("#videobg") as HTMLElement;
@@ -1942,7 +1948,7 @@ onMounted(() => {
             }
             .title{
                 z-index: 1;
-                width: 338px;
+                width: 330px;
                 height: 66px;
                 margin-top: 32px;
                 font-size: 22px;
@@ -2451,7 +2457,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 446px;
+        height: 410px;
         margin: -2px 0;
         background-color: #000000;
         overflow: hidden;
@@ -2484,28 +2490,29 @@ onMounted(() => {
                 justify-content: center;
                 align-items: center;
                 width: 140px;
-                height: 87.5px;
+                // height: 87.5px;
+                height: 68px;
                 margin: 0 10px 20px;
                 background: #282626;
                 border-radius: 7px;
                 .logo1{
-                    height: 60px;
+                    height: 50px;
                 }
                 .logo2{
-                    height: 46px;
+                    height: 40px;
                 }
                 .logo3{
                     width: 120px;
                     margin-right: 6px;
                 }
                 .logo4{
-                    width: 100px;
+                    width: 80px;
                 }
                 .logo5{
-                    width: 120px;
+                    width: 110px;
                 }
                 .logo6{
-                    height: 60px;
+                    height: 46px;
                 }
             }
             div:hover{
