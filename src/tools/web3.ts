@@ -1,5 +1,6 @@
 import store from '@/store'
 import contracts from '@/tools/contracts'
+import { computed } from 'vue'
 const Web3 = (window as any).Web3 // 引用全局的web3 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/moralis@latest/dist/moralis.min.js"></script>
 
@@ -214,9 +215,44 @@ const purchase = () => {
 }
 
 
+// 是否授权
+const isApprovedForAll = async (abi:any, address:any) => {
+    const web3 = new Web3((window as any).ethereum)
+    const contract = new web3.eth.Contract(abi, address)
+    let app = await contract.methods.isApprovedForAll(accounts.value, '0x6f25CdAB7Ec3a7ee78ba9635c1dd494fC71420ad').call()
+}
+
+
+// 资产转移
+const accounts = computed(() => store?.state.user?.idTemp);
+const safeTransferFrom = async (abi:any, address:any, TransferFrom:any, id:any, number:any) => {
+    console.log(abi, address, TransferFrom, id, number);
+    const web3 = new Web3((window as any ).ethereum)
+    const contract = new web3.eth.Contract(abi, address)
+    let res = await contract.methods.safeTransferFrom(accounts.value, TransferFrom, id, number, '0x').send({ from: accounts.value }).then( (receipt:any) => {
+        return receipt;
+    }).catch((err:any) => {
+        isApprovedForAll(abi, address);
+    })
+    console.log(res, 'receipt');
+    return res;
+}
+
+// 资产查询
+const batchBalanceOf = async (abi:any, address:any) => {
+    const web3 = new Web3((window as any ).ethereum)
+    const contract = new web3.eth.Contract(abi, address)
+    let res = await contract.methods.batchBalanceOf(accounts.value).call();
+    return res;
+}
+
+
+
 
 
 export default {
+    safeTransferFrom,
+    batchBalanceOf,
     login,
     hasMetaMask,
     getAccounts,

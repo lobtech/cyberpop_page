@@ -1,22 +1,25 @@
 <template>
     <div class="metamask" :class="metaMaskActive && (metaAni ? 'bounceShow' : 'bounceHide') ">
-        <div class="cover"></div>
-        <div class="coverborder"></div>
-        <img class="close" src="@/assets/nwhome/close.svg" alt="" v-if="isInstall" @click="store.dispatch('user/metaChangeAni',false);">
-        <div class="content">
-            <div class="title">SELECT A WALLET</div>
-            <div class="icon">
-                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/metaMask.svg" alt="">
-                <div class="subtitle">MetaMask</div>
-            </div>
-            <div class="desc" v-if="!isInstall">You will need to install <strong>MetaMask</strong> to continue. Once you have it installed, go ahead and refresh the page.</div>
-            <div class="desc" v-if="isInstall">Please login and authorize access to your MetaMask account to continue.</div>
-            <div class="btn" v-if="!isInstall">
-                <div class="cancel" @click="store.dispatch('user/metaChangeAni',false);">CANCEL</div>
-                <div class="open"><a href="https://metamask.io/" target="view_window">OPEN METAMASK</a></div>
-            </div>
-            <div class="loading" v-else>
-                <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
+        <div class="mask">
+            <div class="cover"></div>
+            <div class="coverborder"></div>
+            <img class="close" src="@/assets/nwhome/close.svg" alt="" v-if="isInstall" @click="store.dispatch('user/metaChangeAni',false);">
+            <div class="content">
+                <div class="title" v-if="!isInstall">SELECT A WALLET</div>
+                <div class="title" v-if="isInstall">AUTHORIZE YOUR WALLET</div>
+                <div class="icon">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/metaMask.svg" alt="">
+                    <div class="subtitle">MetaMask</div>
+                </div>
+                <div class="desc" v-if="!isInstall">You will need to install <strong>MetaMask</strong> to continue. Once you have it installed, go ahead and refresh the page.</div>
+                <div class="desc" v-if="isInstall">Please login and authorize access to your MetaMask account to continue.</div>
+                <div class="btn" v-if="!isInstall">
+                    <div class="cancel" @click="closePopUp()">CANCEL</div>
+                    <div class="open"><a @click="closePopUp()" href="https://metamask.io/" target="view_window">OPEN METAMASK</a></div>
+                </div>
+                <div class="loading" v-else>
+                    <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
+                </div>
             </div>
         </div>
     </div>
@@ -33,6 +36,9 @@ const props = defineProps({
 const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
 const metaAni = computed(() => store?.state.user?.metaAni);
 
+const closePopUp = () => {
+    store.dispatch('user/metaChangeAni',false);
+} 
 
 </script>
 
@@ -48,120 +54,128 @@ const metaAni = computed(() => store?.state.user?.metaAni);
 .metamask{
     z-index: 9;
     position: fixed;
-    top: 3.8vw;
+    top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    width: 31.51vw;
-    height: 22vw;
-    margin: auto;
-    padding: 2.5vw;
-    box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
-    background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-    border: .15vw solid;
-    border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
-    clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
-    .cover{
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.4);
+    .mask{
         position: absolute;
-        top: 0vw;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-        clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
-    }
-    .coverborder{
-        z-index: -1;
-        position: absolute;
-        bottom: 0;
+        top: 3.8vw;
+        left: 0;
         right: 0;
-        content: '';
-        display: inline-block;
-        width: 8vw;
-        height: 8vw;
-        background-color: #2d2942;
-    }
-    .close{
-        position: absolute;
-        right: 1vw;
-        top: 1vw;
-        width: 1.8vw;
-        height: 1.8vw;
-    }
-    .content{
-        position: absolute;
-        .title{
-            height: 2.08vw;
-            font-size: 1.45vw;
-            font-family: AlibabaPuHuiTi_2_115_Black;
-            color: #FFFFFF;
-            line-height: 2.08vw;
-            letter-spacing: .05vw;
+        bottom: 0;
+        width: 31.51vw;
+        height: 22vw;
+        margin: auto;
+        padding: 2.5vw;
+        box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
+        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+        border: .15vw solid;
+        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
+        clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
+        .cover{
+            position: absolute;
+            top: 0vw;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
         }
-        .icon{
-            display: flex;
-            margin: .46vw 0 .46vw 0;
-            img{
-                width: 2.81vw;
-                height: 3.28vw;
-                margin-right: .46vw;
-            }
-            .subtitle{
-                height: 3.28vw;
-                font-size: 1.35vw;
+        .coverborder{
+            z-index: -1;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            content: '';
+            display: inline-block;
+            width: 8vw;
+            height: 8vw;
+            background-color: #2d2942;
+        }
+        .close{
+            position: absolute;
+            right: 1vw;
+            top: 1vw;
+            width: 1.8vw;
+            height: 1.8vw;
+        }
+        .content{
+            position: absolute;
+            .title{
+                height: 2.08vw;
+                font-size: 1.45vw;
                 font-family: AlibabaPuHuiTi_2_115_Black;
-                color: #E6E8EC;
-                line-height: 3.28vw;
+                color: #FFFFFF;
+                line-height: 2.08vw;
+                letter-spacing: .05vw;
             }
-        }
-        .desc{
-            width: 26.19vw;
-            height: 2.29vw;
-            font-size: .83vw;
-            font-family: AlibabaPuHuiTi_2_55_Regular;
-            color: #FFFFFF;
-            line-height: 1.04vw;
-            letter-spacing: .02vw;
-            strong{
-               font-family: AlibabaPuHuiTi_2_105_Heavy;
-            }
-        }
-        .btn{
-            display: flex;
-            justify-content: space-between;
-            width: 23.68vw;
-            height: 2.91vw;
-            margin: 2.91vw 0 0 2.91vw;
-            font-size: 1.04vw;
-            font-family: AlibabaPuHuiTi_2_115_Black;
-            color: #FFFFFF;
-            line-height: 2.91vw;
-            text-align: center;
-            .cancel{
-                width: 8.54vw;
-                height: 100%;
-                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-cancle.svg');
-                background-size: 100% 100%;
-                cursor: pointer;
-            }
-            .open{
-                width: 13.9vw;
-                height: 100%;
-                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-open.svg');
-                background-size: 100% 100%;
-                cursor: pointer;
-                a{
-                    color: #ffffff;
-                    text-decoration: none;
+            .icon{
+                display: flex;
+                margin: .46vw 0 .46vw 0;
+                img{
+                    width: 2.81vw;
+                    height: 3.28vw;
+                    margin-right: .46vw;
+                }
+                .subtitle{
+                    height: 3.28vw;
+                    font-size: 1.35vw;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #E6E8EC;
+                    line-height: 3.28vw;
                 }
             }
-        }
-        .loading{
-            margin-top: 1.3vw;
-            text-align: center;
-            img{
-                width: 4vw;
-                height: 4vw;
-                animation: loadingAni .6s linear infinite;
+            .desc{
+                width: 26.19vw;
+                height: 2.29vw;
+                font-size: .83vw;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
+                color: #FFFFFF;
+                line-height: 1.04vw;
+                letter-spacing: .02vw;
+                strong{
+                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                }
+            }
+            .btn{
+                display: flex;
+                justify-content: space-between;
+                width: 23.68vw;
+                height: 2.91vw;
+                margin: 2.91vw 0 0 2.91vw;
+                font-size: 1.04vw;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #FFFFFF;
+                line-height: 2.91vw;
+                text-align: center;
+                .cancel{
+                    width: 8.54vw;
+                    height: 100%;
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-cancle.svg');
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                .open{
+                    width: 13.9vw;
+                    height: 100%;
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-open.svg');
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                    a{
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+                }
+            }
+            .loading{
+                margin-top: 1.3vw;
+                text-align: center;
+                img{
+                    width: 4vw;
+                    height: 4vw;
+                    animation: loadingAni .6s linear infinite;
+                }
             }
         }
     }

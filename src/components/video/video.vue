@@ -17,6 +17,7 @@
                 x5-video-player-type="h5"
                 x-webkit-airplay="allow" 
                 x5-video-orientation="landscape"
+                x5-video-player-fullscreen="false"
                 v-if="videotype == 4">
             <source src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/output.mp4" type="video/mp4">
             <!-- <source :src="videoSrc" type="video/WebM">
@@ -30,6 +31,7 @@
                 x5-video-player-type="h5"
                 x-webkit-airplay="allow" 
                 x5-video-orientation="landscape"
+                x5-video-player-fullscreen="false"
                 v-else-if="videotype == 5">
             <source src="https://d3bhixjyozyk2o.cloudfront.net/banner.mp4" type="video/mp4">
             <!-- <source :src="videoSrc" type="video/WebM">
@@ -71,12 +73,12 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .mask{
-    width: 100vw;
-    height: 100vh;
+    z-index: 1005;
     position: fixed;
     left: 0;
-    z-index: 1005;
     top: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;

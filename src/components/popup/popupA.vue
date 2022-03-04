@@ -28,6 +28,10 @@
 import { onMounted, computed, readonly, ref } from 'vue'
 import store from '@/store'
 
+const props = defineProps({
+    transferInfo: Object
+})
+
 
 let addressState:any = ref('')
 
@@ -35,7 +39,9 @@ let addressState:any = ref('')
 
 // NFT Number
 const inputNum:any = ref(null)
-const haveNFT:number = 5
+const haveNFT:any = parseInt(props?.transferInfo?.number)
+console.log(haveNFT);
+
 const addNft = () => {
     if( inputNum.value.value < 1 ){
         inputNum.value.value = 1 ;

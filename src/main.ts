@@ -16,6 +16,10 @@ import XplanproA from './components/xplanpro/xplanproA.vue'
 import XplanproB from './components/xplanpro/xplanproB.vue'
 import api from './api/request'
 import VideoBg from 'vue-videobg'
+import headerA from './components/common/headerA.vue'
+import headerB from './components/common/headerB.vue'
+import footerA from './components/common/footerA.vue'
+import footerB from './components/common/footerB.vue'
 import 'swiper/css';
 
 
@@ -37,4 +41,8 @@ app.component('MetamaskB', MetaMaskB)
 app.component('XplanproA', XplanproA)
 app.component('XplanproB', XplanproB)
 app.component('video-bg', VideoBg)
+app.component('headerA', headerA)
+app.component('headerB', headerB)
+app.component('footerA', footerA)
+app.component('footerB', footerB)
 app.mount('#app')
