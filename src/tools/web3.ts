@@ -1,9 +1,8 @@
 import store from '@/store'
 import contracts from '@/tools/contracts'
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 const Web3 = (window as any).Web3 // 引用全局的web3 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/moralis@latest/dist/moralis.min.js"></script>
-
 
 
 
@@ -246,11 +245,97 @@ const batchBalanceOf = async (abi:any, address:any) => {
     return res;
 }
 
+// 读取JSON
+let abi:any = ref(null);
+const address:any = ref(null);
+const dao_abi:any = ref(null);
+const dao_address:any = ref(null);
+const data:any = ref([]);
+const readJSON = async (proxy:any) => {
+    data.value = [];
+    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/ntflib/abi.json').then((data:any) => {
+        abi.value = data;        
+    })
+    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/ntflib/address.json').then((result:any) => {
+        address.value = result[0].address;        
+        batchBalanceOf(abi._rawValue, address.value).then((temp:any) => {
+            let res = JSON.parse(JSON.stringify(temp));
+            (function loop (index){
+                proxy.$api.get(`https://api.cyberpop.online/server/${index || 0}`).then( (result:any) => {
+                    if(res[index] > 0){
+                        data.value.push({
+                            id: index,
+                            type: 0,
+                            number: res[index],
+                            ...result,
+                        })
+                    }
+                    if (++index<res.length) {
+                        loop(index);
+                    } else {
+                        if( data.value.length !== 0 ){
+                            store.dispatch('user/dataSumSearch',{data:data._rawValue, flag:0});
+                        }else{
+                            store.dispatch('user/dataSumSearch',{flag:-1});
+                        }
+                        console.log("over!!!!!");
+                        dao(proxy);
+                    }
+                }).catch((err:any) => {
+                    console.log(err); 
+                })
+            })(0)
+        }) 
+    })
+    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/daolib/abi.json').then((data:any) => {
+        dao_abi.value = data;
+    })
+    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/daolib/address.json').then((data:any) => {
+        dao_address.value = data[0].address;
+    })    
+    store.dispatch('user/contractData', {abi, address, dao_abi, dao_address});
+    return {abi, address, dao_abi, dao_address};
+}
 
 
+const dao = async (proxy:any) => {
+    await batchBalanceOf(dao_abi._rawValue, dao_address.value).then((temp:any) => {
+        let res = JSON.parse(JSON.stringify(temp));
+        (function loop (index){
+            proxy.$api.get(`https://api.cyberpop.online/game/${index}`).then( (result:any) => {
+                if(res[index] > 0){
+                    data.value.push({
+                        id: index,
+                        type: 1,
+                        number: res[index],
+                        ...result,
+                    })
+                }
+                if (++index<res.length) {
+                    loop(index);
+                } else {
+                    if( data.value.length !== 0 ){
+                        store.dispatch('user/dataSumSearch',{data:data._rawValue, flag:1});
+                        console.log("over2!!!!!");
+                    }else{
+                        store.dispatch('user/dataSumSearch',{flag:-1});
+                        console.log("notging!!!!!");
+                    }
+                }
+            }).catch((err:any) => {
+                if (++index<res.length) {
+                    loop(index);
+                } else {
+                    console.log("over2!!!!!");
+                }
+            })
+        })(0)
+    })
+} 
 
 
 export default {
+    readJSON,
     safeTransferFrom,
     batchBalanceOf,
     login,

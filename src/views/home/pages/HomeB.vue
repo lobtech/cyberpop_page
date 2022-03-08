@@ -28,18 +28,20 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </footer>
     </div>
     <div class="download" v-show="showDown" :class="!isOut ? 'bounceShow' : 'bounceHide'">
-        <div class="cover"></div>
-        <div class="coverborder"></div>
-        <div class="wrap">
-            <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
-            <div class="close">
-                <img src="@/assets/nwhome/close.svg" alt="" @click="isOut = true">
-                <div class="closebg"></div>
+        <div class="download-mask">
+            <div class="cover"></div>
+            <div class="coverborder"></div>
+            <div class="wrap">
+                <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
+                <div class="close">
+                    <img src="@/assets/nwhome/close.svg" alt="" @click="isOut = true">
+                    <div class="closebg"></div>
+                </div>
+                <div class="message">
+                    Sorry, you are unable to download. The Metaverse is currently open only to authorized internal testers and communities. Contact us to get qualify.
+                </div>
+                <div class="btn">Download</div>
             </div>
-            <div class="message">
-                Sorry, you are unable to download. The Metaverse is currently open only to authorized internal testers and communities. Contact us to get qualify.
-            </div>
-            <div class="btn">Download</div>
         </div>
     </div>
     <div class="nav-logos" ref="myNav">
@@ -365,31 +367,23 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img class="xplan" @click="showxplan()" src="@/assets/nwhome/xplan.svg" alt="" >
         </div>
         <div class="logo">
-            <div>
-                <a href="https://aws.amazon.com/" target="view_window">
-                    <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
-                </a>
-            </div>
+            <a href="https://aws.amazon.com/" target="view_window">
+                <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
+            </a>
             <div>
                 <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners4.png" alt="">
             </div>
+            <a href="https://skywater.vc/" target="view_window">
+                <img class="logo3" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/skywater2.png" alt="">
+            </a>
+            <a href="https://www.jinance.org/" target="view_window">
+                <img class="logo4" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners3.png" alt="">
+            </a>
+            <a href="https://t3e.vc/" target="view_window">
+                <img class="logo5" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/T3E-Logo.png" alt="">
+            </a>
             <div>
-                <a href="https://skywater.vc/" target="view_window">
-                    <img class="logo3" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/skywater2.png" alt="">
-                </a>
-            </div>
-            <div>
-                <a href="https://www.jinance.org/" target="view_window">
-                    <img class="logo4" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners3.png" alt="">
-                </a>
-            </div>
-            <div>
-                <a href="https://t3e.vc/" target="view_window">
-                    <img class="logo5" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/there.png" alt="">
-                </a>
-            </div>
-            <div>
-                <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5.png" alt="">
+                <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5-2.png" alt="">
             </div>
         </div>
     </div>
@@ -930,107 +924,115 @@ onMounted(() => {
         }
     }
     .download{
-        z-index: 8;
+        z-index: 9;
         position: fixed;
         top: 0;
-        right: 0;
-        bottom: 0;
         left: 0;
-        margin: auto;
-        width: 314px;
-        height: 354px;
-        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-        border: 5px solid;
-        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 5 5;
-        clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
-        .cover{
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,.4);
+        .download-mask{
             position: absolute;
             top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);;
-            clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
-        }
-        .coverborder{
-            z-index: -1;
-            position: absolute;
-            bottom: 0;
             right: 0;
-            content: '';
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background-color: #2d2942;
-        }
-        .wrap{
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            .bg{
-                width: 250px;
-                margin-top: 10px;
-                margin-left: 30px;
-            }
-            .close{
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            width: 314px;
+            height: 354px;
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+            border: 5px solid;
+            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 5 5;
+            clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
+            .cover{
                 position: absolute;
-                top: 7px;
-                right: 7px;
-                width: 22px;
-                height: 22px;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);;
+                clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
             }
-            .close{
+            .coverborder{
+                z-index: -1;
                 position: absolute;
-                top: 0px;
-                right: 0px;
-                width: 45px;
-                height: 45px;
-                img{
-                    z-index: 2;
-                    width: 24px;
-                    height: 24px;
-                    position: absolute;
-                    top: 1.1vw;
-                    right: 1.8vw;
-                }
-                div{
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    top: -1.4vw;
-                    right: -1.2vw;
-                }
-                img:hover + .closebg{
-                    background-image: url('../../../assets/nwhome/closeBg.svg');
-                    background-position: center center;
-                    background-repeat: no-repeat;
-                    background-size: 100% 100%;
-                }
+                bottom: 0;
+                right: 0;
+                content: '';
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                background-color: #2d2942;
             }
-            .message{
-                // background: #00FF9C;
-                width: 280px;
-                margin: 14px 0 18px;
-                font-size: 16px;
-                font-family: AlibabaPuHuiTi_2_55_Regular;
-                color: #FFFFFF;
-                line-height: 20px;
-                text-align: center;
-            }
-            .btn{
-                width: 150px;
-                height: 43px;
-                margin: 0 auto;
-                font-size: 16px;
-                font-family: AlibabaPuHuiTi_2_115_Black;
-                color: #FFFFFF;
-                line-height: 43px;
-                text-align: center;
-                // background-image: url('../../../assets/nwhome/download.svg');
-                background-size: auto 100%;
-                clip-path: polygon(0% 33.4%, 10.8% 0%, 100% 0, 100% 80.5%, 90.8% 100%, 0 100%);
-                cursor: pointer;
-                background-color: gray;
+            .wrap{
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .bg{
+                    width: 250px;
+                    margin-top: 10px;
+                    margin-left: 30px;
+                }
+                .close{
+                    position: absolute;
+                    top: 7px;
+                    right: 7px;
+                    width: 22px;
+                    height: 22px;
+                }
+                .close{
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    width: 45px;
+                    height: 45px;
+                    img{
+                        z-index: 2;
+                        width: 24px;
+                        height: 24px;
+                        position: absolute;
+                        top: 1.1vw;
+                        right: 1.8vw;
+                    }
+                    div{
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: -1.4vw;
+                        right: -1.2vw;
+                    }
+                    img:hover + .closebg{
+                        background-image: url('../../../assets/nwhome/closeBg.svg');
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
+                    }
+                }
+                .message{
+                    // background: #00FF9C;
+                    width: 280px;
+                    margin: 14px 0 18px;
+                    font-size: 16px;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    color: #FFFFFF;
+                    line-height: 20px;
+                    text-align: center;
+                }
+                .btn{
+                    width: 150px;
+                    height: 43px;
+                    margin: 0 auto;
+                    font-size: 16px;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #FFFFFF;
+                    line-height: 43px;
+                    text-align: center;
+                    // background-image: url('../../../assets/nwhome/download.svg');
+                    background-size: auto 100%;
+                    clip-path: polygon(0% 33.4%, 10.8% 0%, 100% 0, 100% 80.5%, 90.8% 100%, 0 100%);
+                    cursor: pointer;
+                    background-color: gray;
+                }
             }
         }
     }
@@ -2036,7 +2038,7 @@ onMounted(() => {
             justify-content: center;
             flex-wrap: wrap;
             width: 100%;     
-            div{
+            a,div{
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -2060,10 +2062,10 @@ onMounted(() => {
                     width: 80px;
                 }
                 .logo5{
-                    width: 110px;
+                    width: 84px;
                 }
                 .logo6{
-                    height: 46px;
+                    height: 54px;
                 }
             }
             div:hover{

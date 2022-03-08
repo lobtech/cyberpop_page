@@ -12,7 +12,7 @@
                     terminal. Any small act you do in Cyberpop New World is valuable to Cyberpop DAO.
                 </div>
             </div>
-            <div class="ecr">
+            <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1">
                 <div class="search">
                     <div class="title">Search</div>
                     <div class="input">
@@ -71,8 +71,8 @@
                 </div>
                 <div class="ecrchange">
                     <div class="top">
-                        <div class="type1" :class="ecrType ? 'active' : ''" @click="ecrType = true">ECR 721</div>
-                        <div class="type2" :class="!ecrType ? 'active' : ''" @click="ecrType = false">ECR 115</div>
+                        <div class="type1" :class="ecrType ? 'active' : ''" @click="ecrType = true">ERC 721</div>
+                        <div class="type2" :class="!ecrType ? 'active' : ''" @click="ecrType = false">ERC 1155</div>
                     </div>
                     <div class="ecr721" v-show="ecrType">
                         <!-- <ul class="prince">
@@ -113,7 +113,7 @@
                     </div>
                     <div class="ecr115" v-show="!ecrType">
                         <ul class="prince">
-                            <li v-for="(item, index) in data" :key="index">
+                            <li v-for="(item, index) in dataTemp" :key="index">
                                 <img :src="item.image" alt="">
                                 <div class="name">{{item.name}}<span>x{{item.number}}</span></div>
                                 <div class="btn">
@@ -125,31 +125,52 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="nothing">
-                <div class="txt">Oops, There‘s nothing left here. Go to <span>Home page</span></div>
+            <div class="nothing" v-if="readyAssetsF == -1">
+                <div class="txt">Oops, There‘s nothing left here. Go to <a href="/">Home page</a></div>
                 <img src="@/assets/nwAssets/nothing.svg" alt="">
-            </div> -->
+            </div>
         </div>
     </div>
     <footer-a></footer-a>
-    <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
-    <popup-a v-show="transferActive" :transferInfo="transferItem"></popup-a>
+    <!-- <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a> -->
+    <popup-a v-show="transferActive" :transferInfo="transferItem" :abi="abiSelect" :address="addressSelect"></popup-a>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
+import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
 
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
-import $ from 'jquery'
-const { proxy } = getCurrentInstance() as any;
+import { toRaw } from '@vue/reactivity'
+const router = useRouter()
+const { proxy } = getCurrentInstance() as any
+
 
 let abi:any = ref(null);
-const address:any = ref(0);
-const dao_abi:any = ref(null);
-const dao_address:any = ref(null);
-const data:any = ref([]);
+let address:any = ref(null);
+let dao_abi:any = ref(null);
+let dao_address:any = ref(null);
 
+let dataTemp:any = ref([]);
+
+const readyAssetsF = computed(() => {
+    if( store?.state.user?.readyAssets !== -1 ){
+        dataTemp.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
+        // console.log('computed',dataTemp.value,store.state.user?.readyAssets);
+
+        abi.value = JSON.parse(JSON.stringify(store.state.user?.contract)).abi
+        address.value = JSON.parse(JSON.stringify(store.state.user?.contract)).address
+        dao_abi.value = JSON.parse(JSON.stringify(store.state.user?.contract)).dao_abi
+        dao_address.value = JSON.parse(JSON.stringify(store.state.user?.contract)).dao_address
+        
+    }
+    return store.state.user?.readyAssets
+});
+
+
+// select
+let abiSelect:any = ref(null);
+const addressSelect:any = ref(null);
 
 // checkAll (no use)
 let selectArr = ref([])
@@ -186,112 +207,35 @@ let ecrType:any = ref(true)
 
 // NFT transfer
 const transferActive = computed(() => store?.state.user?.transferActive)
-const transferItem = ref(null)
+const transferItem:any = ref(null)
 const transferPopup = (item:any) => {
     store.dispatch('user/transferChange',true)
+    store.dispatch('user/transferChangeAni',true)
     transferItem.value = item
+    if( item.type == 0 ){
+        abiSelect.value = abi
+        addressSelect.value = address
+    }else if( item.type == 1 ){
+        abiSelect.value = dao_abi
+        addressSelect.value = dao_address
+    }
 }
-
-
-const router = useRouter()
-
-
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(false)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    store.dispatch('user/addComingOut', false)
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/addComingOut',true)
-    },5000)
-}
-
-
-const dao = async () => {
-    await Web3.batchBalanceOf(dao_abi._rawValue, dao_address.value).then(temp => {
-        let res = JSON.parse(JSON.stringify(temp));
-        (function loop (index){
-            proxy.$api.get(`https://api.cyberpop.online/game/${index}`).then( (result:any) => {
-                if(res[index] > 0){
-                    data.value.push({
-                        id: index,
-                        type: 1,
-                        number: res[index],
-                        ...result,
-                    })
-                }
-                if (++index<res.length) {
-                    loop(index);
-                } else {
-                    console.log(data._rawValue);
-                    console.log("over2!!!!!");
-                }
-            }).catch((err:any) => {
-                if (++index<res.length) {
-                    loop(index);
-                } else {
-                    console.log("over2!!!!!");
-                }
-            })
-        })(0)
-    })
-} 
-
-
 
 
 onUnmounted(() => {
 })
 
-onMounted( async() => {
+onMounted( () => {
     window.scrollTo(0,0);
     store.dispatch('user/showDialog',false);// close message dialog
     store.dispatch('user/metaChange',false);
+    store.dispatch('user/transferChange',false);
 
-    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/ntflib/abi.json').then((data:any) => {
-        abi.value = data;        
-    })
-    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/ntflib/address.json').then((result:any) => {
-        address.value = result[0].address;        
-        setTimeout(() => {  
-            Web3.batchBalanceOf(abi._rawValue, address.value).then(temp => {
-                let res = JSON.parse(JSON.stringify(temp));
-                (function loop (index){
-                    proxy.$api.get(`https://api.cyberpop.online/server/${index || 0}`).then( (result:any) => {
-                        if(res[index] > 0){
-                            data.value.push({
-                                id: index,
-                                type: 0,
-                                number: res[index],
-                                ...result,
-                            })
-                        }
-                        if (++index<res.length) {
-                            loop(index);
-                        } else {
-                            dao();
-                            console.log(data._rawValue);
-                            console.log("over!!!!!");
-                        }
-                    }).catch((err:any) => {
-                        console.log(err); 
-                    })
-                })(0)
-            }) 
-        }, 200);
-    })
-    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/daolib/abi.json').then((data:any) => {
-        dao_abi.value = data;
-    })
-    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/daolib/address.json').then((data:any) => {
-        dao_address.value = data[0].address;
-    })    
+
+    if(store.state.user?.readyAssets !== -1){
+        dataTemp.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
+        // console.log(11, store.state.user?.dataSum);
+    }
     
 })
 
@@ -493,12 +437,16 @@ onMounted( async() => {
                         }
                     }
                     .ecr721,.ecr115{
+                        width: 60vw;
                         ul{
                             display: flex;
+                            flex-wrap: wrap;
                             margin-bottom: 2.65vw;
                             li{
                                 width: 17.96vw;
                                 height: 23.22vw;
+                                margin-right: 1.92vw;
+                                margin-bottom: 2.65vw;
                                 padding: .78vw .83vw;
                                 // background-image: url('../../../assets/nwAssets/ecrcard-bg.svg');
                                 // background-repeat: no-repeat;
@@ -563,27 +511,27 @@ onMounted( async() => {
                                     }
                                 }
                             }
-                            li + li{
-                                margin-left: 1.92vw;
-                            }
                         }
                     }
                 }
             }
             .nothing{
+                height: 80vh;
                 text-align: center;
                 padding-bottom: 7.55vw;
                 .txt{
                     width: 47.5vw;
                     height: 1.04vw;
-                    margin: -2.18vw auto 7.65vw;
+                    margin: -1vw auto 7.65vw;
                     font-size: .83vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #B1B5C3;
                     line-height: 1.04vw;
                     text-align: center;
-                    span{
+                    a{
                         color: #04FFA2;
+                        text-decoration: none;
+                        cursor: pointer;
                     }
                 }
                 img{

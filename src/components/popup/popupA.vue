@@ -1,111 +1,204 @@
 <template>
-    <div class="popup">
-        <div class="cover"></div>
-        <div class="coverborder"></div>
-        <div class="content">
-            <div class="title">NFT TRANSFER</div>
-            <div class="tips">Please input amount</div>
-            <div class="number">
-                <input id="inputNum" type="number" value="1" ref="inputNum">
-                <div class="add" @click="addNft()"></div>
-                <div class="reduce" @click="reduceNft()"></div>
-            </div>
-            <div class="desc">NFT #3405454 send to the wallet address</div>
-            <div class="address" :class="inputState == 'activated' ? 'activated':'' || inputState == 'success' ? 'success':'' || ( addressState == 'empty' || addressState == 'error' ) ? 'empty' : ''">
-                <input class="inputTxt" type="text" v-model="inputAddress" @focus="inputState = 'activated'" @blur="checkAddress()">
-                <div class="mess" v-if="addressState == 'empty'">Address is empty</div>
-                <div class="mess" v-if="addressState == 'error'">Address format error</div>
-            </div>
-            <div class="btn">
-                <div class="cancel" @click="closeDialog()">CANCEL</div>
-                <div class="transfer" @click="transfer()">TRANSFER</div>
+    <div>
+        <div class="popup" :class="transferActive && (transferAni ? 'bounceShow' : 'bounceHide') ">
+            <div class="cover"></div>
+            <div class="coverborder"></div>
+            <div class="content">
+                <div class="title">NFT TRANSFER</div>
+                <div class="tips" v-show="numState == ''">Please input amount</div>
+                <div class="tips" v-show="numState == 'error'">Please enter the correct number</div>
+                <div class="number" :class="numState == 'error' ? 'error':''">
+                    <input id="inputNum" type="text" @input="inputNumber($event)" :value="valueIn">
+                    <div class="add" @click="addNft()"></div>
+                    <div class="reduce" @click="reduceNft()"></div>
+                </div>
+                <div class="desc">NFT #3405454 send to the wallet address</div>
+                <div class="address" :class="inputState == 'activated' ? 'activated':'' || inputState == 'success' ? 'success':'' || ( addressState == 'empty' || addressState == 'error' ) ? 'empty' : ''">
+                    <input class="inputTxt" type="text" :value="inputAddress" @focus="inputState = 'activated'" @input="checkAddress($event)">
+                    <div class="mess" v-if="addressState == 'empty'">Address is empty</div>
+                    <div class="mess" v-if="addressState == 'error'">Address format error</div>
+                </div>
+                <div class="btn">
+                    <div class="btn-wrap">
+                        <div class="cancel" @click="closeDialog()">CANCEL</div>
+                        <div class="transfer" :class="canTransfer == 'disable' ? 'disableNum':''" @click="transfer()">TRANSFER</div>
+                    </div>
+                </div>
             </div>
         </div>
+        <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
     </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed, readonly, ref } from 'vue'
+import { onMounted, computed, readonly, ref, getCurrentInstance, watch } from 'vue'
 import store from '@/store'
-
+import Web3 from '@/tools/web3' 
+const { proxy } = getCurrentInstance() as any;
 const props = defineProps({
-    transferInfo: Object
+    transferInfo: Object,
+    abi: Object,
+    address: Object
+})
+
+const transferActive = computed(() => store?.state.user?.transferActive);
+const transferAni = computed(() => store?.state.user?.transferAni);
+let transferInfoMsg:any = ref(null) 
+let abiMsg:any = ref(null) 
+let addressMsg:any = ref(null) 
+let idMsg:any = ref(null) 
+let valueIn:any = ref(1)
+
+// NFT Number
+let haveNFT:any = ref(0)
+let haveNFTCount:any = ref(1)
+let numState:any = ref('')
+let canTransfer:any = ref('disable')
+let regExp = new RegExp("")
+
+watch(props,(newVal,oldVal) => {
+    transferInfoMsg.value = newVal
+    haveNFT.value = transferInfoMsg.value.transferInfo.number
+    // haveNFT.value = '22222'
+    haveNFTCount.value = haveNFT.value.length - 1 // 拥有nft的数量位数
+    idMsg.value = transferInfoMsg.value.transferInfo.id 
+    abiMsg.value = transferInfoMsg.value.abi
+    addressMsg.value = transferInfoMsg.value.address
+
+    if( haveNFTCount.value == 1 ){
+        regExp = RegExp( "^[1-"+ haveNFT.value + "]$");
+    }else{
+        regExp = RegExp( "^[1-9][0-9]{0," + haveNFTCount.value +"}$");
+    }
 })
 
 
-let addressState:any = ref('')
+
+// message dialog
+const showDialog = computed(() => store?.state.user?.showDialog);
+let messageState:any = ref(false)
+let messageContent:any = ref('')
+const mtimer:any = ref(null)
+const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
+    messageState.value = flag
+    store.dispatch('user/showDialog',true)
+    messageContent.value = message
+    store.dispatch('user/addComingOut', false)
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/addComingOut',true)
+    },5000)
+}
 
 
-
-// NFT Number
-const inputNum:any = ref(null)
-const haveNFT:any = parseInt(props?.transferInfo?.number)
-console.log(haveNFT);
 
 const addNft = () => {
-    if( inputNum.value.value < 1 ){
-        inputNum.value.value = 1 ;
-    }else if( inputNum.value.value >= haveNFT ){
+    if( valueIn.value < 1 ){
+        valueIn.value = 1 ;
+    }else if( valueIn.value >= haveNFT.value ){
         
     }else{
-        inputNum.value.value = parseInt(inputNum.value.value) + 1;
+        valueIn.value = parseInt(valueIn.value) + 1;
     }
 }
 const reduceNft = () => {
-    if( inputNum.value.value <= 1 ){
-        inputNum.value.value = 1 ;
+    if( valueIn.value <= 1 || valueIn.value > haveNFT.value){
+        valueIn.value = 1 ;
     }else{
-        inputNum.value.value = parseInt(inputNum.value.value) - 1;
+        valueIn.value = parseInt(valueIn.value) - 1;
     }
 }
+
+const inputNumber = (e:any) => {
+    console.log(e.target.value,regExp.test(e.target.value));
+    
+    if ( e.target.value && !(regExp.test(e.target.value)) ) {
+        numState.value = 'error'
+        // e.target.value = valueIn.value
+        // e.target.value = ''
+    } else if( !e.target.value ){
+        numState.value = 'error'
+        // e.target.value = ''
+    }else{
+        numState.value = ''
+        valueIn.value = e.target.value
+    }
+}
+
 
 
 // input state
 let inputState:any = ref('')
-
+let addressState:any = ref('')
 
 // check address
 const inputAddress:any = ref('')
-const checkAddress = () => {
+const checkAddress = (e:any) => {
     let reg = /^[a-zA-Z0-9]+\s*$/
-    if( inputAddress.value == '' ){
-        inputState.value = ''
-        addressState.value = 'empty'
-    }else if( !reg.test(inputAddress.value) ){
+
+    if (e.target.value && !(reg.test(e.target.value))) {
+        e.target.value = ''
         inputState.value = ''
         addressState.value = 'error'
+        canTransfer.value = 'disable'
+    } else if( !e.target.value ){
+        e.target.value = ''
+        inputState.value = ''
+        addressState.value = 'empty'
+        canTransfer.value = 'disable'
     }else{
+        inputAddress.value = e.target.value
         inputState.value = 'success'
         addressState.value = ''
+        canTransfer.value = ''
     }
 }
 
 
 // transfer submit
-const transfer = () => {
+const transfer = async () => {
     if( inputAddress.value == '' ){
         inputState.value = ''
         addressState.value = 'empty'
     }else if( inputState.value == 'success' ){
-        let test = 'success'
-        if( test == 'disable' ){
-            inputState.value = ''
-        }else if( test == 'success' ){
-            inputState.value = 'success'
-        }
+        if( valueIn.value > haveNFT.value ){
+           messageAlert(false,'Maximum exceeded')
+        }else{
+            await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value).then( (res:any) => {
+                console.log(res);
+                if( res == undefined ){
+                    messageAlert(false,'Transaction interruption')
+                }else{
+                    closeDialog();
+                    messageAlert(true,'Success')
+                    Web3.readJSON(proxy)
+                }
+            }).catch((err:any) => {
+                // inputState.value = ''
+                // addressState.value = ''
+                messageAlert(false,'Invalid address')
+            })
+       }
     }
 }
 
 
 const closeDialog = () => {
-    store.dispatch('user/transferChange',false)
-    inputNum.value.value = 1 
+    store.dispatch('user/transferChangeAni',false)
+    valueIn.value = 1 
+    numState.value = ''
     inputAddress.value = ''
     inputState.value = ''
     addressState.value = ''
+    canTransfer.value = 'disable'
 }
 
+
+
+
 onMounted(() => {
+    store.dispatch('user/showDialog',false);// close message dialog
+    
 })
 </script>
 
@@ -113,13 +206,13 @@ onMounted(() => {
     .popup{
         // z-index: 9;
         position: fixed;
-        top: 0;
+        top: 50%;
         left: 0;
         right: 0;
         width: 28.125vw;
         height: 25.52vw;
-        margin: 18.4vw auto 0;
-        padding: 2.5vw 2.5vw 2.23vw;
+        margin: -9.6vw auto 0;
+        padding: 2.5vw 0 2.23vw 2.5vw;
         box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
         background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
         border: .15vw solid;
@@ -127,7 +220,8 @@ onMounted(() => {
         clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
         .cover{
             position: absolute;
-            top: 0vw;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
@@ -146,6 +240,7 @@ onMounted(() => {
         }
         .content{
             position: absolute;
+            padding-right: 2.4vw;
             .title{
                 height: 2.03vw;
                 font-size: 1.45vw;
@@ -174,8 +269,8 @@ onMounted(() => {
                     left: 0;
                     width: 100%;
                     height: 100%;
+                    padding: 0 1.2vw 0 .4vw;
                     font-size: .83vw;
-                    text-indent: .8vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: rgba(255, 255, 255, 0.35);
                     line-height: .98vw;
@@ -222,11 +317,12 @@ onMounted(() => {
                 margin-bottom: 2.91vw;
                 border: 1px solid #8478FF;
                 input{
-                    width: 100%;
-                    height: 100%;
-                    padding: .83vw;
+                    width: 23.12vw;
+                    height: 2.81vw;
+                    padding: 0 .83vw;
                     color: rgba(255, 255, 255, 0.35);
                     font-size: .83vw;
+                    line-height: 2.81vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     background: transparent;
                     border: none;
@@ -234,7 +330,7 @@ onMounted(() => {
                 }
                 .mess{
                     position: absolute;
-                    bottom: -1.45vw;
+                    bottom: -1.5vw;
                     height: 1.04vw;
                     font-size: .83vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
@@ -244,38 +340,45 @@ onMounted(() => {
                 }
             }
             .btn{
-                float: right;
                 display: flex;
-                align-items: center;
-                justify-content: space-between;
-                width: 18.33vw;
-                height: 2.91vw;
-                .cancel{    
-                    width: 8.54vw;
+                justify-content: flex-end;
+                width: 100%;
+                .btn-wrap{  
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 18.33vw;
                     height: 2.91vw;
-                    font-size: 1.04vw;
-                    font-family: AlibabaPuHuiTi_2_115_Black;
-                    color: #FFFFFF;
-                    line-height: 2.91vw;
-                    text-align: center;
-                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-cancle.svg');
-                    background-size: 100% 100%;
-                    cursor: pointer;
-                }
-                .transfer{    
-                    width: 8.54vw;
-                    height: 2.91vw;
-                    font-size: 1.04vw;
-                    font-family: AlibabaPuHuiTi_2_115_Black;
-                    color: #FFFFFF;
-                    line-height: 2.91vw;
-                    text-align: center;
-                    background-image: url('../../assets/nwAssets/transferbg.png');
-                    background-size: 100% 100%;
-                    cursor: pointer;
+                    .cancel{    
+                        width: 8.54vw;
+                        height: 2.91vw;
+                        font-size: 1.04vw;
+                        font-family: AlibabaPuHuiTi_2_115_Black;
+                        color: #FFFFFF;
+                        line-height: 2.91vw;
+                        text-align: center;
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-cancle.svg');
+                        background-size: 100% 100%;
+                        cursor: pointer;
+                    }
+                    .transfer{    
+                        width: 8.54vw;
+                        height: 2.91vw;
+                        font-size: 1.04vw;
+                        font-family: AlibabaPuHuiTi_2_115_Black;
+                        color: #FFFFFF;
+                        line-height: 2.91vw;
+                        text-align: center;
+                        background-image: url('../../assets/nwAssets/transferbg.png');
+                        background-size: 100% 100%;
+                        cursor: pointer;
+                    }
                 }
             }
         }
+    }
+    .transfer.disableNum{
+        opacity: 0.5;
     }
     .address.activated{
         border: 1px solid #ffffff !important;
@@ -295,16 +398,16 @@ onMounted(() => {
             color: #FF5CA1 !important;
         }
     }
-    .number.activated{
-        border: 1px solid #ffffff !important;
+    .number.error{
+        border: 1px solid #FF5CA1 !important;
         input{
-            color: #ffffff !important;
+            color: #FF5CA1 !important;
         }
         .add{
-            border-bottom: .6vw solid #ffffff !important;
+            border-bottom: .6vw solid #FF5CA1 !important;
         }
         .reduce{
-            border-top: .6vw solid #ffffff !important;
+            border-top: .6vw solid #FF5CA1 !important;
         }
     }
     .number.errorNum{

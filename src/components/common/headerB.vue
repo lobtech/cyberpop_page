@@ -19,7 +19,7 @@
                     <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
                     <div class="idtxt">{{realId}}</div>
                     <div class="submenu">
-                        <div class="myassets">My assets</div>
+                        <div class="myassets" @click="toAssets()">My assets</div>
                         <div class="logout" @click="signout">Logout</div>
                     </div>
                     <div class="mask"></div>
@@ -55,11 +55,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, computed, readonly, ref } from 'vue'
+import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref } from 'vue'
 import store from '@/store'
 import Web3 from '@/tools/web3' 
 import {  useRouter } from 'vue-router'
+const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
+
 
 const props = defineProps({
     path: String, 
@@ -134,7 +136,7 @@ const logoHImport = async() => {
 let logoHFlag: any = ref(false) ;
 
 // footer
-let logoFlag: any = ref(false) ;
+let logoFlag: any = ref(false);
 
 
 const active = computed(() => store?.state.user?.active);
@@ -193,6 +195,7 @@ const connect: any = async () => {
         let len = id.value.length-1;
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/walletId',id.value);
+        Web3.readJSON(proxy); //////
     }
 }
 
@@ -204,6 +207,12 @@ const signout = () => {
     loggined.value = false;
     showMenuAni.value = false;
     store.dispatch('user/walletId',0);
+}
+
+
+const toAssets = () => {
+    // router.push('/assets');
+    showMenuAni.value = false;
 }
 
 

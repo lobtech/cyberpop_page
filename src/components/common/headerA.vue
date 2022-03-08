@@ -63,7 +63,7 @@
         <div class="wrap">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <div @click="router.push('/')">My Assets</div>
+            <div @click="toAssets()">My Assets</div>
             <div @click="signout">Log out</div>
         </div>
     </div>
@@ -72,12 +72,19 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, computed, readonly, ref } from 'vue'
+import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref } from 'vue'
 import store from '@/store'
 import Web3 from '@/tools/web3' 
 import {  useRouter } from 'vue-router'
+import { param } from 'jquery';
+const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
 
+
+let abi:any = ref(null);
+let address:any = ref(null);
+let dao_abi:any = ref(null);
+let dao_address:any = ref(null);
 const props = defineProps({
     path: String, 
     type: Number
@@ -210,6 +217,7 @@ const connect: any = async () => {
         let len = id.value.length-1;
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/walletId',id.value);
+        Web3.readJSON(proxy); //////
     }
 }
 
@@ -222,6 +230,11 @@ const signout = () => {
     showloggedFlag.value = false;
     hoverLogged.value = false;
     store.dispatch('user/walletId',0);
+}
+
+
+const toAssets = () => {
+    // router.push('/assets');
 }
 
 

@@ -28,20 +28,22 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </footer>
     </div>
     <div class="download" v-show="showDown" :class="!isOut ? 'bounceShow' : 'bounceHide'">
-        <div class="cover"></div>
-        <div class="coverborder"></div>
-        <div class="wrap">
-            <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
-            <div class="close">
-                <img src="@/assets/nwhome/close.svg" alt="" @click="isDown = false,isOut = true">
-                <div class="closebg"></div>
-            </div>
-            <div class="message">
-                Sorry, you are unable to download. The Metaverse is currently open only to authorized internal testers and communities. Contact us to get qualify.
-            </div>
-            <div class="btn" @mouseenter="isDown = true,downFlag =true" @mouseleave="downFlag =false">
-                <div class="txt">Download</div>
-                <div class="mask" id="down" :class="isDown && (downFlag ? 'downloadAni' : 'stopDownloadAni')"></div>
+        <div class="download-mask">
+            <div class="cover"></div>
+            <div class="coverborder"></div>
+            <div class="wrap">
+                <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
+                <div class="close">
+                    <img src="@/assets/nwhome/close.svg" alt="" @click="isDown = false,isOut = true">
+                    <div class="closebg"></div>
+                </div>
+                <div class="message">
+                    Sorry, you are unable to download. The Metaverse is currently open only to authorized internal testers and communities. Contact us to get qualify.
+                </div>
+                <div class="btn" @mouseenter="isDown = true,downFlag =true" @mouseleave="downFlag =false">
+                    <div class="txt">Download</div>
+                    <div class="mask" id="down" :class="isDown && (downFlag ? 'downloadAni' : 'stopDownloadAni')"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -357,31 +359,23 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img class="xplan" @click="showxplan()" src="@/assets/nwhome/xplan.svg" alt="" >
         </div>
         <div class="logo">
-            <div>
-                <a href="https://aws.amazon.com/" target="view_window">
-                    <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
-                </a>
-            </div>
+            <a href="https://aws.amazon.com/" target="view_window">
+                <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
+            </a>
             <div>
                 <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners4.png" alt="">
             </div>
+            <a href="https://skywater.vc/" target="view_window">
+                <img class="logo3" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/skywater2.png" alt="">
+            </a>
+            <a href="https://www.jinance.org/" target="view_window">
+                <img class="logo4" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners3.png" alt="">
+            </a>
+            <a href="https://t3e.vc/" target="view_window">
+                <img class="logo5" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/T3E-Logo.png" alt="">
+            </a>
             <div>
-                <a href="https://skywater.vc/" target="view_window">
-                    <img class="logo3" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/skywater2.png" alt="">
-                </a>
-            </div>
-            <div>
-                <a href="https://www.jinance.org/" target="view_window">
-                    <img class="logo4" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners3.png" alt="">
-                </a>
-            </div>
-            <div>
-                <a href="https://t3e.vc/" target="view_window">
-                    <img class="logo5" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/there.png" alt="">
-                </a>
-            </div>
-            <div>
-                <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5.png" alt="">
+                <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5-2.png" alt="">
             </div>
         </div>
     </div>
@@ -462,7 +456,7 @@ const playToEarn = () => {
         showDown.value = true; 
         isOut.value = false;
     }else{
-        messageAlert(0,'Please connect to a wallet.')
+        messageAlert(false,'Please connect to a wallet.')
     }
 }
 
@@ -949,122 +943,130 @@ onMounted(() => {
         }
     }
     .download{
-        z-index: 8;
+        z-index: 9;
         position: fixed;
         top: 0;
         left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-        width: 48.8vw;
-        height: 28.9vw;
-        background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-        border: .26vw solid;
-        border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 5 5;
-        clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
-        .cover{
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,.4);
+        .download-mask{
             position: absolute;
             top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-            clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
-        }
-        .coverborder{
-            z-index: -1;
-            position: absolute;
-            bottom: 0;
+            left: 0;
             right: 0;
-            content: '';
-            display: inline-block;
-            width: 8vw;
-            height: 8vw;
-            background-color: #2d2942;
-        }
-        .wrap{
-            position: relative;
-            .bg{
-                width: 33.02vw;
-                height: 18.17vw;
-                margin-top: .93vw;
-                margin-left: 9.94vw;
-            }
-            .close{
+            bottom: 0;
+            margin: auto;
+            width: 48.8vw;
+            height: 28.9vw;
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+            border: .26vw solid;
+            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 5 5;
+            clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
+            .cover{
                 position: absolute;
-                top: 0vw;
-                right: -.4vw;
-                width: 10vw;
-                height: 10vw;
-                img{
-                    z-index: 2;
-                    width: 2.4vw;
-                    height: 2.4vw;
-                    position: absolute;
-                    top: 1.1vw;
-                    right: 1.8vw;
-                }
-                div{
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    top: -2.3vw;
-                    right: -2vw;
-                }
-                img:hover + .closebg{
-                    background-image: url('../../../assets/nwhome/closeBg.svg');
-                    background-position: center center;
-                    background-repeat: no-repeat;
-                    background-size: 100% 100%;
-                }
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
             }
-            .message{
-                width: 40.88vw;
-                height: 2.91vw;
-                margin: .41vw auto .93vw;
-                font-size: .93vw;
-                font-family: AlibabaPuHuiTi_2_55_Regular;
-                color: #FFFFFF;
-                line-height: 1.45vw;
-                text-align: center;
+            .coverborder{
+                z-index: -1;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                content: '';
+                display: inline-block;
+                width: 8vw;
+                height: 8vw;
+                background-color: #2d2942;
             }
-            .btn{
+            .wrap{
                 position: relative;
-                width: 14.53vw;
-                height: 4.16vw;
-                margin: 0 auto;
-                // background-image: url('../../../assets/nwhome/download.svg');
-                clip-path: polygon(0% 33.4%, 10.8% 0%, 100% 0, 100% 80.5%, 90.8% 100%, 0 100%);
-                cursor: pointer;
-                background-color: gray;
-                .txt{
-                    z-index: 8;
+                .bg{
+                    width: 33.02vw;
+                    height: 18.17vw;
+                    margin-top: .93vw;
+                    margin-left: 9.94vw;
+                }
+                .close{
                     position: absolute;
+                    top: 0vw;
+                    right: -.4vw;
+                    width: 10vw;
+                    height: 10vw;
+                    img{
+                        z-index: 2;
+                        width: 2.4vw;
+                        height: 2.4vw;
+                        position: absolute;
+                        top: 1.1vw;
+                        right: 1.8vw;
+                    }
+                    div{
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: -2.3vw;
+                        right: -2vw;
+                    }
+                    img:hover + .closebg{
+                        background-image: url('../../../assets/nwhome/closeBg.svg');
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
+                    }
+                }
+                .message{
+                    width: 40.88vw;
+                    height: 2.91vw;
+                    margin: .41vw auto .93vw;
+                    font-size: .93vw;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    color: #FFFFFF;
+                    line-height: 1.45vw;
+                    text-align: center;
+                }
+                .btn{
+                    position: relative;
                     width: 14.53vw;
                     height: 4.16vw;
-                    font-size: 1.3vw;
-                    font-family: AlibabaPuHuiTi_2_115_Black;
-                    color: #FFFFFF;
-                    text-align: center;
-                    background-size: auto 100%;
-                    line-height: 4.16vw;
-                }
-                .mask{
-                    position: absolute;
-                    top: 0;
-                    left: -22vw;
-                    width: 19vw;
-                    height: 100%;
-                    background-color: rgb(65, 64, 64);
-                    opacity: .8;
-                    transform: skewX(-50deg);
-                }
-                .downloadAni{
-                    animation: downloadAni 0.15s linear;
-                    animation-fill-mode: forwards;
-                }
-                .stopDownloadAni{
-                    animation: stopDownloadAni 0.15s linear;
-                    animation-fill-mode: forwards;
+                    margin: 0 auto;
+                    // background-image: url('../../../assets/nwhome/download.svg');
+                    clip-path: polygon(0% 33.4%, 10.8% 0%, 100% 0, 100% 80.5%, 90.8% 100%, 0 100%);
+                    cursor: pointer;
+                    background-color: gray;
+                    .txt{
+                        z-index: 8;
+                        position: absolute;
+                        width: 14.53vw;
+                        height: 4.16vw;
+                        font-size: 1.3vw;
+                        font-family: AlibabaPuHuiTi_2_115_Black;
+                        color: #FFFFFF;
+                        text-align: center;
+                        background-size: auto 100%;
+                        line-height: 4.16vw;
+                    }
+                    .mask{
+                        position: absolute;
+                        top: 0;
+                        left: -22vw;
+                        width: 19vw;
+                        height: 100%;
+                        background-color: rgb(65, 64, 64);
+                        opacity: .8;
+                        transform: skewX(-50deg);
+                    }
+                    .downloadAni{
+                        animation: downloadAni 0.15s linear;
+                        animation-fill-mode: forwards;
+                    }
+                    .stopDownloadAni{
+                        animation: stopDownloadAni 0.15s linear;
+                        animation-fill-mode: forwards;
+                    }
                 }
             }
         }
@@ -2071,8 +2073,9 @@ onMounted(() => {
             width: 54.24vw;
             margin: 4vw auto 6vw;
             overflow: hidden;
-            div{
+            a,div{
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 // width: 14.32vw;
@@ -2084,23 +2087,23 @@ onMounted(() => {
                 background: #282626;
                 border-radius: .88vw;
                 .logo1{
-                    width: 5vw;
+                    width: 4.8vw;
                 }
                 .logo2{
-                    width: 5.6vw;
+                    width: 5vw;
                 }
                 .logo3{
-                    height: 3.8vw;
+                    height: 3.6vw;
                     margin-right: .8vw;
                 }
                 .logo4{
-                    width: 8vw;
+                    width: 7vw;
                 }
                 .logo5{
-                    height: 1.8vw;
+                    width: 6.8vw;
                 }
                 .logo6{
-                    width: 4.6vw;
+                    width: 5.2vw;
                 }
                 
             }

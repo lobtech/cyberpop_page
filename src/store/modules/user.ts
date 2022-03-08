@@ -1,5 +1,7 @@
 import { Module } from 'vuex'
 import { State } from '..'
+import { ref } from 'vue'
+
 // 定义数组item的类型
 type role = {
     name: string
@@ -21,8 +23,13 @@ const states = {
     realId: 0, // 带星号id，用于页面显示
     idTemp: '' as string,  // 完整id，用于判断
     transferActive: false, // 背包页-TRANSFER按钮
+    transferAni: false,
     metaMaskActive: false, // install metamask
     metaAni: false,
+    dataSum: ref([]) as any, // search NFT & dao data 
+    readyAssets: -1 ,// 判断是否查询完毕
+    contract: ref([]) , // 存放transfer所需abi，address
+
 }
 export type typeof_user = typeof states
 export default {
@@ -79,11 +86,23 @@ export default {
         transferChange(state, payload: any) {
             state.transferActive = payload;
         },
+        transferChangeAni(state, payload: any) {
+            state.transferAni = payload;
+        },
         metaChange(state, payload: any){
             state.metaMaskActive = payload;
         },
         metaChangeAni(state, payload: any) {
             state.metaAni = payload;
+        },
+        dataSumSearch(state, payload: any) {
+            state.dataSum = payload;
+        },
+        readyAssets(state, payload: any) {
+            state.readyAssets = payload;
+        },
+        contractData(state, payload: any) {
+            state.contract = payload;
         },
     },
     actions: {
@@ -124,11 +143,21 @@ export default {
         transferChange({ commit }, paylaod: any) {
             commit('transferChange', paylaod)
         },
+        transferChangeAni({ commit }, paylaod: any) {
+            commit('transferChangeAni', paylaod)
+        },
         metaChange({ commit }, paylaod: any) {
             commit('metaChange', paylaod)
         },
         metaChangeAni({ commit }, paylaod: any) {
             commit('metaChangeAni', paylaod)
+        },
+        dataSumSearch({ commit }, paylaod: any) {
+            commit('dataSumSearch', paylaod.data)
+            commit('readyAssets', paylaod.flag)
+        },
+        contractData({ commit }, paylaod: any) {
+            commit('contractData', paylaod)
         },
     },
 } as Module<typeof_user, State>

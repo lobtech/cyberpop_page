@@ -21,10 +21,10 @@
                     <div class="menuSelect">
                         <div class="wrapbox">
                             <ul class="token">
-                                <li @click="showSelect(1)"><div>ECR 721, ECR 115</div></li>
+                                <li @click="showSelect(1)"><div>ERC 721, ERC 1155</div></li>
                                 <li v-show="showItem1" class="item" @click="selectItem($event)">
-                                    <div class="ecr7 selected">ECR 721</div>
-                                    <div class="ecr1">ECR 115</div>
+                                    <div class="ecr7 selected">ERC 721</div>
+                                    <div class="ecr1">ERC 1155</div>
                                 </li>
                             </ul>
                             <ul class="type">
@@ -60,10 +60,10 @@
                     </div>
                 </div>
             </div>
-            <div class="ecr">
+            <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1">
                 <div class="ecrchange">
-                    <div class="ecr721" v-show="ecrType">
-                        <ul class="prince">
+                    <div class="ecr721" v-show="!ecrType">
+                        <!-- <ul class="prince">
                             <li>
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Prince of Shadows<span>x4</span></div>
@@ -97,28 +97,66 @@
                                     <div class="unpack">UNPACK</div>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
-                    <div class="ecr115" v-show="!ecrType">
-
+                    <div class="ecr115" v-show="ecrType">
+                        <ul class="prince">
+                            <li v-for="(item, index) in dataTemp" :key="index">
+                                <img :src="item.image" alt="">
+                                <div class="name">{{item.name}}<span>x{{item.number}}</span></div>
+                                <div class="btn">
+                                    <div class="transfer" @click="transferPopup(item)">TRANSFER</div>
+                                    <div class="sell">SELL</div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <!-- <div class="nothing">
+            <div class="nothing" v-if="readyAssetsF == -1">
                 <img src="@/assets/nwAssets/nothing.svg" alt="">
-            </div> -->
+            </div>
         </div>
     </div>
     <footer-b></footer-b>
-    <popup-b v-show="transferActive"></popup-b>
+    <popup-b v-show="transferActive" :transferInfo="transferItem" :abi="abiSelect" :address="addressSelect"></popup-b>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
+import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
 
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 const router = useRouter()
+const { proxy } = getCurrentInstance() as any;
+
+let abi:any = ref(null);
+let address:any = ref(null);
+let dao_abi:any = ref(null);
+let dao_address:any = ref(null);
+const dataTemp:any = ref([]);
+
+const readyAssetsF = computed(() => {
+    if( store?.state.user?.readyAssets !== -1 ){
+        dataTemp.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
+        // console.log('computed',dataTemp.value,store.state.user?.readyAssets);
+
+        abi.value = JSON.parse(JSON.stringify(store.state.user?.contract)).abi
+        address.value = JSON.parse(JSON.stringify(store.state.user?.contract)).address
+        dao_abi.value = JSON.parse(JSON.stringify(store.state.user?.contract)).dao_abi
+        dao_address.value = JSON.parse(JSON.stringify(store.state.user?.contract)).dao_address
+        
+    }
+    return store.state.user?.readyAssets
+});
+
+
+// select
+let abiSelect:any = ref(null);
+const addressSelect:any = ref(null);
+
+
+
 
 // input actived
 const myInput:any = ref(null)
@@ -199,7 +237,7 @@ const selectItem = (e:any) => {
         showItem3.value = false;
     }else{
         (e.target as HTMLElement).classList.toggle('selected')
-        if(  e.target.innerText == 'ECR 721' || e.target.innerText == 'ECR 115' ){
+        if(  e.target.innerText == 'ERC 721' || e.target.innerText == 'ERC 1155' ){
             changeText(parentLi);
             showItem1.value = false;
             showItem2.value = false;
@@ -214,11 +252,20 @@ let ecrType:any = ref(true);
 
 
 // NFT transfer
-const transferActive = computed(() => store?.state.user?.transferActive);
-const transferPopup = () => { // 预计点击传值（nft拥有的数量）
-    store.dispatch('user/transferChange',true);
+const transferActive = computed(() => store?.state.user?.transferActive)
+const transferItem:any = ref(null)
+const transferPopup = (item:any) => {
+    store.dispatch('user/transferChange',true)
+    store.dispatch('user/transferChangeAni',true)
+    transferItem.value = item
+    if( item.type == 0 ){
+        abiSelect.value = abi
+        addressSelect.value = address
+    }else if( item.type == 1 ){
+        abiSelect.value = dao_abi
+        addressSelect.value = dao_address
+    }
 }
-
 
 
 // message dialog
@@ -241,13 +288,23 @@ const searchSubmit = () => {
     inputShow.value = false
 }
 
+
+
 onUnmounted(() => {
     window.removeEventListener('click', inputOtherClick, true);
 })
 
-onMounted(() => {
+onMounted(async () => {
     window.scrollTo(0,0);
     window.addEventListener('click', inputOtherClick, true);
+    store.dispatch('user/transferChange',false)
+    store.dispatch('user/transferChangeAni',false)
+
+    if(store.state.user?.readyAssets !== -1){
+        dataTemp.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
+        // console.log(11, store.state.user?.dataSum);
+    }
+        
 })
 
 
@@ -372,7 +429,8 @@ onMounted(() => {
                     .menuSelect{
                         position: absolute;
                         width: 100%;
-                        margin: 24px 0 32px 0;
+                        margin: 0 0 32px 0;
+                        padding-top: 24px;
                         .wrapbox{
                             display: flex;
                             height: 440px;
@@ -430,6 +488,7 @@ onMounted(() => {
                                         font-family: AlibabaPuHuiTi_2_55_Regular;
                                         color: #FFFFFF;
                                         line-height: 46px;
+                                        cursor: pointer;
                                     }
                                     div.selected{
                                         font-family: AlibabaPuHuiTi_2_105_Heavy;

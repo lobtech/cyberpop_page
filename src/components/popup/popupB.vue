@@ -1,47 +1,106 @@
 <template>
-    <div class="popup">
-        <div class="content">
-            <div class="title">NFT TRANSFER</div>
-            <div class="tips">Please input amount</div>
-            <div class="number">
-                <div class="add" @click="addNft()" :class="canAdd == 'disable' ? 'disableNum':''">+</div>
-                <input id="inputNum" type="number" value="1" ref="inputNum">
-                <div class="reduce" @click="reduceNft()" :class="canReduce == 'disable' ? 'disableNum':''">—</div>
-            </div>
-            <div class="desc">NFT #3405454 send to the wallet address</div>
-            <div class="address" :class="inputState == 'activated' ? 'activated':'' || inputState == 'success' ? 'success':'' || ( addressState == 'empty' || addressState == 'error' )? 'empty':''">
-                <input class="inputTxt" type="text" v-model="inputAddress" @focus="inputState = 'activated'" @blur="checkAddress()">
-                <div class="mess" v-if="addressState == 'empty'">Address is empty</div>
-                <div class="mess" v-if="addressState == 'error'">Address format error</div>
-            </div>
-            <div class="btn">
-                <div class="cancel" @click="closeDialog()">CANCEL</div>
-                <div class="transfer" @click="transfer()">TRANSFER</div>
+    <div>
+        <div class="popup" :class="transferActive && (transferAni ? 'bounceShow' : 'bounceHide') ">
+            <div class="content">
+                <div class="title">NFT TRANSFER</div>
+                <div class="tips" v-show="numState == ''">Please input amount</div>
+                <div class="tips" v-show="numState == 'error'">Please enter the correct number</div>
+                <div class="number">
+                    <div class="add" @click="addNft()" :class="canAdd == 'disable' ? 'disableNum':''">+</div>
+                    <input id="inputNum" type="text" :value="valueIn" @input="inputNumber($event)">
+                    <div class="reduce" @click="reduceNft()" :class="canReduce == 'disable' ? 'disableNum':''">—</div>
+                </div>
+                <div class="desc">NFT #3405454 send to the wallet address</div>
+                <div class="address" :class="inputState == 'activated' ? 'activated':'' || inputState == 'success' ? 'success':'' || ( addressState == 'empty' || addressState == 'error' )? 'empty':''">
+                    <input class="inputTxt" type="text" :value="inputAddress" @focus="inputState = 'activated'" @input="checkAddress($event)">
+                    <div class="mess" v-if="addressState == 'empty'">Address is empty</div>
+                    <div class="mess" v-if="addressState == 'error'">Address format error</div>
+                </div>
+                <div class="btn">
+                    <div class="cancel" @click="closeDialog()">CANCEL</div>
+                    <div class="transfer" :class="canTransfer == 'disable' ? 'disableNum':''" @click="transfer()">TRANSFER</div>
+                </div>
             </div>
         </div>
+        <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
     </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed, readonly, ref } from 'vue'
+import { onMounted, computed, readonly, ref, watch, getCurrentInstance } from 'vue'
 import store from '@/store'
-const comingOutFlag = computed(() => store?.state.user?.comingOutFlag);
+import Web3 from '@/tools/web3' 
+const { proxy } = getCurrentInstance() as any;
+
+const props = defineProps({
+    transferInfo: Object,
+    abi: Object,
+    address: Object
+})
+
+const transferActive = computed(() => store?.state.user?.transferActive);
+const transferAni = computed(() => store?.state.user?.transferAni);
+let transferInfoMsg:any = ref(null) 
+let abiMsg:any = ref(null) 
+let addressMsg:any = ref(null) 
+let idMsg:any = ref(null) 
+let valueIn:any = ref(1)
+
 
 let canAdd:any = ref('')
 let canReduce:any = ref('disable')
+let canTransfer:any = ref('disable')
 let addressState:any = ref('')
-
 // NFT Number
-const inputNum:any = ref(null)
-const haveNFT:number = 5
+const haveNFT:any = ref(0)
+let haveNFTCount:any = ref(1)
+let numState:any = ref('')
+
+let regExp = new RegExp("")
+
+watch(props,(newVal,oldVal) => {
+    transferInfoMsg.value = newVal
+    haveNFT.value = transferInfoMsg.value.transferInfo.number
+    // haveNFT.value = '100'
+    haveNFTCount.value = haveNFT.value.length - 1 // 拥有nft的数量位数
+    idMsg.value = transferInfoMsg.value.transferInfo.id 
+    abiMsg.value = transferInfoMsg.value.abi
+    addressMsg.value = transferInfoMsg.value.address
+
+    if( haveNFTCount.value == 1 ){
+        regExp = RegExp( "^[1-"+ haveNFT.value + "]$");
+        console.log(regExp);
+    }else{
+        regExp = RegExp( "^[1-9][0-9]{0," + haveNFTCount.value +"}$");
+    }
+})
+
+
+
+// message dialog
+const showDialog = computed(() => store?.state.user?.showDialog);
+let messageState:any = ref(0)
+let messageContent:any = ref('')
+const mtimer:any = ref(null)
+const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
+    messageState.value = flag
+    store.dispatch('user/showDialog',true)
+    messageContent.value = message
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/showDialog',false)
+    },2000)
+}
+
+
 const addNft = () => {
-    if( inputNum.value.value < 1 ){
-        inputNum.value.value = 1 ;
-    }else if( inputNum.value.value >= haveNFT ){
+    if( valueIn.value < 1 ){
+        valueIn.value = 1 ;
+    }else if( valueIn.value >= haveNFT.value ){
         canAdd.value = 'disable'
     }else{
-        inputNum.value.value = parseInt(inputNum.value.value) + 1;
-        if( inputNum.value.value >= haveNFT ){
+        valueIn.value = parseInt(valueIn.value) + 1;
+        if( valueIn.value >= haveNFT.value ){
             canAdd.value = 'disable'
         }else{
             canAdd.value = ''
@@ -50,12 +109,12 @@ const addNft = () => {
     }
 }
 const reduceNft = () => {
-    if( inputNum.value.value <= 1 ){
-        inputNum.value.value = 1 ;
+    if( valueIn.value <= 1 ){
+        valueIn.value = 1 ;
         canReduce.value = 'disable'
     }else{
-        inputNum.value.value = parseInt(inputNum.value.value) - 1;
-        if( inputNum.value.value <= 1 ){
+        valueIn.value = parseInt(valueIn.value) - 1;
+        if( valueIn.value <= 1 ){
             canReduce.value = 'disable'
         }else{
             canReduce.value = ''
@@ -66,48 +125,90 @@ const reduceNft = () => {
 
 // input state
 let inputState:any = ref('')
-
-// check address
-const inputAddress:any = ref('')
-const checkAddress = () => {
-    let reg = /^[a-zA-Z0-9]+\s*$/
-    if( inputAddress.value == '' ){
-        inputState.value = ''
-        addressState.value = 'empty'
-    }else if( !reg.test(inputAddress.value) ){
-        inputState.value = ''
-        addressState.value = 'error'
+const inputNumber = (e:any) => {
+    console.log(e.target.value,regExp.test(e.target.value));
+    
+    if (e.target.value && !(regExp.test(e.target.value))) {
+        numState.value = 'error'
+        canReduce.value = 'disable'
+        canAdd.value = 'disable'
+        // e.target.value = valueIn.value
+    } else if( !e.target.value ){
+        numState.value = 'error'
+        canReduce.value = 'disable'
+        canAdd.value = 'disable'
     }else{
-        inputState.value = 'success'
-        addressState.value = ''
+        numState.value = ''
+        canReduce.value = ''
+        canAdd.value = ''
+        valueIn.value = e.target.value
     }
 }
 
+// check address
+const inputAddress:any = ref('')
+const checkAddress = (e:any) => {
+    let reg = /^[a-zA-Z0-9]+\s*$/
+    if( e.target.value && !reg.test(e.target.value) ){
+        inputAddress.value = ''
+        inputState.value = ''
+        addressState.value = 'empty'
+        canTransfer.value = 'disable'
+    }else if( !e.target.value ){
+        inputState.value = ''
+        addressState.value = 'error'
+        canTransfer.value = 'disable'
+    }else{
+        inputAddress.value = e.target.value
+        inputState.value = 'success'
+        addressState.value = ''
+        canTransfer.value = ''
+    }
+}
+
+
 // transfer submit
-const transfer = () => {
+const transfer = async () => {
+    console.log(1);
+    
     if( inputAddress.value == '' ){
         inputState.value = ''
         addressState.value = 'empty'
     }else if( inputState.value == 'success' ){
-        let test = 'success'
-        if( test == 'disable' ){
-            inputState.value = ''
-        }else if( test == 'success' ){
-            inputState.value = 'success'
-        }
+       if( valueIn.value > haveNFT.value ){
+           messageAlert(0,'Maximum exceeded')
+       }else{
+           await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value).then( (res:any) => {
+                console.log(res == undefined);
+                if( res == undefined ){
+                    messageAlert(0,'Transaction interruption')
+                }else{
+                    closeDialog();
+                    messageAlert(1,'Success')
+                    Web3.readJSON(proxy)
+                }
+            }).catch((err:any) => {
+                // inputState.value = ''
+                // addressState.value = ''
+                messageAlert(0,'Invalid address')
+            })
+       }
     }
 }
 
-
 const closeDialog = () => {
-    store.dispatch('user/transferChange',false)
-    inputNum.value.value = 1 
+    store.dispatch('user/transferChangeAni',false)
+    valueIn.value = 1 
     inputAddress.value = ''
+    numState.value = ''
     canAdd.value = ''
     canReduce.value = 'disable'
+    canTransfer.value = 'disable'
     inputState.value = ''
     addressState.value = ''
 }
+
+
 
 onMounted(() => {
 })
@@ -163,6 +264,7 @@ onMounted(() => {
                     line-height: 40px;
                     text-align: center;
                     background-color: #8478FF;
+                    cursor: pointer;
                 }
                 input{
                     width: 95px;
@@ -175,6 +277,11 @@ onMounted(() => {
                     background: transparent;
                     border: none;
                     outline: none;
+                }
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    -webkit-appearance: none !important;
+                    margin: 0;
                 }
             }
             .desc{
@@ -191,15 +298,15 @@ onMounted(() => {
                 width: 327px;
                 height: 40px;
                 margin-bottom: 32px;
-                padding: 12px;
+                padding: 0 12px;
                 border: 1px solid #8478FF;
                 input{
                     width: 100%;
-                    height: 16px;
+                    height: 40px;
                     color: rgba(255, 255, 255, 0.35);
                     font-size: 12px;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
-                    line-height: 16px;
+                    line-height: 40px;
                     background: transparent;
                     border: none;
                     outline: none;
@@ -249,9 +356,7 @@ onMounted(() => {
             }
         }
     }
-    .add.disableNum,.reduce.disableNum{
-        background-color: #8478FF;
-        color: #8478FF;
+    .add.disableNum,.reduce.disableNum,.transfer.disableNum{
         opacity: 0.5;
     }
     .address.activated{
@@ -272,5 +377,4 @@ onMounted(() => {
             color: #FF5CA1 !important;
         }
     }
-    
 </style>

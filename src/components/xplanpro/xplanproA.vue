@@ -39,20 +39,24 @@ const closexplan = () => {
 
 <style lang="less" scoped>
 .xplanpro{
-    z-index: 8;
+    z-index: 9;
     position: fixed;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
-    margin: auto;
-    width: 59.68vw;
-    height: 33.12vw;
-    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/xplanpro2-home.png');
-    background-size: 100% 100%;
-    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.4);
     .wrap{ 
-        position: relative;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        width: 59.68vw;
+        height: 33.12vw;
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/xplanpro2-home.png');
+        background-size: 100% 100%;
         overflow: hidden;
         .close{
             position: absolute;
