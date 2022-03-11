@@ -20,7 +20,13 @@ import headerA from './components/common/headerA.vue'
 import headerB from './components/common/headerB.vue'
 import footerA from './components/common/footerA.vue'
 import footerB from './components/common/footerB.vue'
-import 'swiper/css';
+import 'swiper/css'
+
+
+
+import vue3videoPlay from 'vue3-video-play' 
+import 'vue3-video-play/dist/style.css' 
+
 
 
 
@@ -45,4 +51,7 @@ app.component('headerA', headerA)
 app.component('headerB', headerB)
 app.component('footerA', footerA)
 app.component('footerB', footerB)
+
+
+app.use(vue3videoPlay)
 app.mount('#app')

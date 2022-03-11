@@ -1,5 +1,8 @@
 <template>
     <header-a path="/assets" :type="0"></header-a>
+    <div class="section">
+        <div class="title">COMING SOON</div>
+    </div>
     <div class="assets">
         <div class="wrap">
             <div class="welcome">
@@ -7,12 +10,13 @@
                     <img src="@/assets/nwAssets/portrait.svg" alt="">
                 </div>
                 <div class="title">Hi, Wade Warren</div>
-                <div class="id">0xab5801a7d39...259aec9b</div>
+                <div class="id">{{realId}}</div>
                 <div class="desc">Your Cyberpop NFT item, which changed in my assets, will be synchronized to opensea and within the game in Multi-
                     terminal. Any small act you do in Cyberpop New World is valuable to Cyberpop DAO.
                 </div>
             </div>
-            <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1">
+            <!-- <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1"> -->
+            <div class="ecr" v-if="false">
                 <div class="search">
                     <div class="title">Search</div>
                     <div class="input">
@@ -125,7 +129,8 @@
                     </div>
                 </div>
             </div>
-            <div class="nothing" v-if="readyAssetsF == -1">
+            <!-- <div class="nothing" v-if="readyAssetsF == -1"> -->
+            <div class="nothing" v-if="true">
                 <div class="txt">Oops, There‘s nothing left here. Go to <a href="/">Home page</a></div>
                 <img src="@/assets/nwAssets/nothing.svg" alt="">
             </div>
@@ -144,7 +149,7 @@ import Web3 from '@/tools/web3'
 import { toRaw } from '@vue/reactivity'
 const router = useRouter()
 const { proxy } = getCurrentInstance() as any
-
+const realId = computed(() => store?.state.user?.realId);
 
 let abi:any = ref(null);
 let address:any = ref(null);
@@ -241,6 +246,31 @@ onMounted( () => {
 
 </script>
 <style lang="less" scoped>
+    .section{
+        z-index: 8;
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0,0,0,.5);
+        overflow: hidden;
+        .title{
+            width: 39.58vw;
+            height: 8.85vw;
+            margin-top: 17.4vw;
+            font-size: 2.08vw;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            color: #FFFFFF;
+            line-height: 8.85vw;
+            letter-spacing: 1.04vw;
+            text-align: center;
+            background-image: url('../../../assets/nwmining/coming-bg.png');
+            background-position: center;
+            background-size: auto 100%;
+        }
+    }
     .assets{
         width: 100%;
         // background-color: #000000;

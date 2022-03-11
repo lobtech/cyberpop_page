@@ -10,7 +10,7 @@
             </div>
             <div class="menuMask" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
                 <div class="close-menu">
-                    <img @click="showMenu()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
+                    <img @click="closeMenuIcon()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
                 <div class="login_in" v-if="!loggined" @click="login()">
                     <div class="txt">CONNECT WALLET</div>
@@ -27,7 +27,7 @@
                 <ul id="menuUl" class="menuul">
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
                     <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
-                    <li @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">Mystery Box</li>
+                    <li @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">Blind box</li>
                     <!-- <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li> -->
                     <!-- <li @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">Cyberspace</li> -->
                     <li :class="{'active': active == 4}">
@@ -50,7 +50,7 @@
             </div>
         </header>
     </div>
-    <metamask-b v-if="metaMaskActive" :isInstall="isInstall"></metamask-b>
+    <metamask-b v-if="metaMaskActive"></metamask-b>
     <coming-b v-show="showComingFlag"></coming-b>
 </template>
 
@@ -76,7 +76,7 @@ const ctimer:any = ref(null)
 const showComing = () => {
     clearTimeout(ctimer.value);
     // Stow menu
-    showMenuAni.value = false;
+    store.dispatch('user/walletMenuAni', false)
     // default animation
     store.dispatch('user/addComingOut', false)
     // show coming view
@@ -90,12 +90,17 @@ const showComing = () => {
 
 
 // menu
-let showMenuAni:any = ref(false);
+const showMenuAni = computed(() => store?.state.user?.showMenuAni);
 let isPage:any = ref(false);
 const showMenu = () => {
     isPage.value = true;
-    showMenuAni.value = !showMenuAni.value
+    store.dispatch('user/walletMenuAni', true)
 }
+const closeMenuIcon = () => {
+    isPage.value = false;
+    store.dispatch('user/walletMenuAni', false)
+}
+
 
 // docMenu
 let showDoc:any = ref(false); 
@@ -107,7 +112,9 @@ const docMenu = () => {
 
 // pdf click
 const closeMenu = () => {
-    showMenuAni.value = !showMenuAni.value
+    store.dispatch('user/walletMenuAni', false)
+    showDoc.value = !showDoc.value
+    changeArrow.value = !changeArrow.value
 }
 
 
@@ -158,7 +165,7 @@ const menuHover = (type: any) => {
 
 let menuFlag:any = ref(1);
 const changeMenu = (type: any, route?: any) => {
-    showMenuAni.value = false;
+    store.dispatch('user/walletMenuAni', false)
     menuFlag.value = type;
     store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`})
@@ -171,31 +178,31 @@ const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
 const id: any = ref(0)
 const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
-const isInstall:any = ref(false);
 
-const loggined: any = ref(false)
+const loggined = computed(() => store?.state.user?.loggined);
 const connect: any = async () => {
-    showMenuAni.value = false;
+    store.dispatch('user/walletMenuAni', false)
     const ismessage: any = await Web3.hasMetaMask()
-    if( ismessage == 'Please install a wallet.' ){
+
+    if( ismessage == 'No install' ){
         store.dispatch('user/metaChange',true);
         store.dispatch('user/metaChangeAni',true);
-        isInstall.value = false;
+        store.dispatch('user/checkInstall',false);
     }else{
         store.dispatch('user/metaChange',true);
         store.dispatch('user/metaChangeAni',true);
-        isInstall.value = true;
+        store.dispatch('user/checkInstall',true);
         const [accounts]: any = await Web3.login().then((res: any) => {
             store.dispatch('user/metaChange',false);
-            loggined.value = true
+            store.dispatch('user/metaChangeAni',false);
+            store.dispatch('user/walletloggined',true);
+            Web3.readJSON(proxy); //////
             return res;
         })
-        store.dispatch('user/walletIdTemp',accounts);// 存放完整id
         id.value = accounts;
         let len = id.value.length-1;
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-        store.dispatch('user/walletId',id.value);
-        Web3.readJSON(proxy); //////
+        store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
     }
 }
 
@@ -204,21 +211,24 @@ const login = () =>{
 }
 
 const signout = () => {
-    loggined.value = false;
-    showMenuAni.value = false;
-    store.dispatch('user/walletId',0);
+    store.dispatch('user/walletMenuAni', false);
+    store.dispatch('user/connectWallet',{realId: -1});
+    store.dispatch('user/walletloggined',false);
+    if( proxy.$route.path == '/assets' ){
+        router.push('/');
+    }
 }
 
 
 const toAssets = () => {
-    // router.push('/assets');
-    showMenuAni.value = false;
+    router.push('/assets');
+    store.dispatch('user/walletMenuAni', false);
 }
 
 
 onMounted(() => {
-    if( realId.value != 0){
-        loggined.value = true;
+    if( realId.value != -1){
+        store.dispatch('user/walletloggined',true);
     }
     logoHImport();
     store.dispatch('user/changeActive', props.type)

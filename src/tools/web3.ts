@@ -9,9 +9,9 @@ const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html�
 // 登录钱包
 const login = async () => {
     const ethereum = (window as any).ethereum // 获取小狐狸实例
-    if (!ethereum) {
-        return 'Please install a wallet.';
-    }
+    // if (!ethereum) {
+    //     return 'No install';
+    // }
     return ethereum.request({ method: 'eth_requestAccounts' })
 }
 
@@ -19,7 +19,7 @@ const login = async () => {
 const hasMetaMask = async () => {
     const ethereum = (window as any).ethereum // 获取小狐狸实例
     if (!ethereum) {
-        return 'Please install a wallet.';
+        return 'No install';
     }
 }
 
@@ -225,7 +225,7 @@ const isApprovedForAll = async (abi:any, address:any) => {
 // 资产转移
 const accounts = computed(() => store?.state.user?.idTemp);
 const safeTransferFrom = async (abi:any, address:any, TransferFrom:any, id:any, number:any) => {
-    console.log(abi, address, TransferFrom, id, number);
+    // console.log(abi, address, TransferFrom, id, number);
     const web3 = new Web3((window as any ).ethereum)
     const contract = new web3.eth.Contract(abi, address)
     let res = await contract.methods.safeTransferFrom(accounts.value, TransferFrom, id, number, '0x').send({ from: accounts.value }).then( (receipt:any) => {
@@ -233,7 +233,7 @@ const safeTransferFrom = async (abi:any, address:any, TransferFrom:any, id:any, 
     }).catch((err:any) => {
         isApprovedForAll(abi, address);
     })
-    console.log(res, 'receipt');
+    // console.log(res, 'receipt');
     return res;
 }
 
@@ -275,10 +275,13 @@ const readJSON = async (proxy:any) => {
                     } else {
                         if( data.value.length !== 0 ){
                             store.dispatch('user/dataSumSearch',{data:data._rawValue, flag:0});
+                            // console.log(data.value);
+                            // console.log("over!!!!!");
                         }else{
                             store.dispatch('user/dataSumSearch',{flag:-1});
+                            // console.log(data.value);
+                            // console.log("nothing!!!!!");
                         }
-                        console.log("over!!!!!");
                         dao(proxy);
                     }
                 }).catch((err:any) => {
@@ -316,17 +319,19 @@ const dao = async (proxy:any) => {
                 } else {
                     if( data.value.length !== 0 ){
                         store.dispatch('user/dataSumSearch',{data:data._rawValue, flag:1});
-                        console.log("over2!!!!!");
+                        // console.log(data.value);
+                        // console.log("over2!!!!!");
                     }else{
                         store.dispatch('user/dataSumSearch',{flag:-1});
-                        console.log("notging!!!!!");
+                        // console.log(data.value);
+                        // console.log("nothing!!!!!");
                     }
                 }
             }).catch((err:any) => {
                 if (++index<res.length) {
                     loop(index);
                 } else {
-                    console.log("over2!!!!!");
+                    // console.log("over2!!!!!");
                 }
             })
         })(0)

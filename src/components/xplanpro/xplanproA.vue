@@ -97,9 +97,9 @@ const closexplan = () => {
             line-height: 1.45vw;
         }
         .title2{
-            width: 26.61vw;
+            width: 26.6vw;
             height: 2.18vw;
-            margin-top: 2vw;
+            margin-top: 1.4vw;
             margin-left: 5.6vw;
             font-size: .78vw;
             font-family: AlibabaPuHuiTi_2_55_Regular;
@@ -107,14 +107,15 @@ const closexplan = () => {
             line-height: 1.04vw;
         }
         .title3{
-            width: 28.12vw;
+            // width: 28.12vw;
+            width: 26.6vw;
             margin: 1.25vw 0 .5vw 5.6vw;
             font-size: .93vw;
             font-family: AlibabaPuHuiTi_2_105_Heavy;
             color: #FFFFFF;
             line-height: 1.45vw;
             .desc{
-                width: 26.6vw;
+                width: 100%;
                 height: 6.56vw;
                 font-size: .78vw;
                 font-family: AlibabaPuHuiTi_2_55_Regular;
@@ -124,6 +125,25 @@ const closexplan = () => {
                     display: inline-block;
                     width: 1.4vw;
                 }
+            }
+        }
+    }
+}
+@media screen {
+    @media (max-width: 1235px){
+        .wrap{
+            width: 68vw !important;
+            height: 37.77vw !important;
+            .title1{
+                width: 32vw !important;
+                margin-top: 10.2vw !important;
+            }
+            .title2{
+                width: 30vw !important;
+                margin-top: 2.6vw !important;
+            }
+            .title3{
+                width: 30vw !important;
             }
         }
     }

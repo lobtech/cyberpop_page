@@ -34,7 +34,7 @@
                             <span>Mining</span>
                         </li>
                         <li @mouseover="menuHover(2)" @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">
-                            <span>Mystery Box</span>
+                            <span>Blind box</span>
                         </li>
                         <!-- <li @mouseover="menuHover(3)" @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">
                             <span>Cyberspace</span>
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <metamask-a v-if="metaMaskActive" :isInstall="isInstall"></metamask-a>
+    <metamask-a v-if="metaMaskActive"></metamask-a>
 </template>
 
 <script setup lang="ts">
@@ -194,30 +194,32 @@ const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
 const id: any = ref(0)
 const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
-const isInstall:any = ref(false);
 
-const loggined: any = ref(false)
+
+const loggined = computed(() => store?.state.user?.loggined);
 const connect: any = async () => {
     const ismessage: any = await Web3.hasMetaMask()
-    if( ismessage == 'Please install a wallet.' ){
+
+    if( ismessage == 'No install' ){
         store.dispatch('user/metaChange',true);
         store.dispatch('user/metaChangeAni',true);
-        isInstall.value = false;
+        store.dispatch('user/checkInstall',false);
     }else{
         store.dispatch('user/metaChange',true);
         store.dispatch('user/metaChangeAni',true);
-        isInstall.value = true;
+        store.dispatch('user/checkInstall',true);
         const [accounts]: any = await Web3.login().then((res: any) => {
             store.dispatch('user/metaChange',false);
-            loggined.value = true
+            store.dispatch('user/metaChangeAni',false);
+            store.dispatch('user/walletloggined',true);
+            Web3.readJSON(proxy); //////
             return res;
         })
-        store.dispatch('user/walletIdTemp',accounts);// 存放完整id
+        
         id.value = accounts;
         let len = id.value.length-1;
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
-        store.dispatch('user/walletId',id.value);
-        Web3.readJSON(proxy); //////
+        store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
     }
 }
 
@@ -226,15 +228,18 @@ const login = () =>{
 }
 
 const signout = () => {
-    loggined.value = false;
     showloggedFlag.value = false;
     hoverLogged.value = false;
-    store.dispatch('user/walletId',0);
+    store.dispatch('user/connectWallet',{realId: -1});
+    store.dispatch('user/walletloggined',false);
+    if( proxy.$route.path == '/assets' ){
+        router.push('/');
+    }
 }
 
 
 const toAssets = () => {
-    // router.push('/assets');
+    router.push('/assets');
 }
 
 
@@ -245,8 +250,8 @@ onUnmounted(() => {
 
 
 onMounted(() => {
-    if( realId.value != 0){
-        loggined.value = true;
+    if( realId.value != -1){
+        store.dispatch('user/walletloggined',true);
     }
     logoHImport();
     window.addEventListener('click', handleOtherClick, true)

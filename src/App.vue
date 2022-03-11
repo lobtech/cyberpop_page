@@ -249,11 +249,17 @@ onMounted(() => {
             -ms-transform: scale(1.05);
             transform: scale(1.05);
         }
-        100% {
+        99% {
             opacity: 0;
             -webkit-transform: scale(0.3);
             -ms-transform: scale(0.3);
             transform: scale(0.3);
+        }
+        100% {
+            opacity: 0;
+            -webkit-transform: scale(0);
+            -ms-transform: scale(0);
+            transform: scale(0);
         }
     }
 

@@ -442,7 +442,7 @@ const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
 const xplanActive = computed(() => store?.state.user?.xplanActive);
 const showxplan = () => {
-    if( realId.value != 0 ){
+    if( realId.value != -1 ){
         Web3.getBalance(idTemp.value).then((res) => {
             token0Number.value = res[0];
             if(token0Number.value <= 0){
@@ -453,20 +453,53 @@ const showxplan = () => {
             }
         })
     }else{
-        messageAlert(0,'Please connect to a wallet.')
+        connect()
+        // messageAlert(0,'Please connect to a wallet.')
     }
 }
 
 // register
 let showDown:any = ref(false);
+
 const playToEarn = () => {
-    if( realId.value != 0 ){
+    if( realId.value != -1 ){
         showDown.value = true; 
         isOut.value = false;
     }else{
-        messageAlert(0,'Please connect to a wallet.')
+        connect()
+        // messageAlert(0,'Please connect to a wallet.')
     }
 }
+
+
+const id: any = ref(0)
+const connect: any = async () => {
+    store.dispatch('user/walletMenuAni', false)
+    const ismessage: any = await Web3.hasMetaMask()
+
+    if( ismessage == 'No install' ){
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        store.dispatch('user/checkInstall',false);
+    }else{
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        store.dispatch('user/checkInstall',true);
+        const [accounts]: any = await Web3.login().then((res: any) => {
+            store.dispatch('user/metaChange',false);
+            store.dispatch('user/metaChangeAni',false);
+            store.dispatch('user/walletloggined',true);
+            Web3.readJSON(proxy); //////
+            return res;
+        })
+        id.value = accounts;
+        let len = id.value.length-1;
+        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+        store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
+    }
+}
+
+
 
 // download
 let isOut:any = ref(false)
@@ -1852,7 +1885,7 @@ onMounted(() => {
     .roadmap{
         width: 100%;
         // height: 731px;
-        height: 1420px;
+        height: 1460px;
         background-color: #000000;
         overflow: hidden;
         .roadmap-bg{
@@ -1889,7 +1922,7 @@ onMounted(() => {
                     right: 0;
                     margin: 0 auto;
                     width: 1px;
-                    height: 1125px;
+                    height: 1146px;
                     background-color: #C689FF;
                     border: 1px solid #C689FF;
                 }
@@ -2068,7 +2101,7 @@ onMounted(() => {
                     height: 54px;
                 }
             }
-            div:hover{
+            a:hover, div:hover{
                 background: rgba(40, 38, 38,.6);
             }
         }

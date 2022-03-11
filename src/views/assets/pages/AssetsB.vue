@@ -1,5 +1,8 @@
 <template>
     <header-b path="/assets" :type="0"></header-b>
+    <div class="section">
+        <div class="title">COMING SOON</div>
+    </div>
     <div class="assets">
         <div class="wrap">
             <div class="welcome">
@@ -7,7 +10,7 @@
                     <img src="@/assets/nwAssets/portrait.svg" alt="">
                 </div>
                 <div class="title">Hi, Wade Warren</div>
-                <div class="id">0xab5801a7d39...259aec9b</div>
+                <div class="id">{{realId}}</div>
                 <div class="desc">Your Cyberpop NFT item, which changed in my assets, will be synchronized to opensea and within the game in Multi-
                     terminal. Any small act you do in Cyberpop New World is valuable to Cyberpop DAO.
                 </div>
@@ -60,36 +63,21 @@
                     </div>
                 </div>
             </div>
-            <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1">
+            <!-- <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1"> -->
+            <div class="ecr" v-if="false">
                 <div class="ecrchange">
                     <div class="ecr721" v-show="!ecrType">
-                        <!-- <ul class="prince">
-                            <li>
+                        <ul class="prince">
+                            <!-- <li>
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Prince of Shadows<span>x4</span></div>
                                 <div class="btn">
                                     <div class="transfer" @click="transferPopup()">TRANSFER</div>
                                     <div class="sell">SELL</div>
                                 </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/nwAssets/testItem.png" alt="">
-                                <div class="name">Prince of Shadows</div>
-                                <div class="btn">
-                                    <div class="transfer" @click="transferPopup()">TRANSFER</div>
-                                    <div class="sell">SELL</div>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/nwAssets/testItem.png" alt="">
-                                <div class="name">Prince of Shadows</div>
-                                <div class="btn">
-                                    <div class="transfer" @click="transferPopup()">TRANSFER</div>
-                                    <div class="sell">SELL</div>
-                                </div>
-                            </li>
+                            </li> -->
                         </ul>
-                        <ul class="box">
+                        <!-- <ul class="box">
                             <li>
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Mystery box</div>
@@ -113,7 +101,8 @@
                     </div>
                 </div>
             </div>
-            <div class="nothing" v-if="readyAssetsF == -1">
+            <!-- <div class="nothing" v-if="readyAssetsF == -1"> -->
+            <div class="nothing" v-if="true">
                 <img src="@/assets/nwAssets/nothing.svg" alt="">
             </div>
         </div>
@@ -129,6 +118,8 @@ import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 const router = useRouter()
 const { proxy } = getCurrentInstance() as any;
+const realId = computed(() => store?.state.user?.realId);
+
 
 let abi:any = ref(null);
 let address:any = ref(null);
@@ -248,7 +239,7 @@ const selectItem = (e:any) => {
 
 
 // ecr exchange
-let ecrType:any = ref(true);
+let ecrType:any = ref(false);
 
 
 // NFT transfer
@@ -310,6 +301,33 @@ onMounted(async () => {
 
 </script>
 <style lang="less" scoped>
+    .section{
+        z-index: 8;
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        top: 0;
+        width: 100%;
+        height: 120vh;
+        background: rgba(0,0,0,.5);
+        overflow: hidden;
+        .title{
+            width: 100%;
+            height: 90px;
+            margin-top: 200px;
+            font-size: 18px;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            color: #FFFFFF;
+            line-height: 90px;
+            letter-spacing: 18px;
+            text-align: center;
+            text-indent: 14px;
+            background-image: url('../../../assets/nwmining/coming-bg.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 110% auto;
+        }
+    }
     .assets{
         width: 100%;
         background-color: #121122;
@@ -662,6 +680,10 @@ onMounted(async () => {
                             }
                         }
                     }
+                    // .ecr721{
+                    //     width: 100%;
+                    //     height: 80vh;
+                    // }
                 }
             }
             .nothing{

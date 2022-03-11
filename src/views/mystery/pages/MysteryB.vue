@@ -194,6 +194,7 @@ const messageAlert = (flag:any, message:any) => {
 
 onMounted(() => {
     window.scrollTo(0,0);
+    store.dispatch('user/showDialog',false);// close message dialog
 })
 
 </script>

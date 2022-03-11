@@ -130,6 +130,7 @@ const messageAlert = (flag:any, message:any) => {
 
 onMounted(() => {
     window.scrollTo(0,0);
+    store.dispatch('user/showDialog',false);// close message dialog
 })
 
 
@@ -260,7 +261,9 @@ onMounted(() => {
                     height: 41px;
                     margin-top: 5px;
                     font-size: 30px;
-                    font-family: AlibabaPuHuiTi_2_105_Heavy;
+                    // font-family: AlibabaPuHuiTi_2_105_Heavy;
+                    font-family: Oswald-Regular;
+                    font-weight: 900;
                     color: #04FF55;
                     line-height: 41px;
                 }
@@ -286,7 +289,9 @@ onMounted(() => {
                 .percent{
                     height: 44px;
                     font-size: 31px;
-                    font-family: AlibabaPuHuiTi_2_85_Bold;
+                    // font-family: AlibabaPuHuiTi_2_85_Bold;
+                    font-family: Oswald-Regular;
+                    font-weight: 900;
                     color: #F2F2F2;
                     line-height: 44px;
                 }

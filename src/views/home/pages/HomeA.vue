@@ -417,14 +417,13 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
+import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, isMemoSame } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
-import { release } from 'os';
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
 
 
@@ -433,7 +432,7 @@ const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
 const xplanActive = computed(() => store?.state.user?.xplanActive);
 const showxplan = () => {
-    if( realId.value != 0 ){
+    if( realId.value != -1 ){
         Web3.getBalance(idTemp.value).then((res) => {
             token0Number.value = res[0];
             if(token0Number.value <= 0){
@@ -444,21 +443,56 @@ const showxplan = () => {
             }
         })
     }else{
-        messageAlert(false,'Please connect to a wallet.')
+        connect()
+        // messageAlert(false,'Please connect to a wallet.')
     }
 }
+
+
 
 
 // register
 let showDown:any = ref(false);
 const playToEarn = () => {
-    if( realId.value != 0 ){
-        showDown.value = true; 
+    if( realId.value != -1 ){
+        showDown.value = true;
         isOut.value = false;
     }else{
-        messageAlert(false,'Please connect to a wallet.')
+        connect()
+        // messageAlert(false,'Please connect to a wallet.')
     }
 }
+
+
+const id: any = ref(0)
+const loggined = computed(() => store?.state.user?.loggined);
+
+const connect: any = async () => {
+    const ismessage: any = await Web3.hasMetaMask()
+    
+    if( ismessage == 'No install' ){
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        store.dispatch('user/checkInstall',false);
+    }else{
+        store.dispatch('user/metaChange',true);
+        store.dispatch('user/metaChangeAni',true);
+        store.dispatch('user/checkInstall',true);
+        const [accounts]: any = await Web3.login().then((res: any) => {
+            store.dispatch('user/metaChange',false);
+            store.dispatch('user/metaChangeAni',false);
+            store.dispatch('user/walletloggined',true);
+            Web3.readJSON(proxy); //////
+            return res;
+        })
+        
+        id.value = accounts;
+        let len = id.value.length-1;
+        id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
+        store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
+    }
+}
+
 
 
 // coming soon
@@ -959,6 +993,7 @@ onMounted(() => {
             margin: auto;
             width: 48.8vw;
             height: 28.9vw;
+            // height: 32vw;
             background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
             border: .26vw solid;
             border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 5 5;
@@ -983,6 +1018,8 @@ onMounted(() => {
                 background-color: #2d2942;
             }
             .wrap{
+                display: flex;
+                flex-direction: column;
                 position: relative;
                 .bg{
                     width: 33.02vw;
@@ -1019,8 +1056,9 @@ onMounted(() => {
                     }
                 }
                 .message{
+                    flex: 1;
                     width: 40.88vw;
-                    height: 2.91vw;
+                    // height: 2.91vw;
                     margin: .41vw auto .93vw;
                     font-size: .93vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
@@ -2107,7 +2145,7 @@ onMounted(() => {
                 }
                 
             }
-            div:hover{
+            a:hover,div:hover{
                 background: rgba(40, 38, 38,.6);
             }
         }
@@ -2253,6 +2291,13 @@ onMounted(() => {
         }
         .link:hover{
             color: #ff18ff;
+        }
+    }
+    @media screen {
+        @media (max-width: 1015px){
+            .download-mask{
+                height: 32vw !important;
+            }
         }
     }
 </style>

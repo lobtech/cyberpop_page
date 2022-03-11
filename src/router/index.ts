@@ -51,6 +51,26 @@ const routes = [
         },
     },
     {
+        name:'details',
+        path:'/details',
+        component: () => import('../views/details/index.vue'),
+        meta: {
+            keepAlive: false,
+            showFooter: true,
+            transition: 'slide-right',
+        },
+        // children:[{
+        //         name:'introduction',
+        //         path:'/introduction',
+        //         component: () => import('../views/details/introduction/index.vue'),
+        //         meta: {
+        //             keepAlive: false,
+        //             showFooter: true,
+        //             transition: 'slide-right',
+        //         },
+        // }]
+    },
+    {
         name: 'cyberspace',
         path: '/cyberspace',
         component: () => import('../views/cyberspace/index.vue'),

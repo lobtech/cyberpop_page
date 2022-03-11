@@ -1,12 +1,12 @@
 <template>
-    <MysteryA v-if="innerWidth > 740"/>
-    <MysteryB v-else/>
+    <DetailsA v-if="innerWidth > 740"/>
+    <DetailsB v-else/>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed } from 'vue'
 import store from '../../store'
-import MysteryA from './pages/MysteryA-2.vue'
-import MysteryB from './pages/MysteryB-2.vue'
+import DetailsA from './pages/DetailsA.vue'
+import DetailsB from './pages/DetailsB.vue'
 
 const innerWidth = computed(() => {
     return store.state.sys?.innerWidth || 0

@@ -29,10 +29,8 @@
 import { onMounted, computed, readonly, ref } from 'vue'
 import store from '@/store'
 
-const props = defineProps({
-    isInstall: Boolean
-})
 
+const isInstall = computed(() => store?.state.user?.isInstall);
 const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
 const metaAni = computed(() => store?.state.user?.metaAni);
 

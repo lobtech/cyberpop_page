@@ -20,9 +20,10 @@
                 x5-video-player-fullscreen="false"
                 v-if="videotype == 4">
             <source src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/output.mp4" type="video/mp4">
-            <!-- <source :src="videoSrc" type="video/WebM">
-            <source :src="videoSrc" type="video/Ogg"> -->
         </video>
+
+        <!-- <vue3VideoPlay v-bind="options" poster='' v-if="videotype == 4"/> -->
+
         <video :style="{'width': (mobel ? 100 : 60) + '%'}" ref="video" id="mp4" preload="auto" width="100%"
                 autoplay loop controls 
                 webkit-playsinline="true" 
@@ -34,9 +35,8 @@
                 x5-video-player-fullscreen="false"
                 v-else-if="videotype == 5">
             <source src="https://d3bhixjyozyk2o.cloudfront.net/banner.mp4" type="video/mp4">
-            <!-- <source :src="videoSrc" type="video/WebM">
-            <source :src="videoSrc" type="video/Ogg"> -->
         </video>
+
         <!-- <div class="play" @click.stop="playVideo()" v-if="mobel && isPlay">
             <img src="https://d1td2c8hf7fv9k.cloudfront.net/play.png" alt="" class="play">
         </div> -->
@@ -44,34 +44,51 @@
 </template>
 
 <script setup lang="ts">
-import { computed, readonly, ref, defineProps, onMounted } from 'vue'
+import { computed, readonly, ref, defineProps,reactive, onMounted } from 'vue'
 const props = defineProps({
-    videoSrc: String, // 显示隐藏
     videotype: Number,
     mobel: Boolean,
 })
 
-
-
-
-
-// let isPlay = ref(true)
-// let mp4: any = document.getElementById('mp4');
-// const playVideo = (type: any = props.videotype) => {
-//     isPlay.value = false;
-//     if(mp4?.paused) {
-
-//     }else{
-//         isPlay.value = false;
-//     }
+// const checkFull = () => {
+// 　　var isFull = document.fullscreenEnabled;
+// 　　if(isFull === undefined) isFull = false;
+// 　　return isFull;
 // }
 
-onMounted(() => {
+// window.resize(function () {
+// 　　　　if (!checkFull()) {
+// 　　　　　　console.log("退出全屏");
+// 　　　　}
+// });
 
+
+const options = reactive({
+//   width: '800px', //播放器高度
+//   height: '450px', //播放器高度
+  color: "#409eff", //主题色
+  title: '', //视频名称
+  src: "https://d2cimmz3cflrbm.cloudfront.net/nwhome/output.mp4", //视频源
+  muted: true, //静音
+  webFullScreen: true,
+  speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
+  autoPlay: true, //自动播放
+  loop: true, //循环播放
+  mirror: false, //镜像画面
+  ligthOff: false,  //关灯模式
+  volume: 0.3, //默认音量大小
+  control: true, //是否显示控制器
+})
+
+
+
+onMounted(() => {
 })
 </script>
 
 <style lang="less" scoped>
+
+
 .mask{
     z-index: 1005;
     position: fixed;
@@ -100,6 +117,13 @@ onMounted(() => {
         height: 100%;
     }
 }
+
+::deeep(.d-player-wrap .d-player-control) {
+    transform: translateY(100px);
+}
+
+
+
  //播放按钮
 // video::-webkit-media-controls-play-button {
 //     display: none;

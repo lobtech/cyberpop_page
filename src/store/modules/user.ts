@@ -12,20 +12,29 @@ const states = {
     name: 'test' as string,
     age: 0 as number,
     roles: [] as role[],
+    account: '' as string, // 用户地址
+    nativeBalance: '' as string, // 本地余额
+    tokenBalances: '' as string, // 令牌余额
+    
+    // home header
     active: 0,
     xplanActive: false,
     xplanAni: false,
     comingOutFlag: false,
     showDialog: false,
-    account: '' as string, // 用户地址
-    nativeBalance: '' as string, // 本地余额
-    tokenBalances: '' as string, // 令牌余额
-    realId: 0, // 带星号id，用于页面显示
+
+    // wallet
+    isInstall: false, // 是否下载metamsk
+    realId: -1, // 带星号id，用于页面显示
     idTemp: '' as string,  // 完整id，用于判断
-    transferActive: false, // 背包页-TRANSFER按钮
-    transferAni: false,
+    loggined: false, // PC登录状态
+    showMenuAni: false, // mobile登录状态
     metaMaskActive: false, // install metamask
     metaAni: false,
+
+    // assets
+    transferActive: false, // 背包页-TRANSFER按钮
+    transferAni: false,
     dataSum: ref([]) as any, // search NFT & dao data 
     readyAssets: -1 ,// 判断是否查询完毕
     contract: ref([]) , // 存放transfer所需abi，address
@@ -55,7 +64,14 @@ export default {
         addRole(state, payload: role) {
             state.roles.push(payload)
         },
-        // 添加用户角色
+        // logout
+        logout(state, paylaod: boolean) {
+            state['account'] = ''
+            state['nativeBalance'] = ''
+            state['tokenBalances'] = ''
+        },
+
+        // home header
         changeActive(state, payload: any) {
             state.active = payload;
         },
@@ -71,11 +87,11 @@ export default {
         showDialog(state, payload: any) {
             state.showDialog = payload;
         },
-        // logout
-        logout(state, paylaod: boolean) {
-            state['account'] = ''
-            state['nativeBalance'] = ''
-            state['tokenBalances'] = ''
+
+
+        // wallet
+        checkInstall(state, payload: any) {
+            state.isInstall = payload;
         },
         walletId(state, payload: any) {
             state.realId = payload;
@@ -83,17 +99,26 @@ export default {
         walletIdTemp(state, payload: any) {
             state.idTemp = payload;
         },
-        transferChange(state, payload: any) {
-            state.transferActive = payload;
+        walletloggined(state, payload: any) {
+            state.loggined = payload;
         },
-        transferChangeAni(state, payload: any) {
-            state.transferAni = payload;
+        walletMenuAni(state, payload: any) {
+            state.showMenuAni = payload;
         },
         metaChange(state, payload: any){
             state.metaMaskActive = payload;
         },
         metaChangeAni(state, payload: any) {
             state.metaAni = payload;
+        },
+
+
+        // assets
+        transferChange(state, payload: any) {
+            state.transferActive = payload;
+        },
+        transferChangeAni(state, payload: any) {
+            state.transferAni = payload;
         },
         dataSumSearch(state, payload: any) {
             state.dataSum = payload;
@@ -106,6 +131,7 @@ export default {
         },
     },
     actions: {
+        // 初始化用户
         init({ commit }, paylaod: typeof_user) {
             commit('init', paylaod)
         },
@@ -115,6 +141,12 @@ export default {
         addRole({ commit }, paylaod: role) {
             commit('addRole', paylaod)
         },
+        // 注销
+        logout({ commit }, paylaod: boolean) {
+            commit('logout', paylaod)
+        },
+
+        // home header
         changeActive({ commit }, paylaod: any) {
             commit('changeActive', paylaod)
         },
@@ -130,27 +162,35 @@ export default {
         showDialog({ commit }, paylaod: any) {
             commit('showDialog', paylaod)
         },
-        // 注销
-        logout({ commit }, paylaod: boolean) {
-            commit('logout', paylaod)
+
+
+        // wallet
+        checkInstall({ commit }, paylaod: any) {
+            commit('checkInstall', paylaod)
         },
-        walletId({ commit }, paylaod: any) {
-            commit('walletId', paylaod)
+        connectWallet({ commit }, paylaod: any) {
+            paylaod.realId && commit('walletId', paylaod.realId)
+            paylaod.idTemp && commit('walletIdTemp', paylaod.idTemp)
         },
-        walletIdTemp({ commit }, paylaod: any) {
-            commit('walletIdTemp', paylaod)
+        walletloggined({ commit }, paylaod: any) {
+            commit('walletloggined', paylaod)
         },
-        transferChange({ commit }, paylaod: any) {
-            commit('transferChange', paylaod)
-        },
-        transferChangeAni({ commit }, paylaod: any) {
-            commit('transferChangeAni', paylaod)
+        walletMenuAni({ commit }, paylaod: any) {
+            commit('walletMenuAni', paylaod)
         },
         metaChange({ commit }, paylaod: any) {
             commit('metaChange', paylaod)
         },
         metaChangeAni({ commit }, paylaod: any) {
             commit('metaChangeAni', paylaod)
+        },
+        
+        // assets
+        transferChange({ commit }, paylaod: any) {
+            commit('transferChange', paylaod)
+        },
+        transferChangeAni({ commit }, paylaod: any) {
+            commit('transferChangeAni', paylaod)
         },
         dataSumSearch({ commit }, paylaod: any) {
             commit('dataSumSearch', paylaod.data)

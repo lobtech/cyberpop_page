@@ -220,6 +220,7 @@ onMounted(() => {
         width: 100%;
         padding-top: 5.5vw;
         background-color: #000000;
+        overflow: hidden;
         .banner{
             width: 100%;
             height: 25.78vw;
@@ -302,7 +303,9 @@ onMounted(() => {
                     .price{
                         height: 3.6vw;
                         font-size: 3.07vw;
-                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                        // font-family: AlibabaPuHuiTi_2_105_Heavy;
+                        font-family: Oswald-Regular;
+                        font-weight: 900;
                         color: #04FF55;
                         line-height: 3.6vw;
                     }
@@ -323,7 +326,6 @@ onMounted(() => {
             li{
                 margin-top: 1.05vw;
                 .txt{
-                    height: 1.35vw;
                     font-size: .98vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #B3B3B3;
@@ -332,7 +334,9 @@ onMounted(() => {
                 .percent{
                     height: 2vw;
                     font-size: 1.61vw;
-                    font-family: AlibabaPuHuiTi_2_85_Bold;
+                    // font-family: AlibabaPuHuiTi_2_85_Bold;
+                    font-family: Oswald-Regular;
+                    font-weight: 900;
                     color: #F2F2F2;
                     line-height: 2vw;
                 }
@@ -348,6 +352,7 @@ onMounted(() => {
             width: 60.78vw;
             height: 28.9vw;
             margin: 0 auto;
+            margin-bottom: 26vh;
             .title{
                 width: 100%;
                 margin-top: 4.53vw;
@@ -360,6 +365,8 @@ onMounted(() => {
                 text-align: right;
                 span{
                     color: #EDFF00;
+                    // font-family: Oswald-Regular;
+                    // font-weight: 900;
                 }
             }
             ul{
@@ -402,13 +409,13 @@ onMounted(() => {
                     }
                     .top-txt{
                         width: 100%;
-                        height: .93vw;
                         margin-top: .8vw;
                         font-size: .67vw;
                         font-family: AlibabaPuHuiTi_2_75_SemiBold;
                         color: #FFFFFF;
                         line-height: .93vw;
                         text-align: center;
+                        white-space: nowrap;
                     }
                     .bot-txt{
                         position: absolute;
@@ -420,6 +427,7 @@ onMounted(() => {
                         color: #FFFFFF;
                         line-height: 3vw;
                         text-align: center;
+                        white-space: nowrap;
                         img{
                             position: absolute;
                             bottom: 0;
@@ -452,6 +460,19 @@ onMounted(() => {
                 li + li{
                     margin-left: 2.76vw;
                 }
+            }
+        }
+    }
+    @media screen {
+        @media (max-width: 1020px) {
+            .data{
+                height: 6.8vw !important;
+            }
+            .top-txt{
+                transform: scale(.8);
+            }
+            .bot-txt > div{
+                transform: scale(.8);
             }
         }
     }
