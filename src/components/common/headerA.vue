@@ -61,9 +61,9 @@
         <div class="wrap">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_whitePaper')}}</a>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_whitePaper')}}</a>
             <!-- <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_greenPaper')}}</a> -->
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_deck')}}</a>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_deck')}}</a>
         </div>
     </div>
     <div class="logged_menu" v-show="showloggedFlag || hoverLogged" ref="cursor2" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
@@ -83,7 +83,7 @@ import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref } f
 import store from '@/store'
 import Web3 from '@/tools/web3' 
 import {  useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
+import { useI18n  } from 'vue-i18n'
 const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
 
