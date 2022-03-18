@@ -1,22 +1,22 @@
 <template>
-    <header-b path="/assets" :type="0"></header-b>
-    <div class="section">
+    <header-b path="javascript:scrollTo(0,0);" :type="0"></header-b>
+    <!-- <div class="section">
         <div class="title">COMING SOON</div>
-    </div>
+    </div> -->
     <div class="assets">
         <div class="wrap">
             <div class="welcome">
                 <div class="icon">
                     <img src="@/assets/nwAssets/portrait.svg" alt="">
                 </div>
-                <div class="title">Hi, Wade Warren</div>
-                <div class="id">{{realId}}</div>
-                <div class="desc">Your Cyberpop NFT item, which changed in my assets, will be synchronized to opensea and within the game in Multi-
-                    terminal. Any small act you do in Cyberpop New World is valuable to Cyberpop DAO.
+                <div class="title">{{$t('message.assets.wel_name')}}</div>
+                <div class="id">{{realId == -1? '':realId}}</div>
+                <div class="desc">
+                    {{$t('message.assets.wel_desc')}}
                 </div>
                 <div class="search">
                     <div class="input" :class="inputShow ? 'actived' : ''">
-                        <input v-model="inputValue" @focus="inputShow = true" ref="myInput" type="text" placeholder="Keywords, name, number">
+                        <input v-model="inputValue" @focus="inputShow = true" ref="myInput" type="text" :placeholder="$t('message.assets.input_pla')">
                         <img v-show="inputShow" @click="clearInput()" class="clear" src="@/assets/nwAssets/clear-input.svg" alt="">
                         <img v-show="!inputShow" src="@/assets/nwAssets/search-icon.svg" alt="">
                         <img v-show="inputShow" @click="searchSubmit()" src="@/assets/nwAssets/search-iconActived.svg" alt="">
@@ -31,31 +31,31 @@
                                 </li>
                             </ul>
                             <ul class="type">
-                                <li @click="showSelect(2)"><div>Character, Weapon, Support Card, Item, Blind Box</div></li>
+                                <li @click="showSelect(2)"><div>{{$t('message.assets.type1_b')}}</div></li>
                                 <li v-show="showItem2" class="item" @click="selectItem($event)">
-                                    <div class="selected">All types</div>
-                                    <div>Character</div>
-                                    <div>Weapon</div>
-                                    <div>Support Card</div>
-                                    <div>Item</div>
-                                    <div>Blind Box</div>
+                                    <div class="selected">{{$t('message.assets.type1_item_b')}}</div>
+                                    <div>{{$t('message.assets.type1_item1')}}</div>
+                                    <div>{{$t('message.assets.type1_item2')}}</div>
+                                    <div>{{$t('message.assets.type1_item3')}}</div>
+                                    <div>{{$t('message.assets.type1_item4')}}</div>
+                                    <div>{{$t('message.assets.type1_item5')}}</div>
                                     <div class="btn">
-                                        <div class="cancel">CANCEL</div>
-                                        <div class="ok">OK</div>
+                                        <div class="cancel">{{$t('message.assets.btn_cancel_b')}}</div>
+                                        <div class="ok">{{$t('message.assets.btn_ok_b')}}</div>
                                     </div>
                                 </li>
                             </ul>
                             <ul class="quality">
-                                <li @click="showSelect(3)"><div>Legend, Epic, Rare, Common</div></li>
+                                <li @click="showSelect(3)"><div>{{$t('message.assets.type2_b')}}</div></li>
                                 <li v-show="showItem3" class="item" @click="selectItem($event)">
-                                    <div class="selected">All quality</div>
-                                    <div>Legend</div>
-                                    <div>Epic</div>
-                                    <div>Rare</div>
-                                    <div>Common</div>
+                                    <div class="selected">{{$t('message.assets.type2_item_b')}}</div>
+                                    <div>{{$t('message.assets.type2_item1')}}</div>
+                                    <div>{{$t('message.assets.type2_item2')}}</div>
+                                    <div>{{$t('message.assets.type2_item3')}}</div>
+                                    <div>{{$t('message.assets.type2_item4')}}</div>
                                     <div class="btn">
-                                        <div class="cancel">CANCEL</div>
-                                        <div class="ok">OK</div>
+                                        <div class="cancel">{{$t('message.assets.btn_cancel_b')}}</div>
+                                        <div class="ok">{{$t('message.assets.btn_ok_b')}}</div>
                                     </div>
                                 </li>
                             </ul>
@@ -63,8 +63,8 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1"> -->
-            <div class="ecr" v-if="false">
+            <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1">
+            <!-- <div class="ecr" v-if="false"> -->
                 <div class="ecrchange">
                     <div class="ecr721" v-show="!ecrType">
                         <ul class="prince">
@@ -72,8 +72,8 @@
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Prince of Shadows<span>x4</span></div>
                                 <div class="btn">
-                                    <div class="transfer" @click="transferPopup()">TRANSFER</div>
-                                    <div class="sell">SELL</div>
+                                    <div class="transfer" @click="transferPopup()">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
                             </li> -->
                         </ul>
@@ -82,7 +82,7 @@
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Mystery box</div>
                                 <div class="btn">
-                                    <div class="unpack">UNPACK</div>
+                                    <div class="unpack">{{$t('message.assets.btn_unpack')}}</div>
                                 </div>
                             </li>
                         </ul> -->
@@ -93,16 +93,15 @@
                                 <img :src="item.image" alt="">
                                 <div class="name">{{item.name}}<span>x{{item.number}}</span></div>
                                 <div class="btn">
-                                    <div class="transfer" @click="transferPopup(item)">TRANSFER</div>
-                                    <div class="sell">SELL</div>
+                                    <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- <div class="nothing" v-if="readyAssetsF == -1"> -->
-            <div class="nothing" v-if="true">
+            <div class="nothing" v-if="readyAssetsF == -1">
                 <img src="@/assets/nwAssets/nothing.svg" alt="">
             </div>
         </div>
@@ -111,7 +110,7 @@
     <popup-b v-show="transferActive" :transferInfo="transferItem" :abi="abiSelect" :address="addressSelect"></popup-b>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
+import { onBeforeMount, onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
 
 import store from '@/store'
 import {  useRouter } from 'vue-router'
@@ -239,7 +238,7 @@ const selectItem = (e:any) => {
 
 
 // ecr exchange
-let ecrType:any = ref(false);
+let ecrType:any = ref(true);
 
 
 // NFT transfer
@@ -285,12 +284,17 @@ onUnmounted(() => {
     window.removeEventListener('click', inputOtherClick, true);
 })
 
+onBeforeMount( () => {
+    if( realId.value == -1 && proxy.$route.path == '/assets' ){
+        router.push('/')
+    }
+})
+
 onMounted(async () => {
     window.scrollTo(0,0);
     window.addEventListener('click', inputOtherClick, true);
     store.dispatch('user/transferChange',false)
     store.dispatch('user/transferChangeAni',false)
-
     if(store.state.user?.readyAssets !== -1){
         dataTemp.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
         // console.log(11, store.state.user?.dataSum);
@@ -334,7 +338,7 @@ onMounted(async () => {
         .wrap{
             width: 100%;
             padding-top: 55px;
-            background-image: url('../../../assets/nwAssets/bodyBg-phone.png');
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwAssets/bodybg-phone.png');
             background-repeat: no-repeat;
             background-position: left top;
             background-size: 100% auto;

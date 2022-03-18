@@ -4,7 +4,7 @@
             <div class="icon">
                 <img class="failed-icon" src="@/assets/nwhomePhone/failed-phone.svg" alt="">
             </div>
-            <div class="text">Failed!</div>
+            <div class="text">{{$t('message.common.mess_faild')}}</div>
             <div class="desc">{{dialogC}}</div>
         </div>
 
@@ -12,7 +12,7 @@
             <div class="icon">
                 <img class="succ-icon" src="@/assets/nwhomePhone/success-phone.svg" alt="">
             </div>
-            <div class="text">Successful!</div>
+            <div class="text">{{$t('message.common.mess_succ')}}</div>
             <div class="desc">{{dialogC}}</div>
         </div>
 
@@ -20,7 +20,7 @@
             <div class="icon">
                 <img class="load-icon" src="@/assets/nwhomePhone/loading-phone.svg" alt="">
             </div>
-            <div class="text">loading</div>
+            <div class="text">{{$t('message.common.mess_load')}}</div>
         </div>
     </div>
 </template>

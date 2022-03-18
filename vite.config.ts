@@ -32,6 +32,8 @@ export default defineConfig({
             // stream: 'stream-browserify',
             // zlib: 'browserify-zlib',
             // util: 'util',
+            'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
         },
     },
+    
 })

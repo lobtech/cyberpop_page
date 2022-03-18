@@ -1,4 +1,5 @@
 <template>
+    <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
     <header-a path="/details" :type="2"></header-a>
     <div class="details">
         <div class="box">
@@ -8,24 +9,24 @@
                 </video>
             </div>
             <div class="desc">
-                <div class="title">BLIND BOX</div>
+                <div class="title">{{$t('message.details.box_title')}}</div>
                 <div class="price">
                     <div class="left">
-                        <div class="text1">Price ≈ $4545</div>
+                        <div class="text1">{{$t('message.details.box_price')}} ≈ $4545</div>
                         <div class="text2">
                             <img src="" alt="">
-                            <div>0.36 <span>ETH</span></div>
+                            <div>0.36 <span>{{$t('message.details.box_eth')}}</span></div>
                         </div>
                     </div>
                     <div class="line"></div>
                     <div class="right">
-                        <div class="text1">Remaining <span>238</span></div>
-                        <div class="text2">Sale ends in <div>21<span>H</span>:33<span>M</span>:48<span>S</span></div></div>
+                        <div class="text1">{{$t('message.details.box_remain')}} <span>238</span></div>
+                        <div class="text2">{{$t('message.details.box_sale')}} <div>21<span>H</span>:33<span>M</span>:48<span>S</span></div></div>
                     </div>
                 </div>
                 <div class="btn">
-                    <div class="purchase">PURCHASE</div>
-                    <div class="view">VIEW ON OPENSEA</div>
+                    <div class="purchase">{{$t('message.details.box_btn_pur')}}</div>
+                    <div class="view">{{$t('message.details.box_btn_view')}}</div>
                 </div>
             </div>
         </div>
@@ -34,9 +35,9 @@
             <div class="intro" :class="exMenu ? 'active':''" @click="exMenu = true">INTRODUCTION</div>
             <div class="intro" :class="exMenu ? 'active':''" @click="exMenu = true">INTRODUCTION</div> -->
 
-            <div class="content" :class="exMenu == 0 ? 'active':''" @click="intClick(0)">CONTENT</div>
-            <div class="intro" :class="exMenu == 1 ? 'active':''" @click="intClick(1)">INTRODUCTION</div>
-            <div class="terms" :class="exMenu == 2 ? 'active':''" @click="intClick(2)">TERMS</div>
+            <div class="content" :class="exMenu == 0 ? 'active':''" @click="intClick(0)">{{$t('message.details.exMenu1')}}</div>
+            <div class="intro" :class="exMenu == 1 ? 'active':''" @click="intClick(1)">{{$t('message.details.exMenu2')}}</div>
+            <div class="terms" :class="exMenu == 2 ? 'active':''" @click="intClick(2)">{{$t('message.details.exMenu3')}}</div>
         </div>
         <div class="list">
             <ul class="content" v-show="exMenu == 0">
@@ -47,95 +48,92 @@
                         </div>
                         <div class="data">
                             <div class="prob">
-                                <div class="name">Probability</div>
+                                <div class="name">{{$t('message.details.list.name1')}}</div>
                                 <div class="num">50%</div>
                             </div>
                             <div class="line"></div>
                             <div class="attr">
-                                <div class="name">Attributes</div>
+                                <div class="name">{{$t('message.details.list.name2')}}</div>
                                 <div class="item">
-                                    <div>Constitution</div>
+                                    <div>{{$t('message.details.list.name2_item1')}}</div>
                                     <div>5~<span class="yell">12</span></div>
-                                    <div>Courage</div>
+                                    <div>{{$t('message.details.list.name2_item2')}}</div>
                                     <div>5~<span class="yell">12</span></div>
                                 </div>
                                 <div class="item">
-                                    <div>Energy</div>
+                                    <div>{{$t('message.details.list.name2_item3')}}</div>
                                     <div>5~<span>12</span></div>
-                                    <div>Intelligence</div>
+                                    <div>{{$t('message.details.list.name2_item4')}}</div>
                                     <div>5~<span>12</span></div>
                                 </div>
                                 <div class="item">
-                                    <div>Power</div>
+                                    <div>{{$t('message.details.list.name2_item5')}}</div>
                                     <div>5~<span>12</span></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="prince">Prince</div>
+                    <div class="prince">{{$t('message.details.list.prince')}}</div>
                     <div class="princeShadow"></div>
                 </li> 
                 <li>
-                    <div class="cover"></div>
-                    <div class="coverborder"></div>
                     <div class="wrap">
                         <div class="pic">
                             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img1.png" alt="">
                         </div>
                         <div class="data">
                             <div class="prob">
-                                <div class="name">Probability</div>
+                                <div class="name">{{$t('message.details.list.name1')}}</div>
                                 <div class="num">50%</div>
                             </div>
                             <div class="line"></div>
                             <div class="attr">
-                                <div class="name">Attributes</div>
+                                <div class="name">{{$t('message.details.list.name2')}}</div>
                                 <div class="item">
-                                    <div>Constitution</div>
+                                    <div>{{$t('message.details.list.name2_item1')}}</div>
                                     <div>5~<span class="yell">12</span></div>
-                                    <div>Courage</div>
+                                    <div>{{$t('message.details.list.name2_item2')}}</div>
                                     <div>5~<span class="yell">12</span></div>
                                 </div>
                                 <div class="item">
-                                    <div>Energy</div>
+                                    <div>{{$t('message.details.list.name2_item3')}}</div>
                                     <div>5~<span>12</span></div>
-                                    <div>Intelligence</div>
+                                    <div>{{$t('message.details.list.name2_item4')}}</div>
                                     <div>5~<span>12</span></div>
                                 </div>
                                 <div class="item">
-                                    <div>Power</div>
+                                    <div>{{$t('message.details.list.name2_item5')}}</div>
                                     <div>5~<span>12</span></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="prince">Prince</div>
+                    <div class="prince">{{$t('message.details.list.prince')}}</div>
                     <div class="princeShadow"></div>
                 </li> 
             </ul>
             <ul class="introduction" v-show="exMenu == 1">
                 <li>
-                    <div class="title">Title 1</div>
+                    <div class="title">{{$t('message.details.intro.title1')}} 1</div>
                     <div class="desc">
-                        For athletes, high altitude produces two contradictory effects on performance. For explosive events (sprints up to 400 metres, long jump, triple jump) the reduction in atmospheric pressure means there is less resistance from the atmosphere and the athlete's performance will generally be better at high altitude.
+                        {{$t('message.details.intro.desc1')}}
                     </div>
                 </li>
                 <li>
-                    <div class="title">Title 2</div>
+                    <div class="title">{{$t('message.details.intro.title1')}} 2</div>
                     <div class="desc">
-                        Physiological respiration involves the mechanisms that ensure that the composition of the functional residual capacity is kept constant, and equilibrates with the gases dissolved in the pulmonary capillary blood, and thus throughout the body. Thus, in precise usage, the words breathing and ventilation are hyponyms, not synonyms, of respiration; but this prescription is not consistently followed, even by most health care providers, because the term respiratory rate (RR) is a well-established term in health care, even though it would need to be consistently replaced with ventilation rate if the precise usage were to be followed.
+                        {{$t('message.details.intro.desc2')}}
                     </div>
                 </li>
             </ul>
             <div class="terms" v-show="exMenu == 2"></div>
             <div class="link">
                 <a :href="copyText">{{copyText}}</a>
-                <div class="copy" @click="copyUrl(copyText)">COPY SHARE LINK</div>
+                <div class="copy" @click="copyUrl(copyText)">{{$t('message.details.link')}}</div>
             </div>
         </div>
     </div>
-    <footer-a></footer-a>
-    <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
+    <footer-a></footer-a>   
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
@@ -185,9 +183,9 @@ const copyUrl = (e:any) => {
     //返回值为一个Boolean，如果是 false 则表示操作不被支持或未被启用
     if (document.execCommand("copy")) {
         document.execCommand("copy");
-        messageAlert(true, 'Success')
+        messageAlert(true, proxy.$t('message.common.mess_succ'))
     }else{
-        messageAlert(false,'Error, please copy it manually')
+        messageAlert(false, proxy.$t('message.common.mess_copy_err'))
     }
     //删除这个节点
     document.body.removeChild(input);

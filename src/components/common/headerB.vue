@@ -13,38 +13,38 @@
                     <img @click="closeMenuIcon()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
                 <div class="login_in" v-if="!loggined" @click="login()">
-                    <div class="txt">CONNECT WALLET</div>
+                    <div class="txt">{{$t('message.common.wallet')}}</div>
                 </div>
                 <div class="logged_in" v-if="loggined">
                     <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
                     <div class="idtxt">{{realId}}</div>
                     <div class="submenu">
-                        <div class="myassets" @click="toAssets()">My assets</div>
-                        <div class="logout" @click="signout">Logout</div>
+                        <div class="myassets" @click="toAssets()">{{$t('message.common.login_myAssets')}}</div>
+                        <div class="logout" @click="signout">{{$t('message.common.login_logout')}}</div>
                     </div>
                     <div class="mask"></div>
                 </div>
                 <ul id="menuUl" class="menuul">
-                    <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">Home</li>
-                    <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">Mining</li>
-                    <li @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">Blind box</li>
+                    <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">{{$t('message.common.menu1')}}</li>
+                    <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">{{$t('message.common.menu2')}}</li>
+                    <li @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">{{$t('message.common.menu3')}}</li>
                     <!-- <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li> -->
                     <!-- <li @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">Cyberspace</li> -->
                     <li :class="{'active': active == 4}">
-                        <div class="doc" @click="docMenu()">Doc <span :class="changeArrow ? 'change' : ''"></span></div>
+                        <div class="doc" @click="docMenu()">{{$t('message.common.menu4')}} <span :class="changeArrow ? 'change' : ''"></span></div>
                         <div class="docmenu" v-show="showDoc">
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" target="view_window">Whitepaper</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf.pdf" target="view_window">{{$t('message.common.doc_whitePaper')}}</a>
                             <!-- <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" target="view_window">Green paper</a> -->
-                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)3.pdf" target="view_window">Deck</a>
+                            <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf.pdf" target="view_window">{{$t('message.common.doc_deck')}}</a>
                         </div>
                     </li>
                 </ul>
                 <!-- <div class="language">
-                    <div @click="showUl()">Language switch</div>
-                    <ul v-show="showul">
-                        <li>简体中文</li>
-                        <li>Engliah</li>
-                        <li>Japanese</li>
+                    <div @click="openLang()">{{$t('message.common.language_switch')}} <span :class="langArrow ? 'change' : ''"></span></div>
+                    <ul v-show="showLang">
+                        <li :class="select == 'us' ? 'active' : ''" @click="selectLang('us')">{{$t('message.common.language1')}}</li>
+                        <li :class="select == 'cn' ? 'active' : ''" @click="selectLang('cn')">{{$t('message.common.language2')}}</li>
+                        <li :class="select == 'kr' ? 'active' : ''" @click="selectLang('kr')">{{$t('message.common.language3')}}</li>
                     </ul>
                 </div> -->
             </div>
@@ -52,6 +52,7 @@
     </div>
     <metamask-b v-if="metaMaskActive"></metamask-b>
     <coming-b v-show="showComingFlag"></coming-b>
+    <!-- <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b> -->
 </template>
 
 <script setup lang="ts">
@@ -59,6 +60,7 @@ import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref } f
 import store from '@/store'
 import Web3 from '@/tools/web3' 
 import {  useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
 
@@ -67,6 +69,25 @@ const props = defineProps({
     path: String, 
     type: Number
 })
+
+let showLang:any = ref(false)
+let langArrow:any = ref(false)
+const openLang = () => {
+    showLang.value = !showLang.value
+    langArrow.value = !langArrow.value
+}
+
+const { locale, t } = useI18n()
+let select:any = ref('us');
+const selectLang = (index:any) => {
+    store.dispatch('user/walletMenuAni', false)
+    select.value = index
+    locale.value = index
+    localStorage.setItem('lang', index)
+    // console.log( proxy.$t('message.common.menu1') );
+}
+
+
 
 
 // coming soon
@@ -173,6 +194,24 @@ const changeMenu = (type: any, route?: any) => {
 
 
 
+// message dialog
+const showDialog = computed(() => store?.state.user?.showDialog);
+let messageState:any = ref(0)
+let messageContent:any = ref('')
+const mtimer:any = ref(null)
+const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
+    messageState.value = flag
+    store.dispatch('user/showDialog',true)
+    messageContent.value = message
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/showDialog',false)
+    },2000)
+}
+
+
+
+
 
 const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
@@ -203,8 +242,11 @@ const connect: any = async () => {
         let len = id.value.length-1;
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
+        // messageAlert(1, proxy.$t('message.common.mess_succ'))
     }
 }
+
+
 
 const login = () =>{
     connect();
@@ -214,6 +256,8 @@ const signout = () => {
     store.dispatch('user/walletMenuAni', false);
     store.dispatch('user/connectWallet',{realId: -1});
     store.dispatch('user/walletloggined',false);
+
+    store.dispatch('user/showDialog',false);
     if( proxy.$route.path == '/assets' ){
         router.push('/');
     }
@@ -233,6 +277,8 @@ onMounted(() => {
     logoHImport();
     store.dispatch('user/changeActive', props.type)
     store.dispatch('user/metaChange',false)
+    store.dispatch('user/showDialog',false);
+    
 })
 </script>
 
@@ -405,7 +451,6 @@ onMounted(() => {
                         position: absolute;
                         top: 21px;
                         right: 17px;
-                        display: inline-block;
                         width: 12px;
                         height: 12px;
                         border-left: 2px solid #fff;
@@ -441,35 +486,38 @@ onMounted(() => {
                     margin-left: 30px;
                     div{
                         width: 100%;
-                        height: 30px;
-                        margin-top: 10px;
-                        margin-bottom: 10px;
                         font-size: 16px;
                         font-family: AlibabaPuHuiTi_2_55_Regular;
-                        font-weight: 400;
                         color: #FFFFFF;
-                        line-height: 30px;
+                        line-height: 58px;
+                        cursor: pointer;
                     }
-                    div:after{
+                    div > span{
                         position: absolute;
-                        top: 8px;
+                        top: 21px;
+                        right: 17px;
                         content: '';
-                        display: inline-block;
-                        width: 8px;
-                        height: 8px;
-                        margin-left: 33px;
+                        width: 12px;
+                        height: 12px;
                         border-left: 2px solid #fff;
                         border-bottom: 2px solid #fff;
                         transform: rotateZ(-45deg);
+                    }
+                    div > span.change{
+                        transform: rotateZ(135deg);
+                        top: 26px;
                     }
                     ul{
                         li{
                             height: 40px;
                             font-size: 14px;
                             font-family: AlibabaPuHuiTi_2_55_Regular;
-                            font-weight: 400;
-                            color: #FFFFFF;
+                            color: #999999;
                             line-height: 20px;
+                            cursor: pointer;
+                        }
+                        li.active{
+                            color: #ffffff;
                         }
                     }
                 }

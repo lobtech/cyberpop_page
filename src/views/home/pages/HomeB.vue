@@ -1,4 +1,5 @@
 <template>
+    <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
     <header-b path="/" :type="0"></header-b>
     <my-video v-if="isPlay" @touchmove.prevent :mobel="true" :videotype="type2" @click="playVideo"></my-video>
     <div class="banner">
@@ -8,20 +9,20 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </video-bg>
             <div class="titles"> 
                 <div class="title-wrap">
-                    <div class="title1" id="title1">FIND REAL YOU <br/> IN THIS NEW WORLD</div>
+                    <div class="title1" id="title1">{{$t('message.home.banner_title1Bef')}}<br/>{{$t('message.home.banner_title1Aft')}}</div>
                     <div class="title2">
-                        The Metaverse Combines Exploration, Combat, X-To-Earn and UGC 
+                        {{$t('message.home.banner_title2')}}
                     </div>
                     <div class="btnbox">
-                        <div class="btn-register" @click="playToEarn()"><div>PLAY TO EARN</div></div>
+                        <div class="btn-register" @click="playToEarn()"><div>{{$t('message.home.banner_btn1')}}</div></div>
                         <div class="btn-video" @click="playVideo(5)">
-                            <div>DEMO VIDEO</div>
+                            <div>{{$t('message.home.banner_btn2')}}</div>
                             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section-btnPlay.svg" alt="">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="botm">#0 <span class="txt1">CYBERSPACE </span><span class="txt2">WILL BE OPENED SOON</span></div>
+            <div class="botm">#0 <span class="txt1">{{$t('message.home.banner_botmBef')}}</span><span class="txt2">{{$t('message.home.banner_botmAft')}}</span></div>
         </section>
         <footer>
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/section_buttom.svg" alt="" class="buttom">
@@ -38,16 +39,16 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     <div class="closebg"></div>
                 </div>
                 <div class="message">
-                    Sorry, you are unable to download. The Metaverse is currently open only to authorized internal testers and communities. Contact us to get qualify.
+                    {{$t('message.home.download_message')}}
                 </div>
-                <div class="btn">Download</div>
+                <div class="btn">{{$t('message.home.download_btn1')}}</div>
             </div>
         </div>
     </div>
     <div class="nav-logos" ref="myNav">
         <a href="#">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/joinus.svg" alt="" class="joinus">
-            <div>JOIN US</div>
+            <div>{{$t('message.home.nav_logos_join')}}</div>
         </a>
         <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/discordlogo.svg" alt="" class="nav-img1">
@@ -61,13 +62,13 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="welcome">
         <div class="warp">
-            <div class="title" id="ele1">WELCOME TO<p class="white">CYBERPOP NEW WORLD</p></div>
+            <div class="title" id="ele1">{{$t('message.home.wel_titleBef')}}<p class="white">{{$t('message.home.wel_titleAft')}}</p></div>
             <div class="desc">
-                A Metaverse adventure UGC Metaverse built on the <br/>
-                Ethereum blockchain.Travel through diverse <br/>
-                cyberspace searching for mysterious digital artifacts<br/>
-                and creatures, even Legend of the absolute <br/> 
-                beginning.
+                {{$t('message.home.wel_desc1_b')}}<br/>
+                {{$t('message.home.wel_desc2_b')}}<br/>
+                {{$t('message.home.wel_desc3_b')}}<br/>
+                {{$t('message.home.wel_desc4_b')}}<br/>
+                {{$t('message.home.wel_desc5_b')}}
             </div>
             <div class="content">
                 <div class="left">
@@ -103,10 +104,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     <div class="swiper-leftTop">
                         <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/swiper-leftTop.svg" alt="">
                         <ul>
-                            <li :class="imgIndex == 0 ? 'show' : ''">Time Remnant</li>
-                            <li :class="imgIndex == 1 ? 'show' : ''">Digital Pujas</li>
-                            <li :class="imgIndex == 2 ? 'show' : ''">Moonlight Century</li>
-                            <li :class="imgIndex == 3 ? 'show' : ''">Future City</li>
+                            <li :class="imgIndex == 0 ? 'show' : ''">{{$t('message.home.wel_swiper_title1')}}</li>
+                            <li :class="imgIndex == 1 ? 'show' : ''">{{$t('message.home.wel_swiper_title2')}}</li>
+                            <li :class="imgIndex == 2 ? 'show' : ''">{{$t('message.home.wel_swiper_title3')}}</li>
+                            <li :class="imgIndex == 3 ? 'show' : ''">{{$t('message.home.wel_swiper_title4')}}</li>
                         </ul>
                     </div>
                     <div class="swiper-img">
@@ -136,33 +137,33 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
                 <div class="nobody-img"></div>
                 <div class="nobody-left-tip">
-                    <div>Scarlet Witch <br/> in cyberspace</div>
+                    <div>{{$t('message.home.nobody_role_tipBef')}}<br/>{{$t('message.home.nobody_role_tipAft')}}</div>
                 </div>
             </div>
             <div class="nobody-right">
-                <div class="title" id="ele2">YOU CAN BE NOBODY <br/>AND SOMEBODY</div>
-                <div class="subtitle">IN DIFFERENT CYBERSPACE</div>
+                <div class="title" id="ele2">{{$t('message.home.nobody_r_titleBef')}}<br/>{{$t('message.home.nobody_r_titleAft')}}</div>
+                <div class="subtitle">{{$t('message.home.nobody_r_subtitle')}}</div>
                 <div class="desc">
-                    By teleporting into different cyberspace, Players will<br/>
-                    become different NFT characters belonging to this space.<br/>
-                    Exploring the secrets of space to create your own<br/>
-                    personality and gain more assets. You can also compete<br/>
-                    with players in the same space or team up with them.
+                    {{$t('message.home.nobody_r_desc1')}}<br/>
+                    {{$t('message.home.nobody_r_desc2')}}<br/>
+                    {{$t('message.home.nobody_r_desc3')}}<br/>
+                    {{$t('message.home.nobody_r_desc4')}}<br/>
+                    {{$t('message.home.nobody_r_desc5')}}
                 </div>
                 <div class="video">
                     <img class="videoBg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/yellowBg-r.svg" alt="">
                     <img class="banner" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-videoBg.png" alt="">
                     <div class="video-wrap">
                         <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-controls.svg" alt="" @click="playVideo(4)">
-                    </div>>
+                    </div>
                     <div class="content">
-                        <div class="video-title">#0 Cyberspace <span class="yellow">Exposure</span></div>
-                        <div class="video-subtitle">Ancient space in the remnants of a time</div>
+                        <div class="video-title">#0 {{$t('message.home.nobody_r_video_txtBef')}}<span class="yellow">{{$t('message.home.nobody_r_video_txtAft')}}</span></div>
+                        <div class="video-subtitle">{{$t('message.home.nobody_r_video_subtxt')}}</div>
                     </div>
                 </div>
                 <div class="getNft-wrap">
                     <div class="getNft"></div>
-                    <div class="txt">GET NFT</div>
+                    <div class="txt">{{$t('message.home.nobody_r_getBft')}}</div>
                 </div>
             </div>
         </div>
@@ -170,17 +171,13 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="make">
         <div class="make-wrap">
             <!-- <img class="title-bg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/title-bg.png" alt=""> -->
-            <div class="title" id="ele3">MAKE CYBERSPACE BELONG TO YOU</div>
-            <div class="subtitle">THE NFT MADE BY YOU</div>
+            <div class="title" id="ele3">{{$t('message.home.make_title_b')}}</div>
+            <div class="subtitle">{{$t('message.home.make_subtitle')}}</div>
             <div class="desc">
-                Through advanced collapse algorithms, cyberpop supports
-                the generation of UGC NFT. The security of chain protocols 
-                effectively ensures the multiple player battles and development 
-                of future cybercities. We already support functional city
-                components for asset production and new assets are continuously being added.
+                {{$t('message.home.make_desc_b')}}
             </div>
             <div class="icon">
-                <div class="txt">Cross-chain support</div>
+                <div class="txt">{{$t('message.home.make_cross')}}</div>
                 <div class="icon-img">
                     <div>
                         <img class="icon1" src="@/assets/nwhome/make-flow.svg" alt="">
@@ -188,7 +185,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     </div>
                     <div>
                         <img class="icon3" src="@/assets/nwhome/make-ethernet.png" alt="">
-                        <img class="icon4" src="@/assets/nwhome/make-heco.png" alt="">
+                        <img class="icon4" src="@/assets/nwhome/make-avala.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -198,25 +195,25 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <ul>
                     <li>
                         <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-img1.png" alt="">
-                        <div>Product</div>
+                        <div>{{$t('message.home.make_img_txt1')}}</div>
                     </li>
                     <li>
                         <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-img2.png" alt="">
-                        <div>Live</div>
+                        <div>{{$t('message.home.make_img_txt2')}}</div>
                     </li>
                     <li>
                         <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-img3.png" alt="">
-                        <div>Basic</div>
+                        <div>{{$t('message.home.make_img_txt3')}}</div>
                     </li>
                     <li>
                         <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/make-img4.png" alt="">
-                        <div class="tech">Technology</div>
+                        <div class="tech">{{$t('message.home.make_img_txt4')}}</div>
                     </li>
                 </ul>
             </div>
             <!-- <div class="opensea" @mouseenter="openseaEnter()" @mouseleave="openseaLeave()"> -->
             <div class="opensea">
-                <div class="opensea-title">View the claimed lands on</div>
+                <div class="opensea-title">{{$t('message.home.make_opensea_title')}}</div>
                 <div class="openUrl" target="view_window">
                     <!-- <a href=""> -->
                     <div>
@@ -231,10 +228,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="news">
         <div class="news-wrap">
-            <div class="title" id="ele4">NEWS</div>
+            <div class="title" id="ele4">{{$t('message.home.news_title')}}</div>
             <div class="news-top" @click="toYoutube($event)">
-                <div class="channel">CYBERPOP Channel</div>
-                <div class="arrival">NEW ARRIVAL</div>
+                <div class="channel">{{$t('message.home.news_lt_channel')}}</div>
+                <div class="arrival">{{$t('message.home.news_lt_arrival')}}</div>
                 <div class="news-logo">
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-logo.svg" alt="">
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/youtube-play.svg" alt="">
@@ -244,24 +241,24 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <img :class="{'newsShow': showNewsImg == 0}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg-3.png" alt="">
                 <img :class="{'newsShow': showNewsImg == 1}" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/news-bg2-3.png" alt="">
                 <div class="desc">
-                    <div>{{newsTitle1}}</div>
+                    <div>{{ $t(newsTitle1) }}</div>
                 </div>
             </div>
             <ul @click="newsActiveSrc()">
                 <li>
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img1.png" id="myNews1" class="myNews" @mouseover="newsHover(0,newsStatictxt1)" @click="newsActive(0,newsStatictxt1)" alt="">
                     <div class="read">
-                        <div class="txt">Picante Channel News</div>
-                        <div class="date">January 2,2022</div>
-                        <div class="toRead">To Read ></div>
+                        <div class="txt">{{$t('message.home.news_lcard1_txt')}}</div>
+                        <div class="date">{{$t('message.home.news_lcard1_date')}}</div>
+                        <div class="toRead">{{$t('message.home.news_lcard1_toRead')}} ></div>
                     </div>
                 </li>
                 <li>
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img2.png" id="myNews2" class="myNews" @mouseover="newsHover(1,newsStatictxt2)" @click="newsActive(1,newsStatictxt2)" alt="">
                     <div class="read">
-                        <div class="txt">cyberbump channel news</div>
-                        <div class="date">January 2,2022</div>
-                        <div class="toRead">To Read ></div>
+                        <div class="txt">{{$t('message.home.news_lcard2_txt')}}</div>
+                        <div class="date">{{$t('message.home.news_lcard1_date')}}</div>
+                        <div class="toRead">{{$t('message.home.news_lcard1_toRead')}} ></div>
                     </div>
                 </li>
             </ul>
@@ -277,93 +274,93 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img class="roadmap-bg2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/roadmap-bg2.svg" alt="">
         </div>
         <div class="roadmap-wrap">
-            <div class="title" id="ele5">ROADMAP</div>
+            <div class="title" id="ele5">{{ $t('message.home.roadmap_title') }}</div>
             <div class="time1 timeWidth-r maptime" id="time1">
-                <div class="stage">LONG ROAD</div>
+                <div class="stage">{{ $t('message.home.roadmap_s1') }}</div>
                 <div class="date"><span class="span-l"></span>2021.03</div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
                 <div class="event-r checkgreen">
-                    Project Concept Start <br/>
-                    Basic gameplay design <br/>
-                    Metaverse scene development <br/>
-                    Metaverse Art Modeling
+                    {{ $t('message.home.roadmap_s1_d1_e1') }} <br/>
+                    {{ $t('message.home.roadmap_s1_d1_e2') }} <br/>
+                    {{ $t('message.home.roadmap_s1_d1_e3') }} <br/>
+                    {{ $t('message.home.roadmap_s1_d1_e4') }}
                 </div>
             </div>
             <div class="time2 timeWidth-l maptime" id="time2">
                 <div class="date">2021.10<span class="span-r"></span></div>
                 <img class="check" src="@/assets/nwhome/check-circle-fill.svg" alt="">
                 <div class="event-l checkgreen">
-                    UGC project approval <br/>
-                    Website launched <br/>
-                    Metaverse demo online <br/>
-                    Character Modeling
+                    {{ $t('message.home.roadmap_s1_d2_e1') }} <br/>
+                    {{ $t('message.home.roadmap_s1_d2_e2') }} <br/>
+                    {{ $t('message.home.roadmap_s1_d2_e3') }} <br/>
+                    {{ $t('message.home.roadmap_s1_d2_e4') }}
                 </div>
             </div>
             <div class="time3 timeWidth-r maptime" id="time3">
                 <div class="date"><span class="span-l"></span>2022.03</div>
                 <div class="event-r">
-                    White Paper Release <br/>
-                    Metaverse trial launch <br/>
-                    Metaverse NFT Mall <br/>
-                    Release UGC toolchain <br/>
-                    Token CYT released
+                    {{ $t('message.home.roadmap_s1_d3_e1') }} <br/>
+                    {{ $t('message.home.roadmap_s1_d3_e2') }} <br/>
+                    {{ $t('message.home.roadmap_s1_d3_e3') }} <br/>
+                    {{ $t('message.home.roadmap_s1_d3_e4') }} <br/>
+                    {{ $t('message.home.roadmap_s1_d3_e5') }}
                 </div>
             </div>
             <div class="time4 timeWidth-l maptime" id="time4">
-                <div class="stage">LOOM VERSION</div>
+                <div class="stage">{{ $t('message.home.roadmap_s2') }}</div>
                 <div class="date">2022.06<span class="span-r"></span></div>
                 <div class="event-l">
-                    Further development of UGC, users construct DAOs <br/>
-                    Online DAO pledge and voting system  <br/>
-                    The socialFi mechanism <br/>
-                    Metaverse unions system <br/>
-                    NFT derivatives available in the Metaverse
+                    {{ $t('message.home.roadmap_s2_d1_e1') }} <br/>
+                    {{ $t('message.home.roadmap_s2_d1_e2') }} <br/>
+                    {{ $t('message.home.roadmap_s2_d1_e3') }} <br/>
+                    {{ $t('message.home.roadmap_s2_d1_e4') }} <br/>
+                    {{ $t('message.home.roadmap_s2_d1_e5') }}
                 </div>
             </div>
             <div class="time5 timeWidth-r maptime" id="time5">
                 <div class="date"><span class="span-l"></span>2022.10</div>
                 <div class="event-r">
-                    E-commerce and virtual idol <br/>
-                    Support for multiple chain access <br/>
-                    The PVP combat system of urban construction trade integrated <br/>
-                    User-defined wallet integrated <br/>
-                    User-defined idol token <br/>
-                    Support for HashRate coin access
+                    {{ $t('message.home.roadmap_s2_d2_e1') }} <br/>
+                    {{ $t('message.home.roadmap_s2_d2_e2') }} <br/>
+                    {{ $t('message.home.roadmap_s2_d2_e3') }} <br/>
+                    {{ $t('message.home.roadmap_s2_d2_e4') }} <br/>
+                    {{ $t('message.home.roadmap_s2_d2_e5') }} <br/>
+                    {{ $t('message.home.roadmap_s2_d2_e6') }}
                 </div>
             </div>
             <div class="time6 timeWidth-l maptime" id="time6">
-                <div class="stage">WORLD TRUTH</div>
+                <div class="stage">{{ $t('message.home.roadmap_s3') }}</div>
                 <div class="date"><span class="span-r"></span>2023.01</div>
                 <div class="event-l">
-                    Launch of new world datagram <br/>
-                    Improvement of user-defined system <br/>
-                    AR /VR device base revision <br/>
-                    Enhancement financial confrontation attribute  <br/>
-                    Launch of the all-platform cyber world
+                    {{ $t('message.home.roadmap_s3_d1_e1') }} <br/>
+                    {{ $t('message.home.roadmap_s3_d1_e2') }} <br/>
+                    {{ $t('message.home.roadmap_s3_d1_e3') }} <br/>
+                    {{ $t('message.home.roadmap_s3_d1_e4') }}  <br/>
+                    {{ $t('message.home.roadmap_s3_d1_e5') }}
                 </div>
             </div>
             <div class="time7 timeWidth-r maptime" id="time7">
                 <div class="date"><span class="span-l"></span>2023.06</div>
                 <div class="event-r">
-                    Open of 3A level UGC tool-chain platform  <br/>
-                    DAO: self-management of trading and communities <br/>
-                    Launch of alternation rules and content in the seasons <br/>
-                    Combination of VR/AR (with e-commerce and social)
+                    {{ $t('message.home.roadmap_s3_d2_e1') }}  <br/>
+                    {{ $t('message.home.roadmap_s3_d2_e2') }}  <br/>
+                    {{ $t('message.home.roadmap_s3_d2_e3') }} <br/>
+                    {{ $t('message.home.roadmap_s3_d2_e4') }}
                 </div>
             </div>
             <div class="time8 timeWidth-l maptime" id="time8">
                 <div class="date"><span class="span-r"></span>2023.12</div>
                 <div class="event-l">
-                    Full presentation of cyber world VR version (stage 1)  <br/>
-                    Further integration of AR /VR with the real world <br/>
-                    Open of the NFT financial derivative platform  <br/>
-                    Cyber Pop Artists Association
+                    {{ $t('message.home.roadmap_s3_d3_e1') }} <br/>
+                    {{ $t('message.home.roadmap_s3_d3_e2') }} <br/>
+                    {{ $t('message.home.roadmap_s3_d3_e3') }}  <br/>
+                    {{ $t('message.home.roadmap_s3_d3_e4') }}
                 </div>
             </div>
         </div>
     </div>
     <div class="partners">
-        <div class="title" id="ele6">ECOLOGICAL PARTNERS
+        <div class="title" id="ele6">{{ $t('message.home.part_title') }}
             <img class="xplan" @click="showxplan()" src="@/assets/nwhome/xplan.svg" alt="" >
         </div>
         <div class="logo">
@@ -388,40 +385,39 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
     </div>
     <div class="will">
-        <div class="title" id="ele6">We suppport Multi-end interoperability</div>
+        <div class="title" id="ele6">{{ $t('message.home.will_title') }}</div>
         <ul class="logo">
             <li>
                 <img class="logo1" src="@/assets/nwhome/windows-fill.svg" alt="">
-                <div class="window">Windows</div>
+                <div class="window">{{ $t('message.home.will_logo1_txt') }}</div>
             </li>
             <li>
                 <img class="logo2" src="@/assets/nwhome/steam.svg" alt="">
-                <div class="steam">STEAM</div>
+                <div class="steam">{{ $t('message.home.will_logo2_txt') }}</div>
             </li>
             <li>
                 <img class="logo3" src="@/assets/nwhome/googleplay.svg" alt="">
-                <div class="googleplay">Google Play</div>
+                <div class="googleplay">{{ $t('message.home.will_logo3_txt') }}</div>
             </li>
             <li>
                 <img class="logo4" src="@/assets/nwhome/apple.svg" alt="">
-                <div class="store">App store</div>
+                <div class="store">{{ $t('message.home.will_logo4_txt') }}</div>
             </li>
         </ul>
     </div>
     <div class="register">
-        <div class="title">READY FOR YOUR JOURNEY?</div>
-        <div class="subtitle">GET THE LASTEST IN INBOX</div>
+        <div class="title">{{ $t('message.home.reg_title') }}</div>
+        <div class="subtitle">{{ $t('message.home.reg_subtitle') }}</div>
         <div class="email">
             <div class="email-wrap">
                 <input class="email-input" type="text" v-model="email" placeholder="Email">
             </div>
-            <div class="sub" @click="submit()">Register</div>
+            <div class="sub" @click="submit()">{{ $t('message.home.reg_submit') }}</div>
         </div>
-        <a class="link" href="https://forms.gle/VvU8nZymrikgFipR7" target="view_window">Become an ambassador</a>
+        <a class="link" href="https://forms.gle/VvU8nZymrikgFipR7" target="view_window">{{ $t('message.home.reg_link') }}</a>
     </div>
     <footer-b></footer-b>
     <xplanpro-b v-if="xplanActive"></xplanpro-b>
-    <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -434,7 +430,23 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
 import { clear } from 'console';
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
+const { proxy } = getCurrentInstance() as any;
 
+
+// message dialog
+const showDialog = computed(() => store?.state.user?.showDialog);
+let messageState:any = ref(0)
+let messageContent:any = ref('')
+const mtimer:any = ref(null)
+const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
+    messageState.value = flag
+    store.dispatch('user/showDialog',true)
+    messageContent.value = message
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/showDialog',false)
+    },2000)
+}
 
 
 // xplan
@@ -496,6 +508,8 @@ const connect: any = async () => {
         let len = id.value.length-1;
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
+        messageAlert(1, proxy.$t('message.common.mess_succ'))
+        
     }
 }
 
@@ -557,11 +571,11 @@ const startMove = (target : any) => {
 
 // news
 let showNewsImg: any = ref(0);
-let newsStatictxt1:any = ref('Cyber New World Has Launched Three Maps Of The Open World');
-let newsStatictxt2:any = ref('Cyber pop-New blockchain game-New world');
+let newsStatictxt1:any = ref( 'message.home.news_rtitle1' );
+let newsStatictxt2:any = ref( 'message.home.news_rtitle2' );
 
 
-let newsTitle1:any = ref('Cyber New World Has Launched Three Maps Of The Open World');
+let newsTitle1:any = ref( 'message.home.news_rtitle1' );
 const newsHover = (index: any, txt1:any) => {
     showNewsImg.value = index;
     newsTitle1.value = txt1;
@@ -576,7 +590,7 @@ const newsHover = (index: any, txt1:any) => {
     } 
 }
 let newsFlag:any = ref(0);
-let clickTitle1:any = ref('Cyber New World Has Launched Three Maps Of The Open World');
+let clickTitle1:any = ref( 'message.home.news_rtitle1' );
 const newsActive = (index: any, txt1:any) => {
     showNewsImg.value = index;
     newsFlag.value = index;
@@ -624,9 +638,6 @@ const openseaLeave = () => {
 
 
 
-
-const { proxy } = getCurrentInstance() as any;
-
 const router = useRouter()
 
 const email: any = ref("");
@@ -643,40 +654,26 @@ const playVideo = (type: any) => {
 }
 
 
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(0)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/showDialog',false)
-    },2000)
-}
-
 
 const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     
     if(email.value === ""){ //输入不能为空
-　　　　messageAlert(0,'Required can not be empty.')
-　　　　return false;
-　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
-　　　　messageAlert(0,'Please input your email.')
-　　　　return false;
-　　 }
+        messageAlert(0,  proxy.$t('message.home.mess_register_null'))
+        return false;
+     }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
+        messageAlert(0,  proxy.$t('message.home.mess_register_regtest'))
+        return false;
+    }
 
 
     proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
         if(res.data){
             email.value = "";
-            messageAlert(1,'Success!')
+            messageAlert(1, proxy.$t('message.home.mess_register_succ'))
         }else{
-            messageAlert(0,res.msg)
+            // messageAlert(0,res.msg)
+            messageAlert(0, proxy.$t('message.home.mess_register_else'))
         }
     }).catch( (err: any) => {
         console.log(err)
@@ -787,6 +784,7 @@ onMounted(() => {
     window.addEventListener('scroll', windowScroll, true);
     store.dispatch('user/showDialog',false);
     window.scrollTo(0,0);
+    
 })
 
 </script>
@@ -1596,10 +1594,11 @@ onMounted(() => {
                     .icon3{
                         width: 90px;
                         margin-right: 10px;
+                        margin-left: 10px;
                     }
                     .icon4{
-                        width: 70px;
-                        margin-right: 6px;
+                        width: 96px;
+                        // margin-right: 6px;
                     }
                 }
             }

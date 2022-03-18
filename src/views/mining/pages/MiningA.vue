@@ -1,12 +1,12 @@
 <template>
     <header-a path="/mining" :type="1"></header-a>
     <div class="section">
-        <div class="title">COMING SOON</div>
+        <div class="title">{{$t('message.mining.coming')}}</div>
     </div>
     <div class="mining">
         <div class="banner">
-            <div class="title">MINING</div>
-            <div class="subtitle">STAKE NFT FOR MINING REWARDS</div>
+            <div class="title">{{$t('message.mining.title')}}</div>
+            <div class="subtitle">{{$t('message.mining.subtitle')}}</div>
             <div class="total">
                 <div class="progressBall">
                     <img class="ballBorder" src="https://d2cimmz3cflrbm.cloudfront.net/nwmining/ballBorder.svg" alt="">
@@ -14,36 +14,36 @@
                 </div>
 
                <div class="right">
-                    <div class="total-title">TOTAL POOL REWARDS</div>
-                    <div class="total-subtitle">（BUSD）</div>
+                    <div class="total-title">{{$t('message.mining.total_title')}}</div>
+                    <div class="total-subtitle">{{$t('message.mining.total_subtitle')}}</div>
                     <div class="price">$- -</div>
                 </div>
             </div>
         </div>
         <ul class="data">
             <li>
-                <div class="txt">Total Staking NFTs</div>
+                <div class="txt">{{$t('message.mining.data_txt1')}}</div>
                 <div class="percent">0</div>
             </li>
             <li>
-                <div class="txt">Your Weight Percentage</div>
+                <div class="txt">{{$t('message.mining.data_txt3')}}</div>
                 <div class="percent">- -%</div>
             </li>
             <li>
-                <div class="txt">Your Mining Rewards</div>
+                <div class="txt">{{$t('message.mining.data_txt3')}}</div>
                 <div class="percent">≈$- -</div>
             </li>
         </ul>
         <div class="pledge">
-            <div class="title">Current Pledge <span>2/4</span></div>
+            <div class="title">{{$t('message.mining.pledge_title')}}<span>2/4</span></div>
             <ul>
                 <!-- <li>
                     <div class="img-wrap" @mouseenter="flipMove()" @mouseleave="flipEnd()">
                         <img id="pledgeImg" class="pledge-img" :src="greenImgSrc" alt="">
                     </div>
-                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                     <div class="bot-txt greenNft">
-                        <div>APPROVE</div>
+                        <div>{{$t('message.mining.pledge_bot_txt1')}}</div>
                         <img :src="greenBorderSrc" alt="">
                     </div>
                 </li> -->
@@ -51,9 +51,9 @@
                     <div class="img-wrap">
                         <img class="pledge-img" :src="whiteImgSrc" alt="">
                     </div>
-                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                     <div class="bot-txt whiteNft">
-                        <div>Select NFT to stake</div>
+                        <div>{{$t('message.mining.pledge_bot_txt2')}}</div>
                         <img :src="whiteBorderSrc" alt="">
                     </div>
                 </li>
@@ -61,9 +61,9 @@
                     <div class="img-wrap">
                         <img class="pledge-img" :src="whiteImgSrc" alt="">
                     </div>
-                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                     <div class="bot-txt whiteNft">
-                        <div>Select NFT to stake</div>
+                        <div>{{$t('message.mining.pledge_bot_txt2')}}</div>
                         <img :src="whiteBorderSrc" alt="">
                     </div>
                 </li>
@@ -71,9 +71,9 @@
                     <div class="img-wrap">
                         <img class="pledge-img lockedImg" :src="lockedImgSrc" alt="">
                     </div>
-                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                     <div class="bot-txt grayNft">
-                        <div>Coming soon</div>
+                        <div>{{$t('message.mining.pledge_bot_txt3')}}</div>
                         <img :src="lockedBorderSrc" alt="">
                     </div>
                 </li>
@@ -81,9 +81,9 @@
                     <div class="img-wrap">
                         <img class="pledge-img lockedImg" :src="lockedImgSrc" alt="">
                     </div>
-                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                     <div class="bot-txt grayNft">
-                        <div>Coming soon</div>
+                        <div>{{$t('message.mining.pledge_bot_txt3')}}</div>
                         <img :src="lockedBorderSrc" alt="">
                     </div>
                 </li>
@@ -92,7 +92,6 @@
     </div>
     <footer-a></footer-a>
     <coming-a v-show="showComingFlag"></coming-a>
-    <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -141,24 +140,6 @@ let lockedImgSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/locke
 let greenBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pledge-border1.svg')
 let whiteBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pledge-border2.svg')
 let lockedBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pledge-border3.svg')
-
-
-
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(false)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    store.dispatch('user/addComingOut', false)
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/addComingOut',true)
-    },5000)
-}
 
 
 

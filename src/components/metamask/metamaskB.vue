@@ -5,17 +5,17 @@
             <div class="coverborder"></div>
             <img class="close" src="@/assets/nwhome/close.svg" alt="" v-if="isInstall" @click="store.dispatch('user/metaChangeAni',false);">
             <div class="content">
-                <div class="title" v-if="!isInstall">SELECT A WALLET</div>
-                <div class="title" v-if="isInstall">AUTHORIZE YOUR WALLET</div>
+                <div class="title" v-if="!isInstall">{{$t('message.common.metamask.title')}}</div>
+                <div class="title" v-if="isInstall">{{$t('message.common.metamask.title1')}}</div>
                 <div class="icon">
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/metaMask.svg" alt="">
-                    <div class="subtitle">MetaMask</div>
+                    <div class="subtitle">{{$t('message.common.metamask.logoText')}}</div>
                 </div>
-                <div class="desc" v-if="!isInstall">You will need to install <strong>MetaMask</strong> to continue. Once you have it installed, go ahead and refresh the page.</div>
-                <div class="desc" v-if="isInstall">Please login and authorize access to your MetaMask account to continue.</div>
+                <div class="desc" v-if="!isInstall">{{$t('message.common.metamask.descBef')}}<strong>{{$t('message.common.metamask.logoText')}}</strong>{{$t('message.common.metamask.descNAft')}}</div>
+                <div class="desc" v-if="isInstall">{{$t('message.common.metamask.descIns')}}</div>
                 <div class="btn" v-if="!isInstall">
-                    <div class="cancel" @click="closePopUp()">CANCEL</div>
-                    <div class="open"><a @click="closePopUp()" href="https://metamask.io/" target="view_window">OPEN METAMASK</a></div>
+                    <div class="cancel" @click="closePopUp()">{{$t('message.common.metamask.cancel')}}</div>
+                    <div class="open"><a @click="closePopUp()" href="https://metamask.io/" target="view_window">{{$t('message.common.metamask.open')}}</a></div>
                 </div>
                 <div class="loading" v-if="isInstall">
                     <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">

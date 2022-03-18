@@ -1,18 +1,18 @@
 <template>
     <header-b path="/mystery" :type="2"></header-b>
     <div class="section">
-        <div class="title">COMING SOON</div>
+        <div class="title">{{$t('message.mining.coming')}}</div>
     </div>
     <div class="boxBg">
         <div class="titles">
-            <div class="title">CYBERPOP <br/>BLIND BOX</div>
+            <div class="title">{{$t('message.box.title_1')}}<br/>{{$t('message.box.title_2')}}</div>
             <div class="round">
-                <div>NFT</div>
-                <div>ROUND #1</div> 
+                <div>{{$t('message.box.round_2')}}</div>
+                <div>{{$t('message.box.round_1')}} #1</div> 
             </div>
-            <div class="subtitle">INCLUDES SUPER VALUE FOR LIMITED TIME</div>
+            <div class="subtitle">{{$t('message.box.subtitle')}}</div>
             <div class="desc">
-                The blind box of promotional NFTs minted by the Cyberpop DAO marks the beginning of our Cyberspace new world journey.
+                {{$t('message.box.desc')}}
             </div>
         </div>
         <div class="vBg">
@@ -22,7 +22,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             <div class="maskBlur"></div>
         </div>
         <div class="blind">
-            <div class="title">BLIND BOX <span> TYPE</span></div>
+            <div class="title">{{$t('message.box.type_title_1')}}<span>{{$t('message.box.type_title_2')}}</span></div>
             <ul>
                 <li>
                     <div class="boxVideo">
@@ -30,9 +30,9 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox1.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <div class="name">WEAPON BLIND BOX</div>
+                    <div class="name">{{$t('message.box.weapon_name1')}}</div>
                     <div class="introduce">
-                        Weapons can give the character better abilities and make the character stronger. Stronger weapons allow you to perform stronger fights . 
+                        {{$t('message.box.weapon_intro1')}}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -40,8 +40,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase">PURCHASE</div>
-                        <div class="details" @click="toDetails(1)">DETAILS</div>
+                        <div class="purchase">{{$t('message.box.btn_pur')}}</div>
+                        <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
                 <li>
@@ -50,9 +50,9 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox2.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <div class="name">WEAPON BLIND BOX</div>
+                    <div class="name">{{$t('message.box.weapon_name2')}}</div>
                     <div class="introduce">
-                        Weapons can give the character better abilities and make the character stronger. Stronger weapons allow you to perform stronger fights . 
+                        {{$t('message.box.weapon_intro2')}}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -60,8 +60,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase">PURCHASE</div>
-                        <div class="details" @click="toDetails(2)">DETAILS</div>
+                        <div class="purchase">{{$t('message.box.btn_pur')}}</div>
+                        <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
                 <li>
@@ -70,9 +70,9 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox3.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <div class="name">WEAPON BLIND BOX</div>
+                    <div class="name">{{$t('message.box.weapon_name3')}}</div>
                     <div class="introduce">
-                        Weapons can give the character better abilities and make the character stronger. Stronger weapons allow you to perform stronger fights . 
+                        {{$t('message.box.weapon_intro3')}}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -80,8 +80,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase">PURCHASE</div>
-                        <div class="details" @click="toDetails(3)">DETAILS</div>
+                        <div class="purchase">{{$t('message.box.btn_pur')}}</div>
+                        <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
                 <li>
@@ -90,9 +90,9 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox4.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <div class="name">WEAPON BLIND BOX</div>
+                    <div class="name">{{$t('message.box.weapon_name4')}}</div>
                     <div class="introduce">
-                        Weapons can give the character better abilities and make the character stronger. Stronger weapons allow you to perform stronger fights . 
+                        {{$t('message.box.weapon_intro4')}}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -100,8 +100,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase">PURCHASE</div>
-                        <div class="details" @click="toDetails(4)">DETAILS</div>
+                        <div class="purchase">{{$t('message.box.btn_pur')}}</div>
+                        <div class="details" @click="toDetails(4)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
             </ul>

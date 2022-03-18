@@ -1,74 +1,74 @@
 <template>
-    <header-a path="/assets" :type="0"></header-a>
-    <div class="section">
+    <header-a path="javascript:scrollTo(0,0);" :type="0"></header-a>
+    <!-- <div class="section">
         <div class="title">COMING SOON</div>
-    </div>
+    </div> -->
     <div class="assets">
         <div class="wrap">
             <div class="welcome">
                 <div class="icon">
                     <img src="@/assets/nwAssets/portrait.svg" alt="">
                 </div>
-                <div class="title">Hi, Wade Warren</div>
-                <div class="id">{{realId}}</div>
-                <div class="desc">Your Cyberpop NFT item, which changed in my assets, will be synchronized to opensea and within the game in Multi-
-                    terminal. Any small act you do in Cyberpop New World is valuable to Cyberpop DAO.
+                <div class="title">{{$t('message.assets.wel_name')}}</div>
+                <div class="id">{{realId == -1? '':realId}}</div>
+                <div class="desc">
+                    {{$t('message.assets.wel_desc')}}
                 </div>
             </div>
-            <!-- <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1"> -->
-            <div class="ecr" v-if="false">
+            <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1">
+            <!-- <div class="ecr" v-if="false"> -->
                 <div class="search">
-                    <div class="title">Search</div>
+                    <div class="title">{{$t('message.assets.search_title')}}</div>
                     <div class="input">
-                        <input type="text" placeholder="Placeholder">
+                        <input type="text" :placeholder="$t('message.assets.input_pla')">
                     </div>
                     <div class="type">
                         <!-- <div class="name" @click="checkall(1)">Type</div> -->
-                        <div class="name">Type</div>
+                        <div class="name">{{$t('message.assets.type1')}}</div>
                         <div class="check">
                             <form action="" class="check">
                                 <div>
                                     <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type1" value="character">
-                                    <label for="type1"><span>Character</span></label>
+                                    <label for="type1"><span>{{$t('message.assets.type1_item1')}}</span></label>
                                 </div>
                                 <div>
                                     <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type2" value="Weapon">
-                                    <label for="type2"><span>Weapon</span></label>
+                                    <label for="type2"><span>{{$t('message.assets.type1_item2')}}</span></label>
                                 </div>
                                 <div>
                                     <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type3" value="Support card">
-                                    <label for="type3"><span>Support card</span></label>
+                                    <label for="type3"><span>{{$t('message.assets.type1_item3')}}</span></label>
                                 </div>
                                 <div>
                                     <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type4" value="Item">
-                                    <label for="type4"><span>Item</span></label>
+                                    <label for="type4"><span>{{$t('message.assets.type1_item4')}}</span></label>
                                 </div>
                                 <div>
                                     <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type5" value="Blind box">
-                                    <label for="type5"><span>Blind box</span></label>
+                                    <label for="type5"><span>{{$t('message.assets.type1_item5')}}</span></label>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="quality">
                         <!-- <div class="name" @click="checkall(2)">Quality</div> -->
-                        <div class="name">Quality</div>
+                        <div class="name">{{$t('message.assets.type2')}}</div>
                         <form action="" class="check">
                             <div>
                                 <input :ref="qualityItem" :checked="qbool" type="checkbox" name="quality" id="quality1" value="Legend">
-                                <label for="quality1"><span>Legend</span></label>
+                                <label for="quality1"><span>{{$t('message.assets.type2_item1')}}</span></label>
                             </div>
                             <div>
                                 <input :ref="qualityItem" :checked="qbool" type="checkbox" name="quality" id="quality2" value="Epic">
-                                <label for="quality2"><span>Epic</span></label>
+                                <label for="quality2"><span>{{$t('message.assets.type2_item2')}}</span></label>
                             </div>
                             <div>
                                 <input :ref="qualityItem" :checked="qbool" type="checkbox" name="quality" id="quality3" value="Rare">
-                                <label for="quality3"><span>Rare</span></label>
+                                <label for="quality3"><span>{{$t('message.assets.type2_item3')}}</span></label>
                             </div>
                             <div>
                                 <input :ref="qualityItem" :checked="qbool" type="checkbox" name="quality" id="quality4" value="Common">
-                                <label for="quality4"><span>Common</span></label>
+                                <label for="quality4"><span>{{$t('message.assets.type2_item4')}}</span></label>
                             </div>
                         </form>
                     </div>
@@ -84,24 +84,8 @@
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Prince of Shadows<span>x4</span></div>
                                 <div class="btn">
-                                    <div class="transfer" @click="transferPopup()">TRANSFER</div>
-                                    <div class="sell">SELL</div>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/nwAssets/testItem.png" alt="">
-                                <div class="name">Prince of Shadows</div>
-                                <div class="btn">
-                                    <div class="transfer" @click="transferPopup()">TRANSFER</div>
-                                    <div class="sell">SELL</div>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="@/assets/nwAssets/testItem.png" alt="">
-                                <div class="name">Prince of Shadows</div>
-                                <div class="btn">
-                                    <div class="transfer" @click="transferPopup()">TRANSFER</div>
-                                    <div class="sell">SELL</div>
+                                    <div class="transfer" @click="transferPopup()">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -110,7 +94,7 @@
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
                                 <div class="name">Mystery box</div>
                                 <div class="btn">
-                                    <div class="unpack">UNPACK</div>
+                                    <div class="unpack">{{$t('message.assets.btn_unpack')}}</div>
                                 </div>
                             </li>
                         </ul> -->
@@ -121,17 +105,17 @@
                                 <img :src="item.image" alt="">
                                 <div class="name">{{item.name}}<span>x{{item.number}}</span></div>
                                 <div class="btn">
-                                    <div class="transfer" @click="transferPopup(item)">TRANSFER</div>
-                                    <div class="sell">SELL</div>
+                                    <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- <div class="nothing" v-if="readyAssetsF == -1"> -->
-            <div class="nothing" v-if="true">
-                <div class="txt">Oops, There‘s nothing left here. Go to <a href="/">Home page</a></div>
+            <div class="nothing" v-if="readyAssetsF == -1">
+            <!-- <div class="nothing" v-if="true"> -->
+                <div class="txt">{{$t('message.assets.nothing')}}<a href="/">{{$t('message.assets.nothing_home')}}</a></div>
                 <img src="@/assets/nwAssets/nothing.svg" alt="">
             </div>
         </div>
@@ -141,7 +125,7 @@
     <popup-a v-show="transferActive" :transferInfo="transferItem" :abi="abiSelect" :address="addressSelect"></popup-a>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
+import { onBeforeMount, onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
 
 import store from '@/store'
 import {  useRouter } from 'vue-router'
@@ -150,6 +134,7 @@ import { toRaw } from '@vue/reactivity'
 const router = useRouter()
 const { proxy } = getCurrentInstance() as any
 const realId = computed(() => store?.state.user?.realId);
+
 
 let abi:any = ref(null);
 let address:any = ref(null);
@@ -230,18 +215,25 @@ const transferPopup = (item:any) => {
 onUnmounted(() => {
 })
 
+
+
+
+onBeforeMount( () => {
+    if( realId.value == -1 && proxy.$route.path == '/assets' ){
+        router.push('/')
+    }
+})
+
 onMounted( () => {
     window.scrollTo(0,0);
     store.dispatch('user/showDialog',false);// close message dialog
     store.dispatch('user/metaChange',false);
     store.dispatch('user/transferChange',false);
 
-
     if(store.state.user?.readyAssets !== -1){
         dataTemp.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
         // console.log(11, store.state.user?.dataSum);
     }
-    
 })
 
 </script>
@@ -278,7 +270,7 @@ onMounted( () => {
         .wrap{
             width: 100%;
             padding-top: 5.5vw;
-            background-image: url('../../../assets/nwAssets/bodyBg.png');
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwAssets/bodyBg.png');
             background-repeat: no-repeat;
             background-position: left top;
             background-size: 100% auto;

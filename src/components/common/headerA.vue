@@ -1,22 +1,29 @@
 <template>
     <div class="home">
         <header>
+            <div class="bgdiv"></div>
             <div class="content" id="header">
                 <div class="logo">
                     <a :href="path"><img v-show="!logoHFlag" :src="logoHSrcP" @mouseenter="logoHFlag = true" alt=""></a>
                     <a :href="path"><img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt=""></a>
                 </div>
                 <div class="user">
-                    <!-- <div class="language">
-                        <img @click="changeLanguage()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="" v-if="!id">
-                        <ul :class="lang == true ? 'showLang' : ''">
-                            <li :class="select == 0 ? 'active' : ''" @click="selectLang(0)">简体中文</li>
-                            <li :class="select == 1 ? 'active' : ''" @click="selectLang(1)">English</li>
-                            <li :class="select == 2 ? 'active' : ''" @click="selectLang(2)">Japanese</li>
-                        </ul>
+                    <!-- <div class="language" ref="clickCursor3">
+                        <img @click="showLanguage = !showLanguage" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="">
+                        <div class="langUl" v-show="showLanguage" ref="cursor3">
+                            <div class="wrap">
+                                <div class="cover"></div>
+                                <div class="coverborder"></div>
+                                <ul>
+                                    <li :class="select == 'us' ? 'active' : ''" @click="selectLang('us')">{{$t('message.common.language1')}}</li>
+                                    <li :class="select == 'cn' ? 'active' : ''" @click="selectLang('cn')">{{$t('message.common.language2')}}</li>
+                                    <li :class="select == 'kr' ? 'active' : ''" @click="selectLang('kr')">{{$t('message.common.language3')}}</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div> -->
-                    <div class="login_in" v-if="!loggined" @click="login()"  @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
-                        <div class="txt">CONNECT WALLET</div>
+                    <div class="login_in" v-if="!loggined" @click="login()" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
+                        <div class="txt">{{$t('message.common.wallet')}}</div>
                         <div class="mask" id="mask"></div>
                     </div>
                     <div class="logged_in" v-if="loggined">
@@ -28,19 +35,19 @@
                 <div class="menu">
                     <ul id="menuUl">
                         <li @mouseover="menuHover(0)" @click="changeMenu(0, '/')" :class="{'active': active == 0}">
-                            <span>Home</span>
+                            <span>{{$t('message.common.menu1')}}</span>
                         </li>
                         <li @mouseover="menuHover(1)" @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">
-                            <span>Mining</span>
+                            <span>{{$t('message.common.menu2')}}</span>
                         </li>
                         <li @mouseover="menuHover(2)" @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">
-                            <span>Blind box</span>
+                            <span>{{$t('message.common.menu3')}}</span>
                         </li>
                         <!-- <li @mouseover="menuHover(3)" @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">
                             <span>Cyberspace</span>
                         </li> -->
                         <li @mouseover="menuHover(4)" @mouseleave="hoverDoc = false" ref="clickCursor" @click="showDoc = !showDoc,hoverDoc = false" :class="{'active': active == 4}">
-                            <span @mouseenter="hoverDoc = true">Doc</span>
+                            <span @mouseenter="hoverDoc = true">{{$t('message.common.menu4')}}</span>
                         </li>
                     </ul>
                 </div>
@@ -54,21 +61,21 @@
         <div class="wrap">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">Whitepaper</a>
-            <!-- <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">Green paper</a> -->
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en)3.pdf" @click="showDoc = false" target="view_window">Deck</a>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_whitePaper')}}</a>
+            <!-- <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_greenPaper')}}</a> -->
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_deck')}}</a>
         </div>
     </div>
     <div class="logged_menu" v-show="showloggedFlag || hoverLogged" ref="cursor2" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
         <div class="wrap">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <div @click="toAssets()">My Assets</div>
-            <div @click="signout">Log out</div>
+            <div @click="toAssets()">{{$t('message.common.login_myAssets')}}</div>
+            <div @click="signout">{{$t('message.common.login_logout')}}</div>
         </div>
     </div>
-
     <metamask-a v-if="metaMaskActive"></metamask-a>
+    <!-- <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a> -->
 </template>
 
 <script setup lang="ts">
@@ -76,7 +83,7 @@ import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref } f
 import store from '@/store'
 import Web3 from '@/tools/web3' 
 import {  useRouter } from 'vue-router'
-import { param } from 'jquery';
+import { useI18n } from 'vue-i18n'
 const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
 
@@ -92,15 +99,19 @@ const props = defineProps({
 
 
 // language
-let showLang:any = ref(false);
-const changeLanguage = () => {
-    showLang.value = !showLang.value;
+let showLanguage:any = ref(false);
+
+const { locale, t } = useI18n()
+let select:any = ref('us');
+const selectLang = (index:any) => {
+    showLanguage.value = false
+    select.value = index
+
+    locale.value = index
+    localStorage.setItem('lang', index)
+    // console.log( proxy.$t('message.common.string_lang') );
 }
 
-let select:any = ref(0);
-const selectLang = (index:any) => {
-    select.value = index;
-}
 
 
 // connect
@@ -153,22 +164,51 @@ let showloggedFlag:any = ref(false)
 let hoverLogged:any = ref(false)
 const cursor2:any = ref(null)
 const clickCursor2:any = ref(null)
+//language
+const cursor3:any = ref(null)
+const clickCursor3:any = ref(null)
 
 const handleOtherClick = (e:any) => {
     if( cursor.value.contains(e.target) || clickCursor.value.contains(e.target)){
         showloggedFlag.value = false;
+        showLanguage.value = false;
         return
     }else{
         showDoc.value = false;
     }
+    // if( cursor3.value.contains(e.target) || clickCursor3.value.contains(e.target)){
+    //     showDoc.value = false;
+    //     showloggedFlag.value = false;
+    //     return
+    // }else{
+    //     showLanguage.value = false;
+    // }
     if( loggined.value ){
         if( cursor2.value.contains(e.target) || clickCursor2.value.contains(e.target) ){
             showDoc.value = false;
+            showLanguage.value = false;
             return
         }else{
             showloggedFlag.value = false;
         }
     }
+}
+
+
+// message dialog
+const showDialog = computed(() => store?.state.user?.showDialog);
+let messageState:any = ref(false)
+let messageContent:any = ref('')
+const mtimer:any = ref(null)
+const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
+    messageState.value = flag
+    store.dispatch('user/showDialog',true)
+    messageContent.value = message
+    store.dispatch('user/addComingOut', false)
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/addComingOut',true)
+    },5000)
 }
 
 
@@ -220,8 +260,11 @@ const connect: any = async () => {
         let len = id.value.length-1;
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
+        // messageAlert(true, proxy.$t('message.common.mess_succ'))
     }
 }
+
+
 
 const login = () =>{
     connect();
@@ -232,6 +275,8 @@ const signout = () => {
     hoverLogged.value = false;
     store.dispatch('user/connectWallet',{realId: -1});
     store.dispatch('user/walletloggined',false);
+    store.dispatch('user/showDialog',false);
+
     if( proxy.$route.path == '/assets' ){
         router.push('/');
     }
@@ -257,6 +302,7 @@ onMounted(() => {
     window.addEventListener('click', handleOtherClick, true)
     store.dispatch('user/changeActive', props.type)
     store.dispatch('user/metaChange',false)
+    store.dispatch('user/showDialog',false);
 })
 </script>
 
@@ -289,9 +335,15 @@ onMounted(() => {
             top: 0;
             width: 100%;
             height: 5.5vw;
-            opacity: .86;
             color: #fff;
-            background-color: #000000;
+            .bgdiv{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg , rgba(0,0,0,1) 0%, rgba(0, 0, 0, 1) 20% ,rgba(0, 0, 0, .9) 26%,
+                        rgba(23, 10, 71, .96) 50%,rgba(10, 8, 15, .9) 65%, rgba(40, 33, 65,.9) 78%,rgba(0,0,0,1) 100%);
+                // opacity: .84;
+            }
             .content{
                 height: 100%;
                 margin: 0 2.91vw 0 0vw;
@@ -314,17 +366,6 @@ onMounted(() => {
                 }
                 .user{
                     display: flex;
-                    .xplan{
-                        width: 2.39vw;
-                        height: 2.34vw;
-                        margin-top: 1.2vw;
-                        margin-right: 4px;
-                        cursor: pointer;
-                        img{
-                            width: 100%;
-                            height: 100%;
-                        }
-                    }
                     .login_in{
                         position: relative;
                         display: flex;
@@ -402,46 +443,65 @@ onMounted(() => {
                             width: 1.56vw;
                             height: 1.56vw;
                         }
-                        ul{
-                            display: none;
+                        .langUl{
                             position: absolute;
-                            top: 3vw;
+                            top: 4.4vw;
                             left: -4.22vw;
-                            width: 10vw;
-                            height: 8vw;
-                            padding: 1vw 1.3vw;
-                            border-radius: .2vw;
-                            background-color: #000000;
-                            text-align: left;
-                            li{
-                                color: #8F8F8F;
-                                font-size: .72vw;
-                                font-family: AlibabaPuHuiTi_2_55_Regular;
-                                font-weight: 400;
-                                line-height: 2vw;
+                            .wrap{
+                                position: absolute;
+                                width: 8vw;
+                                height: 8vw;
+                                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                                border: .15vw solid;
+                                border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
+                                clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
+                                text-align: right;
+                                .cover{
+                                    position: absolute;
+                                    top: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                                    clip-path: polygon(0 0, 100% 0, 100% 82%, 88% 100%, 0 100%);
+                                }
+                                .coverborder{
+                                    z-index: -1;
+                                    display: inline-block;
+                                    position: absolute;
+                                    bottom: -.15vw;
+                                    right: -.15vw;
+                                    content: '';
+                                    width: 1.6vw;
+                                    height: 1.6vw;
+                                    background-color: #2d2942;
+                                }
+                                ul{
+                                    position: absolute;
+                                    width: 100%;
+                                    padding: .2vw .4vw;
+                                    font-size: .93vw;
+                                    font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                    color: #fff;
+                                    li{
+                                        width: 6.8vw;
+                                        padding: .6vw .8vw .6vw 0;
+                                        font-size: .93vw;
+                                        font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                        color: #FFFFFF;
+                                        cursor: pointer;
+                                    }
+                                    li + li{
+                                        border-top: 2px solid #534968;
+                                    }
+                                    li:hover{
+                                        color: rgb(255, 24, 255);
+                                    }
+                                    li.active{
+                                        color: rgb(255, 24, 255);
+                                    }
+                                }
                             }
-                            li:hover{
-                                color: #fff;
-                            }
-                            li.active{
-                                color: #fff;
-                                font-weight: 600;
-                            }
-                        }
-                        ul::before{
-                            position: absolute;
-                            top: -1.4vw;
-                            left: 4.3vw;
-                            content: '';
-                            display: inline-block;
-                            width: 0;
-                            height: 0;
-                            border-width: .7vw;
-                            border-style: solid;
-                            border-color: transparent transparent #000 transparent;
-                        }
-                        .showLang{
-                            display: block;
+                        
                         }
                     }
                 }
@@ -621,7 +681,7 @@ onMounted(() => {
                 position: absolute;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 8.43vw;
+                width: 7.43vw;
                 height: 1.3vw;
                 padding-right: .8vw;
                 margin: 1vw auto .4vw;
@@ -635,9 +695,9 @@ onMounted(() => {
             }
             div:nth-child(4){
                 position: absolute;
-                right: 1.1vw;
+                right: 1.7vw;
                 bottom: .9vw;
-                width: 8.43vw;
+                width: 7.43vw;
                 height: 1.3vw;
                 font-size: .93vw;
                 font-family: AlibabaPuHuiTi_2_75_SemiBold;
@@ -645,6 +705,21 @@ onMounted(() => {
                 line-height: 1.3vw;
                 text-align: right;
                 cursor: pointer;
+            }
+        }
+    }
+    @media screen {
+        @media (max-width: 1000px) {
+            .langUl{
+                height: 9vw !important;
+            }
+        }
+        @media (max-width: 900px) {
+            .langUl{
+                height: 9.4vw !important;
+                li{
+                    margin-left: .3vw !important;
+                }
             }
         }
     }

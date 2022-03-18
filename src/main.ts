@@ -21,7 +21,7 @@ import headerB from './components/common/headerB.vue'
 import footerA from './components/common/footerA.vue'
 import footerB from './components/common/footerB.vue'
 import 'swiper/css'
-
+import VueI18n from './assets/language/register-i18n'
 
 
 import vue3videoPlay from 'vue3-video-play' 
@@ -32,8 +32,12 @@ import 'vue3-video-play/dist/style.css'
 
 const app = createApp(App) // 创建实例
 app.config.globalProperties.$api = api;
+
+
 app.use(router) // 挂载路由
 app.use(store, key) // 挂载vuex
+app.use(VueI18n)
+
 
 app.component('MyVideo', MyVideo) //视频组件
 app.component('ComingA', ComingA)

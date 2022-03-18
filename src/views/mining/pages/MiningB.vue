@@ -1,12 +1,12 @@
 <template>
     <header-b path="/mining" :type="1"></header-b>
     <div class="section">
-        <div class="title">COMING SOON</div>
+        <div class="title">{{$t('message.mining.coming')}}</div>
     </div>
     <div class="mining">
         <div class="banner">
-            <div class="title">MINING</div>
-            <div class="subtitle">STAKE NFT FOR MINING REWARDS</div>
+            <div class="title">{{$t('message.mining.title')}}</div>
+            <div class="subtitle">{{$t('message.mining.subtitle')}}</div>
         </div>
         <div class="total">
             <div class="progressBall">
@@ -14,35 +14,35 @@
                 <div class="ball-inner"></div>
             </div>
             <div class="right">
-                <div class="total-title">TOTAL POOL REWARDS</div>
-                <div class="total-subtitle">（BUSD）</div>
+                <div class="total-title">{{$t('message.mining.total_title')}}</div>
+                <div class="total-subtitle">{{$t('message.mining.total_subtitle')}}</div>
                 <div class="price">$- -</div>
             </div>
         </div>
         <ul class="data">
             <li>
-                <div class="txt">Total Staking NFTs</div>
+                <div class="txt">{{$t('message.mining.data_txt1')}}</div>
                 <div class="percent">0</div>
             </li>
             <li>
-                <div class="txt">Your Weight Percentage</div>
+                <div class="txt">{{$t('message.mining.data_txt3')}}</div>
                 <div class="percent">- -%</div>
             </li>
             <li>
-                <div class="txt">Your Mining Rewards</div>
+                <div class="txt">{{$t('message.mining.data_txt3')}}</div>
                 <div class="percent">≈$- -</div>
             </li>
         </ul>
         <div class="pledge">
-            <div class="title">Current Pledge <span>2/4</span></div>
+            <div class="title">{{$t('message.mining.pledge_title')}}<span>2/4</span></div>
             <ul>
                 <!-- <li>
                     <div class="img-wrap">
                         <img class="pledge-img" :src="greenImgSrc" alt="">
                     </div>
-                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                     <div class="bot-txt greenNft">
-                        <div>APPROVE</div>
+                        <div>{{$t('message.mining.pledge_bot_txt1')}}</div>
                         <img :src="greenBorderSrc" alt="">
                     </div>
                 </li> -->
@@ -50,9 +50,9 @@
                     <div class="img-wrap">
                         <img class="pledge-img" :src="whiteImgSrc" alt="">
                     </div>
-                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                     <div class="bot-txt whiteNft">
-                        <div>Select NFT to stake</div>
+                        <div>{{$t('message.mining.pledge_bot_txt2')}}</div>
                         <img :src="whiteBorderSrc" alt="">
                     </div>
                 </li>
@@ -60,9 +60,9 @@
                     <div class="img-wrap">
                         <img class="pledge-img" :src="whiteImgSrc" alt="">
                     </div>
-                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                     <div class="bot-txt whiteNft">
-                        <div>Select NFT to stake</div>
+                        <div>{{$t('message.mining.pledge_bot_txt2')}}</div>
                         <img :src="whiteBorderSrc" alt="">
                     </div>
                 </li>
@@ -70,9 +70,9 @@
                     <div class="img-wrap">
                         <img class="pledge-img lockedImg" :src="lockedImgSrc" alt="">
                     </div>
-                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                     <div class="bot-txt grayNft">
-                        <div>Coming soon</div>
+                        <div>{{$t('message.mining.pledge_bot_txt3')}}</div>
                         <img :src="lockedBorderSrc" alt="">
                     </div>
                 </li>
@@ -80,9 +80,9 @@
                     <div class="img-wrap">
                         <img class="pledge-img lockedImg" :src="lockedImgSrc" alt="">
                     </div>
-                    <div class="top-txt">Position HashRate:1</div>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                     <div class="bot-txt grayNft">
-                        <div>Coming soon</div>
+                        <div>{{$t('message.mining.pledge_bot_txt3')}}</div>
                         <img :src="lockedBorderSrc" alt="">
                     </div>
                 </li>

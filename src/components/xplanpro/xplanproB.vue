@@ -9,20 +9,20 @@
                     <div class="closebg"></div>
                 </div>
                 <div class="title1">
-                    X-PLAN IS A PLAN THAT MAKE INVESTORS AND SHAREHOLDERS TO WATCH THE PROGRESS OF THE PROJECT.
+                    {{$t('message.home.xplan_title1')}}
                 </div>
             </div>
             <div class="bot">
                 <div class="line"></div>
                 <div class="title2">
-                    The  midas touch NFT badge
+                    {{$t('message.home.xplan_title3')}}
                 </div>
                 <div class="title3">
-                    The plan will issue a limited number of NFT badge to confirm the view. Contact us to become an investor.
+                    {{$t('message.home.xplan_title2')}}
                 </div>
                 <div class="desc">
-                    'Wealth is not just a change in numbers, or some green papers. Also the Midas touch is not just medieval alchemy, nor is it just an ancient legend from Greek mythology.<br/>
-        <span></span>It is to send hand-made hope to believers, to give them authority that can breed a new world from 1 and o. It will bring about the greatest and most precious thing of this age: possibility.’
+                    '{{$t('message.home.xplan_desc1')}}<br/>
+        <span></span>{{$t('message.home.xplan_desc2')}}'
                 </div>
             </div>
         </div>

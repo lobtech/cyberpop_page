@@ -2,23 +2,23 @@
     <div>
         <div class="popup" :class="transferActive && (transferAni ? 'bounceShow' : 'bounceHide') ">
             <div class="content">
-                <div class="title">NFT TRANSFER</div>
-                <div class="tips" v-show="numState == ''">Please input amount</div>
-                <div class="tips" v-show="numState == 'error'">Please enter the correct number</div>
+                <div class="title">{{$t('message.assets.pop.title')}}</div>
+                <div class="tips" v-show="numState == ''">{{$t('message.assets.pop.tips')}}</div>
+                <div class="tips" v-show="numState == 'error'">{{$t('message.assets.pop.tips_err')}}</div>
                 <div class="number">
                     <div class="add" @click="addNft()" :class="canAdd == 'disable' ? 'disableNum':''">+</div>
                     <input id="inputNum" type="text" :value="valueIn" @input="inputNumber($event)">
                     <div class="reduce" @click="reduceNft()" :class="canReduce == 'disable' ? 'disableNum':''">—</div>
                 </div>
-                <div class="desc">NFT #3405454 send to the wallet address</div>
+                <div class="desc">{{$t('message.assets.pop.desc')}}</div>
                 <div class="address" :class="inputState == 'activated' ? 'activated':'' || inputState == 'success' ? 'success':'' || ( addressState == 'empty' || addressState == 'error' )? 'empty':''">
                     <input class="inputTxt" type="text" :value="inputAddress" @focus="inputState = 'activated'" @input="checkAddress($event)">
-                    <div class="mess" v-if="addressState == 'empty'">Address is empty</div>
-                    <div class="mess" v-if="addressState == 'error'">Address format error</div>
+                    <div class="mess" v-if="addressState == 'empty'">{{$t('message.assets.pop.mess_empty')}}</div>
+                    <div class="mess" v-if="addressState == 'error'">{{$t('message.assets.pop.mess_err')}}</div>
                 </div>
                 <div class="btn">
-                    <div class="cancel" @click="closeDialog()">CANCEL</div>
-                    <div class="transfer" :class="canTransfer == 'disable' ? 'disableNum':''" @click="transfer()">TRANSFER</div>
+                    <div class="cancel" @click="closeDialog()">{{$t('message.assets.pop.btn_cancel')}}</div>
+                    <div class="transfer" :class="canTransfer == 'disable' ? 'disableNum':''" @click="transfer()">{{$t('message.assets.pop.btn_tran')}}</div>
                 </div>
             </div>
         </div>
@@ -176,21 +176,21 @@ const transfer = async () => {
         addressState.value = 'empty'
     }else if( inputState.value == 'success' ){
        if( valueIn.value > haveNFT.value ){
-           messageAlert(0,'Maximum exceeded')
+           messageAlert(0, proxy.$t('message.assets.pop.tran_exce'))
        }else{
            await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value).then( (res:any) => {
                 console.log(res == undefined);
                 if( res == undefined ){
-                    messageAlert(0,'Transaction interruption')
+                    messageAlert(0, proxy.$t('message.assets.pop.tran_stop'))
                 }else{
                     closeDialog();
-                    messageAlert(1,'Success')
+                    messageAlert(1, proxy.$t('message.assets.pop.tran_succ'))
                     Web3.readJSON(proxy)
                 }
             }).catch((err:any) => {
                 // inputState.value = ''
                 // addressState.value = ''
-                messageAlert(0,'Invalid address')
+                messageAlert(0, proxy.$t('message.assets.pop.tran_invalid'))
             })
        }
     }
@@ -358,6 +358,7 @@ onMounted(() => {
     }
     .add.disableNum,.reduce.disableNum,.transfer.disableNum{
         opacity: 0.5;
+        pointer-events: none;
     }
     .address.activated{
         border: 1px solid #ffffff !important;

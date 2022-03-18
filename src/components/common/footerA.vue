@@ -2,9 +2,9 @@
     <div class="footer">
         <!-- <img class="logo" v-show="!logoFlag" :src="logoHSrcP" @mouseenter="logoFlag = true" alt="">
         <img class="logo" v-show="logoFlag" :src="logoHSrcG" @mouseleave="logoFlag = false" alt=""> -->
-        <div class="policy"><router-link to="/privacy">Privacy policy</router-link></div>
-        <div class="terms"><router-link to="/terms">Terms of servce</router-link></div>
-        <div class="desc">Cyberpop Labs Ltd. Games, Inc. ALL Rights Reserved.</div>
+        <div class="policy"><router-link to="/privacy">{{$t('message.common.footer_policy')}}</router-link></div>
+        <div class="terms"><router-link to="/terms">{{$t('message.common.footer_terms')}}</router-link></div>
+        <div class="desc">{{$t('message.common.footer_desc')}}</div>
         <div class="icon">
             <a href="https://t.me/cyberpopnw" target="view_window">
                 <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/medium.svg" alt="">

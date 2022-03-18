@@ -88,7 +88,6 @@ const routes = [
             keepAlive: false,
             showFooter: true,
             transition: 'slide-right',
-            requiresAuth: true,
         },
     },
 ]
