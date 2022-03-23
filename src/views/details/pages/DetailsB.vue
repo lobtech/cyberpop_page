@@ -1,5 +1,8 @@
 <template>
     <header-b path="/details" :type="2"></header-b>
+    <div class="section">
+        <div class="title">{{$t('message.mining.coming')}}</div>
+    </div>
     <div class="details">
         <div class="box">
             <div class="video">
@@ -186,6 +189,33 @@ onMounted( () => {
 
 </script>
 <style lang="less" scoped>
+    .section{
+        z-index: 8;
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        top: 0;
+        width: 100%;
+        height: 120vh;
+        background: rgba(0,0,0,.5);
+        overflow: hidden;
+        .title{
+            width: 100%;
+            height: 90px;
+            margin-top: 200px;
+            font-size: 18px;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            color: #FFFFFF;
+            line-height: 90px;
+            letter-spacing: 18px;
+            text-align: center;
+            text-indent: 14px;
+            background-image: url('../../../assets/nwmining/coming-bg.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 110% auto;
+        }
+    }
     .details{
         padding: 0 36px;
         color: #ffffff;

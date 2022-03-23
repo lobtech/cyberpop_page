@@ -2,6 +2,11 @@
     <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
     <header-a path="/" :type="0"></header-a>
     <my-video v-if="isPlay" @touchmove.prevent :videotype="type2" @click="playVideo"></my-video>
+
+    <!-- <div class="white-list">
+        <div class="title">IDO白名单活动</div>
+        <a href="#">Click here for details</a>
+    </div> -->
     <div class="banner">
         <section>
             <video-bg 
@@ -67,9 +72,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="warp">
             <div class="title" id="ele1">{{$t('message.home.wel_titleBef')}}<p class="white">{{$t('message.home.wel_titleAft')}}</p></div>
             <div class="desc">
-                {{$t('message.home.wel_desc1')}}<br/>
-                {{$t('message.home.wel_desc2')}}<br/>
-                {{$t('message.home.wel_desc3')}}
+                {{$t('message.home.wel_desc1')}}
             </div>
             <div class="content">
                 <div class="left">
@@ -128,18 +131,14 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="nobody-left">
                 <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
                 <div class="nobody-left-tip">
-                    <div>{{$t('message.home.nobody_role_tipBef')}}<br/>{{$t('message.home.nobody_role_tipAft')}}</div>
+                    <div>{{$t('message.home.nobody_role_tipBef')}}</div>
                 </div>
             </div>
             <div class="nobody-right">
                 <div class="title" id="ele2">{{$t('message.home.nobody_r_titleBef')}}<br/>{{$t('message.home.nobody_r_titleAft')}}</div>
                 <div class="subtitle">{{$t('message.home.nobody_r_subtitle')}}</div>
                 <div class="desc">
-                    {{$t('message.home.nobody_r_desc1')}}<br/>
-                    {{$t('message.home.nobody_r_desc2')}}<br/>
-                    {{$t('message.home.nobody_r_desc3')}}<br/>
-                    {{$t('message.home.nobody_r_desc4')}}<br/>
-                    {{$t('message.home.nobody_r_desc5')}}
+                    {{$t('message.home.nobody_r_desc1')}}
                 </div>
                 <div class="video">
                     <img class="videoBg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/yellowBg-r.svg" alt="">
@@ -164,11 +163,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="title" id="ele3">{{$t('message.home.make_titleBef')}}<br/>{{$t('message.home.make_titleAft')}}</div>
             <div class="subtitle">{{$t('message.home.make_subtitle')}}</div>
             <div class="desc">
-                {{$t('message.home.make_desc1')}}<br/>
-                {{$t('message.home.make_desc2')}}<br/>
-                {{$t('message.home.make_desc3')}}<br/>
-                {{$t('message.home.make_desc4')}}<br/>
-                {{$t('message.home.make_desc5')}}
+                {{$t('message.home.make_desc')}}
             </div>
             <div class="icon">
                 <div class="txt">{{$t('message.home.make_cross')}}</div>
@@ -278,8 +273,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-r checkgreen">
                     {{ $t('message.home.roadmap_s1_d1_e1') }} <br/>
                     {{ $t('message.home.roadmap_s1_d1_e2') }} <br/>
-                    {{ $t('message.home.roadmap_s1_d1_e3') }} <br/>
-                    {{ $t('message.home.roadmap_s1_d1_e4') }}
+                    {{ $t('message.home.roadmap_s1_d1_e3') }} 
                 </div>
             </div>
             <div class="time2 timeWidth-l maptime" id="time2">
@@ -298,8 +292,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     {{ $t('message.home.roadmap_s1_d3_e1') }} <br/>
                     {{ $t('message.home.roadmap_s1_d3_e2') }} <br/>
                     {{ $t('message.home.roadmap_s1_d3_e3') }} <br/>
-                    {{ $t('message.home.roadmap_s1_d3_e4') }} <br/>
-                    {{ $t('message.home.roadmap_s1_d3_e5') }}
+                    {{ $t('message.home.roadmap_s1_d3_e4') }}
                 </div>
             </div>
             <div class="time4 timeWidth-l maptime" id="time4">
@@ -318,9 +311,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-r">
                     {{ $t('message.home.roadmap_s2_d2_e1') }} <br/>
                     {{ $t('message.home.roadmap_s2_d2_e2') }} <br/>
-                    {{ $t('message.home.roadmap_s2_d2_e3') }} <br/>
                     {{ $t('message.home.roadmap_s2_d2_e4') }} <br/>
-                    {{ $t('message.home.roadmap_s2_d2_e5') }} <br/>
                     {{ $t('message.home.roadmap_s2_d2_e6') }}
                 </div>
             </div>
@@ -340,7 +331,6 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-r">
                     {{ $t('message.home.roadmap_s3_d2_e1') }}  <br/>
                     {{ $t('message.home.roadmap_s3_d2_e2') }}  <br/>
-                    {{ $t('message.home.roadmap_s3_d2_e3') }} <br/>
                     {{ $t('message.home.roadmap_s3_d2_e4') }}
                 </div>
             </div>
@@ -377,6 +367,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </a>
             <div>
                 <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5-2.png" alt="">
+            </div>
+            <div>
+                <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo-ai.svg" alt="">
             </div>
         </div>
     </div>
@@ -847,6 +840,31 @@ onMounted(() => {
         height: 100%;
         overflow-x: hidden;
     }
+    .white-list{
+        display: flex;
+        flex-direction: column;            
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg3.png');
+        background-size: 100% 100%;
+        .title{
+            font-size: 4.32vw;
+            font-family: AlibabaPuHuiTi_2_105_Heavy;
+            color: #FFFFFF;
+            filter: drop-shadow( .155vw 0 0 #D236A5 )
+                    drop-shadow( -.15vw 0 0.05rem #72F0D9 );
+            text-align: center;
+        }
+        a{
+            margin-top: 5vw;
+            font-size: 1.09vw;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            line-height: 1.51vw;
+            color: #a41fe5;
+        }
+    }
     .banner{
         position: relative;
         width: 100%;
@@ -1200,7 +1218,7 @@ onMounted(() => {
                 }
             }
             .desc{
-                width: 38.54vw;
+                width: 37vw;
                 height: 3.75vw;
                 margin-top: .2vw;
                 margin-left: 19.58vw;
@@ -1208,7 +1226,6 @@ onMounted(() => {
                 font-size: 1.04vw;
                 line-height: 1.45vw;
                 font-family: AlibabaPuHuiTi_2_55_Regular;
-                white-space: nowrap;
             }
             .content{
                 display: flex;
@@ -1393,17 +1410,17 @@ onMounted(() => {
                     right: 9.6vw;
                     div{
                         width: 16vw;
-                        height: 3vw;
+                        height: 2vw;
                         padding-right: 1vw;
                         font-size: 1.04vw;
                         text-align: right;
                         font-family: AlibabaPuHuiTi_2_105_Heavy;
                         color: #FFFFFF;
-                        line-height: 1.25vw;
+                        line-height: 2vw;
                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftYellow.svg');
                         background-repeat: no-repeat;
-                        background-position: right top;
-                        background-size: auto 100%;
+                        background-position: right center;
+                        background-size: 20% auto;
                     }
                 }
             }
@@ -1430,11 +1447,11 @@ onMounted(() => {
                     line-height: 2.8vw;
                 }
                 .desc{
+                    width: 30vw;
                     font-size: 1.04vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
                     line-height: 1.56vw;
-                    white-space: nowrap;
                 }
                 .video{
                     position: relative;
@@ -1584,7 +1601,7 @@ onMounted(() => {
                 line-height: 3.12vw;
             }
             .desc{
-                // margin-bottom: 2vw;
+                width: 32vw;
                 font-size: 1.04vw;
                 font-family: AlibabaPuHuiTi_2_55_Regular;
                 font-weight: normal;
@@ -1948,7 +1965,7 @@ onMounted(() => {
                     right: 0;
                     margin: 0 auto;
                     width: 1px;
-                    height: 112vw;
+                    height: 102vw;
                     background-color: #C689FF;
                     border: 1px solid #C689FF;
                 }
@@ -1959,7 +1976,7 @@ onMounted(() => {
             overflow: hidden;
             margin-top: 3.9vw;
             .title{
-                width: 16vw;
+                width: 30vw;
                 height: 3.69vw;
                 margin: 0 auto;
                 margin-top: 1vw;
@@ -2080,16 +2097,12 @@ onMounted(() => {
         .title{
             display: flex;
             align-items: center;
-            width: 36vw;
+            justify-content: center;
             height: 3.69vw;
-            margin: 0 auto;
-            text-align: center;
             font-size: 2.6vw;
-            font-weight: bold;
             font-family: AlibabaPuHuiTi_2_115_Black;
             color: #FFFFFF;
             line-height: 3.69vw;
-            white-space: nowrap;
             cursor: pointer;
             .xplan{
                 width: 4.06vw;
@@ -2137,6 +2150,9 @@ onMounted(() => {
                 }
                 .logo6{
                     width: 5.2vw;
+                }
+                .logo7{
+                    width: 6vw;
                 }
                 
             }

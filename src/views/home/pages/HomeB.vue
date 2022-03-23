@@ -64,11 +64,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="warp">
             <div class="title" id="ele1">{{$t('message.home.wel_titleBef')}}<p class="white">{{$t('message.home.wel_titleAft')}}</p></div>
             <div class="desc">
-                {{$t('message.home.wel_desc1_b')}}<br/>
-                {{$t('message.home.wel_desc2_b')}}<br/>
-                {{$t('message.home.wel_desc3_b')}}<br/>
-                {{$t('message.home.wel_desc4_b')}}<br/>
-                {{$t('message.home.wel_desc5_b')}}
+                {{$t('message.home.wel_desc1')}}
             </div>
             <div class="content">
                 <div class="left">
@@ -137,18 +133,14 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
                 <div class="nobody-img"></div>
                 <div class="nobody-left-tip">
-                    <div>{{$t('message.home.nobody_role_tipBef')}}<br/>{{$t('message.home.nobody_role_tipAft')}}</div>
+                    <div>{{$t('message.home.nobody_role_tipBef')}}</div>
                 </div>
             </div>
             <div class="nobody-right">
                 <div class="title" id="ele2">{{$t('message.home.nobody_r_titleBef')}}<br/>{{$t('message.home.nobody_r_titleAft')}}</div>
                 <div class="subtitle">{{$t('message.home.nobody_r_subtitle')}}</div>
                 <div class="desc">
-                    {{$t('message.home.nobody_r_desc1')}}<br/>
-                    {{$t('message.home.nobody_r_desc2')}}<br/>
-                    {{$t('message.home.nobody_r_desc3')}}<br/>
-                    {{$t('message.home.nobody_r_desc4')}}<br/>
-                    {{$t('message.home.nobody_r_desc5')}}
+                    {{$t('message.home.nobody_r_desc1')}}
                 </div>
                 <div class="video">
                     <img class="videoBg" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/yellowBg-r.svg" alt="">
@@ -174,7 +166,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="title" id="ele3">{{$t('message.home.make_title_b')}}</div>
             <div class="subtitle">{{$t('message.home.make_subtitle')}}</div>
             <div class="desc">
-                {{$t('message.home.make_desc_b')}}
+                {{$t('message.home.make_desc')}}
             </div>
             <div class="icon">
                 <div class="txt">{{$t('message.home.make_cross')}}</div>
@@ -282,8 +274,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-r checkgreen">
                     {{ $t('message.home.roadmap_s1_d1_e1') }} <br/>
                     {{ $t('message.home.roadmap_s1_d1_e2') }} <br/>
-                    {{ $t('message.home.roadmap_s1_d1_e3') }} <br/>
-                    {{ $t('message.home.roadmap_s1_d1_e4') }}
+                    {{ $t('message.home.roadmap_s1_d1_e3') }} 
                 </div>
             </div>
             <div class="time2 timeWidth-l maptime" id="time2">
@@ -302,8 +293,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     {{ $t('message.home.roadmap_s1_d3_e1') }} <br/>
                     {{ $t('message.home.roadmap_s1_d3_e2') }} <br/>
                     {{ $t('message.home.roadmap_s1_d3_e3') }} <br/>
-                    {{ $t('message.home.roadmap_s1_d3_e4') }} <br/>
-                    {{ $t('message.home.roadmap_s1_d3_e5') }}
+                    {{ $t('message.home.roadmap_s1_d3_e4') }}
                 </div>
             </div>
             <div class="time4 timeWidth-l maptime" id="time4">
@@ -322,9 +312,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-r">
                     {{ $t('message.home.roadmap_s2_d2_e1') }} <br/>
                     {{ $t('message.home.roadmap_s2_d2_e2') }} <br/>
-                    {{ $t('message.home.roadmap_s2_d2_e3') }} <br/>
                     {{ $t('message.home.roadmap_s2_d2_e4') }} <br/>
-                    {{ $t('message.home.roadmap_s2_d2_e5') }} <br/>
                     {{ $t('message.home.roadmap_s2_d2_e6') }}
                 </div>
             </div>
@@ -344,7 +332,6 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="event-r">
                     {{ $t('message.home.roadmap_s3_d2_e1') }}  <br/>
                     {{ $t('message.home.roadmap_s3_d2_e2') }}  <br/>
-                    {{ $t('message.home.roadmap_s3_d2_e3') }} <br/>
                     {{ $t('message.home.roadmap_s3_d2_e4') }}
                 </div>
             </div>
@@ -381,6 +368,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </a>
             <div>
                 <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5-2.png" alt="">
+            </div>
+            <div>
+                <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo-ai.svg" alt="">
             </div>
         </div>
     </div>
@@ -853,7 +843,7 @@ onMounted(() => {
                         font-size: 26px;
                         font-family: AlibabaPuHuiTi_2_105_Heavy;
                         color: #FFFFFF;
-                        line-height: 23px;
+                        line-height: 26px;
                         text-align: center;
                         font-weight: 900;
                         filter: drop-shadow( .4vw 0 0 #D236A5 )
@@ -1153,7 +1143,9 @@ onMounted(() => {
                 }
             }
             .desc{
+                width: 86vw;
                 margin-top: 17px;
+                margin: 17px auto 0;
                 font-size: 12px;
                 font-family: AlibabaPuHuiTi_2_55_Regular;
                 color: #FFFFFF;
@@ -1349,7 +1341,7 @@ onMounted(() => {
                         font-size: 12px;
                         font-family: AlibabaPuHuiTi_2_105_Heavy;
                         color: #FFFFFF;
-                        line-height: 14px;
+                        line-height: 29px;
                         text-align: right;
                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-leftYellow.svg');
                         background-repeat: no-repeat;
@@ -1381,13 +1373,13 @@ onMounted(() => {
                     line-height: 12px;
                 }
                 .desc{
+                    width: 86vw;
                     margin-top: 32px;
                     margin-bottom: 33px;
                     font-size: 12px;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
                     line-height: 17px;
-                    white-space: nowrap;
                     text-align: center;
                 }
                 .video{
@@ -1667,7 +1659,7 @@ onMounted(() => {
                         filter: drop-shadow(0 0 6px #ffffff);
                     }
                     div{
-                        width: 61px;
+                        width: 200px;
                         height: 13px;
                         font-size: 16px;
                         font-family: AlibabaPuHuiTi_2_95_ExtraBold;
@@ -1675,9 +1667,6 @@ onMounted(() => {
                         line-height: 13px;
                         z-index: 1;
                         cursor: pointer;
-                    }
-                    .tech{
-                        margin-right: 28px;
                     }
                 }
             }
@@ -1884,7 +1873,7 @@ onMounted(() => {
     .roadmap{
         width: 100%;
         // height: 731px;
-        height: 1460px;
+        height: 1420px;
         background-color: #000000;
         overflow: hidden;
         .roadmap-bg{
@@ -1921,7 +1910,7 @@ onMounted(() => {
                     right: 0;
                     margin: 0 auto;
                     width: 1px;
-                    height: 1146px;
+                    height: 1050px;
                     background-color: #C689FF;
                     border: 1px solid #C689FF;
                 }
@@ -2042,7 +2031,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 410px;
+        height: 460px;
         margin: -2px 0;
         background-color: #000000;
         overflow: hidden;
@@ -2098,6 +2087,9 @@ onMounted(() => {
                 }
                 .logo6{
                     height: 54px;
+                }
+                .logo7{
+                    height: 70px;
                 }
             }
             a:hover, div:hover{

@@ -6,11 +6,14 @@
         <div class="terms"><router-link to="/terms">{{$t('message.common.footer_terms')}}</router-link></div>
         <div class="desc">{{$t('message.common.footer_desc')}}</div>
         <div class="icon">
+            <a href="https://medium.com/@Cyberpopnewworld" target="view_window">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/medium_1.svg" alt="">
+            </a>
             <a href="https://t.me/cyberpopnw" target="view_window">
                 <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/medium.svg" alt="">
             </a>
-        <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/discord.svg" alt="" class="navLogo2">
+            <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
+                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/discord.svg" alt="" class="navLogo2">
             </a>
             <a href="https://twitter.com/cyberpopnw" target="view_window">
                 <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/twitter-footer.svg" alt="">
@@ -71,6 +74,7 @@ import {  useRouter } from 'vue-router'
         .icon{
             margin-left: 8vw;
             white-space: nowrap;
+
             img{
                 width: 2.13vw;
                 height: 2.13vw;

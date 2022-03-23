@@ -39,14 +39,14 @@
                         </div>
                     </li>
                 </ul>
-                <!-- <div class="language">
+                <div class="language">
                     <div @click="openLang()">{{$t('message.common.language_switch')}} <span :class="langArrow ? 'change' : ''"></span></div>
                     <ul v-show="showLang">
                         <li :class="select == 'us' ? 'active' : ''" @click="selectLang('us')">{{$t('message.common.language1')}}</li>
                         <li :class="select == 'cn' ? 'active' : ''" @click="selectLang('cn')">{{$t('message.common.language2')}}</li>
-                        <li :class="select == 'kr' ? 'active' : ''" @click="selectLang('kr')">{{$t('message.common.language3')}}</li>
+                        <!-- <li :class="select == 'kr' ? 'active' : ''" @click="selectLang('kr')">{{$t('message.common.language3')}}</li> -->
                     </ul>
-                </div> -->
+                </div>
             </div>
         </header>
     </div>
@@ -279,6 +279,9 @@ onMounted(() => {
     store.dispatch('user/metaChange',false)
     store.dispatch('user/showDialog',false);
     
+    if( localStorage.getItem('lang') ){
+        select.value = localStorage.getItem('lang');        
+    }
 })
 </script>
 

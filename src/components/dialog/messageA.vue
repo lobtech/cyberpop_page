@@ -9,7 +9,7 @@
 
     <div class="message success" :class="comingOutFlag ? 'comingOut' : 'comingIn'" v-else>
         <div class="info successIcon">
-            <img src="@/assets/nwhome//success-fill.svg" alt="">
+            <img src="@/assets/nwhome/success-fill.svg" alt="">
         </div>
         <div class="text successTxt">{{dialogC}}</div>
         <img @click="closeDialog()" class="close" src="@/assets/nwhome/success-close.svg" alt="">

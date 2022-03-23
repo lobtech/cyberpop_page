@@ -8,7 +8,7 @@
                     <a :href="path"><img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt=""></a>
                 </div>
                 <div class="user">
-                    <!-- <div class="language" ref="clickCursor3">
+                    <div class="language" ref="clickCursor3">
                         <img @click="showLanguage = !showLanguage" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="">
                         <div class="langUl" v-show="showLanguage" ref="cursor3">
                             <div class="wrap">
@@ -17,11 +17,11 @@
                                 <ul>
                                     <li :class="select == 'us' ? 'active' : ''" @click="selectLang('us')">{{$t('message.common.language1')}}</li>
                                     <li :class="select == 'cn' ? 'active' : ''" @click="selectLang('cn')">{{$t('message.common.language2')}}</li>
-                                    <li :class="select == 'kr' ? 'active' : ''" @click="selectLang('kr')">{{$t('message.common.language3')}}</li>
+                                    <!-- <li :class="select == 'kr' ? 'active' : ''" @click="selectLang('kr')">{{$t('message.common.language3')}}</li> -->
                                 </ul>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="login_in" v-if="!loggined" @click="login()" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
                         <div class="txt">{{$t('message.common.wallet')}}</div>
                         <div class="mask" id="mask"></div>
@@ -176,13 +176,13 @@ const handleOtherClick = (e:any) => {
     }else{
         showDoc.value = false;
     }
-    // if( cursor3.value.contains(e.target) || clickCursor3.value.contains(e.target)){
-    //     showDoc.value = false;
-    //     showloggedFlag.value = false;
-    //     return
-    // }else{
-    //     showLanguage.value = false;
-    // }
+    if( cursor3.value.contains(e.target) || clickCursor3.value.contains(e.target)){
+        showDoc.value = false;
+        showloggedFlag.value = false;
+        return
+    }else{
+        showLanguage.value = false;
+    }
     if( loggined.value ){
         if( cursor2.value.contains(e.target) || clickCursor2.value.contains(e.target) ){
             showDoc.value = false;
@@ -303,6 +303,10 @@ onMounted(() => {
     store.dispatch('user/changeActive', props.type)
     store.dispatch('user/metaChange',false)
     store.dispatch('user/showDialog',false);
+
+    if( localStorage.getItem('lang') ){
+        select.value = localStorage.getItem('lang');        
+    }
 })
 </script>
 
@@ -450,7 +454,8 @@ onMounted(() => {
                             .wrap{
                                 position: absolute;
                                 width: 8vw;
-                                height: 8vw;
+                                // height: 8vw;
+                                height: 6vw;
                                 background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
                                 border: .15vw solid;
                                 border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
@@ -711,14 +716,20 @@ onMounted(() => {
     @media screen {
         @media (max-width: 1000px) {
             .langUl{
-                height: 9vw !important;
+                .wrap{
+                    // height: 9vw !important;
+                    height: 7vw !important;
+                }
             }
         }
         @media (max-width: 900px) {
             .langUl{
-                height: 9.4vw !important;
-                li{
-                    margin-left: .3vw !important;
+                .wrap{
+                    // height: 9.4vw !important;
+                    height: 7.4vw !important;
+                    li{
+                        margin-left: .3vw !important;
+                    }
                 }
             }
         }

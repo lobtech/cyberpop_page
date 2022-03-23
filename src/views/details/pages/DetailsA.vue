@@ -1,6 +1,9 @@
 <template>
     <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
     <header-a path="/details" :type="2"></header-a>
+    <div class="section">
+        <div class="title">{{$t('message.mining.coming')}}</div>
+    </div>
     <div class="details">
         <div class="box">
             <div class="video">
@@ -219,6 +222,31 @@ onMounted( () => {
 
 </script>
 <style lang="less" scoped>
+    .section{
+        z-index: 8;
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0,0,0,.5);
+        overflow: hidden;
+        .title{
+            width: 39.58vw;
+            height: 8.85vw;
+            margin-top: 17.4vw;
+            font-size: 2.08vw;
+            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+            color: #FFFFFF;
+            line-height: 8.85vw;
+            letter-spacing: 1.04vw;
+            text-align: center;
+            background-image: url('../../../assets/nwmining/coming-bg.png');
+            background-position: center;
+            background-size: auto 100%;
+        }
+    }
     .details{
         padding-top: 7.6vw;
         color: #ffffff;

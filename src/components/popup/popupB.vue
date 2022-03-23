@@ -61,18 +61,12 @@ let regExp = new RegExp("")
 watch(props,(newVal,oldVal) => {
     transferInfoMsg.value = newVal
     haveNFT.value = transferInfoMsg.value.transferInfo.number
-    // haveNFT.value = '100'
     haveNFTCount.value = haveNFT.value.length - 1 // 拥有nft的数量位数
     idMsg.value = transferInfoMsg.value.transferInfo.id 
     abiMsg.value = transferInfoMsg.value.abi
     addressMsg.value = transferInfoMsg.value.address
 
-    if( haveNFTCount.value == 1 ){
-        regExp = RegExp( "^[1-"+ haveNFT.value + "]$");
-        console.log(regExp);
-    }else{
-        regExp = RegExp( "^[1-9][0-9]{0," + haveNFTCount.value +"}$");
-    }
+    regExp = RegExp( "^([1-9]|[1-9][0-9]{0," + haveNFTCount.value +"})$");
 })
 
 
@@ -126,22 +120,27 @@ const reduceNft = () => {
 // input state
 let inputState:any = ref('')
 const inputNumber = (e:any) => {
-    console.log(e.target.value,regExp.test(e.target.value));
-    
+    // console.log(e.target.value,regExp.test(e.target.value));
+    valueIn.value = e.target.value
     if (e.target.value && !(regExp.test(e.target.value))) {
         numState.value = 'error'
         canReduce.value = 'disable'
         canAdd.value = 'disable'
+        canTransfer.value = 'disable'
         // e.target.value = valueIn.value
     } else if( !e.target.value ){
         numState.value = 'error'
         canReduce.value = 'disable'
         canAdd.value = 'disable'
+        canTransfer.value = 'disable'
     }else{
         numState.value = ''
         canReduce.value = ''
         canAdd.value = ''
-        valueIn.value = e.target.value
+        // valueIn.value = e.target.value
+        if( inputState.value == 'success' ){
+            canTransfer.value = ''
+        }
     }
 }
 
@@ -150,36 +149,37 @@ const inputAddress:any = ref('')
 const checkAddress = (e:any) => {
     let reg = /^[a-zA-Z0-9]+\s*$/
     if( e.target.value && !reg.test(e.target.value) ){
-        inputAddress.value = ''
-        inputState.value = ''
-        addressState.value = 'empty'
-        canTransfer.value = 'disable'
-    }else if( !e.target.value ){
+        e.target.value = ''
         inputState.value = ''
         addressState.value = 'error'
+        canTransfer.value = 'disable'
+    }else if( !e.target.value ){
+        e.target.value = ''
+        inputState.value = ''
+        addressState.value = 'empty'
         canTransfer.value = 'disable'
     }else{
         inputAddress.value = e.target.value
         inputState.value = 'success'
         addressState.value = ''
-        canTransfer.value = ''
+        if( numState.value == '' ){
+            canTransfer.value = ''
+        }
     }
 }
 
 
 // transfer submit
 const transfer = async () => {
-    console.log(1);
     
     if( inputAddress.value == '' ){
         inputState.value = ''
         addressState.value = 'empty'
-    }else if( inputState.value == 'success' ){
+    }else if( inputState.value == 'success' && numState.value == ''){
        if( valueIn.value > haveNFT.value ){
            messageAlert(0, proxy.$t('message.assets.pop.tran_exce'))
        }else{
            await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value).then( (res:any) => {
-                console.log(res == undefined);
                 if( res == undefined ){
                     messageAlert(0, proxy.$t('message.assets.pop.tran_stop'))
                 }else{
@@ -201,11 +201,11 @@ const closeDialog = () => {
     valueIn.value = 1 
     inputAddress.value = ''
     numState.value = ''
+    inputState.value = ''
+    addressState.value = ''
     canAdd.value = ''
     canReduce.value = 'disable'
     canTransfer.value = 'disable'
-    inputState.value = ''
-    addressState.value = ''
 }
 
 

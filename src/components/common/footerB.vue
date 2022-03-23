@@ -8,11 +8,14 @@
                 <div class="terms"><router-link to="/terms">{{$t('message.common.footer_terms')}}</router-link></div>
             </div>
             <div class="icon">
-                <a href="https://t.me/cyberpopnw" target="view_window">
-                    <img class="medium" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/medium-footer.svg" alt="">
+                <a href="https://medium.com/@Cyberpopnewworld" target="view_window">
+                    <img class="first" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/medium_1.svg" alt="">
                 </a>
-            <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
-                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/discord-footer.svg" alt="" class="navLogo2">
+                <a href="https://t.me/cyberpopnw" target="view_window">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/medium-footer.svg" alt="">
+                </a>
+                <a href="https://discord.gg/y9b8p5C9TR" target="view_window">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/discord-footer.svg" alt="" class="navLogo2">
                 </a>
                 <a href="https://twitter.com/cyberpopnw" target="view_window">
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/twitter-footer0.svg" alt="">
@@ -112,7 +115,7 @@ onMounted(() => {
                     width: 41px;
                     height: 41px;
                 }
-                img:not(.medium){
+                img:not(.first){
                     margin-left: 31px;
                 }
                 img:hover{

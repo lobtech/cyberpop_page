@@ -22,7 +22,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             <div class="maskBlur"></div>
         </div>
         <div class="blind">
-            <div class="title">{{$t('message.box.type_title_1')}}<span>{{$t('message.box.type_title_2')}}</span></div>
+            <div class="title">{{$t('message.box.type_title_1')}}</div>
             <ul>
                 <li>
                     <div class="boxVideo">
