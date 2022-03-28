@@ -87,7 +87,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
                 <div class="swiper1">
                     <div class="swiper-bg">
-                        <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant3.png" alt="">
+                        <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt="">
                         <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt="">
                         <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt="">
                         <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png" alt="">
@@ -115,7 +115,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :speed="200"
                             :autoplay="true"
                         >
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant3.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png"  alt=""></swiper-slide>
@@ -129,10 +129,41 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="nobody-img"></div>
         <div class="nobody-wrap">
             <div class="nobody-left">
-                <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
+                <!-- <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
                 <div class="nobody-left-tip">
                     <div>{{$t('message.home.nobody_role_tipBef')}}</div>
-                </div>
+                </div> -->
+                <swiper
+                    class="mySwiper"
+                    :loop="true"
+                    :speed="200"
+                    :navigation="true"
+                >
+                    <swiper-slide>
+                        <div class="box">
+                            <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
+                            <div class="nobody-left-tip">
+                                <div>{{$t('message.home.nobody_role_tipBef')}}</div>
+                            </div>
+                        </div>
+                    </swiper-slide>
+                    <swiper-slide>
+                        <div class="box">
+                            <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
+                            <div class="nobody-left-tip">
+                                <div>{{$t('message.home.nobody_role_tipBef')}}</div>
+                            </div>
+                        </div>
+                    </swiper-slide>
+                    <swiper-slide>
+                        <div class="box">
+                            <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
+                            <div class="nobody-left-tip">
+                                <div>{{$t('message.home.nobody_role_tipBef')}}</div>
+                            </div>
+                        </div>
+                    </swiper-slide>
+                </swiper>
             </div>
             <div class="nobody-right">
                 <div class="title" id="ele2">{{$t('message.home.nobody_r_titleBef')}}<br/>{{$t('message.home.nobody_r_titleAft')}}</div>
@@ -168,10 +199,10 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div class="icon">
                 <div class="txt">{{$t('message.home.make_cross')}}</div>
                 <div class="icon-img">
-                    <img src="@/assets/nwhome/make-flow.svg" alt="">
-                    <img src="@/assets/nwhome/make-polygon.svg" alt="">
-                    <img src="@/assets/nwhome/make-ethernet.png" alt="">
                     <img src="@/assets/nwhome/make-avala.svg" alt="">
+                    <!-- <img src="@/assets/nwhome/make-flow.svg" alt=""> -->
+                    <img src="@/assets/nwhome/make-ethernet.png" alt="">
+                    <img src="@/assets/nwhome/make-polygon.svg" alt="">
                 </div>
             </div>
             <div class="make-img">
@@ -287,7 +318,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
             </div>
             <div class="time3 timeWidth-r maptime" id="time3">
-                <div class="date"><span class="span-l"></span>2022.03</div>
+                <div class="date"><span class="span-l"></span>2022.04</div>
                 <div class="event-r">
                     {{ $t('message.home.roadmap_s1_d3_e1') }} <br/>
                     {{ $t('message.home.roadmap_s1_d3_e2') }} <br/>
@@ -353,6 +384,12 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="https://aws.amazon.com/" target="view_window">
                 <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
             </a>
+            <a href="https://www.ubisoft.com/en-us/" target="view_window">
+                <img class="logo9" src="@/assets/nwhome/UBISOFT.png" alt="">
+            </a>
+            <a href="https://www.avax.network/" target="view_window">
+                <img class="logo8" src="@/assets/nwhome/make-avala.svg" alt="">
+            </a>
             <div>
                 <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners4.png" alt="">
             </div>
@@ -369,7 +406,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5-2.png" alt="">
             </div>
             <div>
-                <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo-ai.svg" alt="">
+                <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
             </div>
         </div>
     </div>
@@ -377,20 +414,20 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="title" id="ele6">{{ $t('message.home.will_title') }}</div>
         <ul class="logo">
             <li>
-                <img src="@/assets/nwhome/windows-fill.svg" alt="">
-                <div>{{ $t('message.home.will_logo1_txt') }}</div>
-            </li>
-            <li>
-                <img src="@/assets/nwhome/steam.svg" alt="">
-                <div>{{ $t('message.home.will_logo2_txt') }}</div>
-            </li>
-            <li>
-                <img src="@/assets/nwhome/googleplay.svg" alt="">
+                <img class="wlogo1" src="@/assets/nwhome/googleplay.svg" alt="">
                 <div class="googleplay">{{ $t('message.home.will_logo3_txt') }}</div>
             </li>
             <li>
-                <img src="@/assets/nwhome/apple.svg" alt="">
+                <img class="wlogo2" src="@/assets/nwhome/apple.svg" alt="">
                 <div class="store">{{ $t('message.home.will_logo4_txt') }}</div>
+            </li>
+            <li>
+                <img class="wlogo3" src="@/assets/nwhome/windows-fill.svg" alt="">
+                <div>{{ $t('message.home.will_logo1_txt') }}</div>
+            </li>
+            <li>
+                <img class="wlogo4" src="@/assets/nwhome/steam.svg" alt="">
+                <div>{{ $t('message.home.will_logo2_txt') }}</div>
             </li>
         </ul>
     </div>
@@ -419,6 +456,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
 const { proxy } = getCurrentInstance() as any;
+
+
 
 
 // message dialog
@@ -716,14 +755,14 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         let ele6 = document.getElementById("ele6") as HTMLElement;
         let mapList = document.getElementsByClassName('maptime');
         const mapListLen = mapList.length;
-        let role = document.getElementById("role") as HTMLElement;
+        // let roles = document.getElementsByClassName("role") as HTMLElement;
         const ele1Top: Number = ele1.getBoundingClientRect().top; //距离屏幕顶部的距离
         const ele2Top: Number = ele2.getBoundingClientRect().top; 
         const ele3Top: Number = ele3.getBoundingClientRect().top; 
         const ele4Top: Number = ele4.getBoundingClientRect().top; 
         const ele5Top: Number = ele5.getBoundingClientRect().top; 
         const ele6Top: Number = ele6.getBoundingClientRect().top; 
-        const roleTop: Number = role.getBoundingClientRect().top; 
+        // const roleTop: Number = role.getBoundingClientRect().top; 
 
         let timeTop:any = {};
         for( let t = 0; t < mapListLen; t++){
@@ -755,10 +794,10 @@ const checkScrollHeightAndLoadAnimation: any = () => {
                 el: ele6,
                 top: ele6Top
             },
-            {
-                el: role,
-                top: roleTop
-            },
+            // {
+            //     el: role,
+            //     top: roleTop
+            // },
         ]
         for(let i = 0; i < arr.length; i++){
             if(arr[i].top < windowHeight){
@@ -773,11 +812,11 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         if( timeTop.timeTop3 < windowHeight) mapList[3].classList.add('bounceInLeft')
         if( timeTop.timeTop5 < windowHeight) mapList[5].classList.add('bounceInLeft')
         if( timeTop.timeTop7 < windowHeight) mapList[7].classList.add('bounceInLeft')
-        if(role.className == 'fadeInUp'){
-            setTimeout(() => {
-                if(role.className == 'fadeInUp') role.classList.add('fadeInDown')
-            },1000)
-        }
+        // if(role.className == 'fadeInUp'){
+        //     setTimeout(() => {
+        //         if(role.className == 'fadeInUp') role.classList.add('fadeInDown')
+        //     },1000)
+        // }
 }
 
 // const stopPlay = () => {
@@ -1394,33 +1433,43 @@ onMounted(() => {
             justify-content: space-around;
             align-items: center;
             .nobody-left{
-                position: relative;
-                width: 45.57vw;
+                z-index: 0;
+                width: 39vw;
                 height: 44vw;
                 margin-left: 8vw;
-                img{
-                    height: 95%;
-                    margin-top: 2vw;
-                    margin-left: 1vw;
+                .swiper-button-prev, .swiper-button-next{
+                    width: 20px !important;
+                    height: 40px !important;
                 }
-                .nobody-left-tip{
-                    z-index: 2;
-                    position: absolute;
-                    bottom: 7.3vw;
-                    right: 9.6vw;
-                    div{
-                        width: 16vw;
-                        height: 2vw;
-                        padding-right: 1vw;
-                        font-size: 1.04vw;
-                        text-align: right;
-                        font-family: AlibabaPuHuiTi_2_105_Heavy;
-                        color: #FFFFFF;
-                        line-height: 2vw;
-                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftYellow.svg');
-                        background-repeat: no-repeat;
-                        background-position: right center;
-                        background-size: 20% auto;
+             .box{
+                    position: relative;
+                    // width: 45.57vw;
+                    width: 39vw;
+                    height: 44vw;
+                    img{
+                        height: 95%;
+                        margin-top: 2vw;
+                        margin-left: 1vw;
+                    }
+                    .nobody-left-tip{
+                        z-index: 2;
+                        position: absolute;
+                        bottom: 7.3vw;
+                        right: 9.6vw;
+                        div{
+                            width: 16vw;
+                            height: 2vw;
+                            padding-right: 1vw;
+                            font-size: 1.04vw;
+                            text-align: right;
+                            font-family: AlibabaPuHuiTi_2_105_Heavy;
+                            color: #FFFFFF;
+                            line-height: 2vw;
+                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftYellow.svg');
+                            background-repeat: no-repeat;
+                            background-position: right center;
+                            background-size: 20% auto;
+                        }
                     }
                 }
             }
@@ -1624,24 +1673,16 @@ onMounted(() => {
                     align-items: center;
                     margin-bottom: 1vw;
                     img:nth-child(1){
-                        width: 5.26vw;
-                        height: 2.18vw;
-                        margin-right: 2.08vw;
+                        width: 9vw;
+                        margin-right: 2.8vw;
                     }
                     img:nth-child(2){
-                        width: 8.85vw;
-                        height: 1.92vw;
-                        margin-right: 2.08vw;
+                        height: 2.6vw;
+                        margin-right: 1.6vw;
                     }
                     img:nth-child(3){
-                        width: 7.96vw;
-                        height: 2.44vw;
-                        margin-right: 1vw;
-                    }
-                    img:nth-child(4){
-                        color: #ffffff;
-                        width: 9vw;
-                        // height: 1.56vw;
+                        width: 8.85vw;
+                        height: 1.92vw;
                     }
                 }
             }
@@ -2152,7 +2193,13 @@ onMounted(() => {
                     width: 5.2vw;
                 }
                 .logo7{
-                    width: 6vw;
+                    width: 5.4vw;
+                }
+                .logo8{
+                    width: 9.4vw;
+                }
+                .logo9{
+                    width: 7vw;
                 }
                 
             }
@@ -2185,8 +2232,7 @@ onMounted(() => {
             li{
                 display: flex;
                 align-items: center;
-                margin-right: 1vw;
-                height: 2.34vw;
+                margin-right: 1.4vw;
                 font-size: 1.56vw;
                 font-family: AlibabaPuHuiTi_2_75_SemiBold;
                 color: #FFFFFF;
@@ -2194,20 +2240,16 @@ onMounted(() => {
                 img{
                     margin-right: .4vw;
                 }
-                img:nth-child(1){
-                    width: 1.97vw;
+                .wlogo3{
                     height: 1.97vw;
                 }
-                img:nth-child(2){
-                    width: 2.6vw;
+                .wlogo4{
                     height: 2.6vw;
                 }
-                img:nth-child(3){
-                    width: 2.39vw;
+                .wlogo1{
                     height: 2.39vw;
                 }
-                img:nth-child(4){
-                    width: 2.6vw;
+                .wlogo2{
                     height: 2.6vw;
                 }
                 div{
@@ -2215,11 +2257,10 @@ onMounted(() => {
                 }
                 .googleplay{
                     width: 10.36vw;
-                    margin-right: .6vw;
                 }
             }
             li:nth-child(1){
-                margin-left: 1vw;
+                margin-left: 3vw;
             }
         }
     }

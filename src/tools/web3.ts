@@ -262,6 +262,7 @@ const readJSON = async (proxy:any) => {
             let res = JSON.parse(JSON.stringify(temp));
             (function loop (index){
                 proxy.$api.get(`https://api.cyberpop.online/server/${index || 0}`).then( (result:any) => {
+                    
                     if(res[index] > 0){
                         data.value.push({
                             id: index,
@@ -304,8 +305,10 @@ const readJSON = async (proxy:any) => {
 const dao = async (proxy:any) => {
     await batchBalanceOf(dao_abi._rawValue, dao_address.value).then((temp:any) => {
         let res = JSON.parse(JSON.stringify(temp));
+        
         (function loop (index){
-            proxy.$api.get(`https://api.cyberpop.online/game/${index}`).then( (result:any) => {
+            proxy.$api.get(`https://api.cyberpop.online/weapons/${index + 1 + '01101'}`).then( (result:any) => {
+                
                 if(res[index] > 0){
                     data.value.push({
                         id: index,
@@ -314,7 +317,7 @@ const dao = async (proxy:any) => {
                         ...result,
                     })
                 }
-                if (++index<res.length) {
+                if (++index < res.length) {
                     loop(index);
                 } else {
                     if( data.value.length !== 0 ){
@@ -326,12 +329,6 @@ const dao = async (proxy:any) => {
                         // console.log(data.value);
                         // console.log("nothing!!!!!");
                     }
-                }
-            }).catch((err:any) => {
-                if (++index<res.length) {
-                    loop(index);
-                } else {
-                    // console.log("over2!!!!!");
                 }
             })
         })(0)

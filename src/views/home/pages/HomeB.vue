@@ -82,7 +82,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="swiper1">
                     <div class="swiper-bg">
                         <div>
-                            <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant3.png" alt="">
+                            <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt="">
                         </div>
                         <div>
                             <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt="">
@@ -117,7 +117,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :speed="200"
                             :autoplay="true"
                         >
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/timeRemnant3.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png"  alt=""></swiper-slide>
@@ -172,12 +172,12 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="txt">{{$t('message.home.make_cross')}}</div>
                 <div class="icon-img">
                     <div>
-                        <img class="icon1" src="@/assets/nwhome/make-flow.svg" alt="">
-                        <img class="icon2" src="@/assets/nwhome/make-polygon.svg" alt="">
+                        <img class="icon4" src="@/assets/nwhome/make-avala.svg" alt="">
+                        <!-- <img class="icon1" src="@/assets/nwhome/make-flow.svg" alt=""> -->
+                        <img class="icon3" src="@/assets/nwhome/make-ethernet.png" alt="">
                     </div>
                     <div>
-                        <img class="icon3" src="@/assets/nwhome/make-ethernet.png" alt="">
-                        <img class="icon4" src="@/assets/nwhome/make-avala.svg" alt="">
+                        <img class="icon2" src="@/assets/nwhome/make-polygon.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -288,7 +288,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
             </div>
             <div class="time3 timeWidth-r maptime" id="time3">
-                <div class="date"><span class="span-l"></span>2022.03</div>
+                <div class="date"><span class="span-l"></span>2022.04</div>
                 <div class="event-r">
                     {{ $t('message.home.roadmap_s1_d3_e1') }} <br/>
                     {{ $t('message.home.roadmap_s1_d3_e2') }} <br/>
@@ -354,6 +354,12 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="https://aws.amazon.com/" target="view_window">
                 <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
             </a>
+            <a href="https://www.ubisoft.com/en-us/" target="view_window">
+                <img class="logo9" src="@/assets/nwhome/UBISOFT.png" alt="">
+            </a>
+            <a href="https://www.avax.network/" target="view_window">
+                <img class="logo8" src="@/assets/nwhome/make-avala.svg" alt="">
+            </a>
             <div>
                 <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners4.png" alt="">
             </div>
@@ -370,7 +376,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5-2.png" alt="">
             </div>
             <div>
-                <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo-ai.svg" alt="">
+                <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
             </div>
         </div>
     </div>
@@ -378,20 +384,20 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="title" id="ele6">{{ $t('message.home.will_title') }}</div>
         <ul class="logo">
             <li>
-                <img class="logo1" src="@/assets/nwhome/windows-fill.svg" alt="">
-                <div class="window">{{ $t('message.home.will_logo1_txt') }}</div>
-            </li>
-            <li>
-                <img class="logo2" src="@/assets/nwhome/steam.svg" alt="">
-                <div class="steam">{{ $t('message.home.will_logo2_txt') }}</div>
-            </li>
-            <li>
                 <img class="logo3" src="@/assets/nwhome/googleplay.svg" alt="">
                 <div class="googleplay">{{ $t('message.home.will_logo3_txt') }}</div>
             </li>
             <li>
                 <img class="logo4" src="@/assets/nwhome/apple.svg" alt="">
                 <div class="store">{{ $t('message.home.will_logo4_txt') }}</div>
+            </li>
+            <li>
+                <img class="logo1" src="@/assets/nwhome/windows-fill.svg" alt="">
+                <div class="window">{{ $t('message.home.will_logo1_txt') }}</div>
+            </li>
+            <li>
+                <img class="logo2" src="@/assets/nwhome/steam.svg" alt="">
+                <div class="steam">{{ $t('message.home.will_logo2_txt') }}</div>
             </li>
         </ul>
     </div>
@@ -1311,10 +1317,6 @@ onMounted(() => {
                 position: relative;
                 width: 100%;
                 height: 321px;
-                // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-leftBg.png');
-                // background-repeat: no-repeat;
-                // background-position: left top;
-                // background-size: auto 100%;
                 img{
                     height: 100%;
                 }
@@ -1569,7 +1571,7 @@ onMounted(() => {
                 .icon-img{
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
+                    // align-items: center;
                     div{
                         display: flex;
                         align-items: center;
@@ -1584,13 +1586,13 @@ onMounted(() => {
                         width: 96px;
                     }
                     .icon3{
-                        width: 90px;
-                        margin-right: 10px;
-                        margin-left: 10px;
+                        width: 96px;
+                        // margin-right: 10px;
                     }
                     .icon4{
-                        width: 96px;
-                        // margin-right: 6px;
+                        width: 100px;
+                        margin-right: 38px;
+                        // margin-left: 10px;
                     }
                 }
             }
@@ -2031,7 +2033,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 460px;
+        height: 546px;
         margin: -2px 0;
         background-color: #000000;
         overflow: hidden;
@@ -2056,9 +2058,10 @@ onMounted(() => {
         }
         .logo{
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             flex-wrap: wrap;
-            width: 100%;     
+            width: 100%;   
+            padding: 0 38px;
             a,div{
                 display: flex;
                 justify-content: center;
@@ -2066,7 +2069,7 @@ onMounted(() => {
                 width: 140px;
                 // height: 87.5px;
                 height: 68px;
-                margin: 0 10px 20px;
+                margin-bottom: 20px;
                 background: #282626;
                 border-radius: 7px;
                 .logo1{
@@ -2089,7 +2092,13 @@ onMounted(() => {
                     height: 54px;
                 }
                 .logo7{
-                    height: 70px;
+                    height: 48px;
+                }
+                .logo8{
+                    width: 110px;
+                }
+                .logo9{
+                    width: 86px;
                 }
             }
             a:hover, div:hover{
@@ -2141,15 +2150,14 @@ onMounted(() => {
                 }
             }
             li:nth-child(1){
-                margin-left: 14px;
-                margin-right: 16px;
-            }
-            li:nth-child(2){
                 margin-left: 15px;
-                margin-right: 10px;
             }
             li:nth-child(3){
-                margin-left: 15px;
+                margin-right: 20px;
+                margin-left: 6px;
+            }
+            li:nth-child(4){
+                margin-left: 10px;
             }
         }
     }

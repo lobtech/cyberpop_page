@@ -19,7 +19,7 @@
                 x5-video-orientation="landscape"
                 x5-video-player-fullscreen="true"
                 v-if="videotype == 4">
-            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/output.mp4" type="video/mp4">
+            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/output2.mp4" type="video/mp4">
         </video>
 
         <!-- <vue3VideoPlay v-bind="options" poster='' v-if="videotype == 4"/> -->

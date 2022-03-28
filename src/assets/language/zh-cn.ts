@@ -28,7 +28,7 @@ const cn = {
                 logoText: 'MetaMask',
                 descBef: '請安裝',
                 descNAft: '以繼續操作。安裝完成後，刷新頁面即可使用',
-                descIns: 'Please login and authorize access to your MetaMask account to continue.',
+                descIns: '请登入并授权Metamask账号以继续',
                 cancel: '取消',
                 open: '打開METAMASK',
             },
