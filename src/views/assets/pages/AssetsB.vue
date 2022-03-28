@@ -284,13 +284,15 @@ onUnmounted(() => {
     window.removeEventListener('click', inputOtherClick, true);
 })
 
-onBeforeMount( () => {
-    if( realId.value == -1 && proxy.$route.path == '/assets' ){
-        router.push('/')
-    }
-})
+
 
 onMounted(async () => {
+
+    if( realId.value == -1 && proxy.$route.path == '/knapsack' ){
+        
+        router.push('/')
+        // window.location.href='https://test.cyberpop.online/'
+    }
     window.scrollTo(0,0);
     window.addEventListener('click', inputOtherClick, true);
     store.dispatch('user/transferChange',false)

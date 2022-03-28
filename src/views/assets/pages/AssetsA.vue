@@ -216,15 +216,12 @@ onUnmounted(() => {
 })
 
 
-
-
-onBeforeMount( () => {
-    if( realId.value == -1 && proxy.$route.path == '/assets' ){
-        router.push('/')
-    }
-})
-
 onMounted( () => {
+    if( realId.value == -1 && proxy.$route.path == '/knapsack' ){
+        router.push('/')
+        // window.location.href='https://test.cyberpop.online/'
+    }
+
     window.scrollTo(0,0);
     store.dispatch('user/showDialog',false);// close message dialog
     store.dispatch('user/metaChange',false);
@@ -232,7 +229,6 @@ onMounted( () => {
 
     if(store.state.user?.readyAssets !== -1){
         dataTemp.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
-        // console.log(11, store.state.user?.dataSum);
     }
 })
 

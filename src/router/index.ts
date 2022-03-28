@@ -81,8 +81,8 @@ const routes = [
         },
     },
     {
-        name: 'assets',
-        path: '/assets',
+        name: 'knapsack',
+        path: '/knapsack',
         component: () => import('../views/assets/index.vue'),
         meta: {
             keepAlive: false,

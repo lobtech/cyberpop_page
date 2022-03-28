@@ -277,14 +277,14 @@ const signout = () => {
     store.dispatch('user/walletloggined',false);
     store.dispatch('user/showDialog',false);
 
-    if( proxy.$route.path == '/assets' ){
+    if( proxy.$route.path == '/knapsack' ){
         router.push('/');
     }
 }
 
 
 const toAssets = () => {
-    router.push('/assets');
+    router.push('/knapsack');
 }
 
 

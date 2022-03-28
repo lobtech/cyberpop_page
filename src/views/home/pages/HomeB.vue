@@ -85,7 +85,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt="">
                         </div>
                         <div>
-                            <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt="">
+                            <img :class="imgIndex == 1 ? 'show' : ''" src="@/assets/nwhome/vSwiper_2.png" alt="">
                         </div>
                         <div>
                             <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt="">
@@ -118,7 +118,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :autoplay="true"
                         >
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="@/assets/nwhome/vSwiper_2.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png"  alt=""></swiper-slide>
                         </swiper>
@@ -130,11 +130,35 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     <div class="nobody">
         <div class="nobody-wrap">
             <div class="nobody-left">
-                <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
                 <div class="nobody-img"></div>
+                <!-- <img id="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
                 <div class="nobody-left-tip">
                     <div>{{$t('message.home.nobody_role_tipBef')}}</div>
-                </div>
+                </div> -->
+                <swiper
+                    class="mySwiper"
+                    :loop="true"
+                    :speed="200"
+                >
+                    <swiper-slide>
+                        <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
+                        <div class="nobody-left-tip">
+                            <div>{{$t('message.home.nobody_role_tipBef')}}</div>
+                        </div>
+                    </swiper-slide>
+                    <swiper-slide>
+                        <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
+                        <div class="nobody-left-tip">
+                            <div>{{$t('message.home.nobody_role_tipBef')}}</div>
+                        </div>
+                    </swiper-slide>
+                    <swiper-slide>
+                        <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
+                        <div class="nobody-left-tip">
+                            <div>{{$t('message.home.nobody_role_tipBef')}}</div>
+                        </div>
+                    </swiper-slide>
+                </swiper>
             </div>
             <div class="nobody-right">
                 <div class="title" id="ele2">{{$t('message.home.nobody_r_titleBef')}}<br/>{{$t('message.home.nobody_r_titleAft')}}</div>
@@ -351,15 +375,18 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img class="xplan" @click="showxplan()" src="@/assets/nwhome/xplan.svg" alt="" >
         </div>
         <div class="logo">
-            <a href="https://aws.amazon.com/" target="view_window">
-                <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
+            <a href="https://www.avax.network/" target="view_window">
+                <img class="logo8" src="@/assets/nwhome/make-avala.svg" alt="">
             </a>
             <a href="https://www.ubisoft.com/en-us/" target="view_window">
                 <img class="logo9" src="@/assets/nwhome/UBISOFT.png" alt="">
             </a>
-            <a href="https://www.avax.network/" target="view_window">
-                <img class="logo8" src="@/assets/nwhome/make-avala.svg" alt="">
+            <a href="https://aws.amazon.com/" target="view_window">
+                <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
             </a>
+            <div>
+                <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
+            </div>
             <div>
                 <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners4.png" alt="">
             </div>
@@ -375,9 +402,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div>
                 <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5-2.png" alt="">
             </div>
-            <div>
-                <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
-            </div>
+            <a href="http://www.abga.asia/" target="view_window">
+                <img class="logo10" src="@/assets/nwhome/ABGA.svg" alt="">
+            </a>
         </div>
     </div>
     <div class="will">
@@ -427,6 +454,11 @@ import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
 import { clear } from 'console';
 SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
 const { proxy } = getCurrentInstance() as any;
+
+
+
+
+
 
 
 // message dialog
@@ -1064,7 +1096,7 @@ onMounted(() => {
         }
     }
     .nav-logos{
-        z-index: 2;
+        z-index: 3;
         position: absolute;
         top: 580px;
         right: 0;
@@ -1317,10 +1349,12 @@ onMounted(() => {
                 position: relative;
                 width: 100%;
                 height: 321px;
-                img{
-                    height: 100%;
-                }
+                // img{
+                //     height: 100%;
+                // }
                 .nobody-img{
+                    z-index: 2;
+                    pointer-events: none;
                     position: absolute;
                     top: 39px;
                     right: 0;
@@ -1328,27 +1362,58 @@ onMounted(() => {
                     height: 235px;
                     background: linear-gradient(90deg, rgba(111, 38, 190, 0) 0%, rgba(156, 0, 248, 0.64) 64%, #7A00F8 100%);
                 }
-                .nobody-left-tip{
+                // .nobody-left-tip{
+                //     width: 100%;
+                //     height: 100%;
+                //     position: absolute;
+                //     top: 0;
+                //     div{
+                //         position: absolute;
+                //         top: 160px;
+                //         right: 40px;
+                //         padding-right: 9px;
+                //         width: 145px;
+                //         height: 29px;
+                //         font-size: 12px;
+                //         font-family: AlibabaPuHuiTi_2_105_Heavy;
+                //         color: #FFFFFF;
+                //         line-height: 29px;
+                //         text-align: right;
+                //         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-leftYellow.svg');
+                //         background-repeat: no-repeat;
+                //         background-position: right top;
+                //         background-size: 64px 64px;
+                //     }
+                // }
+                .swiper{
                     width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    top: 0;
-                    div{
+                    height: 321px;
+                    img{
+                        height: 100%;
+                    }
+                    .nobody-left-tip{
+                        width: 100%;
+                        height: 100%;
                         position: absolute;
-                        top: 160px;
-                        right: 40px;
-                        padding-right: 9px;
-                        width: 145px;
-                        height: 29px;
-                        font-size: 12px;
-                        font-family: AlibabaPuHuiTi_2_105_Heavy;
-                        color: #FFFFFF;
-                        line-height: 29px;
-                        text-align: right;
-                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-leftYellow.svg');
-                        background-repeat: no-repeat;
-                        background-position: right top;
-                        background-size: 64px 64px;
+                        top: 0;
+                        div{
+                            z-index: 3;
+                            position: absolute;
+                            top: 160px;
+                            right: 40px;
+                            padding-right: 9px;
+                            width: 145px;
+                            height: 29px;
+                            font-size: 12px;
+                            font-family: AlibabaPuHuiTi_2_105_Heavy;
+                            color: #FFFFFF;
+                            line-height: 29px;
+                            text-align: right;
+                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-leftYellow.svg');
+                            background-repeat: no-repeat;
+                            background-position: right top;
+                            background-size: 64px 64px;
+                        }
                     }
                 }
             }
@@ -2099,6 +2164,9 @@ onMounted(() => {
                 }
                 .logo9{
                     width: 86px;
+                }
+                .logo10{
+                    width: 82px;
                 }
             }
             a:hover, div:hover{

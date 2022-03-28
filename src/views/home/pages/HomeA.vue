@@ -87,8 +87,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </div>
                 <div class="swiper1">
                     <div class="swiper-bg">
-                        <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt="">
-                        <img :class="imgIndex == 1 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt="">
+                        <img :class="imgIndex == 0 ? 'show' : ''" src="@/assets/nwhome/vSwiper_1.png" alt="">
+                        <img :class="imgIndex == 1 ? 'show' : ''" src="@/assets/nwhome/vSwiper_2.png" alt="">
                         <img :class="imgIndex == 2 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt="">
                         <img :class="imgIndex == 3 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png" alt="">
                     </div>
@@ -115,8 +115,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :speed="200"
                             :autoplay="true"
                         >
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/digitalPujas3.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="@/assets/nwhome/vSwiper_1.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="@/assets/nwhome/vSwiper_2.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png"  alt=""></swiper-slide>
                         </swiper>
@@ -138,6 +138,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     :loop="true"
                     :speed="200"
                     :navigation="true"
+                    :modules="leftModules"
                 >
                     <swiper-slide>
                         <div class="box">
@@ -381,15 +382,20 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img class="xplan" @click="showxplan()" src="@/assets/nwhome/xplan.svg" alt="" >
         </div>
         <div class="logo">
-            <a href="https://aws.amazon.com/" target="view_window">
-                <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
-            </a>
-            <a href="https://www.ubisoft.com/en-us/" target="view_window">
-                <img class="logo9" src="@/assets/nwhome/UBISOFT.png" alt="">
-            </a>
-            <a href="https://www.avax.network/" target="view_window">
-                <img class="logo8" src="@/assets/nwhome/make-avala.svg" alt="">
-            </a>
+            <div class="line1">
+                <a href="https://www.avax.network/" target="view_window">
+                    <img class="logo8" src="@/assets/nwhome/make-avala.svg" alt="">
+                </a>
+                <a href="https://www.ubisoft.com/en-us/" target="view_window">
+                    <img class="logo9" src="@/assets/nwhome/UBISOFT.png" alt="">
+                </a>
+                <a href="https://aws.amazon.com/" target="view_window">
+                    <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
+                </a>
+            </div>
+            <div>
+                <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
+            </div>
             <div>
                 <img class="logo1" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners4.png" alt="">
             </div>
@@ -405,9 +411,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <div>
                 <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5-2.png" alt="">
             </div>
-            <div>
-                <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
-            </div>
+            <a href="http://www.abga.asia/" target="view_window">
+                <img class="logo10" src="@/assets/nwhome/ABGA.svg" alt="">
+            </a>
         </div>
     </div>
     <div class="will">
@@ -453,10 +459,12 @@ import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
-SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
+import SwiperCore, { EffectFade, Mousewheel, Autoplay, Navigation} from "swiper";
+SwiperCore.use([EffectFade, Mousewheel, Autoplay, Navigation]);
 const { proxy } = getCurrentInstance() as any;
 
+
+const leftModules:any = [Navigation];
 
 
 
@@ -755,14 +763,16 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         let ele6 = document.getElementById("ele6") as HTMLElement;
         let mapList = document.getElementsByClassName('maptime');
         const mapListLen = mapList.length;
-        // let roles = document.getElementsByClassName("role") as HTMLElement;
+        // let role = document.getElementById("role") as HTMLElement;
+        let roles = document.getElementsByClassName("role");
+        const roleListLen = roles.length;
         const ele1Top: Number = ele1.getBoundingClientRect().top; //距离屏幕顶部的距离
         const ele2Top: Number = ele2.getBoundingClientRect().top; 
         const ele3Top: Number = ele3.getBoundingClientRect().top; 
         const ele4Top: Number = ele4.getBoundingClientRect().top; 
         const ele5Top: Number = ele5.getBoundingClientRect().top; 
         const ele6Top: Number = ele6.getBoundingClientRect().top; 
-        // const roleTop: Number = role.getBoundingClientRect().top; 
+        const roleTop: Number = roles[0].getBoundingClientRect().top; 
 
         let timeTop:any = {};
         for( let t = 0; t < mapListLen; t++){
@@ -794,10 +804,18 @@ const checkScrollHeightAndLoadAnimation: any = () => {
                 el: ele6,
                 top: ele6Top
             },
-            // {
-            //     el: role,
-            //     top: roleTop
-            // },
+            {
+                el: roles[0],
+                top: roleTop
+            },
+            {
+                el: roles[1],
+                top: roleTop
+            },
+            {
+                el: roles[2],
+                top: roleTop
+            },
         ]
         for(let i = 0; i < arr.length; i++){
             if(arr[i].top < windowHeight){
@@ -812,11 +830,16 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         if( timeTop.timeTop3 < windowHeight) mapList[3].classList.add('bounceInLeft')
         if( timeTop.timeTop5 < windowHeight) mapList[5].classList.add('bounceInLeft')
         if( timeTop.timeTop7 < windowHeight) mapList[7].classList.add('bounceInLeft')
-        // if(role.className == 'fadeInUp'){
-        //     setTimeout(() => {
-        //         if(role.className == 'fadeInUp') role.classList.add('fadeInDown')
-        //     },1000)
-        // }
+        for( let k = 0; k < roleListLen; k++ ){
+            if(roleTop < windowHeight){
+                roles[k].classList.add('fadeInUp');
+            }
+            if(roles[k].className == 'role fadeInUp'){
+                setTimeout(() => {
+                    if(roles[k].className == 'role fadeInUp') roles[k].classList.add('fadeInDown')
+                },1000)
+            }
+        }
 }
 
 // const stopPlay = () => {
@@ -1417,7 +1440,8 @@ onMounted(() => {
         background-color: #000;
         display: flex;
         .nobody-img{
-            z-index: 1;
+            z-index: 2;
+            pointer-events: none;
             position: absolute;
             top: 0;
             right: 0;
@@ -1433,19 +1457,75 @@ onMounted(() => {
             justify-content: space-around;
             align-items: center;
             .nobody-left{
-                z-index: 0;
-                width: 39vw;
+                // position: relative;
+                // width: 45.57vw;
+                // height: 44vw;
+                // margin-left: 8vw;
+                width: 49vw;
                 height: 44vw;
-                margin-left: 8vw;
-                .swiper-button-prev, .swiper-button-next{
-                    width: 20px !important;
-                    height: 40px !important;
-                }
-             .box{
+                padding-left: 8vw;
+                // img{
+                //     height: 95%;
+                //     margin-top: 2vw;
+                //     margin-left: 1vw
+                // }
+                // .nobody-left-tip{
+                //     z-index: 2;
+                //     position: absolute;
+                //     bottom: 7.3vw;
+                //     right: 9.8vw;
+                //     div{
+                //         width: 16vw;
+                //         height: 2vw;
+                //         padding-right: 1vw;
+                //         font-size: 1.04vw;
+                //         text-align: right;
+                //         font-family: AlibabaPuHuiTi_2_105_Heavy;
+                //         color: #FFFFFF;
+                //         line-height: 2vw;
+                //         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftYellow.svg');
+                //         background-repeat: no-repeat;
+                //         background-position: right center;
+                //         background-size: 20% auto;
+                //     }
+                // }
+                :deep( .swiper){
                     position: relative;
-                    // width: 45.57vw;
-                    width: 39vw;
+                    .swiper-button-prev, .swiper-button-next{
+                        z-index: 4;
+                        display: flex;
+                        align-items: center;
+                        position: absolute;
+                        top: 50%;
+                        margin-top: -14px;
+                        width: 10px;
+                        height: 14px;
+                    }
+                    .swiper-button-next{
+                        right: 0;
+                    }
+                    .swiper-button-prev::before, .swiper-button-next:before{
+                        display: inline-block;
+                        content: '';
+                        width: 6px;
+                        height: 6px;
+                        margin-left: 2px;
+                        border: 4px solid #FF21FF;
+                        border-left: transparent;
+                        border-top: transparent;
+                        transform: rotateZ(-225deg);
+                    }
+                    .swiper-button-next:before{
+                        margin-left: 0;
+                        margin-right: 2px;
+                        transform: rotateZ(-45deg);
+                    }
+                }
+                .box{
+                    position: relative;
+                    width: 100%;
                     height: 44vw;
+                    padding-left: 1vw;
                     img{
                         height: 95%;
                         margin-top: 2vw;
@@ -1455,7 +1535,7 @@ onMounted(() => {
                         z-index: 2;
                         position: absolute;
                         bottom: 7.3vw;
-                        right: 9.6vw;
+                        right: 10.8vw;
                         div{
                             width: 16vw;
                             height: 2vw;
@@ -2156,20 +2236,25 @@ onMounted(() => {
         }
         .logo{
             display: flex;
+            justify-content: center;
             flex-wrap: wrap;
             width: 54.24vw;
             margin: 4vw auto 6vw;
             overflow: hidden;
-            a,div{
+            .line1{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                border-bottom: 2px solid rgb(34, 33, 33);
+                margin-bottom: 1.56vw;
+            }
+            a,div:not(.line1){
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                // width: 14.32vw;
-                // height: 8.9vw;
                 width: 12vw;
                 height: 5.8vw;
-                // margin: 0 .78vw 1.56vw;
                 margin: 0 .78vw 1.56vw;
                 background: #282626;
                 border-radius: .88vw;
@@ -2177,7 +2262,7 @@ onMounted(() => {
                     width: 4.8vw;
                 }
                 .logo2{
-                    width: 5vw;
+                    width: 4.6vw;
                 }
                 .logo3{
                     height: 3.6vw;
@@ -2201,9 +2286,12 @@ onMounted(() => {
                 .logo9{
                     width: 7vw;
                 }
+                .logo10{
+                    width: 7vw;
+                }
                 
             }
-            a:hover,div:hover{
+            a:hover,div:not(.line1):hover{
                 background: rgba(40, 38, 38,.6);
             }
         }
