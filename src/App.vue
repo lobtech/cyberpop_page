@@ -4,14 +4,38 @@
             <component :is="Component" :key="$route.path" v-if="$route.meta.keepAlive" />
         </keep-alive>
         <component :is="Component" :key="$route.path" v-if="!$route.meta.keepAlive" />
+        <msg-popup-a v-if="innerWidth > 740" :isShowTips="TipsState" :isLoading="false" :isClose="true" :title="'Network Error'" :content="$t('message.common.metamask.switch')"/>
+        <msg-popup-b v-else :isShowTips="TipsState" :isLoading="false" :isClose="true" :title="'Network Error'" :content="$t('message.common.metamask.switch')"/>
     </router-view>
 </template>
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, computed, ref } from 'vue'
+import { useStore } from 'vuex'
 import store from './store'
-// 监听屏幕尺寸
+const $store: any = useStore()
+
+const innerWidth = computed(() => {
+    return store.state.sys?.innerWidth || 0
+}) // 监听屏幕宽度
+const TipsState = computed(() => store.state.user?.TipsState);
+const chainId = computed(() => store.state.user?.chainId);
+const realId: any = computed(() => store.state.user?.realId)
+
 onMounted(() => {
+    const ethereum = (window as any).ethereum 
     window.onresize = () => store.dispatch('sys/get_screen_size') // 监听屏幕尺寸
+    
+    ethereum.on("accountsChanged", (accounts: any) => {
+        console.log(accounts[0]);//一旦切换账号这里就会执行
+    });
+    ethereum.on('chainChanged', (chainId: string) => {
+        store.dispatch('user/chageChainId', Number(chainId))
+        if(chainId != '0x13881') {
+            store.dispatch('user/TipsState', true)
+            return;
+        }
+        store.dispatch('user/TipsState', false)
+    });
 })
 </script>
 <style>

@@ -11,6 +11,28 @@
                 </div>
                 <div class="title">{{$t('message.assets.wel_name')}}</div>
                 <div class="id">{{realId == -1? '':realId}}</div>
+                <div class="contract">
+                    <div class="col th">
+                        <div class="name">Contarct</div>
+                        <div class="Fuji">Fuji</div>
+                        <div class="Mumbai">Mumbai</div>
+                    </div>
+                    <div class="col td">
+                        <div class="name">medal</div>
+                        <div class="Fuji">-----</div>
+                        <div class="Mumbai">0x82cCB2FE8f4d07702f7c2F4200f0FBF630C52406</div>
+                    </div>
+                    <div class="col td">
+                        <div class="name">weapons</div>
+                        <div class="Fuji">-----</div>
+                        <div class="Mumbai">0x1ca1327d3BD008C0D273F4609771d3f987F3b3D4</div>
+                    </div>
+                    <div class="col td">
+                        <div class="name">role</div>
+                        <div class="Fuji">-----</div>
+                        <div class="Mumbai">0x3df7c3D747bE15FC10DeD68aF3bfd2e97c432DC1</div>
+                    </div>
+                </div>
                 <div class="desc">
                     {{$t('message.assets.wel_desc')}}
                 </div>
@@ -114,7 +136,6 @@ import { onBeforeMount, onMounted, ref, reactive, computed, getCurrentInstance, 
 
 import store from '@/store'
 import {  useRouter } from 'vue-router'
-import Web3 from '@/tools/web3' 
 const router = useRouter()
 const { proxy } = getCurrentInstance() as any;
 const realId = computed(() => store?.state.user?.realId);
@@ -346,6 +367,32 @@ onMounted(async () => {
             background-size: 100% auto;
             .welcome{
                 text-align: center;
+                .contract{
+                    color: #333;
+                    margin: 1vw 0;
+                    .th{
+                        background: rgba(16, 76, 165, 0.5) !important;
+                        color: #fff;
+                    }
+                    .col{
+                        margin: 0 auto;
+                        display: flex;
+                        align-items: center;
+                        background: rgba(255, 255, 255, 0.8);
+                        div{
+                            width: 42%;
+                            font-size: 8px;
+                            line-height: 4vw;
+                            text-align: left;
+                            padding: 0 1vw;
+                            font-family: AlibabaPuHuiTi_2_115_Black;
+                            word-wrap:break-word;
+                        }
+                        .name{
+                            width: 16%;
+                        }
+                    }
+                }
                 .icon{
                     width: 81px;
                     height: 72px;
