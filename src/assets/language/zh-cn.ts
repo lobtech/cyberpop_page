@@ -62,7 +62,9 @@ const cn = {
             wel_swiper_title3: '月光世紀',
             wel_swiper_title4: '未來都會',
             // homeA-nobody
-            nobody_role_tipBef: '緋紅女巫',
+            nobody_role_tipBef_1: '緋紅女巫',
+            nobody_role_tipBef_2: '卡库路契亚',
+            nobody_role_tipBef_3: '玛内利',
             // nobody_role_tipAft: 'in #0 cyberspace', // -d
             nobody_r_titleBef: '成敗皆由你',
             nobody_r_titleAft: '',

@@ -63,7 +63,9 @@ const us = {
             wel_swiper_title3: 'Moonlight Century',
             wel_swiper_title4: 'Future City',
             // homeA-nobody
-            nobody_role_tipBef: 'Scarlet Witch',
+            nobody_role_tipBef_1: 'Scarlet Witch',
+            nobody_role_tipBef_2: 'Kakulupia',
+            nobody_role_tipBef_3: 'Maneli',
             nobody_r_titleBef: 'YOU CAN BE NOBODY',
             nobody_r_titleAft: 'OR SOMEBODY',
             nobody_r_subtitle: 'IN DIFFERENT CYBERSPACE',

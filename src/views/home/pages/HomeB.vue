@@ -2,6 +2,16 @@
     <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
     <header-b path="/" :type="0"></header-b>
     <my-video v-if="isPlay" @touchmove.prevent :mobel="true" :videotype="type2" @click="playVideo"></my-video>
+
+    <!-- <div class="white-list">
+        <div class="name">IDO WHITELISTS OPEN</div>
+        <div class="total">Total Raise：<span>$750,000</span></div>
+        <div class="desc">
+            Limited to <span>2500</span> whitelists <br/> 
+            Basic quota per person: <span>$300</span> <br/>
+            Reach <span>6000</span> points to get a whitelist!
+        </div>
+    </div> -->
     <div class="banner">
         <section>
             <video-bg 
@@ -135,28 +145,37 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="nobody-left-tip">
                     <div>{{$t('message.home.nobody_role_tipBef')}}</div>
                 </div> -->
+                <div class="nobody-left-tip">
+                    <div v-if="tipIndex == 0">{{$t('message.home.nobody_role_tipBef_1')}}</div>
+                    <div v-else-if="tipIndex == 1">{{$t('message.home.nobody_role_tipBef_2')}}</div>
+                    <div v-else="tipIndex == 2">{{$t('message.home.nobody_role_tipBef_3')}}</div>
+                </div>
                 <swiper
                     class="mySwiper"
                     :loop="true"
                     :speed="200"
+                    :autoplay="true"
+                    @slideChangeTransitionEnd="onSlideLeft"
+                    :effect="'creative'"
+                    :creativeEffect="{
+                        prev: {
+                            shadow: true,
+                            translate: ['-120%', 0, -500],
+                        },
+                        next: {
+                            shadow: true,
+                            translate: ['120%', 0, -500],
+                        },
+                    }"
                 >
                     <swiper-slide>
                         <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
-                        <div class="nobody-left-tip">
-                            <div>{{$t('message.home.nobody_role_tipBef')}}</div>
-                        </div>
                     </swiper-slide>
                     <swiper-slide>
-                        <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
-                        <div class="nobody-left-tip">
-                            <div>{{$t('message.home.nobody_role_tipBef')}}</div>
-                        </div>
+                        <img class="role" src="@/assets/nwhome/lSwiper_1.png" alt="">
                     </swiper-slide>
                     <swiper-slide>
-                        <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
-                        <div class="nobody-left-tip">
-                            <div>{{$t('message.home.nobody_role_tipBef')}}</div>
-                        </div>
+                        <img class="role" src="@/assets/nwhome/lSwiper_2.png" alt="">
                     </swiper-slide>
                 </swiper>
             </div>
@@ -450,9 +469,9 @@ import Web3 from '@/tools/web3'
 import mrs from '@/tools/moralis'
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import SwiperCore, { EffectFade, Mousewheel, Autoplay} from "swiper";
+import SwiperCore, { EffectFade, EffectCreative, Mousewheel, Autoplay} from "swiper";
 import { clear } from 'console';
-SwiperCore.use([EffectFade, Mousewheel, Autoplay]);
+SwiperCore.use([EffectFade, EffectCreative, Mousewheel, Autoplay]);
 const { proxy } = getCurrentInstance() as any;
 
 
@@ -494,7 +513,6 @@ const showxplan = () => {
         })
     }else{
         connect()
-        // messageAlert(0,'Please connect to a wallet.')
     }
 }
 
@@ -507,7 +525,6 @@ const playToEarn = () => {
         isOut.value = false;
     }else{
         connect()
-        // messageAlert(0,'Please connect to a wallet.')
     }
 }
 
@@ -548,14 +565,6 @@ let isOut:any = ref(false)
 
 
 
-// language
-// let showul:any = ref(true);
-// const showUl = () => {
-//     showul.value = !showul.value;
-// }
-
-
-
 // swiper
 let imgSrc0: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftGray.svg');
 let imgSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftYellow.svg');
@@ -569,6 +578,11 @@ const onSwiper = (swiper: any) => {
 const onSlideChangeEnd = (swiper: any) => {
     imgSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftYellow.svg';
     imgIndex.value = swiper.realIndex;
+};
+
+let tipIndex: any = ref(0);
+const onSlideLeft = (swiper: any) => {
+    tipIndex.value = swiper.realIndex;
 };
  
 
@@ -730,14 +744,12 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         let ele6 = document.getElementById("ele6") as HTMLElement;
         let mapList = document.getElementsByClassName('maptime');
         const mapListLen = mapList.length;
-        let role = document.getElementById("role") as HTMLElement;
         const ele1Top: Number = ele1.getBoundingClientRect().top; //距离屏幕顶部的距离
         const ele2Top: Number = ele2.getBoundingClientRect().top; 
         const ele3Top: Number = ele3.getBoundingClientRect().top; 
         const ele4Top: Number = ele4.getBoundingClientRect().top; 
         const ele5Top: Number = ele5.getBoundingClientRect().top; 
         const ele6Top: Number = ele6.getBoundingClientRect().top; 
-        const roleTop: Number = role.getBoundingClientRect().top; 
         let timeTop:any = {};
         for( let t = 0; t < mapListLen; t++){
             timeTop['timeTop' + t] = mapList[t].getBoundingClientRect().top;
@@ -768,10 +780,6 @@ const checkScrollHeightAndLoadAnimation: any = () => {
                 el: ele6,
                 top: ele6Top
             },
-            {
-                el: role,
-                top: roleTop
-            }
         ]
         for(let i = 0; i < arr.length; i++){
             if(arr[i].top < windowHeight){
@@ -787,19 +795,8 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         if( timeTop.timeTop3 < windowHeight) mapList[3].classList.add('fadeInLeft')
         if( timeTop.timeTop5 < windowHeight) mapList[5].classList.add('fadeInLeft')
         if( timeTop.timeTop7 < windowHeight) mapList[7].classList.add('fadeInLeft')
-        // if(role.className == 'fadeInUp'){
-        //     setTimeout(() => {
-        //         if(role.className == 'fadeInUp') role.classList.add('fadeInDown')
-        //     },1000)
-        // }
 }
 
-
-// const stopPlay = () => {
-//     let videobg = document.querySelector("#videobg") as HTMLElement;
-//     let relVideo = <HTMLVideoElement>videobg.querySelector("video");
-//     relVideo.play();
-// }
 
 onUnmounted(() => {
     window.removeEventListener("scroll", checkScrollHeightAndLoadAnimation, true);
@@ -847,6 +844,46 @@ onMounted(() => {
         }
         100%{
             left: -920px;
+        }
+    }
+
+    .white-list{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 192px;
+        margin: 44px 0 0;
+        color: #ffffff;
+        background-image: url('../../../assets/nwhome/whitelist_banner_phone.png');
+        background-size: 100% 100%;
+        .name{
+            font-size: 28px;
+            font-family: AlibabaPuHuiTi_2_105_Heavy;
+            line-height: 40px;
+        }
+        .total{
+            margin: 4px 0;
+            font-size: 16px;
+            font-family: AlibabaPuHuiTi_2_105_Heavy;
+            line-height: 22px;
+            span{
+                color: #12FD00; 
+                font-size: 28px;
+            }
+        }
+        .desc{
+            width: 254px;
+            font-size: 14px;
+            font-family: AlibabaPuHuiTi_2_85_Bold;
+            line-height: 24px;
+            text-align: center;
+            span{
+                color: #12FD00;
+                font-size: 16px;
+                font-family: AlibabaPuHuiTi_2_105_Heavy;
+            }
         }
     }
     .banner{
@@ -1362,58 +1399,36 @@ onMounted(() => {
                     height: 235px;
                     background: linear-gradient(90deg, rgba(111, 38, 190, 0) 0%, rgba(156, 0, 248, 0.64) 64%, #7A00F8 100%);
                 }
-                // .nobody-left-tip{
-                //     width: 100%;
-                //     height: 100%;
-                //     position: absolute;
-                //     top: 0;
-                //     div{
-                //         position: absolute;
-                //         top: 160px;
-                //         right: 40px;
-                //         padding-right: 9px;
-                //         width: 145px;
-                //         height: 29px;
-                //         font-size: 12px;
-                //         font-family: AlibabaPuHuiTi_2_105_Heavy;
-                //         color: #FFFFFF;
-                //         line-height: 29px;
-                //         text-align: right;
-                //         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-leftYellow.svg');
-                //         background-repeat: no-repeat;
-                //         background-position: right top;
-                //         background-size: 64px 64px;
-                //     }
-                // }
+                .nobody-left-tip{
+                    z-index: 2;
+                    pointer-events: none;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    div{
+                        position: absolute;
+                        top: 160px;
+                        right: 40px;
+                        padding-right: 9px;
+                        width: 145px;
+                        height: 29px;
+                        font-size: 12px;
+                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                        color: #FFFFFF;
+                        line-height: 29px;
+                        text-align: right;
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-leftYellow.svg');
+                        background-repeat: no-repeat;
+                        background-position: right top;
+                        background-size: 64px 64px;
+                    }
+                }
                 .swiper{
                     width: 100%;
                     height: 321px;
-                    img{
+                    .role{
                         height: 100%;
-                    }
-                    .nobody-left-tip{
-                        width: 100%;
-                        height: 100%;
-                        position: absolute;
-                        top: 0;
-                        div{
-                            z-index: 3;
-                            position: absolute;
-                            top: 160px;
-                            right: 40px;
-                            padding-right: 9px;
-                            width: 145px;
-                            height: 29px;
-                            font-size: 12px;
-                            font-family: AlibabaPuHuiTi_2_105_Heavy;
-                            color: #FFFFFF;
-                            line-height: 29px;
-                            text-align: right;
-                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/nobody-leftYellow.svg');
-                            background-repeat: no-repeat;
-                            background-position: right top;
-                            background-size: 64px 64px;
-                        }
                     }
                 }
             }

@@ -4,8 +4,15 @@
     <my-video v-if="isPlay" @touchmove.prevent :videotype="type2" @click="playVideo"></my-video>
 
     <!-- <div class="white-list">
-        <div class="title">IDO白名单活动</div>
-        <a href="#">Click here for details</a>
+        <div class="left">Total Raise：<span>$750,000</span></div>
+        <img src="@/assets/nwhome/whitelistbanner_seg.svg" alt="">
+        <div class="right">
+            <div class="name">IDO WHITELISTS OPEN</div>
+            <div class="desc">
+                Limited to <span>2500</span> whitelists / Basic quota per person: <span>$300</span>
+                Reach <span>6000</span> points to get a whitelist!
+            </div>
+        </div>
     </div> -->
     <div class="banner">
         <section>
@@ -139,28 +146,40 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     :speed="200"
                     :navigation="true"
                     :modules="leftModules"
+                    :autoplay="true"
+                    :effect="'creative'"
+                    :creativeEffect="{
+                        prev: {
+                            shadow: true,
+                            translate: ['-120%', 0, -500],
+                        },
+                        next: {
+                            shadow: true,
+                            translate: ['120%', 0, -500],
+                        },
+                    }"
                 >
                     <swiper-slide>
                         <div class="box">
                             <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
                             <div class="nobody-left-tip">
-                                <div>{{$t('message.home.nobody_role_tipBef')}}</div>
+                                <div>{{$t('message.home.nobody_role_tipBef_1')}}</div>
                             </div>
                         </div>
                     </swiper-slide>
                     <swiper-slide>
                         <div class="box">
-                            <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
+                            <img class="role" src="@/assets/nwhome/lSwiper_1.png" alt="">
                             <div class="nobody-left-tip">
-                                <div>{{$t('message.home.nobody_role_tipBef')}}</div>
+                                <div>{{$t('message.home.nobody_role_tipBef_2')}}</div>
                             </div>
                         </div>
                     </swiper-slide>
                     <swiper-slide>
                         <div class="box">
-                            <img class="role" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftBg3.png" alt="">
+                            <img class="role" src="@/assets/nwhome/lSwiper_2.png" alt="">
                             <div class="nobody-left-tip">
-                                <div>{{$t('message.home.nobody_role_tipBef')}}</div>
+                                <div>{{$t('message.home.nobody_role_tipBef_3')}}</div>
                             </div>
                         </div>
                     </swiper-slide>
@@ -459,13 +478,12 @@ import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import SwiperCore, { EffectFade, Mousewheel, Autoplay, Navigation} from "swiper";
-SwiperCore.use([EffectFade, Mousewheel, Autoplay, Navigation]);
+import SwiperCore, { EffectFade, EffectCreative, Mousewheel, Autoplay, Navigation} from "swiper";
+SwiperCore.use([EffectFade, EffectCreative, Mousewheel, Autoplay, Navigation]);
 const { proxy } = getCurrentInstance() as any;
 
 
 const leftModules:any = [Navigation];
-
 
 
 // message dialog
@@ -591,9 +609,6 @@ const onSlideChangeEnd = (swiper: any) => {
     imgSrc.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftYellow.svg';
     imgIndex.value = swiper.realIndex;
 };
-
-
-
 
 
 // banner视频播放
@@ -904,27 +919,48 @@ onMounted(() => {
     }
     .white-list{
         display: flex;
-        flex-direction: column;            
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 100vh;
-        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/videobg3.png');
+        height: 6.8vw;
+        margin: 5.5vw 0 -1px;
+        color: #ffffff;
+        background-image: url('../../../assets/nwhome/whitelist_banner.png');
         background-size: 100% 100%;
-        .title{
-            font-size: 4.32vw;
+        .left{
+            height: 3.12vw;
+            font-size: 1.87vw;
             font-family: AlibabaPuHuiTi_2_105_Heavy;
-            color: #FFFFFF;
-            filter: drop-shadow( .155vw 0 0 #D236A5 )
-                    drop-shadow( -.15vw 0 0.05rem #72F0D9 );
-            text-align: center;
+            line-height: 2.6vw;
+            span{
+                color: #12FD00; 
+                font-size: 3.12vw;
+            }
         }
-        a{
-            margin-top: 5vw;
-            font-size: 1.09vw;
-            font-family: AlibabaPuHuiTi_2_75_SemiBold;
-            line-height: 1.51vw;
-            color: #a41fe5;
+        .right{
+            .name{
+                font-size: 1.56vw;
+                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                color: #12FD00;
+                line-height: 2.08vw;
+            }
+            .desc{
+                width: 26.875vw;
+                height: 2.5vw;
+                font-size: .83vw;
+                font-family: AlibabaPuHuiTi_2_85_Bold;
+                line-height: 1.25vw;
+                span{
+                    color: #12FD00;
+                    font-size: 1.14vw;
+                    font-family: AlibabaPuHuiTi_2_105_Heavy;
+                }
+            }
+        }
+        img{
+            width: 2.6vw;
+            height: 5.3vw;
+            margin-right: 2.39vw;
         }
     }
     .banner{
@@ -1416,11 +1452,9 @@ onMounted(() => {
                         .swiper-bg3{
                             overflow: hidden;//
                             width: 56.4vw;
-                            // height: 24.42vw;
                             height: 24.33vw;
                             img{
                                 width: 100.1%;
-                                // height: 24.42vw;
                                 height: 24.33vw;
                                 margin-left: -.1vw;
                             }
@@ -1457,38 +1491,9 @@ onMounted(() => {
             justify-content: space-around;
             align-items: center;
             .nobody-left{
-                // position: relative;
-                // width: 45.57vw;
-                // height: 44vw;
-                // margin-left: 8vw;
                 width: 49vw;
                 height: 44vw;
                 padding-left: 8vw;
-                // img{
-                //     height: 95%;
-                //     margin-top: 2vw;
-                //     margin-left: 1vw
-                // }
-                // .nobody-left-tip{
-                //     z-index: 2;
-                //     position: absolute;
-                //     bottom: 7.3vw;
-                //     right: 9.8vw;
-                //     div{
-                //         width: 16vw;
-                //         height: 2vw;
-                //         padding-right: 1vw;
-                //         font-size: 1.04vw;
-                //         text-align: right;
-                //         font-family: AlibabaPuHuiTi_2_105_Heavy;
-                //         color: #FFFFFF;
-                //         line-height: 2vw;
-                //         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/nobody-leftYellow.svg');
-                //         background-repeat: no-repeat;
-                //         background-position: right center;
-                //         background-size: 20% auto;
-                //     }
-                // }
                 :deep( .swiper){
                     position: relative;
                     .swiper-button-prev, .swiper-button-next{
@@ -1496,29 +1501,13 @@ onMounted(() => {
                         display: flex;
                         align-items: center;
                         position: absolute;
-                        top: 50%;
-                        margin-top: -14px;
                         width: 10px;
                         height: 14px;
+                        width: 50%;
+                        height: 100%;
                     }
                     .swiper-button-next{
                         right: 0;
-                    }
-                    .swiper-button-prev::before, .swiper-button-next:before{
-                        display: inline-block;
-                        content: '';
-                        width: 6px;
-                        height: 6px;
-                        margin-left: 2px;
-                        border: 4px solid #FF21FF;
-                        border-left: transparent;
-                        border-top: transparent;
-                        transform: rotateZ(-225deg);
-                    }
-                    .swiper-button-next:before{
-                        margin-left: 0;
-                        margin-right: 2px;
-                        transform: rotateZ(-45deg);
                     }
                 }
                 .box{
@@ -1526,10 +1515,12 @@ onMounted(() => {
                     width: 100%;
                     height: 44vw;
                     padding-left: 1vw;
+                    background: #000000;
                     img{
-                        height: 95%;
+                        // height: 95%;
+                        width: 100%;
                         margin-top: 2vw;
-                        margin-left: 1vw;
+                        // margin-left: 1vw;
                     }
                     .nobody-left-tip{
                         z-index: 2;
