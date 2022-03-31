@@ -1517,10 +1517,9 @@ onMounted(() => {
                     padding-left: 1vw;
                     background: #000000;
                     img{
-                        // height: 95%;
-                        width: 100%;
+                        height: 95%;
                         margin-top: 2vw;
-                        // margin-left: 1vw;
+                        margin-left: 1vw;
                     }
                     .nobody-left-tip{
                         z-index: 2;
