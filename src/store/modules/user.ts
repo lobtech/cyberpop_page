@@ -15,13 +15,14 @@ const states = {
     account: '' as string, // 用户地址
     nativeBalance: '' as string, // 本地余额
     tokenBalances: '' as string, // 令牌余额
-    
+    chainId: 1 as Number, // chainid
     // home header
     active: 0,
     xplanActive: false,
     xplanAni: false,
     comingOutFlag: false,
     showDialog: false,
+    TipsState: false, // 自定义弹窗show
 
     // wallet
     isInstall: false, // 是否下载metamsk
@@ -69,6 +70,12 @@ export default {
             state['account'] = ''
             state['nativeBalance'] = ''
             state['tokenBalances'] = ''
+        },
+        chageChainId(state, paylaod: any){
+            state.chainId = paylaod;
+        },
+        TipsState(state, paylaod: any){
+            state.TipsState = paylaod;
         },
 
         // home header
@@ -162,6 +169,9 @@ export default {
         showDialog({ commit }, paylaod: any) {
             commit('showDialog', paylaod)
         },
+        TipsState({ commit }, paylaod: any) {
+            commit('TipsState', paylaod)
+        },
 
 
         // wallet
@@ -198,6 +208,9 @@ export default {
         },
         contractData({ commit }, paylaod: any) {
             commit('contractData', paylaod)
+        },
+        chageChainId({ commit }, paylaod: any){
+            commit('chageChainId', paylaod)
         },
     },
 } as Module<typeof_user, State>

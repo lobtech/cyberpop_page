@@ -510,7 +510,7 @@ const idTemp = computed(() => store?.state.user?.idTemp);
 const xplanActive = computed(() => store?.state.user?.xplanActive);
 const showxplan = () => {
     if( realId.value != -1 ){
-        Web3.getBalance(idTemp.value).then((res) => {
+        Web3.getBalance(idTemp.value).then((res: any) => {
             token0Number.value = res[0];
             if(token0Number.value <= 0){
                 store.dispatch('user/changeXplan',true);

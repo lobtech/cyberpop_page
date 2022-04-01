@@ -11,6 +11,28 @@
                 </div>
                 <div class="title">{{$t('message.assets.wel_name')}}</div>
                 <div class="id">{{realId == -1? '':realId}}</div>
+                <div class="contract">
+                    <div class="col th">
+                        <div class="name">Contarct</div>
+                        <div class="Fuji">Fuji</div>
+                        <div class="Mumbai">Mumbai</div>
+                    </div>
+                    <div class="col td">
+                        <div class="name">medal</div>
+                        <div class="Fuji">-----</div>
+                        <div class="Mumbai">0x82cCB2FE8f4d07702f7c2F4200f0FBF630C52406</div>
+                    </div>
+                    <div class="col td">
+                        <div class="name">weapons</div>
+                        <div class="Fuji">-----</div>
+                        <div class="Mumbai">0x1ca1327d3BD008C0D273F4609771d3f987F3b3D4</div>
+                    </div>
+                    <div class="col td">
+                        <div class="name">role</div>
+                        <div class="Fuji">-----</div>
+                        <div class="Mumbai">0x3df7c3D747bE15FC10DeD68aF3bfd2e97c432DC1</div>
+                    </div>
+                </div>
                 <div class="desc">
                     {{$t('message.assets.wel_desc')}}
                 </div>
@@ -75,33 +97,37 @@
                 </div>
                 <div class="ecrchange">
                     <div class="top">
-                        <div class="type1" :class="ecrType ? 'active' : ''" @click="ecrType = true">ERC 721</div>
-                        <div class="type2" :class="!ecrType ? 'active' : ''" @click="ecrType = false">ERC 1155</div>
+                        <div class="typeALL" :class="!ecrType ? 'active' : ''" @click="changeType(0)">ALL</div>
+                        <div class="type1" :class="ecrType == 1? 'active' : ''" @click="changeType(1)">ERC 721</div>
+                        <div class="type2" :class="ecrType == 2 ? 'active' : ''" @click="changeType(2)">ERC 1155</div>
                     </div>
-                    <div class="ecr721" v-show="ecrType">
-                        <!-- <ul class="prince">
-                            <li>
-                                <img src="@/assets/nwAssets/testItem.png" alt="">
-                                <div class="name">Prince of Shadows<span>x4</span></div>
+                    <div class="ercType" v-show="!ecrType">
+                        <ul class="prince">
+                            <li v-for="(item, index) in data" :key="index">
+                                <img :src="item.image" alt="">
+                                <div class="name">{{item.name}}<span>x{{item.number}}</span></div>
                                 <div class="btn">
-                                    <div class="transfer" @click="transferPopup()">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
                                     <div class="sell">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
                             </li>
                         </ul>
-                        <ul class="box">
-                            <li>
-                                <img src="@/assets/nwAssets/testItem.png" alt="">
-                                <div class="name">Mystery box</div>
+                    </div>
+                    <div class="ercType" v-show="ecrType == 1">
+                        <!-- <ul class="prince">
+                            <li v-for="(item, index) in data" :key="index">
+                                <img :src="item.image" alt="">
+                                <div class="name">{{item.name}}<span>x{{item.number}}</span></div>
                                 <div class="btn">
-                                    <div class="unpack">{{$t('message.assets.btn_unpack')}}</div>
+                                    <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
                             </li>
                         </ul> -->
                     </div>
-                    <div class="ecr115" v-show="!ecrType">
+                    <div class="ercType" v-show="ecrType == 2">
                         <ul class="prince">
-                            <li v-for="(item, index) in dataTemp" :key="index">
+                            <li v-for="(item, index) in data" :key="index">
                                 <img :src="item.image" alt="">
                                 <div class="name">{{item.name}}<span>x{{item.number}}</span></div>
                                 <div class="btn">
@@ -128,30 +154,20 @@
 import { onBeforeMount, onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
 
 import store from '@/store'
-import {  useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 import { toRaw } from '@vue/reactivity'
+
+
 const router = useRouter()
 const { proxy } = getCurrentInstance() as any
 const realId = computed(() => store?.state.user?.realId);
 
-
-let abi:any = ref(null);
-let address:any = ref(null);
-let dao_abi:any = ref(null);
-let dao_address:any = ref(null);
-
-let dataTemp:any = ref([]);
+let data:any = ref([]);
 
 const readyAssetsF = computed(() => {
     if( store?.state.user?.readyAssets !== -1 ){
-        dataTemp.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
-        // console.log('computed',dataTemp.value,store.state.user?.readyAssets);
-
-        abi.value = JSON.parse(JSON.stringify(store.state.user?.contract)).abi
-        address.value = JSON.parse(JSON.stringify(store.state.user?.contract)).address
-        dao_abi.value = JSON.parse(JSON.stringify(store.state.user?.contract)).dao_abi
-        dao_address.value = JSON.parse(JSON.stringify(store.state.user?.contract)).dao_address
+        console.log('computed', data._rawValue);
         
     }
     return store.state.user?.readyAssets
@@ -188,11 +204,14 @@ const checkall = (index:any) => {
         })
     }
 }
+const changeType = (type: Number) => {
+    ecrType.value = type;
+}
 
 
 
 // ecr exchange
-let ecrType:any = ref(true)
+let ecrType:any = ref(0)
 
 
 // NFT transfer
@@ -203,11 +222,14 @@ const transferPopup = (item:any) => {
     store.dispatch('user/transferChangeAni',true)
     transferItem.value = item
     if( item.type == 0 ){
-        abiSelect.value = abi
-        addressSelect.value = address
+        abiSelect.value = Web3.contracts.nft.abi;
+        addressSelect.value = Web3.contracts.nft.address
     }else if( item.type == 1 ){
-        abiSelect.value = dao_abi
-        addressSelect.value = dao_address
+        abiSelect.value = Web3.contracts.erc721.abi
+        addressSelect.value = Web3.contracts.erc721.address
+    }else{
+        abiSelect.value = Web3.contracts.erc721.abi
+        addressSelect.value = Web3.contracts.erc721.address
     }
 }
 
@@ -228,7 +250,7 @@ onMounted( () => {
     store.dispatch('user/transferChange',false);
 
     if(store.state.user?.readyAssets !== -1){
-        dataTemp.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
+        // data.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
     }
 })
 
@@ -272,6 +294,29 @@ onMounted( () => {
             background-size: 100% auto;
             .welcome{
                 text-align: center;
+                .contract{
+                    color: #333;
+                    margin: 1vw 0;
+                    .th{
+                        background: rgba(16, 76, 165, 0.5) !important;
+                        color: #fff;
+                    }
+                    .col{
+                        width: 80vw;
+                        margin: 0 auto;
+                        display: flex;
+                        align-items: center;
+                        background: rgba(255, 255, 255, 0.8);
+                        div{
+                            width: 33%;
+                            font-size: 1vw;
+                            line-height: 2vw;
+                            text-align: left;
+                            padding: 0 1vw;
+                            font-family: AlibabaPuHuiTi_2_115_Black;
+                        }
+                    }
+                }
                 .icon{
                     width: 8.75vw;
                     height: 7.6vw;
@@ -443,7 +488,7 @@ onMounted( () => {
                             line-height: 1.19vw;
                             cursor: pointer;
                         }
-                        .type1{
+                        .type1,.typeALL{
                             margin-right: 2vw;
                         }
                         div.active{
@@ -454,7 +499,7 @@ onMounted( () => {
                             background-size: 100% auto;
                         }
                     }
-                    .ecr721,.ecr115{
+                    .ercType{
                         width: 60vw;
                         ul{
                             display: flex;

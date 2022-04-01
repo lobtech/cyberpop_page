@@ -22,7 +22,8 @@ import footerA from './components/common/footerA.vue'
 import footerB from './components/common/footerB.vue'
 import 'swiper/css'
 import VueI18n from './assets/language/register-i18n'
-
+import msgPopupA from './components/common/msgPopupA.vue'
+import msgPopupB from './components/common/msgPopupB.vue'
 
 import vue3videoPlay from 'vue3-video-play' 
 import 'vue3-video-play/dist/style.css' 
@@ -55,7 +56,8 @@ app.component('headerA', headerA)
 app.component('headerB', headerB)
 app.component('footerA', footerA)
 app.component('footerB', footerB)
-
+app.component('msgPopupA', msgPopupA)
+app.component('msgPopupB', msgPopupB)
 
 app.use(vue3videoPlay)
 app.mount('#app')
