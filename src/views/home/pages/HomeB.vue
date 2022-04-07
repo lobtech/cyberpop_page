@@ -3,7 +3,7 @@
     <header-b path="/" :type="0"></header-b>
     <my-video v-if="isPlay" @touchmove.prevent :mobel="true" :videotype="type2" @click="playVideo"></my-video>
 
-    <div class="white-list" v-show="close">
+    <!-- <div class="white-list" v-show="close">
         <div class="name">IDO WHITELISTS OPEN</div>
         <div class="total">Total Raise：<span>$750,000</span></div>
         <div class="desc">
@@ -12,7 +12,7 @@
             Reach <span>6000</span> points to get a whitelist!
         </div>
         <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="close = false">
-    </div>
+    </div> -->
     <div class="banner">
         <section>
             <video-bg 

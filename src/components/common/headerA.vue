@@ -58,13 +58,13 @@
                         <li @mouseover="menuHover(4)" @mouseleave="hoverDoc = false" ref="clickCursor" @click="showDoc = !showDoc,hoverDoc = false" :class="{'active': active == 4}">
                             <span @mouseenter="hoverDoc = true">{{$t('message.common.menu4')}}</span>
                         </li>
-                        <li @mouseover="menuHover(5)" @click="changeMenu(5, '/')" :class="{'active': active == 5}">
+                        <!-- <li @mouseover="menuHover(5)" @click="changeMenu(5, '/')" :class="{'active': active == 5}">
                             <span>WhiteLists</span>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
-            <div class="white-list" v-show="close && path == '/'">
+            <!-- <div class="white-list" v-show="close && path == '/'">
                 <div class="wrap">
                     <div class="left">Total Raise：<span>$750,000</span></div>
                     <img class="cImg" src="@/assets/nwhome/whitelistbanner_seg.svg" alt="">
@@ -77,7 +77,7 @@
                     </div>
                     <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="close = false">
                 </div>
-            </div>
+            </div> -->
         </header>
     </div>
 
@@ -487,6 +487,7 @@ onMounted(() => {
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        cursor: pointer;
                     }
                     .hover_chunk{
                         z-index: 10;
