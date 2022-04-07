@@ -59,7 +59,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref } from 'vue'
 import store from '@/store'
-import Web3 from '@/tools/web3' 
+import NFT from '@/tools/web3' 
 import {  useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 const { proxy } = getCurrentInstance() as any;
@@ -222,7 +222,7 @@ const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
 const loggined = computed(() => store?.state.user?.loggined);
 const connect: any = async () => {
     store.dispatch('user/walletMenuAni', false)
-    const ismessage: any = await Web3.hasMetaMask()
+    const ismessage: any = await NFT.hasMetaMask()
 
     if( ismessage == 'No install' ){
         store.dispatch('user/metaChange',true);
@@ -232,17 +232,24 @@ const connect: any = async () => {
         store.dispatch('user/metaChange',true);
         store.dispatch('user/metaChangeAni',true);
         store.dispatch('user/checkInstall',true);
-        const [accounts]: any = await Web3.login().then((res: any) => {
+        const [accounts]: any = await NFT.login().then((res: any) => {
             store.dispatch('user/metaChange',false);
             store.dispatch('user/metaChangeAni',false);
             store.dispatch('user/walletloggined',true);
-            Web3.readJSON(proxy); //////
             return res;
         })
         id.value = accounts;
         let len = id.value.length-1;
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
+        store.dispatch('user/dataSumSearch',{flag:0});
+        const Web3 = (window as any).Web3
+        let web3obj = new Web3((Web3 as any).givenProvider)
+        await web3obj.eth.net.getId().then((chainId: any) => {
+            console.log(chainId);
+            store.dispatch('user/chageChainId', Number(chainId))
+            if(chainId != 80001 && chainId != 43113)  store.dispatch('user/TipsState', true)
+        })
         // messageAlert(1, proxy.$t('message.common.mess_succ'))
     }
 }
@@ -283,6 +290,7 @@ onMounted(() => {
     if( localStorage.getItem('lang') ){
         select.value = localStorage.getItem('lang');        
     }
+    login()
 })
 </script>
 

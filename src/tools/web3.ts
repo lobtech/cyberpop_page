@@ -1,5 +1,6 @@
 import store from '@/store'
 import contracts from '@/tools/contracts'
+import { rejects } from 'assert'
 import { ref, computed } from 'vue'
 const Web3 = (window as any).Web3 // 引用全局的web3 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/moralis@latest/dist/moralis.min.js"></script>
@@ -45,16 +46,6 @@ const getBalance = async (id: any) => {
 }
 
 
-
-
-// 查询合约对象
-const getContract = async (contractName: string = 'test') => {
-    const { abi, address } = (contracts as any)[contractName]
-    const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
-    const contract = new web3.eth.Contract(abi, address) // 创建合约
-    console.log(`---------->:contract`, contract)
-}
-
 // 授权某个合约可使用我的货币
 const approve = (contractName: string = 'test', contractAddress: string = '0xF55c6Be2F9390301bFc66Dd9f7f52495B56301dC', num: string = '10') => {
     const { abi, address } = (contracts as any)[contractName]
@@ -93,127 +84,152 @@ const isApprovedForAll = async (abi:any, address:any) => {
 
 // 资产转移
 const accounts = computed(() => store?.state.user?.idTemp);
-const safeTransferFrom = async (abi:any, address:any, TransferFrom:any, id:any, number:any) => {
+const safeTransferFrom = async (abi:any, address:any, TransferFrom:any, id:any, number?:any) => {
     // console.log(abi, address, TransferFrom, id, number);
     const web3 = new Web3((window as any ).ethereum)
     const contract = new web3.eth.Contract(abi, address)
-    let res = await contract.methods.safeTransferFrom(accounts.value, TransferFrom, id, number, '0x').send({ from: accounts.value }).then( (receipt:any) => {
-        return receipt;
-    }).catch((err:any) => {
-        isApprovedForAll(abi, address);
+    return new Promise((resolve, reject) => {
+        if(!number){  // 721 不需要传数量
+            contract.methods.safeTransferFrom(accounts.value, TransferFrom, id, '0x').send({ from: accounts.value }).then( (receipt:any) => {
+                resolve(receipt)
+            }).catch((err:any) => {
+                resolve(0)
+                isApprovedForAll(abi, address);
+            })
+        }else{ // 1155需要传入数量
+            contract.methods.safeTransferFrom(accounts.value, TransferFrom, id, number, '0x').send({ from: accounts.value }).then( (receipt:any) => {
+                resolve(receipt)
+            }).catch((err:any) => {
+                resolve(0)
+                isApprovedForAll(abi, address);
+            })
+        }
     })
-    // console.log(res, 'receipt');
-    return res;
 }
 
 // 资产查询
-const batchBalanceOf = async (abi:any, address:any) => {
-    const web3 = new Web3((window as any ).ethereum)
-    const contract = new web3.eth.Contract(abi, address)
-    let res = await contract.methods.batchBalanceOf(accounts.value).call();
-    return res;
+const batchBalanceOf = (abi:any, address:any) => {
+    return new Promise(async (resolve, reject) => {
+        // console.log(abi, address, accounts.value);
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        let res = await contract.methods.batchBalanceOf(accounts.value).call();
+        resolve(res);
+    })
 }
 
-// 读取JSON
-let abi:any = ref(null);
-const address:any = ref(null);
-const dao_abi:any = ref(null);
-const dao_address:any = ref(null);
-const data:any = ref([]);
-const readJSON = async (proxy:any) => {
-    data.value = [];
-    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/ntflib/abi.json').then((data:any) => {
-        abi.value = data;        
+const balanceOfBatch = (abi:any, address:any, ids:any) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((window as any ).ethereum)
+        const contract = new web3.eth.Contract(abi, address)
+        let res = await contract.methods.balanceOfBatch([accounts.value, accounts.value, accounts.value], ids).call();
+        resolve(res);
     })
-    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/ntflib/address.json').then((result:any) => {
-        address.value = result[0].address;        
-        batchBalanceOf(abi._rawValue, address.value).then((temp:any) => {
-            let res = JSON.parse(JSON.stringify(temp));
-            (function loop (index){
-                proxy.$api.get(`https://api.cyberpop.online/server/${index || 0}`).then( (result:any) => {
-                    
-                    if(res[index] > 0){
-                        data.value.push({
-                            id: index,
-                            type: 0,
-                            number: res[index],
-                            ...result,
-                        })
-                    }
-                    if (++index<res.length) {
-                        loop(index);
-                    } else {
-                        if( data.value.length !== 0 ){
-                            store.dispatch('user/dataSumSearch',{data:data._rawValue, flag:0});
-                            // console.log(data.value);
-                            // console.log("over!!!!!");
-                        }else{
-                            store.dispatch('user/dataSumSearch',{flag:-1});
-                            // console.log(data.value);
-                            // console.log("nothing!!!!!");
-                        }
-                        dao(proxy);
-                    }
-                }).catch((err:any) => {
-                    console.log(err); 
-                })
-            })(0)
-        }) 
-    })
-    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/daolib/abi.json').then((data:any) => {
-        dao_abi.value = data;
-    })
-    await proxy.$api.get('https://d2cimmz3cflrbm.cloudfront.net/daolib/address.json').then((data:any) => {
-        dao_address.value = data[0].address;
-    })    
-    store.dispatch('user/contractData', {abi, address, dao_abi, dao_address});
-    return {abi, address, dao_abi, dao_address};
 }
 
 
-const dao = async (proxy:any) => {
-    await batchBalanceOf(dao_abi._rawValue, dao_address.value).then((temp:any) => {
-        let res = JSON.parse(JSON.stringify(temp));
-        
-        (function loop (index){
-            proxy.$api.get(`https://api.cyberpop.online/weapons/${index + 1 + '01101'}`).then( (result:any) => {
-                
-                if(res[index] > 0){
-                    data.value.push({
-                        id: index,
-                        type: 1,
-                        number: res[index],
-                        ...result,
-                    })
-                }
-                if (++index < res.length) {
-                    loop(index);
-                } else {
-                    if( data.value.length !== 0 ){
-                        store.dispatch('user/dataSumSearch',{data:data._rawValue, flag:1});
-                        // console.log(data.value);
-                        // console.log("over2!!!!!");
-                    }else{
-                        store.dispatch('user/dataSumSearch',{flag:-1});
-                        // console.log(data.value);
-                        // console.log("nothing!!!!!");
-                    }
-                }
-            })
-        })(0)
+// lootbox礼盒专用 開發人員面向使用者介面，使用此功能從戰利品盒中獲得隨機獎勵
+const unpack = (abi: any, address: any, id: any, number: any) => {
+    return new Promise((resolve, reject) => {
+        const web3 = new Web3((window as any ).ethereum)
+        const contract = new web3.eth.Contract(abi, address)
+        contract.methods.unpack(id, number).send({ from: accounts.value})
+        .on('transactionHash', function (hash: any) {
+            console.log(`---------->:hash`, hash)
+        })
+        .on('receipt', function (receipt: any) {
+            resolve(receipt)
+            console.log(`---------->:receipt`, receipt)
+        })
+        .on('confirmation', function (confirmationNumber: any, receipt: any) {
+            console.log(`---------->:confirmationNumber, receipt`, confirmationNumber, receipt)
+        })
+        .on('error', (err: any) => {
+            console.log(`---------->:err`, err)
+            resolve(0)
+        })
     })
-} 
+}
+
+
+// 查询721合约的
+const tokensOfOwner = (abi: any, address: any) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        let result = await contract.methods.tokensOfOwner(accounts.value).call();
+        resolve(result);
+    })
+}
+
+
+const addChain = (chainId: Number) => {
+    const ethereum = (window as any).ethereum // 获取小狐狸实例
+    const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
+    console.log(web3.utils.numberToHex(chainId), 'web3.utils.numberToHex(chainId)');
+    let info: any;
+    if(chainId == 43113){
+        info = {
+            method: 'wallet_addEthereumChain',
+            params: [
+                {
+                    chainId: web3.utils.numberToHex(43113),
+                    chainName: 'AVAX',
+                    nativeCurrency: {
+                        name: 'AVAX',
+                        symbol: 'AVAX', // 2-6 characters long
+                        decimals: 18
+                    },
+                    rpcUrls: ['https://api.avax-test.network/ext/bc/C/rpc'],
+                    blockExplorerUrls: ['https://testnet.snowtrace.io/']
+                }
+            ]
+        }
+    }else{
+        info = {
+            method: 'wallet_addEthereumChain',
+            params: [
+                {
+                    chainId: web3.utils.numberToHex(80001),
+                    chainName: 'MATIC',
+                    nativeCurrency: {
+                        name: 'MATIC',
+                        symbol: 'MATIC', // 2-6 characters long
+                        decimals: 18
+                    },
+                    rpcUrls: ['https://rpc-mumbai.maticvigil.com'],
+                    blockExplorerUrls: ['https://mumbai.polygonscan.com/']
+                }
+            ]
+        }
+    }
+
+    return new Promise((resolve, reject) => {
+        ethereum.request({
+            ...info
+        }).then((res: any)=>{
+            //添加成功
+            resolve(1)
+        }).catch((err: any)=>{
+            //添加失败
+            resolve(0)
+        })
+    })
+
+}
 
 
 export default {
-    readJSON,
     safeTransferFrom,
     batchBalanceOf,
     login,
     hasMetaMask,
     getAccounts,
     getBalance,
-    getContract,
     approve,
+    balanceOfBatch,
+    unpack,
+    tokensOfOwner,
+    addChain,
     contracts,
 }

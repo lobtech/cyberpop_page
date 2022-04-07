@@ -1,8 +1,8 @@
 <template>
     <header-a path="/mystery" :type="2"></header-a>
-    <div class="section">
+    <!-- <div class="section">
         <div class="title">{{$t('message.mining.coming')}}</div>
-    </div>
+    </div> -->
     <div class="boxBg">
         <div class="video">
             <video-bg 
@@ -23,19 +23,70 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             </div>
             <div class="maskBlur"></div>
         </div>
-        <div class="blind">
+        <!-- 元素里面必须要有这个，要不然监听readyAssetsF不生效 -->
+        {{ readyAssetsF }} 
+        <div class="blind" v-if="data.length > 0">
             <div class="title">{{$t('message.box.type_title_1')}}</div>
             <ul>
-                <li>
+                <li  v-if="data[0].number">
                     <div class="boxVideo">
-                        <video autoplay loop>
-                            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox1.mp4" type="video/mp4">
+                        <img :src="data[0].info.image" v-if="!data[0].info.animation_url" alt="">
+                        <video class="third" autoplay loop v-else>
+                            <source :src="data[0].info.animation_url" type="video/mp4">
                         </video>
                     </div>
                     <div class="weapon">
-                        <div class="name">{{$t('message.box.weapon_name1')}}</div>
+                        <div class="name">{{ data[0].info.name }} <span>{{ 'x'+data[0].number }}</span></div>
                         <div class="introduce">
-                            {{$t('message.box.weapon_intro1')}}
+                            {{ data[0].info.description }}
+                        </div>
+                        <div class="price">
+                            <img src="@/assets/nwbox/nfts-icon.svg" alt="">
+                            <div class="num">10.00</div>
+                            <div class="exchange">≈$20.00</div>
+                        </div>
+                        <div class="btn">
+                            <div class="open" @click="open(0, data[0])">{{$t('message.box.open')}}</div>
+                            <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
+                            <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div> -->
+                        </div>
+                    </div>
+                </li>
+                <li  v-if="data[1].number">
+                    <div class="boxVideo">
+                        <img :src="data[1].info.image" v-if="!data[1].info.animation_url" alt="">
+                        <video autoplay loop v-else>
+                            <source :src="data[1].info.animation_url" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="weapon">
+                        <div class="name">{{ data[1].info.name }}  <span>{{ 'x'+data[1].number }}</span> </div>
+                        <div class="introduce">
+                            {{ data[1].info.description }}
+                        </div>
+                        <div class="price">
+                            <img src="@/assets/nwbox/nfts-icon.svg" alt="">
+                            <div class="num">20.00</div>
+                            <div class="exchange">≈$40.00</div>
+                        </div>
+                        <div class="btn">
+                            <div class="open" @click="open(1, data[1])">{{$t('message.box.open')}}</div>
+                            <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
+                            <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div> -->
+                        </div>
+                    </div>
+                </li>
+                <li  v-if="data[2].number">
+                    <div class="boxVideo">
+                        <img :src="data[2].info.image" v-if="!data[2].info.animation_url" alt="">
+                        <video autoplay loop v-else>
+                            <source :src="data[2].info.animation_url" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="weapon">
+                        <div class="name">{{ data[2].info.name }}  <span>{{ 'x'+data[2].number }}</span> </div>
+                        <div class="introduce">
+                            {{ data[2].info.description }}
                         </div>
                         <div class="price">
                             <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -43,56 +94,13 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$- -</div>
                         </div>
                         <div class="btn">
-                            <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                            <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
+                            <div class="open" @click="open(2, data[2])">{{$t('message.box.open')}}</div>
+                            <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
+                            <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div> -->
                         </div>
                     </div>
                 </li>
-                <li>
-                    <div class="boxVideo">
-                        <video autoplay loop>
-                            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox2.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="weapon">
-                        <div class="name">{{$t('message.box.weapon_name2')}}</div>
-                        <div class="introduce">
-                            {{$t('message.box.weapon_intro2')}}
-                        </div>
-                        <div class="price">
-                            <img src="@/assets/nwbox/nfts-icon.svg" alt="">
-                            <div class="num">— —</div>
-                            <div class="exchange">≈$- -</div>
-                        </div>
-                        <div class="btn">
-                            <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                            <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="boxVideo">
-                        <video class="third" autoplay loop>
-                            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox3.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="weapon">
-                        <div class="name">{{$t('message.box.weapon_name3')}}</div>
-                        <div class="introduce">
-                            {{$t('message.box.weapon_intro3')}}
-                        </div>
-                        <div class="price">
-                            <img src="@/assets/nwbox/nfts-icon.svg" alt="">
-                            <div class="num">— —</div>
-                            <div class="exchange">≈$- -</div>
-                        </div>
-                        <div class="btn">
-                            <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                            <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
-                        </div>
-                    </div>
-                </li>
-                <li>
+                <!-- <li>
                     <div class="boxVideo">
                         <video autoplay loop>
                             <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox4.mp4" type="video/mp4">
@@ -113,58 +121,140 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="details" @click="toDetails(4)">{{$t('message.box.btn_det')}}</div>
                         </div>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </div>
+        <div class="nothing" v-else>
+            <!-- <div class="nothing" v-if="true"> -->
+            <loading v-if="true" :show="true" :index="0.5" v-show="data.length == 0" />
+            <div class="txt">{{$t('message.assets.nothing')}}<a href="/">{{$t('message.assets.nothing_home')}}</a></div>
+            <img src="@/assets/nwAssets/nothing.svg" alt="">
+        </div>
         <footer-a></footer-a>
+        <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
     </div>
-    <!-- <coming-a v-show="showComingFlag"></coming-a> -->
-</template>
+</template> 
 <script setup lang="ts">
-import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
-
+import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 import router from '@/router';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
+const { GiftBox, LootBox } = Web3.contracts;
 
 
-// // coming soon
-// let showComingFlag:any = ref(false)
-// const ctimer:any = ref(null)
+const { proxy } = getCurrentInstance() as any;
 
-// const showComing = () => {
-//     clearTimeout(ctimer.value);
-//     // default animation
-//     store.dispatch('user/addComingOut', false)
-//     // show coming view
-//     showComingFlag.value = true;
-//     ctimer.value = setTimeout(() => {
-//         // change animation
-//         store.dispatch('user/addComingOut', true)
-//     },3000)
-// }
+const { abi, address } = Web3.contracts['GiftBox'];
+const chainId: any = computed(() => store.state.user?.chainId);
+watch(chainId, (newVal, oldVal) => {
+    if(!oldVal) return;
+}, {immediate:true,deep:true});
 
 
+const TipsState: any = ref(false as any);
+
+const data: any = ref([]);
+const loadingState: any = ref(true)
+const readyAssetsF: any = computed(() => {
+    if( store?.state.user?.readyAssets !== -1 && chainId.value == 80001 || chainId.value == 43113){
+        getBalance(chainId.value)
+    }else{
+        data.value = [];
+        loadingState.value = false;
+    }
+    return store.state.user?.readyAssets
+});
+
+const getBalance = async (chainid: number) => {
+    if(chainid == 80001){
+        var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
+    }else{
+        var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+    }
+    getData(result)
+   
+}
+
+const getData = async (boxData: any[]) => {
+    let temp: any = [];
+    data.value = [];
+    (function loop(index){
+        proxy.$api.get(`https://api.cyberpop.online/box/${index}`).then((result: any) => {
+            temp.push({
+                id: index,
+                number: boxData[index],
+                info: result,
+            })
+            if (++index < boxData.length) {
+                loop(index);
+            } else {
+                data.value = temp;
+                console.log(data._rawValue);
+                loadingState.value = false;
+                console.log("over1!!!!!");
+            }
+        })
+    })(0)
+}
 
 
 const toDetails = (type:any) => {
     router.push({ name: 'details',params:{ type }})
 }
 
+const open = async (boxId: Number, data: any) => {
+    console.log(data.number);
+    if(data.number == 0){
+        store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'NOT BOX', content: 'You have no box assets', addNetwork: false}});
+        return;
+    }
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
+    let result = await Web3.unpack(abi, address, boxId, 1)
+    console.log(result, 'result');
+    store.dispatch('user/TipsState', {show: false, info: { }});
+    if(result) {
+        messageAlert(true, proxy.$t('message.assets.pop.tran_succ'))
+        setTimeout(() => {
+            getBalance(chainId.value)
+        }, 1000);
+    }else{
+        messageAlert(false, proxy.$t('message.assets.pop.reject_transaction'))
+    }
+}
+
+const mtimer: any = ref(null);
+let messageState:any = ref(false)
+let messageContent:any = ref('')
+const showDialog = computed(() => store?.state.user?.showDialog);
+const messageAlert = (flag:any, message:any) => {
+    clearTimeout(mtimer.value)
+    messageState.value = flag
+    store.dispatch('user/showDialog',true)
+    messageContent.value = message
+    store.dispatch('user/addComingOut', false)
+    mtimer.value = setTimeout(() => {
+        store.dispatch('user/addComingOut',true)
+    },5000)
+}
 
 onMounted(() => {
     window.scrollTo(0,0);
     store.dispatch('user/showDialog',false);// close message dialog
     store.dispatch('user/metaChange',false);
+    if(readyAssetsF.value != -1 && chainId.value == 80001 || chainId.value == 43113){
+        getBalance(chainId.value)
+    }
 })
 
 </script>
 <style lang="less" scoped>
     a {
-    text-decoration: none;
+        text-decoration: none;
     }
-    
     .section{
         z-index: 8;
         position: fixed;
@@ -322,6 +412,10 @@ onMounted(() => {
                             width: 134%;
                             transform: translate(-50%,-50%);
                         }
+                        img{
+                            width: 100%;
+                            height: 100%;
+                        }
                         .third{
                             width: 177%;
                         }
@@ -338,6 +432,11 @@ onMounted(() => {
                             font-size: 1.77vw;
                             font-family: AlibabaPuHuiTi_2_105_Heavy;
                             line-height: 1.77vw;
+                            position: relative;
+                            span{
+                                position: absolute;
+                                right: 0;
+                            }
                         }
                         .introduce{
                             // flex: 1;
@@ -383,13 +482,16 @@ onMounted(() => {
                             font-family: AlibabaPuHuiTi_2_115_Black;
                             line-height: 2.81vw;
                             text-align: center;
-                            .purchase{
+                            .purchase, .open{
                                 width: 11.09vw;
                                 height: 2.81vw;
                                 margin-right: 1.25vw;
                                 background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/purchase.png');
                                 background-size: 100% 100%;
                                 cursor: pointer;
+                            }
+                            .open{
+                                margin-right: 0; 
                             }
                             .details{
                                 width: 9.89vw;
@@ -401,6 +503,30 @@ onMounted(() => {
                         }
                     }
                 }
+            }
+        }
+        .nothing{
+            height: 80vh;
+            text-align: center;
+            padding-bottom: 7.55vw;
+            .txt{
+                width: 47.5vw;
+                height: 1.04vw;
+                margin: -1vw auto 7.65vw;
+                font-size: .83vw;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
+                color: #B1B5C3;
+                line-height: 1.04vw;
+                text-align: center;
+                a{
+                    color: #04FFA2;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+            }
+            img{
+                width: 11.71vw;
+                height: 12.5vw;
             }
         }
     }

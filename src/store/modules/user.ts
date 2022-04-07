@@ -23,6 +23,7 @@ const states = {
     comingOutFlag: false,
     showDialog: false,
     TipsState: false, // 自定义弹窗show
+    TipsInfo: {} as any, // 自定义弹窗信息
 
     // wallet
     isInstall: false, // 是否下载metamsk
@@ -39,6 +40,7 @@ const states = {
     dataSum: ref([]) as any, // search NFT & dao data 
     readyAssets: -1 ,// 判断是否查询完毕
     contract: ref([]) , // 存放transfer所需abi，address
+    transferSuccess: 0, // 转账成功状态
 
 }
 export type typeof_user = typeof states
@@ -76,6 +78,9 @@ export default {
         },
         TipsState(state, paylaod: any){
             state.TipsState = paylaod;
+        },
+        TipsInfo(state, paylaod: any){
+            state.TipsInfo = paylaod;
         },
 
         // home header
@@ -136,6 +141,9 @@ export default {
         contractData(state, payload: any) {
             state.contract = payload;
         },
+        transferSuccess(state, payload: any) {
+            state.transferSuccess = payload;
+        },
     },
     actions: {
         // 初始化用户
@@ -170,7 +178,8 @@ export default {
             commit('showDialog', paylaod)
         },
         TipsState({ commit }, paylaod: any) {
-            commit('TipsState', paylaod)
+            commit('TipsState', paylaod.show),
+            commit('TipsInfo', paylaod.info)
         },
 
 
@@ -211,6 +220,9 @@ export default {
         },
         chageChainId({ commit }, paylaod: any){
             commit('chageChainId', paylaod)
+        },
+        transferSuccess({ commit }, payload: any) {
+            commit('transferSuccess', payload);
         },
     },
 } as Module<typeof_user, State>

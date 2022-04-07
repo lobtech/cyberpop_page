@@ -12,6 +12,7 @@
         "axios": "^0.24.0",
         "less": "^4.1.2",
         "moralis": "^0.0.181",
+        "qs": "^6.10.3",
         "swiper": "^7.2.0",
         "three": "^0.137.5",
         "vue": "^3.2.16",
@@ -25,6 +26,7 @@
     "devDependencies": {
         "@types/jquery": "^3.5.13",
         "@types/node": "^16.11.11",
+        "@types/qs": "^6.9.7",
         "@vitejs/plugin-vue": "^1.9.3",
         "jquery": "^3.6.0",
         "postcss-preset-env": "^7.0.1",

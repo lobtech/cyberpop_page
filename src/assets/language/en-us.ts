@@ -253,6 +253,9 @@ const us = {
             weapon_intro4: 'Powerful Weapons can endow character with better abilities and make him/her stronger. They allow you to perform better.',
             btn_pur: 'PURCHASE',
             btn_det: 'DETAILS',
+            open: 'OPEN',
+            opening: 'opening...',
+            open_text: 'Please wait...Opening the blind box for you',
         },
 
         // detailsA
@@ -321,7 +324,7 @@ const us = {
                 title: 'NFT TRANSFER',
                 tips: 'Please input amount',
                 tips_err: 'Please enter a correct number',
-                desc: 'NFT #3405454 send to the wallet address',
+                desc: 'send to the wallet address',
                 mess_empty: 'Address is empty',
                 mess_err: 'Address format error',
                 btn_cancel: 'CANCEL',
@@ -330,7 +333,10 @@ const us = {
                 tran_stop: 'Transaction interruption',
                 tran_succ: 'Success',
                 tran_invalid: 'Invalid address',
+                reject_transaction: 'Reject transaction'
             },
+            Transfering: 'Transfer...',
+            Transfering_content: 'Transfer in progress, please wait',
         },
 
 

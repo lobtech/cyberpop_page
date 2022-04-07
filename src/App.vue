@@ -4,22 +4,26 @@
             <component :is="Component" :key="$route.path" v-if="$route.meta.keepAlive" />
         </keep-alive>
         <component :is="Component" :key="$route.path" v-if="!$route.meta.keepAlive" />
-        <msg-popup-a v-if="innerWidth > 740" :isShowTips="TipsState" :isLoading="false" :isClose="true" :title="'Network Error'" :content="$t('message.common.metamask.switch')"/>
-        <msg-popup-b v-else :isShowTips="TipsState" :isLoading="false" :isClose="true" :title="'Network Error'" :content="$t('message.common.metamask.switch')"/>
+        <msg-popup-a v-if="innerWidth > 740 && TipsState" :addNetwork="TipsInfo.addNetwork" :isShowTips="TipsState" :isLoading="TipsInfo.hasLoading" :isClose="TipsInfo.hasClose" :title="TipsInfo.title" :content="TipsInfo.content"/>
+        <msg-popup-b v-else :isShowTips="TipsState" :addNetwork="true" :isLoading="false" :isClose="true" :title="'Network Error'" :content="$t('message.common.metamask.switch')"/>
     </router-view>
 </template>
 <script setup lang="ts">
 import { onMounted, computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import store from './store'
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
 const $store: any = useStore()
 
 const innerWidth = computed(() => {
     return store.state.sys?.innerWidth || 0
-}) // 监听屏幕宽度
-const TipsState = computed(() => store.state.user?.TipsState);
-const chainId = computed(() => store.state.user?.chainId);
-const realId: any = computed(() => store.state.user?.realId)
+})
+
+const TipsState = computed(() => store.state.user?.TipsState );
+const TipsInfo = computed(() => store.state.user?.TipsInfo);
 
 onMounted(() => {
     const ethereum = (window as any).ethereum 
@@ -27,14 +31,22 @@ onMounted(() => {
     
     ethereum.on("accountsChanged", (accounts: any) => {
         console.log(accounts[0]);//一旦切换账号这里就会执行
+        let id = accounts[0];
+        let len = id.length-1;
+        id = id[0]+id[1]+id[2]+id[3]+id[4]+"*****"+id[len-3]+id[len-2]+id[len-1]+id[len];
+        store.dispatch('user/connectWallet',{realId:id, idTemp:accounts[0]});// 存放星号id、完整id
+        store.dispatch('user/dataSumSearch',{flag:0});
     });
     ethereum.on('chainChanged', (chainId: string) => {
+        let id: any = Number(chainId);
+        console.log(id);
+        
         store.dispatch('user/chageChainId', Number(chainId))
-        if(chainId != '0x13881') {
-            store.dispatch('user/TipsState', true)
+        if(id != 80001 && id != 43113) {
+            store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
             return;
         }
-        store.dispatch('user/TipsState', false)
+        store.dispatch('user/TipsState', {show: false, info: { }});
     });
 })
 </script>

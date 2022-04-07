@@ -133,7 +133,7 @@
 </template>
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
-
+import Web3 from '@/tools/web3'
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 const router = useRouter()
@@ -257,6 +257,24 @@ const selectItem = (e:any) => {
     }
 }
 
+// switch erc button
+const changeType = (type: Number) => {
+    ecrType.value = type;
+    getData(type)
+}
+
+const getData: any = async (type: Number) => {
+    const { abi, address } = Web3.contracts['nft'];
+    if(!type){
+       let result = await  Web3.batchBalanceOf(abi, address);
+       console.log(result);
+       
+    }else if(type == 1){
+
+    }else{
+
+    }
+}
 
 // ecr exchange
 let ecrType:any = ref(true);

@@ -171,6 +171,7 @@ const checkAddress = (e:any) => {
 
 // transfer submit
 const transfer = async () => {
+    console.log(99999);
     
     if( inputAddress.value == '' ){
         inputState.value = ''
@@ -185,7 +186,6 @@ const transfer = async () => {
                 }else{
                     closeDialog();
                     messageAlert(1, proxy.$t('message.assets.pop.tran_succ'))
-                    Web3.readJSON(proxy)
                 }
             }).catch((err:any) => {
                 // inputState.value = ''

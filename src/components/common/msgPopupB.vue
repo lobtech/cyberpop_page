@@ -10,7 +10,7 @@
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/metaMask.svg" alt="">
                     <div class="subtitle">{{$t('message.common.metamask.logoText')}}</div>
                 </div>
-                <div class="text">{{ props.content }} <a href="https://chainlist.org/" target="_blank">{{ $t('message.common.metamask.add') }}</a> </div>
+                <div class="text">{{ props.content }} <a v-if="props.addNetwork" href="https://chainlist.org/" target="_blank">{{ $t('message.common.metamask.add') }}</a> </div>
                 <div class="loading" v-if="isLoading">
                     <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
                 </div>
@@ -28,6 +28,7 @@ const props = defineProps({
     isClose: Boolean,  // 现实叉叉按钮
     title: String,  // 标题
     isShowTips: Boolean, //是否显示
+    addNetwork: Boolean,
 })
 onMounted(() => {
     console.log(props);

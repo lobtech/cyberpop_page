@@ -1,4 +1,5 @@
 import axios from "axios";
+import { post } from "jquery";
  
  
 axios.defaults.baseURL = '' 
@@ -44,6 +45,15 @@ export default {
                 .catch(err => {
                     reject(err)
                 })
+        })
+    },
+    post(url: any, body: any) {
+        return new Promise((resolve, reject) => {
+            axios.post(url, body).then((result) => {
+                resolve(result);
+            }).catch((err)=>{
+                reject(err);
+            })
         })
     }
 };

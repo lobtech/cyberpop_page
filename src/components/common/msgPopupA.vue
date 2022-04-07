@@ -3,14 +3,14 @@
         <div class="mask">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <img class="close" v-if="props.isClose" src="@/assets/nwhome/close.svg" alt=""  @click="store.dispatch('user/TipsState', false)">
+            <img class="close" v-if="props.isClose" src="@/assets/nwhome/close.svg" alt=""  @click="close">
             <div class="content">
                 <div class="title">{{ props.title }}</div>
                 <div class="icon">
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/metaMask.svg" alt="">
-                    <div class="subtitle">{{$t('message.common.metamask.logoText')}}</div>
+                    <div class="subtitle">{{t('message.common.metamask.logoText')}}</div>
                 </div>
-                <div class="text">{{ props.content }} <a href="https://chainlist.org/" target="_blank">{{ $t('message.common.metamask.add') }}</a> </div>
+                <div class="text">{{ props.content == 'netWork' ? $t('message.common.metamask.switch') : props.content }} <a v-if="props.addNetwork" href="https://chainlist.org/" target="_blank">{{ $t('message.common.metamask.add') }}</a> </div>
                 <div class="loading" v-if="isLoading">
                     <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
                 </div>
@@ -22,13 +22,28 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import store from '@/store/index'
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
 const props = defineProps({
     content: String, // 文案内容
-    isLoading: Boolean, // 显示loading状态
+    isLoading: {
+        type: Boolean,
+        default: false,
+    },
     isClose: Boolean,  // 现实叉叉按钮
     title: String,  // 标题
     isShowTips: Boolean, //是否显示
+    addNetwork: Boolean,
 })
+
+const close = () => {
+    console.log(999);
+    
+    store.dispatch('user/TipsState', {show: false, info: { hasLoading: true, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}})
+}
+
 onMounted(() => {
     console.log(props);
 })
@@ -97,6 +112,7 @@ onMounted(() => {
                 position: absolute;
                 right: 1vw;
                 top: 1vw;
+                z-index: 11;
             }
             .content{
                 position: absolute;
