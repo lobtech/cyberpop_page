@@ -3,7 +3,7 @@
     <header-b path="/" :type="0"></header-b>
     <my-video v-if="isPlay" @touchmove.prevent :mobel="true" :videotype="type2" @click="playVideo"></my-video>
 
-    <!-- <div class="white-list">
+    <div class="white-list" v-show="close">
         <div class="name">IDO WHITELISTS OPEN</div>
         <div class="total">Total Raise：<span>$750,000</span></div>
         <div class="desc">
@@ -11,7 +11,8 @@
             Basic quota per person: <span>$300</span> <br/>
             Reach <span>6000</span> points to get a whitelist!
         </div>
-    </div> -->
+        <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="close = false">
+    </div>
     <div class="banner">
         <section>
             <video-bg 
@@ -474,7 +475,7 @@ import { clear } from 'console';
 SwiperCore.use([EffectFade, EffectCreative, Mousewheel, Autoplay]);
 const { proxy } = getCurrentInstance() as any;
 
-
+let close:any = ref(true)
 
 
 
@@ -848,13 +849,16 @@ onMounted(() => {
     }
 
     .white-list{
+        z-index: 9;
+        position: fixed;
+        top: 0px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 100%;
         height: 192px;
-        margin: 44px 0 0;
+        margin: 55px 0 0;
         color: #ffffff;
         background-image: url('../../../assets/nwhome/whitelist_banner_phone.png');
         background-size: 100% 100%;
@@ -884,6 +888,13 @@ onMounted(() => {
                 font-size: 16px;
                 font-family: AlibabaPuHuiTi_2_105_Heavy;
             }
+        }
+        .close{
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            width: 32px;
+            height: 32px;
         }
     }
     .banner{

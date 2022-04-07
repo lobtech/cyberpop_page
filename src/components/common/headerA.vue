@@ -49,11 +49,29 @@
                         <li @mouseover="menuHover(4)" @mouseleave="hoverDoc = false" ref="clickCursor" @click="showDoc = !showDoc,hoverDoc = false" :class="{'active': active == 4}">
                             <span @mouseenter="hoverDoc = true">{{$t('message.common.menu4')}}</span>
                         </li>
+                        <li @mouseover="menuHover(5)" @click="changeMenu(5, '/')" :class="{'active': active == 5}">
+                            <span>WhiteLists</span>
+                        </li>
                     </ul>
+                </div>
+            </div>
+            <div class="white-list" v-show="close && path == '/'">
+                <div class="wrap">
+                    <div class="left">Total Raise：<span>$750,000</span></div>
+                    <img class="cImg" src="@/assets/nwhome/whitelistbanner_seg.svg" alt="">
+                    <div class="right">
+                        <div class="name">IDO WHITELISTS OPEN</div>
+                        <div class="desc">
+                            Limited to <span>2500</span> whitelists / Basic quota per person: <span>$300</span>
+                            Reach <span>6000</span> points to get a whitelist!
+                        </div>
+                    </div>
+                    <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="close = false">
                 </div>
             </div>
         </header>
     </div>
+
     <!-- <div class="section">
         <div class="title">COMING SOON</div>
     </div> -->
@@ -86,6 +104,8 @@ import {  useRouter } from 'vue-router'
 import { useI18n  } from 'vue-i18n'
 const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
+
+let close:any = ref(true);
 
 
 let abi:any = ref(null);
@@ -549,6 +569,61 @@ onMounted(() => {
                     .active{
                         background: linear-gradient(180deg, rgba(0,0,0,0),rgba(255, 24, 255, 0) 65%, rgba(255, 24, 255, 0.62) 100%);
                     }  
+                }
+            }
+            .white-list{
+                width: 100%;
+                height: 6.8vw;
+                background-image: url('../../assets/nwhome/whitelist_banner.png');
+                background-size: 100% 100%;
+                .wrap{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    height: 100%;
+                    .left{
+                        height: 3.12vw;
+                        font-size: 1.87vw;
+                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                        line-height: 2.6vw;
+                        span{
+                            color: #12FD00; 
+                            font-size: 3.12vw;
+                        }
+                    }
+                    .right{
+                        .name{
+                            font-size: 1.56vw;
+                            font-family: AlibabaPuHuiTi_2_105_Heavy;
+                            color: #12FD00;
+                            line-height: 2.08vw;
+                        }
+                        .desc{
+                            width: 26.875vw;
+                            font-size: .83vw;
+                            font-family: AlibabaPuHuiTi_2_85_Bold;
+                            line-height: 1.25vw;
+                            span{
+                                color: #12FD00;
+                                font-size: 1.14vw;
+                                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                            }
+                        }
+                    }
+                    .cImg{
+                        width: 2.6vw;
+                        height: 5.3vw;
+                        margin-right: 2.39vw;
+                    }
+                    .close{
+                        position: absolute;
+                        top: .3vw;
+                        right: .3vw;
+                        width: 2.2vw;
+                        height: 2.2vw;
+                        cursor: pointer;
+                    }
                 }
             }
         }
