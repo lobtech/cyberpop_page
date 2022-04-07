@@ -60,8 +60,8 @@ const cn = {
             wel_titleBef: '歡迎來到',
             wel_titleAft: '賽博新世界',
             wel_desc1: '這是一次基於以太坊的UGC元宇宙之旅，你可自由穿行於不同時空，領略賽博之美，探尋奇珍異寶',
-            wel_swiper_title1: '昔日殘影',
-            wel_swiper_title2: '數字佛陀',
+            wel_swiper_title1: '探索',
+            wel_swiper_title2: '戰鬥',
             wel_swiper_title3: '月光世紀',
             wel_swiper_title4: '未來都會',
             // homeA-nobody

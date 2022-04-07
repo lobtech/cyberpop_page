@@ -61,8 +61,8 @@ const us = {
             wel_titleBef: 'WELCOME TO',
             wel_titleAft: 'CYBERPOP NEW WORLD',
             wel_desc1: 'A UGC Metaverse adventure built on the Ethereum, where you can travel through diverse cyberspace or different time and space searching for mysterious digital artifacts and creatures.',
-            wel_swiper_title1: 'Time Remnants',
-            wel_swiper_title2: 'Digital Pujas',
+            wel_swiper_title1: 'Exploration',
+            wel_swiper_title2: 'Combat',
             wel_swiper_title3: 'Moonlight Century',
             wel_swiper_title4: 'Future City',
             // homeA-nobody
