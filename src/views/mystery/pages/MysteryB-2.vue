@@ -1,8 +1,8 @@
 <template>
     <header-b path="/mystery" :type="2"></header-b>
-    <div class="section">
+    <!-- <div class="section">
         <div class="title">{{$t('message.mining.coming')}}</div>
-    </div>
+    </div> -->
     <div class="boxBg">
         <div class="titles">
             <div class="title">{{$t('message.box.title_1')}}<br/>{{$t('message.box.title_2')}}</div>
@@ -21,18 +21,21 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             </video-bg>
             <div class="maskBlur"></div>
         </div>
-        <div class="blind">
+        <!-- 元素里面必须要有这个，要不然监听readyAssetsF不生效 -->
+        {{ readyAssetsF }} 
+        <div class="blind" v-if="data.length > 0">
             <div class="title">{{$t('message.box.type_title_1')}}</div>
             <ul>
-                <li>
-                    <div class="boxVideo">
-                        <video autoplay loop>
-                            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox1.mp4" type="video/mp4">
+                <li v-if="data[0].number">
+                    <div class="boxVideo" >
+                        <img :src="data[0].info.image" v-if="!data[1].info.animation_url" alt="">
+                        <video autoplay loop v-else>
+                            <source :src="data[0].info.animation_url" type="video/mp4">
                         </video>
                     </div>
-                    <div class="name">{{$t('message.box.weapon_name1')}}</div>
+                    <div class="name">{{ data[0].info.name }}  <span>{{ 'x'+data[0].number }}</span> </div>
                     <div class="introduce">
-                        {{$t('message.box.weapon_intro1')}}
+                        {{ data[0].info.description }}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -40,19 +43,21 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                        <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
+                        <div class="open" @click="open(0)">{{$t('message.box.open')}}</div>
+                        <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
+                        <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div> -->
                     </div>
                 </li>
-                <li>
+                <li v-if="data[1].number">
                     <div class="boxVideo">
-                        <video autoplay loop>
-                            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox2.mp4" type="video/mp4">
+                        <img :src="data[1].info.image" v-if="!data[1].info.animation_url" alt="">
+                        <video autoplay loop v-else>
+                            <source :src="data[1].info.animation_url" type="video/mp4">
                         </video>
                     </div>
-                    <div class="name">{{$t('message.box.weapon_name2')}}</div>
+                   <div class="name">{{ data[1].info.name }}  <span>{{ 'x'+data[1].number }}</span> </div>
                     <div class="introduce">
-                        {{$t('message.box.weapon_intro2')}}
+                        {{ data[1].info.description }}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -60,19 +65,21 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                        <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div>
+                        <div class="open" @click="open(1)">{{$t('message.box.open')}}</div>
+                        <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
+                        <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div> -->
                     </div>
                 </li>
-                <li>
+                <li v-if="data[2].number">
                     <div class="boxVideo">
-                        <video class="third" autoplay loop>
-                            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox3.mp4" type="video/mp4">
+                        <img :src="data[2].info.image" v-if="!data[1].info.animation_url" alt="">
+                        <video autoplay loop v-else>
+                            <source :src="data[2].info.animation_url" type="video/mp4">
                         </video>
                     </div>
-                    <div class="name">{{$t('message.box.weapon_name3')}}</div>
+                    <div class="name">{{ data[2].info.name }}  <span>{{ 'x'+data[1].number }}</span> </div>
                     <div class="introduce">
-                        {{$t('message.box.weapon_intro3')}}
+                        {{ data[2].info.description }}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -80,19 +87,20 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                        <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
+                        <div class="open" @click="open(2)">{{$t('message.box.open')}}</div>
+                        <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
+                        <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div> -->
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <div class="boxVideo">
                         <video autoplay loop>
                             <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox4.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <div class="name">{{$t('message.box.weapon_name4')}}</div>
+                    <div class="name">{{ data[1].info.name }}  <span>{{ 'x'+data[1].number }}</span> </div>
                     <div class="introduce">
-                        {{$t('message.box.weapon_intro4')}}
+                        {{ data[1].info.description }}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -103,12 +111,20 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="purchase">{{$t('message.box.btn_pur')}}</div>
                         <div class="details" @click="toDetails(4)">{{$t('message.box.btn_det')}}</div>
                     </div>
-                </li>
+                </li> -->
             </ul>
+        </div>
+        <div class="nothing" v-else>
+            <!-- <div class="nothing" v-if="true"> -->
+            <div class="txt">{{$t('message.assets.nothing')}}<a href="/">{{$t('message.assets.nothing_home')}}</a></div>
+            <img src="@/assets/nwAssets/nothing.svg" alt="">
         </div>
         <footer-b></footer-b>
     </div>
+    <footer-a></footer-a>
+    <msg-popup-a :isShowTips="TipsState" :isLoading="true" :isClose="false" :title="$t('message.box.opening')" :content="$t('message.box.open_text')"/>
     <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
+    
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -119,28 +135,90 @@ import Web3 from '@/tools/web3'
 const router = useRouter()
 
 
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(0)
+const { proxy } = getCurrentInstance() as any;
+
+const { abi, address } = Web3.contracts['GiftBox'];
+
+const chainId: any = computed(() => store.state.user?.chainId);
+
+const TipsState: any = ref(false as any)
+
+const data: any = ref([]);
+
+const readyAssetsF: any = computed(() => {
+    if( store?.state.user?.readyAssets !== -1 && chainId.value == 80001 || chainId.value == 43113){
+        getBalance()
+    }
+    return store.state.user?.readyAssets
+});
+
+const getBalance = async () => {
+   let result: any = await Web3.balanceOfBatch(abi, address, [0, 1, 2]);
+   getData(result)
+   
+}
+
+const getData = async (boxData: any[]) => {
+    console.log(boxData);
+    console.log(data.value);
+    let temp: any = [];
+    data.value = [];
+    (function loop(index){
+        proxy.$api.get(`https://api.cyberpop.online/box/${index}`).then((result: any) => {
+            console.log(result);
+            temp.push({
+                id: index,
+                number: boxData[index],
+                info: result,
+            })
+            if (++index < boxData.length) {
+                loop(index);
+            } else {
+                data.value = temp;
+                console.log(data._rawValue);
+                console.log("over1!!!!!");
+            }
+        })
+    })(0)
+    
+}
+const toDetails = (type:any) => {
+    router.push({ name: 'details',params:{ type }})
+}
+
+const open = async (boxId: Number) => {
+    TipsState.value = true;
+    let result = await Web3.unpack(abi, address, boxId, 1)
+    console.log(result, 'result');
+    TipsState.value = false;
+    if(result) {
+        messageAlert(true, proxy.$t('message.assets.pop.tran_succ'))
+        getBalance()
+    }else{
+        messageAlert(false, proxy.$t('message.assets.pop.reject_transaction'))
+    }
+}
+
+const mtimer: any = ref(null);
+let messageState:any = ref(false)
 let messageContent:any = ref('')
-const mtimer:any = ref(null)
+const showDialog = computed(() => store?.state.user?.showDialog);
 const messageAlert = (flag:any, message:any) => {
     clearTimeout(mtimer.value)
     messageState.value = flag
     store.dispatch('user/showDialog',true)
     messageContent.value = message
+    store.dispatch('user/addComingOut', false)
     mtimer.value = setTimeout(() => {
-        store.dispatch('user/showDialog',false)
-    },2000)
-}
-
-
-const toDetails = (type:any) => {
-    router.push({ name: 'details',params:{ type }})
+        store.dispatch('user/addComingOut',true)
+    },5000)
 }
 
 onMounted(() => {
     window.scrollTo(0,0);
+    if(readyAssetsF.value != -1 && chainId.value == 80001 || chainId.value == 43113){
+        getBalance()
+    }
 })
 
 </script>
@@ -357,7 +435,7 @@ onMounted(() => {
                         font-size: 20px;
                         font-family: AlibabaPuHuiTi_2_115_Black;
                         line-height: 54px;
-                        .purchase{
+                        .purchase, .open{
                             width: 100%;
                             height: 54px;
                             margin-bottom: 17px;
@@ -374,6 +452,30 @@ onMounted(() => {
                         }
                     }
                 }
+            }
+        }
+        .nothing{
+            height: 80vh;
+            text-align: center;
+            padding-bottom: 7.55vw;
+            .txt{
+                width: 47.5vw;
+                height: 1.04vw;
+                margin: -1vw auto 7.65vw;
+                font-size: .83vw;
+                font-family: AlibabaPuHuiTi_2_55_Regular;
+                color: #B1B5C3;
+                line-height: 1.04vw;
+                text-align: center;
+                a{
+                    color: #04FFA2;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+            }
+            img{
+                width: 11.71vw;
+                height: 12.5vw;
             }
         }
     }

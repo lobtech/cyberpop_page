@@ -24,6 +24,7 @@ import 'swiper/css'
 import VueI18n from './assets/language/register-i18n'
 import msgPopupA from './components/common/msgPopupA.vue'
 import msgPopupB from './components/common/msgPopupB.vue'
+import loading from './components/loading/loading.vue'
 
 import vue3videoPlay from 'vue3-video-play' 
 import 'vue3-video-play/dist/style.css' 
@@ -58,6 +59,7 @@ app.component('footerA', footerA)
 app.component('footerB', footerB)
 app.component('msgPopupA', msgPopupA)
 app.component('msgPopupB', msgPopupB)
+app.component('loading', loading)
 
 app.use(vue3videoPlay)
 app.mount('#app')

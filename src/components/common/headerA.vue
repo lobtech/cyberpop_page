@@ -32,6 +32,15 @@
                         <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
                     </div>
                 </div>
+                <div class="switch_chain"
+                    @mouseover="mouseOver"
+                    @mouseleave="mouseLeaveChain"
+                >
+                    <div class="select_chain"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span></div>
+                    <div class="hover_chunk" v-show="showChainList">
+                        <div v-for="(value,key,index) in chainList" @click="changeChain(value)" :key="index" class="item" v-show="!value.active"><img :src="value.img" alt=""><span>{{ value.name }}</span></div>
+                    </div>
+                </div>
                 <div class="menu">
                     <ul id="menuUl">
                         <li @mouseover="menuHover(0)" @click="changeMenu(0, '/')" :class="{'active': active == 0}">
@@ -61,42 +70,99 @@
         <div class="wrap">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_whitePaper')}}</a>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">{{t('message.common.doc_whitePaper')}}</a>
             <!-- <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_greenPaper')}}</a> -->
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_deck')}}</a>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" @click="showDoc = false" target="view_window">{{t('message.common.doc_deck')}}</a>
         </div>
     </div>
     <div class="logged_menu" v-show="showloggedFlag || hoverLogged" ref="cursor2" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
         <div class="wrap">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <div @click="toAssets()">{{$t('message.common.login_myAssets')}}</div>
-            <div @click="signout">{{$t('message.common.login_logout')}}</div>
+            <div @click="toAssets()">{{t('message.common.login_myAssets')}}</div>
+            <div @click="signout">{{t('message.common.login_logout')}}</div>
         </div>
     </div>
     <metamask-a v-if="metaMaskActive"></metamask-a>
+    <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
     <!-- <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a> -->
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref } from 'vue'
+import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref, watch } from 'vue'
 import store from '@/store'
-import Web3 from '@/tools/web3' 
+import NFT from '@/tools/web3' 
 import {  useRouter } from 'vue-router'
-import { useI18n  } from 'vue-i18n'
+import { useI18n } from 'vue-i18n';
+
 const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
 
-
-let abi:any = ref(null);
-let address:any = ref(null);
-let dao_abi:any = ref(null);
-let dao_address:any = ref(null);
 const props = defineProps({
     path: String, 
     type: Number
 })
 
+
+const chainList = ref({
+    avax: {
+        name: 'Avalanche Fuji Testnet',
+        img: 'https://nftrade.com/img/chains/icons/avax.png',
+        chainId: 43113,
+    },
+    mumbai: {
+        name: 'Mumbai',
+        img: 'https://chainlist.org/_next/image?url=https%3A%2F%2Fdefillama.com%2Fchain-icons%2Frsz_polygon.jpg&w=64&q=75',
+        chainId: 80001,
+    },
+    select: {
+        name: 'Avalanche Fuji Testnet',
+        img: 'https://nftrade.com/img/chains/icons/avax.png',
+        chainId: 43113,
+        active: 1,
+    },
+    notSupported: {
+        name: 'Chain is not supported.',
+        img: 'https://nftrade.com/img/chains/icons/eth.png',
+        active: 1,
+    }
+}) as any
+
+
+
+const showChainList = ref(false);
+const chainId: any = computed(() => store.state.user?.chainId );
+
+// 自动判断当前所在链
+watch(chainId, (newVal, oldVal) => {
+    if(!oldVal) return;
+    let temp: any;
+    Object.keys(chainList._rawValue).forEach((key: any) => {
+        if(chainList._rawValue[key].chainId == newVal){
+            temp = chainList._rawValue[key]
+        }
+    })
+    if(temp) chainList.value.select = { ...temp, active: 1 };
+}, {immediate:true,deep:true});
+
+const changeChain = async (value?: any) => {
+    let a: any = await NFT.addChain(value.chainId)
+    console.log(a);
+    if(a){
+        messageAlert(true, proxy.t('message.assets.pop.tran_succ'))
+        chainList.value.select = {...value, active: 1};
+    }else{
+        messageAlert(false, proxy.t('message.assets.pop.tran_stop'))
+    }
+}
+
+const mouseOver: any = () => {
+    showChainList.value = true;
+}
+
+const mouseLeaveChain: any = () => {
+    showChainList.value = false;
+}
 
 // language
 let showLanguage:any = ref(false);
@@ -213,7 +279,6 @@ const messageAlert = (flag:any, message:any) => {
 
 
 
-
 let logoHSrcP:any = ref(''); 
 let logoHSrcG:any = ref(''); 
 const logoHImport = async() => {
@@ -238,7 +303,7 @@ const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
 
 const loggined = computed(() => store?.state.user?.loggined);
 const connect: any = async () => {
-    const ismessage: any = await Web3.hasMetaMask()
+    const ismessage: any = await NFT.hasMetaMask()
 
     if( ismessage == 'No install' ){
         store.dispatch('user/metaChange',true);
@@ -248,11 +313,10 @@ const connect: any = async () => {
         store.dispatch('user/metaChange',true);
         store.dispatch('user/metaChangeAni',true);
         store.dispatch('user/checkInstall',true);
-        const [accounts]: any = await Web3.login().then((res: any) => {
+        const [accounts]: any = await NFT.login().then((res: any) => {
             store.dispatch('user/metaChange',false);
             store.dispatch('user/metaChangeAni',false);
             store.dispatch('user/walletloggined',true);
-            Web3.readJSON(proxy); //////
             return res;
         })
         
@@ -260,7 +324,15 @@ const connect: any = async () => {
         let len = id.value.length-1;
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
+        store.dispatch('user/dataSumSearch',{flag:0});
         // messageAlert(true, proxy.$t('message.common.mess_succ'))
+        const Web3 = (window as any).Web3;
+        let web3obj = new Web3((Web3 as any).givenProvider);
+        await web3obj.eth.net.getId().then((chainId: any) => {
+            console.log(chainId);
+            store.dispatch('user/chageChainId', Number(chainId))
+            if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
+        })  
     }
 }
 
@@ -307,6 +379,7 @@ onMounted(() => {
     if( localStorage.getItem('lang') ){
         select.value = localStorage.getItem('lang');        
     }
+    login()
 })
 </script>
 
@@ -367,6 +440,43 @@ onMounted(() => {
                     img[src=""],img:not([src]){
                         opacity:0;
                     }
+                }
+                .switch_chain{
+                    left: 66vw;
+                    position: absolute;
+                    height: 100%;
+                    width: 14vw;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0 1vw;
+                    font-size: 0.83vw;
+                    img{
+                        margin-right: 1vw;
+                        width: 2vw;
+                    }
+                    .select_chain{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    .hover_chunk{
+                        width: 100%;
+                        padding: 0 1vw;
+                        color: #333;
+                        padding-bottom: 1vw;
+                        position: absolute;
+                        top: 5.5vw;
+                        background: #fff;
+                        transition: all 430ms ease-out;
+                        .item{
+                            display: flex;
+                            margin-top: 1vw;
+                            cursor: pointer;
+                            align-items: center;                        
+                        }
+                    }
+
                 }
                 .user{
                     display: flex;
@@ -441,7 +551,7 @@ onMounted(() => {
                     }  
                     .language{
                         position: relative;
-                        margin-top: 1.46vw;
+                        margin-top: 1.96vw;
                         margin-right: 1.4vw;
                         img{
                             width: 1.56vw;
@@ -652,7 +762,7 @@ onMounted(() => {
     .logged_menu{
         z-index: 9;
         position: fixed;
-        top: 3.8vw;
+        top: 3.5vw;
         right: 1.8vw;
         .wrap{
             width: 9.27vw;
@@ -736,3 +846,11 @@ onMounted(() => {
     }
 
 </style>
+
+function $t(arg0: string) {
+  throw new Error('Function not implemented.')
+}
+
+function $t(arg0: string) {
+  throw new Error('Function not implemented.')
+}

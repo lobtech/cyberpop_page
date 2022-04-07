@@ -128,7 +128,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :autoplay="true"
                         >
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="@/assets/nwhome/vSwiper_2.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png"  alt=""></swiper-slide>
                         </swiper>
@@ -546,7 +546,6 @@ const connect: any = async () => {
             store.dispatch('user/metaChange',false);
             store.dispatch('user/metaChangeAni',false);
             store.dispatch('user/walletloggined',true);
-            Web3.readJSON(proxy); //////
             return res;
         })
         id.value = accounts;
@@ -554,7 +553,6 @@ const connect: any = async () => {
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
         messageAlert(1, proxy.$t('message.common.mess_succ'))
-        
     }
 }
 

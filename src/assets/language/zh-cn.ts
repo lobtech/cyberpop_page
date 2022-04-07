@@ -33,7 +33,7 @@ const cn = {
                 open: '打開METAMASK',
                 add: '切換網絡',
                 switch: '請切換到孟買網絡或',
-                network: '網絡錯誤'
+                network: '網絡錯誤',
             },
             // messageB
             mess_faild: '失敗！',
@@ -253,6 +253,9 @@ const cn = {
             weapon_intro4: '強大的武器能賦予角色以更好的能力，令角色更為強大，表現更加出色',
             btn_pur: '購買',
             btn_det: '詳細情況',
+            open: '開啟',
+            opening: '開啟中...',
+            open_text: '正在為您開啟盲盒… 請等待',
         },
 
         // detailsA
@@ -321,7 +324,7 @@ const cn = {
                 title: 'NFT轉移',
                 tips: '請輸入數值',
                 tips_err: '請輸入正確數值',
-                desc: 'NFT #3405454 轉至錢包地址',
+                desc: '轉至錢包地址',
                 mess_empty: '地址為空',
                 mess_err: '地址格式錯誤',
                 btn_cancel: '取消',
@@ -330,7 +333,10 @@ const cn = {
                 tran_stop: '交易中斷',
                 tran_succ: '成功',
                 tran_invalid: '無效地址',
+                reject_transaction: '拒絕交易',
             },
+            Transfering: '轉帳...',
+            Transfering_content: '正在轉帳中，請等待',
         },
 
     }

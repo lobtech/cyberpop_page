@@ -8,7 +8,7 @@
                 <div class="terms"><router-link to="/terms">{{$t('message.common.footer_terms')}}</router-link></div>
             </div>
             <div class="icon">
-                <a href="https://medium.com/@Cyberpopnewworld" target="view_window">
+                <a href="https://medium.com/@Cyberpopmetaverse" target="view_window">
                     <img class="first" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/medium_1.svg" alt="">
                 </a>
                 <a href="https://t.me/cyberpopnw" target="view_window">

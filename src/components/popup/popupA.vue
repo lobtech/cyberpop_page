@@ -27,7 +27,8 @@
             </div>
         </div>
         <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
-    </div>
+        <msg-popup-a :isShowTips="TipsState" :isLoading="true" :isClose="false" :title="$t('message.assets.Transfering')" :content="$t('message.assets.Transfering_content')"/>
+    </div> 
 </template>
 
 <script setup lang="ts">
@@ -37,9 +38,11 @@ import Web3 from '@/tools/web3'
 const { proxy } = getCurrentInstance() as any;
 const props = defineProps({
     transferInfo: Object,
-    abi: Object,
-    address: Object
+    abi: Array,
+    address: String
 })
+
+const TipsState: any = ref(false as any)  // has popup-a 
 
 const transferActive = computed(() => store?.state.user?.transferActive);
 const transferAni = computed(() => store?.state.user?.transferAni);
@@ -84,8 +87,6 @@ const messageAlert = (flag:any, message:any) => {
         store.dispatch('user/addComingOut',true)
     },5000)
 }
-
-
 
 const addNft = () => {
     if( valueIn.value < 1 || valueIn.value > haveNFT.value ){
@@ -132,14 +133,14 @@ let addressState:any = ref('')
 // check address
 const inputAddress:any = ref('')
 const checkAddress = (e:any) => {
-    let reg = /^[a-zA-Z0-9]+\s*$/
+    let reg = new RegExp(/^0x[a-fA-F0-9]{40}$/);
     if (e.target.value && !(reg.test(e.target.value))) {
-        e.target.value = ''
+        // e.target.value = ''
         inputState.value = ''
         addressState.value = 'error'
         canTransfer.value = 'disable'
     } else if( !e.target.value ){
-        e.target.value = ''
+        // e.target.value = ''
         inputState.value = ''
         addressState.value = 'empty'
         canTransfer.value = 'disable'
@@ -157,6 +158,11 @@ const checkAddress = (e:any) => {
 
 // transfer submit
 const transfer = async () => {
+    console.log(inputAddress.value, 'inputAddress.value2222');
+    console.log(valueIn.value, 'valueIn.value');
+    console.log(numState.value, 'numState.value');
+    console.log(inputState.value, 'inputState.value');
+    console.log(haveNFT.value, 'haveNFT.value ');
     if( inputAddress.value == '' ){
         inputState.value = ''
         addressState.value = 'empty'
@@ -164,19 +170,30 @@ const transfer = async () => {
         if( valueIn.value > haveNFT.value ){
            messageAlert(false, proxy.$t('message.assets.pop.tran_exce'))
         }else{
-            await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value).then( (res:any) => {
-                if( res == undefined ){
+            console.log(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value);
+            console.log(props.transferInfo?.type, 'props.transferInfo?.type');
+            TipsState.value = true;
+            if(props.transferInfo?.type == 'role_mumbai' || props.transferInfo?.type == 'role_fuji' || props.transferInfo?.type == 'head_mumbai' || props.transferInfo?.type == 'head_fuji'){
+                let result = await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, Number(idMsg.value));
+                TipsState.value = false;
+                if(!result){ // 如果转账失败
                     messageAlert(false, proxy.$t('message.assets.pop.tran_stop'))
-                }else{
+                }else{ // 转账成功
                     closeDialog();
                     messageAlert(true, proxy.$t('message.assets.pop.tran_succ'))
-                    Web3.readJSON(proxy)
+                    store.dispatch('user/transferSuccess', result)
                 }
-            }).catch((err:any) => {
-                // inputState.value = ''
-                // addressState.value = ''
-                messageAlert(false, proxy.$t('message.assets.pop.tran_invalid'))
-            })
+                return;
+            }
+            let result = await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, Number(idMsg.value), valueIn.value);
+            TipsState.value = false;
+            if(!result){ // 如果转账失败
+                messageAlert(false, proxy.$t('message.assets.pop.tran_stop'))
+            }else{ // 转账成功
+                closeDialog();
+                messageAlert(true, proxy.$t('message.assets.pop.tran_succ'))
+                store.dispatch('user/transferSuccess', result)
+            }
        }
     }
 }
