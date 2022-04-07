@@ -380,6 +380,13 @@ onMounted(() => {
         select.value = localStorage.getItem('lang');        
     }
     login()
+    let temp: any;
+    Object.keys(chainList._rawValue).forEach((key: any) => {
+        if(chainList._rawValue[key].chainId == chainId.value){
+            temp = chainList._rawValue[key]
+        }
+    })
+    if(temp) chainList.value.select = { ...temp, active: 1 };
 })
 </script>
 
