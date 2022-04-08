@@ -269,28 +269,26 @@ const getData: any = async (type: Number) => {
     
     if(chainId.value == 80001){  //mumbai
         if(!type){
-            let result = await Web3.batchBalanceOf(nft.abi, nft.address);
-            console.log(result);
-            await getNFTData(result, 'server', 'server_mumbai');
+            // let result = await Web3.batchBalanceOf(nft.abi, nft.address);
+            // console.log(result);
+            // await getNFTData(result, 'server', 'server_mumbai');
             let dao_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
             console.log(dao_resulte);
             await getNFTData(dao_resulte, 'weapons', 'weapons_mumbai', false, true);
-            let role_result = await Web3.tokensOfOwner(erc721.abi, erc721.address);
+            let role_result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
             console.log(role_result);
             await getNFTData(role_result, 'role', 'role_mumbai', true);
             let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
             console.log(cyberClub_result);
             await getHead(cyberClub_result, 'head_mumbai');
         }else if(type == 1){
-            let result = await Web3.tokensOfOwner(erc721.abi, erc721.address);
+            let result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
             await getNFTData(result, 'role', 'role_mumbai', true);
             let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
             await getHead(cyberClub_result, 'head_mumbai');
         }else{
-            let result = await Web3.batchBalanceOf(nft.abi, nft.address);
-            console.log(result);
-            
-            await getNFTData(result, 'server', 'server_mumbai');
+            // let result = await Web3.batchBalanceOf(nft.abi, nft.address);
+            // await getNFTData(result, 'server', 'server_mumbai');
             let dao_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
             console.log(dao_resulte);
             await getNFTData(dao_resulte, 'weapons', 'weapons_mumbai', false, true)
