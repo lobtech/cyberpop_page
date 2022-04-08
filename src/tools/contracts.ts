@@ -3043,6 +3043,19 @@ const GiftBox = {
             "anonymous": false,
             "inputs": [
                 {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
                     "indexed": true,
                     "internalType": "bytes32",
                     "name": "role",
@@ -3208,6 +3221,19 @@ const GiftBox = {
             "type": "event"
         },
         {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "type": "event"
+        },
+        {
             "inputs": [],
             "name": "DEFAULT_ADMIN_ROLE",
             "outputs": [
@@ -3231,6 +3257,24 @@ const GiftBox = {
                 }
             ],
             "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "factoryAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint16[]",
+                    "name": "_probabilities",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "addNewOption",
+            "outputs": [],
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -3482,6 +3526,26 @@ const GiftBox = {
             "type": "function"
         },
         {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "bytes32",
@@ -3605,7 +3669,7 @@ const GiftBox = {
             "inputs": [
                 {
                     "internalType": "uint256",
-                    "name": "_classId",
+                    "name": "_optionId",
                     "type": "uint256"
                 },
                 {
@@ -3614,7 +3678,7 @@ const GiftBox = {
                     "type": "address"
                 }
             ],
-            "name": "setFactoryForClass",
+            "name": "setFactoryForOption",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -3659,34 +3723,11 @@ const GiftBox = {
                 },
                 {
                     "internalType": "uint256",
-                    "name": "_numClasses",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
                     "name": "_seed",
                     "type": "uint256"
                 }
             ],
             "name": "setState",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_classId",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256[]",
-                    "name": "_tokenIds",
-                    "type": "uint256[]"
-                }
-            ],
-            "name": "setTokenIdsForClass",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -3750,6 +3791,13 @@ const GiftBox = {
                 }
             ],
             "name": "unpack",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -3813,6 +3861,19 @@ const LootBox = {
             "anonymous": false,
             "inputs": [
                 {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
                     "indexed": true,
                     "internalType": "bytes32",
                     "name": "role",
@@ -3978,6 +4039,19 @@ const LootBox = {
             "type": "event"
         },
         {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "type": "event"
+        },
+        {
             "inputs": [],
             "name": "DEFAULT_ADMIN_ROLE",
             "outputs": [
@@ -4001,6 +4075,24 @@ const LootBox = {
                 }
             ],
             "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "factoryAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint16[]",
+                    "name": "_probabilities",
+                    "type": "uint16[]"
+                }
+            ],
+            "name": "addNewOption",
+            "outputs": [],
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -4252,6 +4344,26 @@ const LootBox = {
             "type": "function"
         },
         {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "bytes32",
@@ -4375,7 +4487,7 @@ const LootBox = {
             "inputs": [
                 {
                     "internalType": "uint256",
-                    "name": "_classId",
+                    "name": "_optionId",
                     "type": "uint256"
                 },
                 {
@@ -4384,7 +4496,7 @@ const LootBox = {
                     "type": "address"
                 }
             ],
-            "name": "setFactoryForClass",
+            "name": "setFactoryForOption",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -4429,34 +4541,11 @@ const LootBox = {
                 },
                 {
                     "internalType": "uint256",
-                    "name": "_numClasses",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
                     "name": "_seed",
                     "type": "uint256"
                 }
             ],
             "name": "setState",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_classId",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256[]",
-                    "name": "_tokenIds",
-                    "type": "uint256[]"
-                }
-            ],
-            "name": "setTokenIdsForClass",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -4520,6 +4609,13 @@ const LootBox = {
                 }
             ],
             "name": "unpack",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -5972,7 +6068,7 @@ const cyberClub_Fuji = {
 // 角色合约
 const Cyborg = {
     address: '0x37e769d34Cb48fb074fDd181bB4d803fBD49C712',
-    abi: [
+    abi: [  
         {
             "inputs": [],
             "stateMutability": "nonpayable",
