@@ -38,6 +38,7 @@
                             <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">{{$t('message.common.doc_deck')}}</a>
                         </div>
                     </li>
+                    <!-- <li @click="changeMenu(5, '/')" :class="{'active': active == 5}">WhiteLists</li> -->
                 </ul>
                 <div class="language">
                     <div @click="openLang()">{{$t('message.common.language_switch')}} <span :class="langArrow ? 'change' : ''"></span></div>

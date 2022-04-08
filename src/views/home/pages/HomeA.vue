@@ -2,18 +2,6 @@
     <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
     <header-a path="/" :type="0"></header-a>
     <my-video v-if="isPlay" @touchmove.prevent :videotype="type2" @click="playVideo"></my-video>
-
-    <!-- <div class="white-list">
-        <div class="left">Total Raise：<span>$750,000</span></div>
-        <img src="@/assets/nwhome/whitelistbanner_seg.svg" alt="">
-        <div class="right">
-            <div class="name">IDO WHITELISTS OPEN</div>
-            <div class="desc">
-                Limited to <span>2500</span> whitelists / Basic quota per person: <span>$300</span>
-                Reach <span>6000</span> points to get a whitelist!
-            </div>
-        </div>
-    </div> -->
     <div class="banner">
         <section>
             <video-bg 
@@ -915,52 +903,6 @@ onMounted(() => {
     body {
         height: 100%;
         overflow-x: hidden;
-    }
-    .white-list{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 6.8vw;
-        margin: 5.5vw 0 -1px;
-        color: #ffffff;
-        background-image: url('../../../assets/nwhome/whitelist_banner.png');
-        background-size: 100% 100%;
-        .left{
-            height: 3.12vw;
-            font-size: 1.87vw;
-            font-family: AlibabaPuHuiTi_2_105_Heavy;
-            line-height: 2.6vw;
-            span{
-                color: #12FD00; 
-                font-size: 3.12vw;
-            }
-        }
-        .right{
-            .name{
-                font-size: 1.56vw;
-                font-family: AlibabaPuHuiTi_2_105_Heavy;
-                color: #12FD00;
-                line-height: 2.08vw;
-            }
-            .desc{
-                width: 26.875vw;
-                height: 2.5vw;
-                font-size: .83vw;
-                font-family: AlibabaPuHuiTi_2_85_Bold;
-                line-height: 1.25vw;
-                span{
-                    color: #12FD00;
-                    font-size: 1.14vw;
-                    font-family: AlibabaPuHuiTi_2_105_Heavy;
-                }
-            }
-        }
-        img{
-            width: 2.6vw;
-            height: 5.3vw;
-            margin-right: 2.39vw;
-        }
     }
     .banner{
         position: relative;
