@@ -3,7 +3,6 @@
     <div class="section">
         <div class="title">COMING SOON</div>
     </div>
-    <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -11,22 +10,6 @@ import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 const router = useRouter()
-
-
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(0)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/showDialog',false)
-    },2000)
-}
 
 
 onMounted(() => {

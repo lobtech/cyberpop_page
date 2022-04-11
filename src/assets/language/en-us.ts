@@ -31,8 +31,9 @@ const us = {
                 descIns: 'Please login and authorize access to your MetaMask account to continue.',
                 cancel: 'CANCEL',
                 open: 'OPEN METAMASK',
-                add: 'add network',
-                switch: 'Please switch to Mumbai network or',
+                add1: 'add Mumbai',
+                add2: 'add Fuji',
+                switch: 'Please switch to Mumbai network or Fuji network.',
                 network: 'Network Error'
             },
             // messageB

@@ -22,7 +22,6 @@
                 </div>
             </div>
         </div>
-        <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
     </div>
 </template>
 
@@ -68,23 +67,6 @@ watch(props,(newVal,oldVal) => {
 
     regExp = RegExp( "^([1-9]|[1-9][0-9]{0," + haveNFTCount.value +"})$");
 })
-
-
-
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(0)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/showDialog',false)
-    },2000)
-}
 
 
 const addNft = () => {
@@ -178,19 +160,19 @@ const transfer = async () => {
         addressState.value = 'empty'
     }else if( inputState.value == 'success' && numState.value == ''){
        if( valueIn.value > haveNFT.value ){
-           messageAlert(0, proxy.$t('message.assets.pop.tran_exce'))
+           store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_exce')}})
        }else{
            await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value).then( (res:any) => {
                 if( res == undefined ){
-                    messageAlert(0, proxy.$t('message.assets.pop.tran_stop'))
+                    store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_stop')}})
                 }else{
                     closeDialog();
-                    messageAlert(1, proxy.$t('message.assets.pop.tran_succ'))
+                    store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.assets.pop.tran_succ')}})
                 }
             }).catch((err:any) => {
                 // inputState.value = ''
                 // addressState.value = ''
-                messageAlert(0, proxy.$t('message.assets.pop.tran_invalid'))
+                store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_invalid')}})
             })
        }
     }

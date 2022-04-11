@@ -8,6 +8,17 @@
                     <a :href="path"><img v-show="logoHFlag" :src="logoHSrcG" @mouseleave="logoHFlag = false" alt=""></a>
                 </div>
                 <div class="user">
+                    <div class="switch_chain"
+                        @mouseover="mouseOver"
+                        @mouseleave="mouseLeaveChain"
+                    >
+                        <div class="select_chain"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span></div>
+                        <div class="hover_chunk" v-show="showChainList">
+                            <div class="chunk_wrap">
+                                <div v-for="(value,key,index) in chainList" @click="changeChain(value)" :key="index" class="item" v-show="!value.active"><img :src="value.img" alt=""><span>{{ value.name }}</span></div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="language" ref="clickCursor3">
                         <img @click="showLanguage = !showLanguage" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-language.svg" alt="">
                         <div class="langUl" v-show="showLanguage" ref="cursor3">
@@ -30,15 +41,6 @@
                         <img class="wallet" src="@/assets/nwhome/wallet.svg" alt="">
                         <div class="idtxt">{{realId}}</div>
                         <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
-                    </div>
-                </div>
-                <div class="switch_chain"
-                    @mouseover="mouseOver"
-                    @mouseleave="mouseLeaveChain"
-                >
-                    <div class="select_chain"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span></div>
-                    <div class="hover_chunk" v-show="showChainList">
-                        <div v-for="(value,key,index) in chainList" @click="changeChain(value)" :key="index" class="item" v-show="!value.active"><img :src="value.img" alt=""><span>{{ value.name }}</span></div>
                     </div>
                 </div>
                 <div class="menu">
@@ -102,8 +104,6 @@
         </div>
     </div>
     <metamask-a v-if="metaMaskActive"></metamask-a>
-    <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
-    <!-- <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a> -->
 </template>
 
 <script setup lang="ts">
@@ -133,7 +133,7 @@ const chainList = ref({
     },
     mumbai: {
         name: 'Mumbai',
-        img: 'https://chainlist.org/_next/image?url=https%3A%2F%2Fdefillama.com%2Fchain-icons%2Frsz_polygon.jpg&w=64&q=75',
+        img: 'https://mumbai.polygonscan.com/images/svg/brands/poly.png?v=1.3',
         chainId: 80001,
     },
     select: {
@@ -168,12 +168,12 @@ watch(chainId, (newVal, oldVal) => {
 
 const changeChain = async (value?: any) => {
     let a: any = await NFT.addChain(value.chainId)
-    console.log(a);
     if(a){
-        messageAlert(true, proxy.t('message.assets.pop.tran_succ'))
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.t('message.assets.pop.tran_succ')}})
+
         chainList.value.select = {...value, active: 1};
     }else{
-        messageAlert(false, proxy.t('message.assets.pop.tran_stop'))
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.t('message.assets.pop.tran_stop')}})
     }
 }
 
@@ -198,8 +198,6 @@ const selectLang = (index:any) => {
     localStorage.setItem('lang', index)
     // console.log( proxy.$t('message.common.string_lang') );
 }
-
-
 
 // connect
 const mouseEnter = () => {
@@ -282,21 +280,7 @@ const handleOtherClick = (e:any) => {
 }
 
 
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(false)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    store.dispatch('user/addComingOut', false)
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/addComingOut',true)
-    },5000)
-}
+
 
 
 
@@ -368,7 +352,8 @@ const signout = () => {
     hoverLogged.value = false;
     store.dispatch('user/connectWallet',{realId: -1});
     store.dispatch('user/walletloggined',false);
-    store.dispatch('user/showDialog',false);
+    store.dispatch('user/showDialog',{show: false, info: {}});
+    
 
     if( proxy.$route.path == '/knapsack' ){
         router.push('/');
@@ -395,7 +380,7 @@ onMounted(() => {
     window.addEventListener('click', handleOtherClick, true)
     store.dispatch('user/changeActive', props.type)
     store.dispatch('user/metaChange',false)
-    store.dispatch('user/showDialog',false);
+    store.dispatch('user/showDialog',{show: false, info: {}});
 
     if( localStorage.getItem('lang') ){
         select.value = localStorage.getItem('lang');        
@@ -469,47 +454,53 @@ onMounted(() => {
                         opacity:0;
                     }
                 }
-                .switch_chain{
-                    left: 66vw;
-                    position: absolute;
-                    height: 100%;
-                    width: 14vw;
+                .user{
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 0 1vw;
-                    font-size: 0.83vw;
-                    img{
-                        margin-right: 1vw;
-                        width: 2vw;
-                    }
-                    .select_chain{
+                    .switch_chain{
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        cursor: pointer;
-                    }
-                    .hover_chunk{
-                        z-index: 10;
-                        width: 100%;
-                        padding: 0 1vw;
-                        color: #333;
-                        padding-bottom: 1vw;
-                        position: absolute;
-                        top: 5.5vw;
-                        background: #fff;
-                        transition: all 430ms ease-out;
-                        .item{
-                            display: flex;
-                            margin-top: 1vw;
-                            cursor: pointer;
-                            align-items: center;                        
+                        font-size: 0.83vw;
+                        img{
+                            margin-right: .4vw;
+                            width: 1.56vw;
                         }
+                        .select_chain{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: .83vw;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            white-space: nowrap;
+                            cursor: pointer;
+                        }
+                        .hover_chunk{
+                            z-index: 10;
+                            position: absolute;
+                            top: 5.5vw;
+                            padding-top: .3vw;
+                            .chunk_wrap{
+                                width: 12.8vw;
+                                padding: 0 .8vw;
+                                padding-bottom: 1vw;
+                                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                                border: .15vw solid;
+                                border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
+                                transition: all 430ms ease-out;
+                                overflow: hidden;
+                                .item{
+                                    display: flex;
+                                    margin-top: 1vw;
+                                    cursor: pointer;
+                                    align-items: center;
+                                    img{
+                                        width: 1.56vw;
+                                    }        
+                                }
+                            }
+                        }
+    
                     }
-
-                }
-                .user{
-                    display: flex;
                     .login_in{
                         position: relative;
                         display: flex;
@@ -581,15 +572,14 @@ onMounted(() => {
                     }  
                     .language{
                         position: relative;
-                        margin-top: 1.96vw;
-                        margin-right: 1.4vw;
+                        margin: 1.96vw 1.4vw 0;
                         img{
                             width: 1.56vw;
                             height: 1.56vw;
                         }
                         .langUl{
                             position: absolute;
-                            top: 4.4vw;
+                            top: 3.9vw;
                             left: -4.22vw;
                             .wrap{
                                 position: absolute;
@@ -847,7 +837,7 @@ onMounted(() => {
     .logged_menu{
         z-index: 9;
         position: fixed;
-        top: 3.5vw;
+        top: 3.8vw;
         right: 1.8vw;
         .wrap{
             width: 9.27vw;
@@ -920,7 +910,6 @@ onMounted(() => {
         @media (max-width: 900px) {
             .langUl{
                 .wrap{
-                    // height: 9.4vw !important;
                     height: 7.4vw !important;
                     li{
                         margin-left: .3vw !important;

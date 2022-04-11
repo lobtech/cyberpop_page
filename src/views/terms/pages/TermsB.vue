@@ -44,7 +44,6 @@
         </div>
     </div>
     <footer-b></footer-b>
-    <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -55,27 +54,9 @@ const router = useRouter()
 
 
 
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(0)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/showDialog',false)
-    },2000)
-}
-
-
-
-
 onMounted(() => {
     window.scrollTo(0,0);
-    store.dispatch('user/showDialog',false);// close message dialog
+    store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
 })
 
 </script>

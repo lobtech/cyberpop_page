@@ -1,17 +1,17 @@
 <template>
-    <div class="message" :class="comingOutFlag ? 'comingOut' : 'comingIn'" v-if="!state">
+    <div class="message" :class="comingOutFlag ? 'comingOut' : 'comingIn'" v-if="state == 0">
         <div class="info">
             <img src="@/assets/nwhome/warning.svg" alt="">
         </div>
-        <div class="text">{{dialogC}}</div>
+        <div class="text">{{txt}}</div>
         <img @click="closeDialog()" class="close" src="@/assets/nwhome/warning-close.svg" alt="">
     </div>
 
-    <div class="message success" :class="comingOutFlag ? 'comingOut' : 'comingIn'" v-else>
+    <div class="message success" :class="comingOutFlag ? 'comingOut' : 'comingIn'"  v-if="state == 1">
         <div class="info successIcon">
             <img src="@/assets/nwhome/success-fill.svg" alt="">
         </div>
-        <div class="text successTxt">{{dialogC}}</div>
+        <div class="text successTxt">{{txt}}</div>
         <img @click="closeDialog()" class="close" src="@/assets/nwhome/success-close.svg" alt="">
     </div>
 </template>
@@ -19,18 +19,28 @@
 <script setup lang="ts">
 import { onMounted, computed, readonly, ref } from 'vue'
 import store from '@/store'
-const comingOutFlag = computed(() => store?.state.user?.comingOutFlag);
 
 const props = defineProps({
-    state: Boolean, 
-    dialogC: String
+    state: Number, 
+    txt: String
 })
 
 const closeDialog = () => {
-    store.dispatch('user/addComingOut',true)
+    store.dispatch('user/showDialog',{show: false, info: {}})
 }
 
+let comingOutFlag:any = ref(false);
+onMounted(() => {
+    setTimeout(()=>{
+        comingOutFlag.value = true;
+        setTimeout(()=>{
+            store.dispatch('user/showDialog',{show: false, info: {}})
+        },200)
+    },3000)
+    
+})
 
+// :class="comingOutFlag ? 'comingOut' : 'comingIn'"
 </script>
 
 <style lang="less" scoped>
@@ -57,7 +67,7 @@ const closeDialog = () => {
     }
 }
 .message{
-    z-index: 10;
+    z-index: 188;
     display: flex;
     align-items: center;
     position: fixed;

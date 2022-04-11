@@ -10,7 +10,11 @@
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/metaMask.svg" alt="">
                     <div class="subtitle">{{t('message.common.metamask.logoText')}}</div>
                 </div>
-                <div class="text">{{ props.content == 'netWork' ? $t('message.common.metamask.switch') : props.content }} <a v-if="props.addNetwork" href="https://chainlist.org/" target="_blank">{{ $t('message.common.metamask.add') }}</a> </div>
+                <!-- <div class="text">{{ props.content == 'netWork' ? $t('message.common.metamask.switch') : props.content }} <a v-if="props.addNetwork" href="https://chainlist.org/" target="_blank">{{ $t('message.common.metamask.add1') }}</a> </div> -->
+                <div class="text">{{ props.content == 'netWork' ? $t('message.common.metamask.switch') : props.content }}  <br/>
+                    <span v-if="props.addNetwork" @click="changeChain(43113)">{{ $t('message.common.metamask.add2') }}</span> 
+                    <span v-if="props.addNetwork" @click="changeChain(80001)">{{ $t('message.common.metamask.add1') }}</span>  
+                </div>
                 <div class="loading" v-if="isLoading">
                     <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
                 </div>
@@ -20,11 +24,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import store from '@/store/index'
 import { useI18n } from 'vue-i18n';
-
+import NFT from '@/tools/web3' 
 const { t } = useI18n();
+const { proxy } = getCurrentInstance() as any;
+
 
 const props = defineProps({
     content: String, // 文案内容
@@ -39,13 +45,20 @@ const props = defineProps({
 })
 
 const close = () => {
-    console.log(999);
     
     store.dispatch('user/TipsState', {show: false, info: { hasLoading: true, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}})
 }
 
+const changeChain = async (value?: any) => {
+    let a: any = await NFT.addChain(value)
+    if(a){
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.t('message.assets.pop.tran_succ')}})
+    }else{
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.t('message.assets.pop.tran_stop')}})
+    }
+}
+
 onMounted(() => {
-    console.log(props);
 })
 
 
@@ -81,7 +94,7 @@ onMounted(() => {
             width: 31.51vw;
             min-width: 380px;
             height: 16vw;
-            min-height: 200px;
+            min-height: 180px;
             margin: auto;
             padding: 2.5vw;
             box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
@@ -91,7 +104,9 @@ onMounted(() => {
             clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
             .cover{
                 position: absolute;
-                top: 0vw;
+                top: 0;
+                left: 0;
+                right: 0;
                 width: 100%;
                 height: 100%;
                 background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
@@ -113,12 +128,12 @@ onMounted(() => {
                 right: 1vw;
                 top: 1vw;
                 z-index: 11;
+                width: 2.8vw;
             }
             .content{
                 position: absolute;
                 left: 0;
                 right: 0;
-                display: inline-block;
                 padding: 0 2.5vw;
                 .title{
                     font-size: 1.45vw;
@@ -128,7 +143,7 @@ onMounted(() => {
                 }
                 .icon{
                     display: flex;
-                    margin: .46vw 0 .46vw 0;
+                    margin: .46vw 0;
                     img{
                         width: 2.81vw;
                         height: 3.28vw;
@@ -147,6 +162,17 @@ onMounted(() => {
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     font-weight: normal;
                     line-height: 1vw;
+                    span{
+                        float: right;
+                        display: inline-block;
+                        padding: 1.4px 3px;
+                        margin: 1.4vw .8vw 0 0;
+                        background: #30304D;
+                        cursor: pointer;
+                    }
+                    span:hover{
+                        color: rgb(255, 24, 255);
+                    }
                     a{
                         color: #fff;
                     }
@@ -159,6 +185,17 @@ onMounted(() => {
                         height: 4vw;
                         animation: loadingAni 1s linear infinite;
                     }
+                }
+            }
+        }
+    }
+
+    @media screen {
+        @media (max-width: 900px) {
+            .mask{
+                padding: 4vw !important;
+                .icon{
+                    margin: 1vw 0 !important;
                 }
             }
         }

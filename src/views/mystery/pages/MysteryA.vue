@@ -274,7 +274,6 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
         </div> -->
     </div>
     <coming-a v-show="showComingFlag"></coming-a>
-    <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -302,26 +301,10 @@ const showComing = () => {
 
 
 
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(false)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    store.dispatch('user/addComingOut', false)
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/addComingOut',true)
-    },5000)
-}
-
 
 onMounted(() => {
     window.scrollTo(0,0);
-    store.dispatch('user/showDialog',false);// close message dialog
+    store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     store.dispatch('user/metaChange',false);
 })
 

@@ -26,7 +26,6 @@
                 </div>
             </div>
         </div>
-        <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
         <msg-popup-a :isShowTips="TipsState" :isLoading="true" :isClose="false" :title="$t('message.assets.Transfering')" :content="$t('message.assets.Transfering_content')"/>
     </div> 
 </template>
@@ -71,22 +70,6 @@ watch(props,(newVal,oldVal) => {
 })
 
 
-
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(false)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    store.dispatch('user/addComingOut', false)
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/addComingOut',true)
-    },5000)
-}
 
 const addNft = () => {
     if( valueIn.value < 1 || valueIn.value > haveNFT.value ){
@@ -168,7 +151,7 @@ const transfer = async () => {
         addressState.value = 'empty'
     }else if( inputState.value == 'success' && numState.value == ''){
         if( valueIn.value > haveNFT.value ){
-           messageAlert(false, proxy.$t('message.assets.pop.tran_exce'))
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_exce')}})
         }else{
             console.log(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value);
             console.log(props.transferInfo?.type, 'props.transferInfo?.type');
@@ -177,10 +160,10 @@ const transfer = async () => {
                 let result = await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, Number(idMsg.value));
                 TipsState.value = false;
                 if(!result){ // 如果转账失败
-                    messageAlert(false, proxy.$t('message.assets.pop.tran_stop'))
+                    store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_stop')}})
                 }else{ // 转账成功
                     closeDialog();
-                    messageAlert(true, proxy.$t('message.assets.pop.tran_succ'))
+                    store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.assets.pop.tran_succ')}})
                     store.dispatch('user/transferSuccess', result)
                 }
                 return;
@@ -188,10 +171,10 @@ const transfer = async () => {
             let result = await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, Number(idMsg.value), valueIn.value);
             TipsState.value = false;
             if(!result){ // 如果转账失败
-                messageAlert(false, proxy.$t('message.assets.pop.tran_stop'))
+                store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_stop')}})
             }else{ // 转账成功
                 closeDialog();
-                messageAlert(true, proxy.$t('message.assets.pop.tran_succ'))
+                store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.assets.pop.tran_succ')}})
                 store.dispatch('user/transferSuccess', result)
             }
        }
@@ -213,7 +196,7 @@ const closeDialog = () => {
 
 
 onMounted(() => {
-    store.dispatch('user/showDialog',false);// close message dialog
+    store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     
 })
 </script>

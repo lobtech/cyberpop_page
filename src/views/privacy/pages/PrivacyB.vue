@@ -85,7 +85,7 @@ const id: any = ref(0)
 
 onMounted(() => {
     window.scrollTo(0,0);
-    store.dispatch('user/showDialog',false);// close message dialog
+    store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
 })
 
 </script>

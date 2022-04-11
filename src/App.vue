@@ -6,12 +6,14 @@
         <component :is="Component" :key="$route.path" v-if="!$route.meta.keepAlive" />
         <msg-popup-a v-if="innerWidth > 740 && TipsState" :addNetwork="TipsInfo.addNetwork" :isShowTips="TipsState" :isLoading="TipsInfo.hasLoading" :isClose="TipsInfo.hasClose" :title="TipsInfo.title" :content="TipsInfo.content"/>
         <msg-popup-b v-else :isShowTips="TipsState" :addNetwork="true" :isLoading="false" :isClose="true" :title="'Network Error'" :content="$t('message.common.metamask.switch')"/>
+        <message-a v-if="innerWidth > 740 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-a>
+        <message-b v-if="innerWidth <= 740 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-b>
     </router-view>
 </template>
 <script setup lang="ts">
 import { onMounted, computed, ref } from 'vue'
 import { useStore } from 'vuex'
-import store from './store'
+import store from '@/store'
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -24,6 +26,10 @@ const innerWidth = computed(() => {
 
 const TipsState = computed(() => store.state.user?.TipsState );
 const TipsInfo = computed(() => store.state.user?.TipsInfo);
+const alertInfo = computed(() => store.state.user?.alertInfo);
+const showDialog = computed(() => store.state.user?.showDialog);
+
+
 
 onMounted(() => {
     const ethereum = (window as any).ethereum 
@@ -42,6 +48,7 @@ onMounted(() => {
         console.log(id);
         
         store.dispatch('user/chageChainId', Number(chainId))
+        
         if(id != 80001 && id != 43113) {
             store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
             return;

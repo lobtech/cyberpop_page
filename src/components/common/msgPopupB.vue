@@ -10,7 +10,11 @@
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/metaMask.svg" alt="">
                     <div class="subtitle">{{$t('message.common.metamask.logoText')}}</div>
                 </div>
-                <div class="text">{{ props.content }} <a v-if="props.addNetwork" href="https://chainlist.org/" target="_blank">{{ $t('message.common.metamask.add') }}</a> </div>
+                <!-- <div class="text">{{ props.content }} <a v-if="props.addNetwork" href="https://chainlist.org/" target="_blank">{{ $t('message.common.metamask.add1') }}</a> </div> -->
+                <div class="text">{{ props.content == 'netWork' ? $t('message.common.metamask.switch') : props.content }}  <br/>
+                    <span v-if="props.addNetwork" @click="changeChain(43113)">{{ $t('message.common.metamask.add2') }}</span> 
+                    <span v-if="props.addNetwork" @click="changeChain(80001)">{{ $t('message.common.metamask.add1') }}</span>  
+                </div>
                 <div class="loading" v-if="isLoading">
                     <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
                 </div>
@@ -20,8 +24,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import store from '@/store/index'
+import NFT from '@/tools/web3' 
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+const { proxy } = getCurrentInstance() as any;
 const props = defineProps({
     content: String, // 文案内容
     isLoading: Boolean, // 显示loading状态
@@ -30,8 +38,23 @@ const props = defineProps({
     isShowTips: Boolean, //是否显示
     addNetwork: Boolean,
 })
+
+
+const chainId: any = computed(() => store.state.user?.chainId );
+const changeChain = async (value?: any) => {
+    if( chainId.value == value ){
+        store.dispatch('user/TipsState', {show: false, info: { }});
+    }
+    let a: any = await NFT.addChain(value)
+    if(a){
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.t('message.assets.pop.tran_succ')}})
+    }else{
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.t('message.assets.pop.tran_stop')}})
+    }
+}
+
+
 onMounted(() => {
-    console.log(props);
 })
 
 
@@ -64,15 +87,15 @@ onMounted(() => {
             left: 0;
             right: 0;
             bottom: 0;
-            width: 31.51vw;
-            min-width: 380px;
+            // width: 31.51vw;
+            width: 90vw;
+            // min-width: 380px;
             height: 26vw;
             min-height: 200px;
             margin: auto;
-            padding: 2.5vw;
             box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
             background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-            border: .15vw solid;
+            border: 3px solid;
             border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
             clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
             .cover{
@@ -106,7 +129,7 @@ onMounted(() => {
                 left: 0;
                 right: 0;
                 display: inline-block;
-                padding: 0 2.5vw;
+                padding: 20px;
                 .title{
                     font-size: 4.45vw;
                     font-family: AlibabaPuHuiTi_2_115_Black;
@@ -132,7 +155,18 @@ onMounted(() => {
                     font-size: 2.83vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     font-weight: normal;
-                    line-height: 3.5vw;
+                    line-height: 4.4vw;
+                    span{
+                        float: right;
+                        display: inline-block;
+                        padding: 2vw 4vw;
+                        margin: 5vw 0 0 3vw;
+                        background: #30304D;
+                        cursor: pointer;
+                    }
+                    span:hover{
+                        color: rgb(255, 24, 255);
+                    }
                     a{
                         color: #fff;
                     }
@@ -146,6 +180,18 @@ onMounted(() => {
                         animation: loadingAni 1s linear infinite;
                     }
                 }
+            }
+        }
+    }
+    @media screen {
+        @media (max-width: 740px) {
+            .mask{
+                height: 50vw !important;
+            }
+        }
+        @media (max-width: 599px) {
+            .mask{
+                height: 26vw !important;
             }
         }
     }

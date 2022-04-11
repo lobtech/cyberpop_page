@@ -5,7 +5,7 @@
                 <img class="failed-icon" src="@/assets/nwhomePhone/failed-phone.svg" alt="">
             </div>
             <div class="text">{{$t('message.common.mess_faild')}}</div>
-            <div class="desc">{{dialogC}}</div>
+            <div class="desc">{{txt}}</div>
         </div>
 
         <div class="message" v-if="state == 1">
@@ -13,7 +13,7 @@
                 <img class="succ-icon" src="@/assets/nwhomePhone/success-phone.svg" alt="">
             </div>
             <div class="text">{{$t('message.common.mess_succ')}}</div>
-            <div class="desc">{{dialogC}}</div>
+            <div class="desc">{{txt}}</div>
         </div>
 
         <div class="message" v-if="state == -1">
@@ -27,18 +27,23 @@
 
 <script setup lang="ts">
 import { onMounted, computed, readonly, ref } from 'vue'
-
+import store from '@/store'
 const props = defineProps({
     state: Number, 
-    dialogC: String
+    txt: String
 })
-
+onMounted(() => {
+    setTimeout(()=>{
+        store.dispatch('user/showDialog',{show: false, info: {}})
+    },3000)
+    
+})
 
 </script>
 
 <style lang="less" scoped>
 .message{
-    z-index: 10;
+    z-index: 188;
     display: flex;
     flex-direction: column;
     align-items: center;

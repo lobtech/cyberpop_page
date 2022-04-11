@@ -8,3 +8,4 @@ declare module '*.vue' {
 }
 declare module 'vue-videobg';
 declare module 'vue3-video-play';
+declare module 'default-passive-events';

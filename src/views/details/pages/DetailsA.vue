@@ -1,5 +1,4 @@
 <template>
-    <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
     <header-a path="/details" :type="2"></header-a>
     <div class="section">
         <div class="title">{{$t('message.mining.coming')}}</div>
@@ -186,35 +185,19 @@ const copyUrl = (e:any) => {
     //返回值为一个Boolean，如果是 false 则表示操作不被支持或未被启用
     if (document.execCommand("copy")) {
         document.execCommand("copy");
-        messageAlert(true, proxy.$t('message.common.mess_succ'))
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.common.mess_succ')}})
     }else{
-        messageAlert(false, proxy.$t('message.common.mess_copy_err'))
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.common.mess_copy_err')}})
     }
     //删除这个节点
     document.body.removeChild(input);
-}
-
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(false)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    store.dispatch('user/addComingOut', false)
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/addComingOut',true)
-    },5000)
 }
 
 
 
 onMounted( () => {
     window.scrollTo(0,0);
-    store.dispatch('user/showDialog',false);// close message dialog
+    store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     store.dispatch('user/metaChange',false);
     videoUrl();
     

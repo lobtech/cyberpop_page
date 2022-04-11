@@ -28,7 +28,7 @@ import loading from './components/loading/loading.vue'
 
 import vue3videoPlay from 'vue3-video-play' 
 import 'vue3-video-play/dist/style.css' 
-
+import 'default-passive-events'
 
 
 

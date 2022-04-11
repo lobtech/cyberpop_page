@@ -103,7 +103,6 @@
         </div>
     </div>
     <footer-b></footer-b>
-    <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
@@ -154,9 +153,9 @@ const copyUrl = (e:any) => {
     //返回值为一个Boolean，如果是 false 则表示操作不被支持或未被启用
     if (document.execCommand("copy")) {
         document.execCommand("copy");
-        messageAlert(1, proxy.$t('message.common.mess_succ'))
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.common.mess_succ')}})
     }else{
-        messageAlert(0, proxy.$t('message.common.mess_copy_err'))
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.common.mess_copy_err')}})
     }
     //删除这个节点
     document.body.removeChild(input);
@@ -164,25 +163,9 @@ const copyUrl = (e:any) => {
 
 
 
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(0)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/showDialog',false)
-    },2000)
-}
-
-
 onMounted( () => {
     window.scrollTo(0,0);
-    store.dispatch('user/showDialog',false);// close message dialog
+    store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     videoUrl();
 })
 

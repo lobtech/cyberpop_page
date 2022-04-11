@@ -62,8 +62,8 @@ const closexplan = () => {
         margin: auto;
         width: 314px;
         height: 354px;
-        // background: linear-gradient(180deg, #090223 0%, #090223 52%, #090223 100%);
-        border: 4px solid;
+        background: linear-gradient(180deg, #090223 0%, #090223 52%, #090223 100%);
+        border: 3px solid;
         border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 4 4;
         clip-path: polygon(0 0, 100% 0, 100% 85%, 92% 100%, 0 100%);
         .cover{

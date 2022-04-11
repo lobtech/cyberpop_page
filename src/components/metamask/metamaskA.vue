@@ -74,7 +74,9 @@ const closePopUp = () => {
         clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
         .cover{
             position: absolute;
-            top: 0vw;
+            top: 0;
+            left: 0;
+            right: 0;
             width: 100%;
             height: 100%;
             background: linear-gradient(180deg, #30304D 0%, #232F37 100%);

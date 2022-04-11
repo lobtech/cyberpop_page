@@ -20,8 +20,8 @@ const states = {
     active: 0,
     xplanActive: false,
     xplanAni: false,
-    comingOutFlag: false,
     showDialog: false,
+    alertInfo: {} as any, // messageAlert Info
     TipsState: false, // 自定义弹窗show
     TipsInfo: {} as any, // 自定义弹窗信息
 
@@ -76,12 +76,6 @@ export default {
         chageChainId(state, paylaod: any){
             state.chainId = paylaod;
         },
-        TipsState(state, paylaod: any){
-            state.TipsState = paylaod;
-        },
-        TipsInfo(state, paylaod: any){
-            state.TipsInfo = paylaod;
-        },
 
         // home header
         changeActive(state, payload: any) {
@@ -93,13 +87,18 @@ export default {
         xplanChangeAni(state, payload: any) {
             state.xplanAni = payload;
         },
-        addComingOut(state, payload: any) {
-            state.comingOutFlag = payload;
-        },
         showDialog(state, payload: any) {
             state.showDialog = payload;
         },
-
+        alertInfo(state, payload: any) {
+            state.alertInfo = payload;
+        },
+        TipsState(state, paylaod: any){
+            state.TipsState = paylaod;
+        },
+        TipsInfo(state, paylaod: any){
+            state.TipsInfo = paylaod;
+        },
 
         // wallet
         checkInstall(state, payload: any) {
@@ -171,11 +170,9 @@ export default {
         xplanChangeAni({ commit }, paylaod: any) {
             commit('xplanChangeAni', paylaod)
         },
-        addComingOut({ commit }, paylaod: any) {
-            commit('addComingOut', paylaod)
-        },
         showDialog({ commit }, paylaod: any) {
-            commit('showDialog', paylaod)
+            commit('showDialog', paylaod.show)
+            commit('alertInfo', paylaod.info)
         },
         TipsState({ commit }, paylaod: any) {
             commit('TipsState', paylaod.show),

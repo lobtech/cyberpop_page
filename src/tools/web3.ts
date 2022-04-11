@@ -191,7 +191,7 @@ const addChain = (chainId: Number) => {
             params: [
                 {
                     chainId: web3.utils.numberToHex(80001),
-                    chainName: 'MATIC',
+                    chainName: 'Mumbai',
                     nativeCurrency: {
                         name: 'MATIC',
                         symbol: 'MATIC', // 2-6 characters long
@@ -203,16 +203,21 @@ const addChain = (chainId: Number) => {
             ]
         }
     }
-
-    return new Promise((resolve, reject) => {
-        ethereum.request({
+    return new Promise( async (resolve, reject) => {
+        await ethereum.request({
             ...info
-        }).then((res: any)=>{
-            //添加成功
-            resolve(1)
-        }).catch((err: any)=>{
-            //添加失败
-            resolve(0)
+        }).then((res:any)=>{
+
+            const Web3 = (window as any).Web3;
+            let web3obj = new Web3((Web3 as any).givenProvider);
+            web3obj.eth.net.getId().then((realChainId: any) => {
+                // console.log('0',realChainId, info.params[0].chainId);
+                if( realChainId == info.params[0].chainId ){ // 通过切换结果判断切换成功 或 失败
+                    resolve(1)
+                    return
+                }
+                resolve(0)
+            })  
         })
     })
 

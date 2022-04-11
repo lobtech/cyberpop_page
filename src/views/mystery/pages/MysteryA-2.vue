@@ -131,7 +131,6 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             <img src="@/assets/nwAssets/nothing.svg" alt="">
         </div>
         <footer-a></footer-a>
-        <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a>
     </div>
 </template> 
 <script setup lang="ts">
@@ -217,33 +216,18 @@ const open = async (boxId: Number, data: any) => {
     console.log(result, 'result');
     store.dispatch('user/TipsState', {show: false, info: { }});
     if(result) {
-        messageAlert(true, proxy.$t('message.assets.pop.tran_succ'))
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.assets.pop.tran_succ')}})
         setTimeout(() => {
             getBalance(chainId.value)
         }, 1000);
     }else{
-        messageAlert(false, proxy.$t('message.assets.pop.reject_transaction'))
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.reject_transaction')}})
     }
-}
-
-const mtimer: any = ref(null);
-let messageState:any = ref(false)
-let messageContent:any = ref('')
-const showDialog = computed(() => store?.state.user?.showDialog);
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    store.dispatch('user/addComingOut', false)
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/addComingOut',true)
-    },5000)
 }
 
 onMounted(() => {
     window.scrollTo(0,0);
-    store.dispatch('user/showDialog',false);// close message dialog
+    store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     store.dispatch('user/metaChange',false);
     if(readyAssetsF.value != -1 && chainId.value == 80001 || chainId.value == 43113){
         getBalance(chainId.value)

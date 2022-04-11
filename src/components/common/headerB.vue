@@ -8,8 +8,9 @@
                 </div>
                 <img class="menu" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/header-menu.svg" @click="showMenu()" alt="">
             </div>
-            <div class="menuMask" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
+            <div class="menuMask" ref="cursor" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
                 <div class="close-menu">
+                    <div class="select_chain" @click="showMsgPop()"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span></div>
                     <img @click="closeMenuIcon()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
                 <div class="login_in" v-if="!loggined" @click="login()">
@@ -53,11 +54,10 @@
     </div>
     <metamask-b v-if="metaMaskActive"></metamask-b>
     <coming-b v-show="showComingFlag"></coming-b>
-    <!-- <message-b v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-b> -->
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref } from 'vue'
+import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref, watch } from 'vue'
 import store from '@/store'
 import NFT from '@/tools/web3' 
 import {  useRouter } from 'vue-router'
@@ -88,6 +88,45 @@ const selectLang = (index:any) => {
     // console.log( proxy.$t('message.common.menu1') );
 }
 
+const chainList = ref({
+    avax: {
+        name: 'Avalanche Fuji Testnet',
+        img: 'https://nftrade.com/img/chains/icons/avax.png',
+        chainId: 43113,
+    },
+    mumbai: {
+        name: 'Mumbai',
+        img: 'https://chainlist.org/_next/image?url=https%3A%2F%2Fdefillama.com%2Fchain-icons%2Frsz_polygon.jpg&w=64&q=75',
+        chainId: 80001,
+    },
+    select: {
+        name: 'Avalanche Fuji Testnet',
+        img: 'https://nftrade.com/img/chains/icons/avax.png',
+        chainId: 43113,
+        active: 1,
+    },
+    notSupported: {
+        name: 'Chain is not supported.',
+        img: 'https://nftrade.com/img/chains/icons/eth.png',
+        active: 1,
+    }
+}) as any
+
+const chainId: any = computed(() => store.state.user?.chainId );
+// 自动判断当前所在链
+watch(chainId, (newVal, oldVal) => {
+    if(!oldVal) return;
+    let temp: any;
+    Object.keys(chainList._rawValue).forEach((key: any) => {
+        if(chainList._rawValue[key].chainId == newVal){
+            temp = chainList._rawValue[key]
+        }
+    })
+    if(temp) chainList.value.select = { ...temp, active: 1 };
+}, {immediate:true,deep:true});
+const showMsgPop = () => {
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
+}
 
 
 
@@ -195,24 +234,6 @@ const changeMenu = (type: any, route?: any) => {
 
 
 
-// message dialog
-const showDialog = computed(() => store?.state.user?.showDialog);
-let messageState:any = ref(0)
-let messageContent:any = ref('')
-const mtimer:any = ref(null)
-const messageAlert = (flag:any, message:any) => {
-    clearTimeout(mtimer.value)
-    messageState.value = flag
-    store.dispatch('user/showDialog',true)
-    messageContent.value = message
-    mtimer.value = setTimeout(() => {
-        store.dispatch('user/showDialog',false)
-    },2000)
-}
-
-
-
-
 
 const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
@@ -248,7 +269,8 @@ const connect: any = async () => {
         await web3obj.eth.net.getId().then((chainId: any) => {
             console.log(chainId);
             store.dispatch('user/chageChainId', Number(chainId))
-            if(chainId != 80001 && chainId != 43113)  store.dispatch('user/TipsState', true)
+            // if(chainId != 80001 && chainId != 43113)  store.dispatch('user/TipsState', true)
+            if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
         })
         // messageAlert(1, proxy.$t('message.common.mess_succ'))
     }
@@ -265,7 +287,7 @@ const signout = () => {
     store.dispatch('user/connectWallet',{realId: -1});
     store.dispatch('user/walletloggined',false);
 
-    store.dispatch('user/showDialog',false);
+    store.dispatch('user/showDialog',{show: false, info: {}});
     if( proxy.$route.path == '/knapsack' ){
         router.push('/');
     }
@@ -278,14 +300,27 @@ const toAssets = () => {
 }
 
 
+const cursor:any = ref(null)
+const handleOtherClick = (e:any) => { // click 收起 菜单
+    if( cursor.value.contains(e.target) ){
+        return
+    }else{
+        store.dispatch('user/walletMenuAni', false)
+    }
+}
+onUnmounted(() => {
+    window.removeEventListener('click', handleOtherClick, true);
+})
+
 onMounted(() => {
+    window.addEventListener('click', handleOtherClick, true) // click 收起 菜单
     if( realId.value != -1){
         store.dispatch('user/walletloggined',true);
     }
     logoHImport();
     store.dispatch('user/changeActive', props.type)
     store.dispatch('user/metaChange',false)
-    store.dispatch('user/showDialog',false);
+    store.dispatch('user/showDialog',{show: false, info: {}});
     
     if( localStorage.getItem('lang') ){
         select.value = localStorage.getItem('lang');        
@@ -364,15 +399,31 @@ onMounted(() => {
                 background-color: rgba(0,0,0,.92);
                 overflow-x: hidden;
                 overflow-y: auto;
+
                 .close-menu{
+                    display: flex;
+                    justify-content: space-between;
                     width: 100%;
                     height: 44px;
-                    text-align: right;
+                    padding: 12px 17px 0;
+                    // text-align: right;
+                    .select_chain{
+                        display: flex;
+                        align-items: center;
+                        font-size: 14px;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                        cursor: pointer;
+                        img{
+                            width: 24px;
+                            height: 24px;
+                            margin-right: 6px;
+                        }
+                    }
                     img{
                         width: 30px;
                         height: 30px;
-                        margin-top: 12px;
-                        margin-right: 17px;
+                        // margin-top: 12px;
+                        // margin-right: 17px;
                     }
                 }
                 .login_in{

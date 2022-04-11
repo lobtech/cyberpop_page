@@ -31,8 +31,9 @@ const cn = {
                 descIns: '请登入并授权Metamask账号以继续',
                 cancel: '取消',
                 open: '打開METAMASK',
-                add: '切換網絡',
-                switch: '請切換到孟買網絡或',
+                add1: '切換孟買',
+                add2: '切換富士',
+                switch: '請切換到孟買網絡或富士網絡.',
                 network: '網絡錯誤',
             },
             // messageB
