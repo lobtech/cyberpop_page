@@ -1,5 +1,5 @@
 <template>
-    <div class="container" v-show="isShowTips">
+    <div class="container" v-show="isShowTips" :class="isShowTips && (isShowTips ? 'bounceShow' : 'bounceHide') ">>
         <div class="mask">
             <div class="cover"></div>
             <div class="coverborder"></div>

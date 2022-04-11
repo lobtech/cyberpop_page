@@ -147,7 +147,7 @@ const { GiftBox, LootBox } = Web3.contracts;
 
 const { proxy } = getCurrentInstance() as any;
 
-const { abi, address } = Web3.contracts['GiftBox'];
+
 const chainId: any = computed(() => store.state.user?.chainId);
 watch(chainId, (newVal, oldVal) => {
     if(!oldVal) return;
@@ -174,6 +174,7 @@ const getBalance = async (chainid: number) => {
     }else{
         var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
     }
+    console.log(result, 'result');
     getData(result)
    
 }
@@ -206,7 +207,7 @@ const toDetails = (type:any) => {
 }
 
 const open = async (boxId: Number, data: any) => {
-    console.log(data.number);
+    const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
     if(data.number == 0){
         store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'NOT BOX', content: 'You have no box assets', addNetwork: false}});
         return;
