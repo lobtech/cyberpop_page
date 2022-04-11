@@ -131,6 +131,8 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } f
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 const router = useRouter()
 
 
@@ -191,10 +193,10 @@ const open = async (boxId: Number) => {
     console.log(result, 'result');
     TipsState.value = false;
     if(result) {
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.assets.pop.tran_succ')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
         getBalance()
     }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.reject_transaction')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
     }
 }
 

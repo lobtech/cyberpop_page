@@ -166,7 +166,7 @@ const tokensOfOwner = (abi: any, address: any) => {
 const addChain = (chainId: Number) => {
     const ethereum = (window as any).ethereum // 获取小狐狸实例
     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
-    console.log(web3.utils.numberToHex(chainId), 'web3.utils.numberToHex(chainId)');
+    // console.log(web3.utils.numberToHex(chainId), 'web3.utils.numberToHex(chainId)');
     let info: any;
     if(chainId == 43113){
         info = {
@@ -203,14 +203,11 @@ const addChain = (chainId: Number) => {
             ]
         }
     }
-    return new Promise( async (resolve, reject) => {
-        await ethereum.request({
+    return new Promise((resolve, reject) => {
+        ethereum.request({
             ...info
         }).then((res:any)=>{
-
-            const Web3 = (window as any).Web3;
-            let web3obj = new Web3((Web3 as any).givenProvider);
-            web3obj.eth.net.getId().then((realChainId: any) => {
+            web3.eth.net.getId().then((realChainId: any) => {
                 // console.log('0',realChainId, info.params[0].chainId);
                 if( realChainId == info.params[0].chainId ){ // 通过切换结果判断切换成功 或 失败
                     resolve(1)
@@ -218,7 +215,9 @@ const addChain = (chainId: Number) => {
                 }
                 resolve(0)
             })  
+
         })
+        
     })
 
 }

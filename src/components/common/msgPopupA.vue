@@ -52,9 +52,9 @@ const close = () => {
 const changeChain = async (value?: any) => {
     let a: any = await NFT.addChain(value)
     if(a){
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.t('message.assets.pop.tran_succ')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
     }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.t('message.assets.pop.tran_stop')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
     }
 }
 

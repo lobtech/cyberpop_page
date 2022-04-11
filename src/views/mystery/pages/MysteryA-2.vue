@@ -217,12 +217,12 @@ const open = async (boxId: Number, data: any) => {
     console.log(result, 'result');
     store.dispatch('user/TipsState', {show: false, info: { }});
     if(result) {
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.assets.pop.tran_succ')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
         setTimeout(() => {
             getBalance(chainId.value)
         }, 1000);
     }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.reject_transaction')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
     }
 }
 

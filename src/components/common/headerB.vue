@@ -85,7 +85,6 @@ const selectLang = (index:any) => {
     select.value = index
     locale.value = index
     localStorage.setItem('lang', index)
-    // console.log( proxy.$t('message.common.menu1') );
 }
 
 const chainList = ref({
@@ -272,7 +271,7 @@ const connect: any = async () => {
             // if(chainId != 80001 && chainId != 43113)  store.dispatch('user/TipsState', true)
             if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
         })
-        // messageAlert(1, proxy.$t('message.common.mess_succ'))
+        // store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.mess_succ')}})
     }
 }
 

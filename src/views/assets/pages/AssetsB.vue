@@ -48,8 +48,8 @@
                             <ul class="token">
                                 <li @click="showSelect(1)"><div>ERC 721, ERC 1155</div></li>
                                 <li v-show="showItem1" class="item" @click="selectItem($event)">
-                                    <div class="ecr7 selected">ERC 721</div>
-                                    <div class="ecr1">ERC 1155</div>
+                                    <div class="ecr7" @click="changeType(1)">ERC 721</div>
+                                    <div class="ecr1" @click="changeType(2)">ERC 1155</div>
                                 </li>
                             </ul>
                             <ul class="type">
@@ -88,7 +88,19 @@
             <div class="ecr" v-if="readyAssetsF == 0 || readyAssetsF == 1">
             <!-- <div class="ecr" v-if="false"> -->
                 <div class="ecrchange">
-                    <div class="ecr721" v-show="!ecrType">
+                    <div class="ecrAll" v-show="ecrType == 0">
+                        <ul class="prince">
+                            <li v-for="(item, index) in dataTemp" :key="index">
+                                <img :src="item.image" alt="">
+                                <div class="name">{{item.name}}<span>x{{item.number}}</span></div>
+                                <div class="btn">
+                                    <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ecr721" v-show="ecrType == 1">
                         <ul class="prince">
                             <!-- <li>
                                 <img src="@/assets/nwAssets/testItem.png" alt="">
@@ -109,7 +121,7 @@
                             </li>
                         </ul> -->
                     </div>
-                    <div class="ecr115" v-show="ecrType">
+                    <div class="ecr115" v-show="ecrType == 2">
                         <ul class="prince">
                             <li v-for="(item, index) in dataTemp" :key="index">
                                 <img :src="item.image" alt="">
@@ -277,7 +289,7 @@ const getData: any = async (type: Number) => {
 }
 
 // ecr exchange
-let ecrType:any = ref(true);
+let ecrType:any = ref(0);
 
 
 // NFT transfer
@@ -667,7 +679,7 @@ onMounted(async () => {
             .ecr{
                 margin-bottom: -2px;
                 .ecrchange{
-                    .ecr721,.ecr115{
+                    .ecr721,.ecr115, .ecrAll{
                         ul{
                             display: flex;
                             align-items: center;
@@ -736,10 +748,6 @@ onMounted(async () => {
                             }
                         }
                     }
-                    // .ecr721{
-                    //     width: 100%;
-                    //     height: 80vh;
-                    // }
                 }
             }
             .nothing{

@@ -142,6 +142,8 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, wa
 
 import store from '@/store'
 import {  useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 const router = useRouter()
 const { proxy } = getCurrentInstance() as any
 
@@ -185,9 +187,9 @@ const copyUrl = (e:any) => {
     //返回值为一个Boolean，如果是 false 则表示操作不被支持或未被启用
     if (document.execCommand("copy")) {
         document.execCommand("copy");
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.common.mess_succ')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.mess_succ')}})
     }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.common.mess_copy_err')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.common.mess_copy_err')}})
     }
     //删除这个节点
     document.body.removeChild(input);

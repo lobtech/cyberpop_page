@@ -169,11 +169,11 @@ watch(chainId, (newVal, oldVal) => {
 const changeChain = async (value?: any) => {
     let a: any = await NFT.addChain(value.chainId)
     if(a){
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.t('message.assets.pop.tran_succ')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
 
         chainList.value.select = {...value, active: 1};
     }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.t('message.assets.pop.tran_stop')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
     }
 }
 
@@ -196,7 +196,6 @@ const selectLang = (index:any) => {
 
     locale.value = index
     localStorage.setItem('lang', index)
-    // console.log( proxy.$t('message.common.string_lang') );
 }
 
 // connect
@@ -330,7 +329,6 @@ const connect: any = async () => {
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
         store.dispatch('user/dataSumSearch',{flag:0});
-        // messageAlert(true, proxy.$t('message.common.mess_succ'))
         const Web3 = (window as any).Web3;
         let web3obj = new Web3((Web3 as any).givenProvider);
         await web3obj.eth.net.getId().then((chainId: any) => {
@@ -338,6 +336,7 @@ const connect: any = async () => {
             store.dispatch('user/chageChainId', Number(chainId))
             if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
         })  
+        // store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.mess_succ')}})
     }
 }
 

@@ -34,6 +34,9 @@
 import { onMounted, computed, readonly, ref, getCurrentInstance, watch } from 'vue'
 import store from '@/store'
 import Web3 from '@/tools/web3' 
+import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 const props = defineProps({
     transferInfo: Object,
@@ -151,7 +154,7 @@ const transfer = async () => {
         addressState.value = 'empty'
     }else if( inputState.value == 'success' && numState.value == ''){
         if( valueIn.value > haveNFT.value ){
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_exce')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_exce')}})
         }else{
             console.log(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value);
             console.log(props.transferInfo?.type, 'props.transferInfo?.type');
@@ -160,10 +163,10 @@ const transfer = async () => {
                 let result = await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, Number(idMsg.value));
                 TipsState.value = false;
                 if(!result){ // 如果转账失败
-                    store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_stop')}})
+                    store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
                 }else{ // 转账成功
                     closeDialog();
-                    store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.assets.pop.tran_succ')}})
+                    store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
                     store.dispatch('user/transferSuccess', result)
                 }
                 return;
@@ -171,10 +174,10 @@ const transfer = async () => {
             let result = await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, Number(idMsg.value), valueIn.value);
             TipsState.value = false;
             if(!result){ // 如果转账失败
-                store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_stop')}})
+                store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
             }else{ // 转账成功
                 closeDialog();
-                store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.assets.pop.tran_succ')}})
+                store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
                 store.dispatch('user/transferSuccess', result)
             }
        }

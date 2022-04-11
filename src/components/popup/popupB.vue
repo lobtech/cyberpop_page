@@ -29,6 +29,8 @@
 import { onMounted, computed, readonly, ref, watch, getCurrentInstance } from 'vue'
 import store from '@/store'
 import Web3 from '@/tools/web3' 
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 
 const props = defineProps({
@@ -160,19 +162,19 @@ const transfer = async () => {
         addressState.value = 'empty'
     }else if( inputState.value == 'success' && numState.value == ''){
        if( valueIn.value > haveNFT.value ){
-           store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_exce')}})
+           store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_exce')}})
        }else{
            await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value).then( (res:any) => {
                 if( res == undefined ){
-                    store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_stop')}})
+                    store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
                 }else{
                     closeDialog();
-                    store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.assets.pop.tran_succ')}})
+                    store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
                 }
             }).catch((err:any) => {
                 // inputState.value = ''
                 // addressState.value = ''
-                store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.assets.pop.tran_invalid')}})
+                store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_invalid')}})
             })
        }
     }

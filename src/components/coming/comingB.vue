@@ -1,11 +1,11 @@
 <template>
-    <div class="title" :class="comingOutFlag ? 'comingOut' : 'comingIn'">COMING SOON</div>
+    <!-- <div class="title" :class="comingOutFlag ? 'comingOut' : 'comingIn'">COMING SOON</div> -->
 </template>
 
 <script setup lang="ts">
 import { computed, readonly, ref } from 'vue'
 import store from '@/store'
-const comingOutFlag = computed(() => store?.state.user?.comingOutFlag);
+// const comingOutFlag = computed(() => store?.state.user?.comingOutFlag);
 
 </script>
 

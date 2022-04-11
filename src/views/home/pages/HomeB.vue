@@ -468,10 +468,12 @@ import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 import mrs from '@/tools/moralis'
 
+import { useI18n } from 'vue-i18n';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { EffectFade, EffectCreative, Mousewheel, Autoplay} from "swiper";
 import { clear } from 'console';
 SwiperCore.use([EffectFade, EffectCreative, Mousewheel, Autoplay]);
+const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 
 let close:any = ref(true)
@@ -536,7 +538,7 @@ const connect: any = async () => {
         let len = id.value.length-1;
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.common.mess_succ')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.mess_succ')}})
     }
 }
 
@@ -683,10 +685,10 @@ const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     
     if(email.value === ""){ //输入不能为空
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.home.mess_register_null')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.home.mess_register_null')}})
         return false;
      }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.home.mess_register_regtest')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.home.mess_register_regtest')}})
         return false;
     }
 
@@ -694,9 +696,9 @@ const submit = () => {
     proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
         if(res.data){
             email.value = "";
-            store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: proxy.$t('message.home.mess_register_succ')}})
+            store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.home.mess_register_succ')}})
         }else{
-            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: proxy.$t('message.home.mess_register_else')}})
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.home.mess_register_else')}})
         }
     }).catch( (err: any) => {
         console.log(err)

@@ -11,13 +11,13 @@
     </router-view>
 </template>
 <script setup lang="ts">
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, computed, ref, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
 import store from '@/store'
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-
+const { proxy } = getCurrentInstance() as any;
 const $store: any = useStore()
 
 const innerWidth = computed(() => {
@@ -45,9 +45,10 @@ onMounted(() => {
     });
     ethereum.on('chainChanged', (chainId: string) => {
         let id: any = Number(chainId);
-        console.log(id);
+        // console.log(id);
         
         store.dispatch('user/chageChainId', Number(chainId))
+        
         
         if(id != 80001 && id != 43113) {
             store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
