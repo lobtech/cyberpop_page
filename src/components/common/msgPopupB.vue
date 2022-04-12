@@ -90,7 +90,7 @@ onMounted(() => {
             // width: 31.51vw;
             width: 90vw;
             // min-width: 380px;
-            height: 26vw;
+            height: 50vw;
             min-height: 200px;
             margin: auto;
             box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
@@ -186,12 +186,12 @@ onMounted(() => {
     @media screen {
         @media (max-width: 740px) {
             .mask{
-                height: 50vw !important;
+                // height: 50vw !important;
             }
         }
         @media (max-width: 599px) {
             .mask{
-                height: 26vw !important;
+                // height: 50vw !important;
             }
         }
     }

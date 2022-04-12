@@ -1,5 +1,5 @@
 <template>
-    <AssetsA v-if="innerWidth > 740"/>
+    <AssetsA v-if="innerWidth > 1025"/>
     <AssetsB v-else/>
 </template>
 <script setup lang="ts">

@@ -4,10 +4,10 @@
             <component :is="Component" :key="$route.path" v-if="$route.meta.keepAlive" />
         </keep-alive>
         <component :is="Component" :key="$route.path" v-if="!$route.meta.keepAlive" />
-        <msg-popup-a v-if="innerWidth > 740 && TipsState" :addNetwork="TipsInfo.addNetwork" :isShowTips="TipsState" :isLoading="TipsInfo.hasLoading" :isClose="TipsInfo.hasClose" :title="TipsInfo.title" :content="TipsInfo.content"/>
+        <msg-popup-a v-if="innerWidth > 1025 && TipsState" :addNetwork="TipsInfo.addNetwork" :isShowTips="TipsState" :isLoading="TipsInfo.hasLoading" :isClose="TipsInfo.hasClose" :title="TipsInfo.title" :content="TipsInfo.content"/>
         <msg-popup-b v-else :isShowTips="TipsState" :addNetwork="true" :isLoading="false" :isClose="true" :title="'Network Error'" :content="$t('message.common.metamask.switch')"/>
-        <message-a v-if="innerWidth > 740 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-a>
-        <message-b v-if="innerWidth <= 740 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-b>
+        <message-a v-if="innerWidth > 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-a>
+        <message-b v-if="innerWidth <= 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-b>
         <purchaseA :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state"/>
     </router-view>
 </template>

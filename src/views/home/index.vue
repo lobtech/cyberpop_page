@@ -1,5 +1,5 @@
 <template>
-    <HomeA v-if="innerWidth > 740"/>
+    <HomeA v-if="innerWidth > 1025"/>
     <HomeB v-else/>
 </template>
 <script setup lang="ts">

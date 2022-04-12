@@ -1,5 +1,5 @@
 <template>
-    <CyberspaceA v-if="innerWidth > 740"/>
+    <CyberspaceA v-if="innerWidth > 1025"/>
     <CyberspaceB v-else/>
 </template>
 <script setup lang="ts">
