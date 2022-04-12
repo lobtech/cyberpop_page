@@ -1,17 +1,18 @@
 <template>
     <header-a path="/details" :type="2"></header-a>
-    <div class="section">
+    <!-- <div class="section">
         <div class="title">{{$t('message.mining.coming')}}</div>
-    </div>
+    </div> -->
     <div class="details">
-        <div class="box">
+        <div class="box" v-if="data.info">
             <div class="video">
-                <video autoplay loop ref="thirdVideo">
-                    <source :src="videoUrlType" type="video/mp4">
+                <img :src="data.info.image" v-if="!data.info.animation_url" alt="">
+                <video autoplay loop v-else>
+                    <source :src="data.info.animation_url" type="video/mp4">
                 </video>
             </div>
             <div class="desc">
-                <div class="title">{{$t('message.details.box_title')}}</div>
+                <div class="title">{{ data.info.name }} <span v-if="ownerNumber > 0">({{ 'x' + ownerNumber }})</span> </div>
                 <div class="price">
                     <div class="left">
                         <div class="text1">{{$t('message.details.box_price')}} ≈ $4545</div>
@@ -22,13 +23,14 @@
                     </div>
                     <div class="line"></div>
                     <div class="right">
-                        <div class="text1">{{$t('message.details.box_remain')}} <span>238</span></div>
+                        <div class="text1">{{$t('message.details.box_remain')}} <span v-if="data.Remaining">{{ data.Remaining }}</span><span v-else>0</span></div>
                         <div class="text2">{{$t('message.details.box_sale')}} <div>21<span>H</span>:33<span>M</span>:48<span>S</span></div></div>
                     </div>
                 </div>
                 <div class="btn">
-                    <div class="purchase">{{$t('message.details.box_btn_pur')}}</div>
-                    <div class="view">{{$t('message.details.box_btn_view')}}</div>
+                    <div class="purchase" v-if="data.Remaining > 0" @click="purchase">{{$t('message.details.box_btn_pur')}}</div>
+                    <div class="purchase" v-if="ownerNumber > 0" @click="open">{{$t('message.details.box_btn_open')}}</div>
+                    <div class="view" @click="opensea">{{$t('message.details.box_btn_view')}}</div>
                 </div>
             </div>
         </div>
@@ -114,11 +116,11 @@
                     <div class="princeShadow"></div>
                 </li> 
             </ul>
-            <ul class="introduction" v-show="exMenu == 1">
+            <ul class="introduction" v-show="exMenu == 1" v-if="data.info">
                 <li>
                     <div class="title">{{$t('message.details.intro.title1')}} 1</div>
                     <div class="desc">
-                        {{$t('message.details.intro.desc1')}}
+                        {{ data.info.description || $t('message.details.intro.desc1') }}
                     </div>
                 </li>
                 <li>
@@ -135,17 +137,19 @@
             </div>
         </div>
     </div>
-    <footer-a></footer-a>   
+    <footer-a></footer-a>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
-
+import Web3 from '@/tools/web3'
 import store from '@/store'
-import {  useRouter } from 'vue-router'
+import {  useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 const router = useRouter()
+const Route = useRoute() //获取到值
 const { proxy } = getCurrentInstance() as any
+const { GiftBox, LootBox, MarketV2, cyt } = Web3.contracts;
 
 // changeMenu
 let exMenu:any = ref(0) 
@@ -155,27 +159,6 @@ const intClick = (type:any) => {
 
 // video
 let thirdVideo:any = ref(null)
-let videoUrlType:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox1.mp4');
-const videoUrl = () => {
-    const type:any = proxy.$route.params.type;
-    switch (type){
-        case '1':
-            videoUrlType.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox1.mp4';
-            break;
-        case '2':
-            videoUrlType.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox2.mp4';
-            break;
-        case '3':
-            thirdVideo.value.classList.add('third')
-            videoUrlType.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox3.mp4';
-            break;
-        default:
-            videoUrlType.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox4.mp4';
-            break;
-    }
-}
-
-
 
 
 const copyText:any = 'https://game.cyberpop.online/'
@@ -196,13 +179,108 @@ const copyUrl = (e:any) => {
 }
 
 
+// data
+const data = ref({} as any);
 
-onMounted( () => {
+const opensea = () => {
+    window.open('https://opensea.io/');
+}
+
+const ownerNumber = ref(0);
+
+const getBalance = async (chainid: number) => {
+    if(chainid == 80001){
+        var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
+    }else{
+        var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+    }
+    console.log(result, 'result');
+    getData(result)
+}
+
+
+const chainId: any = computed(() => store.state.user?.chainId);
+watch(chainId, (newVal, oldVal) => {
+    if(!oldVal) return;
+}, {immediate:true,deep:true});
+
+
+const readyAssetsF: any = computed(() => {
+    console.log(store?.state.user?.readyAssets, 'store?.state.user?.readyAssets');
+    if( store?.state.user?.readyAssets !== -1 && chainId.value == 80001 || chainId.value == 43113){
+        getBalance(chainId.value)
+    }else{
+        data.value = {};
+    }
+    return store.state.user?.readyAssets
+});
+watch(readyAssetsF, (newVal, oldVal) => {
+    if(!oldVal) return;
+}, {immediate:true,deep:true});
+
+
+
+const getData = async (result: any) => {
+    let index: any = Route.query.type;
+    let res = result[index-1];
+    ownerNumber.value = res;
+    proxy.$api.get(`https://api.cyberpop.online/box/${index-1}`).then((boxData: any) => {
+        data.value.info = boxData;
+    })
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
+    console.log(LootBox_result, 'LootBox_result');
+    console.log(LootBox_result[index-1]);
+    data.value.Remaining = LootBox_result[index-1];
+}
+
+
+const open = async (boxId?: any) => {
+    let index: any = Route.query.type;
+    const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
+    let result = await Web3.unpack(abi, address, index-1, 1)
+    console.log(result, 'result');
+    store.dispatch('user/TipsState', {show: false, info: { }});
+    if(result) {
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
+        setTimeout(() => {
+            router.push({ name: 'knapsack'})
+        }, 1000);
+    }else{
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
+    }
+}
+
+
+const purchase = async () => {
+    // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
+    // console.log(result);
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
+    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); //用自己的cyt去给授权市场合约授权的个数
+    console.log(allowance_res, 'allowance_res');
+    if(allowance_res < 30){
+        let approve_res = await Web3.approve(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7', 31);
+        console.log(approve_res, 'approve_res');
+        if(!approve_res) { // 授权失败
+            store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });
+            return;
+        }
+    }
+    // 正常流程
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 3} });
+    let reuslt = await Web3.buyLootBox(MarketV2.abi, MarketV2.address, 2, 30);
+    if(reuslt){
+        store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
+    }else{
+        store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
+    }
+}
+
+onMounted(() => {
     window.scrollTo(0,0);
-    store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
-    store.dispatch('user/metaChange',false);
-    videoUrl();
-    
+    store.dispatch('user/showDialog', { show: false, info: {} });// close message dialog
+    store.dispatch('user/metaChange', false);
+    // purchase()
 })
 
 </script>
@@ -371,7 +449,7 @@ onMounted( () => {
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 line-height: 3.125vw;
                 text-align: center;
-                div:nth-child(1){
+                div:not(:last-child){
                     width: 9.94vw;
                     height: 3.125vw;
                     margin-right: 1.66vw;
@@ -379,7 +457,7 @@ onMounted( () => {
                     clip-path: polygon(0 0, 86% 0, 100% 26%,100% 65%, 100% 100%, 0 100%, 8% 100%, 0% 82%);
                     cursor: pointer;
                 }
-                div:nth-child(2){
+                div:last-child{
                     width: 13.54vw;
                     height: 3.125vw;
                     color: #DE2DCF;

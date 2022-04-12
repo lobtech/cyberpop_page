@@ -267,6 +267,7 @@ const cn = {
             box_remain: '剩餘量',
             box_sale: '售賣結束時間：',
             box_btn_pur: '購買',
+            box_btn_open: '開啟',
             box_btn_view: '查看OPENSEA',
             exMenu1: '內容',
             exMenu2: '介紹',

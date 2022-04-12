@@ -260,7 +260,7 @@ const changeType = (type: Number) => {
     }
 }
 
-const { nft, arms, erc721, gamePool, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji } = Web3.contracts;
+const { nft, arms, erc721, gamePool, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji, LootBox } = Web3.contracts;
 
 const getData: any = async (type: Number) => {
     data.value = [];
@@ -281,6 +281,9 @@ const getData: any = async (type: Number) => {
             let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
             console.log(cyberClub_result);
             await getHead(cyberClub_result, 'head_mumbai');
+            let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
+            console.log(box_result);
+            await getNFTData(box_result, 'box', 'box_mumbai');
         }else if(type == 1){
             let result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
             await getNFTData(result, 'role', 'role_mumbai', true);
@@ -292,6 +295,8 @@ const getData: any = async (type: Number) => {
             let dao_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
             console.log(dao_resulte);
             await getNFTData(dao_resulte, 'weapons', 'weapons_mumbai', false, true)
+            let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
+            await getNFTData(box_result, 'box', 'box_mumbai');
         }
     }
     if(chainId.value == 43113){ // fuji
@@ -423,6 +428,9 @@ const transferPopup = (item:any) => {
     }else if( item.type == 'head_mumbai'){
         abiSelect.value = Web3.contracts.cyberClub.abi
         addressSelect.value = Web3.contracts.cyberClub.address
+    }else if( item.type == 'box_mumbai'){
+        abiSelect.value = Web3.contracts.LootBox.abi
+        addressSelect.value = Web3.contracts.LootBox.address
     }
     console.log(item.type, 'item.type');
     console.log(transferItem.value , 'transferItem.value ');

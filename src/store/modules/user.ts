@@ -42,6 +42,9 @@ const states = {
     contract: ref([]) , // 存放transfer所需abi，address
     transferSuccess: 0, // 转账成功状态
 
+    // NFT
+    purchaseState: false, // 主要是用于有多种状态流程 （比如售卖，上架， 购买）布局比较复杂，且能够被复用
+    purchaseInfo: {} as any,
 }
 export type typeof_user = typeof states
 export default {
@@ -143,6 +146,14 @@ export default {
         transferSuccess(state, payload: any) {
             state.transferSuccess = payload;
         },
+
+        // box 
+        purchaseState(state, payload: any) {
+            state.purchaseState = payload;
+        },
+        purchaseInfo(state, payload: any) {
+            state.purchaseInfo = payload;
+        }
     },
     actions: {
         // 初始化用户
@@ -220,6 +231,12 @@ export default {
         },
         transferSuccess({ commit }, payload: any) {
             commit('transferSuccess', payload);
+        },
+
+        //box
+        purchaseState({ commit }, paylaod: any) {
+            commit('purchaseState', paylaod.show)
+            commit('purchaseInfo', paylaod.info)
         },
     },
 } as Module<typeof_user, State>

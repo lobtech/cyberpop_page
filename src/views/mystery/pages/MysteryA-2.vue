@@ -36,7 +36,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </video>
                     </div>
                     <div class="weapon">
-                        <div class="name">{{ data[0].info.name }} <span>{{ 'x'+data[0].number }}</span></div>
+                        <div class="name">{{ data[0].info.name }}</div>
                         <div class="introduce">
                             {{ data[0].info.description }}
                         </div>
@@ -46,9 +46,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$20.00</div>
                         </div>
                         <div class="btn">
-                            <div class="open" @click="open(0, data[0])">{{$t('message.box.open')}}</div>
-                            <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                            <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div> -->
+                            <!-- <div class="open" @click="open(0, data[0])">{{$t('message.box.open')}}</div> -->
+                            <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
                         </div>
                     </div>
                 </li>
@@ -60,7 +59,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </video>
                     </div>
                     <div class="weapon">
-                        <div class="name">{{ data[1].info.name }}  <span>{{ 'x'+data[1].number }}</span> </div>
+                        <div class="name">{{ data[1].info.name }}</div>
                         <div class="introduce">
                             {{ data[1].info.description }}
                         </div>
@@ -70,9 +69,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$40.00</div>
                         </div>
                         <div class="btn">
-                            <div class="open" @click="open(1, data[1])">{{$t('message.box.open')}}</div>
-                            <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                            <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div> -->
+                            <!-- <div class="open" @click="open(1, data[1])">{{$t('message.box.open')}}</div> -->
+                            <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div>
                         </div>
                     </div>
                 </li>
@@ -84,7 +82,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </video>
                     </div>
                     <div class="weapon">
-                        <div class="name">{{ data[2].info.name }}  <span>{{ 'x'+data[2].number }}</span> </div>
+                        <div class="name">{{ data[2].info.name }}</div>
                         <div class="introduce">
                             {{ data[2].info.description }}
                         </div>
@@ -94,34 +92,11 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$- -</div>
                         </div>
                         <div class="btn">
-                            <div class="open" @click="open(2, data[2])">{{$t('message.box.open')}}</div>
-                            <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                            <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div> -->
+                            <!-- <div class="open" @click="open(2, data[2])">{{$t('message.box.open')}}</div> -->
+                            <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
                         </div>
                     </div>
                 </li>
-                <!-- <li>
-                    <div class="boxVideo">
-                        <video autoplay loop>
-                            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox4.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="weapon">
-                        <div class="name">{{$t('message.box.weapon_name4')}}</div>
-                        <div class="introduce">
-                            {{$t('message.box.weapon_intro4')}}
-                        </div>
-                        <div class="price">
-                            <img src="@/assets/nwbox/nfts-icon.svg" alt="">
-                            <div class="num">— —</div>
-                            <div class="exchange">≈$- -</div>
-                        </div>
-                        <div class="btn">
-                            <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                            <div class="details" @click="toDetails(4)">{{$t('message.box.btn_det')}}</div>
-                        </div>
-                    </div>
-                </li> -->
             </ul>
         </div>
         <div class="nothing" v-else>
@@ -203,7 +178,8 @@ const getData = async (boxData: any[]) => {
 
 
 const toDetails = (type:any) => {
-    router.push({ name: 'details',params:{ type }})
+    console.log(type, 'type');
+    router.push({ name: 'details', query: { type }})
 }
 
 const open = async (boxId: Number, data: any) => {
@@ -230,9 +206,9 @@ onMounted(() => {
     window.scrollTo(0,0);
     store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     store.dispatch('user/metaChange',false);
-    if(readyAssetsF.value != -1 && chainId.value == 80001 || chainId.value == 43113){
-        getBalance(chainId.value)
-    }
+    // if(readyAssetsF.value != -1 && chainId.value == 80001 || chainId.value == 43113){
+    //     getBalance(chainId.value)
+    // }
 })
 
 </script>
@@ -459,7 +435,7 @@ onMounted(() => {
                         }
                         .btn{
                             display: flex;
-                            justify-content: flex-end;
+                            // justify-content: flex-end;
                             width: 100%;
                             height: 2.81vw;
                             margin-top: 2.08vw;

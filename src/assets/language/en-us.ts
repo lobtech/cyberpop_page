@@ -267,6 +267,7 @@ const us = {
             box_remain: 'Remaining',
             box_sale: 'Sale ends in',
             box_btn_pur: 'PURCHASE',
+            box_btn_open: 'OPEN',
             box_btn_view: 'VIEW ON OPENSEA',
             exMenu1: 'CONTENT',
             exMenu2: 'INTRODUCTION',

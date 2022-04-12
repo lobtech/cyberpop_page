@@ -1,22 +1,41 @@
 <template>
     <div class="container" v-show="isShowTips">
-        <div class="mask" :class="isShowTips && (isShowTips ? 'bounceShow' : 'bounceHide') ">
+        <div class="mask" :class="(isShowTips ? 'bounceShow' : 'bounceHide')">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <img class="close" v-if="props.isClose" src="@/assets/nwhome/close.svg" alt=""  @click="close">
+            <img class="close" src="@/assets/nwhome/close.svg" alt=""  @click="close">
             <div class="content">
                 <div class="title">{{ props.title }}</div>
-                <div class="icon">
+                <!-- <div class="icon">
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/metaMask.svg" alt="">
                     <div class="subtitle">{{t('message.common.metamask.logoText')}}</div>
+                </div> -->
+                <div class="item">
+                    <p>step1</p>
+                    <div class="content1" :class="{'success': state >= 1 && state != 2, 'reject': state == 2}">
+                        <span>{{ content1 }}</span>
+                        <div class="loading" v-if="state == 0">
+                            <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
+                        </div>
+                    </div>
+                    <p v-if="state >= 1 && state != 2" class="ok">success</p>
+                    <p v-if="state == 2" class="Nok">reject</p>
                 </div>
-                <!-- <div class="text">{{ props.content == 'netWork' ? $t('message.common.metamask.switch') : props.content }} <a v-if="props.addNetwork" href="https://chainlist.org/" target="_blank">{{ $t('message.common.metamask.add1') }}</a> </div> -->
-                <div class="text">{{ props.content == 'netWork' ? $t('message.common.metamask.switch') : props.content }}  <br/>
-                    <span v-if="props.addNetwork" @click="changeChain(43113)">{{ $t('message.common.metamask.add2') }}</span> 
-                    <span v-if="props.addNetwork" @click="changeChain(80001)">{{ $t('message.common.metamask.add1') }}</span>  
+                <div class="item">
+                    <p>step2</p>
+                    <div class="content1" :class="{'success': state >= 4 && state != 5, 'reject': state == 5}">
+                        <span>{{ content2 }}</span>
+                        <div class="loading" v-if="state == 3">
+                            <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
+                        </div>
+                    </div>
+                    <p v-if="state >= 4 && state != 5" class="ok">success</p>
+                    <p v-if="state == 5" class="Nok">reject</p>
                 </div>
-                <div class="loading" v-if="isLoading">
-                    <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
+            </div>
+            <div class="btn">
+                <div class="btn-wrap">
+                    <div class="cancel" @click="closeDialog()">{{$t('message.assets.pop.btn_cancel')}}</div>
                 </div>
             </div>
         </div>
@@ -27,36 +46,22 @@
 import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import store from '@/store/index'
 import { useI18n } from 'vue-i18n';
-import NFT from '@/tools/web3' 
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 
 
 const props = defineProps({
-    content: String, // 文案内容
-    isLoading: {
-        type: Boolean,
-        default: false,
-    },
-    isClose: Boolean,  // 现实叉叉按钮
+    content1: String, // 文案内容
+    content2: String, // 文案内容
     title: String,  // 标题
     isShowTips: Boolean, //是否显示
-    addNetwork: Boolean,
+    state: Number,
 })
 
-const close = () => {
-    
-    store.dispatch('user/TipsState', {show: false, info: { hasLoading: true, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}})
+const closeDialog = () => {
+    store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 4} });
 }
 
-const changeChain = async (value?: any) => {
-    let a: any = await NFT.addChain(value)
-    if(a){
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
-    }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
-    }
-}
 
 onMounted(() => {
 })
@@ -91,9 +96,9 @@ onMounted(() => {
             left: 0;
             right: 0;
             bottom: 0;
-            width: 31.51vw;
+            width: 37.51vw;
             min-width: 380px;
-            height: 16vw;
+            height: 26vw;
             min-height: 180px;
             margin: auto;
             padding: 2.5vw;
@@ -136,7 +141,7 @@ onMounted(() => {
                 right: 0;
                 padding: 0 2.5vw;
                 .title{
-                    font-size: 1.45vw;
+                    font-size: 1.95vw;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     font-weight: normal;
                     line-height: 2.08vw;
@@ -155,6 +160,37 @@ onMounted(() => {
                         font-family: AlibabaPuHuiTi_2_115_Black;
                         color: #E6E8EC;
                         line-height: 3.28vw;
+                    }
+                }
+                .item{
+                    margin: 1.5vw 0;
+                    p{
+                        margin: 0.5vw 0;
+                        font-family: AlibabaPuHuiTi_2_115_Black;
+                    }
+                    .content1, .content2{
+                        padding: 0.4vw;
+                        border: 1px solid #fff;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        height: 3vw;
+                        box-sizing: border-box;
+                    }
+                    .ok{
+                        color: #8478FF;
+                    }
+                    .Nok{
+                        color: #FF5CA1;
+                    }
+                    .success{
+                        border: 1px solid #8478FF;
+                        color: #8478FF;
+                    }
+                    .reject{
+                        border: 1px solid #FF5CA1;
+                        color: #FF5CA1;
                     }
                 }
                 .text{
@@ -178,13 +214,28 @@ onMounted(() => {
                     }
                 }
                 .loading{
-                    margin-top: 1.3vw;
-                    text-align: center;
                     img{
-                        width: 4vw;
-                        height: 4vw;
+                        width: 2vw;
+                        height: 2vw;
                         animation: loadingAni 1s linear infinite;
                     }
+                }
+            }
+            .btn{
+                position: absolute;
+                bottom: 1vw;
+                right: 3vw;
+                .cancel{    
+                    width: 8.54vw;
+                    height: 2.91vw;
+                    font-size: 1.04vw;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #FFFFFF;
+                    line-height: 2.91vw;
+                    text-align: center;
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-cancle.svg');
+                    background-size: 100% 100%;
+                    cursor: pointer;
                 }
             }
         }

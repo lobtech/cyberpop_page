@@ -25,6 +25,8 @@ import VueI18n from './assets/language/register-i18n'
 import msgPopupA from './components/common/msgPopupA.vue'
 import msgPopupB from './components/common/msgPopupB.vue'
 import loading from './components/loading/loading.vue'
+import purchaseA from './components/box/purchase.vue'
+
 
 import vue3videoPlay from 'vue3-video-play' 
 import 'vue3-video-play/dist/style.css' 
@@ -60,6 +62,8 @@ app.component('footerB', footerB)
 app.component('msgPopupA', msgPopupA)
 app.component('msgPopupB', msgPopupB)
 app.component('loading', loading)
+app.component('purchaseA', purchaseA)
+
 
 app.use(vue3videoPlay)
 app.mount('#app')
