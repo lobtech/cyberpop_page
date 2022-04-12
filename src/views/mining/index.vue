@@ -1,5 +1,5 @@
 <template>
-    <MiningA v-if="innerWidth > 740"/>
+    <MiningA v-if="innerWidth > 1025"/>
     <MiningB v-else/>
 </template>
 <script setup lang="ts">

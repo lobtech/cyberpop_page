@@ -1,5 +1,5 @@
 <template>
-    <MysteryA v-if="innerWidth > 740"/>
+    <MysteryA v-if="innerWidth > 1025"/>
     <MysteryB v-else/>
 </template>
 <script setup lang="ts">

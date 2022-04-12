@@ -797,22 +797,6 @@ onMounted(() => {
 
 </script>
 <style lang="less" scoped>
-    @keyframes menuStart{
-        0% {
-            right: -740px;
-        }
-        100%{
-            right: 0;
-        }
-    }
-    @keyframes menuEnd{
-        0% {
-            right: 0;
-        }
-        100%{
-            right: -740px;
-        }
-    }
     @keyframes openAnimation {
         0%{
             left: -500px;
@@ -915,7 +899,7 @@ onMounted(() => {
                         text-align: center;
                         font-weight: 900;
                         filter: drop-shadow( .4vw 0 0 #D236A5 )
-                                drop-shadow( -.4vw 0 0#72F0D9 );
+                                drop-shadow( -.4vw 0 0 #72F0D9 );
                         cursor: pointer;
                     }
                     .title2{
@@ -1808,9 +1792,9 @@ onMounted(() => {
     }
     .news{
         width: 100%;
-        // height: 1089px;
-        height: 1165px;
+        height: 1170px;
         margin-top: -2px;
+        margin-bottom: -2px;
         background-color: #000000;
         overflow: hidden;
         .news-wrap{
@@ -1895,8 +1879,6 @@ onMounted(() => {
                 }
             }
             ul{
-                height: 290px;
-                background: #000000;
                 li{
                     display: flex;
                     width: 124px;

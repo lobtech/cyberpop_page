@@ -1,5 +1,5 @@
 <template>
-    <PrivacyA v-if="innerWidth > 740"/>
+    <PrivacyA v-if="innerWidth > 1025"/>
     <PrivacyB v-else/>
 </template>
 <script setup lang="ts">

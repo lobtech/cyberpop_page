@@ -131,7 +131,7 @@ const checkAddress = (e:any) => {
         addressState.value = 'empty'
         canTransfer.value = 'disable'
     }else{
-        inputAddress.value = e.target.value
+        // inputAddress.value = e.target.value
         inputState.value = 'success'
         addressState.value = ''
         if( numState.value == '' ){

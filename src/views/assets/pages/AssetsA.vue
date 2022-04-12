@@ -11,7 +11,7 @@
                 </div>
                 <div class="title">{{$t('message.assets.wel_name')}}</div>
                 <div class="id">{{realId == -1? '':realId}}</div>
-                <div class="contract">
+                <div class="contract" @click="copyUrl($event)">
                     <div class="col th">
                         <div class="name">Contarct</div>
                         <div class="Fuji">Fuji</div>
@@ -129,7 +129,7 @@
                                 <img :src="item.data.image" alt="">
                                 <div class="name">{{item.data.name}}<span>x{{item.number}}</span></div>
                                 <div class="btn">
-                                    <div class="transfer" @click="transferPopup(item)">{{t('message.assets.btn_tran')}}</div>
+                                    <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
                                     <div class="sell">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
                             </li>
@@ -145,7 +145,7 @@
                                 <img :src="item.data.image" alt="">
                                 <div class="name">{{item.data.name}}<span>x{{item.number}}</span></div>
                                 <div class="btn">
-                                    <div class="transfer" @click="transferPopup(item)">{{t('message.assets.btn_tran')}}</div>
+                                    <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
                                     <div class="sell">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
                             </li>
@@ -161,8 +161,8 @@
                                 <img :src="item.data.image" alt="">
                                 <div class="name">{{item.data.name}}<span>x{{item.number}}</span></div>
                                 <div class="btn">
-                                    <div class="transfer" @click="transferPopup(item)">{{t('message.assets.btn_tran')}}</div>
-                                    <div class="sell">{{t('message.assets.btn_sell')}}</div>
+                                    <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -197,9 +197,7 @@ const { t } = useI18n();
 const router = useRouter()
 const { proxy } = getCurrentInstance() as any
 const realId = computed(() => store?.state.user?.realId);
-
 const TipsState: any = ref(false as any)  // has popup-a 
-
 let data:any = ref([]);
 
 const loadingState: any = ref(0);
@@ -220,6 +218,27 @@ watch(transferSuccess, (newVal, oldVal) => {
     if(!oldVal) return;
     getData(ecrType.value)
 }, {immediate:true,deep:true});
+
+
+const copyUrl = (e:any) => {
+    if( e.target.innerText.length > 10 ){
+        const input = document.createElement("input");
+        document.body.appendChild(input);
+        input.setAttribute("value", e.target.innerText);
+        input.select();
+        //返回值为一个Boolean，如果是 false 则表示操作不被支持或未被启用
+        if (document.execCommand("copy")) {
+            document.execCommand("copy");
+            store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.mess_succ')}})
+        }else{
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.common.mess_copy_err')}})
+        }
+        //删除这个节点
+        document.body.removeChild(input);
+    }
+}
+
+
 
 // select
 let abiSelect:any = ref(null);
@@ -529,8 +548,9 @@ onMounted( () => {
                             font-family: AlibabaPuHuiTi_2_55_Regular;   
                             font-size: 0.83vw;
                             text-align: left;
-                            line-height: 1vw;
-                            margin: 0.83vw 0;
+                            line-height: 1.6vw;
+                            margin: 0.83vw;
+                            word-break: break-all;
                         }
                     }
                     .td{
@@ -803,8 +823,8 @@ onMounted( () => {
                             text-align: center;
                             p{
                                 color: #fff;
-                                // text-align: center;
                                 margin: 3vw 0;
+                                font-family: AlibabaPuHuiTi_2_55_Regular;   
                             }
                         }
                     }

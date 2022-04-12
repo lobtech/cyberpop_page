@@ -1,5 +1,5 @@
 <template>
-    <IntroductionA v-if="innerWidth > 740"/>
+    <IntroductionA v-if="innerWidth > 1025"/>
     <IntroductionB v-else/>
 </template>
 <script setup lang="ts">

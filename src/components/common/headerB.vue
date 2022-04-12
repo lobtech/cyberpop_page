@@ -157,7 +157,7 @@ const showMenu = () => {
     store.dispatch('user/walletMenuAni', true)
 }
 const closeMenuIcon = () => {
-    isPage.value = false;
+    // isPage.value = false;
     store.dispatch('user/walletMenuAni', false)
 }
 
@@ -331,7 +331,7 @@ onMounted(() => {
 <style lang="less" scoped>
     @keyframes menuStart{
         0% {
-            right: -740px;
+            right: -1000px;
         }
         100%{
             right: 0;
@@ -342,7 +342,7 @@ onMounted(() => {
             right: 0;
         }
         100%{
-            right: -740px;
+            right: -1000px;
         }
     }
     html,
@@ -391,7 +391,7 @@ onMounted(() => {
             .menuMask{
                 position: fixed;
                 top: 0;
-                right: -740px;
+                right: -1000px;
                 width: 316px;
                 min-height: 100vh;
                 max-height: 100vh;
@@ -589,7 +589,7 @@ onMounted(() => {
                 animation-fill-mode: forwards;
             }
             .stopMenuAnimation{
-                animation: menuEnd .4s ease-out;
+                animation: menuEnd .2s ease-out;
                 animation-fill-mode: forwards;
             }
         }
