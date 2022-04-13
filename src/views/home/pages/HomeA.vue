@@ -420,6 +420,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="http://www.abga.asia/" target="view_window">
                 <img class="logo10" src="@/assets/nwhome/ABGA.svg" alt="">
             </a>
+            <a href="https://www.earnguild.io/" target="view_window">
+                <img class="logo11" src="@/assets/nwhome/Earn-Guild.png" alt="">
+            </a>
         </div>
     </div>
     <div class="will">
@@ -2202,6 +2205,9 @@ onMounted(() => {
                 }
                 .logo10{
                     width: 7vw;
+                }
+                .logo11{
+                    width: 9vw;
                 }
                 
             }

@@ -424,6 +424,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="http://www.abga.asia/" target="view_window">
                 <img class="logo10" src="@/assets/nwhome/ABGA.svg" alt="">
             </a>
+            <a href="https://www.earnguild.io/" target="view_window">
+                <img class="logo11" src="@/assets/nwhome/Earn-Guild.png" alt="">
+            </a>
         </div>
     </div>
     <div class="will">
@@ -2088,7 +2091,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 546px;
+        height: 640px;
         margin: -2px 0;
         background-color: #000000;
         overflow: hidden;
@@ -2157,6 +2160,9 @@ onMounted(() => {
                 }
                 .logo10{
                     width: 82px;
+                }
+                .logo11{
+                    height: 50px;
                 }
             }
             a:hover, div:hover{
