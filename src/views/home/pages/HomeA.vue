@@ -2214,7 +2214,7 @@ onMounted(() => {
                     width: 7vw;
                 }
                 .logo11{
-                    width: 9vw;
+                    height: 3.6vw;
                 }
                 
             }
@@ -2229,7 +2229,6 @@ onMounted(() => {
         overflow: hidden;
         .title{
             width: 60vw;
-            height: 4.11;
             margin: 0 auto;
             font-size: 2.08vw;
             font-family: AlibabaPuHuiTi_2_115_Black;

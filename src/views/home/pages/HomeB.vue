@@ -2168,7 +2168,7 @@ onMounted(() => {
                     width: 82px;
                 }
                 .logo11{
-                    height: 50px;
+                    height: 44px;
                 }
             }
             a:hover, div:hover{
@@ -2182,7 +2182,6 @@ onMounted(() => {
         background-color: #000000;
         overflow: hidden;
         .title{
-            // height: 31px;
             margin-bottom: 8px;
             font-size: 22px;
             font-family: AlibabaPuHuiTi_2_115_Black;
