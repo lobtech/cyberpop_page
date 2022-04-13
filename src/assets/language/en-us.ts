@@ -40,7 +40,8 @@ const us = {
             mess_faild: 'Failed!',
             mess_succ: 'Successful!',
             mess_load: 'loading',
-            mess_copy_err: 'Error, please copy it manually'
+            mess_copy_err: 'Error, please copy it manually',
+            mess_xplan_err: 'Please switch to Mumbai network',
         },
 
         // homeA

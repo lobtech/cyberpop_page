@@ -489,17 +489,23 @@ let close:any = ref(true)
 const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
 const xplanActive = computed(() => store?.state.user?.xplanActive);
+const chainId: any = computed(() => store.state.user?.chainId );
 const showxplan = () => {
     if( realId.value != -1 ){
-        Web3.getBalance(idTemp.value).then((res) => {
-            token0Number.value = res[0];
-            if(token0Number.value <= 0){
-                store.dispatch('user/changeXplan',true);
-                store.dispatch('user/xplanChangeAni',true);
-            }else{
-                window.open('ttps://xplan.cyberpop.online');
-            }
-        })
+        if( chainId.value == 80001 ){
+            Web3.getBalance(idTemp.value).then((res: any) => {
+                token0Number.value = res[0];
+                if(token0Number.value <= 0){
+                    store.dispatch('user/changeXplan',true);
+                    store.dispatch('user/xplanChangeAni',true);
+                }else{
+                    window.open('https://xplan.cyberpop.online');
+                }
+            })
+        }else{
+            store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.common.mess_xplan_err')}})
+        }
     }else{
         connect()
     }
