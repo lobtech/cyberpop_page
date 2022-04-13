@@ -55,7 +55,10 @@ const props = defineProps({
     content2: String, // 文案内容
     title: String,  // 标题
     isShowTips: Boolean, //是否显示
-    state: Number,
+    state: {
+        type: Number,
+        default: 0
+    },
 })
 
 const closeDialog = () => {
