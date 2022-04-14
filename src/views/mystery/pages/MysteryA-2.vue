@@ -28,10 +28,10 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
         <div class="blind" v-if="data.length > 0">
             <div class="title">{{$t('message.box.type_title_1')}}</div>
             <ul>
-                <li  v-if="data[0].number">
+                <li>
                     <div class="boxVideo">
                         <img :src="data[0].info.image" v-if="!data[0].info.animation_url" alt="">
-                        <video class="third" autoplay loop v-else>
+                        <video class="third" autoplay muted loop v-else>
                             <source :src="data[0].info.animation_url" type="video/mp4">
                         </video>
                     </div>
@@ -51,10 +51,10 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </div>
                     </div>
                 </li>
-                <li  v-if="data[1].number">
+                <li >
                     <div class="boxVideo">
                         <img :src="data[1].info.image" v-if="!data[1].info.animation_url" alt="">
-                        <video autoplay loop v-else>
+                        <video autoplay loop muted v-else>
                             <source :src="data[1].info.animation_url" type="video/mp4">
                         </video>
                     </div>
@@ -74,10 +74,10 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </div>
                     </div>
                 </li>
-                <li  v-if="data[2].number">
+                <li>
                     <div class="boxVideo">
                         <img :src="data[2].info.image" v-if="!data[2].info.animation_url" alt="">
-                        <video autoplay loop v-else>
+                        <video autoplay loop muted v-else>
                             <source :src="data[2].info.animation_url" type="video/mp4">
                         </video>
                     </div>
@@ -117,8 +117,7 @@ import router from '@/router';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
-const { GiftBox, LootBox } = Web3.contracts;
-
+const { GiftBox, LootBox, Cyborg } = Web3.contracts;
 
 const { proxy } = getCurrentInstance() as any;
 
@@ -183,24 +182,37 @@ const toDetails = (type:any) => {
 }
 
 const open = async (boxId: Number, data: any) => {
-    const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
-    if(data.number == 0){
-        store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'NOT BOX', content: 'You have no box assets', addNetwork: false}});
-        return;
-    }
-    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
-    let result = await Web3.unpack(abi, address, boxId, 1)
-    console.log(result, 'result');
-    store.dispatch('user/TipsState', {show: false, info: { }});
-    if(result) {
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
-        setTimeout(() => {
-            getBalance(chainId.value)
-        }, 1000);
-    }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
-    }
+    let result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
+    await getNFTData(result);
+    // const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
+    // if(data.number == 0){
+    //     store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'NOT BOX', content: 'You have no box assets', addNetwork: false}});
+    //     return;
+    // }
+    // store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
+    // let result = await Web3.unpack(abi, address, boxId, 1)
+    // console.log(result, 'result');
+    // store.dispatch('user/TipsState', {show: false, info: { }});
+    // if(result) {
+    //     store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
+    //     let result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
+    //     await getNFTData(result, 'role', 'role_mumbai', true);
+    //     // getBalance(chainId.value)
+    // }else{
+    //     store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
+    // }
 }
+
+// 正常的nft 数组[0,1]表示id为0的nft没有资产， id为1的ntf资产为1
+const getNFTData: any = async (res: any) => {
+    proxy.$api.get(`https://api.cyberpop.online/${'role'}`).then((result:any) => {
+         console.log(result);
+         
+    }).catch((err:any) => {
+        console.log(err); 
+    })
+}
+
 
 onMounted(() => {
     window.scrollTo(0,0);

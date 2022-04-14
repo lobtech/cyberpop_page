@@ -844,7 +844,6 @@ onMounted(() => {
     window.addEventListener('scroll', windowScroll, true);
     store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     window.scrollTo(0,0);
-    
 })
 
 </script>

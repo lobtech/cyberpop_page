@@ -33,6 +33,8 @@ const states = {
     showMenuAni: false, // mobile登录状态
     metaMaskActive: false, // install metamask
     metaAni: false,
+    messSing: '', // 签名消息
+
 
     // assets
     transferActive: false, // 背包页-TRANSFER按钮
@@ -125,6 +127,9 @@ export default {
         metaChangeAni(state, payload: any) {
             state.metaAni = payload;
         },
+        messSing(state, payload: any){
+            state.messSing = payload;
+        },
 
 
         // assets
@@ -211,6 +216,10 @@ export default {
         metaChangeAni({ commit }, paylaod: any) {
             commit('metaChangeAni', paylaod)
         },
+        messSing({ commit }, paylaod: any) {
+            commit('messSing', paylaod)
+        },
+
         
         // assets
         transferChange({ commit }, paylaod: any) {

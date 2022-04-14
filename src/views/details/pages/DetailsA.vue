@@ -7,7 +7,7 @@
         <div class="box" v-if="data.info">
             <div class="video">
                 <img :src="data.info.image" v-if="!data.info.animation_url" alt="">
-                <video autoplay loop v-else>
+                <video autoplay loop muted v-else>
                     <source :src="data.info.animation_url" type="video/mp4">
                 </video>
             </div>
@@ -41,7 +41,7 @@
 
             <div class="content" :class="exMenu == 0 ? 'active':''" @click="intClick(0)">{{$t('message.details.exMenu1')}}</div>
             <div class="intro" :class="exMenu == 1 ? 'active':''" @click="intClick(1)">{{$t('message.details.exMenu2')}}</div>
-            <div class="terms" :class="exMenu == 2 ? 'active':''" @click="intClick(2)">{{$t('message.details.exMenu3')}}</div>
+            <!-- <div class="terms" :class="exMenu == 2 ? 'active':''" @click="intClick(2)">{{$t('message.details.exMenu3')}}</div> -->
         </div>
         <div class="list">
             <ul class="content" v-show="exMenu == 0">
@@ -149,7 +149,7 @@ const { t } = useI18n();
 const router = useRouter()
 const Route = useRoute() //获取到值
 const { proxy } = getCurrentInstance() as any
-const { GiftBox, LootBox, MarketV2, cyt } = Web3.contracts;
+const { GiftBox, LootBox, MarketV2, cyt, Cyborg, Cyborg_Fuji, cyberClub, cyberClub_Fuji } = Web3.contracts;
 
 // changeMenu
 let exMenu:any = ref(0) 
@@ -195,6 +195,7 @@ const getBalance = async (chainid: number) => {
         var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
     }
     console.log(result, 'result');
+
     getData(result)
 }
 
@@ -227,6 +228,7 @@ const getData = async (result: any) => {
     proxy.$api.get(`https://api.cyberpop.online/box/${index-1}`).then((boxData: any) => {
         data.value.info = boxData;
     })
+    if(chainId.value != 80001) return;
     let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
     console.log(LootBox_result, 'LootBox_result');
     console.log(LootBox_result[index-1]);
@@ -235,6 +237,7 @@ const getData = async (result: any) => {
 
 
 const open = async (boxId?: any) => {
+    // getLast(); // 查询资产合约中最后一位为立马开启的资产
     let index: any = Route.query.type;
     const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
     store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
@@ -251,6 +254,45 @@ const open = async (boxId?: any) => {
     }
 }
 
+const getLast = async () => {
+    let index: any = Route.query.type;
+    if(chainId.value == 80001){
+        if(index == 1){
+            let cyberClub_result: any = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
+            console.log(cyberClub_result);
+            await getNFTData(cyberClub_result[cyberClub_result - 1], 'head_mumbai');
+        }else if(index == 2){
+            
+        }else if(index == 3){
+            let result: any = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
+            console.log(result, 'result');
+            await getNFTData(result[result.length-1], 'role');
+        }
+
+    }else if(chainId.value == 43113){
+        if(index == 1){
+            let cyberClub_result: any = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
+            console.log(cyberClub_result);
+            await getNFTData(cyberClub_result[cyberClub_result.length - 1], 'head_fuji');
+        }else if(index == 2){
+
+        }else if(index == 3){
+            let result: any = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
+            console.log(result, 'result');
+            await getNFTData(result[result.length-1], 'role');
+        }
+    }
+}
+
+// 正常的nft 数组[0,1]表示id为0的nft没有资产， id为1的ntf资产为1
+const getNFTData: any = async (res: any, path: any) => {
+    proxy.$api.get(`https://api.cyberpop.online/${path}/${res}`).then((result:any) => {
+         console.log(result);
+         
+    }).catch((err:any) => {
+        console.log(err); 
+    })
+}
 
 const purchase = async () => {
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
@@ -650,6 +692,7 @@ onMounted(() => {
             }
         }
         .link{
+            visibility:hidden;
             display: flex;
             width: 47.91vw;
             height: 3.75vw;
