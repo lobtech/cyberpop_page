@@ -40,6 +40,8 @@ const cn = {
             mess_faild: '失敗！',
             mess_succ: '成功！',
             mess_load: '正在加載',
+            mess_copy_err: '錯誤, 請手動複製',
+            mess_xplan_err: '請切換到孟買網絡',
         },
 
         // homeA

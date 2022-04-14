@@ -420,6 +420,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="http://www.abga.asia/" target="view_window">
                 <img class="logo10" src="@/assets/nwhome/ABGA.svg" alt="">
             </a>
+            <a href="https://www.earnguild.io/" target="view_window">
+                <img class="logo11" src="@/assets/nwhome/Earn-Guild.png" alt="">
+            </a>
         </div>
     </div>
     <div class="will">
@@ -482,17 +485,24 @@ const leftModules:any = [Navigation];
 const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
 const xplanActive = computed(() => store?.state.user?.xplanActive);
+const chainId: any = computed(() => store.state.user?.chainId );
+
 const showxplan = () => {
     if( realId.value != -1 ){
-        Web3.getBalance(idTemp.value).then((res: any) => {
-            token0Number.value = res[0];
-            if(token0Number.value <= 0){
-                store.dispatch('user/changeXplan',true);
-                store.dispatch('user/xplanChangeAni',true);
-            }else{
-                window.open('https://xplan.cyberpop.online');
-            }
-        })
+        if( chainId.value == 80001 ){
+            Web3.getBalance(idTemp.value).then((res: any) => {
+                token0Number.value = res[0];
+                if(token0Number.value <= 0){
+                    store.dispatch('user/changeXplan',true);
+                    store.dispatch('user/xplanChangeAni',true);
+                }else{
+                    window.open('https://xplan.cyberpop.online');
+                }
+            })
+        }else{
+            store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.common.mess_xplan_err')}})
+        }
     }else{
         connect()
     }
@@ -2202,6 +2212,9 @@ onMounted(() => {
                 .logo10{
                     width: 7vw;
                 }
+                .logo11{
+                    height: 3.6vw;
+                }
                 
             }
             a:hover,div:not(.line1):hover{
@@ -2215,7 +2228,6 @@ onMounted(() => {
         overflow: hidden;
         .title{
             width: 60vw;
-            height: 4.11;
             margin: 0 auto;
             font-size: 2.08vw;
             font-family: AlibabaPuHuiTi_2_115_Black;

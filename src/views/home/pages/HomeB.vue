@@ -424,6 +424,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="http://www.abga.asia/" target="view_window">
                 <img class="logo10" src="@/assets/nwhome/ABGA.svg" alt="">
             </a>
+            <a href="https://www.earnguild.io/" target="view_window">
+                <img class="logo11" src="@/assets/nwhome/Earn-Guild.png" alt="">
+            </a>
         </div>
     </div>
     <div class="will">
@@ -486,17 +489,23 @@ let close:any = ref(true)
 const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
 const xplanActive = computed(() => store?.state.user?.xplanActive);
+const chainId: any = computed(() => store.state.user?.chainId );
 const showxplan = () => {
     if( realId.value != -1 ){
-        Web3.getBalance(idTemp.value).then((res) => {
-            token0Number.value = res[0];
-            if(token0Number.value <= 0){
-                store.dispatch('user/changeXplan',true);
-                store.dispatch('user/xplanChangeAni',true);
-            }else{
-                window.open('ttps://xplan.cyberpop.online');
-            }
-        })
+        if( chainId.value == 80001 ){
+            Web3.getBalance(idTemp.value).then((res: any) => {
+                token0Number.value = res[0];
+                if(token0Number.value <= 0){
+                    store.dispatch('user/changeXplan',true);
+                    store.dispatch('user/xplanChangeAni',true);
+                }else{
+                    window.open('https://xplan.cyberpop.online');
+                }
+            })
+        }else{
+            store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.common.mess_xplan_err')}})
+        }
     }else{
         connect()
     }
@@ -2088,7 +2097,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 546px;
+        height: 640px;
         margin: -2px 0;
         background-color: #000000;
         overflow: hidden;
@@ -2158,6 +2167,9 @@ onMounted(() => {
                 .logo10{
                     width: 82px;
                 }
+                .logo11{
+                    height: 44px;
+                }
             }
             a:hover, div:hover{
                 background: rgba(40, 38, 38,.6);
@@ -2170,7 +2182,6 @@ onMounted(() => {
         background-color: #000000;
         overflow: hidden;
         .title{
-            // height: 31px;
             margin-bottom: 8px;
             font-size: 22px;
             font-family: AlibabaPuHuiTi_2_115_Black;
