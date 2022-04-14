@@ -121,7 +121,7 @@ const inputNumber = (e:any) => {
         numState.value = ''
         canReduce.value = ''
         canAdd.value = ''
-        // valueIn.value = e.target.value
+        valueIn.value = e.target.value
         if( inputState.value == 'success' ){
             canTransfer.value = ''
         }
