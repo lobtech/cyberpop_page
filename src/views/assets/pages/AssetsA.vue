@@ -291,9 +291,9 @@ const getData: any = async (type: Number) => {
             // let result = await Web3.batchBalanceOf(nft.abi, nft.address);
             // console.log(result);
             // await getNFTData(result, 'server', 'server_mumbai');
-            let dao_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
-            console.log(dao_resulte);
-            await getNFTData(dao_resulte, 'weapons', 'weapons_mumbai', false, true);
+            let game_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
+            console.log(game_resulte);
+            await getNFTData(game_resulte, 'game', 'game_mumbai');
             let role_result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
             console.log(role_result);
             await getNFTData(role_result, 'role', 'role_mumbai', true);
@@ -311,9 +311,9 @@ const getData: any = async (type: Number) => {
         }else{
             // let result = await Web3.batchBalanceOf(nft.abi, nft.address);
             // await getNFTData(result, 'server', 'server_mumbai');
-            let dao_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
-            console.log(dao_resulte);
-            await getNFTData(dao_resulte, 'weapons', 'weapons_mumbai', false, true)
+            let game_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
+            console.log(game_resulte);
+            await getNFTData(game_resulte, 'game', 'game_mumbai')
             let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
             await getNFTData(box_result, 'box', 'box_mumbai');
         }
@@ -429,9 +429,9 @@ const transferPopup = (item:any) => {
     }else if( item.type == 'role_mumbai'){
         abiSelect.value = Web3.contracts.erc721.abi
         addressSelect.value = Web3.contracts.erc721.address
-    }else if( item.type == 'weapons_mumbai'){
-        abiSelect.value = Web3.contracts.weapons.abi
-        addressSelect.value = Web3.contracts.weapons.address
+    }else if( item.type == 'game_mumbai'){
+        abiSelect.value = Web3.contracts.arms.abi
+        addressSelect.value = Web3.contracts.arms.address
     }else if ( item.type == 'game_fuji'){
         abiSelect.value = Web3.contracts.game_Fuji.abi
         addressSelect.value = Web3.contracts.game_Fuji.address

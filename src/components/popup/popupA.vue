@@ -62,6 +62,8 @@ let canTransfer:any = ref('disable')
 let regExp = new RegExp("")
 
 watch(props,(newVal,oldVal) => {
+    console.log(newVal, 'newVal');
+    
     transferInfoMsg.value = newVal
     haveNFT.value = transferInfoMsg.value.transferInfo.number
     haveNFTCount.value = haveNFT.value.length - 1 // 拥有nft的数量位数
@@ -153,8 +155,8 @@ const transfer = async () => {
         inputState.value = ''
         addressState.value = 'empty'
     }else if( inputState.value == 'success' && numState.value == ''){
-        if( valueIn.value > haveNFT.value ){
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_exce')}})
+        if( Number(valueIn.value) > Number(haveNFT.value) ){ // 如果输入数量大于持有数量
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_exce')}})
         }else{
             console.log(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value);
             console.log(props.transferInfo?.type, 'props.transferInfo?.type');

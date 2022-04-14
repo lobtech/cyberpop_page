@@ -16,6 +16,7 @@
                 <div class="login_in" v-if="!loggined" @click="login()">
                     <div class="txt">{{$t('message.common.wallet')}}</div>
                 </div>
+                <div class="code" v-if="code">inviterCode: {{ code }}</div>
                 <div class="logged_in" v-if="loggined">
                     <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
                     <div class="idtxt">{{realId}}</div>
@@ -228,7 +229,9 @@ const changeMenu = (type: any, route?: any) => {
     store.dispatch('user/walletMenuAni', false)
     menuFlag.value = type;
     store.dispatch('user/changeActive', type)
-    if(route) router.push({ path: `${route}`})
+    if(route) router.push({ path: `${route}`, query: {
+        code: code.value
+    }})
 }
 
 
@@ -238,8 +241,10 @@ const realId = computed(() => store?.state.user?.realId);
 const idTemp = computed(() => store?.state.user?.idTemp);
 const id: any = ref(0)
 const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
+const messSing = computed(() => store?.state.user?.messSing); // 签名消息
+const code: any = ref(''); // 邀请码
 
-const loggined = computed(() => store?.state.user?.loggined);
+const loggined = computed(() => store?.state.user?.loggined); // 登录信息
 const connect: any = async () => {
     store.dispatch('user/walletMenuAni', false)
     const ismessage: any = await NFT.hasMetaMask()
@@ -271,10 +276,68 @@ const connect: any = async () => {
             // if(chainId != 80001 && chainId != 43113)  store.dispatch('user/TipsState', true)
             if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
         })
+        console.log(888);
+        
+        if(code.value && messSing.value == ''){
+            
+            getPublicAddress(accounts)
+        }
         // store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.mess_succ')}})
     }
 }
 
+
+//REACT_APP_BACKEND_URL=http://13.250.39.184:8612
+const getPublicAddress = (publicAddress: any) => {
+    proxy.$api.get(`https://invitecode.cyberpop.online/user/info?publicAddress=${publicAddress}`).then((res: any) => {
+        console.log(res);
+        let a = res.data.publicAddress;
+        let b = res.data.nonce;
+        console.log(a, b);
+        messgSing(a, b)
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
+
+
+// login
+const messgSing = async (publicAddress: any, nonce: any) => {
+    try {
+        const Web3 = (window as any).Web3;
+        const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
+        const signature = await web3.eth.personal.sign(
+            `cyber-business: ${nonce}`,
+            publicAddress,
+            '' // MetaMask will ignore the password argument here
+        );
+        auth(publicAddress, signature, nonce);
+        return {publicAddress, signature, nonce};
+    } catch (err) {
+        throw new Error(
+            'You need to sign the message to be able to log in.'
+        );
+    }
+}
+
+const auth = (publicAddress: any, signature: any, nonce: any) => {
+    proxy.$api.post('https://invitecode.cyberpop.online/user/auth',
+        {
+            publicAddress,
+            signature,
+            nonce,
+            inviterCode: code.value || "KfdeJD"
+        }
+    ).then((res: any) => {
+        console.log(res, 'success');
+        if(res.data.code == 200){
+            console.log('ok');
+            store.dispatch('user/messSing', signature)
+        }
+    }).catch( (err: any) => {
+        console.log(err, 'error')
+    })
+}
 
 
 const login = () =>{
@@ -324,6 +387,7 @@ onMounted(() => {
     if( localStorage.getItem('lang') ){
         select.value = localStorage.getItem('lang');        
     }
+    code.value = router.currentRoute.value.query.code;
     login()
 })
 </script>
@@ -446,6 +510,10 @@ onMounted(() => {
                         background-position: left top;
                         white-space: nowrap;
                     }
+                }
+                .code{
+                    text-align: center;
+                    font-size: 1vw;
                 }
                 .logged_in{
                     position: relative;

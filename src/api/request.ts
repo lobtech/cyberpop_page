@@ -1,11 +1,11 @@
 import axios from "axios";
-import { post } from "jquery";
- 
+ // 引入qs
+import qs from 'qs'
  
 axios.defaults.baseURL = '' 
  
 //post请求头
-axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8";
+axios.defaults.headers.post["Content-Type"] = "application/json;charset=UTF-8";
 //设置超时
 axios.defaults.timeout = 10000;
  

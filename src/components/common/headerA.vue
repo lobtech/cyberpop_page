@@ -42,6 +42,7 @@
                         <div class="idtxt">{{realId}}</div>
                         <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
                     </div>
+                     <div class="code" v-if="code">inviterCode: {{ code }}</div>
                 </div>
                 <div class="menu">
                     <ul id="menuUl">
@@ -115,8 +116,8 @@ import { useI18n } from 'vue-i18n';
 
 const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
-let close:any = ref(true);
-
+let close: any = ref(true);
+const code: any = ref('');
 
 
 const props = defineProps({
@@ -211,6 +212,7 @@ const mouseLeave = () => {
     mask.classList.remove('submitAnimation');
 }
 
+const messSing = computed(() => store?.state.user?.messSing); // 签名消息
 
 const active = computed(() => store?.state.user?.active);
 const menuHover = (type: any) => {
@@ -233,7 +235,9 @@ let menuFlag:any = ref(props.type);
 const changeMenu = (type: any, route?: any) => {
     menuFlag.value = type;
     store.dispatch('user/changeActive', type)
-    if(route) router.push({ path: `${route}`})
+    if(route) router.push({ path: `${route}`, query: {
+        code: code.value
+    }})
 }
 
 
@@ -306,6 +310,59 @@ const metaMaskActive = computed(() => store?.state.user?.metaMaskActive);
 
 
 const loggined = computed(() => store?.state.user?.loggined);
+
+//REACT_APP_BACKEND_URL=http://13.250.39.184:8612
+const getPublicAddress = (publicAddress: any) => {
+    proxy.$api.get(`https://invitecode.cyberpop.online/user/info?publicAddress=${publicAddress}`).then((res: any) => {
+        console.log(res);
+        let a = res.data.publicAddress;
+        let b = res.data.nonce;
+        console.log(a, b);
+        messgSing(a, b)
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
+
+
+// login
+const messgSing = async (publicAddress: any, nonce: any) => {
+    try {
+        const Web3 = (window as any).Web3;
+        const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
+        const signature = await web3.eth.personal.sign(
+            `cyber-business: ${nonce}`,
+            publicAddress,
+            '' // MetaMask will ignore the password argument here
+        );
+        auth(publicAddress, signature, nonce);
+        return {publicAddress, signature, nonce};
+    } catch (err) {
+        throw new Error(
+            'You need to sign the message to be able to log in.'
+        );
+    }
+}
+
+const auth = (publicAddress: any, signature: any, nonce: any) => {
+    proxy.$api.post('https://invitecode.cyberpop.online/user/auth',
+        {
+            publicAddress,
+            signature,
+            nonce,
+            inviterCode: code.value || "KfdeJD"
+        }
+    ).then((res: any) => {
+        console.log(res, 'success');
+        if(res.data.code == 200){
+            console.log('ok');
+            store.dispatch('user/messSing', signature)
+        }
+    }).catch( (err: any) => {
+        console.log(err, 'error')
+    })
+}
+
 const connect: any = async () => {
     const ismessage: any = await NFT.hasMetaMask()
 
@@ -335,11 +392,14 @@ const connect: any = async () => {
             console.log(chainId);
             store.dispatch('user/chageChainId', Number(chainId))
             if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
-        })  
+        })
+        if(code.value && messSing.value == ''){
+            
+            getPublicAddress(accounts)
+        }
         // store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.mess_succ')}})
     }
 }
-
 
 
 const login = () =>{
@@ -384,7 +444,8 @@ onMounted(() => {
     if( localStorage.getItem('lang') ){
         select.value = localStorage.getItem('lang');        
     }
-    login()
+    code.value = router.currentRoute.value.query.code;
+    login() // 自动登录
     let temp: any;
     Object.keys(chainList._rawValue).forEach((key: any) => {
         if(chainList._rawValue[key].chainId == chainId.value){
@@ -455,6 +516,7 @@ onMounted(() => {
                 }
                 .user{
                     display: flex;
+                    position: relative;
                     .switch_chain{
                         display: flex;
                         justify-content: center;
@@ -568,7 +630,12 @@ onMounted(() => {
                             width: 2.6vw;
                             height: 2.6vw;
                         }
-                    }  
+                    }
+                    .code{
+                        position: absolute;
+                        right: 1vw;
+                        bottom: 0.5vw;
+                    }
                     .language{
                         position: relative;
                         margin: 1.96vw 1.4vw 0;
