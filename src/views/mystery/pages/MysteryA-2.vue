@@ -26,7 +26,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
         <!-- 元素里面必须要有这个，要不然监听readyAssetsF不生效 -->
         {{ readyAssetsF }} 
         <div class="blind" v-if="data.length > 0">
-            <div class="title">{{$t('message.box.type_title_1')}}</div>
+            <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }}</span> </div>
             <ul>
                 <li>
                     <div class="boxVideo">
@@ -46,6 +46,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$20.00</div>
                         </div>
                         <div class="btn">
+                            <div class="purchase" v-if="Remaining[0] > 0" @click="purchase(0)">{{$t('message.details.box_btn_pur')}}</div>
                             <!-- <div class="open" @click="open(0, data[0])">{{$t('message.box.open')}}</div> -->
                             <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
                         </div>
@@ -69,6 +70,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$40.00</div>
                         </div>
                         <div class="btn">
+                            <div class="purchase" v-if="Remaining[1] > 0" @click="purchase(1)">{{$t('message.details.box_btn_pur')}}</div>
                             <!-- <div class="open" @click="open(1, data[1])">{{$t('message.box.open')}}</div> -->
                             <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div>
                         </div>
@@ -92,6 +94,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$- -</div>
                         </div>
                         <div class="btn">
+                            <div class="purchase" v-if="Remaining[2] > 0" @click="purchase(2)">{{$t('message.details.box_btn_pur')}}</div>
                             <!-- <div class="open" @click="open(2, data[2])">{{$t('message.box.open')}}</div> -->
                             <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
                         </div>
@@ -117,10 +120,11 @@ import router from '@/router';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
-const { GiftBox, LootBox, Cyborg } = Web3.contracts;
+const { GiftBox, LootBox, Cyborg, MarketV2, cyt } = Web3.contracts;
 
 const { proxy } = getCurrentInstance() as any;
 
+const Remaining = ref([]);
 
 const chainId: any = computed(() => store.state.user?.chainId);
 watch(chainId, (newVal, oldVal) => {
@@ -173,6 +177,9 @@ const getData = async (boxData: any[]) => {
             }
         })
     })(0)
+    if(chainId.value != 80001) return; // 目前只有mumbai能用购买盒子
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
+    Remaining.value = LootBox_result;
 }
 
 
@@ -181,26 +188,29 @@ const toDetails = (type:any) => {
     router.push({ name: 'details', query: { type }})
 }
 
-const open = async (boxId: Number, data: any) => {
-    let result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
-    await getNFTData(result);
-    // const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
-    // if(data.number == 0){
-    //     store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'NOT BOX', content: 'You have no box assets', addNetwork: false}});
-    //     return;
-    // }
-    // store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
-    // let result = await Web3.unpack(abi, address, boxId, 1)
-    // console.log(result, 'result');
-    // store.dispatch('user/TipsState', {show: false, info: { }});
-    // if(result) {
-    //     store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
-    //     let result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
-    //     await getNFTData(result, 'role', 'role_mumbai', true);
-    //     // getBalance(chainId.value)
-    // }else{
-    //     store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
-    // }
+
+const purchase = async (boxId: Number) => {
+    // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
+    // console.log(result);
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
+    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); //用自己的cyt去给授权市场合约授权的个数
+    console.log(allowance_res, 'allowance_res');
+    if(allowance_res < 30){
+        let approve_res = await Web3.approve(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7', 31);
+        console.log(approve_res, 'approve_res');
+        if(!approve_res) { // 授权失败
+            store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });
+            return;
+        }
+    }
+    // 正常流程
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 3} });
+    let reuslt = await Web3.buyLootBox(MarketV2.abi, MarketV2.address, boxId, 30);
+    if(reuslt){
+        store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
+    }else{
+        store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
+    }
 }
 
 // 正常的nft 数组[0,1]表示id为0的nft没有资产， id为1的ntf资产为1
@@ -214,7 +224,7 @@ const getNFTData: any = async (res: any) => {
 }
 
 
-onMounted(() => {
+onMounted(async () => {
     window.scrollTo(0,0);
     store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     store.dispatch('user/metaChange',false);
@@ -447,7 +457,7 @@ onMounted(() => {
                         }
                         .btn{
                             display: flex;
-                            // justify-content: flex-end;
+                            justify-content: flex-end;
                             width: 100%;
                             height: 2.81vw;
                             margin-top: 2.08vw;

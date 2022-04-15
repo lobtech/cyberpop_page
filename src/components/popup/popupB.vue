@@ -36,7 +36,7 @@ const { proxy } = getCurrentInstance() as any;
 const props = defineProps({
     transferInfo: Object,
     abi: Object,
-    address: Object
+    address: String,
 })
 
 const transferActive = computed(() => store?.state.user?.transferActive);
@@ -60,6 +60,8 @@ let numState:any = ref('')
 let regExp = new RegExp("")
 
 watch(props,(newVal,oldVal) => {
+    console.log(newVal, 'newVal');
+    
     transferInfoMsg.value = newVal
     haveNFT.value = transferInfoMsg.value.transferInfo.number
     haveNFTCount.value = haveNFT.value.length - 1 // 拥有nft的数量位数
@@ -155,27 +157,39 @@ const checkAddress = (e:any) => {
 
 // transfer submit
 const transfer = async () => {
-    console.log(99999);
-    
+    console.log(inputAddress.value, 'inputAddress.value2222');
+    console.log(valueIn.value, 'valueIn.value');
+    console.log(numState.value, 'numState.value');
+    console.log(inputState.value, 'inputState.value');
+    console.log(haveNFT.value, 'haveNFT.value ');
     if( inputAddress.value == '' ){
         inputState.value = ''
         addressState.value = 'empty'
     }else if( inputState.value == 'success' && numState.value == ''){
-       if( valueIn.value > haveNFT.value ){
-           store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_exce')}})
-       }else{
-           await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value).then( (res:any) => {
-                if( res == undefined ){
+       if( Number(valueIn.value) > Number(haveNFT.value) ){ // 如果输入数量大于持有数量
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_exce')}})
+        }else{
+            console.log(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value);
+            console.log(props.transferInfo?.type, 'props.transferInfo?.type');
+            if(props.transferInfo?.type == 'role_mumbai' || props.transferInfo?.type == 'role_fuji' || props.transferInfo?.type == 'head_mumbai' || props.transferInfo?.type == 'head_fuji'){
+                let result = await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, Number(idMsg.value));
+                if(!result){ // 如果转账失败
                     store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
-                }else{
+                }else{ // 转账成功
                     closeDialog();
                     store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
+                    store.dispatch('user/transferSuccess', result)
                 }
-            }).catch((err:any) => {
-                // inputState.value = ''
-                // addressState.value = ''
-                store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_invalid')}})
-            })
+                return;
+            }
+            let result = await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, Number(idMsg.value), valueIn.value);
+            if(!result){ // 如果转账失败
+                store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
+            }else{ // 转账成功
+                closeDialog();
+                store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
+                store.dispatch('user/transferSuccess', result)
+            }
        }
     }
 }

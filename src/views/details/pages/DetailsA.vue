@@ -123,12 +123,12 @@
                         {{ data.info.description || $t('message.details.intro.desc1') }}
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <div class="title">{{$t('message.details.intro.title1')}} 2</div>
                     <div class="desc">
                         {{$t('message.details.intro.desc2')}}
                     </div>
-                </li>
+                </li> -->
             </ul>
             <div class="terms" v-show="exMenu == 2"></div>
             <div class="link">
@@ -211,7 +211,7 @@ const readyAssetsF: any = computed(() => {
     if( store?.state.user?.readyAssets !== -1 && chainId.value == 80001 || chainId.value == 43113){
         getBalance(chainId.value)
     }else{
-        data.value = {};
+        data.value = {}
     }
     return store.state.user?.readyAssets
 });

@@ -244,8 +244,8 @@ const cn = {
             round_2: 'NFT',
             subtitle: '盲盒蘊含極高價值',
             desc: 'Cyberpop DAO的NFT盲盒促銷標誌著我們整個旅途的開始',
-            type_title_1: '盲盒',
-            // type_title_2: 'TYPE', // -d
+            type_title_1: '盲',
+            type_title_2: '盒', // -d
             weapon_name1: '武器盲盒',
             weapon_intro1: '強大的武器能賦予角色以更好的能力，令角色更為強大，表現更加出色',
             weapon_name2: '武器盲盒',

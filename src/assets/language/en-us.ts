@@ -243,8 +243,8 @@ const us = {
             round_2: 'NFT',
             subtitle: 'Containing high value',
             desc: 'The blind box of promotional NFTs minted by Cyberpop DAO marks the beginning of our journey',
-            type_title_1: 'BLIND BOX',
-            // type_title_2: 'TYPE', // -d
+            type_title_1: 'BLIND',
+            type_title_2: 'BOX',
             weapon_name1: 'WEAPON BLIND BOX',
             weapon_intro1: 'Powerful Weapons can endow character with better abilities and make him/her stronger. They allow you to perform better.',
             weapon_name2: 'WEAPON BLIND BOX',

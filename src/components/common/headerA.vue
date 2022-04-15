@@ -445,7 +445,7 @@ onMounted(() => {
         select.value = localStorage.getItem('lang');        
     }
     code.value = router.currentRoute.value.query.code;
-    login() // 自动登录
+    if(realId.value == -1) login() // 判断是否已经登陆过了 然后自动登录
     let temp: any;
     Object.keys(chainList._rawValue).forEach((key: any) => {
         if(chainList._rawValue[key].chainId == chainId.value){

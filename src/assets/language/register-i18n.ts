@@ -1,4 +1,4 @@
-import { App } from 'vue'
+import { App, watch } from 'vue'
 import { createI18n } from 'vue-i18n'
 import messages from '../language/index'
 

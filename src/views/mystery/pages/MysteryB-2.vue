@@ -121,7 +121,6 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
         </div>
         <footer-b></footer-b>
     </div>
-    <footer-a></footer-a>
     <msg-popup-a :isShowTips="TipsState" :isLoading="true" :isClose="false" :title="$t('message.box.opening')" :content="$t('message.box.open_text')"/>
     
 </template>

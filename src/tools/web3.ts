@@ -86,11 +86,13 @@ const isApprovedForAll = async (abi:any, address:any) => {
 // 资产转移
 const accounts = computed(() => store?.state.user?.idTemp);
 const safeTransferFrom = async (abi:any, address:any, TransferFrom:any, id:any, number?:any) => {
-    // console.log(abi, address, TransferFrom, id, number);
+    console.log(abi, address, TransferFrom, id, number);
     const web3 = new Web3((window as any ).ethereum)
     const contract = new web3.eth.Contract(abi, address)
     return new Promise((resolve, reject) => {
         if(!number){  // 721 不需要传数量
+            console.log('这里');
+            
             contract.methods.safeTransferFrom(accounts.value, TransferFrom, id, '0x').send({ from: accounts.value }).then( (receipt:any) => {
                 resolve(receipt)
             }).catch((err:any) => {
@@ -241,7 +243,7 @@ const buyLootBox = (abi: any, address: any, tokenId: any, price: any) => {
     return new Promise(async (resolve, reject) => {
         const web3 = new Web3((Web3 as any).givenProvider);
         const contract = new web3.eth.Contract(abi, address);
-        
+
         console.log(abi, address);
 
         console.log(tokenId, price);

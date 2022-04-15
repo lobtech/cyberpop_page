@@ -25,6 +25,8 @@ const innerWidth = computed(() => {
     return store.state.sys?.innerWidth || 0
 })
 
+
+
 const TipsState = computed(() => store.state.user?.TipsState );
 const TipsInfo = computed(() => store.state.user?.TipsInfo);
 const alertInfo = computed(() => store.state.user?.alertInfo);
