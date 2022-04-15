@@ -62,7 +62,7 @@ const us = {
             // homeA-welcome
             wel_titleBef: 'WELCOME TO',
             wel_titleAft: 'CYBERPOP NEW WORLD',
-            wel_desc1: 'A UGC Metaverse adventure built on the Ethereum, where you can travel through diverse cyberspace or different time and space searching for mysterious digital artifacts and creatures.',
+            wel_desc1: 'A UGC Metaverse adventure built on the Ethereum, where you can explore the diverse cyberspaces from different eras, searching for mysterious digital artifacts and creatures.',
             wel_swiper_title1: 'Exploration',
             wel_swiper_title2: 'Combat',
             wel_swiper_title3: 'Moonlight Century',
@@ -74,7 +74,7 @@ const us = {
             nobody_r_titleBef: 'YOU CAN BE NOBODY',
             nobody_r_titleAft: 'OR SOMEBODY',
             nobody_r_subtitle: 'IN DIFFERENT CYBERSPACE',
-            nobody_r_desc1: 'By teleporting into different cyberspace, players will become different NFT characters belonging to this space. You can explore the secrets of the place to create your own personality and accumulate assets. You can also compete with players within the place or team up with them.',
+            nobody_r_desc1: 'By teleporting into different cyberspaces, players will become different NFT characters belonging to this space. You can explore the secrets of the place to create your own personality and accumulate assets. You can also compete with players within the place or team up with them.',
             nobody_r_video_txtBef: 'Cyberspace ',
             nobody_r_video_txtAft: 'Exposure',
             nobody_r_video_subtxt: 'ancient place in the remnants of time',

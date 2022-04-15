@@ -92,7 +92,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="swiper1">
                     <div class="swiper-bg">
                         <div>
-                            <img :class="imgIndex == 0 ? 'show' : ''" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt="">
+                            <img :class="imgIndex == 0 ? 'show' : ''" src="@/assets/nwhome/vSwiper_1.png" alt="">
                         </div>
                         <div>
                             <img :class="imgIndex == 1 ? 'show' : ''" src="@/assets/nwhome/vSwiper_2.png" alt="">
@@ -127,8 +127,8 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                             :speed="200"
                             :autoplay="true"
                         >
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt=""></swiper-slide>
-                            <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/vSwiper_1.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="@/assets/nwhome/vSwiper_1.png" alt=""></swiper-slide>
+                            <swiper-slide><img src="@/assets/nwhome/vSwiper_2.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/moonlightCentury3.png" alt=""></swiper-slide>
                             <swiper-slide><img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/futureCity3.png"  alt=""></swiper-slide>
                         </swiper>
