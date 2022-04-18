@@ -26,7 +26,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
         <!-- 元素里面必须要有这个，要不然监听readyAssetsF不生效 -->
         {{ readyAssetsF }} 
         <div class="blind" v-if="data.length > 0">
-            <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }}</span> </div>
+            <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }} </span> (Testnet)</div>
             <ul>
                 <li>
                     <div class="boxVideo">
@@ -36,7 +36,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </video>
                     </div>
                     <div class="weapon">
-                        <div class="name">{{ data[0].info.name }}</div>
+                        <div class="name"><span class="name-content">{{ data[0].info.name }}</span></div>
+                        <div class="left_over">Left: <span class="number">{{ Remaining[0] + '/2000'}}</span></div>
                         <div class="introduce">
                             {{ data[0].info.description }}
                         </div>
@@ -46,9 +47,10 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$20.00</div>
                         </div>
                         <div class="btn">
-                            <div class="purchase" v-if="Remaining[0] > 0" @click="purchase(0)">{{$t('message.details.box_btn_pur')}}</div>
+                            <div class="purchase" :class="{'not-allowed': Remaining[0] == 0}" @click="purchase(0, data[0].number)">{{$t('message.details.box_btn_pur')}}</div>
                             <!-- <div class="open" @click="open(0, data[0])">{{$t('message.box.open')}}</div> -->
-                            <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
+                            <div class="details" @click="toDetails(1)"></div>
+                            <span class="details-text">{{$t('message.box.btn_det')}}</span>
                         </div>
                     </div>
                 </li>
@@ -60,7 +62,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </video>
                     </div>
                     <div class="weapon">
-                        <div class="name">{{ data[1].info.name }}</div>
+                        <div class="name"><span class="name-content">{{ data[1].info.name }}</span></div>
+                        <div class="left_over">Left: <span class="number">{{ Remaining[1] + '/2000'}}</span></div>
                         <div class="introduce">
                             {{ data[1].info.description }}
                         </div>
@@ -70,9 +73,10 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$40.00</div>
                         </div>
                         <div class="btn">
-                            <div class="purchase" v-if="Remaining[1] > 0" @click="purchase(1)">{{$t('message.details.box_btn_pur')}}</div>
+                            <div class="purchase" :class="{'not-allowed': Remaining[1] == 0}" @click="purchase(1, data[0].number)">{{$t('message.details.box_btn_pur')}}</div>
                             <!-- <div class="open" @click="open(1, data[1])">{{$t('message.box.open')}}</div> -->
-                            <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div>
+                            <div class="details" @click="toDetails(2)"></div>
+                            <span class="details-text">{{$t('message.box.btn_det')}}</span>
                         </div>
                     </div>
                 </li>
@@ -84,7 +88,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </video>
                     </div>
                     <div class="weapon">
-                        <div class="name">{{ data[2].info.name }}</div>
+                        <div class="name"><span class="name-content">{{ data[2].info.name }}</span></div>
+                        <div class="left_over">Left: <span class="number">{{ Remaining[2] + '/2000'}}</span></div>
                         <div class="introduce">
                             {{ data[2].info.description }}
                         </div>
@@ -94,9 +99,9 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$- -</div>
                         </div>
                         <div class="btn">
-                            <div class="purchase" v-if="Remaining[2] > 0" @click="purchase(2)">{{$t('message.details.box_btn_pur')}}</div>
-                            <!-- <div class="open" @click="open(2, data[2])">{{$t('message.box.open')}}</div> -->
-                            <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
+                            <div class="purchase" :class="{'not-allowed': Remaining[2] == 0}" @click="purchase(2, data[0].number)">{{$t('message.details.box_btn_pur')}}</div>
+                            <div class="details" @click="toDetails(3)"></div>
+                            <span class="details-text">{{$t('message.box.btn_det')}}</span>
                         </div>
                     </div>
                 </li>
@@ -124,7 +129,7 @@ const { GiftBox, LootBox, Cyborg, MarketV2, cyt } = Web3.contracts;
 
 const { proxy } = getCurrentInstance() as any;
 
-const Remaining = ref([]);
+const Remaining = ref([0, 0, 0]);
 
 const chainId: any = computed(() => store.state.user?.chainId);
 watch(chainId, (newVal, oldVal) => {
@@ -137,20 +142,19 @@ const TipsState: any = ref(false as any);
 const data: any = ref([]);
 const loadingState: any = ref(true)
 const readyAssetsF: any = computed(() => {
-    if( store?.state.user?.readyAssets !== -1 && chainId.value == 80001 || chainId.value == 43113){
-        getBalance(chainId.value)
-    }else{
-        data.value = [];
-        loadingState.value = false;
-    }
+    getBalance(chainId.value)
+    data.value = [];
+    loadingState.value = false;
     return store.state.user?.readyAssets
 });
 
 const getBalance = async (chainid: number) => {
     if(chainid == 80001){
         var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
-    }else{
+    }else if(chainid == 43113){
         var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+    }else{
+        var result: any = [0, 0, 0]
     }
     console.log(result, 'result');
     getData(result)
@@ -177,9 +181,13 @@ const getData = async (boxData: any[]) => {
             }
         })
     })(0)
-    if(chainId.value != 80001) return; // 目前只有mumbai能用购买盒子
+    if(chainId.value != 80001) {
+        return; // 目前只有mumbai能用购买盒子
+    }
     let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
     Remaining.value = LootBox_result;
+    console.log(Remaining.value, 'RemainingRemainingv');
+    
 }
 
 
@@ -189,7 +197,8 @@ const toDetails = (type:any) => {
 }
 
 
-const purchase = async (boxId: Number) => {
+const purchase = async (boxId: Number, number: any) => {
+    if(number == 0) return;
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
     // console.log(result);
     store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
@@ -228,9 +237,6 @@ onMounted(async () => {
     window.scrollTo(0,0);
     store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     store.dispatch('user/metaChange',false);
-    // if(readyAssetsF.value != -1 && chainId.value == 80001 || chainId.value == 43113){
-    //     getBalance(chainId.value)
-    // }
 })
 
 </script>
@@ -380,7 +386,8 @@ onMounted(async () => {
                     padding: 2.16vw 1.97vw;
                     background: #1A1728;
                     border-radius: .42vw;
-                    border: .2vw solid #434248;
+                    border: .2vw solid #1A1728;
+                    transition: all 0.2s ease;
                     .boxVideo{
                         position: relative;
                         width: 19.32vw;
@@ -404,8 +411,6 @@ onMounted(async () => {
                         }
                     }
                     .weapon{
-                        // flex: 1;
-                        // display: flex;
                         width: 27.86vw;
                         flex-direction: column;
                         color: #ffffff;
@@ -416,10 +421,13 @@ onMounted(async () => {
                             font-family: AlibabaPuHuiTi_2_105_Heavy;
                             line-height: 1.77vw;
                             position: relative;
-                            span{
+                            .number{
                                 position: absolute;
                                 right: 0;
                             }
+                        }
+                        .left_over{
+                            margin-bottom: 1.77vw;
                         }
                         .introduce{
                             // flex: 1;
@@ -465,13 +473,25 @@ onMounted(async () => {
                             font-family: AlibabaPuHuiTi_2_115_Black;
                             line-height: 2.81vw;
                             text-align: center;
-                            .purchase, .open{
+                            position: relative;
+                            .purchase{
                                 width: 11.09vw;
                                 height: 2.81vw;
                                 margin-right: 1.25vw;
                                 background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/purchase.png');
                                 background-size: 100% 100%;
                                 cursor: pointer;
+                                transition: all 0.2s ease;
+                            }
+                            .not-allowed{
+                                cursor:not-allowed;
+                                opacity: .4;
+                            }
+                            .purchase:hover{
+                                opacity: .8;
+                            }
+                            .not-allowed:hover{
+                                opacity: .4;
                             }
                             .open{
                                 margin-right: 0; 
@@ -479,19 +499,32 @@ onMounted(async () => {
                             .details{
                                 width: 9.89vw;
                                 height: 2.81vw;
-                                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/cancle.png');
+                                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwAssets/withboder.png');
                                 background-size: 100% 100%;
                                 cursor: pointer;
+                                z-index: 5;
+                                transition: all 0.2s ease;
+                            }
+                            .details-text{
+                                position: absolute;
+                                right: 2.8vw;
+                                z-index: 0;
+                            }
+                            .details:hover{
+                                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/details.png');
                             }
                         }
                     }
+                }
+                li:hover{
+                    border: .2vw solid #434248; 
                 }
             }
         }
         .nothing{
             height: 80vh;
             text-align: center;
-            padding-bottom: 7.55vw;
+            padding: 3vw 0 7.55vw 0;
             .txt{
                 width: 47.5vw;
                 height: 1.04vw;

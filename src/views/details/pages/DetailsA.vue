@@ -12,28 +12,29 @@
                 </video>
             </div>
             <div class="desc">
-                <div class="title">{{ data.info.name }} <span v-if="ownerNumber > 0">({{ 'x' + ownerNumber }})</span> </div>
+                <div class="title"><span class="title-content">{{ data.info.name }}</span> <span v-if="ownerNumber > 0">({{ 'x' + ownerNumber }})</span> </div>
                 <div class="price">
                     <div class="left">
                         <div class="text1">{{$t('message.details.box_price')}} ≈ $4545</div>
                         <div class="text2">
-                            <img src="" alt="">
+                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/eth_icon.png" alt="">
                             <div>0.36 <span>{{$t('message.details.box_eth')}}</span></div>
                         </div>
                     </div>
                     <div class="line"></div>
                     <div class="right">
-                        <div class="text1">{{$t('message.details.box_remain')}} <span v-if="data.Remaining">{{ data.Remaining }}</span><span v-else>0</span></div>
-                        <div class="text2">{{$t('message.details.box_sale')}} <div>21<span>H</span>:33<span>M</span>:48<span>S</span></div></div>
+                        <div class="text1">{{$t('message.details.box_remain')}} <span v-if="data.Remaining">{{ data.Remaining + '/2000'}}</span><span v-else>0/2000</span></div>
+                        <!-- <div class="text2">{{$t('message.details.box_sale')}} <div>21<span>H</span>:33<span>M</span>:48<span>S</span></div></div> -->
                     </div>
                 </div>
                 <div class="btn">
-                    <div class="purchase" v-if="data.Remaining > 0" @click="purchase">{{$t('message.details.box_btn_pur')}}</div>
-                    <div class="purchase" v-if="ownerNumber > 0" @click="open">{{$t('message.details.box_btn_open')}}</div>
+                    <div class="purchase" :class="{'not-allowed': data.Remaining == 0 }" @click="purchase">{{$t('message.details.box_btn_pur')}}</div>
+                    <div class="purchase" :class="{'not-allowed': ownerNumber == 0 }" @click="open">{{$t('message.details.box_btn_open')}}</div>
                     <div class="view" @click="opensea">{{$t('message.details.box_btn_view')}}</div>
                 </div>
             </div>
         </div>
+        <div v-else class="loadingState"><loading v-if="true" :show="true" :index="0.5"/></div>
         <div class="changeMenu">
             <!-- <div class="content" :class="!exMenu ? 'active':''" @click="exMenu = false">CONTENT</div>
             <div class="intro" :class="exMenu ? 'active':''" @click="exMenu = true">INTRODUCTION</div>
@@ -45,80 +46,157 @@
         </div>
         <div class="list">
             <ul class="content" v-show="exMenu == 0">
-                <li>
-                    <div class="wrap">
-                        <div class="pic">
-                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img1.png" alt="">
-                        </div>
-                        <div class="data">
-                            <div class="prob">
-                                <div class="name">{{$t('message.details.list.name1')}}</div>
-                                <div class="num">50%</div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="attr">
-                                <div class="name">{{$t('message.details.list.name2')}}</div>
-                                <div class="item">
-                                    <div>{{$t('message.details.list.name2_item1')}}</div>
-                                    <div>5~<span class="yell">12</span></div>
-                                    <div>{{$t('message.details.list.name2_item2')}}</div>
-                                    <div>5~<span class="yell">12</span></div>
+                <li v-if="index == 1"> 
+                    <ul class="list_box">
+                        <li>
+                            <div class="wrap">
+                                <div class="pic">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/head_rander.png" alt="">
                                 </div>
-                                <div class="item">
-                                    <div>{{$t('message.details.list.name2_item3')}}</div>
-                                    <div>5~<span>12</span></div>
-                                    <div>{{$t('message.details.list.name2_item4')}}</div>
-                                    <div>5~<span>12</span></div>
-                                </div>
-                                <div class="item">
-                                    <div>{{$t('message.details.list.name2_item5')}}</div>
-                                    <div>5~<span>12</span></div>
+                                <div class="data">
+                                    <div class="prob">
+                                        <div class="name">{{$t('message.details.list.name1')}}</div>
+                                        <div class="num">100%</div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="attr">
+                                        <div class="name">{{$t('message.details.list.name3')}}</div>
+                                        <div class="txt">
+                                            {{ $t('message.details.list.headContent') }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="prince">{{$t('message.details.list.prince')}}</div>
-                    <div class="princeShadow"></div>
-                </li> 
-                <li>
-                    <div class="wrap">
-                        <div class="pic">
-                            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img1.png" alt="">
-                        </div>
-                        <div class="data">
-                            <div class="prob">
-                                <div class="name">{{$t('message.details.list.name1')}}</div>
-                                <div class="num">50%</div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="attr">
-                                <div class="name">{{$t('message.details.list.name2')}}</div>
-                                <div class="item">
-                                    <div>{{$t('message.details.list.name2_item1')}}</div>
-                                    <div>5~<span class="yell">12</span></div>
-                                    <div>{{$t('message.details.list.name2_item2')}}</div>
-                                    <div>5~<span class="yell">12</span></div>
+                            <div class="prince">{{$t('message.details.list.prince2')}}</div>
+                        </li>
+                    </ul>    
+                </li>
+                <li v-if="index == 2">
+                    <ul class="list_box">
+                        <li>
+                            <div class="wrap">
+                                <div class="pic">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/HP.png" alt="">
                                 </div>
-                                <div class="item">
-                                    <div>{{$t('message.details.list.name2_item3')}}</div>
-                                    <div>5~<span>12</span></div>
-                                    <div>{{$t('message.details.list.name2_item4')}}</div>
-                                    <div>5~<span>12</span></div>
-                                </div>
-                                <div class="item">
-                                    <div>{{$t('message.details.list.name2_item5')}}</div>
-                                    <div>5~<span>12</span></div>
+                                <div class="data">
+                                    <div class="prob">
+                                        <div class="name">{{$t('message.details.list.name1')}}</div>
+                                        <div class="num">50%</div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="attr">
+                                        <div class="name">{{$t('message.details.list.name2')}}</div>
+                                        <div class="txt">
+                                            {{ $t('message.details.list.HP') }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="prince">{{$t('message.details.list.prince')}}</div>
-                    <div class="princeShadow"></div>
-                </li> 
+                            <div class="prince">{{$t('message.details.list.prince3')}}</div>
+                        </li> 
+                        <li>
+                            <div class="wrap">
+                                <div class="pic">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/sandtime.png" alt="">
+                                </div>
+                                <div class="data">
+                                    <div class="prob">
+                                        <div class="name">{{$t('message.details.list.name1')}}</div>
+                                        <div class="num">50%</div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="attr">
+                                        <div class="name">{{$t('message.details.list.name2')}}</div>
+                                        <div class="txt">
+                                            {{ $t('message.details.list.Time') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="prince">{{$t('message.details.list.prince4')}}</div>
+                        </li>
+                    </ul>    
+                </li>
+                <li v-if="index == 3">
+                    <ul class="list_box">
+                        <li>
+                            <div class="wrap">
+                                <div class="pic">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/person2.png" alt="">
+                                </div>
+                                <div class="data">
+                                    <div class="prob">
+                                        <div class="name">{{$t('message.details.list.name1')}}</div>
+                                        <div class="num">50%</div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="attr">
+                                        <div class="name">{{$t('message.details.list.name2')}}</div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item1')}}</div>
+                                            <div>-5~<span class="yell">8</span></div>
+                                            <div>{{$t('message.details.list.name2_item3')}}</div>
+                                            <div>-3~<span class="yell">6</span></div>
+                                        </div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item5')}}</div>
+                                            <div>-3~<span>8</span></div>
+                                            <div>{{$t('message.details.list.name2_item4')}}</div>
+                                            <div>-3~<span>6</span></div>
+                                        </div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item2')}}</div>
+                                            <div>-4~<span>8</span></div>
+                                            <div>{{$t('message.details.list.name2_item6')}}</div>
+                                            <div>-3~<span>6</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="prince">{{$t('message.details.list.prince')}}</div>
+                        </li> 
+                        <li>
+                            <div class="wrap">
+                                <div class="pic">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/person1.png" alt="">
+                                </div>
+                                <div class="data">
+                                    <div class="prob">
+                                        <div class="name">{{$t('message.details.list.name1')}}</div>
+                                        <div class="num">50%</div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="attr">
+                                        <div class="name">{{$t('message.details.list.name2')}}</div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item1')}}</div>
+                                            <div>-5~<span class="yell">8</span></div>
+                                            <div>{{$t('message.details.list.name2_item3')}}</div>
+                                            <div>-3~<span class="yell">6</span></div>
+                                        </div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item5')}}</div>
+                                            <div>-3~<span>8</span></div>
+                                            <div>{{$t('message.details.list.name2_item4')}}</div>
+                                            <div>-3~<span>6</span></div>
+                                        </div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item2')}}</div>
+                                            <div>-4~<span>8</span></div>
+                                            <div>{{$t('message.details.list.name2_item6')}}</div>
+                                            <div>-3~<span>6</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="prince">{{$t('message.details.list.prince0')}}</div>
+                        </li> 
+                    </ul>    
+                </li>
             </ul>
             <ul class="introduction" v-show="exMenu == 1" v-if="data.info">
                 <li>
-                    <div class="title">{{$t('message.details.intro.title1')}} 1</div>
+                    <div class="title">{{data.info.name || $t('message.details.intro.title1')}}</div>
                     <div class="desc">
                         {{ data.info.description || $t('message.details.intro.desc1') }}
                     </div>
@@ -150,6 +228,8 @@ const router = useRouter()
 const Route = useRoute() //获取到值
 const { proxy } = getCurrentInstance() as any
 const { GiftBox, LootBox, MarketV2, cyt, Cyborg, Cyborg_Fuji, cyberClub, cyberClub_Fuji } = Web3.contracts;
+const index: any = Route.query.type || 1; //当前盒子类型
+
 
 // changeMenu
 let exMenu:any = ref(0) 
@@ -191,11 +271,12 @@ const ownerNumber = ref(0);
 const getBalance = async (chainid: number) => {
     if(chainid == 80001){
         var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
-    }else{
+    }else if(chainid == 43113){
         var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+    }else{
+        var result: any = [0, 0, 0]
     }
     console.log(result, 'result');
-
     getData(result)
 }
 
@@ -222,13 +303,14 @@ watch(readyAssetsF, (newVal, oldVal) => {
 
 
 const getData = async (result: any) => {
-    let index: any = Route.query.type;
-    let res = result[index-1];
-    ownerNumber.value = res;
+    ownerNumber.value = result[index-1];
     proxy.$api.get(`https://api.cyberpop.online/box/${index-1}`).then((boxData: any) => {
         data.value.info = boxData;
     })
-    if(chainId.value != 80001) return;
+    if(chainId.value != 80001) {
+        data.value.Remaining = 0;
+        return;
+    };
     let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
     console.log(LootBox_result, 'LootBox_result');
     console.log(LootBox_result[index-1]);
@@ -238,7 +320,7 @@ const getData = async (result: any) => {
 
 const open = async (boxId?: any) => {
     // getLast(); // 查询资产合约中最后一位为立马开启的资产
-    let index: any = Route.query.type;
+    if(ownerNumber.value == 0) return;
     const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
     store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
     let result = await Web3.unpack(abi, address, index-1, 1)
@@ -255,7 +337,6 @@ const open = async (boxId?: any) => {
 }
 
 const getLast = async () => {
-    let index: any = Route.query.type;
     if(chainId.value == 80001){
         if(index == 1){
             let cyberClub_result: any = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
@@ -296,7 +377,7 @@ const getNFTData: any = async (res: any, path: any) => {
 
 const purchase = async () => {
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
-    // console.log(result);
+    if(data.value.Remaining == 0) return;
     store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
     let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); //用自己的cyt去给授权市场合约授权的个数
     console.log(allowance_res, 'allowance_res');
@@ -347,7 +428,7 @@ onMounted(() => {
             line-height: 8.85vw;
             letter-spacing: 1.04vw;
             text-align: center;
-            background-image: url('../../../assets/nwmining/coming-bg.png');
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwmining/coming-bg.png');
             background-position: center;
             background-size: auto 100%;
         }
@@ -356,7 +437,7 @@ onMounted(() => {
         padding-top: 7.6vw;
         color: #ffffff;
         background-color: #080707;
-        background-image: url('../../../assets/nwAssets/bodyBg.png');
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwAssets/bodyBg.png');
         background-repeat: no-repeat;
         background-position: left top;
         background-size: 100% auto;
@@ -395,6 +476,15 @@ onMounted(() => {
                     font-size: 2.5vw;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     line-height: 3.48vw;
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .title-content{
+                    width: 70%;
+                    display: inline-block;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
                 .price{
                     display: flex;
@@ -417,8 +507,12 @@ onMounted(() => {
                         }
                         .text2{
                             height: 4.37vw;
+                            display: flex;
+                            align-items: center;
                             img{
-
+                                width: 1.2vw;
+                                height: 1.98vw;
+                                margin-right: 1.04vw;
                             }
                             div{
                                 display: flex;
@@ -491,6 +585,20 @@ onMounted(() => {
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 line-height: 3.125vw;
                 text-align: center;
+                .purchase:hover{
+                    opacity: .7;
+                    transition: all 0.2s ease-in;
+                }
+                .view:hover{
+                    filter: drop-shadow(0 0 0.92vw #DE2DCF);
+                }
+                .not-allowed{
+                    cursor: not-allowed !important;
+                    opacity: .4;
+                }
+                .not-allowed:hover{
+                    opacity: .4;
+                }
                 div:not(:last-child){
                     width: 9.94vw;
                     height: 3.125vw;
@@ -504,11 +612,16 @@ onMounted(() => {
                     height: 3.125vw;
                     color: #DE2DCF;
                     white-space: nowrap;
-                    background-image: url('../../../assets/nwbox/viewBorder.png');
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/viewBorder.png');
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
             }
+        }
+        .loadingState{
+            height: 16.97vw;
+            display: flex;
+            align-items: center;
         }
         .changeMenu{
             display: flex;
@@ -543,118 +656,132 @@ onMounted(() => {
         }
         .list{
             .content{
-                li{
-                    position: relative;
-                    width: 47.91vw;
-                    height: 8.48vw;
-                    margin: 0 auto;
-                    background-image: url('../../../assets/nwbox/contentBg.png');
-                    background-size: 100% 100%;
-                    .prince{
-                        z-index: 2;
+                .list_box{
+                    li{
                         position: relative;
-                        width: 8.85vw;
-                        height: 1.77vw;
-                        margin-top: -1.2vw;
-                        font-size: 1.25vw;
-                        font-family: AlibabaPuHuiTi_2_115_Black;
-                        line-height: 1.77vw;
-                        background: #8478FF;
-                        text-align: center;
-                        clip-path: polygon(0 0, 100% 0%, 80% 0%, 100% 100%, 0% 100%);
-                    }
-                    .princeShadow{
-                        width: 8.85vw;
-                        height: 1.77vw;
-                        margin: -1.2vw 0 0 1.3vw;
-                        background: rgba(0,0,0,.8);
-                        clip-path: polygon(0 0, 100% 0%, 80% 0%, 100% 100%, 0% 100%);
-                    }
-                    .wrap{
-                        display: flex;
-                        position: relative;
-                        .pic{
+                        width: 47.91vw;
+                        height: 8.48vw;
+                        margin: 0 auto;
+                        background-size: 100% 100%;
+                        background-image: url('../../../assets/nwbox/contentBg-nohover.png');
+                        transition: all 0.2s ease-in-out;
+                        .prince{
+                            z-index: 6;
                             position: relative;
-                            width: 6.875vw;
-                            height: 6.875vw;
-                            margin: .83vw 3.22vw .78vw .83vw;
-                            background: #140F16;
-                            clip-path: polygon(0% 18%, 18% 0%, 100% 0%, 100% 100%, 0% 100%);
-                            img{
-                                position: absolute;
-                                bottom: 0;
-                                width: 100%;
-                            }
+                            top: -1vw;
+                            display: inline-block;
+                            padding: 0 2vw;
+                            height: 1.77vw;
+                            margin-top: -1.2vw;
+                            font-size: 1.25vw;
+                            font-family: AlibabaPuHuiTi_2_115_Black;
+                            line-height: 1.77vw;
+                            background: #8478FF;
+                            text-align: center;
+                            clip-path: polygon(0 0, 100% 0%, 80% 0%, 100% 100%, 0% 100%);
+                            box-sizing: border-box;
                         }
-                        .data{
+                        .prince:hover{
+                            border: 2px solid #a5cab4;
+                        }
+                        .wrap{
                             display: flex;
-                            .prob{
-                                width: 5.52vw;
-                                margin-top: 1.19vw;
-                                text-align: center;
-                                .name{
-                                    height: 2.39vw;
+                            position: relative;
+                            .pic{
+                                position: relative;
+                                width: 6.875vw;
+                                height: 6.875vw;
+                                margin: .83vw 3.22vw .78vw .83vw;
+                                background: #140F16;
+                                clip-path: polygon(0% 18%, 18% 0%, 100% 0%, 100% 100%, 0% 100%);
+                                img{
+                                    position: absolute;
+                                    bottom: 0;
+                                    width: 100%;
+                                }
+                            }
+                            .data{
+                                display: flex;
+                                .prob{
+                                    width: 5.52vw;
+                                    margin-top: 1.19vw;
+                                    text-align: center;
+                                    .name{
+                                        height: 2.39vw;
+                                        font-size: 1.04vw;
+                                        font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                        color: #A81BFF;
+                                        line-height: 1.19vw;
+                                    }
+                                    .num{
+                                        height: 3.69vw;
+                                        margin-top: .2vw;
+                                        font-size: 2.5vw;
+                                        font-family: Oswald-Regular;
+                                        color: #04FFA2;
+                                        line-height: 2.91vw;
+                                        letter-spacing: .2vw;
+                                    }
+                                }
+                                .line{
+                                    width: .05vw;
+                                    height: 3.95vw;
+                                    margin: auto 1.66vw;
+                                    background: #A81BFF;
+                                }
+                                .attr{
+                                    margin-top: 1.19vw;
+                                    height: 1.45vw;
                                     font-size: 1.04vw;
                                     font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                                    color: #A81BFF;
                                     line-height: 1.19vw;
-                                }
-                                .num{
-                                    height: 3.69vw;
-                                    margin-top: .2vw;
-                                    font-size: 2.5vw;
-                                    font-family: Oswald-Regular;
-                                    color: #04FFA2;
-                                    line-height: 2.91vw;
-                                    letter-spacing: .2vw;
-                                }
-                            }
-                            .line{
-                                width: .05vw;
-                                height: 3.95vw;
-                                margin: auto 1.66vw;
-                                background: #A81BFF;
-                            }
-                            .attr{
-                                margin-top: 1.19vw;
-                                height: 1.45vw;
-                                font-size: 1.04vw;
-                                font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                                line-height: 1.19vw;
-                                .name{
-                                    margin-bottom: .26vw;
-                                    color: #A81BFF;
-                                }
-                                .item{
-                                    display: flex;
-                                    height: 1.56vw;
-                                    color: rgba(255, 255, 255, 0.7);
-                                    div:nth-child(1),div:nth-child(3){
-                                        width: 6.66vw;
-                                        margin-right: .83vw;
+                                    .name{
+                                        margin-bottom: .26vw;
+                                        color: #A81BFF;
                                     }
-                                    div:nth-child(2),div:nth-child(4){
-                                        width: 1.97vw;
+                                    .txt{
+                                        width: 26.46vw;
+                                        font-size: 1.04vw;
+                                        font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                        font-weight: normal;
+                                        color: rgba(255, 255, 255, 0.7);
+                                        line-height: 1.2vw;
+                                    }
+                                    .item{
+                                        display: flex;
                                         height: 1.56vw;
-                                        margin-right: 1.25vw;
-                                        color: #ffffff;
-                                        font-family: Oswald-Regular;
-                                        font-weight: bold;
-                                        span.yell{
-                                            color: #EDFF00;
+                                        color: rgba(255, 255, 255, 0.7);
+                                        div:nth-child(1),div:nth-child(3){
+                                            width: 6.66vw;
+                                            margin-right: .83vw;
+                                        }
+                                        div:nth-child(2),div:nth-child(4){
+                                            width: 1.97vw;
+                                            height: 1.56vw;
+                                            margin-right: 1.25vw;
+                                            color: #ffffff;
+                                            font-family: Oswald-Regular;
+                                            font-weight: bold;
+                                            span.yell{
+                                                color: #EDFF00;
+                                            }
+                                        }
+                                        div:nth-child(4){
+                                            margin-right: 0;
                                         }
                                     }
-                                    div:nth-child(4){
-                                        margin-right: 0;
-                                    }
                                 }
-                            }
-                        }   
+                            }   
+                        }
+                    }
+                    li:hover{
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/contentBg.png');
+                    }
+                    li + li{
+                        margin-top: 1.66vw;
                     }
                 }
-                li + li{
-                    margin-top: 1.66vw;
-                }
+
             }
             .introduction{
                 width: 47.91vw;
@@ -763,6 +890,7 @@ onMounted(() => {
                     height: 3.75vw !important;
                     line-height: 3.75vw !important;
                     transform: scale(.8);
+                    transition: all 0.2s ease;
                 }
                 .view{
                     width: 16.248vw !important;

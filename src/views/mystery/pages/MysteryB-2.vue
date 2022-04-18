@@ -22,62 +22,60 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             <div class="maskBlur"></div>
         </div>
         <!-- 元素里面必须要有这个，要不然监听readyAssetsF不生效 -->
-        {{ readyAssetsF }} 
+        <span style="color: #000">{{ readyAssetsF }} </span>
         <div class="blind" v-if="data.length > 0">
-            <div class="title">{{$t('message.box.type_title_1')}}</div>
+            <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }}</span> </div>
             <ul>
                 <li v-if="data[0].number">
                     <div class="boxVideo" >
                         <img :src="data[0].info.image" v-if="!data[1].info.animation_url" alt="">
-                        <video autoplay loop v-else>
+                        <video autoplay muted loop v-else>
                             <source :src="data[0].info.animation_url" type="video/mp4">
                         </video>
                     </div>
-                    <div class="name">{{ data[0].info.name }}  <span>{{ 'x'+data[0].number }}</span> </div>
+                    <div class="name">{{ data[0].info.name }} </div>
                     <div class="introduce">
                         {{ data[0].info.description }}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
-                        <div class="num">— —</div>
-                        <div class="exchange">≈$- -</div>
+                        <div class="num">10</div>
+                        <div class="exchange">≈$20</div>
                     </div>
                     <div class="btn">
-                        <div class="open" @click="open(0)">{{$t('message.box.open')}}</div>
-                        <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                        <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div> -->
+                        <div class="purchase" v-if="Remaining[0] > 0" @click="purchase(0)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
                 <li v-if="data[1].number">
                     <div class="boxVideo">
                         <img :src="data[1].info.image" v-if="!data[1].info.animation_url" alt="">
-                        <video autoplay loop v-else>
+                        <video autoplay muted loop v-else>
                             <source :src="data[1].info.animation_url" type="video/mp4">
                         </video>
                     </div>
-                   <div class="name">{{ data[1].info.name }}  <span>{{ 'x'+data[1].number }}</span> </div>
+                   <div class="name">{{ data[1].info.name }}</div>
                     <div class="introduce">
                         {{ data[1].info.description }}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
-                        <div class="num">— —</div>
-                        <div class="exchange">≈$- -</div>
+                        <div class="num">20</div>
+                        <div class="exchange">≈$40</div>
                     </div>
                     <div class="btn">
-                        <div class="open" @click="open(1)">{{$t('message.box.open')}}</div>
-                        <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                        <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div> -->
+                        <div class="purchase" v-if="Remaining[1] > 0" @click="purchase(1)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
                 <li v-if="data[2].number">
                     <div class="boxVideo">
                         <img :src="data[2].info.image" v-if="!data[1].info.animation_url" alt="">
-                        <video autoplay loop v-else>
+                        <video autoplay muted loop v-else>
                             <source :src="data[2].info.animation_url" type="video/mp4">
                         </video>
                     </div>
-                    <div class="name">{{ data[2].info.name }}  <span>{{ 'x'+data[1].number }}</span> </div>
+                    <div class="name">{{ data[2].info.name }}</div>
                     <div class="introduce">
                         {{ data[2].info.description }}
                     </div>
@@ -87,31 +85,10 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="open" @click="open(2)">{{$t('message.box.open')}}</div>
-                        <!-- <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                        <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div> -->
+                        <div class="purchase" v-if="Remaining[2] > 0" @click="purchase(2)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
-                <!-- <li>
-                    <div class="boxVideo">
-                        <video autoplay loop>
-                            <source src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox4.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="name">{{ data[1].info.name }}  <span>{{ 'x'+data[1].number }}</span> </div>
-                    <div class="introduce">
-                        {{ data[1].info.description }}
-                    </div>
-                    <div class="price">
-                        <img src="@/assets/nwbox/nfts-icon.svg" alt="">
-                        <div class="num">— —</div>
-                        <div class="exchange">≈$- -</div>
-                    </div>
-                    <div class="btn">
-                        <div class="purchase">{{$t('message.box.btn_pur')}}</div>
-                        <div class="details" @click="toDetails(4)">{{$t('message.box.btn_det')}}</div>
-                    </div>
-                </li> -->
             </ul>
         </div>
         <div class="nothing" v-else>
@@ -137,24 +114,33 @@ const router = useRouter()
 
 const { proxy } = getCurrentInstance() as any;
 
-const { abi, address } = Web3.contracts['GiftBox'];
+const { LootBox, GiftBox, cyt, MarketV2 } = Web3.contracts;
 
 const chainId: any = computed(() => store.state.user?.chainId);
 
-const TipsState: any = ref(false as any)
+const TipsState: any = ref(false as any);
 
 const data: any = ref([]);
 
+const Remaining = ref([]);
+
 const readyAssetsF: any = computed(() => {
     if( store?.state.user?.readyAssets !== -1 && chainId.value == 80001 || chainId.value == 43113){
-        getBalance()
+        getBalance(chainId.value)
+    }else{
+        data.value = [];
     }
     return store.state.user?.readyAssets
 });
 
-const getBalance = async () => {
-   let result: any = await Web3.balanceOfBatch(abi, address, [0, 1, 2]);
-   getData(result)
+const getBalance = async (chainid: number) => {
+    if(chainid == 80001){
+        var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
+    }else{
+        var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+    }
+    console.log(result, 'result');
+    getData(result)
    
 }
 
@@ -180,31 +166,42 @@ const getData = async (boxData: any[]) => {
             }
         })
     })(0)
-    
+    if(chainId.value != 80001) return; // 目前只有mumbai能用购买盒子
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
+    Remaining.value = LootBox_result;
 }
 const toDetails = (type:any) => {
     router.push({ name: 'details',params:{ type }})
 }
 
-const open = async (boxId: Number) => {
-    TipsState.value = true;
-    let result = await Web3.unpack(abi, address, boxId, 1)
-    console.log(result, 'result');
-    TipsState.value = false;
-    if(result) {
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
-        getBalance()
+const purchase = async (boxId: Number) => {
+    // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
+    // console.log(result);
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
+    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); //用自己的cyt去给授权市场合约授权的个数
+    console.log(allowance_res, 'allowance_res');
+    if(allowance_res < 30){
+        let approve_res = await Web3.approve(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7', 31);
+        console.log(approve_res, 'approve_res');
+        if(!approve_res) { // 授权失败
+            store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });
+            return;
+        }
+    }
+    // 正常流程
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 3} });
+    let reuslt = await Web3.buyLootBox(MarketV2.abi, MarketV2.address, boxId, 30);
+    if(reuslt){
+        store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
     }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
+        store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
     }
 }
-
-
 
 onMounted(() => {
     window.scrollTo(0,0);
     if(readyAssetsF.value != -1 && chainId.value == 80001 || chainId.value == 43113){
-        getBalance()
+        // getBalance()
     }
 })
 
@@ -396,8 +393,7 @@ onMounted(() => {
                             height: 35px;
                         }
                         .num{
-                            // width: 121px;
-                            width: 102px;
+                            // width: 102px;
                             font-size: 33px;
                             // font-family: AlibabaPuHuiTi_2_105_Heavy;
                             font-family: Oswald-Regular;
@@ -446,14 +442,13 @@ onMounted(() => {
             text-align: center;
             padding-bottom: 7.55vw;
             .txt{
-                width: 47.5vw;
                 height: 1.04vw;
-                margin: -1vw auto 7.65vw;
                 font-size: .83vw;
                 font-family: AlibabaPuHuiTi_2_55_Regular;
                 color: #B1B5C3;
                 line-height: 1.04vw;
                 text-align: center;
+                margin-top: 13vw;
                 a{
                     color: #04FFA2;
                     text-decoration: none;
@@ -461,8 +456,8 @@ onMounted(() => {
                 }
             }
             img{
-                width: 11.71vw;
-                height: 12.5vw;
+                margin-top: 10vw;
+                width: 40.75vw;
             }
         }
     }

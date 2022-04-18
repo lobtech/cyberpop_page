@@ -8,7 +8,8 @@
         <msg-popup-b v-else :isShowTips="TipsState" :addNetwork="true" :isLoading="false" :isClose="true" :title="'Network Error'" :content="$t('message.common.metamask.switch')"/>
         <message-a v-if="innerWidth > 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-a>
         <message-b v-if="innerWidth <= 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-b>
-        <purchaseA :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state"/>
+        <purchaseA v-if="innerWidth > 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state"/>
+        <purchaseB v-if="innerWidth <= 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state"/>
     </router-view>
 </template>
 <script setup lang="ts">
