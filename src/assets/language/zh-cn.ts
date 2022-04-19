@@ -6,6 +6,8 @@ const cn = {
             menu2: '挖礦',
             menu3: '盲盒',
             menu4: '檔',
+            menu5: '空間',
+            menu6: '白名單',
             language1: '英語',
             language2: '漢語',
             language3: '韓語',
