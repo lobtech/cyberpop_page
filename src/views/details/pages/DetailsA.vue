@@ -663,14 +663,14 @@ onMounted(() => {
                         height: 8.48vw;
                         margin: 0 auto;
                         background-size: 100% 100%;
-                        background-image: url('../../../assets/nwbox/contentBg-nohover.png');
+                        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/contentBg-nohover.png');
                         transition: all 0.2s ease-in-out;
                         .prince{
                             z-index: 6;
                             position: relative;
                             top: -1vw;
                             display: inline-block;
-                            padding: 0 2vw;
+                            padding: 0 2vw 0 1vw;
                             height: 1.77vw;
                             margin-top: -1.2vw;
                             font-size: 1.25vw;

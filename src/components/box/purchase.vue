@@ -3,7 +3,7 @@
         <div class="mask" :class="(isShowTips ? 'bounceShow' : 'bounceHide')">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <img class="close" src="@/assets/nwhome/close.svg" alt=""  @click="close">
+            <img class="close" src="@/assets/nwhome/close.svg" alt=""  @click="closeDialog">
             <div class="content">
                 <div class="title">{{ props.title }}</div>
                 <!-- <div class="icon">
