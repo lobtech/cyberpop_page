@@ -112,7 +112,7 @@ import { onMounted, onUnmounted, computed, getCurrentInstance, readonly, ref, wa
 import store from '@/store'
 import NFT from '@/tools/web3' 
 import {  useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n';
+import { Locale, useI18n } from 'vue-i18n';
 
 const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
@@ -189,14 +189,15 @@ const mouseLeaveChain: any = () => {
 // language
 let showLanguage:any = ref(false);
 
-const { locale, t } = useI18n()
+const { locale, t, getLocaleMessage } = useI18n()
 let select:any = ref('us');
-const selectLang = (index:any) => {
+const selectLang = (index: any) => {
     showLanguage.value = false
     select.value = index
 
     locale.value = index
     localStorage.setItem('lang', index)
+    
 }
 
 // connect

@@ -90,6 +90,16 @@ const routes = [
             transition: 'slide-right',
         },
     },
+    {
+        name: 'IPshielding',
+        path: '/IPshielding',
+        component: () => import('../views/IPshielding/index.vue'),
+        meta: {
+            keepAlive: false,
+            showFooter: true,
+            transition: 'slide-right',
+        },
+    },
 ]
 
 const router = createRouter({
