@@ -61,6 +61,16 @@ onMounted(() => {
         }
         store.dispatch('user/TipsState', {show: false, info: { }});
     });
+
+    // 网上公开免费验证国家地区的接口
+    try{
+        // console.log(process.env, 'process.env.VUE_APP_FLAG');
+        proxy.$api.get('http://ip-api.com/json/').then((result:any) => {
+            if(result.country == "China")  console.log(result, 'result');
+        })
+    }catch(error){
+
+    }
 })
 </script>
 <style>

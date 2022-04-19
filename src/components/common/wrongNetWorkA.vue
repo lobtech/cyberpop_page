@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, getCurrentInstance, defineEmits } from 'vue'
+import { ref, onMounted, computed, getCurrentInstance } from 'vue'
 import store from '@/store/index'
 import { useI18n } from 'vue-i18n';
 import NFT from '@/tools/web3' 
