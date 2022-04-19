@@ -2,7 +2,7 @@
     <div class="container">
         <div class="err-title">Access denied</div>
         <div class="err-desc mr-b">
-            You do not have access to Cyberpop.
+            You do not have access to Cyberpop. <br/>
             Currently, our service is only available for part of the legal compliance 
             countries and regions. Illegal access will not be protected. Please check
             if your country or region is supported or not. Contact us for access or try 
