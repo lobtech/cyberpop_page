@@ -12,7 +12,7 @@
                         @mouseover="mouseOver"
                         @mouseleave="mouseLeaveChain"
                     >
-                        <div class="select_chain"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span></div>
+                        <div class="select_chain" @click="switchChain" :class="{'selected': chainId == 80001 || chainId == 43113}"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span><div class="blur"></div></div>
                         <div class="hover_chunk" v-show="showChainList">
                             <div class="chunk_wrap">
                                 <div v-for="(value,key,index) in chainList" @click="changeChain(value)" :key="index" class="item" v-show="!value.active"><img :src="value.img" alt=""><span>{{ value.name }}</span></div>
@@ -42,7 +42,7 @@
                         <div class="idtxt">{{realId}}</div>
                         <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
                     </div>
-                     <div class="code" v-if="code">inviterCode: {{ code }}</div>
+                     <div class="code" v-if="code">inviter Code: {{ code }}</div>
                 </div>
                 <div class="menu">
                     <ul id="menuUl">
@@ -104,7 +104,10 @@
             <div @click="signout">{{t('message.common.login_logout')}}</div>
         </div>
     </div>
+    <!-- 添加网络弹窗 -->
     <metamask-a v-if="metaMaskActive"></metamask-a>
+    <!-- 切换网络弹窗 -->
+    <wrongNetWorkA :isShowTips="isShowTips" @changeSwitch="changeSwitch"></wrongNetWorkA>
 </template>
 
 <script setup lang="ts">
@@ -113,12 +116,11 @@ import store from '@/store'
 import NFT from '@/tools/web3' 
 import {  useRouter } from 'vue-router'
 import { Locale, useI18n } from 'vue-i18n';
-
 const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
 let close: any = ref(true);
 const code: any = ref('');
-
+const isShowTips = ref(false);
 
 const props = defineProps({
     path: String, 
@@ -128,7 +130,7 @@ const props = defineProps({
 
 const chainList = ref({
     avax: {
-        name: 'Avalanche Fuji Testnet',
+        name: 'Fuji',
         img: 'https://nftrade.com/img/chains/icons/avax.png',
         chainId: 43113,
     },
@@ -138,14 +140,14 @@ const chainList = ref({
         chainId: 80001,
     },
     select: {
-        name: 'Avalanche Fuji Testnet',
+        name: 'Fuji',
         img: 'https://nftrade.com/img/chains/icons/avax.png',
         chainId: 43113,
         active: 1,
     },
     notSupported: {
-        name: 'Chain is not supported.',
-        img: 'https://nftrade.com/img/chains/icons/eth.png',
+        name: 'Wrong Network',
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwAssets/wrong.png',
         active: 1,
     }
 }) as any
@@ -179,12 +181,24 @@ const changeChain = async (value?: any) => {
 }
 
 const mouseOver: any = () => {
-    showChainList.value = true;
+    console.log(chainId.value);
+    if(chainId.value == 80001 || chainId.value == 43113){
+        showChainList.value = true;
+    }
 }
 
 const mouseLeaveChain: any = () => {
     showChainList.value = false;
 }
+
+const switchChain = () => { //切换链
+    if(chainId.value == 80001 || chainId.value == 43113) return;
+    isShowTips.value = !isShowTips.value;
+}
+const changeSwitch = () => { //子组件，弹窗属性
+    isShowTips.value = !isShowTips.value;
+}
+
 
 // language
 let showLanguage:any = ref(false);
@@ -528,21 +542,48 @@ onMounted(() => {
                             width: 1.56vw;
                         }
                         .select_chain{
+                            border: 1px solid #DD2ECE;
+                            padding: 0.5vw 1vw;
+                            font-size: 1.02vw;
+                            color: #DD2ECE;
                             display: flex;
                             justify-content: center;
                             align-items: center;
                             font-size: .83vw;
-                            font-family: AlibabaPuHuiTi_2_55_Regular;
                             white-space: nowrap;
                             cursor: pointer;
+                            font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                        }
+                        .selected{
+                            border: 1px solid transparent;
+                            color: #fff;
+                        }
+
+                        .select_chain:hover{
+                            box-shadow: inset 0px 1px 20px 0px rgba(221, 46, 206, 0.72);
+                        }
+                        .selected:hover{
+                            box-shadow: none;
+                        }
+                        .selected:hover .blur{
+                            display: block;
+                        }
+                        .blur{
+                            display: none;
+                            position: absolute;
+                            width: 6vw;
+                            height: 0.46vw;
+                            background: #6D4AFF;
+                            filter: blur(0.52vw);
                         }
                         .hover_chunk{
                             z-index: 10;
                             position: absolute;
                             top: 5.5vw;
+                            left: 0;
                             padding-top: .3vw;
                             .chunk_wrap{
-                                width: 12.8vw;
+                                width: 9.27vw;
                                 padding: 0 .8vw;
                                 padding-bottom: 1vw;
                                 background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
@@ -555,9 +596,13 @@ onMounted(() => {
                                     margin-top: 1vw;
                                     cursor: pointer;
                                     align-items: center;
+                                    font-family: AlibabaPuHuiTi_2_75_SemiBold;
                                     img{
                                         width: 1.56vw;
                                     }        
+                                }
+                                .item:hover{
+                                    color: #6D4AFF;
                                 }
                             }
                         }
@@ -634,8 +679,15 @@ onMounted(() => {
                     }
                     .code{
                         position: absolute;
-                        right: 1vw;
-                        bottom: 0.5vw;
+                        right: 0.1vw;
+                        bottom: 0.2vw;
+                        padding: 0.2vw 0.5vw;
+                        font-size: 0.625vw;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                        color: #B4A2FF;
+                    }
+                    .code:hover{
+                        box-shadow: inset 0px 0px 10px 0px #4625A2;
                     }
                     .language{
                         position: relative;

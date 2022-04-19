@@ -26,7 +26,8 @@ import msgPopupA from './components/common/msgPopupA.vue'
 import msgPopupB from './components/common/msgPopupB.vue'
 import loading from './components/loading/loading.vue'
 import purchaseA from './components/box/purchase.vue'
-
+import purchaseB from './components/box/purchaseB.vue'
+import wrongNetWorkA from './components/common/wrongNetWorkA.vue';
 
 import vue3videoPlay from 'vue3-video-play' 
 import 'vue3-video-play/dist/style.css' 
@@ -63,7 +64,8 @@ app.component('msgPopupA', msgPopupA)
 app.component('msgPopupB', msgPopupB)
 app.component('loading', loading)
 app.component('purchaseA', purchaseA)
-
+app.component('purchaseB', purchaseB)
+app.component('wrongNetWorkA', wrongNetWorkA)
 
 app.use(vue3videoPlay)
 app.mount('#app')
