@@ -30,8 +30,6 @@
                     <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">{{$t('message.common.menu1')}}</li>
                     <li @click="changeMenu(1, '/mining')" :class="{'active': active == 1}">{{$t('message.common.menu2')}}</li>
                     <li @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">{{$t('message.common.menu3')}}</li>
-                    <!-- <li @click="showComing()" :class="{'active': active == 4}">Cyberspace</li> -->
-                    <!-- <li @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">Cyberspace</li> -->
                     <li :class="{'active': active == 4}">
                         <div class="doc" @click="docMenu()">{{$t('message.common.menu4')}} <span :class="changeArrow ? 'change' : ''"></span></div>
                         <div class="docmenu" v-show="showDoc">
@@ -40,7 +38,8 @@
                             <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">{{$t('message.common.doc_deck')}}</a>
                         </div>
                     </li>
-                    <!-- <li @click="changeMenu(5, '/')" :class="{'active': active == 5}">WhiteLists</li> -->
+                    <li @click="changeMenu(5)" :class="{'active': active == 5}">{{$t('message.common.menu5')}}</li>
+                    <!-- <li @click="changeMenu(5, '/')" :class="{'active': active == 5}">{{$t('message.common.menu6')}}</li> -->
                 </ul>
                 <div class="language">
                     <div @click="openLang()">{{$t('message.common.language_switch')}} <span :class="langArrow ? 'change' : ''"></span></div>
@@ -227,8 +226,12 @@ const menuHover = (type: any) => {
 let menuFlag:any = ref(1);
 const changeMenu = (type: any, route?: any) => {
     store.dispatch('user/walletMenuAni', false)
-    menuFlag.value = type;
-    store.dispatch('user/changeActive', type)
+    if( type == 5 ){
+        window.open('https://cyberpop-webgl.s3.ap-southeast-1.amazonaws.com/index.html');
+    }else{
+        menuFlag.value = type;
+        store.dispatch('user/changeActive', type)
+    }
     if(route) router.push({ path: `${route}`, query: {
         code: code.value
     }})

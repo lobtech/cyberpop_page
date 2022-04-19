@@ -55,14 +55,14 @@
                         <li @mouseover="menuHover(2)" @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">
                             <span>{{$t('message.common.menu3')}}</span>
                         </li>
-                        <!-- <li @mouseover="menuHover(3)" @click="changeMenu(3, '/cyberspace')" :class="{'active': active == 3}">
-                            <span>Cyberspace</span>
-                        </li> -->
                         <li @mouseover="menuHover(4)" @mouseleave="hoverDoc = false" ref="clickCursor" @click="showDoc = !showDoc,hoverDoc = false" :class="{'active': active == 4}">
                             <span @mouseenter="hoverDoc = true">{{$t('message.common.menu4')}}</span>
                         </li>
-                        <!-- <li @mouseover="menuHover(5)" @click="changeMenu(5, '/')" :class="{'active': active == 5}">
-                            <span>WhiteLists</span>
+                        <li @mouseover="menuHover(5)" @click="changeMenu(5)" :class="{'active': active == 5}">
+                            <span>{{$t('message.common.menu5')}}</span>
+                        </li>
+                        <!-- <li @mouseover="menuHover(6)" @click="changeMenu(6, '/')" :class="{'active': active == 6}">
+                            <span>{{$t('message.common.menu6')}}</span>
                         </li> -->
                     </ul>
                 </div>
@@ -248,8 +248,12 @@ const menuHover = (type: any) => {
 
 let menuFlag:any = ref(props.type);
 const changeMenu = (type: any, route?: any) => {
-    menuFlag.value = type;
-    store.dispatch('user/changeActive', type)
+    if( type == 5 ){
+        window.open('https://cyberpop-webgl.s3.ap-southeast-1.amazonaws.com/index.html');
+    }else{
+        menuFlag.value = type;
+        store.dispatch('user/changeActive', type)
+    }
     if(route) router.push({ path: `${route}`, query: {
         code: code.value
     }})

@@ -6,6 +6,8 @@ const us = {
             menu2: 'Mining',
             menu3: 'Blind box',
             menu4: 'Doc',
+            menu5: 'Space',
+            menu6: 'WhiteLists',
             language1: 'English',
             language2: 'Chinese',
             language3: 'Korean',
