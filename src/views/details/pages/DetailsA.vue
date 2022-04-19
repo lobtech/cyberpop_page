@@ -12,7 +12,7 @@
                 </video>
             </div>
             <div class="desc">
-                <div class="title"><span class="title-content">{{ data.info.name }}</span> <span v-if="ownerNumber > 0">({{ 'x' + ownerNumber }})</span> </div>
+                <div class="title"><span class="title-content">{{ data.info.name }}</span> <span>({{ 'x' + ownerNumber }})</span> </div>
                 <div class="price">
                     <div class="left">
                         <div class="text1">{{$t('message.details.box_price')}} ≈ $4545</div>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="btn">
                     <div class="purchase" :class="{'not-allowed': data.Remaining == 0 }" @click="purchase">{{$t('message.details.box_btn_pur')}}</div>
-                    <div class="purchase" :class="{'not-allowed': ownerNumber == 0 }" @click="open">{{$t('message.details.box_btn_open')}}</div>
+                    <div class="unpack" :class="{'not-allowed': ownerNumber == 0 }" @click="open">{{$t('message.details.box_btn_open')}}</div>
                     <div class="view" @click="opensea">{{$t('message.details.box_btn_view')}}</div>
                 </div>
             </div>
@@ -194,25 +194,79 @@
                     </ul>    
                 </li>
             </ul>
-            <ul class="introduction" v-show="exMenu == 1" v-if="data.info">
-                <li>
-                    <div class="title">{{data.info.name || $t('message.details.intro.title1')}}</div>
-                    <div class="desc">
-                        {{ data.info.description || $t('message.details.intro.desc1') }}
-                    </div>
-                </li>
+            <div class="introduction" v-show="exMenu == 1" v-if="data.info">
+                <div v-if="index == 1">
+                    <ul>
+                        <li>
+                            <div class="title">{{ data.info.name }}</div>
+                            <div class="desc">
+                                {{ locale == 'us' ? data.info.description : data.info.description_zh }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="index == 2">
+                    <ul>
+                        <li>
+                            <div class="title">{{ data.info.name }}</div>
+                            <div class="desc">
+                                {{ locale == 'us' ? data.info.description : data.info.description_zh }}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">{{ $t('message.details.intro.title5') }}</div>
+                            <div class="desc">
+                                {{ $t('message.details.intro.desc6') }}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">{{ $t('message.details.intro.title6') }}</div>
+                            <div class="desc">
+                                {{ $t('message.details.intro.desc7') }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="index == 3">
+                    <ul>
+                        <li>
+                            <div class="title">{{ data.info.name }}</div>
+                            <div class="desc">
+                                {{ locale == 'us' ? data.info.description : data.info.description_zh }}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">{{ $t('message.details.intro.title2')}}</div>
+                            <div class="desc">
+                                {{ $t('message.details.intro.desc3') }}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">{{ $t('message.details.intro.title3')}}</div>
+                            <div class="desc">
+                                {{ $t('message.details.intro.desc4') }}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">{{ $t('message.details.intro.title4')}}</div>
+                            <div class="desc">
+                                {{ $t('message.details.intro.desc5') }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <!-- <li>
                     <div class="title">{{$t('message.details.intro.title1')}} 2</div>
                     <div class="desc">
                         {{$t('message.details.intro.desc2')}}
                     </div>
                 </li> -->
-            </ul>
-            <div class="terms" v-show="exMenu == 2"></div>
+            </div>
+            <!-- <div class="terms" v-show="exMenu == 2"></div>
             <div class="link">
                 <a :href="copyText">{{copyText}}</a>
                 <div class="copy" @click="copyUrl(copyText)">{{$t('message.details.link')}}</div>
-            </div>
+            </div> -->
         </div>
     </div>
     <footer-a></footer-a>
@@ -223,7 +277,7 @@ import Web3 from '@/tools/web3'
 import store from '@/store'
 import {  useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const router = useRouter()
 const Route = useRoute() //获取到值
 const { proxy } = getCurrentInstance() as any
@@ -285,7 +339,6 @@ const chainId: any = computed(() => store.state.user?.chainId);
 watch(chainId, (newVal, oldVal) => {
     if(!oldVal) return;
 }, {immediate:true,deep:true});
-
 
 const readyAssetsF: any = computed(() => {
     console.log(store?.state.user?.readyAssets, 'store?.state.user?.readyAssets');
@@ -585,6 +638,13 @@ onMounted(() => {
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 line-height: 3.125vw;
                 text-align: center;
+                .purchase{
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/details2.png');
+                }
+                .unpack{
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/details1.png');
+                    margin-right: 1.66vw;
+                }
                 .purchase:hover{
                     opacity: .7;
                     transition: all 0.2s ease-in;
@@ -599,12 +659,12 @@ onMounted(() => {
                 .not-allowed:hover{
                     opacity: .4;
                 }
+                
                 div:not(:last-child){
                     width: 9.94vw;
                     height: 3.125vw;
-                    margin-right: 1.66vw;
-                    background: linear-gradient(300deg, #EDFF00 0%, #CB33DF 58%);
-                    clip-path: polygon(0 0, 86% 0, 100% 26%,100% 65%, 100% 100%, 0 100%, 8% 100%, 0% 82%);
+                    background-size: 100% 100%;
+                    background-repeat: no-repeat;
                     cursor: pointer;
                 }
                 div:last-child{

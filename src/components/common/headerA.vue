@@ -606,7 +606,6 @@ onMounted(() => {
                                 }
                             }
                         }
-    
                     }
                     .login_in{
                         position: relative;
@@ -615,7 +614,7 @@ onMounted(() => {
                         align-items: center;
                         width: 10.3vw;
                         height: 2.3vw;
-                        margin-top: 1.1vw;
+                        margin-top: 1.55vw;
                         background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/header-loginBg.svg');
                         background-size: 102% 100%;
                         background-position: -.1vw top;

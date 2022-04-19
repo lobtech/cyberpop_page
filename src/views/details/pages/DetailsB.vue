@@ -1,16 +1,14 @@
 <template>
     <header-b path="/details" :type="2"></header-b>
-    <div class="section">
-        <div class="title">{{$t('message.mining.coming')}}</div>
-    </div>
     <div class="details">
-        <div class="box">
+        <div class="box" v-if="data.info">
             <div class="video">
-                <video autoplay loop ref="thirdVideo">
-                    <source :src="videoUrlType" type="video/mp4">
+                <img :src="data.info.image" v-if="!data.info.animation_url" alt="">
+                <video autoplay loop muted v-else>
+                    <source :src="data.info.animation_url" type="video/mp4">
                 </video>
             </div>
-            <div class="title">{{$t('message.details.box_title')}}</div>
+            <div class="title">{{ data.info.name }} <span> ({{ 'x' + ownerNumber }})</span></div>
             <div class="left">
                 <div class="text1">{{$t('message.details.box_price')}} ≈ $4545</div>
                 <div class="text2">
@@ -21,7 +19,7 @@
             <div class="right">
                 <div class="text1">
                     <div>{{$t('message.details.box_remain')}}</div> 
-                    <div>238</div>
+                    <div><span v-if="data.Remaining > 0">{{ data.Remaining + '/2000'}}</span><span v-else>0/2000</span></div>
                 </div>
                 <div class="line"></div>
                 <div class="text2">
@@ -30,53 +28,173 @@
                 </div>
             </div>
             <div class="btn">
-                <div class="purchase">{{$t('message.details.box_btn_pur')}}</div>
-                <div class="view">{{$t('message.details.box_btn_view')}}</div>
+                <div class="purchase" :class="{'not-allowed': data.Remaining == 0 }" @click="purchase">{{$t('message.details.box_btn_pur')}}</div>
+                <div class="unpack" :class="{'not-allowed': ownerNumber == 0 }" @click="open">{{$t('message.details.box_btn_open')}}</div>
+                <div class="view" @click="opensea">{{$t('message.details.box_btn_view')}}</div>
             </div>
         </div>
         <div class="changeMenu">
             <div class="content" :class="exMenu == 0 ? 'active':''" @click="intClick(0)">{{$t('message.details.exMenu1')}}</div>
             <div class="intro" :class="exMenu == 1 ? 'active':''" @click="intClick(1)">{{$t('message.details.exMenu2')}}</div>
-            <div class="terms" :class="exMenu == 2 ? 'active':''" @click="intClick(2)">{{$t('message.details.exMenu3')}}</div>
+            <!-- <div class="terms" :class="exMenu == 2 ? 'active':''" @click="intClick(2)">{{$t('message.details.exMenu3')}}</div> -->
         </div>
         <div class="list">
             <ul class="content" v-show="exMenu == 0">
-                <li>
-                    <div class="image">
-                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img1.png" alt="">
-                    </div>
-                    <div class="title">{{$t('message.details.list.prince_b')}}</div>
-                    <div class="prob">
-                        <div class="name1">{{$t('message.details.list.name1')}}</div>
-                        <div class="num">50<span>%</span></div>
-                    </div>
-                    <div class="name2">{{$t('message.details.list.name2')}}</div>
-                    <div class="item">
-                        <div>{{$t('message.details.list.name2_item1')}}<div>5~<span class="yell">12</span></div></div>
-                        <div>{{$t('message.details.list.name2_item2')}}<div>5~<span class="yell">12</span></div></div>
-                        <div>{{$t('message.details.list.name2_item3')}}<div>5~<span>12</span></div></div>
-                        <div>{{$t('message.details.list.name2_item4')}}<div>5~<span>12</span></div></div>
-                        <div>{{$t('message.details.list.name2_item5')}}<div>5~<span>12</span></div></div>
-                    </div>
+                <li v-if="index == 1">
+                    <ul>
+                        <li class="desc_wrap">
+                            <div>
+                                <div class="pic">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/head_rander.png" alt="">
+                                </div>
+                                <div class="data">
+                                    <div class="prob">
+                                        <div class="prince">{{$t('message.details.list.prince2')}}</div>
+                                        <div class="num">100%</div>
+                                    </div>
+                                    <div class="attr">
+                                        <div class="name">{{$t('message.details.list.name1')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li v-if="index == 2">
+                    <ul>
+                        <li class="attr_warp">
+                            <div class="image">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img1.png" alt="">
+                            </div>
+                            <div class="title">{{$t('message.details.list.prince_b')}}</div>
+                            <div class="prob">
+                                <div class="name1">{{$t('message.details.list.name1')}}</div>
+                                <div class="num">50<span>%</span></div>
+                            </div>
+                            <div class="name2">{{$t('message.details.list.name2')}}</div>
+                            <div class="item">
+                                <div>{{$t('message.details.list.name2_item1')}}<div>5~<span class="yell">12</span></div></div>
+                                <div>{{$t('message.details.list.name2_item2')}}<div>5~<span class="yell">12</span></div></div>
+                                <div>{{$t('message.details.list.name2_item3')}}<div>5~<span>12</span></div></div>
+                                <div>{{$t('message.details.list.name2_item4')}}<div>5~<span>12</span></div></div>
+                                <div>{{$t('message.details.list.name2_item5')}}<div>5~<span>12</span></div></div>
+                            </div>
+                        </li>
+                        <li class="desc_wrap">
+                            <div class="wrap">
+                                <div class="pic">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/HP.png" alt="">
+                                </div>
+                                <div class="data">
+                                    <div class="prob">
+                                        <div class="prince">{{$t('message.details.list.prince3')}}</div>
+                                        <div class="num">50%</div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="attr">
+                                        <div class="attr">
+                                            <div class="name">{{$t('message.details.list.name1')}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li> 
+                        <li class="desc_wrap">
+                            <div class="wrap">
+                                <div class="pic">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/sandtime.png" alt="">
+                                </div>
+                                <div class="data">
+                                    <div class="prob">
+                                        <div class="prince">{{$t('message.details.list.prince4')}}</div>
+                                        <div class="num">50%</div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="attr">
+                                        <div class="name">{{$t('message.details.list.name1')}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </li>
+                    </ul>
                 </li> 
-                <li>
-                    <div class="image">
-                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img1.png" alt="">
-                    </div>
-                    <div class="title">{{$t('message.details.list.prince_b')}}</div>
-                    <div class="prob">
-                        <div class="name1">{{$t('message.details.list.name1')}}</div>
-                        <div class="num">50<span>%</span></div>
-                    </div>
-                    <div class="name2">{{$t('message.details.list.name2')}}</div>
-                    <div class="item">
-                        <div>{{$t('message.details.list.name2_item1')}}<div>5~<span class="yell">12</span></div></div>
-                        <div>{{$t('message.details.list.name2_item2')}}<div>5~<span class="yell">12</span></div></div>
-                        <div>{{$t('message.details.list.name2_item3')}}<div>5~<span>12</span></div></div>
-                        <div>{{$t('message.details.list.name2_item4')}}<div>5~<span>12</span></div></div>
-                        <div>{{$t('message.details.list.name2_item5')}}<div>5~<span>12</span></div></div>
-                    </div>
-                </li> 
+                <li v-if="index == 3">
+                    <ul>
+                        <li class="attr_warp">
+                            <div class="wrap">
+                                <div class="pic">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/person2.png" alt="">
+                                </div>
+                                <div class="data">
+                                    <div class="prob">
+                                        <div class="name">{{$t('message.details.list.name1')}}</div>
+                                        <div class="num">50%</div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="attr">
+                                        <div class="name">{{$t('message.details.list.name2')}}</div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item1')}}</div>
+                                            <div>-5~<span class="yell">8</span></div>
+                                            <div>{{$t('message.details.list.name2_item3')}}</div>
+                                            <div>-3~<span class="yell">6</span></div>
+                                        </div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item5')}}</div>
+                                            <div>-3~<span>8</span></div>
+                                            <div>{{$t('message.details.list.name2_item4')}}</div>
+                                            <div>-3~<span>6</span></div>
+                                        </div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item2')}}</div>
+                                            <div>-4~<span>8</span></div>
+                                            <div>{{$t('message.details.list.name2_item6')}}</div>
+                                            <div>-3~<span>6</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="prince">{{$t('message.details.list.prince')}}</div>
+                        </li> 
+                        <li class="attr_warp">
+                            <div class="wrap">
+                                <div class="pic">
+                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/person1.png" alt="">
+                                </div>
+                                <div class="data">
+                                    <div class="prob">
+                                        <div class="name">{{$t('message.details.list.name1')}}</div>
+                                        <div class="num">50%</div>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="attr">
+                                        <div class="name">{{$t('message.details.list.name2')}}</div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item1')}}</div>
+                                            <div>-5~<span class="yell">8</span></div>
+                                            <div>{{$t('message.details.list.name2_item3')}}</div>
+                                            <div>-3~<span class="yell">6</span></div>
+                                        </div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item5')}}</div>
+                                            <div>-3~<span>8</span></div>
+                                            <div>{{$t('message.details.list.name2_item4')}}</div>
+                                            <div>-3~<span>6</span></div>
+                                        </div>
+                                        <div class="item">
+                                            <div>{{$t('message.details.list.name2_item2')}}</div>
+                                            <div>-4~<span>8</span></div>
+                                            <div>{{$t('message.details.list.name2_item6')}}</div>
+                                            <div>-3~<span>6</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="prince">{{$t('message.details.list.prince0')}}</div>
+                        </li> 
+                    </ul>
+                </li>
             </ul>
             <ul class="introduction" v-show="exMenu == 1">
                 <li>
@@ -92,14 +210,14 @@
                     </div>
                 </li>
             </ul>
-            <div class="terms" v-show="exMenu == 2"></div>
+            <!-- <div class="terms" v-show="exMenu == 2"></div>
             <div class="link">
                 <div class="title">{{$t('message.details.share_link')}}</div>
                 <div class="wrap">
                     <a :href="copyText">{{copyText}}</a>
                     <div class="copy" @click="copyUrl(copyText)">{{$t('message.details.link_b')}}</div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <footer-b></footer-b>
@@ -108,13 +226,15 @@
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
 
 import store from '@/store'
-import {  useRouter } from 'vue-router'
+import {  useRouter, useRoute } from 'vue-router'
 import Web3 from '@/tools/web3' 
 import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const router = useRouter()
+const Route = useRoute() //获取到值
 const { proxy } = getCurrentInstance() as any;
-
+const { GiftBox, LootBox, MarketV2, cyt, Cyborg, Cyborg_Fuji, cyberClub, cyberClub_Fuji } = Web3.contracts;
+const index: any = Route.query.type || 1; //当前盒子类型
 
 // changeMenu
 let exMenu:any = ref(0) 
@@ -145,6 +265,43 @@ const videoUrl = () => {
 }
 
 
+// data
+const data = ref({} as any);
+
+const ownerNumber = ref(0);
+
+const getBalance = async (chainid: number) => {
+    if(chainid == 80001){
+        var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
+    }else if(chainid == 43113){
+        var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+    }else{
+        var result: any = [0, 0, 0]
+    }
+    console.log(result, 'result');
+    getData(result)
+}
+
+
+
+const chainId: any = computed(() => store.state.user?.chainId);
+watch(chainId, (newVal, oldVal) => {
+    if(!oldVal) return;
+}, {immediate:true,deep:true});
+
+const readyAssetsF: any = computed(() => {
+    console.log(store?.state.user?.readyAssets, 'store?.state.user?.readyAssets');
+    if( store?.state.user?.readyAssets !== -1 && chainId.value == 80001 || chainId.value == 43113){
+        getBalance(chainId.value)
+    }else{
+        data.value = {}
+    }
+    return store.state.user?.readyAssets
+});
+watch(readyAssetsF, (newVal, oldVal) => {
+    if(!oldVal) return;
+}, {immediate:true,deep:true});
+
 
 const copyText:any = 'https://game.cyberpop.online/'
 const copyUrl = (e:any) => {
@@ -163,6 +320,104 @@ const copyUrl = (e:any) => {
     document.body.removeChild(input);
 }
 
+const getData = async (result: any) => {
+    ownerNumber.value = result[index-1];
+    proxy.$api.get(`https://api.cyberpop.online/box/${index-1}`).then((boxData: any) => {
+        data.value.info = boxData;
+    })
+    if(chainId.value != 80001) {
+        data.value.Remaining = 0;
+        return;
+    };
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
+    console.log(LootBox_result, 'LootBox_result');
+    console.log(LootBox_result[index-1]);
+    data.value.Remaining = LootBox_result[index-1];
+}
+
+
+const getLast = async () => {
+    if(chainId.value == 80001){
+        if(index == 1){
+            let cyberClub_result: any = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
+            console.log(cyberClub_result);
+            await getNFTData(cyberClub_result[cyberClub_result - 1], 'head_mumbai');
+        }else if(index == 2){
+            
+        }else if(index == 3){
+            let result: any = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
+            console.log(result, 'result');
+            await getNFTData(result[result.length-1], 'role');
+        }
+
+    }else if(chainId.value == 43113){
+        if(index == 1){
+            let cyberClub_result: any = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
+            console.log(cyberClub_result);
+            await getNFTData(cyberClub_result[cyberClub_result.length - 1], 'head_fuji');
+        }else if(index == 2){
+
+        }else if(index == 3){
+            let result: any = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
+            console.log(result, 'result');
+            await getNFTData(result[result.length-1], 'role');
+        }
+    }
+}
+
+// 正常的nft 数组[0,1]表示id为0的nft没有资产， id为1的ntf资产为1
+const getNFTData: any = async (res: any) => {
+    proxy.$api.get(`https://api.cyberpop.online/${'role'}`).then((result:any) => {
+         console.log(result);
+         
+    }).catch((err:any) => {
+        console.log(err); 
+    })
+}
+
+// 开盒子
+const open = async (boxId?: any) => {
+    // getLast(); // 查询资产合约中最后一位为立马开启的资产
+    if(ownerNumber.value == 0) return;
+    const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
+    let result = await Web3.unpack(abi, address, index-1, 1)
+    console.log(result, 'result');
+    store.dispatch('user/TipsState', {show: false, info: { }});
+    if(result) {
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
+        setTimeout(() => {
+            router.push({ name: 'knapsack'})
+        }, 1000);
+    }else{
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
+    }
+}
+
+// 购买盒子
+const purchase = async () => {
+    // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
+    if(data.value.Remaining == 0) return;
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
+    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); //用自己的cyt去给授权市场合约授权的个数
+    console.log(allowance_res, 'allowance_res');
+    if(allowance_res < 30){
+        let approve_res = await Web3.approve(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7', 31);
+        console.log(approve_res, 'approve_res');
+        if(!approve_res) { // 授权失败
+            store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });
+            return;
+        }
+    }
+    // 正常流程
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 3} });
+    let reuslt = await Web3.buyLootBox(MarketV2.abi, MarketV2.address, 2, 30);
+    if(reuslt){
+        store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
+    }else{
+        store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
+    }
+}
 
 
 onMounted( () => {
@@ -229,7 +484,6 @@ onMounted( () => {
                 }
             }
             .title{
-                height: 50px;
                 font-size: 36px;
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 line-height: 42px;
@@ -301,7 +555,10 @@ onMounted( () => {
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 line-height: 48px;
                 text-align: center;
-                div:nth-child(1){
+                .not-allowed{
+                    opacity: .4;
+                }
+                div:not(:last-child){
                     width: 100%;
                     height: 48px;
                     margin-bottom: 20px;
@@ -309,7 +566,7 @@ onMounted( () => {
                     clip-path: polygon(0 0, 86% 0, 100% 26%,100% 65%, 100% 100%, 0 100%, 8% 100%, 0% 82%);
                     cursor: pointer;
                 }
-                div:nth-child(2){
+                div:last-child{
                     width: 100%;
                     height: 48px;
                     color: #DE2DCF;
@@ -322,13 +579,17 @@ onMounted( () => {
         }
         .changeMenu{
             display: flex;
-            justify-content: space-between;
+            // justify-content: space-between;
+            justify-content: center;
             height: 30px;
             margin: 40px 0 24px;
             font-size: 16px;
             font-family: AlibabaPuHuiTi_2_115_Black;
             line-height: 16px;
             text-align: center;
+            .content{
+                margin-right: 5vw;
+            }
             div{
                 cursor: pointer;
             }
@@ -352,7 +613,7 @@ onMounted( () => {
         }
         .list{
             .content{
-                li{
+                .attr_warp{
                     width: 100%;
                     // height: 450px;
                     padding: 16px 16px 20px;
@@ -431,6 +692,38 @@ onMounted( () => {
                         }
                     }
                 }
+                .desc_wrap{
+                    width: 100%;
+                    // height: 450px;
+                    padding: 16px 16px 20px;
+                    background: linear-gradient(110deg, rgba(8, 6, 19, 0.22) 0%, rgba(132, 120, 255, 0.38) 100%),
+                                linear-gradient(100deg, rgba(4, 255, 162, 0.1) 0%, rgba(27, 54, 44, 0) 100%);
+                    border: 2px solid;
+                    border-image: linear-gradient(270deg, rgba(176, 65, 216, 1), rgba(139, 255, 178, 0.5)) 2 2;
+                    .data{
+                        .prob{
+                            margin: 20px 0;
+                            text-align: center;
+                            .prince{
+                                font-size: 20px;
+                                font-family: AlibabaPuHuiTi_2_115_Black;
+                                font-weight: normal;
+                                color: #FFFFFF;
+                                line-height: 23px;
+                            }
+                            .num{
+                                font-size: 32px;
+                                font-family: Oswald-Regular, Oswald;
+                                font-weight: 400;
+                                color: #04FFA2;
+                                line-height: 38px;
+                            }
+                        }
+                        .attr{
+                            text-align: center;
+                        }
+                    }
+                }
                 li + li{
                     margin-top: 24px;
                 }
@@ -463,9 +756,6 @@ onMounted( () => {
                 li + li{
                     margin-top: 36px;
                 }
-            }
-            .terms{
-                
             }
         }
         .link{

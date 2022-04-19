@@ -26,7 +26,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
         <!-- 元素里面必须要有这个，要不然监听readyAssetsF不生效 -->
         {{ readyAssetsF }} 
         <div class="blind" v-if="data.length > 0">
-            <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }} </span> (Testnet)</div>
+            <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }} </span> ({{ $t('message.box.testnet') }})</div>
             <ul>
                 <li>
                     <div class="boxVideo">
@@ -39,7 +39,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="name"><span class="name-content">{{ data[0].info.name }}</span></div>
                         <div class="left_over">Left: <span class="number">{{ Remaining[0] + '/2000'}}</span></div>
                         <div class="introduce">
-                            {{ data[0].info.description }}
+                            {{ locale ==  'us' ? data[0].info.description : data[0].info.description_zh }}
                         </div>
                         <div class="price">
                             <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -65,7 +65,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="name"><span class="name-content">{{ data[1].info.name }}</span></div>
                         <div class="left_over">Left: <span class="number">{{ Remaining[1] + '/2000'}}</span></div>
                         <div class="introduce">
-                            {{ data[1].info.description }}
+                            {{ locale == 'us' ? data[1].info.description : data[1].info.description_zh}}
                         </div>
                         <div class="price">
                             <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -91,7 +91,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="name"><span class="name-content">{{ data[2].info.name }}</span></div>
                         <div class="left_over">Left: <span class="number">{{ Remaining[2] + '/2000'}}</span></div>
                         <div class="introduce">
-                            {{ data[2].info.description }}
+                            {{ locale == 'us' ? data[2].info.description : data[2].info.description_zh }}
                         </div>
                         <div class="price">
                             <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -123,7 +123,7 @@ import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 import router from '@/router';
 import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 const { GiftBox, LootBox, Cyborg, MarketV2, cyt } = Web3.contracts;
 
@@ -182,6 +182,7 @@ const getData = async (boxData: any[]) => {
         })
     })(0)
     if(chainId.value != 80001) {
+        Remaining.value = [0, 0, 0]
         return; // 目前只有mumbai能用购买盒子
     }
     let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产

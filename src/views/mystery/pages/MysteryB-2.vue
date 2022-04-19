@@ -24,7 +24,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
         <!-- 元素里面必须要有这个，要不然监听readyAssetsF不生效 -->
         <span style="color: #000">{{ readyAssetsF }} </span>
         <div class="blind" v-if="data.length > 0">
-            <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }}</span> </div>
+            <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }}</span>({{ $t('message.box.testnet') }}) </div>
             <ul>
                 <li v-if="data[0].number">
                     <div class="boxVideo" >
@@ -35,7 +35,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                     </div>
                     <div class="name">{{ data[0].info.name }} </div>
                     <div class="introduce">
-                        {{ data[0].info.description }}
+                        {{ locale == 'us' ? data[0].info.description : data[0].info.description_zh}}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -43,7 +43,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$20</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase" v-if="Remaining[0] > 0" @click="purchase(0)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="purchase" :class="{'not-allowed': Remaining[0]}" @click="purchase(0)">{{$t('message.details.box_btn_pur')}}</div>
                         <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
@@ -56,7 +56,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                     </div>
                    <div class="name">{{ data[1].info.name }}</div>
                     <div class="introduce">
-                        {{ data[1].info.description }}
+                        {{ locale == 'us' ? data[1].info.description : data[1].info.description_zh}}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -64,8 +64,8 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$40</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase" v-if="Remaining[1] > 0" @click="purchase(1)">{{$t('message.details.box_btn_pur')}}</div>
-                        <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
+                        <div class="purchase" :class="{'not-allowed': Remaining[1]}" @click="purchase(1)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
                 <li v-if="data[2].number">
@@ -77,7 +77,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                     </div>
                     <div class="name">{{ data[2].info.name }}</div>
                     <div class="introduce">
-                        {{ data[2].info.description }}
+                        {{ locale == 'us' ? data[2].info.description : data[2].info.description_zh}}
                     </div>
                     <div class="price">
                         <img src="@/assets/nwbox/nfts-icon.svg" alt="">
@@ -85,7 +85,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase" v-if="Remaining[2] > 0" @click="purchase(2)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="purchase" :class="{'not-allowed': Remaining[2]}" @click="purchase(2)">{{$t('message.details.box_btn_pur')}}</div>
                         <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
@@ -97,9 +97,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             <img src="@/assets/nwAssets/nothing.svg" alt="">
         </div>
         <footer-b></footer-b>
-    </div>
-    <msg-popup-a :isShowTips="TipsState" :isLoading="true" :isClose="false" :title="$t('message.box.opening')" :content="$t('message.box.open_text')"/>
-    
+    </div>    
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
@@ -108,7 +106,7 @@ import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const router = useRouter()
 
 
@@ -136,8 +134,10 @@ const readyAssetsF: any = computed(() => {
 const getBalance = async (chainid: number) => {
     if(chainid == 80001){
         var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
-    }else{
+    }else if(chainId == 43113){
         var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+    }else{
+        var result: any = [0, 0, 0]
     }
     console.log(result, 'result');
     getData(result)
@@ -171,12 +171,13 @@ const getData = async (boxData: any[]) => {
     Remaining.value = LootBox_result;
 }
 const toDetails = (type:any) => {
-    router.push({ name: 'details',params:{ type }})
+    router.push({ name: 'details', query:{ type }})
 }
 
-const purchase = async (boxId: Number) => {
+const purchase = async (boxId: number) => {
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
     // console.log(result);
+    if(Remaining.value[boxId] == 0) return;
     store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
     let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); //用自己的cyt去给授权市场合约授权的个数
     console.log(allowance_res, 'allowance_res');
@@ -432,6 +433,10 @@ onMounted(() => {
                             background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/cancle.png');
                             background-size: 100% 100%;
                             cursor: pointer;
+                        }
+                        .not-allowed{
+                            cursor:not-allowed;
+                            opacity: .4;
                         }
                     }
                 }

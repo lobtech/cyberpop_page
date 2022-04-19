@@ -17,7 +17,9 @@ import { onMounted, computed, ref, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
 import store from '@/store'
 import { useI18n } from 'vue-i18n';
-
+import router from './router';
+import {  useRouter } from 'vue-router'
+const route = useRouter()
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 const $store: any = useStore()
@@ -35,6 +37,14 @@ const showDialog = computed(() => store.state.user?.showDialog);
 const purchaseState = computed(() => store.state.user?.purchaseState );
 const purchaseInfo = computed(() => store.state.user?.purchaseInfo);
 
+const isChinese = (val: any) => {
+    var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
+　　if(reg.test(val) && val !== '国内未能识别的地区'){     
+        return 0;
+　　}else{
+        return 1;
+    }
+}
 
 onMounted(() => {
     const ethereum = (window as any).ethereum 
@@ -62,14 +72,13 @@ onMounted(() => {
         store.dispatch('user/TipsState', {show: false, info: { }});
     });
 
-    // 网上公开免费验证国家地区的接口
-    try{
-        // console.log(process.env, 'process.env.VUE_APP_FLAG');
-        proxy.$api.get('http://ip-api.com/json/').then((result:any) => {
-            if(result.country == "China")  console.log(result, 'result');
-        })
-    }catch(error){
-
+    // 验证是否是中国IP
+    var returnCitySN = (window as any).returnCitySN;
+    console.log(process.env.NODE_ENV, 'process.env');
+    if(!isChinese(returnCitySN.cname) && process.env.NODE_ENV != 'development') {
+        route.push({ path: '/IPshielding' })
+    }else{
+        // route.push({ path: '/' })
     }
 })
 </script>

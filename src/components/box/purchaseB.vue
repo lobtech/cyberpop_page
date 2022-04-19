@@ -100,9 +100,7 @@ onMounted(() => {
             right: 0;
             bottom: 0;
             width: 84.51vw;
-            min-width: 380px;
-            height: 40vw;
-            min-height: 180px;
+            height: 60vw;
             margin: auto;
             padding: 2.5vw;
             box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
@@ -136,7 +134,7 @@ onMounted(() => {
                 right: 1vw;
                 top: 1vw;
                 z-index: 11;
-                width: 2.8vw;
+                width: 8.8vw;
             }
             .content{
                 position: absolute;
@@ -144,7 +142,7 @@ onMounted(() => {
                 right: 0;
                 padding: 0 2.5vw;
                 .title{
-                    font-size: 1.95vw;
+                    font-size: 4.95vw;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     font-weight: normal;
                     line-height: 2.08vw;
@@ -166,13 +164,13 @@ onMounted(() => {
                     }
                 }
                 .item{
-                    margin: 1.5vw 0;
+                    margin: 4.5vw 0;
                     p{
                         margin: 0.5vw 0;
                         font-family: AlibabaPuHuiTi_2_115_Black;
                     }
                     .content1, .content2{
-                        padding: 0.4vw;
+                        padding: 2.4vw;
                         border: 1px solid #fff;
                         font-family: AlibabaPuHuiTi_2_55_Regular;
                         display: flex;
@@ -218,8 +216,8 @@ onMounted(() => {
                 }
                 .loading{
                     img{
-                        width: 2vw;
-                        height: 2vw;
+                        width: 5vw;
+                        height: 5vw;
                         animation: loadingAni 1s linear infinite;
                     }
                 }
@@ -228,16 +226,14 @@ onMounted(() => {
                 position: absolute;
                 bottom: 5vw;
                 right: 3vw;
+                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-cancle.svg');
+                background-size: 100% 100%;
                 .cancel{    
-                    width: 8.54vw;
-                    height: 2.91vw;
-                    font-size: 1.04vw;
+                    font-size: 2.04vw;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     color: #FFFFFF;
-                    line-height: 2.91vw;
+                    line-height: 3.91vw;
                     text-align: center;
-                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-cancle.svg');
-                    background-size: 100% 100%;
                     cursor: pointer;
                 }
             }

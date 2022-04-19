@@ -72,7 +72,7 @@ const us = {
             wel_swiper_title3: 'Moonlight Century',
             wel_swiper_title4: 'Future City',
             // homeA-nobody
-            nobody_role_tipBef_1: 'Scarlet Witch',
+            nobody_role_tipBef_1: 'Cyra',
             nobody_role_tipBef_2: 'Kakulupia',
             nobody_role_tipBef_3: 'Maneli',
             nobody_r_titleBef: 'YOU CAN BE NOBODY',
@@ -262,6 +262,7 @@ const us = {
             open: 'OPEN',
             opening: 'opening...',
             open_text: 'Please wait...Opening the blind box for you',
+            testnet: 'Testnet',
         },
 
         // detailsA
@@ -302,8 +303,18 @@ const us = {
             },
             intro: {
                 title1: 'Title',
+                title2: 'Cyber Shell',
+                title3: 'Shell 1: Maneli',
+                title4: 'Shell 2: Kakulupia',
+                title5: 'The sands of time',
+                title6: 'HP bottle',
                 desc1: 'For athletes, high altitude produces two contradictory effects on performance. For explosive events (sprints up to 400 metres, long jump, triple jump) the reduction in atmospheric pressure means there is less resistance from the atmosphere and the athlete\'s performance will generally be better at high altitude.',
                 desc2: 'Physiological respiration involves the mechanisms that ensure that the composition of the functional residual capacity is kept constant, and equilibrates with the gases dissolved in the pulmonary capillary blood, and thus throughout the body. Thus, in precise usage, the words breathing and ventilation are hyponyms, not synonyms, of respiration; but this prescription is not consistently followed, even by most health care providers, because the term respiratory rate (RR) is a well-established term in health care, even though it would need to be consistently replaced with ventilation rate if the precise usage were to be followed.',
+                desc3: 'Incarnation in the lower dimensions.Outsiders cannot enter the lower dimensions directly for their body can only exist in the real world, and they therefore need a cyber shell to contain their consciousness. Just like Cyborgs, Outsiders can change the whole shell apart from organs and prostheses according to their needs so as to adapt to the various dimensions.',
+                desc4: 'Maneli was a tribeswoman born after the God of Darkness awakened, and grew up in the desert wasteland with corpses all over. In her childhood, most people in her tribe were murdered under monsters’ attacks. She arduously survived and encountered a group of highwaymen roving in the desert, who took her in and raised her. After growing up, Maneli became the leader of Zahhaks, a highwayman gang, and continued to lead a robbing life in the desert. Maneli’s parents used to tell her many legends when she was a child, making her keenly yearn for the Age of Great Mirror which existed before the God of Darkness awakened. Thus, she endeavored to gather any rite or magic related to time travel. During leading Zahhaks to search for an artifact, she met Kakulupia, a man who truly had the ability to travel through spacetime.',
+                desc5: 'Kakulupia is a foreigner of this age, a prince from a distant era. He was supposed to be a hero who had already been dead and nearly been forgotten. After Ahriman, the God of Dark awakened, he responded to the call of scholars in the Sand Sea to come to this age with the power of his dagger. However, the power was exhausted due to the transition caused by this time travel. Kakulupia witnessed the deplorable situation of the Sand Sea during searching for materials with mysterious energy to restore the power of his dagger, so he was determined to travel back to the time before Ahriman awakened so as to stop this tragedy.',
+                desc6: 'An hourglass from the Golden Age, in which there is not much left of the mysterious grit stored. According to legend, it is a tool built by the ancients to use the power of traveling through time and space. But now that knowledge has been forgotten,the method of using the hourglass has disappeared in the dust of history.',
+                desc7: 'The liquid stored in the container will  repair your damaged flesh to continue putting into action and combat.',
             }
         },
 
