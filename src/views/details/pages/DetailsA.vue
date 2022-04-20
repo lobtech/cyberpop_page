@@ -12,7 +12,7 @@
                 </video>
             </div>
             <div class="desc">
-                <div class="title"><span class="title-content">{{ data.info.name }}</span> <span>({{ 'x' + ownerNumber }})</span> </div>
+                <div class="title"><span class="title-content">{{ data.info.name }}</span></div>
                 <div class="price">
                     <div class="left">
                         <div class="text1">{{$t('message.details.box_price')}} ≈ $4545</div>
@@ -24,6 +24,8 @@
                     <div class="line"></div>
                     <div class="right">
                         <div class="text1">{{$t('message.details.box_remain')}} <span v-if="data.Remaining">{{ data.Remaining + '/2000'}}</span><span v-else>0/2000</span></div>
+                        <div class="text1">{{$t('message.details.box_have')}} <span>{{ ownerNumber }}</span></div>
+                       
                         <!-- <div class="text2">{{$t('message.details.box_sale')}} <div>21<span>H</span>:33<span>M</span>:48<span>S</span></div></div> -->
                     </div>
                 </div>
@@ -284,7 +286,6 @@ const { proxy } = getCurrentInstance() as any
 const { GiftBox, LootBox, MarketV2, cyt, Cyborg, Cyborg_Fuji, cyberClub, cyberClub_Fuji } = Web3.contracts;
 const index: any = Route.query.type || 1; //当前盒子类型
 
-
 // changeMenu
 let exMenu:any = ref(0) 
 const intClick = (type:any) => {
@@ -317,10 +318,34 @@ const copyUrl = (e:any) => {
 const data = ref({} as any);
 
 const opensea = () => {
-    window.open('https://opensea.io/');
+    if(chainId.value == 43113){
+        window.open(`https://testnets.nftrade.com/assets/fuji/0x55eFD6D4cF31F925E36d268C12353848c9e782fD/${index-1}`)
+    }else if(chainId.value == 80001){
+        window.open(`https://testnets.nftrade.com/assets/fuji/0xC5FE394692a469BD5789D8247F281403e064E576/${index-1}`)
+    }else{
+        window.open(`https://testnets.nftrade.com/assets/fuji/0x55eFD6D4cF31F925E36d268C12353848c9e782fD/${index-1}`)
+    }
 }
 
 const ownerNumber = ref(0);
+
+
+
+const getData = async (result: any) => {
+    ownerNumber.value = result[index-1];
+    await proxy.$api.get(`https://api.cyberpop.online/box/${index-1}`).then((boxData: any) => {
+        data.value.info = boxData;
+    })
+    if(chainId.value != 80001) {
+        data.value.Remaining = 0;
+        return;
+    };
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
+    console.log(LootBox_result, 'LootBox_result');
+    console.log(LootBox_result[index-1]);
+    data.value.Remaining = LootBox_result[index-1];
+}
+
 
 const getBalance = async (chainid: number) => {
     if(chainid == 80001){
@@ -342,33 +367,14 @@ watch(chainId, (newVal, oldVal) => {
 
 const readyAssetsF: any = computed(() => {
     console.log(store?.state.user?.readyAssets, 'store?.state.user?.readyAssets');
-    if( store?.state.user?.readyAssets !== -1 && chainId.value == 80001 || chainId.value == 43113){
-        getBalance(chainId.value)
-    }else{
-        data.value = {}
-    }
+    getBalance(chainId.value)
+    data.value = {}
     return store.state.user?.readyAssets
 });
 watch(readyAssetsF, (newVal, oldVal) => {
     if(!oldVal) return;
 }, {immediate:true,deep:true});
 
-
-
-const getData = async (result: any) => {
-    ownerNumber.value = result[index-1];
-    proxy.$api.get(`https://api.cyberpop.online/box/${index-1}`).then((boxData: any) => {
-        data.value.info = boxData;
-    })
-    if(chainId.value != 80001) {
-        data.value.Remaining = 0;
-        return;
-    };
-    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
-    console.log(LootBox_result, 'LootBox_result');
-    console.log(LootBox_result[index-1]);
-    data.value.Remaining = LootBox_result[index-1];
-}
 
 
 const open = async (boxId?: any) => {
@@ -389,6 +395,8 @@ const open = async (boxId?: any) => {
     }
 }
 
+
+// 獲取開出來的東西
 const getLast = async () => {
     if(chainId.value == 80001){
         if(index == 1){
@@ -533,7 +541,7 @@ onMounted(() => {
                     justify-content: space-between;
                 }
                 .title-content{
-                    width: 70%;
+                    width: 100%;
                     display: inline-block;
                     white-space: nowrap;
                     overflow: hidden;
@@ -844,8 +852,7 @@ onMounted(() => {
 
             }
             .introduction{
-                width: 47.91vw;
-                // height: 22.6vw;
+                width: 58vw;
                 min-height: 22.6vw;
                 margin: 2.6vw auto 0;
                 padding: 2.08vw;
@@ -863,7 +870,6 @@ onMounted(() => {
                         line-height: 1.45vw;
                     }
                     .desc{
-                        width: 43.75vw;
                         font-size: .83vw;
                         font-family: AlibabaPuHuiTi_2_55_Regular;
                         color: #FFFFFF;

@@ -44,6 +44,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                     </div>
                     <div class="btn">
                         <div class="purchase" :class="{'not-allowed': Remaining[0] == 0}" @click="purchase(0)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="open" :class="{'not-allowed': data[0].number == 0}" @click="open(0, data[0].number)">{{$t('message.box.open')}}</div>
                         <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
@@ -65,6 +66,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                     </div>
                     <div class="btn">
                         <div class="purchase" :class="{'not-allowed': Remaining[1] == 0}" @click="purchase(1)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="open" :class="{'not-allowed': data[1].number == 0}" @click="open(1, data[1].number)">{{$t('message.box.open')}}</div>
                         <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
@@ -86,6 +88,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                     </div>
                     <div class="btn">
                         <div class="purchase" :class="{'not-allowed': Remaining[2] == 0}" @click="purchase(2)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="open" :class="{'not-allowed': data[2].number == 0}" @click="open(2, data[2].number)">{{$t('message.box.open')}}</div>
                         <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
@@ -171,6 +174,25 @@ const getData = async (boxData: any[]) => {
 }
 const toDetails = (type:any) => {
     router.push({ name: 'details', query:{ type }})
+}
+
+// 開盒子
+const open = async (boxId: any, number: any) => {
+    // getLast(); // 查询资产合约中最后一位为立马开启的资产
+    if(number == 0) return;
+    const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
+    let result = await Web3.unpack(abi, address, boxId, 1)
+    console.log(result, 'result');
+    store.dispatch('user/TipsState', {show: false, info: { }});
+    if(result) {
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
+        setTimeout(() => {
+            router.push({ name: 'knapsack'})
+        }, 1000);
+    }else{
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
+    }
 }
 
 const purchase = async (boxId: number) => {

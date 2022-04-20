@@ -48,7 +48,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </div>
                         <div class="btn">
                             <div class="purchase" :class="{'not-allowed': Remaining[0] == 0}" @click="purchase(0, data[0].number)">{{$t('message.details.box_btn_pur')}}</div>
-                            <!-- <div class="open" @click="open(0, data[0])">{{$t('message.box.open')}}</div> -->
+                            <div class="open" :class="{'not-allowed': data[0].number == 0}" @click="open(0, data[0].number)">{{$t('message.box.open')}}</div>
                             <div class="details" @click="toDetails(1)"></div>
                             <span class="details-text">{{$t('message.box.btn_det')}}</span>
                         </div>
@@ -74,7 +74,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </div>
                         <div class="btn">
                             <div class="purchase" :class="{'not-allowed': Remaining[1] == 0}" @click="purchase(1, data[0].number)">{{$t('message.details.box_btn_pur')}}</div>
-                            <!-- <div class="open" @click="open(1, data[1])">{{$t('message.box.open')}}</div> -->
+                            <div class="open" :class="{'not-allowed': data[1].number == 0}" @click="open(1, data[1].number)">{{$t('message.box.open')}}</div>
                             <div class="details" @click="toDetails(2)"></div>
                             <span class="details-text">{{$t('message.box.btn_det')}}</span>
                         </div>
@@ -100,6 +100,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         </div>
                         <div class="btn">
                             <div class="purchase" :class="{'not-allowed': Remaining[2] == 0}" @click="purchase(2, data[0].number)">{{$t('message.details.box_btn_pur')}}</div>
+                            <div class="open" :class="{'not-allowed': data[2].number == 0}" @click="open(2, data[2].number)">{{$t('message.box.open')}}</div>
                             <div class="details" @click="toDetails(3)"></div>
                             <span class="details-text">{{$t('message.box.btn_det')}}</span>
                         </div>
@@ -188,7 +189,6 @@ const getData = async (boxData: any[]) => {
     let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
     Remaining.value = LootBox_result;
     console.log(Remaining.value, 'RemainingRemainingv');
-    
 }
 
 
@@ -197,6 +197,24 @@ const toDetails = (type:any) => {
     router.push({ name: 'details', query: { type }})
 }
 
+// 開盒子
+const open = async (boxId: any, number: any) => {
+    // getLast(); // 查询资产合约中最后一位为立马开启的资产
+    if(number == 0) return;
+    const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
+    let result = await Web3.unpack(abi, address, boxId, 1)
+    console.log(result, 'result');
+    store.dispatch('user/TipsState', {show: false, info: { }});
+    if(result) {
+        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
+        setTimeout(() => {
+            router.push({ name: 'knapsack'})
+        }, 1000);
+    }else{
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
+    }
+}
 
 const purchase = async (boxId: Number, number: any) => {
     if(number == 0) return;
@@ -466,7 +484,7 @@ onMounted(async () => {
                         }
                         .btn{
                             display: flex;
-                            justify-content: flex-end;
+                            justify-content: space-between;
                             width: 100%;
                             height: 2.81vw;
                             margin-top: 2.08vw;
@@ -488,14 +506,22 @@ onMounted(async () => {
                                 cursor:not-allowed;
                                 opacity: .4;
                             }
-                            .purchase:hover{
+                            .purchase:hover,
+                            .open:hover{
                                 opacity: .8;
                             }
                             .not-allowed:hover{
                                 opacity: .4;
                             }
                             .open{
+                                width: 11.09vw;
+                                height: 2.81vw;
                                 margin-right: 0; 
+                                margin-right: 1.25vw;
+                                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/purchase.png');
+                                background-size: 100% 100%;
+                                cursor: pointer;
+                                transition: all 0.2s ease;
                             }
                             .details{
                                 width: 9.89vw;
