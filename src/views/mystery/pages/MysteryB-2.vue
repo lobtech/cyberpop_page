@@ -22,11 +22,11 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             <div class="maskBlur"></div>
         </div>
         <!-- 元素里面必须要有这个，要不然监听readyAssetsF不生效 -->
-        <span style="color: #000">{{ readyAssetsF }} </span>
+        <!-- <span style="color: #000">{{ readyAssetsF }} </span> -->
         <div class="blind" v-if="data.length > 0">
             <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }}</span>({{ $t('message.box.testnet') }}) </div>
             <ul>
-                <li v-if="data[0].number">
+                <li>
                     <div class="boxVideo" >
                         <img :src="data[0].info.image" v-if="!data[1].info.animation_url" alt="">
                         <video autoplay muted loop v-else>
@@ -43,11 +43,11 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$20</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase" :class="{'not-allowed': Remaining[0]}" @click="purchase(0)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="purchase" :class="{'not-allowed': Remaining[0] == 0}" @click="purchase(0)">{{$t('message.details.box_btn_pur')}}</div>
                         <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
-                <li v-if="data[1].number">
+                <li>
                     <div class="boxVideo">
                         <img :src="data[1].info.image" v-if="!data[1].info.animation_url" alt="">
                         <video autoplay muted loop v-else>
@@ -64,11 +64,11 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$40</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase" :class="{'not-allowed': Remaining[1]}" @click="purchase(1)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="purchase" :class="{'not-allowed': Remaining[1] == 0}" @click="purchase(1)">{{$t('message.details.box_btn_pur')}}</div>
                         <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
-                <li v-if="data[2].number">
+                <li>
                     <div class="boxVideo">
                         <img :src="data[2].info.image" v-if="!data[1].info.animation_url" alt="">
                         <video autoplay muted loop v-else>
@@ -85,7 +85,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase" :class="{'not-allowed': Remaining[2]}" @click="purchase(2)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="purchase" :class="{'not-allowed': Remaining[2] == 0}" @click="purchase(2)">{{$t('message.details.box_btn_pur')}}</div>
                         <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
                     </div>
                 </li>
@@ -120,14 +120,11 @@ const TipsState: any = ref(false as any);
 
 const data: any = ref([]);
 
-const Remaining = ref([]);
+const Remaining: any = ref([]);
 
 const readyAssetsF: any = computed(() => {
-    if( store?.state.user?.readyAssets !== -1 && chainId.value == 80001 || chainId.value == 43113){
-        getBalance(chainId.value)
-    }else{
-        data.value = [];
-    }
+    getBalance(chainId.value)
+    data.value = [];
     return store.state.user?.readyAssets
 });
 
@@ -146,7 +143,6 @@ const getBalance = async (chainid: number) => {
 
 const getData = async (boxData: any[]) => {
     console.log(boxData);
-    console.log(data.value);
     let temp: any = [];
     data.value = [];
     (function loop(index){
@@ -166,7 +162,10 @@ const getData = async (boxData: any[]) => {
             }
         })
     })(0)
-    if(chainId.value != 80001) return; // 目前只有mumbai能用购买盒子
+    if(chainId.value != 80001) {
+        Remaining.value = [0, 0, 0];
+        return; // 目前只有mumbai能用购买盒子
+    }
     let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
     Remaining.value = LootBox_result;
 }

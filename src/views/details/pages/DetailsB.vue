@@ -62,24 +62,6 @@
                 </li>
                 <li v-if="index == 2">
                     <ul>
-                        <li class="attr_warp">
-                            <div class="image">
-                                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img1.png" alt="">
-                            </div>
-                            <div class="title">{{$t('message.details.list.prince_b')}}</div>
-                            <div class="prob">
-                                <div class="name1">{{$t('message.details.list.name1')}}</div>
-                                <div class="num">50<span>%</span></div>
-                            </div>
-                            <div class="name2">{{$t('message.details.list.name2')}}</div>
-                            <div class="item">
-                                <div>{{$t('message.details.list.name2_item1')}}<div>5~<span class="yell">12</span></div></div>
-                                <div>{{$t('message.details.list.name2_item2')}}<div>5~<span class="yell">12</span></div></div>
-                                <div>{{$t('message.details.list.name2_item3')}}<div>5~<span>12</span></div></div>
-                                <div>{{$t('message.details.list.name2_item4')}}<div>5~<span>12</span></div></div>
-                                <div>{{$t('message.details.list.name2_item5')}}<div>5~<span>12</span></div></div>
-                            </div>
-                        </li>
                         <li class="desc_wrap">
                             <div class="wrap">
                                 <div class="pic">
@@ -121,6 +103,24 @@
                 </li> 
                 <li v-if="index == 3">
                     <ul>
+                        <li class="attr_warp">
+                            <div class="image">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/news-img1.png" alt="">
+                            </div>
+                            <div class="title">{{$t('message.details.list.prince_b')}}</div>
+                            <div class="prob">
+                                <div class="name1">{{$t('message.details.list.name1')}}</div>
+                                <div class="num">50<span>%</span></div>
+                            </div>
+                            <div class="name2">{{$t('message.details.list.name2')}}</div>
+                            <div class="item">
+                                <div>{{$t('message.details.list.name2_item1')}}<div>5~<span class="yell">12</span></div></div>
+                                <div>{{$t('message.details.list.name2_item2')}}<div>5~<span class="yell">12</span></div></div>
+                                <div>{{$t('message.details.list.name2_item3')}}<div>5~<span>12</span></div></div>
+                                <div>{{$t('message.details.list.name2_item4')}}<div>5~<span>12</span></div></div>
+                                <div>{{$t('message.details.list.name2_item5')}}<div>5~<span>12</span></div></div>
+                            </div>
+                        </li>
                         <li class="attr_warp">
                             <div class="wrap">
                                 <div class="pic">
