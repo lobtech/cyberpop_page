@@ -844,7 +844,8 @@ onMounted(() => {
 
             }
             .introduction{
-                width: 47.91vw;
+                // width: 47.91vw;
+                width: 58vw;
                 // height: 22.6vw;
                 min-height: 22.6vw;
                 margin: 2.6vw auto 0;
@@ -863,7 +864,7 @@ onMounted(() => {
                         line-height: 1.45vw;
                     }
                     .desc{
-                        width: 43.75vw;
+                        // width: 43.75vw;
                         font-size: .83vw;
                         font-family: AlibabaPuHuiTi_2_55_Regular;
                         color: #FFFFFF;
