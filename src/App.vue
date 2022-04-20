@@ -74,11 +74,14 @@ onMounted(() => {
 
     // 验证是否是中国IP
     var returnCitySN = (window as any).returnCitySN;
-    console.log(process.env.NODE_ENV, 'process.env');
+    console.log(process.env.NODE_ENV, 'process.env');   
     if(!isChinese(returnCitySN.cname) && process.env.NODE_ENV != 'development') {
         route.push({ path: '/IPshielding' })
     }else{
-        // route.push({ path: '/' })
+        setTimeout(() => {
+            console.log(route.currentRoute.value, 'route.currentRoute.value');
+            if(route.currentRoute.value.path == '/IPshielding') route.push({ path: '/' })
+        }, 2000);
     }
 })
 </script>

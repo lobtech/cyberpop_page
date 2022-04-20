@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="data">
                                     <div class="prob">
-                                        <div class="name">{{$t('message.details.list.name1')}}</div>
+                                        <div class="prince">{{$t('message.details.list.prince')}}</div>
                                         <div class="num">50%</div>
                                     </div>
                                     <div class="line"></div>
@@ -155,7 +155,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="prince">{{$t('message.details.list.prince')}}</div>
                         </li> 
                         <li class="attr_warp">
                             <div class="wrap">
@@ -262,6 +261,10 @@ const videoUrl = () => {
             videoUrlType.value = 'https://d2cimmz3cflrbm.cloudfront.net/nwbox/blindbox4.mp4';
             break;
     }
+}
+
+const opensea = () => {
+    window.open('https://opensea.io/');
 }
 
 
