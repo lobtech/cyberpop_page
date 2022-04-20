@@ -262,11 +262,11 @@
                     </div>
                 </li> -->
             </div>
-            <!-- <div class="terms" v-show="exMenu == 2"></div>
+            <div class="terms" v-show="exMenu == 2"></div>
             <div class="link">
                 <a :href="copyText">{{copyText}}</a>
                 <div class="copy" @click="copyUrl(copyText)">{{$t('message.details.link')}}</div>
-            </div> -->
+            </div>
         </div>
     </div>
     <footer-a></footer-a>
