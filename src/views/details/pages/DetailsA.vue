@@ -295,7 +295,7 @@ const intClick = (type:any) => {
 let thirdVideo:any = ref(null)
 
 
-const copyText:any = 'https://game.cyberpop.online/'
+const copyText:any = 'https://cyberpop.online/'
 const copyUrl = (e:any) => {
     const input = document.createElement("input");
     document.body.appendChild(input);

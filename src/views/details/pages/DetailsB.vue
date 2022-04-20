@@ -306,7 +306,7 @@ watch(readyAssetsF, (newVal, oldVal) => {
 }, {immediate:true,deep:true});
 
 
-const copyText:any = 'https://game.cyberpop.online/'
+const copyText:any = 'https://cyberpop.online/'
 const copyUrl = (e:any) => {
     const input = document.createElement("input");
     document.body.appendChild(input);
