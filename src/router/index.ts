@@ -91,6 +91,16 @@ const routes = [
         },
     },
     {
+        name: 'space',
+        path: '/space',
+        component: () => import('../views/space/index.vue'),
+        meta: {
+            keepAlive: false,
+            showFooter: true,
+            transition: 'slide-right',
+        },
+    },
+    {
         name: 'IPshielding',
         path: '/IPshielding',
         component: () => import('../views/IPshielding/index.vue'),

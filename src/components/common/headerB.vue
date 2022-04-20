@@ -38,7 +38,7 @@
                             <a @click="closeMenu()" href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" target="view_window">{{$t('message.common.doc_deck')}}</a>
                         </div>
                     </li>
-                    <li @click="changeMenu(5)" :class="{'active': active == 5}">{{$t('message.common.menu5')}}</li>
+                    <li @click="changeMenu(5,'/space')" :class="{'active': active == 5}">{{$t('message.common.menu5')}}</li>
                     <!-- <li @click="changeMenu(5, '/')" :class="{'active': active == 5}">{{$t('message.common.menu6')}}</li> -->
                 </ul>
                 <div class="language">
@@ -226,12 +226,8 @@ const menuHover = (type: any) => {
 let menuFlag:any = ref(1);
 const changeMenu = (type: any, route?: any) => {
     store.dispatch('user/walletMenuAni', false)
-    if( type == 5 ){
-        window.open('https://cyberpop-webgl.s3.ap-southeast-1.amazonaws.com/index.html');
-    }else{
-        menuFlag.value = type;
-        store.dispatch('user/changeActive', type)
-    }
+    menuFlag.value = type;
+    store.dispatch('user/changeActive', type)
     if(route) router.push({ path: `${route}`, query: {
         code: code.value
     }})
