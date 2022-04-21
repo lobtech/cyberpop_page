@@ -48,6 +48,18 @@ const cn = {
             mess_load: '正在加載',
             mess_copy_err: '錯誤, 請手動複製',
             mess_xplan_err: '請切換到孟買網絡',
+            whitelists:{
+                // pc
+                total: '總籌款',
+                name: 'IDO 白名單开放',
+                limited: '限於',
+                quota: '個白名單 / 人均基本配額',
+                reach: '達到',
+                point: '點即可獲得白名單!',
+                // mobile
+                limited_m: '個白名單',
+                quota_m: '人均基本配額',
+            }
         },
 
         // homeA

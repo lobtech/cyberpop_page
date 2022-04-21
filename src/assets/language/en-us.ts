@@ -48,6 +48,19 @@ const us = {
             mess_load: 'loading',
             mess_copy_err: 'Error, please copy it manually',
             mess_xplan_err: 'Please switch to Mumbai network',
+            // whitelists
+            whitelists:{
+                // pc
+                total: 'Total Raise',
+                name: 'IDO WHITELISTS OPEN',
+                limited: 'Limited to',
+                quota: 'whitelists / Basic quota per person',
+                reach: 'Reach',
+                point: 'points to get a whitelist!',
+                // mobile
+                limited_m: 'whitelists',
+                quota_m: 'Basic quota per person',
+            }
         },
 
         // homeA

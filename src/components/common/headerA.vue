@@ -75,7 +75,7 @@
                         <div class="name">IDO WHITELISTS OPEN</div>
                         <div class="desc">
                             Limited to <span>2500</span> whitelists / Basic quota per person: <span>$300</span>
-                            Reach <span>6000</span> points to get a whitelist!
+                            Reach <span>4000</span> points to get a whitelist!
                         </div>
                     </div>
                     <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="close = false">

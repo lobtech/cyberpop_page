@@ -8,7 +8,7 @@
         <div class="desc">
             Limited to <span>2500</span> whitelists <br/> 
             Basic quota per person: <span>$300</span> <br/>
-            Reach <span>6000</span> points to get a whitelist!
+            Reach <span>4000</span> points to get a whitelist!
         </div>
         <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="close = false">
     </div> -->
