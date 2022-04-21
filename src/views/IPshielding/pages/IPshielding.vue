@@ -3,10 +3,9 @@
         <div class="err-title">Access denied</div>
         <div class="err-desc mr-b">
             You do not have access to Cyberpop. <br/>
-            Currently, our service is only available for part of the legal compliance 
+            Currently, our service is only available for part of the legal compliance
             countries and regions. Illegal access will not be protected. Please check
-            if your country or region is supported or not. Contact us for access or try 
-            loading the page again.
+            if your country or region is supported or not. Contact us for access or try loading the page again.
         </div>
         <div class="err-title">### Additional information</div>
         <div class="err-desc">
@@ -40,16 +39,16 @@ onMounted(() => {
         padding: 10vw 28vw;
         background: #ffffff;
         .err-title{
-            width: 29vw;
-            font-size: 1.25vw;
+            width: 65.45vw;
+            font-size: 3.25vw;
             font-family: AlibabaPuHuiTi_2_85_Bold;
             color: #111111;
-            line-height: 1.71vw;
+            line-height: 3.49vw;
         }
         .err-desc{
-            width: 29vw;
+            width: 33.45vw;
             // height: 120px;
-            font-size: .83vw;
+            font-size: 0.93vw;
             font-family: AlibabaPuHuiTi_2_65_Medium;
             color: #3A3A3A;
             line-height: 1.25vw;

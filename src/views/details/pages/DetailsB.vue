@@ -8,13 +8,14 @@
                     <source :src="data.info.animation_url" type="video/mp4">
                 </video>
             </div>
-            <div class="title">{{ data.info.name }} <span> ({{ 'x' + ownerNumber }})</span></div>
+            <div class="title">{{ data.info.name }}</div>
             <div class="left">
                 <div class="text1">{{$t('message.details.box_price')}} ≈ $4545</div>
                 <div class="text2">
-                    <img src="" alt="">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/eth_icon.png" alt="">
                     <div>0.36 <span>{{$t('message.details.box_eth')}}</span></div>
                 </div>
+                <div class="text2"><div>{{$t('message.details.box_have')}} : <b style="color: #A81BFF;"> &nbsp;{{ ownerNumber }}</b></div></div>
             </div>
             <div class="right">
                 <div class="text1">
@@ -122,92 +123,107 @@
                             </div>
                         </li>
                         <li class="attr_warp">
-                            <div class="wrap">
-                                <div class="pic">
-                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/person2.png" alt="">
-                                </div>
-                                <div class="data">
-                                    <div class="prob">
-                                        <div class="prince">{{$t('message.details.list.prince')}}</div>
-                                        <div class="num">50%</div>
-                                    </div>
-                                    <div class="line"></div>
-                                    <div class="attr">
-                                        <div class="name">{{$t('message.details.list.name2')}}</div>
-                                        <div class="item">
-                                            <div>{{$t('message.details.list.name2_item1')}}</div>
-                                            <div>-5~<span class="yell">8</span></div>
-                                            <div>{{$t('message.details.list.name2_item3')}}</div>
-                                            <div>-3~<span class="yell">6</span></div>
-                                        </div>
-                                        <div class="item">
-                                            <div>{{$t('message.details.list.name2_item5')}}</div>
-                                            <div>-3~<span>8</span></div>
-                                            <div>{{$t('message.details.list.name2_item4')}}</div>
-                                            <div>-3~<span>6</span></div>
-                                        </div>
-                                        <div class="item">
-                                            <div>{{$t('message.details.list.name2_item2')}}</div>
-                                            <div>-4~<span>8</span></div>
-                                            <div>{{$t('message.details.list.name2_item6')}}</div>
-                                            <div>-3~<span>6</span></div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="image">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/person2.png" alt="">
+                            </div>
+                            <div class="title">{{$t('message.details.list.name2')}}</div>
+                            <div class="prob">
+                                <div class="name1">{{$t('message.details.list.name1')}}</div>
+                                <div class="num">50<span>%</span></div>
+                            </div>
+                            <div class="name2">{{$t('message.details.list.name2')}}</div>
+                            <div class="item">
+                                <div>{{$t('message.details.list.name2_item1')}}<div>-5~<span class="yell">8</span></div></div>
+                                <div>{{$t('message.details.list.name2_item3')}}<div>-3~<span class="yell">6</span></div></div>
+                                <div>{{$t('message.details.list.name2_item5')}}<div>-3~<span>8</span></div></div>
+                                <div>{{$t('message.details.list.name2_item4')}}<div>-3~<span>6</span></div></div>
+                                <div>{{$t('message.details.list.name2_item2')}}<div>-4~<span>8</span></div></div>
+                                <div>{{$t('message.details.list.name2_item6')}}<div>-3~<span>6</span></div></div>
                             </div>
                         </li> 
                         <li class="attr_warp">
-                            <div class="wrap">
-                                <div class="pic">
-                                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/person1.png" alt="">
-                                </div>
-                                <div class="data">
-                                    <div class="prob">
-                                        <div class="name">{{$t('message.details.list.name1')}}</div>
-                                        <div class="num">50%</div>
-                                    </div>
-                                    <div class="line"></div>
-                                    <div class="attr">
-                                        <div class="name">{{$t('message.details.list.name2')}}</div>
-                                        <div class="item">
-                                            <div>{{$t('message.details.list.name2_item1')}}</div>
-                                            <div>-5~<span class="yell">8</span></div>
-                                            <div>{{$t('message.details.list.name2_item3')}}</div>
-                                            <div>-3~<span class="yell">6</span></div>
-                                        </div>
-                                        <div class="item">
-                                            <div>{{$t('message.details.list.name2_item5')}}</div>
-                                            <div>-3~<span>8</span></div>
-                                            <div>{{$t('message.details.list.name2_item4')}}</div>
-                                            <div>-3~<span>6</span></div>
-                                        </div>
-                                        <div class="item">
-                                            <div>{{$t('message.details.list.name2_item2')}}</div>
-                                            <div>-4~<span>8</span></div>
-                                            <div>{{$t('message.details.list.name2_item6')}}</div>
-                                            <div>-3~<span>6</span></div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="image">
+                                <img src="https://d2cimmz3cflrbm.cloudfront.net/nwbox/person1.png" alt="">
                             </div>
-                            <div class="prince">{{$t('message.details.list.prince0')}}</div>
-                        </li> 
+                            <div class="title">{{$t('message.details.list.name2')}}</div>
+                            <div class="prob">
+                                <div class="name1">{{$t('message.details.list.name1')}}</div>
+                                <div class="num">50<span>%</span></div>
+                            </div>
+                            <div class="name2">{{$t('message.details.list.name2')}}</div>
+                            <div class="item">
+                                <div>{{$t('message.details.list.name2_item1')}}<div>-5~<span class="yell">8</span></div></div>
+                                <div>{{$t('message.details.list.name2_item3')}}<div>-3~<span class="yell">6</span></div></div>
+                                <div>{{$t('message.details.list.name2_item5')}}<div>-3~<span>8</span></div></div>
+                                <div>{{$t('message.details.list.name2_item4')}}<div>-3~<span>6</span></div></div>
+                                <div>{{$t('message.details.list.name2_item2')}}<div>-4~<span>8</span></div></div>
+                                <div>{{$t('message.details.list.name2_item6')}}<div>-3~<span>6</span></div></div>
+                            </div>
+                        </li>
                     </ul>
                 </li>
             </ul>
             <ul class="introduction" v-show="exMenu == 1">
-                <li>
-                    <div class="title">{{$t('message.details.intro.title1')}} 1</div>
-                    <div class="desc">
-                        {{$t('message.details.intro.desc1')}}
-                    </div>
-                </li>
-                <li>
-                    <div class="title">{{$t('message.details.intro.title1')}} 2</div>
-                    <div class="desc">
-                        {{$t('message.details.intro.desc2')}}
-                    </div>
-                </li>
+                <div v-if="index == 1">
+                    <ul>
+                        <li>
+                            <div class="title">{{ data.info.name }}</div>
+                            <div class="desc">
+                                {{ locale == 'us' ? data.info.description : data.info.description_zh }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="index == 2">
+                    <ul>
+                        <li>
+                            <div class="title">{{ data.info.name }}</div>
+                            <div class="desc">
+                                {{ locale == 'us' ? data.info.description : data.info.description_zh }}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">{{ $t('message.details.intro.title5') }}</div>
+                            <div class="desc">
+                                {{ $t('message.details.intro.desc6') }}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">{{ $t('message.details.intro.title6') }}</div>
+                            <div class="desc">
+                                {{ $t('message.details.intro.desc7') }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="index == 3">
+                    <ul>
+                        <li>
+                            <div class="title">{{ data.info.name }}</div>
+                            <div class="desc">
+                                {{ locale == 'us' ? data.info.description : data.info.description_zh }}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">{{ $t('message.details.intro.title2')}}</div>
+                            <div class="desc">
+                                {{ $t('message.details.intro.desc3') }}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">{{ $t('message.details.intro.title3')}}</div>
+                            <div class="desc">
+                                {{ $t('message.details.intro.desc4') }}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="title">{{ $t('message.details.intro.title4')}}</div>
+                            <div class="desc">
+                                {{ $t('message.details.intro.desc5') }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </ul>
             <!-- <div class="terms" v-show="exMenu == 2"></div>
             <div class="link">
@@ -264,7 +280,9 @@ const videoUrl = () => {
 }
 
 const opensea = () => {
-    window.open('https://opensea.io/');
+    // window.open('https://opensea.io/');
+    // if(chainid)
+    window.open(`https://testnets.nftrade.com/assets/fuji/${chainId.value == 43113 ? '0x55eFD6D4cF31F925E36d268C12353848c9e782fD' : ''}`)
 }
 
 
@@ -492,7 +510,6 @@ onMounted( () => {
                 line-height: 42px;
             }
             .left{
-                height: 66px;
                 margin: 8px 0 16px;
                 .text1{
                     font-size: 12px;
@@ -503,8 +520,11 @@ onMounted( () => {
                 .text2{
                     display: flex;
                     height: 50px;
+                    align-items: center;
                     img{
-
+                        width: 5vw;
+                        height: 8vw;
+                        margin-right: 2vw;
                     }
                     div{
                         height: 50px;

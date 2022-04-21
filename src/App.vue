@@ -71,7 +71,7 @@ onMounted(() => {
         }
         store.dispatch('user/TipsState', {show: false, info: { }});
     });
-
+ 
     // 验证是否是中国IP
     var returnCitySN = (window as any).returnCitySN;
     console.log(process.env.NODE_ENV, 'process.env');   
@@ -80,9 +80,9 @@ onMounted(() => {
     }else{
         setTimeout(() => {
             console.log(route.currentRoute.value, 'route.currentRoute.value');
-            if(route.currentRoute.value.path == '/IPshielding') route.push({ path: '/' })
+            if(route.currentRoute.value.path == '/IPshielding' && process.env.NODE_ENV != 'development') route.push({ path: '/' })
         }, 2000);
-    }
+    }//
 })
 </script>
 <style>
