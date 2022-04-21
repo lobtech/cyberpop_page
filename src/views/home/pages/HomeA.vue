@@ -1161,7 +1161,7 @@ onMounted(() => {
         }
     }
     .nav-logos{
-        z-index: 2;
+        z-index: 8;
         position: absolute;
         top: 25vw;
         right: 0;
