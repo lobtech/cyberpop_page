@@ -453,8 +453,6 @@ const transferPopup = (item:any) => {
     }
     console.log(item.type, 'item.type');
     console.log(transferItem.value , 'transferItem.value ');
-    
-    
 }
 
 

@@ -350,7 +350,7 @@ const getData = async (result: any) => {
         data.value.Remaining = 0;
         return;
     };
-    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], MarketV2.address); // 查询已上架的资产
     console.log(LootBox_result, 'LootBox_result');
     console.log(LootBox_result[index-1]);
     data.value.Remaining = LootBox_result[index-1];
@@ -420,10 +420,10 @@ const purchase = async () => {
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
     if(data.value.Remaining == 0) return;
     store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
-    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); //用自己的cyt去给授权市场合约授权的个数
+    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, MarketV2.address); //用自己的cyt去给授权市场合约授权的个数
     console.log(allowance_res, 'allowance_res');
     if(allowance_res < 30){
-        let approve_res = await Web3.approve(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7', 31);
+        let approve_res = await Web3.approve(cyt.abi, cyt.address, MarketV2.address, 31);
         console.log(approve_res, 'approve_res');
         if(!approve_res) { // 授权失败
             store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });

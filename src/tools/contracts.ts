@@ -8542,7 +8542,7 @@ const game_Fuji= {
 }
 // 市场合约 mumbao
 const MarketV2 = {
-    address: '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7',
+    address: '0x1b4BbE8885399E0676D1Cad726B8eFD35C5f13FD',
     abi: [
         {
             "inputs": [

@@ -10,7 +10,7 @@
             </div>
             <div class="menuMask" ref="cursor" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
                 <div class="close-menu">
-                    <div class="select_chain" @click="showMsgPop()"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span></div>
+                    <div class="select_chain" v-show="realId !== -1" @click="showMsgPop()"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span></div>
                     <img @click="closeMenuIcon()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
                 <div class="login_in" v-if="!loggined" @click="login()">
@@ -19,7 +19,7 @@
                 <div class="code" v-if="code">inviterCode: {{ code }}</div>
                 <div class="logged_in" v-if="loggined">
                     <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
-                    <div class="idtxt">{{realId}}</div>
+                    <div class="idtxt">{{ realId }}</div>
                     <div class="submenu">
                         <div class="myassets" @click="toAssets()">{{$t('message.common.login_myAssets')}}</div>
                         <div class="logout" @click="signout">{{$t('message.common.login_logout')}}</div>
@@ -270,13 +270,10 @@ const connect: any = async () => {
         const Web3 = (window as any).Web3
         let web3obj = new Web3((Web3 as any).givenProvider)
         await web3obj.eth.net.getId().then((chainId: any) => {
-            console.log(chainId);
+            console.log(chainId, '99999999');
             store.dispatch('user/chageChainId', Number(chainId))
-            // if(chainId != 80001 && chainId != 43113)  store.dispatch('user/TipsState', true)
             if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
         })
-        console.log(888);
-        
         if(code.value && messSing.value == ''){
             
             getPublicAddress(accounts)
@@ -387,7 +384,14 @@ onMounted(() => {
         select.value = localStorage.getItem('lang');        
     }
     code.value = router.currentRoute.value.query.code;
-    login()
+    if(realId.value == -1) login() // 判断是否已经登陆过了 然后自动登录
+    let temp: any;
+    Object.keys(chainList._rawValue).forEach((key: any) => {
+        if(chainList._rawValue[key].chainId == chainId.value){
+            temp = chainList._rawValue[key]
+        }
+    })
+    if(temp) chainList.value.select = { ...temp, active: 1 };
 })
 </script>
 
