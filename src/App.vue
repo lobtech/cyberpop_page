@@ -4,8 +4,8 @@
             <component :is="Component" :key="$route.path" v-if="$route.meta.keepAlive" />
         </keep-alive>
         <component :is="Component" :key="$route.path" v-if="!$route.meta.keepAlive" />
-        <msg-popup-a v-if="innerWidth > 1025 && TipsState" :addNetwork="TipsInfo.addNetwork" :isShowTips="TipsState" :isLoading="TipsInfo.hasLoading" :isClose="TipsInfo.hasClose" :title="TipsInfo.title" :content="TipsInfo.content"/>
-        <msg-popup-b v-if="innerWidth <= 1025 && TipsState" :addNetwork="TipsInfo.addNetwork" :isShowTips="TipsState" :isLoading="TipsInfo.hasLoading" :isClose="TipsInfo.hasClose" :title="TipsInfo.title" :content="TipsInfo.content"/>
+        <msg-popup-a v-if="innerWidth > 1025 && TipsState" :addNetwork="TipsInfo.addNetwork" :isShowTips="TipsState" :isLoading="TipsInfo.hasLoading" :isClose="TipsInfo.hasClose" :title="TipsInfo.title" :content="TipsInfo.content" :boxId="TipsInfo.boxId" :haveNFT="TipsInfo.haveNFT"/>
+        <msg-popup-b v-if="innerWidth <= 1025 && TipsState" :addNetwork="TipsInfo.addNetwork" :isShowTips="TipsState" :isLoading="TipsInfo.hasLoading" :isClose="TipsInfo.hasClose" :title="TipsInfo.title" :content="TipsInfo.content" :boxId="TipsInfo.boxId" :haveNFT="TipsInfo.haveNFT"/>
         <message-a v-if="innerWidth > 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-a>
         <message-b v-if="innerWidth <= 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-b>
         <purchaseA v-if="innerWidth > 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state"/>

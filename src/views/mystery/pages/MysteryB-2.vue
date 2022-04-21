@@ -43,7 +43,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$20</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase" :class="{'not-allowed': Remaining[0] == 0}" @click="purchase(0)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="purchase" :class="{'not-allowed': Remaining[0] == 0}" @click="purchase(0, Remaining[0])">{{$t('message.details.box_btn_pur')}}</div>
                         <div class="open" :class="{'not-allowed': data[0].number == 0}" @click="open(0, data[0].number)">{{$t('message.box.open')}}</div>
                         <div class="details" @click="toDetails(1)">{{$t('message.box.btn_det')}}</div>
                     </div>
@@ -65,7 +65,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$40</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase" :class="{'not-allowed': Remaining[1] == 0}" @click="purchase(1)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="purchase" :class="{'not-allowed': Remaining[1] == 0}" @click="purchase(1, Remaining[1])">{{$t('message.details.box_btn_pur')}}</div>
                         <div class="open" :class="{'not-allowed': data[1].number == 0}" @click="open(1, data[1].number)">{{$t('message.box.open')}}</div>
                         <div class="details" @click="toDetails(2)">{{$t('message.box.btn_det')}}</div>
                     </div>
@@ -87,7 +87,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                         <div class="exchange">≈$- -</div>
                     </div>
                     <div class="btn">
-                        <div class="purchase" :class="{'not-allowed': Remaining[2] == 0}" @click="purchase(2)">{{$t('message.details.box_btn_pur')}}</div>
+                        <div class="purchase" :class="{'not-allowed': Remaining[2] == 0}" @click="purchase(2, Remaining[2])">{{$t('message.details.box_btn_pur')}}</div>
                         <div class="open" :class="{'not-allowed': data[2].number == 0}" @click="open(2, data[2].number)">{{$t('message.box.open')}}</div>
                         <div class="details" @click="toDetails(3)">{{$t('message.box.btn_det')}}</div>
                     </div>
@@ -103,7 +103,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
     </div>    
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
+import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
 
 import store from '@/store'
 import {  useRouter } from 'vue-router'
@@ -118,6 +118,11 @@ const { proxy } = getCurrentInstance() as any;
 const { LootBox, GiftBox, cyt, MarketV2 } = Web3.contracts;
 
 const chainId: any = computed(() => store.state.user?.chainId);
+watch(chainId, (newVal: any, oldVal) => {
+    if(!oldVal) return;
+    getBalance(newVal)
+}, {immediate:true,deep:true});
+
 
 const TipsState: any = ref(false as any);
 
@@ -127,19 +132,23 @@ const Remaining: any = ref([]);
 
 const readyAssetsF: any = computed(() => {
     getBalance(chainId.value)
-    data.value = [];
+    console.log(chainId.value, 'chainId');
+
     return store.state.user?.readyAssets
 });
 
 const getBalance = async (chainid: number) => {
+    data.value = []; // 清空
     if(chainid == 80001){
         var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
-    }else if(chainId == 43113){
+    }else if(chainid == 43113){
         var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
     }else{
         var result: any = [0, 0, 0]
     }
     console.log(result, 'result');
+    console.log(chainId.value);
+    
     getData(result)
    
 }
@@ -150,7 +159,6 @@ const getData = async (boxData: any[]) => {
     data.value = [];
     (function loop(index){
         proxy.$api.get(`https://api.cyberpop.online/box/${index}`).then((result: any) => {
-            console.log(result);
             temp.push({
                 id: index,
                 number: boxData[index],
@@ -169,7 +177,7 @@ const getData = async (boxData: any[]) => {
         Remaining.value = [0, 0, 0];
         return; // 目前只有mumbai能用购买盒子
     }
-    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], MarketV2.address); // 查询已上架的资产
     Remaining.value = LootBox_result;
 }
 const toDetails = (type:any) => {
@@ -195,15 +203,15 @@ const open = async (boxId: any, number: any) => {
     }
 }
 
-const purchase = async (boxId: number) => {
+const purchase = async (boxId: number, number: any) => {
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
     // console.log(result);
-    if(Remaining.value[boxId] == 0) return;
+    if(number == 0) return;
     store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
-    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); //用自己的cyt去给授权市场合约授权的个数
+    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, MarketV2.address); //用自己的cyt去给授权市场合约授权的个数
     console.log(allowance_res, 'allowance_res');
     if(allowance_res < 30){
-        let approve_res = await Web3.approve(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7', 31);
+        let approve_res = await Web3.approve(cyt.abi, cyt.address, MarketV2.address, 31);
         console.log(approve_res, 'approve_res');
         if(!approve_res) { // 授权失败
             store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });

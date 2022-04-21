@@ -29,7 +29,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }} </span> ({{ $t('message.box.testnet') }})</div>
             <ul>
                 <li>
-                    <div class="boxVideo">
+                    <div class="boxVideo" @click="toDetails(1)">
                         <img :src="data[0].info.image" v-if="!data[0].info.animation_url" alt="">
                         <video class="third" autoplay muted loop v-else>
                             <source :src="data[0].info.animation_url" type="video/mp4">
@@ -47,7 +47,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$20.00</div>
                         </div>
                         <div class="btn">
-                            <div class="purchase" :class="{'not-allowed': Remaining[0] == 0}" @click="purchase(0, data[0].number)">{{$t('message.details.box_btn_pur')}}</div>
+                            <div class="purchase" :class="{'not-allowed': Remaining[0] == 0}" @click="purchase(0, Remaining[0])">{{$t('message.details.box_btn_pur')}}</div>
                             <div class="open" :class="{'not-allowed': data[0].number == 0}" @click="open(0, data[0].number)">{{$t('message.box.open')}}</div>
                             <div class="details" @click="toDetails(1)"></div>
                             <span class="details-text">{{$t('message.box.btn_det')}}</span>
@@ -55,7 +55,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                     </div>
                 </li>
                 <li >
-                    <div class="boxVideo">
+                    <div class="boxVideo" @click="toDetails(2)">
                         <img :src="data[1].info.image" v-if="!data[1].info.animation_url" alt="">
                         <video autoplay loop muted v-else>
                             <source :src="data[1].info.animation_url" type="video/mp4">
@@ -73,7 +73,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$40.00</div>
                         </div>
                         <div class="btn">
-                            <div class="purchase" :class="{'not-allowed': Remaining[1] == 0}" @click="purchase(1, data[0].number)">{{$t('message.details.box_btn_pur')}}</div>
+                            <div class="purchase" :class="{'not-allowed': Remaining[1] == 0}" @click="purchase(1, Remaining[1])">{{$t('message.details.box_btn_pur')}}</div>
                             <div class="open" :class="{'not-allowed': data[1].number == 0}" @click="open(1, data[1].number)">{{$t('message.box.open')}}</div>
                             <div class="details" @click="toDetails(2)"></div>
                             <span class="details-text">{{$t('message.box.btn_det')}}</span>
@@ -81,7 +81,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                     </div>
                 </li>
                 <li>
-                    <div class="boxVideo">
+                    <div class="boxVideo" @click="toDetails(3)">
                         <img :src="data[2].info.image" v-if="!data[2].info.animation_url" alt="">
                         <video autoplay loop muted v-else>
                             <source :src="data[2].info.animation_url" type="video/mp4">
@@ -99,7 +99,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$- -</div>
                         </div>
                         <div class="btn">
-                            <div class="purchase" :class="{'not-allowed': Remaining[2] == 0}" @click="purchase(2, data[0].number)">{{$t('message.details.box_btn_pur')}}</div>
+                            <div class="purchase" :class="{'not-allowed': Remaining[2] == 0}" @click="purchase(2, Remaining[2])">{{$t('message.details.box_btn_pur')}}</div>
                             <div class="open" :class="{'not-allowed': data[2].number == 0}" @click="open(2, data[2].number)">{{$t('message.box.open')}}</div>
                             <div class="details" @click="toDetails(3)"></div>
                             <span class="details-text">{{$t('message.box.btn_det')}}</span>
@@ -162,6 +162,13 @@ const getBalance = async (chainid: number) => {
    
 }
 
+// 開盒子
+const open = (boxId: any, number: any) => {
+    console.log(boxId, number);
+    // getLast(); // 查询资产合约中最后一位为立马开启的资产
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false, boxId: boxId, haveNFT: number }});
+}
+
 const getData = async (boxData: any[]) => {
     let temp: any = [];
     data.value = [];
@@ -186,7 +193,7 @@ const getData = async (boxData: any[]) => {
         Remaining.value = [0, 0, 0]
         return; // 目前只有mumbai能用购买盒子
     }
-    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); // 查询已上架的资产
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], MarketV2.address); // 查询已上架的资产
     Remaining.value = LootBox_result;
     console.log(Remaining.value, 'RemainingRemainingv');
 }
@@ -197,34 +204,15 @@ const toDetails = (type:any) => {
     router.push({ name: 'details', query: { type }})
 }
 
-// 開盒子
-const open = async (boxId: any, number: any) => {
-    // getLast(); // 查询资产合约中最后一位为立马开启的资产
-    if(number == 0) return;
-    const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
-    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
-    let result = await Web3.unpack(abi, address, boxId, 1)
-    console.log(result, 'result');
-    store.dispatch('user/TipsState', {show: false, info: { }});
-    if(result) {
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
-        setTimeout(() => {
-            router.push({ name: 'knapsack'})
-        }, 1000);
-    }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
-    }
-}
-
 const purchase = async (boxId: Number, number: any) => {
     if(number == 0) return;
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
     // console.log(result);
     store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
-    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7'); //用自己的cyt去给授权市场合约授权的个数
+    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, MarketV2.address); //用自己的cyt去给授权市场合约授权的个数
     console.log(allowance_res, 'allowance_res');
     if(allowance_res < 30){
-        let approve_res = await Web3.approve(cyt.abi, cyt.address, '0x4D0af4041e61Ada9051022B278c1C7aa6cc5DFD7', 31);
+        let approve_res = await Web3.approve(cyt.abi, cyt.address, MarketV2.address, 31);
         console.log(approve_res, 'approve_res');
         if(!approve_res) { // 授权失败
             store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });
@@ -503,7 +491,7 @@ onMounted(async () => {
                                 transition: all 0.2s ease;
                             }
                             .not-allowed{
-                                cursor:not-allowed;
+                                cursor:not-allowed !important;
                                 opacity: .4;
                             }
                             .purchase:hover,
@@ -534,7 +522,7 @@ onMounted(async () => {
                             }
                             .details-text{
                                 position: absolute;
-                                right: 2.8vw;
+                                right: 1.7vw;
                                 z-index: 0;
                             }
                             .details:hover{

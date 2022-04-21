@@ -11,6 +11,7 @@
                     <div class="switch_chain"
                         @mouseover="mouseOver"
                         @mouseleave="mouseLeaveChain"
+                        v-show="realId !== -1"
                     >
                         <div class="select_chain" @click="switchChain" :class="{'selected': chainId == 80001 || chainId == 43113}"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span><div class="blur"></div></div>
                         <div class="hover_chunk" v-show="showChainList">
@@ -84,9 +85,6 @@
         </header>
     </div>
 
-    <!-- <div class="section">
-        <div class="title">COMING SOON</div>
-    </div> -->
     <div class="doc_menu" v-show="showDoc || hoverDoc" ref="cursor" @mouseenter="hoverDoc = true" @mouseleave="hoverDoc = false">
         <div class="wrap">
             <div class="cover"></div>
