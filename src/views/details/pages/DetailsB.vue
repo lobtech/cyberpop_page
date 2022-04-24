@@ -163,7 +163,7 @@
                     </ul>
                 </li>
             </ul>
-            <ul class="introduction" v-show="exMenu == 1">
+            <ul class="introduction" v-show="exMenu == 1" v-if="data.info">
                 <div v-if="index == 1">
                     <ul>
                         <li>
@@ -419,25 +419,8 @@ const open = async (boxId?: any) => {
 const purchase = async () => {
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
     if(data.value.Remaining == 0) return;
-    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
-    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, MarketV2.address); //用自己的cyt去给授权市场合约授权的个数
-    console.log(allowance_res, 'allowance_res');
-    if(allowance_res < 30){
-        let approve_res = await Web3.approve(cyt.abi, cyt.address, MarketV2.address, 31);
-        console.log(approve_res, 'approve_res');
-        if(!approve_res) { // 授权失败
-            store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });
-            return;
-        }
-    }
-    // 正常流程
-    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 3} });
-    let reuslt = await Web3.buyLootBox(MarketV2.abi, MarketV2.address, 2, 30);
-    if(reuslt){
-        store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
-    }else{
-        store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
-    }
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0, boxId: index-1, haveNFT: data.value.Remaining }});
+
 }
 
 

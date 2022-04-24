@@ -87,47 +87,16 @@ onMounted(() => {
         color: #fff;
         .mask{
             position: absolute;
-            top: 30px;
-            left: 0;
-            right: 0;
-            bottom: 0;
             width: 320px;
-            height: 200px;
-            margin: auto;
-            padding: 2.5vw;
-            box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
-            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-            border: .15vw solid;
-            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
-            clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
-            .cover{
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-                clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
-            }
-            .coverborder{
-                z-index: -1;
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                content: '';
-                display: inline-block;
-                width: 8vw;
-                height: 8vw;
-                background-color: #2d2942;
-            }
-            .close{
-                position: absolute;
-                right: 1vw;
-                top: 1vw;
-                z-index: 11;
-                width: 2.8vw;
-            }
+            min-height: 200px;
+            z-index: 9;
+            bottom: 0;
+            width: 100%;
+            height: 387px;
+            padding: 24px;
+            background: linear-gradient(221deg, rgba(132, 120, 255, .8) 0%, rgba(12, 9, 17, .8) 100%),
+                        linear-gradient(81deg, rgba(45, 222, 211, .6) 0%, rgba(12, 9, 17, 1) 100%);
+            box-shadow: inset 0px 4px 0px 1px #5A5685;
             .content{
                 position: absolute;
                 left: 0;

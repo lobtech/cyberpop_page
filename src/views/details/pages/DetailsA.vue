@@ -376,25 +376,11 @@ watch(readyAssetsF, (newVal, oldVal) => {
 }, {immediate:true,deep:true});
 
 
-
-const open = async (boxId?: any) => {
+// 開盒子
+const open = () => {
     // getLast(); // 查询资产合约中最后一位为立马开启的资产
-    if(ownerNumber.value == 0) return;
-    const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
-    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
-    let result = await Web3.unpack(abi, address, index-1, 1)
-    console.log(result, 'result');
-    store.dispatch('user/TipsState', {show: false, info: { }});
-    if(result) {
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
-        setTimeout(() => {
-            router.push({ name: 'knapsack'})
-        }, 1000);
-    }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
-    }
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false, boxId: index-1, haveNFT: data.value.Remaining }});
 }
-
 
 // 獲取開出來的東西
 const getLast = async () => {
@@ -439,26 +425,9 @@ const getNFTData: any = async (res: any, path: any) => {
 const purchase = async () => {
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
     if(data.value.Remaining == 0) return;
-    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
-    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, MarketV2.address); //用自己的cyt去给授权市场合约授权的个数
-    console.log(allowance_res, 'allowance_res');
-    if(allowance_res < 30){
-        let approve_res = await Web3.approve(cyt.abi, cyt.address, MarketV2.address, 31);
-        console.log(approve_res, 'approve_res');
-        if(!approve_res) { // 授权失败
-            store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });
-            return;
-        }
-    }
-    // 正常流程
-    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 3} });
-    let reuslt = await Web3.buyLootBox(MarketV2.abi, MarketV2.address, 2, 30);
-    if(reuslt){
-        store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
-    }else{
-        store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
-    }
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0, boxId: index-1,  haveNFT: data.value.Remaining} });
 }
+
 
 onMounted(() => {
     window.scrollTo(0,0);
@@ -653,7 +622,8 @@ onMounted(() => {
                     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/details1.png');
                     margin-right: 1.66vw;
                 }
-                .purchase:hover{
+                .purchase:hover,
+                .unpack:hover{
                     opacity: .7;
                     transition: all 0.2s ease-in;
                 }

@@ -359,6 +359,8 @@ const cn = {
             btn_ok_b: '好',
             btn_tran: '轉換',
             btn_sell: '售賣',
+            btn_load: '加載',
+            but_claim: '聲稱',
             btn_unpack: '打開',
             nothing: '呀,空空如也。請轉到 ',
             nothing_home: '主頁面',

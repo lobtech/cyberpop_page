@@ -359,6 +359,8 @@ const us = {
             btn_ok_b: 'OK',
             btn_tran: 'TRANSFER',
             btn_sell: 'SELL',
+            btn_load: 'LOAD',
+            but_claim: 'CLAIM',
             btn_unpack: 'UNPACK',
             nothing: 'Oops, There’s nothing left here. Go to ',
             nothing_home: 'Home page',

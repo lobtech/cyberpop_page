@@ -1,7 +1,5 @@
 import store from '@/store'
 import contracts from '@/tools/contracts'
-import { number } from '@intlify/core-base'
-import { rejects } from 'assert'
 import { ref, computed } from 'vue'
 const Web3 = (window as any).Web3 // 引用全局的web3 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/moralis@latest/dist/moralis.min.js"></script>
@@ -47,7 +45,7 @@ const getBalance = async (id: any) => {
 }
 
 
-// // 授权某个合约可使用我的货币
+// 授权某个合约可使用我的货币
 // const approve = (contractName: string = 'test', contractAddress: string = '0xF55c6Be2F9390301bFc66Dd9f7f52495B56301dC', num: string = '10') => {
 //     const { abi, address } = (contracts as any)[contractName]
 //     const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
@@ -239,16 +237,16 @@ const addChain = (chainId: Number) => {
 
 
 // 购买NFT
-const buyLootBox = (abi: any, address: any, tokenId: any, price: any) => {
+const buyLootBox = (abi: any, address: any, boxId: any, price: any, number?: any) => {
     return new Promise(async (resolve, reject) => {
         const web3 = new Web3((Web3 as any).givenProvider);
         const contract = new web3.eth.Contract(abi, address);
 
         console.log(abi, address);
 
-        console.log(tokenId, price);
+        console.log(boxId, price);
         
-        contract.methods.buyLootBox(tokenId, price, 1).send({ from: accounts.value }).then((receipt:any) => {
+        contract.methods.buyLootBox(boxId, price, number || 1).send({ from: accounts.value }).then((receipt:any) => {
             resolve(receipt)
         }).catch((err:any) => {
             console.log(err);
@@ -280,6 +278,15 @@ const approve = (abi: any, address: any, contract_address: any, number: any) => 
     })
 }
 
+const totolsuppl = async (abi: any[], address: string) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address);
+        let res = await contract.methods.totalSupply().call()
+        resolve(res)
+    })
+
+}
 
 export default {
     safeTransferFrom,
@@ -296,5 +303,6 @@ export default {
     balanceOf,
     buyLootBox,
     allowance,
+    totolsuppl,
     contracts,
 }

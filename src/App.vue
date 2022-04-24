@@ -8,8 +8,8 @@
         <msg-popup-b v-if="innerWidth <= 1025 && TipsState" :addNetwork="TipsInfo.addNetwork" :isShowTips="TipsState" :isLoading="TipsInfo.hasLoading" :isClose="TipsInfo.hasClose" :title="TipsInfo.title" :content="TipsInfo.content" :boxId="TipsInfo.boxId" :haveNFT="TipsInfo.haveNFT"/>
         <message-a v-if="innerWidth > 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-a>
         <message-b v-if="innerWidth <= 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-b>
-        <purchaseA v-if="innerWidth > 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state"/>
-        <purchaseB v-if="innerWidth <= 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state"/>
+        <purchaseA v-if="innerWidth > 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state" :haveNFT="purchaseInfo.haveNFT" :boxId="purchaseInfo.boxId"/>
+        <purchaseB v-if="innerWidth <= 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state" :haveNFT="purchaseInfo.haveNFT" :boxId="purchaseInfo.boxId"/>
     </router-view>
 </template>
 <script setup lang="ts">
@@ -35,14 +35,18 @@ const TipsInfo = computed(() => store.state.user?.TipsInfo);
 const alertInfo = computed(() => store.state.user?.alertInfo);
 const showDialog = computed(() => store.state.user?.showDialog);
 const purchaseState = computed(() => store.state.user?.purchaseState );
-const purchaseInfo = computed(() => store.state.user?.purchaseInfo);
+const purchaseInfo = computed(() => {
+    console.log(store.state.user?.purchaseInfo, 'store.state.user?.purchaseInfo');
+    
+    return store.state.user?.purchaseInfo;
+});
 
 const isChinese = (val: any) => {
     var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
 　　if(reg.test(val) && val !== '国内未能识别的地区'){     
-        return 0;
+        return false;
 　　}else{
-        return 1;
+        return true;
     }
 }
 
@@ -74,13 +78,18 @@ onMounted(() => {
  
     // 验证是否是中国IP
     var returnCitySN = (window as any).returnCitySN;
-    console.log(process.env.NODE_ENV, 'process.env');   
-    if(!isChinese(returnCitySN.cname) && process.env.NODE_ENV != 'development') {
+    console.log(returnCitySN, 'returnCitySN');
+    let HongShou = '125.69.86.177' // ip 白名单
+    let indiegame = "171.223.208.133"
+
+    console.log(process.env.NODE_ENV, 'process.env'); 
+    
+    if(!isChinese(returnCitySN.cname) && process.env.NODE_ENV != 'development' && returnCitySN.cip != HongShou && returnCitySN.cip != indiegame) {
         route.push({ path: '/IPshielding' })
     }else{
         setTimeout(() => {
             console.log(route.currentRoute.value, 'route.currentRoute.value');
-            if(route.currentRoute.value.path == '/IPshielding' && process.env.NODE_ENV != 'development') route.push({ path: '/' })
+            if(route.currentRoute.value.path == '/IPshielding') route.push({ path: '/' })
         }, 2000);
     }//
 })

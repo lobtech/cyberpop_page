@@ -115,7 +115,7 @@ const router = useRouter()
 
 const { proxy } = getCurrentInstance() as any;
 
-const { LootBox, GiftBox, cyt, MarketV2 } = Web3.contracts;
+const { LootBox, GiftBox, cyt, MarketV2, Cyborg, Cyborg_Fuji, cyberClub_Fuji, cyberClub } = Web3.contracts;
 
 const chainId: any = computed(() => store.state.user?.chainId);
 watch(chainId, (newVal: any, oldVal) => {
@@ -188,51 +188,27 @@ const toDetails = (type:any) => {
 const open = async (boxId: any, number: any) => {
     // getLast(); // 查询资产合约中最后一位为立马开启的资产
     if(number == 0) return;
-    const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
-    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
-    let result = await Web3.unpack(abi, address, boxId, 1)
-    console.log(result, 'result');
-    store.dispatch('user/TipsState', {show: false, info: { }});
-    if(result) {
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
-        setTimeout(() => {
-            router.push({ name: 'knapsack'})
-        }, 1000);
-    }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
-    }
+    store.dispatch('user/transferChangeAni', true)
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false, boxId: boxId, haveNFT: number }});
 }
 
 const purchase = async (boxId: number, number: any) => {
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
     // console.log(result);
     if(number == 0) return;
-    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
-    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, MarketV2.address); //用自己的cyt去给授权市场合约授权的个数
-    console.log(allowance_res, 'allowance_res');
-    if(allowance_res < 30){
-        let approve_res = await Web3.approve(cyt.abi, cyt.address, MarketV2.address, 31);
-        console.log(approve_res, 'approve_res');
-        if(!approve_res) { // 授权失败
-            store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });
-            return;
-        }
-    }
-    // 正常流程
-    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 3} });
-    let reuslt = await Web3.buyLootBox(MarketV2.abi, MarketV2.address, boxId, 30);
-    if(reuslt){
-        store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
-    }else{
-        store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
-    }
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0, boxId, haveNFT: number || 1 }});
 }
 
-onMounted(() => {
+onMounted( async () => {
     window.scrollTo(0,0);
     if(readyAssetsF.value != -1 && chainId.value == 80001 || chainId.value == 43113){
         // getBalance()
     }
+    let result = await Web3.totolsuppl(Cyborg.abi, Cyborg.address);
+    // let result2 = await Web3.totolsuppl(Cyborg_Fuji.abi, Cyborg_Fuji.address);
+    // let result3 = await Web3.totolsuppl(cyberClub_Fuji.abi, cyberClub_Fuji.address);
+    let result4 = await Web3.totolsuppl(cyberClub.abi, cyberClub.address);
+    console.log(result, result4);
 })
 
 </script>

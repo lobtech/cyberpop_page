@@ -11,48 +11,6 @@
                 </div>
                 <div class="title">{{$t('message.assets.wel_name')}}</div>
                 <div class="id">{{realId == -1? '':realId}}</div>
-                <div class="contract" @click="copyUrl($event)">
-                    <div class="col th">
-                        <div class="name">Contarct</div>
-                        <div class="Fuji">Fuji</div>
-                        <div class="Mumbai">Mumbai</div>
-                    </div>
-                    <!-- <div class="col td">
-                        <div class="name">Badge</div>
-                        <div class="Fuji">-----</div>
-                        <div class="Mumbai">0x82cCB2FE8f4d07702f7c2F4200f0FBF630C52406</div>
-                    </div>
-                    <div class="col td">
-                        <div class="name">weapons</div>
-                        <div class="Fuji">-----</div>
-                        <div class="Mumbai">0x8c7afbc6cabb0f97d71a0775b062b333c654fb5b</div>
-                    </div> -->
-                    <div class="col td">
-                        <div class="name">Game</div>
-                        <div class="Fuji">0xD4c27B5A5c15B1524FC909F0FE0d191C4e893695</div>
-                        <div class="Mumbai">0x3B52df1CAcb5d397f7A23Bf136DE110584d0Cd60</div>
-                    </div>
-                    <div class="col td">
-                        <div class="name">role</div>
-                        <div class="Fuji">0x78F66E37e9fE077d2F0126E3a26e6FB0D14F2BB0</div>
-                        <div class="Mumbai">0x37e769d34Cb48fb074fDd181bB4d803fBD49C712</div>
-                    </div>
-                    <div class="col td">
-                        <div class="name">head</div>
-                        <div class="Fuji">0x4B4cbe55125B48e868AA68E08b7527524C46E8AC</div>
-                        <div class="Mumbai">0x04b5D133394F360A3B88600043b8153AaA1C0e59</div>
-                    </div>
-                    <div class="col td">
-                        <div class="name">LootBox</div>
-                        <div class="Fuji">0x55eFD6D4cF31F925E36d268C12353848c9e782fD</div>
-                        <div class="Mumbai">0xC5FE394692a469BD5789D8247F281403e064E576</div>
-                    </div>
-                    <!-- <div class="col td">
-                        <div class="name">UGC</div>
-                        <div class="Fuji">0xB79Be4aF9990304b8b68679c599e5A38a80F5000</div>
-                        <div class="Mumbai">-----</div>
-                    </div> -->
-                </div>
                 <div class="desc">
                     {{$t('message.assets.wel_desc')}}
                 </div>
@@ -162,6 +120,48 @@
             </div>
             <div class="nothing" v-if="readyAssetsF == -1">
                 <img src="@/assets/nwAssets/nothing.svg" alt="">
+            </div>
+            <div class="contract" @click="copyUrl($event)">
+                <div class="col th">
+                    <div class="name">Contract</div>
+                    <div class="Fuji">Fuji</div>
+                    <div class="Mumbai">Mumbai</div>
+                </div>
+                <!-- <div class="col td">
+                    <div class="name">Badge</div>
+                    <div class="Fuji">-----</div>
+                    <div class="Mumbai">0x82cCB2FE8f4d07702f7c2F4200f0FBF630C52406</div>
+                </div>
+                <div class="col td">
+                    <div class="name">weapons</div>
+                    <div class="Fuji">-----</div>
+                    <div class="Mumbai">0x8c7afbc6cabb0f97d71a0775b062b333c654fb5b</div>
+                </div> -->
+                <div class="col td">
+                    <div class="name">Game</div>
+                    <div class="Fuji">0xD4c27B5A5c15B1524FC909F0FE0d191C4e893695</div>
+                    <div class="Mumbai">0x3B52df1CAcb5d397f7A23Bf136DE110584d0Cd60</div>
+                </div>
+                <div class="col td">
+                    <div class="name">role</div>
+                    <div class="Fuji">0x78F66E37e9fE077d2F0126E3a26e6FB0D14F2BB0</div>
+                    <div class="Mumbai">0x37e769d34Cb48fb074fDd181bB4d803fBD49C712</div>
+                </div>
+                <div class="col td">
+                    <div class="name">head</div>
+                    <div class="Fuji">0x4B4cbe55125B48e868AA68E08b7527524C46E8AC</div>
+                    <div class="Mumbai">0x04b5D133394F360A3B88600043b8153AaA1C0e59</div>
+                </div>
+                <div class="col td">
+                    <div class="name">LootBox</div>
+                    <div class="Fuji">0x55eFD6D4cF31F925E36d268C12353848c9e782fD</div>
+                    <div class="Mumbai">0xC5FE394692a469BD5789D8247F281403e064E576</div>
+                </div>
+                <!-- <div class="col td">
+                    <div class="name">UGC</div>
+                    <div class="Fuji">0xB79Be4aF9990304b8b68679c599e5A38a80F5000</div>
+                    <div class="Mumbai">-----</div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -330,7 +330,7 @@ const changeType = (type: Number) => {
     }
 }
 
-const { nft, arms, erc721, gamePool, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji, LootBox } = Web3.contracts;
+const { nft, nft_fuji, arms, erc721, gamePool, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji, LootBox } = Web3.contracts;
 
 const getData: any = async (type: Number) => {
     data.value = [];
@@ -371,6 +371,9 @@ const getData: any = async (type: Number) => {
     }
     if(chainId.value == 43113){ // fuji
         if(!type){
+            let result = await Web3.batchBalanceOf(nft_fuji.abi, nft_fuji.address);
+            console.log(result);
+            await getNFTData(result, 'server', 'server_fuji');
             let game_result = await Web3.batchBalanceOf(game_Fuji.abi, game_Fuji.address);
             console.log(game_result);
             await getNFTData(game_result, 'game', 'game_fuji')
@@ -390,6 +393,9 @@ const getData: any = async (type: Number) => {
             let cyberClub_result = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
             await getHead(cyberClub_result, 'head_fuji');
         }else{
+            let result = await Web3.batchBalanceOf(nft_fuji.abi, nft_fuji.address);
+            console.log(result);
+            await getNFTData(result, 'server', 'server_fuji');
             let game_result = await Web3.batchBalanceOf(game_Fuji.abi, game_Fuji.address);
             await getNFTData(game_result, 'game', 'game_fuji');
             let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
@@ -501,6 +507,9 @@ const transferPopup = (item:any) => {
     }else if( item.type == 'box_mumbai'){
         abiSelect.value = Web3.contracts.LootBox.abi
         addressSelect.value = Web3.contracts.LootBox.address
+    }else if( item.type == 'server_fuji'){
+        abiSelect.value = Web3.contracts.nft_fuji.abi
+        addressSelect.value = Web3.contracts.nft_fuji.address
     }
     console.log(item.type, 'item.type');
     console.log(transferItem.value , 'transferItem.value ');
@@ -572,6 +581,7 @@ onMounted(async () => {
     .assets{
         width: 100%;
         background-color: #121122;
+        padding-bottom: 20px;
         .wrap{
             width: 100%;
             padding-top: 55px;
@@ -581,56 +591,6 @@ onMounted(async () => {
             background-size: 100% auto;
             .welcome{
                 text-align: center;
-                .contract{
-                    color: #333;
-                    margin: 20px 10px;
-                    border: 2px solid;
-                    background-color: rgba(255, 0, 0, 0); /* 不支持线性的时候显示 */
-                    background-image: linear-gradient(to right, rgba(81, 105, 139, 0.027) , rgba(77, 122, 165, 0.582));
-                    border: 2px solid;
-                    border-image: linear-gradient(206deg, rgb(255, 255, 255), rgba(139, 255, 178, 0.31)) 2 2;
-                    .th{
-                        // background: rgba(16, 76, 165, 0.5) !important;
-                        color: #fff;
-                        border-bottom: 1px solid #0C0911;
-                        div{
-                            line-height: 40px !important;
-                        }
-                        .Fuji, .Mumbai{
-                            padding: 0 4px !important;
-                        }
-                    }
-                    .col{
-                        padding: 0 10px;
-                        display: flex;
-                        align-items: center;
-                        .name{
-                            width: 20%;
-                            color: #FFFFFF;
-                            font-family: AlibabaPuHuiTi_2_55_Regular;   
-                            font-size: 14px;
-                            text-align: left;
-                            line-height: 32px;
-                            margin: 0.83vw 0;
-                        }
-                        .Fuji, .Mumbai{
-                            width: 40%;
-                            padding: 6px 4px 0;
-                            color: #FFFFFF;
-                            font-family: AlibabaPuHuiTi_2_55_Regular;   
-                            font-size: 14px;
-                            text-align: left;
-                            line-height: 20px;
-                            word-break: break-all;
-                        }
-                    }
-                    .td{
-                        div:active{
-                            cursor: pointer;
-                            color: red;
-                        }   
-                    }
-                }
                 .icon{
                     width: 81px;
                     height: 72px;
@@ -1000,6 +960,56 @@ onMounted(async () => {
                     height: 128px;
                     margin: 80px auto;
                 }
+            }
+        }
+        .contract{
+            color: #333;
+            margin: 20px 10px;
+            border: 2px solid;
+            background-color: rgba(255, 0, 0, 0); /* 不支持线性的时候显示 */
+            background-image: linear-gradient(to right, rgba(81, 105, 139, 0.027) , rgba(77, 122, 165, 0.582));
+            border: 2px solid;
+            border-image: linear-gradient(206deg, rgb(255, 255, 255), rgba(139, 255, 178, 0.31)) 2 2;
+            .th{
+                // background: rgba(16, 76, 165, 0.5) !important;
+                color: #fff;
+                border-bottom: 1px solid #0C0911;
+                div{
+                    line-height: 40px !important;
+                }
+                .Fuji, .Mumbai{
+                    padding: 0 4px !important;
+                }
+            }
+            .col{
+                padding: 0 10px;
+                display: flex;
+                align-items: center;
+                .name{
+                    width: 20%;
+                    color: #FFFFFF;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;   
+                    font-size: 14px;
+                    text-align: left;
+                    line-height: 32px;
+                    margin: 0.83vw 0;
+                }
+                .Fuji, .Mumbai{
+                    width: 40%;
+                    padding: 6px 4px 0;
+                    color: #FFFFFF;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;   
+                    font-size: 14px;
+                    text-align: left;
+                    line-height: 20px;
+                    word-break: break-all;
+                }
+            }
+            .td{
+                div:active{
+                    cursor: pointer;
+                    color: red;
+                }   
             }
         }
     }

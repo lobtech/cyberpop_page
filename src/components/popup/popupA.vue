@@ -48,6 +48,7 @@ const TipsState: any = ref(false as any)  // has popup-a
 
 const transferActive = computed(() => store?.state.user?.transferActive);
 const transferAni = computed(() => store?.state.user?.transferAni);
+const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
 let transferInfoMsg:any = ref(null) 
 let abiMsg:any = ref(null) 
 let addressMsg:any = ref(null) 
@@ -181,6 +182,7 @@ const transfer = async () => {
                 closeDialog();
                 store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
                 store.dispatch('user/transferSuccess', result)
+                store.dispatch('user/dataSumSearch', { flag: readyAssetsF.value + 1 }); // 操作成功刷新数据
             }
        }
     }

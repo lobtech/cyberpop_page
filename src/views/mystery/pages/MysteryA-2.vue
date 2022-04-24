@@ -164,7 +164,7 @@ const getBalance = async (chainid: number) => {
 
 // 開盒子
 const open = (boxId: any, number: any) => {
-    console.log(boxId, number);
+    if(number == 0) return;
     // getLast(); // 查询资产合约中最后一位为立马开启的资产
     store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false, boxId: boxId, haveNFT: number }});
 }
@@ -204,29 +204,9 @@ const toDetails = (type:any) => {
     router.push({ name: 'details', query: { type }})
 }
 
-const purchase = async (boxId: Number, number: any) => {
+const purchase = async (boxId: number, number: any) => {
     if(number == 0) return;
-    // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
-    // console.log(result);
-    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0} });
-    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, MarketV2.address); //用自己的cyt去给授权市场合约授权的个数
-    console.log(allowance_res, 'allowance_res');
-    if(allowance_res < 30){
-        let approve_res = await Web3.approve(cyt.abi, cyt.address, MarketV2.address, 31);
-        console.log(approve_res, 'approve_res');
-        if(!approve_res) { // 授权失败
-            store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 2} });
-            return;
-        }
-    }
-    // 正常流程
-    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 3} });
-    let reuslt = await Web3.buyLootBox(MarketV2.abi, MarketV2.address, boxId, 30);
-    if(reuslt){
-        store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
-    }else{
-        store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5} });
-    }
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0, boxId, haveNFT: number || 1 }});
 }
 
 // 正常的nft 数组[0,1]表示id为0的nft没有资产， id为1的ntf资产为1

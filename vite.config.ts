@@ -23,6 +23,11 @@ export default defineConfig({
                 target: 'https://api.cyberpop.online/', //实际请求地址
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/data/, '')
+            },
+            '/game': {
+                target: 'https://gamepool.cyberpop.online/', //实际请求地址
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/game/, '')
             }
         },
     },
