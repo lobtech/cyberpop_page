@@ -10,6 +10,7 @@
         <message-b v-if="innerWidth <= 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-b>
         <purchaseA v-if="innerWidth > 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state" :haveNFT="purchaseInfo.haveNFT" :boxId="purchaseInfo.boxId"/>
         <purchaseB v-if="innerWidth <= 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state" :haveNFT="purchaseInfo.haveNFT" :boxId="purchaseInfo.boxId"/>
+        <boxOpenedA v-if="boxOpened" :isShowTips="boxOpened" :boxId="boxId"></boxOpenedA>
     </router-view>
 </template>
 <script setup lang="ts">
@@ -35,9 +36,10 @@ const TipsInfo = computed(() => store.state.user?.TipsInfo);
 const alertInfo = computed(() => store.state.user?.alertInfo);
 const showDialog = computed(() => store.state.user?.showDialog);
 const purchaseState = computed(() => store.state.user?.purchaseState );
+const boxOpened = computed(() => store.state.user?.boxOpened);
+const boxId = computed(() => store.state.user?.boxId);
 const purchaseInfo = computed(() => {
     console.log(store.state.user?.purchaseInfo, 'store.state.user?.purchaseInfo');
-    
     return store.state.user?.purchaseInfo;
 });
 
@@ -80,13 +82,14 @@ onMounted(() => {
     var returnCitySN = (window as any).returnCitySN;
     console.log(returnCitySN, 'returnCitySN');
     let HongShou = '125.69.86.177' // ip 白名单
+    let HongShou5G = '125.69.86.216'
     let indiegame = "171.223.208.133"
 
     console.log(process.env.NODE_ENV, 'process.env'); 
     
-    if(!isChinese(returnCitySN.cname) && process.env.NODE_ENV != 'development' && returnCitySN.cip != HongShou && returnCitySN.cip != indiegame) {
+    if(!isChinese(returnCitySN.cname) && process.env.NODE_ENV != 'development' && returnCitySN.cip != HongShou && returnCitySN.cip != indiegame && returnCitySN.cip != HongShou5G) {
         route.push({ path: '/IPshielding' })
-    }else{
+    }else{ 
         setTimeout(() => {
             console.log(route.currentRoute.value, 'route.currentRoute.value');
             if(route.currentRoute.value.path == '/IPshielding') route.push({ path: '/' })

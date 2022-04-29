@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="btn">
-                <div class="purchase" :class="{'not-allowed': data.Remaining == 0 }" @click="purchase">{{$t('message.details.box_btn_pur')}}</div>
+                <div class="purchase" :class="{'not-allowed': data.Remaining == 0 || isProduction }" @click="purchase">{{$t('message.details.box_btn_pur')}}</div>
                 <div class="unpack" :class="{'not-allowed': ownerNumber == 0 }" @click="open">{{$t('message.details.box_btn_open')}}</div>
                 <div class="view" @click="opensea">{{$t('message.details.box_btn_view')}}</div>
             </div>
@@ -250,6 +250,7 @@ const Route = useRoute() //获取到值
 const { proxy } = getCurrentInstance() as any;
 const { GiftBox, LootBox, MarketV2, cyt, Cyborg, Cyborg_Fuji, cyberClub, cyberClub_Fuji } = Web3.contracts;
 const index: any = Route.query.type || 1; //当前盒子类型
+const isProduction = ref(true);
 
 // changeMenu
 let exMenu:any = ref(0) 
@@ -293,9 +294,9 @@ const ownerNumber = ref(0);
 
 const getBalance = async (chainid: number) => {
     if(chainid == 80001){
-        var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
+        var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
     }else if(chainid == 43113){
-        var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+        var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
     }else{
         var result: any = [0, 0, 0]
     }
@@ -350,7 +351,7 @@ const getData = async (result: any) => {
         data.value.Remaining = 0;
         return;
     };
-    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], MarketV2.address); // 查询已上架的资产
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], MarketV2.address); // 查询已上架的资产
     console.log(LootBox_result, 'LootBox_result');
     console.log(LootBox_result[index-1]);
     data.value.Remaining = LootBox_result[index-1];
@@ -417,8 +418,8 @@ const open = async (boxId?: any) => {
 
 // 购买盒子
 const purchase = async () => {
-    // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2], true);
-    if(data.value.Remaining == 0) return;
+    // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], true);
+    if(data.value.Remaining == 0 || isProduction.value) return;
     store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0, boxId: index-1, haveNFT: data.value.Remaining }});
 
 }
@@ -428,6 +429,7 @@ onMounted( () => {
     window.scrollTo(0,0);
     store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     videoUrl();
+    if(process.env.NODE_ENV == 'development') isProduction.value = false; //判断开发 生产环境
 })
 
 

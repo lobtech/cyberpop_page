@@ -15,7 +15,6 @@
                     {{$t('message.assets.wel_desc')}}
                 </div>
             </div>
-            <!-- <div style="color: #fff">{{readyAssetsF + chainId}}</div> -->
             <div class="ecr" v-if="readyAssetsF != -1">
                 <!-- <div class="ecr" v-if="false"> -->
                 <div class="search">
@@ -25,35 +24,35 @@
                     </div>
                     <div class="type">
                         <!-- <div class="name" @click="checkall(1)">Type</div> -->
-                        <div class="name">{{t('message.assets.type1')}}</div>
+                        <div class="name" @click="checkall(1)">{{t('message.assets.type1')}}</div>
                         <div class="check">
                             <form action="" class="check">
                                 <div>
-                                    <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type1" value="character">
-                                    <label for="type1"><span>{{t('message.assets.type1_item1')}}</span></label>
+                                    <input :ref="typeItem" :checked="tbool" type="checkbox" v-model="hobby2" name="type" id="type1" value="Game">
+                                    <label for="type1"><span>{{t('message.assets.type1_item6')}}</span></label>
                                 </div>
                                 <div>
-                                    <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type2" value="Weapon">
-                                    <label for="type2"><span>{{t('message.assets.type1_item2')}}</span></label>
+                                    <input :ref="typeItem" :checked="tbool" type="checkbox" v-model="hobby2" name="type" id="type2" value="Badge">
+                                    <label for="type2"><span>{{t('message.assets.type1_item7')}}</span></label>
                                 </div>
                                 <div>
-                                    <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type3" value="Support card">
-                                    <label for="type3"><span>{{t('message.assets.type1_item3')}}</span></label>
+                                    <input :ref="typeItem" :checked="tbool" type="checkbox" v-model="hobby2" name="type" id="type3" value="role">
+                                    <label for="type3"><span>{{t('message.assets.type1_item8')}}</span></label>
                                 </div>
                                 <div>
-                                    <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type4" value="Item">
-                                    <label for="type4"><span>{{t('message.assets.type1_item4')}}</span></label>
+                                    <input :ref="typeItem" :checked="tbool" type="checkbox" v-model="hobby2" name="type" id="type4" value="head">
+                                    <label for="type4"><span>{{t('message.assets.type1_item9')}}</span></label>
                                 </div>
                                 <div>
-                                    <input :ref="typeItem" :checked="tbool" type="checkbox" name="type" id="type5" value="Blind box">
-                                    <label for="type5"><span>{{t('message.assets.type1_item5')}}</span></label>
+                                    <input :ref="typeItem" :checked="tbool" type="checkbox" v-model="hobby2" name="type" id="type5" value="LootBox">
+                                    <label for="type5"><span>{{t('message.assets.type1_item10')}}</span></label>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="quality">
                         <!-- <div class="name" @click="checkall(2)">Quality</div> -->
-                        <div class="name">{{$t('message.assets.type2')}}</div>
+                        <div class="name" @click="checkall(2)">{{$t('message.assets.type2')}}</div>
                         <form action="" class="check">
                             <div>
                                 <input :ref="qualityItem" :checked="qbool" type="checkbox" name="quality" id="quality1" value="Legend">
@@ -84,19 +83,24 @@
                     <div class="ercType" :style="{'margin-top': loadingState != 2 ? '12vw' : '0'}" v-show="!ecrType">
                         <ul class="prince" v-if="data.length > 0">
                             <li v-for="(item, index) in data" :key="index">
-                                <img :src="item.data.image" alt="">
-                                <div class="name"><div class="loadName"></div>{{item.data.name}}<span>x{{item.number}}</span></div>
+                                <div class="boxVideo">
+                                    <img :src="item.data.image" v-if="item.data.image" alt="">
+                                    <video class="third" autoplay muted loop v-else>
+                                        <source :src="item.data.animation_url" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="name"><div class="loadName" v-if="item.isLoading"></div>{{item.data.name}}<span>x{{item.number}}</span></div>
                                 <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
-                                    <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
-                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
+                                    <div class="transfer" :class="{'not-allowed': item.isLoading}" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell not-allowed">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
                                 <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
-                                    <div class="load" @click="transferPopup(item)">{{$t('message.assets.btn_load')}}</div>
-                                    <div class="claim">&nbsp;&nbsp;{{$t('message.assets.but_claim')}}</div>
+                                    <div class="load" :class="{'not-allowed': item.isLoading}" @click="loadPool(item)">{{$t('message.assets.btn_load')}}</div>
+                                    <div class="claim" :class="{'not-allowed': !item.isLoading}" @click="withdrawRole(item)">&nbsp;&nbsp;{{$t('message.assets.but_claim')}}</div>
                                 </div>
                                 <div class="btn" v-if="item.type == 'box_mumbai' || item.type == 'box_fuji'">
                                     <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
-                                    <div class="sell">{{$t('message.assets.btn_unpack')}}</div>
+                                    <div class="sell" @click="open(item)">{{$t('message.assets.btn_unpack')}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -109,10 +113,18 @@
                         <ul class="prince" v-if="data.length > 0">
                             <li v-for="(item, index) in data" :key="index">
                                 <img :src="item.data.image" alt="">
-                                <div class="name">{{item.data.name}}<span>x{{item.number}}</span></div>
-                                <div class="btn">
+                                <div class="name"><div class="loadName" v-if="item.isLoading"></div>{{item.data.name}}<span>x{{item.number}}</span></div>
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
+                                    <div class="transfer" :class="{'not-allowed': item.isLoading}" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell not-allowed">{{$t('message.assets.btn_sell')}}</div>
+                                </div>
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
+                                    <div class="load" :class="{'not-allowed': item.isLoading}" @click="loadPool(item)">{{$t('message.assets.btn_load')}}</div>
+                                    <div class="claim" :class="{'not-allowed': !item.isLoading}" @click="withdrawRole(item)">&nbsp;&nbsp;{{$t('message.assets.but_claim')}}</div>
+                                </div>
+                                <div class="btn" v-if="item.type == 'box_mumbai' || item.type == 'box_fuji'">
                                     <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
-                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
+                                    <div class="sell" @click="open(item)">{{$t('message.assets.btn_unpack')}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -125,10 +137,18 @@
                         <ul class="prince" v-if="data.length > 0">
                             <li v-for="(item, index) in data" :key="index">
                                 <img :src="item.data.image" alt="">
-                                <div class="name">{{item.data.name}}<span>x{{item.number}}</span></div>
-                                <div class="btn">
+                                <div class="name"><div class="loadName" v-if="item.isLoading"></div>{{item.data.name}}<span>x{{item.number}}</span></div>
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
+                                    <div class="transfer" :class="{'not-allowed': item.isLoading}" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell not-allowed">{{$t('message.assets.btn_sell')}}</div>
+                                </div>
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
+                                    <div class="load" :class="{'not-allowed': item.isLoading}" @click="loadPool(item)">{{$t('message.assets.btn_load')}}</div>
+                                    <div class="claim" :class="{'not-allowed': !item.isLoading}" @click="withdrawRole(item)">&nbsp;&nbsp;{{$t('message.assets.but_claim')}}</div>
+                                </div>
+                                <div class="btn" v-if="item.type == 'box_mumbai' || item.type == 'box_fuji'">
                                     <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
-                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
+                                    <div class="sell" @click="open(item)">{{$t('message.assets.btn_unpack')}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -191,6 +211,7 @@
     </div>
     
     <footer-a></footer-a>
+    <load-game-a :isShowTips="TipsState" :transition="transition" :tokenId="tokenId" v-if="TipsState" :loadAbi="loadAbi" :loadAddress="loadAddress" :number="number" @initLoad='initLoad'></load-game-a>
     <!-- <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a> -->
     <popup-a v-show="transferActive" :transferInfo="transferItem" :abi="abiSelect" :address="addressSelect"></popup-a>
 </template>
@@ -209,29 +230,36 @@ const { proxy } = getCurrentInstance() as any
 const realId = computed(() => store?.state.user?.realId);  // 星号地址
 const idTemp: any = computed(() => store?.state.user?.idTemp);  // 完整地址
 const TipsState: any = ref(false as any)  // has popup-a 
+const transition = ref(true);
+const tokenId = ref(1);
+const loadAddress: any = ref(0)
+const loadAbi: any = ref(0);
 let data:any = ref([]);
 
 const loadingState: any = ref(0);
 const chainId: any = computed(() => store.state.user?.chainId );
-const readyAssetsF = computed(() => store.state.user?.readyAssets );
 const transferSuccess = computed(() => store.state.user?.transferSuccess);
+
+
 watch(chainId, (newVal, oldVal) => {
     if(!oldVal) return;
+    console.log('her2');
 	getData(ecrType.value)
 }, {immediate:true,deep:true});
 
 watch(realId, (newVal, oldVal) => {
-    if(!oldVal) return;
+    if(oldVal == -1 || !oldVal) return;
+    console.log('her3');
 	getData(ecrType.value)
 }, {immediate:true,deep:true});
 
 watch(transferSuccess, (newVal, oldVal) => {
     if(!oldVal) return;
+    console.log('her4');
     getData(ecrType.value)
 }, {immediate:true,deep:true});
 
-
-const copyUrl = (e:any) => {
+const copyUrl = (e: any) => {
     if( e.target.innerText.length > 10 ){
         const input = document.createElement("input");
         document.body.appendChild(input);
@@ -250,17 +278,41 @@ const copyUrl = (e:any) => {
 }
 
 
-
 // select
 let abiSelect:any = ref(null);
 const addressSelect:any = ref(null);
+
 
 // checkAll (no use)
 let selectArr = ref([])
 let tbool:any = ref(false)
 let qbool:any = ref(false)
-
 let typeRef = ref([])
+const hobby2: any = ref([]); // 已经选择的复选框
+watch(() => hobby2.value, (now, old) => {
+    console.log(now, 'now'); //Proxy {0: 'Game'}
+    if(now.length == 0) {
+        getData(ecrType.value);
+        return; 
+    };
+    (function loop(index){
+        console.log(now.length);
+        if( index == 0 ) {
+            loadingState.value = 1;
+            data.value = [];
+        }
+        getData(ecrType.value, now[index]); 
+        if (++index<now.length) {
+
+            setTimeout(() => {
+                loop(index)
+            }, 1000);
+        } else {
+            // loadingState.value = 2; // 加载完毕
+        }
+    })(0)
+})
+
 let qualityRef = ref([])
 const typeItem = (el:any) => {
     (typeRef.value as Array<HTMLElement>).push(el)
@@ -269,145 +321,287 @@ const qualityItem = (el:any) => {
     (qualityRef.value as Array<HTMLElement>).push(el)
 }
 const checkall = (index:any) => {
-    if( index == 1 ){
-        // typeRef.value.map( (item:HTMLElement) => {
-            // item.toggleAttribute('checked')
-            tbool.value = true
-        // })
-    }else{
-        qualityRef.value.map( (item:HTMLElement) => {
-            // item.toggleAttribute('checked')
-            qbool.value = true
-        })
-    }
+    console.log(hobby2._rawValue);
+    // if( index == 1 ){
+    //     // typeRef.value.map( (item:HTMLElement) => {
+    //         // item.toggleAttribute('checked')
+    //         tbool.value = true
+    //     // })
+    // }else{
+    //     qualityRef.value.map( (item:HTMLElement) => {
+    //         // item.toggleAttribute('checked')
+    //         qbool.value = true
+    //     })
+    // }
 }
 
 // switch erc button
 const changeType = (type: Number) => {
     if(loadingState.value == 2 || loadingState.value == 0){
         ecrType.value = type;
+        console.log('her5');
         getData(type)
     }
 }
 
+//  game pool
+const number = ref(0);
+const getGamePool = (address: string) => {
+    return new Promise((resolve, reject) => {
+        proxy.$api.get(`/game/query?addr=${address}`).then((result: any) => {
+            console.log(result.data, 'gamepool');
+            resolve(result.data)
+        }).catch(( err: any ) => {
+            resolve(0) 
+        })
+    })
+}
+
+const loadPool = async (item: any) => {
+    console.log(item);
+    if(item.isLoading) return;
+    if(item.type == "head_mumbai" || item.type == "head_fuji"){
+        loadAddress.value = item.type == "head_fuji" ? cyberClub_Fuji.address : cyberClub.address;
+        loadAbi.value = cyberClub_Fuji.abi;
+        return;
+    }else if(item.type == "role_mumbai" || item.type == "role_fuji"){
+        loadAddress.value = item.type == "role_fuji" ? Cyborg_Fuji.address : Cyborg.address;
+        loadAbi.value = Cyborg_Fuji.abi;
+    }else if(item.type == "game_mumbai" || item.type == "game_fuji"){
+        loadAddress.value = item.type == "role_fuji" ? game_Fuji.address : arms.address;
+        loadAbi.value = game_Fuji.abi;
+        number.value = 1; // 1155需要传入数量
+        return;
+    }
+    tokenId.value = item.id;
+    TipsState.value = true;
+    transition.value = true;
+    return;
+}
+
+// 提现取回
+const withdrawRole =  async (item: any) => {
+    if(chainId.value != 80001 || !item.isLoading) return;
+    console.log(item);
+    let result = await Web3.withdrawRole(gamePool.abi, gamePool.address, Number(item.id));
+    console.log(result);
+}
+
+const initLoad = () => {
+    transition.value = false
+    number.value = 0
+    setTimeout(() => {
+        TipsState.value = false
+    }, 300);
+}
+
+
 const { nft, nft_fuji, arms, erc721, gamePool, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji, LootBox } = Web3.contracts;
 
-const getData: any = async (type: Number) => {
-    data.value = [];
+const getData: any = async (type: Number, filter: any = false) => { // erc正常的数据模式
+    if(!filter) data.value = [];
     loadingState.value = 1;
     let result: any = await getGamePool(idTemp.value)
     let weapons = [];
     let role = [];
     let badge = [];
     for (const iterator in result) {
-        console.log(iterator, 'iterator');
-        if(iterator.length == 6){
+        if(iterator.length == 6){ // 武器id
+            let key = iterator 
+            let val = result[iterator]
             weapons.push({
-                iterator: result[iterator]
+                [ key ]: val
             })
-        }else if(iterator.length == 11){
-            role.push({
-                iterator: result[iterator]
-            })
-        }else if(iterator.length == 7){
-            let temp = iterator[iterator.length-1];
+        }else if(iterator.length == 11){ // 角色id
+            role.push(iterator)
+        }else if(iterator.length == 7){ //徽章id
+            let key = iterator 
+            let val = result[iterator]
             badge.push({
-                temp: result[iterator]
+                [ key[ key.length-1 ] ]: val
             })
         }
     }
 
-    console.log(weapons, role, badge);
-    
-    //  data.value.push({
-    //     id: iterator,
-    //     type: type,
-    //     number: result[iterator],
-    //     data: result,
-    // })
+    console.log(weapons, role, badge, '🐮🐎');
+
     if(chainId.value == 80001){  //mumbai
         if(!type){
-            // let result = await Web3.batchBalanceOf(nft.abi, nft.address);
-            // console.log(result);
-            // await getNFTData(result, 'server', 'server_mumbai');
-            let game_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'Game'){
+                    let game_resulte = await Web3.balanceOfBatch(arms.abi , arms.address, store.state.user?.game);
+                    await getNFTData(game_resulte, 'game', 'game_mumbai');
+                }else if(filter == 'Badge'){
+                    // let nft = await Web3.batchBalanceOf(nft.abi , nft.address, store.state.user?.badge);
+                    // await getNFTData(nft, 'server', 'server_mumbai', store.state.user?.badge);
+                }else if(filter == 'role'){
+                    let role_result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
+                    await getHead(role_result, 'role', 'role_mumbai');
+                }else if(filter == 'head'){
+                    let game_resulte = await Web3.tokensOfOwner(cyberClub.abi , cyberClub.address);
+                    await getHead(game_resulte, 'head', 'head_mumbai');
+                }else{
+                    let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
+                    await getNFTData(box_result, 'box', 'box_mumbai', store.state.user?.box);
+                }
+                loadingState.value = 2;
+                return;
+            }
+            await getHead(role, 'role', 'role_mumbai', 'isLoading');
+            // await getNFTData(weapons, 'weapons', 'weapons_mumbai', false, true);
+            await getNFTData(badge, 'badge', 'badge_mumbai', store.state.user?.badge);
+            let game_resulte = await Web3.balanceOfBatch(arms.abi , arms.address, store.state.user?.game);
             console.log(game_resulte);
-            await getNFTData(game_resulte, 'game', 'game_mumbai');
+            await getNFTData(game_resulte, 'game', 'game_mumbai', store.state.user?.game);
             let role_result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
             console.log(role_result);
-            await getNFTData(role_result, 'role', 'role_mumbai', true);
+            await getHead(role_result, 'role', 'role_mumbai');
             let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
             console.log(cyberClub_result);
-            await getHead(cyberClub_result, 'head_mumbai');
-            let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
+            await getHead(cyberClub_result, 'head', 'head_mumbai');
+            let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
             console.log(box_result);
-            await getNFTData(box_result, 'box', 'box_mumbai');
+            await getNFTData(box_result, 'box', 'box_mumbai', store.state.user?.box);
         }else if(type == 1){
-            let result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
-            await getNFTData(result, 'role', 'role_mumbai', true);
-            let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
-            await getHead(cyberClub_result, 'head_mumbai');
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'role'){
+                    let role_result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
+                    await getHead(role_result, 'role', 'role_mumbai');
+                }else if(filter == 'head'){
+                    let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi , cyberClub.address);
+                    await getHead(cyberClub_result, 'head', 'head_mumbai');
+                }
+                loadingState.value = 2;
+                return;
+            }
+            let role_result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
+            await getHead(role_result, 'role', 'role_mumbai');
+            let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi , cyberClub.address);
+            await getHead(cyberClub_result, 'head', 'head_mumbai');
         }else{
             // let result = await Web3.batchBalanceOf(nft.abi, nft.address);
             // await getNFTData(result, 'server', 'server_mumbai');
-            let game_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
-            console.log(game_resulte);
-            await getNFTData(game_resulte, 'game', 'game_mumbai')
-            let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
-            await getNFTData(box_result, 'box', 'box_mumbai');
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'Game'){
+                    let game_resulte = await Web3.balanceOfBatch(arms.abi , arms.address, store.state.user?.game);
+                    await getNFTData(game_resulte, 'game', 'game_mumbai', store.state.user?.game);
+                }else if(filter == 'Badge'){
+                    // let badge = await Web3.balanceOfBatch(arms.abi , arms.address, store.state.user?.game);
+                    // await getNFTData(badge, 'server', 'server_mumbai');
+                }else{
+                    let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
+                    await getNFTData(box_result, 'box', 'box_mumbai', store.state.user?.box);
+                }
+                loadingState.value = 2;
+                return;
+            }
+            // await getNFTData(weapons, 'weapons', 'weapons_mumbai');
+            let game_resulte = await Web3.balanceOfBatch(arms.abi , arms.address, store.state.user?.game);
+            await getNFTData(game_resulte, 'game', 'game_mumbai', store.state.user?.game);
+            let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
+            await getNFTData(box_result, 'box', 'box_mumbai', store.state.user?.box);
         }
     }
     if(chainId.value == 43113){ // fuji
         if(!type){
-            let result = await Web3.batchBalanceOf(nft_fuji.abi, nft_fuji.address);
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'Game'){
+                    let game_result: any = await Web3.balanceOfBatch(game_Fuji.abi, game_Fuji.address, store.state.user?.game);
+                    await getNFTData(game_result, 'game', 'game_fuji', store.state.user?.game)
+                }else if(filter == 'Badge'){
+                    let result = await Web3.balanceOfBatch(nft_fuji.abi, nft_fuji.address, store.state.user?.badge);
+                    await getNFTData(result, 'badge', 'badge_fuji', store.state.user?.badge);
+                }else if(filter == 'role'){
+                    let Cyborg_result = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
+                    await getHead(Cyborg_result, 'role', 'role_fuji');
+                }else if(filter == 'head'){
+                    let cyberClub_result = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
+                    await getHead(cyberClub_result, 'head', 'head_fuji');
+                }else{
+                    let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, store.state.user?.box);
+                    await getNFTData(box_result, 'box', 'box_fuji', store.state.user?.box);
+                }
+                loadingState.value = 2;
+                return;
+            }
+            let result = await Web3.balanceOfBatch(nft_fuji.abi, nft_fuji.address, store.state.user?.badge);
             console.log(result);
-            await getNFTData(result, 'server', 'server_fuji');
-            let game_result = await Web3.batchBalanceOf(game_Fuji.abi, game_Fuji.address);
-            console.log(game_result);
-            await getNFTData(game_result, 'game', 'game_fuji')
+            await getNFTData(result, 'badge', 'badge_fuji', store.state.user?.badge);
+            let game_result: any = await Web3.balanceOfBatch(game_Fuji.abi, game_Fuji.address, store.state.user?.game);
+            console.log(game_result, 'game_result');
+            await getNFTData(game_result, 'game', 'game_fuji', store.state.user?.game)
             let Cyborg_result = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
             console.log(Cyborg_result);
-            await getNFTData(Cyborg_result, 'role', 'role_fuji', true);
+            await getHead(Cyborg_result, 'role', 'role_fuji');
             let cyberClub_result = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
             console.log(cyberClub_result);
-            await getHead(cyberClub_result, 'head_fuji');
-            let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
-            console.log(box_result);
-            await getNFTData(box_result, 'box', 'box_fuji');
+            await getHead(cyberClub_result, 'head', 'head_fuji');
+            let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, store.state.user?.box);
+            console.log(box_result, 'box_result');
+            await getNFTData(box_result, 'box', 'box_fuji', store.state.user?.box);
             
         }else if(type == 1){
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'role'){
+                    let Cyborg_result = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
+                    await getHead(Cyborg_result, 'role', 'role_fuji');
+                }else if(filter == 'head'){
+                    let cyberClub_result = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
+                    await getHead(cyberClub_result, 'head', 'head_fuji');
+                }
+                loadingState.value = 2;
+                return;
+            }
             let Cyborg_result = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
-            await getNFTData(Cyborg_result, 'role', 'role_fuji', true);
+            await getHead(Cyborg_result, 'role', 'role_fuji');
             let cyberClub_result = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
-            await getHead(cyberClub_result, 'head_fuji');
+            await getHead(cyberClub_result, 'head', 'head_fuji');
         }else{
-            let result = await Web3.batchBalanceOf(nft_fuji.abi, nft_fuji.address);
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'Game'){
+                    let game_result: any = await Web3.balanceOfBatch(game_Fuji.abi, game_Fuji.address, store.state.user?.game);
+                    await getNFTData(game_result, 'game', 'game_fuji', store.state.user?.game)
+                }else if(filter == 'Badge'){
+                    let result = await Web3.balanceOfBatch(nft_fuji.abi, nft_fuji.address, store.state.user?.badge);
+                    await getNFTData(result, 'badge', 'badge_fuji', store.state.user?.badge);
+                }else{
+                    let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, store.state.user?.box);
+                    await getNFTData(box_result, 'box', 'box_fuji', store.state.user?.box);
+                }
+                loadingState.value = 2;
+                return;
+            }
+            let result = await Web3.balanceOfBatch(nft_fuji.abi, nft_fuji.address, store.state.user?.badge);
             console.log(result);
-            await getNFTData(result, 'server', 'server_fuji');
-            let game_result = await Web3.batchBalanceOf(game_Fuji.abi, game_Fuji.address);
-            await getNFTData(game_result, 'game', 'game_fuji');
-            let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+            await getNFTData(result, 'badge', 'badge_fuji', store.state.user?.badge);
+            let game_result: any = await Web3.balanceOfBatch(game_Fuji.abi, game_Fuji.address, store.state.user?.game);
+            console.log(game_result, 'game_result');
+            await getNFTData(game_result, 'game', 'game_fuji', store.state.user?.game)
+            let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, store.state.user?.box);
             console.log(box_result);
-            await getNFTData(box_result, 'box', 'box_fuji');
+            await getNFTData(box_result, 'box', 'box_fuji', store.state.user?.box);
         }
     }
-    loadingState.value = 2;
+    console.log(data.value);
+    
+    loadingState.value = 2; // 加载完毕
 }
 
 // 头像的nft 数组[0, 1]表示 有两个nft资产，id分别为0和1
-const getHead: any = async (res: any, type: any) => {
+const getHead: any = async (res: any, path: any, type: any, isLoading?: any) => {
     return new Promise((resolve, reject) => {
         if(res.length == 0) {
             resolve(1);
             return;
         }
          (function loop(index){
-             proxy.$api.get(`https://api.cyberpop.online/head/${res[index]}`).then((result:any) => {
+             proxy.$api.get(`https://api.cyberpop.online/${path}/${res[index]}`).then((result:any) => {
                 data.value.push({
                     id: res[index],
                     type: type,
+                    isLoading: isLoading || false,
                     number: 1,
-                    data: result,
+                    data: result || { name: res[index], image: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/ba5fcf2b4854eebdc64dc80089f2cc26.png' },
                 })
                 if (++index<res.length) {
                     loop(index);
@@ -422,7 +616,7 @@ const getHead: any = async (res: any, type: any) => {
 }
 
 // 正常的nft 数组[0,1]表示id为0的nft没有资产， id为1的ntf资产为1
-const getNFTData: any = async (res: any, path: any, type: any, isRole?: any , isWeapons?: any) => {
+const getNFTData: any = async (res: any, path: any, type: any, ids?: any, isLoading?: any) => {
     return new Promise((resolve, reject) => {
          (function loop(index){
              if(res[index] == 0) { //为了减少不必要的请求
@@ -433,13 +627,14 @@ const getNFTData: any = async (res: any, path: any, type: any, isRole?: any , is
                 }
                 return;
              }
-             proxy.$api.get(`https://api.cyberpop.online/${path}/${isRole ? res[index] : isWeapons ? index + 1 + '01101': index}`).then((result:any) => {
-                if(res[index] > 0){
+             proxy.$api.get(`https://api.cyberpop.online/${path}/${ids[index]}`).then((result:any) => {
+                if(res[index] > 0 || index == 101101){
                     data.value.push({
-                        id: isRole ? res[index] : index,
+                        id: ids[index],
                         type: type,
-                        number: isRole ? 1 : res[index],
-                        data: result || {name: res[index], image: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/ba5fcf2b4854eebdc64dc80089f2cc26.png'},
+                        isLoading: isLoading || false,
+                        number: res[index],
+                        data: result || { name: res[index], image: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/ba5fcf2b4854eebdc64dc80089f2cc26.png' },
                     })
                 }
                 if (++index<res.length) {
@@ -456,12 +651,18 @@ const getNFTData: any = async (res: any, path: any, type: any, isRole?: any , is
 
 // ecr exchange
 let ecrType:any = ref(0)
-
+const readyAssetsF: any = computed(() => store.state.user?.readyAssets );
+watch(readyAssetsF, (newVal: any, oldVal: any) => {
+    if(newVal == -1 || newVal == 0) return;
+    console.log('her1', newVal);
+    getData(ecrType.value)
+}, {immediate:true,deep:true});
 
 // NFT transfer
 const transferActive = computed(() => store?.state.user?.transferActive)
 const transferItem:any = ref(null)
 const transferPopup = (item:any) => {
+    if(item.isLoading) return;
     store.dispatch('user/transferChange',true)
     store.dispatch('user/transferChangeAni',true)
     transferItem.value = JSON.parse(JSON.stringify(item));
@@ -495,7 +696,7 @@ const transferPopup = (item:any) => {
     }else if( item.type == 'box_mumbai'){
         abiSelect.value = Web3.contracts.LootBox.abi
         addressSelect.value = Web3.contracts.LootBox.address
-    }else if( item.type == 'server_fuji'){
+    }else if( item.type == 'badge_fuji'){
         abiSelect.value = Web3.contracts.nft_fuji.abi
         addressSelect.value = Web3.contracts.nft_fuji.address
     }
@@ -503,23 +704,24 @@ const transferPopup = (item:any) => {
     console.log(transferItem.value , 'transferItem.value ');
 }
 
-// game pool
-const getGamePool = (address: string) => {
-    return new Promise((resolve, reject) => {
-        proxy.$api.get(`/game/query?addr=${address}`).then((result: any) => {
-            console.log(result.data, 'gamepool');
-            resolve(result.data)
-        }).catch(( err: any ) => {
-            resolve(0) 
-        })
-    })
+
+// 開盒子
+const open = (item: any) => {
+    if(item.number == 0) return;
+    // getLast(); // 查询资产合约中最后一位为立马开启的资产
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'),   addNetwork: false, boxId: item.id, haveNFT: item.number }});
 }
+
 
 onUnmounted(() => {
 })
 
 
-onMounted( () => {
+onMounted(() => {
+    store.dispatch('user/boxOpened', true);
+    store.dispatch('user/xplanChangeAni', true);
+    store.dispatch('user/boxId', 2);
+    
     setTimeout(() => {
         if( realId.value == -1 && proxy.$route.path == '/knapsack' ){
             router.push('/')
@@ -786,6 +988,27 @@ onMounted( () => {
                                     width: 100%;
                                     height: 16.4vw;
                                 }
+                                .boxVideo{
+                                    position: relative;
+                                    // width: 19.32vw;
+                                    height: 16.4vw;
+                                    overflow: hidden;
+                                    video{
+                                        position: absolute;
+                                        top: 50.2%;
+                                        left: 50%;
+                                        width: 134%;
+                                        height: 100px;
+                                        transform: translate(-50%,-50%);
+                                    }
+                                    img{
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                    .third{
+                                        width: 177%;
+                                    }
+                                }
                                 .name{
                                     height: 1.56vw;
                                     margin: 1.04vw 0 1.3vw 0;
@@ -854,6 +1077,12 @@ onMounted( () => {
                                     .load:hover,
                                     .claim:hover{
                                         opacity: .8;
+                                    }
+                                    .not-allowed{
+                                        cursor: not-allowed !important;
+                                    }
+                                    .not-allowed:hover{
+                                        opacity: .5;
                                     }
                                     .unpack{
                                         width: 10.93vw;

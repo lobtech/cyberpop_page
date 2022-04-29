@@ -1,14 +1,15 @@
 <template>
     <div class="container" v-show="isShowTips">
-        <div class="mask" :class="isShowTips && (isShowTips ? 'bounceShow' : 'bounceHide') ">
+        <div class="mask" :class="isShowTips && (xplanAni ? 'bounceShow' : 'bounceHide') ">
             <div class="cover"></div>
             <div class="coverborder"></div>
             <img class="close" v-if="props.isClose" src="@/assets/nwhome/close.svg" alt=""  @click="close">
             <div class="content">
                 <div class="title">{{ props.title }}</div>
-                <div class="icon">
-                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/metaMask.svg" alt="">
-                    <div class="subtitle">{{t('message.common.metamask.logoText')}}</div>
+                <div class="number">
+                    <div class="add" @click="addNft()" :class="canAdd == 'disable' ? 'disableNum':''">+</div>
+                    <input id="inputNum" type="text" :value="valueIn" @input="inputNumber($event)">
+                    <div class="reduce" @click="reduceNft()" :class="canReduce == 'disable' ? 'disableNum':''">—</div>
                 </div>
                 <!-- <div class="text">{{ props.content == 'netWork' ? $t('message.common.metamask.switch') : props.content }} <a v-if="props.addNetwork" href="https://chainlist.org/" target="_blank">{{ $t('message.common.metamask.add1') }}</a> </div> -->
                 <div class="text">{{ props.content == 'netWork' ? $t('message.common.metamask.switch') : props.content }}  <br/>
@@ -31,7 +32,7 @@ import NFT from '@/tools/web3'
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 
-
+const xplanAni = computed(() => store?.state.user?.xplanAni);
 const props = defineProps({
     content: String, // 文案内容
     isLoading: {
@@ -45,8 +46,10 @@ const props = defineProps({
 })
 
 const close = () => {
-    
-    store.dispatch('user/TipsState', {show: false, info: { hasLoading: true, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}})
+    store.dispatch('user/xplanChangeAni', false);
+    setTimeout(() => {
+        store.dispatch('user/TipsState', {show: false, info: { hasLoading: true, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}})
+    }, 300);
 }
 
 const changeChain = async (value?: any) => {
@@ -92,7 +95,7 @@ onMounted(() => {
             z-index: 9;
             bottom: 0;
             width: 100%;
-            height: 387px;
+            height: 487px;
             padding: 24px;
             background: linear-gradient(221deg, rgba(132, 120, 255, .8) 0%, rgba(12, 9, 17, .8) 100%),
                         linear-gradient(81deg, rgba(45, 222, 211, .6) 0%, rgba(12, 9, 17, 1) 100%);
@@ -107,20 +110,39 @@ onMounted(() => {
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     font-weight: normal;
                 }
-                .icon{
+                .number{
                     display: flex;
-                    margin: 20px 0;
-                    img{
-                        width: 40px;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    height: 40px;
+                    .add,.reduce{
+                        width: 96px;
                         height: 40px;
-                        margin-right: .46vw;
-                    }
-                    .subtitle{
-                        height: 100%;
-                        font-size: 16px;
-                        font-family: AlibabaPuHuiTi_2_115_Black;
-                        color: #E6E8EC;
+                        font-size: 24px;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                        color: #FFFFFF;
                         line-height: 40px;
+                        text-align: center;
+                        background-color: #8478FF;
+                        cursor: pointer;
+                    }
+                    input{
+                        width: 95px;
+                        height: 34px;
+                        font-size: 24px;
+                        font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                        color: #FFFFFF;
+                        line-height: 34px;
+                        text-align: center;
+                        background: transparent;
+                        border: none;
+                        outline: none;
+                    }
+                    input::-webkit-outer-spin-button,
+                    input::-webkit-inner-spin-button {
+                        -webkit-appearance: none !important;
+                        margin: 0;
                     }
                 }
                 .text{

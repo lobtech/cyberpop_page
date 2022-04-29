@@ -47,7 +47,7 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
                             <div class="exchange">≈$20.00</div>
                         </div>
                         <div class="btn">
-                            <div class="purchase" :class="{'not-allowed': Remaining[0] == 0}" @click="purchase(0, Remaining[0])">{{$t('message.details.box_btn_pur')}}</div>
+                            <div class="purchase" :class="{'not-allowed': Remaining[0] == 0 || isProduction}" @click="purchase(0, Remaining[0])">{{$t('message.details.box_btn_pur')}}</div>
                             <div class="open" :class="{'not-allowed': data[0].number == 0}" @click="open(0, data[0].number)">{{$t('message.box.open')}}</div>
                             <div class="details" @click="toDetails(1)"></div>
                             <span class="details-text">{{$t('message.box.btn_det')}}</span>
@@ -132,6 +132,7 @@ const { proxy } = getCurrentInstance() as any;
 
 const Remaining = ref([0, 0, 0]);
 
+const isProduction: any = ref(true);
 const chainId: any = computed(() => store.state.user?.chainId);
 watch(chainId, (newVal, oldVal) => {
     if(!oldVal) return;
@@ -151,9 +152,9 @@ const readyAssetsF: any = computed(() => {
 
 const getBalance = async (chainid: number) => {
     if(chainid == 80001){
-        var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
+        var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
     }else if(chainid == 43113){
-        var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+        var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, store.state.user?.box);
     }else{
         var result: any = [0, 0, 0]
     }
@@ -173,6 +174,11 @@ const getData = async (boxData: any[]) => {
     let temp: any = [];
     data.value = [];
     (function loop(index){
+        if(index > 2){
+             console.log('over!');
+             data.value = temp;
+             return;
+        }
         proxy.$api.get(`https://api.cyberpop.online/box/${index}`).then((result: any) => {
             temp.push({
                 id: index,
@@ -193,7 +199,7 @@ const getData = async (boxData: any[]) => {
         Remaining.value = [0, 0, 0]
         return; // 目前只有mumbai能用购买盒子
     }
-    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2], MarketV2.address); // 查询已上架的资产
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box, MarketV2.address); // 查询已上架的资产
     Remaining.value = LootBox_result;
     console.log(Remaining.value, 'RemainingRemainingv');
 }
@@ -205,7 +211,7 @@ const toDetails = (type:any) => {
 }
 
 const purchase = async (boxId: number, number: any) => {
-    if(number == 0) return;
+    if(number == 0 || isProduction.value) return;
     store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0, boxId, haveNFT: number || 1 }});
 }
 
@@ -224,6 +230,7 @@ onMounted(async () => {
     window.scrollTo(0,0);
     store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     store.dispatch('user/metaChange',false);
+    if(process.env.NODE_ENV == 'development') isProduction.value = false; //判断开发 生产环境
 })
 
 </script>

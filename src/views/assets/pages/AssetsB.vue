@@ -177,7 +177,13 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 const router = useRouter()
 const { proxy } = getCurrentInstance() as any;
-const realId = computed(() => store?.state.user?.realId);
+const realId = computed(() => store?.state.user?.realId);  // 星号地址
+const idTemp: any = computed(() => store?.state.user?.idTemp);  // 完整地址
+const tokenId = ref(1);
+const loadAddress: any = ref(0)
+const loadAbi: any = ref(0);
+const TipsState: any = ref(false as any)  // has popup-a 
+const transition = ref(true);
 
 
 const copyUrl = (e:any) => {
@@ -330,96 +336,251 @@ const changeType = (type: Number) => {
     }
 }
 
+//  game pool
+const getGamePool = (address: string) => {
+    return new Promise((resolve, reject) => {
+        proxy.$api.get(`/game/query?addr=${address}`).then((result: any) => {
+            console.log(result.data, 'gamepool');
+            resolve(result.data)
+        }).catch(( err: any ) => {
+            resolve(0) 
+        })
+    })
+}
+
+const loadPool = async (item: any) => {
+    console.log(item);
+    if(item.isLoading) return;
+    if(item.type == "head_mumbai" || item.type == "head_fuji"){
+        loadAddress.value = item.type == "head_fuji" ? cyberClub_Fuji.address : cyberClub.address;
+        loadAbi.value = cyberClub_Fuji.abi;
+    }else if(item.type == "role_mumbai" || item.type == "role_fuji"){
+        loadAddress.value = item.type == "role_fuji" ? Cyborg_Fuji.address : Cyborg.address;
+        loadAbi.value = Cyborg_Fuji.abi;
+    }else if(item.type == "game_mumbai" || item.type == "game_fuji"){
+        loadAddress.value = item.type == "role_fuji" ? game_Fuji.address : arms.address;
+        loadAbi.value = game_Fuji.abi;
+    }
+    tokenId.value = item.id;
+    TipsState.value = true;
+    transition.value = true;
+    return;
+}
+
+const initLoad = () => {
+    transition.value = false
+    setTimeout(() => {
+        TipsState.value = false
+    }, 300);
+}
+
 const { nft, nft_fuji, arms, erc721, gamePool, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji, LootBox } = Web3.contracts;
 
-const getData: any = async (type: Number) => {
-    data.value = [];
+const getData: any = async (type: Number, filter?: any) => {
+    if(!filter) data.value = [];
     loadingState.value = 1;
-    console.log(chainId.value);
+    let result: any = await getGamePool(idTemp.value)
+    let weapons = [];
+    let role = [];
+    let badge = [];
+    for (const iterator in result) {
+        if(iterator.length == 6){ // 武器id
+            let key = iterator 
+            let val = result[iterator]
+            weapons.push({
+                [ key ]: val
+            })
+        }else if(iterator.length == 11){ // 角色id
+            role.push(iterator)
+        }else if(iterator.length == 7){ //徽章id
+            let key = iterator 
+            let val = result[iterator]
+            badge.push({
+                [ key[ key.length-1 ] ]: val
+            })
+        }
+    }
+
+    console.log(weapons, role, badge, '🐮🐎');
+
     
     if(chainId.value == 80001){  //mumbai
         if(!type){
-            // let result = await Web3.batchBalanceOf(nft.abi, nft.address);
-            // console.log(result);
-            // await getNFTData(result, 'server', 'server_mumbai');
-            let game_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'Game'){
+                    let game_resulte = await Web3.balanceOfBatch(arms.abi , arms.address, store.state.user?.game);
+                    await getNFTData(game_resulte, 'game', 'game_mumbai');
+                }else if(filter == 'Badge'){
+                    // let nft = await Web3.batchBalanceOf(nft.abi , nft.address, store.state.user?.badge);
+                    // await getNFTData(nft, 'server', 'server_mumbai', store.state.user?.badge);
+                }else if(filter == 'role'){
+                    let role_result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
+                    await getHead(role_result, 'role', 'role_mumbai');
+                }else if(filter == 'head'){
+                    let game_resulte = await Web3.tokensOfOwner(cyberClub.abi , cyberClub.address);
+                    await getHead(game_resulte, 'head', 'head_mumbai');
+                }else{
+                    let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
+                    await getNFTData(box_result, 'box', 'box_mumbai', store.state.user?.box);
+                }
+                loadingState.value = 2;
+                return;
+            }
+            await getHead(role, 'role', 'role_mumbai', 'isLoading');
+            // await getNFTData(weapons, 'weapons', 'weapons_mumbai', false, true);
+            await getNFTData(badge, 'badge', 'badge_mumbai', store.state.user?.badge);
+            let game_resulte = await Web3.balanceOfBatch(arms.abi , arms.address, store.state.user?.game);
             console.log(game_resulte);
-            await getNFTData(game_resulte, 'game', 'game_mumbai');
+            await getNFTData(game_resulte, 'game', 'game_mumbai', store.state.user?.game);
             let role_result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
             console.log(role_result);
-            await getNFTData(role_result, 'role', 'role_mumbai', true);
+            await getHead(role_result, 'role', 'role_mumbai');
             let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
             console.log(cyberClub_result);
-            await getHead(cyberClub_result, 'head_mumbai');
-            let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
+            await getHead(cyberClub_result, 'head', 'head_mumbai');
+            let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
             console.log(box_result);
-            await getNFTData(box_result, 'box', 'box_mumbai');
+            await getNFTData(box_result, 'box', 'box_mumbai', store.state.user?.box);
         }else if(type == 1){
-            let result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
-            await getNFTData(result, 'role', 'role_mumbai', true);
-            let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
-            await getHead(cyberClub_result, 'head_mumbai');
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'role'){
+                    let role_result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
+                    await getHead(role_result, 'role', 'role_mumbai');
+                }else if(filter == 'head'){
+                    let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi , cyberClub.address);
+                    await getHead(cyberClub_result, 'head', 'head_mumbai');
+                }
+                loadingState.value = 2;
+                return;
+            }
+            let role_result = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
+            await getHead(role_result, 'role', 'role_mumbai');
+            let cyberClub_result = await Web3.tokensOfOwner(cyberClub.abi , cyberClub.address);
+            await getHead(cyberClub_result, 'head', 'head_mumbai');
         }else{
             // let result = await Web3.batchBalanceOf(nft.abi, nft.address);
             // await getNFTData(result, 'server', 'server_mumbai');
-            let game_resulte = await Web3.batchBalanceOf(arms.abi , arms.address);
-            console.log(game_resulte);
-            await getNFTData(game_resulte, 'game', 'game_mumbai')
-            let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2]);
-            await getNFTData(box_result, 'box', 'box_mumbai');
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'Game'){
+                    let game_resulte = await Web3.balanceOfBatch(arms.abi , arms.address, store.state.user?.game);
+                    await getNFTData(game_resulte, 'game', 'game_mumbai', store.state.user?.game);
+                }else if(filter == 'Badge'){
+                    // let badge = await Web3.balanceOfBatch(arms.abi , arms.address, store.state.user?.game);
+                    // await getNFTData(badge, 'server', 'server_mumbai');
+                }else{
+                    let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
+                    await getNFTData(box_result, 'box', 'box_mumbai', store.state.user?.box);
+                }
+                loadingState.value = 2;
+                return;
+            }
+            // await getNFTData(weapons, 'weapons', 'weapons_mumbai');
+            let game_resulte = await Web3.balanceOfBatch(arms.abi , arms.address, store.state.user?.game);
+            await getNFTData(game_resulte, 'game', 'game_mumbai', store.state.user?.game);
+            let box_result = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
+            await getNFTData(box_result, 'box', 'box_mumbai', store.state.user?.box);
         }
     }
     if(chainId.value == 43113){ // fuji
         if(!type){
-            let result = await Web3.batchBalanceOf(nft_fuji.abi, nft_fuji.address);
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'Game'){
+                    let game_result: any = await Web3.balanceOfBatch(game_Fuji.abi, game_Fuji.address, store.state.user?.game);
+                    await getNFTData(game_result, 'game', 'game_fuji', store.state.user?.game)
+                }else if(filter == 'Badge'){
+                    let result = await Web3.balanceOfBatch(nft_fuji.abi, nft_fuji.address, store.state.user?.badge);
+                    await getNFTData(result, 'badge', 'badge_fuji', store.state.user?.badge);
+                }else if(filter == 'role'){
+                    let Cyborg_result = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
+                    await getHead(Cyborg_result, 'role', 'role_fuji');
+                }else if(filter == 'head'){
+                    let cyberClub_result = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
+                    await getHead(cyberClub_result, 'head', 'head_fuji');
+                }else{
+                    let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, store.state.user?.box);
+                    await getNFTData(box_result, 'box', 'box_fuji', store.state.user?.box);
+                }
+                loadingState.value = 2;
+                return;
+            }
+            let result = await Web3.balanceOfBatch(nft_fuji.abi, nft_fuji.address, store.state.user?.badge);
             console.log(result);
-            await getNFTData(result, 'server', 'server_fuji');
-            let game_result = await Web3.batchBalanceOf(game_Fuji.abi, game_Fuji.address);
-            console.log(game_result);
-            await getNFTData(game_result, 'game', 'game_fuji')
+            await getNFTData(result, 'badge', 'badge_fuji', store.state.user?.badge);
+            let game_result: any = await Web3.balanceOfBatch(game_Fuji.abi, game_Fuji.address, store.state.user?.game);
+            console.log(game_result, 'game_result');
+            await getNFTData(game_result, 'game', 'game_fuji', store.state.user?.game)
             let Cyborg_result = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
             console.log(Cyborg_result);
-            await getNFTData(Cyborg_result, 'role', 'role_fuji', true);
+            await getHead(Cyborg_result, 'role', 'role_fuji');
             let cyberClub_result = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
             console.log(cyberClub_result);
-            await getHead(cyberClub_result, 'head_fuji');
-            let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
-            console.log(box_result);
-            await getNFTData(box_result, 'box', 'box_fuji');
+            await getHead(cyberClub_result, 'head', 'head_fuji');
+            let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, store.state.user?.box);
+            console.log(box_result, 'box_result');
+            await getNFTData(box_result, 'box', 'box_fuji', store.state.user?.box);
             
         }else if(type == 1){
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'role'){
+                    let Cyborg_result = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
+                    await getHead(Cyborg_result, 'role', 'role_fuji');
+                }else if(filter == 'head'){
+                    let cyberClub_result = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
+                    await getHead(cyberClub_result, 'head', 'head_fuji');
+                }
+                loadingState.value = 2;
+                return;
+            }
             let Cyborg_result = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
-            await getNFTData(Cyborg_result, 'role', 'role_fuji', true);
+            await getHead(Cyborg_result, 'role', 'role_fuji');
             let cyberClub_result = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
-            await getHead(cyberClub_result, 'head_fuji');
+            await getHead(cyberClub_result, 'head', 'head_fuji');
         }else{
-            let result = await Web3.batchBalanceOf(nft_fuji.abi, nft_fuji.address);
+            if(filter){ // 左侧栏目筛选
+                if(filter == 'Game'){
+                    let game_result: any = await Web3.balanceOfBatch(game_Fuji.abi, game_Fuji.address, store.state.user?.game);
+                    await getNFTData(game_result, 'game', 'game_fuji', store.state.user?.game)
+                }else if(filter == 'Badge'){
+                    let result = await Web3.balanceOfBatch(nft_fuji.abi, nft_fuji.address, store.state.user?.badge);
+                    await getNFTData(result, 'badge', 'badge_fuji', store.state.user?.badge);
+                }else{
+                    let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, store.state.user?.box);
+                    await getNFTData(box_result, 'box', 'box_fuji', store.state.user?.box);
+                }
+                loadingState.value = 2;
+                return;
+            }
+            let result = await Web3.balanceOfBatch(nft_fuji.abi, nft_fuji.address, store.state.user?.badge);
             console.log(result);
-            await getNFTData(result, 'server', 'server_fuji');
-            let game_result = await Web3.batchBalanceOf(game_Fuji.abi, game_Fuji.address);
-            await getNFTData(game_result, 'game', 'game_fuji');
-            let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2]);
+            await getNFTData(result, 'badge', 'badge_fuji', store.state.user?.badge);
+            let game_result: any = await Web3.balanceOfBatch(game_Fuji.abi, game_Fuji.address, store.state.user?.game);
+            console.log(game_result, 'game_result');
+            await getNFTData(game_result, 'game', 'game_fuji', store.state.user?.game)
+            let box_result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, store.state.user?.box);
             console.log(box_result);
-            await getNFTData(box_result, 'box', 'box_fuji');
+            await getNFTData(box_result, 'box', 'box_fuji', store.state.user?.box);
         }
     }
-    loadingState.value = 2;
+    console.log(data.value);
+    
+    loadingState.value = 2; // 加载完毕
 }
 
 // 头像的nft 数组[0, 1]表示 有两个nft资产，id分别为0和1
-const getHead: any = async (res: any, type: any) => {
+const getHead: any = async (res: any, path: any, type: any, isLoading?: any) => {
     return new Promise((resolve, reject) => {
         if(res.length == 0) {
             resolve(1);
             return;
         }
          (function loop(index){
-             proxy.$api.get(`https://api.cyberpop.online/head/${res[index]}`).then((result:any) => {
+             proxy.$api.get(`https://api.cyberpop.online/${path}/${res[index]}`).then((result:any) => {
                 data.value.push({
                     id: res[index],
                     type: type,
+                    isLoading: isLoading || false,
                     number: 1,
-                    data: result,
+                    data: result || { name: res[index], image: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/ba5fcf2b4854eebdc64dc80089f2cc26.png' },
                 })
                 if (++index<res.length) {
                     loop(index);
@@ -433,8 +594,9 @@ const getHead: any = async (res: any, type: any) => {
     })
 }
 
+
 // 正常的nft 数组[0,1]表示id为0的nft没有资产， id为1的ntf资产为1
-const getNFTData: any = async (res: any, path: any, type: any, isRole?: any , isWeapons?: any) => {
+const getNFTData: any = async (res: any, path: any, type: any, ids?: any, isLoading?: any) => {
     return new Promise((resolve, reject) => {
          (function loop(index){
              if(res[index] == 0) { //为了减少不必要的请求
@@ -445,13 +607,14 @@ const getNFTData: any = async (res: any, path: any, type: any, isRole?: any , is
                 }
                 return;
              }
-             proxy.$api.get(`https://api.cyberpop.online/${path}/${isRole ? res[index] : isWeapons ? index + 1 + '01101': index}`).then((result:any) => {
-                if(res[index] > 0){
+             proxy.$api.get(`https://api.cyberpop.online/${path}/${ids[index]}`).then((result:any) => {
+                if(res[index] > 0 || index == 101101){
                     data.value.push({
-                        id: isRole ? res[index] : index,
+                        id: ids[index],
                         type: type,
-                        number: isRole ? 1 : res[index],
-                        data: result || {name: res[index], image: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/ba5fcf2b4854eebdc64dc80089f2cc26.png'},
+                        isLoading: isLoading || false,
+                        number: res[index],
+                        data: result || { name: res[index], image: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/ba5fcf2b4854eebdc64dc80089f2cc26.png' },
                     })
                 }
                 if (++index<res.length) {

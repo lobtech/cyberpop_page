@@ -58,6 +58,9 @@ const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 const chainId: any = computed(() => store.state.user?.chainId); // vuex state狀態管理器中獲取chain狀態
 const { GiftBox, LootBox, Cyborg, MarketV2, cyt } = Web3.contracts;
+const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
+
+
 //unpack
 const isUnpack: any = ref(false)
 // 開盒子
@@ -72,9 +75,10 @@ const unpack = async () => {
     store.dispatch('user/TipsState', {show: false, info: { }});
     if(result) {
         store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
-        setTimeout(() => {
-            router.push({ path: '/knapsack' })
-        }, 1000);
+        store.dispatch('user/dataSumSearch', { flag: readyAssetsF.value + 1 }); // 操作成功 页面监听到，再刷新数据
+        store.dispatch('user/boxOpened', true);
+        store.dispatch('user/xplanChangeAni', true);
+        store.dispatch('user/boxId', props.boxId);
     }else{
         store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
     }

@@ -28,6 +28,8 @@ import loading from './components/loading/loading.vue'
 import purchaseA from './components/box/purchase.vue'
 import purchaseB from './components/box/purchaseB.vue'
 import wrongNetWorkA from './components/common/wrongNetWorkA.vue';
+import loadGameA from './components/assets/loadGameA.vue';
+import boxOpenedA from './components/assets/boxOpenedA.vue';
 
 import vue3videoPlay from 'vue3-video-play' 
 import 'vue3-video-play/dist/style.css' 
@@ -66,6 +68,8 @@ app.component('loading', loading)
 app.component('purchaseA', purchaseA)
 app.component('purchaseB', purchaseB)
 app.component('wrongNetWorkA', wrongNetWorkA)
+app.component('loadGameA', loadGameA)
+app.component('boxOpenedA', boxOpenedA)
 
 app.use(vue3videoPlay)
 app.mount('#app')

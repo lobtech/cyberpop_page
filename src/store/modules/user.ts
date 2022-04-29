@@ -16,6 +16,7 @@ const states = {
     nativeBalance: '' as string, // 本地余额
     tokenBalances: '' as string, // 令牌余额
     chainId: 1 as Number, // chainid
+
     // home header
     active: 0,
     xplanActive: false,
@@ -43,10 +44,15 @@ const states = {
     readyAssets: -1 ,// 判断是否查询完毕
     contract: ref([]) , // 存放transfer所需abi，address
     transferSuccess: 0, // 转账成功状态
+    boxOpened: false, //盒子打开以后的弹窗
+    boxId: 0,
 
     // NFT
     purchaseState: false, // 主要是用于有多种状态流程 （比如售卖，上架， 购买）布局比较复杂，且能够被复用
     purchaseInfo: {} as any,
+    badge: [0, 1, 2, 3, 4, 5],
+    game: [2, 3, 101101],
+    box: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
 }
 export type typeof_user = typeof states
 export default {
@@ -151,6 +157,13 @@ export default {
         transferSuccess(state, payload: any) {
             state.transferSuccess = payload;
         },
+        boxOpened(state, payload: any){
+            state.boxOpened = payload
+        },
+        boxId(state, payload: any){
+            state.boxId = payload
+        },
+
 
         // box 
         purchaseState(state, payload: any) {
@@ -241,6 +254,13 @@ export default {
         transferSuccess({ commit }, payload: any) {
             commit('transferSuccess', payload);
         },
+        boxOpened({ commit }, payload: any) {
+            commit('boxOpened', payload);
+        },
+        boxId({ commit }, payload: any){
+            commit('boxId', payload);
+        },
+
 
         //box
         purchaseState({ commit }, paylaod: any) {

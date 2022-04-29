@@ -15,6 +15,18 @@ const login = async () => {
     return ethereum.request({ method: 'eth_requestAccounts' })
 }
 
+const testactouns = () => {
+    const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
+    // if (!ethereum) {
+    //     return 'No install';
+    // }
+    console.log(web3);
+    
+    console.log(web3.eth.accounts, 'ethereum.eth.defaultAccount');
+    
+    // return ethereum.request({ method: 'eth_requestAccounts' })
+}
+
 // 是否安装metamask
 const hasMetaMask = async () => {
     const ethereum = (window as any).ethereum // 获取小狐狸实例
@@ -71,16 +83,6 @@ const getBalance = async (id: any) => {
 //         })
 // }
 
-
-
-// 是否授权
-const isApprovedForAll = async (abi:any, address:any) => {
-    const web3 = new Web3((window as any).ethereum)
-    const contract = new web3.eth.Contract(abi, address)
-    let app = await contract.methods.isApprovedForAll(accounts.value, '0x6f25CdAB7Ec3a7ee78ba9635c1dd494fC71420ad').call()
-}
-
-
 // 资产转移
 const accounts = computed(() => store?.state.user?.idTemp);
 const safeTransferFrom = async (abi:any, address:any, TransferFrom:any, id:any, number?:any) => {
@@ -95,14 +97,12 @@ const safeTransferFrom = async (abi:any, address:any, TransferFrom:any, id:any, 
                 resolve(receipt)
             }).catch((err:any) => {
                 resolve(0)
-                isApprovedForAll(abi, address);
             })
         }else{ // 1155需要传入数量
             contract.methods.safeTransferFrom(accounts.value, TransferFrom, id, number, '0x').send({ from: accounts.value }).then( (receipt:any) => {
                 resolve(receipt)
             }).catch((err:any) => {
                 resolve(0)
-                isApprovedForAll(abi, address);
             })
         }
     })
@@ -120,11 +120,15 @@ const batchBalanceOf = (abi:any, address:any) => {
 }
 
 // 原生1155查询资产
-const balanceOfBatch = (abi:any, address:any, ids:any, isMarketV2?: any) => {
+const balanceOfBatch = (abi: any, address: any, ids: any, isMarketV2?: any) => {
+    let tempAccounts: any = []
+    for (const iterator of ids) {
+        tempAccounts.push(isMarketV2 ? isMarketV2 : accounts.value)
+    }
     return new Promise(async (resolve, reject) => {
         const web3 = new Web3((window as any ).ethereum)
         const contract = new web3.eth.Contract(abi, address)
-        let res = await contract.methods.balanceOfBatch(isMarketV2 ? [isMarketV2, isMarketV2, isMarketV2] : [accounts.value, accounts.value, accounts.value], ids).call();
+        let res = await contract.methods.balanceOfBatch(tempAccounts, ids).call();
         resolve(res);
     })
 }
@@ -288,6 +292,98 @@ const totolsuppl = async (abi: any[], address: string) => {
 
 }
 
+// 查询是否授权过了
+const getApproved = (abi: any, address: string, tokenId: any) => {
+    return new Promise((resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        const result = contract.methods.getApproved(tokenId).call()
+        resolve(result);
+    })
+}
+
+const isApprovedForAll = (abi: any, address: string, operator: any) => {
+    return new Promise((resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        const result = contract.methods.isApprovedForAll(accounts.value, operator).call()
+        resolve(result);
+    })
+}
+
+// 游戏池子授权专用
+const approvePool = (abi: any[], address: string, tokenId: any) => {
+    return new Promise((resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        contract.methods.approve('0xB2172269b03BD2b5c89dcB2A7187632B435E8484', tokenId).send({ from: accounts.value }).then(function (receipt: any) {
+            resolve(receipt)
+        }).catch((err: any) => {
+            resolve(0)
+            console.log('error');
+        })
+    })
+}
+
+// 1155授权专用
+const setApprovalForAll = (abi: any[], address: string) => {
+    return new Promise((resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        contract.methods.setApprovalForAll('0xB2172269b03BD2b5c89dcB2A7187632B435E8484', true).send({ from: accounts.value }).then(function (receipt: any) {
+            resolve(receipt)
+        }).catch((err: any) => {
+            resolve(0)
+            console.log('error');
+        })
+    })
+}
+
+
+// 加载角色
+const loadingNft = (abi: any[], address: string, tokenId: any) => {
+    return new Promise((resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        contract.methods.loadingRole(tokenId).send({ from: accounts.value }).then(function (receipt: any) {
+            resolve(receipt)
+        }).catch((err: any) => {
+            resolve(0)
+            console.log('error');
+        })
+    })
+}
+
+// 加载角色1155
+const loadingErc1155 = (abi: any[], address: string, tokenId: any, number: any) => {
+    return new Promise((resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        contract.methods.loadingWeapons(tokenId, number).send({ from: accounts.value }).then(function (receipt: any) {
+            resolve(receipt)
+        }).catch((err: any) => {
+            resolve(0)
+            console.log('error');
+        })
+    })
+}
+
+
+// 提现取回
+const withdrawRole = (abi: any[], address: string, tokenId: any) => {
+    return new Promise((resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        contract.methods.withdrawRole(accounts.value, tokenId).send({ from: accounts.value }).then(function (receipt: any) {
+            resolve(receipt)
+        }).catch((err: any) => {
+            resolve(0)
+            console.log('error');
+        })
+    })
+}
+
+
 export default {
     safeTransferFrom,
     batchBalanceOf,
@@ -304,5 +400,13 @@ export default {
     buyLootBox,
     allowance,
     totolsuppl,
+    getApproved,
+    isApprovedForAll,
+    approvePool,
+    setApprovalForAll,
+    loadingNft,
+    loadingErc1155,
+    withdrawRole,
+    testactouns,
     contracts,
 }

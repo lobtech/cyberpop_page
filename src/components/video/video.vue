@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, readonly, ref, defineProps,reactive, onMounted } from 'vue'
+import { computed, readonly, ref,reactive, onMounted } from 'vue'
 const props = defineProps({
     videotype: Number,
     mobel: Boolean,

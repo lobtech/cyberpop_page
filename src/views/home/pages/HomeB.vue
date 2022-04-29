@@ -51,7 +51,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="message">
                     {{$t('message.home.download_message')}}
                 </div>
-                <div class="btn">{{$t('message.home.download_btn1')}}</div>
+                <div class="btn" @click="downloadGame">{{$t('message.home.download_btn1')}}</div>
             </div>
         </div>
     </div>
@@ -148,7 +148,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="nobody-left-tip">
                     <div v-if="tipIndex == 0">{{$t('message.home.nobody_role_tipBef_1')}}</div>
                     <div v-else-if="tipIndex == 1">{{$t('message.home.nobody_role_tipBef_2')}}</div>
-                    <div v-else="tipIndex == 2">{{$t('message.home.nobody_role_tipBef_3')}}</div>
+                    <div v-else>{{$t('message.home.nobody_role_tipBef_3')}}</div>
                 </div>
                 <swiper
                     class="mySwiper"
@@ -555,6 +555,14 @@ const connect: any = async () => {
 
 // download
 let isOut:any = ref(false)
+const downloadGame = () => {
+    window.location.href = 'https://zengeon-cos-assets-1259788321.cos.ap-shanghai.myqcloud.com/PrinceOfPersia/Jenkins/AppFiles/Cyberpop_1.0.0_2022_04_27_23_38_36_V25_Dev.false_Symbols.AWS@USE_NFT_ASSETS.apk'
+    proxy.$api.post(`/code/user/download?address=${idTemp.value}`).then((res: any) => {
+        console.log(res);
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
 
 
 

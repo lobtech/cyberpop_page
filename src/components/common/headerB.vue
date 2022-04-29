@@ -64,6 +64,7 @@ import {  useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
+const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
 
 
 const props = defineProps({
@@ -267,6 +268,7 @@ const connect: any = async () => {
         id.value = id.value[0]+id.value[1]+id.value[2]+id.value[3]+id.value[4]+"*****"+id.value[len-3]+id.value[len-2]+id.value[len-1]+id.value[len];
         store.dispatch('user/connectWallet',{realId:id.value, idTemp:accounts});// 存放星号id、完整id
         store.dispatch('user/dataSumSearch',{flag:0});
+        if(readyAssetsF.value <= 0) logined(accounts);
         const Web3 = (window as any).Web3
         let web3obj = new Web3((Web3 as any).givenProvider)
         await web3obj.eth.net.getId().then((chainId: any) => {
@@ -276,21 +278,40 @@ const connect: any = async () => {
         })
         if(code.value && messSing.value == ''){
             
-            getPublicAddress(accounts)
+            messgSing(accounts)
         }
         // store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.mess_succ')}})
     }
 }
 
 
-//REACT_APP_BACKEND_URL=http://13.250.39.184:8612
-const getPublicAddress = (publicAddress: any) => {
-    proxy.$api.get(`https://invitecode.cyberpop.online/user/info?publicAddress=${publicAddress}`).then((res: any) => {
+
+// 登录埋点
+const logined = (accounts: string) => {
+    proxy.$api.post(`/code/connection/general`, {
+        "action":"connectWallet",
+        "address": accounts,
+        "time":"1",
+        "parameter1":"",
+        "parameter2":"",
+        "parameter3":""
+    }).then((res: any) => {
         console.log(res);
-        let a = res.data.publicAddress;
-        let b = res.data.nonce;
-        console.log(a, b);
-        messgSing(a, b)
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
+
+
+// 签名授权后买点
+const getPublicAddress = (publicAddress: any, code: any) => {
+    proxy.$api.post(`/code/level/invitation?addr=${publicAddress}&icode=${code}`).then((res: any) => {
+        if(res.code != 55555) {
+            store.dispatch('user/messSing', code.value);
+            store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}});
+            return
+        }
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
     }).catch( (err: any) => {
         console.log(err)
     })
@@ -298,17 +319,17 @@ const getPublicAddress = (publicAddress: any) => {
 
 
 // login
-const messgSing = async (publicAddress: any, nonce: any) => {
+const messgSing = async (publicAddress: any) => {
     try {
         const Web3 = (window as any).Web3;
         const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
-        const signature = await web3.eth.personal.sign(
-            `cyber-business: ${nonce}`,
+        const result = await web3.eth.personal.sign(
+            `cyber-business`,
             publicAddress,
             '' // MetaMask will ignore the password argument here
         );
-        auth(publicAddress, signature, nonce);
-        return {publicAddress, signature, nonce};
+        console.log(result);
+        if(result) getPublicAddress(publicAddress, code.value)
     } catch (err) {
         throw new Error(
             'You need to sign the message to be able to log in.'
@@ -316,24 +337,6 @@ const messgSing = async (publicAddress: any, nonce: any) => {
     }
 }
 
-const auth = (publicAddress: any, signature: any, nonce: any) => {
-    proxy.$api.post('https://invitecode.cyberpop.online/user/auth',
-        {
-            publicAddress,
-            signature,
-            nonce,
-            inviterCode: code.value || "KfdeJD"
-        }
-    ).then((res: any) => {
-        console.log(res, 'success');
-        if(res.data.code == 200){
-            console.log('ok');
-            store.dispatch('user/messSing', signature)
-        }
-    }).catch( (err: any) => {
-        console.log(err, 'error')
-    })
-}
 
 
 const login = () =>{

@@ -40,7 +40,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <div class="message">
                     {{$t('message.home.download_message')}}
                 </div>
-                <div class="btn" @mouseenter="isDown = true,downFlag =true" @mouseleave="downFlag =false">
+                <div class="btn" @click="downloadGame" @mouseenter="isDown = true,downFlag =true" @mouseleave="downFlag =false">
                     <div class="txt">{{$t('message.home.download_btn1')}}</div>
                     <div class="mask" id="down" :class="isDown && (downFlag ? 'downloadAni' : 'stopDownloadAni')"></div>
                 </div>
@@ -577,7 +577,14 @@ const showComing = () => {
 let isDown:any = ref(false)
 let downFlag:any = ref(false)
 let isOut:any = ref(false)
-
+const downloadGame = () => {
+    window.location.href = 'https://zengeon-cos-assets-1259788321.cos.ap-shanghai.myqcloud.com/PrinceOfPersia/Jenkins/AppFiles/Cyberpop_1.0.0_2022_04_27_23_38_36_V25_Dev.false_Symbols.AWS@USE_NFT_ASSETS.apk'
+    proxy.$api.post(`/code/user/download?address=${idTemp.value}`).then((res: any) => {
+        console.log(res);
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
 
 
 // swiper

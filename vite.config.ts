@@ -28,6 +28,11 @@ export default defineConfig({
                 target: 'https://gamepool.cyberpop.online/', //实际请求地址
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/game/, '')
+            },
+            '/code': {
+                target: 'https://invitecode.cyberpop.online/', //实际请求地址
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/code/, '')
             }
         },
     },
