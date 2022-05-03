@@ -139,7 +139,7 @@ const cn = {
             roadmap_s1_d3_e1: '發佈白皮書',
             roadmap_s1_d3_e2: 'demo上線',
             roadmap_s1_d3_e3: 'NFT商城',
-            roadmap_s1_d3_e4: '發佈遊戲代幣CYT及UGC工具鏈',
+            roadmap_s1_d3_e4: '發佈alpha版本和NFT',
             // roadmap_s1_d3_e5: 'Token CYT released', // d
             roadmap_s2: '階段二',
             roadmap_s2_d1_e1: '進一步發展UGC，創建DAOs',
