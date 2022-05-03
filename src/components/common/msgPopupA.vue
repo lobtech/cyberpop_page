@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <!-- 轉帳狀態 -->
-                <div v-if="boxId == undefined && isLoading">
+                <div v-if="boxId == undefined && props.isLoading">
                     <div v-if="props.content" class="text">{{ props.content }}</div>
                     <div v-if="props.content" class="loading">
                         <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">

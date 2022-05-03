@@ -189,7 +189,7 @@ const open = async (boxId: any, number: any) => {
     // getLast(); // 查询资产合约中最后一位为立马开启的资产
     if(number == 0) return;
     store.dispatch('user/xplanChangeAni', true);
-    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false, boxId: boxId, haveNFT: number }});
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false, boxId: boxId, haveNFT: number }});
 }
 
 const purchase = async (boxId: number, number: any) => {

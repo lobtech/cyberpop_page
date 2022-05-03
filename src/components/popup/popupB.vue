@@ -233,7 +233,6 @@ onMounted(() => {
                         linear-gradient(81deg, rgba(45, 222, 211, .6) 0%, rgba(12, 9, 17, 1) 100%);
             box-shadow: inset 0px 4px 0px 1px #5A5685;
             .title{
-                height: 39px;
                 font-size: 28px;
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 font-weight: normal;
