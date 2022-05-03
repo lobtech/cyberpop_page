@@ -139,7 +139,8 @@ const us = {
             roadmap_s1_d3_e1: 'White Paper released',
             roadmap_s1_d3_e2: 'Demo is online',
             roadmap_s1_d3_e3: 'Open NFT store',
-            roadmap_s1_d3_e4: 'Release CYT and UGC toolchain',
+            // roadmap_s1_d3_e4: 'Release CYT and UGC toolchain',
+            roadmap_s1_d3_e4: 'Release alpha version and NFT',
             // roadmap_s1_d3_e5: 'Token CYT released', // d
             roadmap_s2: 'Stage Ⅱ',
             roadmap_s2_d1_e1: 'Further development of UGC and create DAOs, a platform for users',
