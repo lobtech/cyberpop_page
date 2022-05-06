@@ -140,6 +140,22 @@ const closeDialog = () => {
     store.dispatch('user/purchaseState', { show: false, info: { } });
 }
 
+// 购买埋点
+const logined = (accounts: any) => {
+    proxy.$api.post(`/code/connection/general`, {
+        "action": "buyBox",
+        "address": accounts,
+        "time":"1",
+        "parameter1": "",
+        "parameter2": "",
+        "parameter3": ""
+    }).then((res: any) => {
+        console.log(res);
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
+
 const purchase =  async () => {
     if( numState.value == 'error') return;
 
@@ -165,6 +181,7 @@ const purchase =  async () => {
     if(reuslt){ //购买成功
         store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 7, haveNFT: props.haveNFT, boxId: props.boxId }});
         store.dispatch('user/dataSumSearch', { flag: readyAssetsF.value + 1 }); // 操作成功 页面监听到，再刷新数据
+        logined(store.state.user?.idTemp)
     }else{ // 购买拒绝
         store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 8, haveNFT: props.haveNFT, boxId: props.boxId }});
     }

@@ -43,28 +43,100 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, getCurrentInstance } from 'vue'
+import { ref, onMounted, computed, getCurrentInstance, watch } from 'vue'
 import store from '@/store/index'
 import { useI18n } from 'vue-i18n';
+import Web3 from '@/tools/web3'
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
-
+const { MarketV2, cyt } = Web3.contracts;
 
 const props = defineProps({
     content1: String, // 文案内容
     content2: String, // 文案内容
     title: String,  // 标题
     isShowTips: Boolean, //是否显示
+    boxId: Number,
     state: {
         type: Number,
         default: 0
     },
+    haveNFT: {
+        type: Number,
+        default: 1,
+    },
 })
+
+
+const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
+
+
+// input
+let valueIn:any = ref(1)
+const numState: any = ref('')
+const active: any = ref(0)
+watch(active, (newVal: any, oldVal) => {
+    if(newVal == 0){
+        valueIn.value = 1;
+    }else{
+        valueIn.value = props.haveNFT;
+    }
+    console.log(props.haveNFT);
+    
+    numState.value = ''
+}, {immediate:true,deep:true});
+
 
 const closeDialog = () => {
     store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 4} });
 }
 
+// 购买埋点
+const logined = (accounts: any) => {
+    proxy.$api.post(`/code/connection/general`, {
+        "action": "buyBox",
+        "address": accounts,
+        "time":"1",
+        "parameter1": "",
+        "parameter2": "",
+        "parameter3": ""
+    }).then((res: any) => {
+        console.log(res);
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
+
+const purchase =  async () => {
+    if( numState.value == 'error') return;
+
+    // 去检查是否授权过了，或者正在授权中
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 3, haveNFT: props.haveNFT, boxId: props.boxId }});
+
+    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, MarketV2.address); //用自己的cyt去给授权市场合约授权的个数
+    console.log(allowance_res, 'allowance_res');
+    
+    if(allowance_res < 30 * valueIn.value){
+        let approve_res = await Web3.approve(cyt.abi, cyt.address, MarketV2.address, 30 * valueIn.value + 1);
+        if(!approve_res) { // 授权失败
+            store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5, haveNFT: props.haveNFT, boxId: props.boxId }});
+            return;
+        }
+    }
+
+    // 正常流程
+    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 6, haveNFT: props.haveNFT, boxId: props.boxId }});
+    console.log(props.boxId, 'props.boxId');
+    
+    let reuslt = await Web3.buyLootBox(MarketV2.abi, MarketV2.address, props.boxId, 30, valueIn.value);
+    if(reuslt){ //购买成功
+        store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 7, haveNFT: props.haveNFT, boxId: props.boxId }});
+        store.dispatch('user/dataSumSearch', { flag: readyAssetsF.value + 1 }); // 操作成功 页面监听到，再刷新数据
+        logined(store.state.user?.idTemp)
+    }else{ // 购买拒绝
+        store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 8, haveNFT: props.haveNFT, boxId: props.boxId }});
+    }
+}
 
 onMounted(() => {
 })
