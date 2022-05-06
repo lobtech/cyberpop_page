@@ -384,6 +384,7 @@ const us = {
                 mess_empty: 'Address is empty',
                 mess_err: 'Address format error',
                 btn_cancel: 'CANCEL',
+                btn_submit: 'SUBMIT',
                 btn_tran: 'TRANSFER',
                 tran_exce: 'Maximum exceeded',
                 tran_stop: 'Transaction interruption',

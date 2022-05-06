@@ -94,7 +94,7 @@
                                     <div class="transfer" :class="{'not-allowed': item.isLoading}" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
                                     <div class="sell not-allowed">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
-                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji' && false">
                                     <div class="load" :class="{'not-allowed': item.isLoading}" @click="loadPool(item)">{{$t('message.assets.btn_load')}}</div>
                                     <div class="claim" :class="{'not-allowed': !item.isLoading}" @click="withdrawRole(item)">&nbsp;&nbsp;{{$t('message.assets.but_claim')}}</div>
                                 </div>
@@ -104,10 +104,6 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="noting" v-if="loadingState == 2 && data.length == 0">
-                            <p>NOT DATA</p>
-                            <img src="@/assets/nwAssets/nothing.svg" alt="">
-                        </div>
                     </div>
                     <div class="ercType" :style="{'margin-top': loadingState != 2 ? '12vw' : '0'}" v-show="ecrType == 1">
                         <ul class="prince" v-if="data.length > 0">
@@ -118,7 +114,7 @@
                                     <div class="transfer" :class="{'not-allowed': item.isLoading}" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
                                     <div class="sell not-allowed">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
-                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji' && false">
                                     <div class="load" :class="{'not-allowed': item.isLoading}" @click="loadPool(item)">{{$t('message.assets.btn_load')}}</div>
                                     <div class="claim" :class="{'not-allowed': !item.isLoading}" @click="withdrawRole(item)">&nbsp;&nbsp;{{$t('message.assets.but_claim')}}</div>
                                 </div>
@@ -128,10 +124,6 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="noting" v-if="loadingState == 2 && data.length == 0">
-                            <p>NOT DATA</p>
-                            <img src="@/assets/nwAssets/nothing.svg" alt="">
-                        </div>
                     </div>
                     <div class="ercType" :style="{'margin-top': loadingState != 2 ? '12vw' : '0'}" v-show="ecrType == 2">
                         <ul class="prince" v-if="data.length > 0">
@@ -142,7 +134,7 @@
                                     <div class="transfer" :class="{'not-allowed': item.isLoading}" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
                                     <div class="sell not-allowed">{{$t('message.assets.btn_sell')}}</div>
                                 </div>
-                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji' && false">
                                     <div class="load" :class="{'not-allowed': item.isLoading}" @click="loadPool(item)">{{$t('message.assets.btn_load')}}</div>
                                     <div class="claim" :class="{'not-allowed': !item.isLoading}" @click="withdrawRole(item)">&nbsp;&nbsp;{{$t('message.assets.but_claim')}}</div>
                                 </div>
@@ -152,10 +144,10 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="noting" v-if="loadingState == 2 && data.length == 0">
-                            <p>NOT DATA</p>
-                            <img src="@/assets/nwAssets/nothing.svg" alt="">
-                        </div>
+                    </div>
+                    <div class="noting" v-if="loadingState == 2 && data.length == 0">
+                        <p>NOT DATA</p>
+                        <img src="@/assets/nwAssets/nothing.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -295,19 +287,20 @@ watch(() => hobby2.value, (now, old) => {
         getData(ecrType.value);
         return; 
     };
+    if(loadingState.value == 1) return;
     (function loop(index){
         console.log(now.length);
+        console.log(loadingState.value, 'loadingState.value');
         if( index == 0 ) {
-            loadingState.value = 1;
             data.value = [];
         }
         getData(ecrType.value, now[index]); 
         if (++index<now.length) {
-
             setTimeout(() => {
                 loop(index)
             }, 1000);
         } else {
+            loadingState.value = 2; // 加载完毕
             // loadingState.value = 2; // 加载完毕
         }
     })(0)
@@ -399,8 +392,12 @@ const initLoad = () => {
 const { nft, nft_fuji, arms, erc721, gamePool, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji, LootBox } = Web3.contracts;
 
 const getData: any = async (type: Number, filter: any = false) => { // erc正常的数据模式
+    console.log(filter, 'fffff');
+    console.log(type, 'type');
+    console.log(loadingState.value, 'loadingState');
+    
     if(!filter) data.value = [];
-    loadingState.value = 1;
+    if(loadingState.value == 1) return;
     let result: any = await getGamePool(idTemp.value)
     let weapons = [];
     let role = [];
@@ -424,6 +421,8 @@ const getData: any = async (type: Number, filter: any = false) => { // erc正常
     }
 
     console.log(weapons, role, badge, '🐮🐎');
+    
+    loadingState.value = 1; // 初始化为0 1表示加载中 2表示加载完毕
 
     if(chainId.value == 80001){  //mumbai
         if(!type){
@@ -584,7 +583,7 @@ const getData: any = async (type: Number, filter: any = false) => { // erc正常
     }
     console.log(data.value);
     
-    loadingState.value = 2; // 加载完毕
+    if(!filter) loadingState.value = 2; // 加载完毕
 }
 
 // 头像的nft 数组[0, 1]表示 有两个nft资产，id分别为0和1
@@ -718,10 +717,6 @@ onUnmounted(() => {
 
 
 onMounted(() => {
-    store.dispatch('user/boxOpened', true);
-    store.dispatch('user/xplanChangeAni', true);
-    store.dispatch('user/boxId', 2);
-    
     setTimeout(() => {
         if( realId.value == -1 && proxy.$route.path == '/knapsack' ){
             router.push('/')
@@ -1096,13 +1091,13 @@ onMounted(() => {
                                 }
                             }
                         }
-                        .noting{
-                            text-align: center;
-                            p{
-                                color: #fff;
-                                margin: 3vw 0;
-                                font-family: AlibabaPuHuiTi_2_55_Regular;   
-                            }
+                    }
+                    .noting{
+                        text-align: center;
+                        p{
+                            color: #fff;
+                            margin: 3vw 0;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;   
                         }
                     }
                 }
