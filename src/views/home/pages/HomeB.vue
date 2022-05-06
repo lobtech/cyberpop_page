@@ -406,6 +406,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="https://www.mexc.com/pioneer" target="view_window">
                 <img class="logo12" src="@/assets/nwhome/pioneerlogo.png" alt="">
             </a>
+            <a href="https://www.mexc.com/" target="view_window">
+                <img class="logo12" src="@/assets/nwhome/mexc.png" alt="">
+            </a>
             <a href="https://consensys.net/" target="view_window">
                 <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
             </a>
