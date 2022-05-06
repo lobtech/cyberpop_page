@@ -10,7 +10,14 @@
         <message-b v-if="innerWidth <= 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-b>
         <purchaseA v-if="innerWidth > 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state" :haveNFT="purchaseInfo.haveNFT" :boxId="purchaseInfo.boxId"/>
         <purchaseB v-if="innerWidth <= 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state" :haveNFT="purchaseInfo.haveNFT" :boxId="purchaseInfo.boxId"/>
-        <boxOpenedA v-if="boxOpened" :isShowTips="boxOpened" :boxId="boxId"></boxOpenedA>
+        <boxOpenedA v-if="innerWidth > 1025 && boxOpened" :isShowTips="boxOpened" :boxId="boxId"></boxOpenedA>
+        <boxOpenedB v-if="innerWidth <= 1025 && boxOpened" :isShowTips="boxOpened" :boxId="boxId"></boxOpenedB>
+        <div class="ip_error" v-if="iperror && innerWidth > 1025">
+            Our service is only available for part of the legal compliance countries and regions.  Illegal access will not be protected. 
+        </div>
+        <div class="ip_error_Mobile" v-if="iperror && innerWidth <= 1025">
+            Our service is only available for part of the legal compliance countries and regions.  Illegal access will not be protected. 
+        </div>
     </router-view>
 </template>
 <script setup lang="ts">
@@ -28,7 +35,7 @@ const $store: any = useStore()
 const innerWidth = computed(() => {
     return store.state.sys?.innerWidth || 0
 })
-
+const iperror = ref(false);
 
 
 const TipsState = computed(() => store.state.user?.TipsState );
@@ -87,8 +94,11 @@ onMounted(() => {
 
     console.log(process.env.NODE_ENV, 'process.env'); 
     
-    if(!isChinese(returnCitySN.cname) && process.env.NODE_ENV != 'development' && returnCitySN.cip != HongShou && returnCitySN.cip != indiegame && returnCitySN.cip != HongShou5G) {
-        route.push({ path: '/IPshielding' })
+    if(!isChinese(returnCitySN.cname)) {
+        // route.push({ path: '/IPshielding' })
+        iperror.value = true;
+        console.log(2222);
+        
     }else{ 
         setTimeout(() => {
             console.log(route.currentRoute.value, 'route.currentRoute.value');
@@ -98,6 +108,31 @@ onMounted(() => {
 })
 </script>
 <style>
+    .ip_error, .ip_error_Mobile{
+        z-index: 6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0vw;
+        left: 50%;
+        font-size: 1vw;
+        transform: translateX(-50%);
+        width: 60.75vw;
+        height: 2.16vw;
+        margin-top: 8vw;
+        background: rgba(255, 82, 82, 0.42);
+        border-radius: 4px 4px 4px 4px;
+        border: 1px solid #FF5CA1;
+        color: #FF5CA1;
+        /* animation-fill-mode: forwards; */
+    }
+    .ip_error_Mobile{
+        width: auto;
+        height: auto;
+        padding: 2vw 2vw;
+        top: 10vw;
+    }
     @keyframes springtimeAniamtScale2 {
         0% {
             bottom: 2.5vw;

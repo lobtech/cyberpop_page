@@ -14,9 +14,9 @@
                     <div class="tips" v-show="numState == ''">{{$t('message.assets.pop.tips')}}</div>
                     <div class="tips" v-show="numState == 'error'">{{$t('message.assets.pop.tips_err')}}</div>
                     <div class="number">
-                        <div class="add" @click="addNft()">+</div>
+                        <div class="add" @click="addNft()" :class="canAdd == 'disable' ? 'disableNum':''">+</div>
                         <input id="inputNum" type="text" :value="valueIn" @input="inputNumber($event)">
-                        <div class="reduce" @click="reduceNft()">—</div>
+                        <div class="reduce" @click="reduceNft()" :class="canReduce == 'disable' ? 'disableNum':''">—</div>
                     </div>
                     <div class="btns">
                         <div :class="{'active': active == 0}" @click="active = 0">Mix</div>
@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, getCurrentInstance } from 'vue'
+import { ref, onMounted, computed, getCurrentInstance, watch } from 'vue'
 import store from '@/store/index'
 import { useI18n } from 'vue-i18n';
 import Web3 from '@/tools/web3' 
@@ -49,16 +49,18 @@ const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 const numState = ref('');
 const canAdd = ref('');
+let canReduce:any = ref('disable')
+let canTransfer:any = ref('disable')
 const xplanAni = computed(() => store?.state.user?.xplanAni);
 const chainId: any = computed(() => store.state.user?.chainId); // vuex state狀態管理器中獲取chain狀態
-const { GiftBox, LootBox, Cyborg, MarketV2, cyt } = Web3.contracts;
+const { GiftBox, LootBox } = Web3.contracts;
 const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
 
-//unpack
+//
 const isUnpack: any = ref(false)
 // 開盒子
 const unpack = async () => {
-    // getLast(); // 查询资产合约中最后一位为立马开启的资产
+    // getLast(); //    
     if(numState.value == 'error') return;
     isUnpack.value = true;
     console.log(props.boxId, valueIn.value);
@@ -101,58 +103,79 @@ const close = () => {
     }, 300);
 }
 
-const valueIn: any = ref(0)
+const valueIn: any = ref(1)
 
 // input state
-const active = ref(0);
-let regExp = new RegExp("^([1-9]|[1-9][0-9]{0," +  +"})$")
+const active: any = ref(0)
+watch(active, (newVal: any, oldVal) => {
+    console.log(newVal, 'newVal');
+    if(newVal == 0){
+        valueIn.value = 1;
+        canReduce.value = 'disable';
+        canAdd.value = '';
+    }else{
+        valueIn.value = props.haveNFT;
+        canReduce.value = '';
+        canAdd.value = 'disable';
+    }
+    numState.value = ''
+}, {immediate:true,deep:true});
+
+
+let regExp = /^[0-9]+$/; // 驗證是否為正整數
 let inputState:any = ref('')
 const inputNumber = (e:any) => {
-    // console.log(e.target.value,regExp.test(e.target.value));
     valueIn.value = e.target.value
-    if (e.target.value && !(regExp.test(e.target.value))) {
+    if (e.target.value && !(regExp.test(e.target.value)) || Number(valueIn.value) > Number(props.haveNFT)) {
         numState.value = 'error'
+        canReduce.value = 'disable'
         canAdd.value = 'disable'
+        canTransfer.value = 'disable'
         // e.target.value = valueIn.value
     } else if( !e.target.value ){
         numState.value = 'error'
+        canReduce.value = 'disable'
         canAdd.value = 'disable'
+        canTransfer.value = 'disable'
     }else{
         numState.value = ''
+        canReduce.value = ''
         canAdd.value = ''
         valueIn.value = e.target.value
         if( inputState.value == 'success' ){
+            canTransfer.value = ''
         }
     }
 }
 
 
 const addNft = () => {
-    if( valueIn.value < 1 ){
-        valueIn.value = 1 ;
-    }else if( valueIn.value >= props.haveNFT ){
-        
+    valueIn.value = parseInt(valueIn.value) + 1;
+    if( valueIn.value >= props.haveNFT ) {
+        valueIn.value = props.haveNFT;
+        canAdd.value = 'disable'
+    };
+    if( valueIn.value == 1 ) {
+        canAdd.value = 'disable'
+        canReduce.value = 'disable'
     }else{
-        valueIn.value = parseInt(valueIn.value) + 1;
-        if( valueIn.value >= props.haveNFT ){
-           
-        }else{
-            
-        }
-    
+        canReduce.value = ''
     }
 }
+
+
 const reduceNft = () => {
-    if( valueIn.value <= 1 ){
-        valueIn.value = 1 ;
-        
+    valueIn.value = parseInt(valueIn.value) - 1;
+    if( valueIn.value <= 1 ) valueIn.value = 1;
+    if( valueIn.value == 1 ) {
+        canReduce.value = 'disable'
+        canAdd.value = ''
     }else{
-        valueIn.value = parseInt(valueIn.value) - 1;
-        if( valueIn.value <= 1 ){
-        }else{
-        }
+        canReduce.value = ''
+        canAdd.value = ''
     }
 }
+
 
 const changeChain = async (value?: any) => {
     let a: any = await Web3.addChain(value)
@@ -164,6 +187,7 @@ const changeChain = async (value?: any) => {
 }
 
 onMounted(() => {
+
 })
 
 
@@ -190,6 +214,9 @@ onMounted(() => {
         height: 100%;
         background: rgba(0, 0, 0, .5);
         color: #fff;
+        .tips{
+            margin: 5vw 0;
+        }
         .mask{
             position: absolute;
             width: 320px;
@@ -197,7 +224,7 @@ onMounted(() => {
             z-index: 9;
             bottom: 0;
             width: 100%;
-            height: 487px;
+            height: 397px;
             padding: 24px;
             background: linear-gradient(221deg, rgba(132, 120, 255, .8) 0%, rgba(12, 9, 17, .8) 100%),
                         linear-gradient(81deg, rgba(45, 222, 211, .6) 0%, rgba(12, 9, 17, 1) 100%);
@@ -222,6 +249,10 @@ onMounted(() => {
                     align-items: center;
                     width: 100%;
                     height: 40px;
+                    .add.disableNum,.reduce.disableNum,.transfer.disableNum{
+                        opacity: 0.5;
+                        pointer-events: none;
+                    }
                     .add,.reduce{
                         width: 96px;
                         height: 40px;
@@ -251,6 +282,33 @@ onMounted(() => {
                         margin: 0;
                     }
                 }
+                .btns{
+                    display: flex;
+                    margin: 5vw 0;
+                    div{
+                        margin-right: 2vw;
+                        padding: 2vw 3vw;
+                        border: 1px solid rgba(83, 77, 126, 1);
+                        border-radius: 5px;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                        cursor: pointer;
+                    }
+                    .active{
+                        color: rgb(22, 19, 19);
+                        background-color: rgb(145, 138, 202);
+                    }
+                }
+                .unpack{
+                    background-image: url(https://d2cimmz3cflrbm.cloudfront.net/nwbox/details2.png);
+                    width: 100%;
+                    padding: 3vw 0;                    
+                    background-size: 100% 100%;
+                    background-repeat: no-repeat;
+                    font-size: 7.64vw;
+                    display: flex;
+                    justify-content: center;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                }
                 .text{
                     font-size: 16px;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
@@ -275,8 +333,8 @@ onMounted(() => {
                     margin-top: 1.3vw;
                     text-align: center;
                     img{
-                        width: 40px;
-                        height: 40px;
+                        width: 60px;
+                        height: 60px;
                         animation: loadingAni 1s linear infinite;
                     }
                 }

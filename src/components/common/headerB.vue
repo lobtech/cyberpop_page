@@ -54,6 +54,8 @@
     </div>
     <metamask-b v-if="metaMaskActive"></metamask-b>
     <coming-b v-show="showComingFlag"></coming-b>
+    <!-- 经销商注册 -->
+    <register-b v-if="register" :register="register" :registerTrans="registerTrans" :code="code" @closeRegister="closeRegister"></register-b>
 </template>
 
 <script setup lang="ts">
@@ -65,7 +67,8 @@ import { useI18n } from 'vue-i18n'
 const { proxy } = getCurrentInstance() as any;
 const router = useRouter()
 const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
-
+const register = ref(false);
+const registerTrans = ref(false);
 
 const props = defineProps({
     path: String, 
@@ -276,17 +279,38 @@ const connect: any = async () => {
             store.dispatch('user/chageChainId', Number(chainId))
             if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
         })
-        if(code.value && messSing.value == ''){
-            
-            messgSing(accounts)
-        }
-        // store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.mess_succ')}})
+        if(code.value && messSing.value == '') isRegister();
     }
 }
 
 
+const closeRegister = () => {
+    registerTrans.value = false;
+    setTimeout(() => {
+        register.value = false;
+    }, 300);
+}
 
-// 登录埋点
+
+const isRegister = () => {
+    proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
+        if(res.data === true){
+            register.value = true;
+            registerTrans.value = true;
+        } 
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
+
+
+
+
+// 登录相关
+const login = () =>{
+    connect();
+}
+
 const logined = (accounts: string) => {
     proxy.$api.post(`/code/connection/general`, {
         "action":"connectWallet",
@@ -302,47 +326,6 @@ const logined = (accounts: string) => {
     })
 }
 
-
-// 签名授权后买点
-const getPublicAddress = (publicAddress: any, code: any) => {
-    proxy.$api.post(`/code/level/invitation?addr=${publicAddress}&icode=${code}`).then((res: any) => {
-        if(res.code != 55555) {
-            store.dispatch('user/messSing', code.value);
-            store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}});
-            return
-        }
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
-    }).catch( (err: any) => {
-        console.log(err)
-    })
-}
-
-
-// login
-const messgSing = async (publicAddress: any) => {
-    try {
-        const Web3 = (window as any).Web3;
-        const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
-        const result = await web3.eth.personal.sign(
-            `cyber-business`,
-            publicAddress,
-            '' // MetaMask will ignore the password argument here
-        );
-        console.log(result);
-        if(result) getPublicAddress(publicAddress, code.value)
-    } catch (err) {
-        throw new Error(
-            'You need to sign the message to be able to log in.'
-        );
-    }
-}
-
-
-
-const login = () =>{
-    connect();
-}
-
 const signout = () => {
     store.dispatch('user/walletMenuAni', false);
     store.dispatch('user/connectWallet',{realId: -1});
@@ -353,7 +336,6 @@ const signout = () => {
         router.push('/');
     }
 }
-
 
 const toAssets = () => {
     router.push('/knapsack');

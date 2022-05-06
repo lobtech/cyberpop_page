@@ -383,6 +383,7 @@ const cn = {
                 mess_empty: '地址為空',
                 mess_err: '地址格式錯誤',
                 btn_cancel: '取消',
+                btn_submit: '提交',
                 btn_tran: '轉移',
                 tran_exce: '已達最大數值',
                 tran_stop: '交易中斷',

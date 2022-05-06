@@ -294,9 +294,9 @@ const ownerNumber = ref(0);
 
 const getBalance = async (chainid: number) => {
     if(chainid == 80001){
-        var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+        var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
     }else if(chainid == 43113){
-        var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+        var result: any = await Web3.balanceOfBatch(GiftBox.abi, GiftBox.address, store.state.user?.box);
     }else{
         var result: any = [0, 0, 0]
     }
@@ -351,41 +351,13 @@ const getData = async (result: any) => {
         data.value.Remaining = 0;
         return;
     };
-    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], MarketV2.address); // 查询已上架的资产
+    let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box, MarketV2.address); // 查询已上架的资产
     console.log(LootBox_result, 'LootBox_result');
     console.log(LootBox_result[index-1]);
     data.value.Remaining = LootBox_result[index-1];
 }
 
 
-const getLast = async () => {
-    if(chainId.value == 80001){
-        if(index == 1){
-            let cyberClub_result: any = await Web3.tokensOfOwner(cyberClub.abi, cyberClub.address);
-            console.log(cyberClub_result);
-            await getNFTData(cyberClub_result[cyberClub_result - 1], 'head_mumbai');
-        }else if(index == 2){
-            
-        }else if(index == 3){
-            let result: any = await Web3.tokensOfOwner(Cyborg.abi, Cyborg.address);
-            console.log(result, 'result');
-            await getNFTData(result[result.length-1], 'role');
-        }
-
-    }else if(chainId.value == 43113){
-        if(index == 1){
-            let cyberClub_result: any = await Web3.tokensOfOwner(cyberClub_Fuji.abi, cyberClub_Fuji.address);
-            console.log(cyberClub_result);
-            await getNFTData(cyberClub_result[cyberClub_result.length - 1], 'head_fuji');
-        }else if(index == 2){
-
-        }else if(index == 3){
-            let result: any = await Web3.tokensOfOwner(Cyborg_Fuji.abi, Cyborg_Fuji.address);
-            console.log(result, 'result');
-            await getNFTData(result[result.length-1], 'role');
-        }
-    }
-}
 
 // 正常的nft 数组[0,1]表示id为0的nft没有资产， id为1的ntf资产为1
 const getNFTData: any = async (res: any) => {
@@ -398,22 +370,9 @@ const getNFTData: any = async (res: any) => {
 }
 
 // 开盒子
-const open = async (boxId?: any) => {
-    // getLast(); // 查询资产合约中最后一位为立马开启的资产
-    if(ownerNumber.value == 0) return;
-    const { abi, address } = chainId.value == 43113 ? GiftBox : LootBox;
-    store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: false, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false}});
-    let result = await Web3.unpack(abi, address, index-1, 1)
-    console.log(result, 'result');
-    store.dispatch('user/TipsState', {show: false, info: { }});
-    if(result) {
-        store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
-        setTimeout(() => {
-            router.push({ name: 'knapsack'})
-        }, 1000);
-    }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
-    }
+const open = async () => {
+    store.dispatch('user/xplanChangeAni', true);
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false, boxId: index - 1, haveNFT: ownerNumber.value }});
 }
 
 // 购买盒子

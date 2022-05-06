@@ -64,57 +64,73 @@
                     </div>
                 </div>
             </div>
+            <loading v-if="loadingState != 2" :show="true" :index="0.5"/>
             <div class="ecr" v-if="readyAssetsF !== -1">
             <!-- <div class="ecr" v-if="false"> -->
-                <div class="ecrchange">
-                    <loading v-if="loadingState != 2" :show="true" :index="0.5"/>
-                    <div class="ecrAll" v-show="!ecrType">
+                <div class="ecrchange" :style="{'padding-top': loadingState != 2 ? '12vw' : '0'}" >
+                    <div class="ecrAll"  v-show="!ecrType">
                         <ul class="prince" v-if="data.length > 0">
                             <li v-for="(item, index) in data" :key="index">
                                 <img :src="item.data.image" alt="">
                                 <div class="name">{{item.data.name}}<span>x{{item.number}}</span></div>
-                                <div class="btn">
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
+                                    <div class="transfer" :class="{'not-allowed': item.isLoading}" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell not-allowed">{{$t('message.assets.btn_sell')}}</div>
+                                </div>
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji' && false">
+                                    <div class="load" :class="{'not-allowed': item.isLoading}" @click="loadPool(item)">{{$t('message.assets.btn_load')}}</div>
+                                    <div class="claim" :class="{'not-allowed': !item.isLoading}">&nbsp;&nbsp;{{$t('message.assets.but_claim')}}</div>
+                                </div>
+                                <div class="btn" v-if="item.type == 'box_mumbai' || item.type == 'box_fuji'">
                                     <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
-                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
+                                    <div class="sell" @click="open(item)">{{$t('message.assets.btn_unpack')}}</div>
                                 </div>
                             </li>
                         </ul>
-                        <div class="noting" v-if="loadingState == 2 && data.length == 0">
-                            <p>NOT DATA</p>
-                            <img src="@/assets/nwAssets/nothing.svg" alt="">
-                        </div>
                     </div>
                     <div class="ecr721" v-show="ecrType == 1">
                         <ul class="prince" v-if="data.length > 0">
                             <li v-for="(item, index) in data" :key="index">
                                 <img :src="item.data.image" alt="">
                                 <div class="name">{{item.data.name}}<span>x{{item.number}}</span></div>
-                                <div class="btn">
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
+                                    <div class="transfer" :class="{'not-allowed': item.isLoading}" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell not-allowed">{{$t('message.assets.btn_sell')}}</div>
+                                </div>
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji' && false">
+                                    <div class="load" :class="{'not-allowed': item.isLoading}" @click="loadPool(item)">{{$t('message.assets.btn_load')}}</div>
+                                    <div class="claim" :class="{'not-allowed': !item.isLoading}">&nbsp;&nbsp;{{$t('message.assets.but_claim')}}</div>
+                                </div>
+                                <div class="btn" v-if="item.type == 'box_mumbai' || item.type == 'box_fuji'">
                                     <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
-                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
+                                    <div class="sell" @click="open(item)">{{$t('message.assets.btn_unpack')}}</div>
                                 </div>
                             </li>
                         </ul>
-                        <div class="noting" v-if="loadingState == 2 && data.length == 0">
-                            <p>NOT DATA</p>
-                            <img src="@/assets/nwAssets/nothing.svg" alt="">
-                        </div>
                     </div>
                     <div class="ecr115" v-show="ecrType == 2">
                         <ul class="prince" v-if="data.length > 0">
                             <li v-for="(item, index) in data" :key="index">
                                 <img :src="item.data.image" alt="">
                                 <div class="name">{{item.data.name}}<span>x{{item.number}}</span></div>
-                                <div class="btn">
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji'">
+                                    <div class="transfer" :class="{'not-allowed': item.isLoading}" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
+                                    <div class="sell not-allowed">{{$t('message.assets.btn_sell')}}</div>
+                                </div>
+                                <div class="btn" v-if="item.type != 'box_mumbai' && item.type != 'box_fuji' && false">
+                                    <div class="load" :class="{'not-allowed': item.isLoading}" @click="loadPool(item)">{{$t('message.assets.btn_load')}}</div>
+                                    <div class="claim" :class="{'not-allowed': !item.isLoading}">&nbsp;&nbsp;{{$t('message.assets.but_claim')}}</div>
+                                </div>
+                                <div class="btn" v-if="item.type == 'box_mumbai' || item.type == 'box_fuji'">
                                     <div class="transfer" @click="transferPopup(item)">{{$t('message.assets.btn_tran')}}</div>
-                                    <div class="sell">{{$t('message.assets.btn_sell')}}</div>
+                                    <div class="sell" @click="open(item)">{{$t('message.assets.btn_unpack')}}</div>
                                 </div>
                             </li>
                         </ul>
-                        <div class="noting" v-if="loadingState == 2 && data.length == 0">
-                            <p>NOT DATA</p>
-                            <img src="@/assets/nwAssets/nothing.svg" alt="">
-                        </div>
+                    </div>
+                    <div class="noting" v-if="loadingState == 2 && data.length == 0">
+                        <p>NOT DATA</p>
+                        <img src="@/assets/nwAssets/nothing.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -213,16 +229,19 @@ const readyAssetsF = computed(() => store.state.user?.readyAssets );
 const transferSuccess = computed(() => store.state.user?.transferSuccess);
 watch(chainId, (newVal, oldVal) => {
     if(!oldVal) return;
+    console.log(1, newVal);
 	getData(ecrType.value)
 }, {immediate:true,deep:true});
 
 watch(realId, (newVal, oldVal) => {
-    if(!oldVal) return;
+    if(oldVal == -1 || !oldVal) return;
+    console.log(2, newVal);
 	getData(ecrType.value)
 }, {immediate:true,deep:true});
 
 watch(transferSuccess, (newVal, oldVal) => {
     if(!oldVal) return;
+    console.log(3, newVal);
     getData(ecrType.value)
 }, {immediate:true,deep:true});
 
@@ -348,6 +367,7 @@ const getGamePool = (address: string) => {
     })
 }
 
+
 const loadPool = async (item: any) => {
     console.log(item);
     if(item.isLoading) return;
@@ -378,7 +398,7 @@ const { nft, nft_fuji, arms, erc721, gamePool, GiftBox, cyberClub, cyberClub_Fuj
 
 const getData: any = async (type: Number, filter?: any) => {
     if(!filter) data.value = [];
-    loadingState.value = 1;
+    if(loadingState.value == 1) return;
     let result: any = await getGamePool(idTemp.value)
     let weapons = [];
     let role = [];
@@ -402,6 +422,8 @@ const getData: any = async (type: Number, filter?: any) => {
     }
 
     console.log(weapons, role, badge, '🐮🐎');
+
+    loadingState.value = 1; // 初始化为0 1表示加载中 2表示加载完毕
 
     
     if(chainId.value == 80001){  //mumbai
@@ -670,7 +692,7 @@ const transferPopup = (item:any) => {
     }else if( item.type == 'box_mumbai'){
         abiSelect.value = Web3.contracts.LootBox.abi
         addressSelect.value = Web3.contracts.LootBox.address
-    }else if( item.type == 'server_fuji'){
+    }else if( item.type == 'badge_fuji'){
         abiSelect.value = Web3.contracts.nft_fuji.abi
         addressSelect.value = Web3.contracts.nft_fuji.address
     }
@@ -684,6 +706,11 @@ const searchSubmit = () => {
     inputShow.value = false
 }
 
+// 开盒子
+const open = async (item: any) => {
+    store.dispatch('user/xplanChangeAni', true);
+    store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false, boxId: item.id, haveNFT: item.number }});
+}
 
 
 onUnmounted(() => {
@@ -693,12 +720,11 @@ onUnmounted(() => {
 
 
 onMounted(async () => {
-
-    if( realId.value == -1 && proxy.$route.path == '/knapsack' ){
-        
-        router.push('/')
-        // window.location.href='https://test.cyberpop.online/'
-    }
+    setTimeout(() => {
+        if( realId.value == -1 && proxy.$route.path == '/knapsack' ){
+            router.push('/')
+        }
+    }, 2000);
     window.scrollTo(0,0);
     window.addEventListener('click', inputOtherClick, true);
     store.dispatch('user/transferChange',false)
@@ -1096,21 +1122,21 @@ onMounted(async () => {
                                 }
                             }
                         }
-                        .noting{
-                            text-align: center;
-                            overflow: hidden;
-                            p{
-                                display: block;
-                                margin: 20px 0;
-                                color: #fff;
-                                font-size: 14px;
-                                font-family: AlibabaPuHuiTi_2_55_Regular;
-                            }
-                            img{
-                                width: 120px;
-                                height: 128px;
-                                margin: 10px auto 30px;
-                            }
+                    }
+                    .noting{
+                        text-align: center;
+                        overflow: hidden;
+                        p{
+                            display: block;
+                            margin: 20px 0;
+                            color: #fff;
+                            font-size: 14px;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                        }
+                        img{
+                            width: 120px;
+                            height: 128px;
+                            margin: 10px auto 30px;
                         }
                     }
                 }

@@ -106,6 +106,8 @@
     <metamask-a v-if="metaMaskActive"></metamask-a>
     <!-- 切换网络弹窗 -->
     <wrongNetWorkA :isShowTips="isShowTips" @changeSwitch="changeSwitch"></wrongNetWorkA>
+    <!-- 经销商注册 -->
+    <register-a v-if="register" :register="register" :registerTrans="registerTrans" :code="code" @closeRegister="closeRegister"></register-a>
 </template>
 
 <script setup lang="ts">
@@ -119,6 +121,8 @@ const router = useRouter()
 let close: any = ref(true);
 const code: any = ref('');
 const isShowTips = ref(false);
+const register = ref(false);
+const registerTrans = ref(false);
 const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
 const props = defineProps({
     path: String, 
@@ -340,40 +344,6 @@ const logined = (accounts: string) => {
     })
 }
 
-//REACT_APP_BACKEND_URL=http://13.250.39.184:8612
-const getPublicAddress = (publicAddress: any, code: any) => {
-    proxy.$api.post(`/code/level/invitation?addr=${publicAddress}&icode=${code}`).then((res: any) => {
-        if(res.code != 55555) {
-            store.dispatch('user/messSing', code.value);
-            store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}});
-            return
-        }
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
-    }).catch( (err: any) => {
-        console.log(err)
-    })
-}
-
-
-// login
-const messgSing = async (publicAddress: any) => {
-    try {
-        const Web3 = (window as any).Web3;
-        const web3 = new Web3((window as any).ethereum) // 创建一个新的web3 对象
-        const result = await web3.eth.personal.sign(
-            `cyber-business`,
-            publicAddress,
-            '' // MetaMask will ignore the password argument here
-        );
-        console.log(result);
-        if(result) getPublicAddress(publicAddress, code.value)
-    } catch (err) {
-        throw new Error(
-            'You need to sign the message to be able to log in.'
-        );
-    }
-}
-
 
 const connect: any = async () => {
     const ismessage: any = await NFT.hasMetaMask()
@@ -405,11 +375,26 @@ const connect: any = async () => {
             store.dispatch('user/chageChainId', Number(chainId))
             if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
         })
-        if(code.value && messSing.value == ''){
-            messgSing(accounts)
-        }
-        // store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.mess_succ')}})
+        if(code.value && messSing.value == '') isRegister();
     }
+}
+
+// 
+const isRegister = () => {
+    proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
+        if(res.data === true){
+            register.value = true;
+            registerTrans.value = true;
+        } 
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
+const closeRegister = () => {
+    registerTrans.value = false;
+    setTimeout(() => {
+        register.value = false;
+    }, 300);
 }
 
 
