@@ -389,14 +389,14 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         </div>
         <div class="logo">
             <div class="line1">
-                <a href="https://www.avax.network/" target="view_window">
-                    <img class="logo8" src="@/assets/nwhome/make-avala.svg" alt="">
-                </a>
                 <a href="https://www.ubisoft.com/en-us/" target="view_window">
                     <img class="logo10" src="@/assets/nwhome/UBISOFT.png" alt="">
                 </a>
                 <a href="https://aws.amazon.com/" target="view_window">
                     <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
+                </a>
+                <a href="https://www.avax.network/" target="view_window">
+                    <img class="logo8" src="@/assets/nwhome/make-avala.svg" alt="">
                 </a>
                 <a href="https://www.mexc.com/pioneer" target="view_window">
                     <img class="logo12" src="@/assets/nwhome/pioneerlogo.png" alt="">
@@ -405,6 +405,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     <img class="logo12" src="@/assets/nwhome/mexc.png" alt="">
                 </a>
             </div>
+            <a href="https://www.gate.io" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_gate.png" alt="">
+            </a>
             <a href="https://consensys.net/" target="view_window">
                 <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
             </a>
@@ -429,9 +432,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="https://www.earnguild.io/" target="view_window">
                 <img class="logo11" src="@/assets/nwhome/Earn-Guild.png" alt="">
             </a>
-            <a href="https://ethereum.org/en/" target="view_window">
+            <!-- <a href="https://ethereum.org/en/" target="view_window">
                 <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_eth.png" alt="">
-            </a>
+            </a> -->
             <a href="https://www.binance.com/" target="view_window">
                 <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_binan.png" alt="">
             </a>
@@ -450,21 +453,22 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="https://tofunft.com/" target="view_window">
                 <img class="logo13" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_tofu.png" alt="">
             </a>
-            <a href="https://www.bybit.com/en-US/" target="view_window">
+            <!-- <a href="https://www.bybit.com/en-US/" target="view_window">
                 <img class="logo10" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_bybit.png" alt="">
-            </a>
-            <a href="https://www.gate.io" target="view_window">
-                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_gate.png" alt="">
-            </a>
-            <a href="#" target="view_window">
+            </a> -->
+            <!-- <a href="#" target="view_window"> -->
+            <div>
                 <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_jdventures.png" alt="">
-            </a>
+            </div>
+            <!-- </a> -->
             <a href="https://www.nsguild.net/guild" target="view_window">
                 <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_nsguild.png" alt="">
             </a>
-            <a href="#" target="view_window">
+            <!-- <a href="#" target="view_window"> -->
+            <div>
                 <img class="logo11" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_richmeta.png" alt="">
-            </a>
+            </div>
+            <!-- </a> -->
         </div>
     </div>
     <div class="will">
