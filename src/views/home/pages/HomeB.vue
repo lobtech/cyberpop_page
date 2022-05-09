@@ -403,12 +403,12 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="https://aws.amazon.com/" target="view_window">
                 <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
             </a>
-            <!-- <a href="https://www.mexc.com/pioneer" target="view_window">
+            <a href="https://www.mexc.com/pioneer" target="view_window">
                 <img class="logo12" src="@/assets/nwhome/pioneerlogo.png" alt="">
             </a>
             <a href="https://www.mexc.com/" target="view_window">
                 <img class="logo12" src="@/assets/nwhome/mexc.png" alt="">
-            </a> -->
+            </a>
             <a href="https://consensys.net/" target="view_window">
                 <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
             </a>
@@ -432,6 +432,42 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </a>
             <a href="https://www.earnguild.io/" target="view_window">
                 <img class="logo11" src="@/assets/nwhome/Earn-Guild.png" alt="">
+            </a>
+                        <a href="https://ethereum.org/en/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_eth.png" alt="">
+            </a>
+            <a href="https://www.binance.com/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_binan.png" alt="">
+            </a>
+            <a href="https://pancakeswap.finance/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_pancake.png" alt="">
+            </a>
+            <a href="https://metamask.io/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_metamask.png" alt="">
+            </a>
+            <a href="https://www.tokenpocket.pro/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_tokenpocket.png" alt="">
+            </a>
+            <a href="https://opensea.io/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_opensea.png" alt="">
+            </a>
+            <a href="https://tofunft.com/" target="view_window">
+                <img class="logo11" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_tofu.png" alt="">
+            </a>
+            <a href="https://www.bybit.com/en-US/" target="view_window">
+                <img class="logo10" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_bybit.png" alt="">
+            </a>
+            <a href="https://www.gate.io" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_gate.png" alt="">
+            </a>
+            <a href="#" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_jdventures.png" alt="">
+            </a>
+            <a href="https://www.nsguild.net/guild" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_nsguild.png" alt="">
+            </a>
+            <a href="#" target="view_window">
+                <img class="logo11" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_richmeta.png" alt="">
             </a>
         </div>
     </div>
@@ -2109,7 +2145,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 640px;
+        height: 1260px;
         margin: -2px 0;
         background-color: #000000;
         overflow: hidden;
@@ -2183,7 +2219,7 @@ onMounted(() => {
                     height: 44px;
                 }
                 .logo12{
-                    width: 120px;
+                    width: 110px;
                 }
             }
             a:hover, div:hover{

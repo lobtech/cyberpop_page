@@ -393,17 +393,17 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                     <img class="logo8" src="@/assets/nwhome/make-avala.svg" alt="">
                 </a>
                 <a href="https://www.ubisoft.com/en-us/" target="view_window">
-                    <img class="logo9" src="@/assets/nwhome/UBISOFT.png" alt="">
+                    <img class="logo10" src="@/assets/nwhome/UBISOFT.png" alt="">
                 </a>
                 <a href="https://aws.amazon.com/" target="view_window">
                     <img class="logo2" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/aws.png" alt="">
                 </a>
-                <!-- <a href="https://www.mexc.com/pioneer" target="view_window">
+                <a href="https://www.mexc.com/pioneer" target="view_window">
                     <img class="logo12" src="@/assets/nwhome/pioneerlogo.png" alt="">
                 </a>
                 <a href="https://www.mexc.com/" target="view_window">
                     <img class="logo12" src="@/assets/nwhome/mexc.png" alt="">
-                </a> -->
+                </a>
             </div>
             <a href="https://consensys.net/" target="view_window">
                 <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
@@ -415,7 +415,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <img class="logo3" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/skywater2.png" alt="">
             </a>
             <a href="https://www.jinance.org/" target="view_window">
-                <img class="logo4" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners3.png" alt="">
+                <img class="logo10" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners3.png" alt="">
             </a>
             <a href="https://t3e.vc/" target="view_window">
                 <img class="logo5" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/T3E-Logo.png" alt="">
@@ -428,6 +428,42 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </a>
             <a href="https://www.earnguild.io/" target="view_window">
                 <img class="logo11" src="@/assets/nwhome/Earn-Guild.png" alt="">
+            </a>
+            <a href="https://ethereum.org/en/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_eth.png" alt="">
+            </a>
+            <a href="https://www.binance.com/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_binan.png" alt="">
+            </a>
+            <a href="https://pancakeswap.finance/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_pancake.png" alt="">
+            </a>
+            <a href="https://metamask.io/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_metamask.png" alt="">
+            </a>
+            <a href="https://www.tokenpocket.pro/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_tokenpocket.png" alt="">
+            </a>
+            <a href="https://opensea.io/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_opensea.png" alt="">
+            </a>
+            <a href="https://tofunft.com/" target="view_window">
+                <img class="logo13" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_tofu.png" alt="">
+            </a>
+            <a href="https://www.bybit.com/en-US/" target="view_window">
+                <img class="logo10" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_bybit.png" alt="">
+            </a>
+            <a href="https://www.gate.io" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_gate.png" alt="">
+            </a>
+            <a href="#" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_jdventures.png" alt="">
+            </a>
+            <a href="https://www.nsguild.net/guild" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_nsguild.png" alt="">
+            </a>
+            <a href="#" target="view_window">
+                <img class="logo11" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_richmeta.png" alt="">
             </a>
         </div>
     </div>
@@ -2176,7 +2212,7 @@ onMounted(() => {
             justify-content: center;
             flex-wrap: wrap;
             // width: 54.24vw;
-            width: 67.8vw;
+            width: 60vw;
             margin: 4vw auto 6vw;
             overflow: hidden;
             .line1{
@@ -2191,47 +2227,46 @@ onMounted(() => {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                width: 12vw;
-                height: 5.8vw;
-                margin: 0 .78vw 1.56vw;
+                // width: 12vw;
+                // height: 5.8vw;
+                width: 10vw;
+                height: 5vw;
+                margin: 0 1vw 1.8vw;
                 background: #282626;
                 border-radius: .88vw;
                 .logo1{
-                    width: 4.8vw;
+                    width: 4vw;
                 }
                 .logo2{
-                    width: 4.6vw;
+                    width: 3.8vw;
                 }
                 .logo3{
-                    height: 3.6vw;
-                    margin-right: .8vw;
-                }
-                .logo4{
-                    width: 7vw;
+                    height: 2.8vw;
+                    margin-right: .4vw;
                 }
                 .logo5{
-                    width: 6.8vw;
+                    width: 6.2vw;
                 }
                 .logo6{
-                    width: 5.2vw;
+                    width: 4.2vw;
                 }
                 .logo7{
-                    width: 5.4vw;
+                    width: 4.8vw;
                 }
                 .logo8{
-                    width: 9.4vw;
-                }
-                .logo9{
-                    width: 7vw;
+                    width: 7.8vw;
                 }
                 .logo10{
-                    width: 7vw;
+                    width: 6.2vw;
                 }
                 .logo11{
-                    height: 3.6vw;
+                    height: 3.2vw;
                 }
                 .logo12{
-                    width: 10vw;
+                    width: 7.6vw;
+                }
+                .logo13{
+                    height: 3vw;
                 }
                 
             }
