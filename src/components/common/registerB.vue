@@ -96,12 +96,13 @@ const messgSing = async (publicAddress: any) => {
 
 const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
-    if(nickname.value.trim().length <= 50 && reg.test(email.value)){
+    if(nickname.value.trim() != '' && nickname.value.trim().length <= 50){
         messgSing(idTemp.value)
     }else{
         store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: 'name or email error'}})
     }
 }
+
 
 const closeDialog = () => {
     emit('closeRegister')
@@ -166,8 +167,7 @@ onMounted(() => {
             left: 0;
             right: 0;
             bottom: 0;
-            width: 37.51vw;
-            min-width: 380px;
+            width: 350px;
             height: 290px;
             margin: auto;
             padding: 2.5vw;

@@ -18,6 +18,7 @@
         <div class="ip_error_Mobile" v-if="iperror && innerWidth <= 1025">
             Our service is only available for part of the legal compliance countries and regions.  Illegal access will not be protected. 
         </div>
+        <!-- <div style="background: #333;color: #fff" v-if="cname">{{ cname }}</div> -->
     </router-view>
 </template>
 <script setup lang="ts">
@@ -25,16 +26,13 @@ import { onMounted, computed, ref, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
 import store from '@/store'
 import { useI18n } from 'vue-i18n';
-import router from './router';
 import {  useRouter } from 'vue-router'
 const route = useRouter()
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 const $store: any = useStore()
 
-const innerWidth = computed(() => {
-    return store.state.sys?.innerWidth || 0
-})
+const innerWidth = computed(() => store.state.sys?.innerWidth || 0)
 const iperror = ref(false);
 
 
@@ -52,12 +50,15 @@ const purchaseInfo = computed(() => {
 
 const isChinese = (val: any) => {
     var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
-　　if(reg.test(val) && val !== '国内未能识别的地区'){     
+　　if(reg.test(val) && val !== '国内未能识别的地区' || val == 'CHINA'){     
         return false;
 　　}else{
         return true;
     }
 }
+
+const cname = ref(0)
+
 
 onMounted(() => {
     const ethereum = (window as any).ethereum 
@@ -91,9 +92,8 @@ onMounted(() => {
     let HongShou = '125.69.86.177' // ip 白名单
     let HongShou5G = '125.69.86.216'
     let indiegame = "171.223.208.133"
-
     console.log(process.env.NODE_ENV, 'process.env'); 
-    
+    cname.value = returnCitySN.cname;
     if(!isChinese(returnCitySN.cname)) {
         // route.push({ path: '/IPshielding' })
         iperror.value = true;
@@ -103,7 +103,7 @@ onMounted(() => {
         setTimeout(() => {
             console.log(route.currentRoute.value, 'route.currentRoute.value');
             if(route.currentRoute.value.path == '/IPshielding') route.push({ path: '/' })
-        }, 2000);
+        }, 1000);
     }//
 })
 </script>

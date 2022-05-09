@@ -384,6 +384,28 @@ const withdrawRole = (abi: any[], address: string, tokenId: any) => {
 }
 
 
+// 质押合约查询以及质押了多少的操作
+const getBalanceOf = (abi: any[], address: string) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        let result = await contract.methods.getBalanceOf(accounts.value).call();
+        resolve(result)
+    })
+}
+
+
+// 质押池子总数
+const getTotalSupply = (abi: any[], address: string) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        let result = await contract.methods.getTotalSupply().call();
+        resolve(result)
+    })
+}
+
+
 export default {
     safeTransferFrom,
     batchBalanceOf,
@@ -408,5 +430,7 @@ export default {
     loadingErc1155,
     withdrawRole,
     testactouns,
+    getBalanceOf,
+    getTotalSupply,
     contracts,
 }
