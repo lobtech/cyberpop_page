@@ -43,7 +43,7 @@
                         <div class="idtxt">{{realId}}</div>
                         <img class="portrait" src="@/assets/nwhome/portrait.svg" ref="clickCursor2" alt="" @click="showloggedFlag = !showloggedFlag,hoverLogged = false" @mouseenter="hoverLogged = true" @mouseleave="hoverLogged = false">
                     </div>
-                     <div class="code" v-if="code">inviter Code: {{ code }}</div>
+                     <div class="code" v-if="code">inviter Code: {{ code }} &nbsp;&nbsp;&nbsp; level: {{ level }} </div>
                 </div>
                 <div class="menu">
                     <ul id="menuUl">
@@ -379,13 +379,17 @@ const connect: any = async () => {
     }
 }
 
-// 
+// 邀请用户注册
+const level = ref(0); // 用户等级
 const isRegister = () => {
     proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
         if(res.data === true){
             register.value = true;
             registerTrans.value = true;
+            return;
         } 
+        level.value = res.data.level;
+        code.value = res.data.inv_level || router.currentRoute.value.query.code;
     }).catch( (err: any) => {
         console.log(err)
     })

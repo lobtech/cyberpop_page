@@ -16,7 +16,7 @@
                 <div class="login_in" v-if="!loggined" @click="login()">
                     <div class="txt">{{$t('message.common.wallet')}}</div>
                 </div>
-                <div class="code" v-if="code">inviterCode: {{ code }}</div>
+                <div class="code" v-if="code">inviter Code: {{ code }} &nbsp;&nbsp;&nbsp; level: {{ level }} </div>
                 <div class="logged_in" v-if="loggined">
                     <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
                     <div class="idtxt">{{ realId }}</div>
@@ -292,12 +292,16 @@ const closeRegister = () => {
 }
 
 
+// 用户注册
+const level = ref(0); // 用户等级
 const isRegister = () => {
     proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
         if(res.data === true){
             register.value = true;
             registerTrans.value = true;
+            return;
         } 
+        level.value = res.data.inv_level;
     }).catch( (err: any) => {
         console.log(err)
     })

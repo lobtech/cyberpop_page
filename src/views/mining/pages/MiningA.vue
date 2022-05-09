@@ -13,17 +13,17 @@
                     <div class="ball-inner"></div>
                 </div>
 
-               <div class="right">
+                <div class="right">
                     <div class="total-title">{{$t('message.mining.total_title')}}</div>
                     <div class="total-subtitle">{{$t('message.mining.total_subtitle')}}</div>
                     <div class="price">$- -</div>
                 </div>
             </div>
         </div>
-        <ul class="data">
+        <ul class="data">   
             <li>
                 <div class="txt">{{$t('message.mining.data_txt1')}}</div>
-                <div class="percent">0</div>
+                <div class="percent">{{ getTotalSupply }}</div>
             </li>
             <li>
                 <div class="txt">{{$t('message.mining.data_txt3')}}</div>
@@ -48,7 +48,7 @@
                     </div>
                 </li> -->
                 <li>
-                    <div class="img-wrap">
+                    <div class="img-wrap" @click="stakingCyt">
                         <img class="pledge-img" :src="whiteImgSrc" alt="">
                     </div>
                     <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
@@ -94,13 +94,20 @@
     <coming-a v-show="showComingFlag"></coming-a>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted } from 'vue'
+import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
 
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+
+const { staking, cytV2 } = Web3.contracts;
+
 const router = useRouter()
 
+const chainId: any = computed(() => store.state.user?.chainId);
+watch(chainId, (newVal: any, oldVal) => {
+    if(!oldVal) return;
+}, {immediate:true,deep:true});
 
 
 // coming soon
@@ -119,7 +126,8 @@ const showComing = () => {
     },3000)
 }
 
-
+// pool
+const getTotalSupply: any = ref(0)
 
 // card filp
 const flipMove = () => {
@@ -142,10 +150,27 @@ let whiteBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/ple
 let lockedBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pledge-border3.svg')
 
 
+const getBalanceOf = async () => {
+    let result = await Web3.getBalanceOf(staking.abi, staking.address);
+    console.log(result);
+}
 
-onMounted(() => {
+const approve = async () => {
+    let result = await Web3.approve(cytV2.abi, cytV2.address, staking.address, 30);
+
+}
+
+const stakingCyt = async () => {
+    approve()
+}
+
+onMounted(async () => {
+    setTimeout(() => {
+        getBalanceOf()
+    }, 1000);
+    getTotalSupply.value = await Web3.getTotalSupply(staking.abi, staking.address)
     window.scrollTo(0,0);
-    store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
+    store.dispatch('user/showDialog',{ show: false, info: {} });// close message dialog
     store.dispatch('user/metaChange',false);
 })
 
