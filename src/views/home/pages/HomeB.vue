@@ -557,36 +557,12 @@ const connect: any = async () => {
     }
 }
 
-<<<<<<< HEAD
-const submit = () => {
-    let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
-    
-    if(email.value === ""){ //输入不能为空
-　　　　alert("not null!");
-　　　　return false;
-　　 }else if(!reg.test(email.value)){ //正则验证不通过，格式不对
-　　　　alert("please input email!");
-　　　　return false;
-　　 }
-
- 
-    proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
-        if(res.data){
-            email.value = "";
-            alert('success');
-        }else{
-            alert(res.msg);
-        }
-=======
-
-
 // download
 let isOut:any = ref(false)
 const downloadGame = () => {
     window.location.href = 'https://d3bhixjyozyk2o.cloudfront.net/Cyberpop_1.0.0_2022_04_27_23_38_36_V25_Dev.false_Symbols.AWS%40USE_NFT_ASSETS.apk'
     proxy.$api.post(`/code/user/download?address=${idTemp.value}`).then((res: any) => {
         console.log(res);
->>>>>>> feat_20220214
     }).catch( (err: any) => {
         console.log(err)
     })

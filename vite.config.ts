@@ -14,9 +14,6 @@ export default defineConfig({
               changeOrigin: true,
               rewrite: (path) => path.replace(/^\/api/, '')
             },
-<<<<<<< HEAD
-        }
-=======
             '/text': {
                 target: 'https://d2cimmz3cflrbm.cloudfront.net/', //实际请求地址
                 changeOrigin: true,
@@ -38,7 +35,6 @@ export default defineConfig({
                 rewrite: (path) => path.replace(/^\/code/, '')
             }
         },
->>>>>>> feat_20220214
     },
     define: {
         'process.env': {},

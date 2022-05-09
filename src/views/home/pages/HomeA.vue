@@ -746,14 +746,6 @@ const submit = () => {
 　　　　return false;
 　　 }
 
-<<<<<<< HEAD
-    proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
-        if(res.data){
-            email.value = "";
-            alert('success');
-        }else{
-            alert(res.msg);
-=======
 
     proxy.$api.get('/api/setEmail?email=' + email.value ).then((res: any) => {
         if(res.data){
@@ -761,7 +753,6 @@ const submit = () => {
             store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.home.mess_register_succ')}})
         }else{
             store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.home.mess_register_else')}})
->>>>>>> feat_20220214
         }
     }).catch( (err: any) => {
         console.log(err)
