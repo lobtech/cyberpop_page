@@ -14,7 +14,31 @@ export default defineConfig({
               changeOrigin: true,
               rewrite: (path) => path.replace(/^\/api/, '')
             },
+<<<<<<< HEAD
         }
+=======
+            '/text': {
+                target: 'https://d2cimmz3cflrbm.cloudfront.net/', //实际请求地址
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, '')
+            },
+            '/data': {
+                target: 'https://api.cyberpop.online/', //实际请求地址
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/data/, '')
+            },
+            '/game': {
+                target: 'https://gamepool.cyberpop.online/', //实际请求地址
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/game/, '')
+            },
+            '/code': {
+                target: 'https://invitecode.cyberpop.online/', //实际请求地址
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/code/, '')
+            }
+        },
+>>>>>>> feat_20220214
     },
     define: {
         'process.env': {},
@@ -27,6 +51,8 @@ export default defineConfig({
             // stream: 'stream-browserify',
             // zlib: 'browserify-zlib',
             // util: 'util',
+            'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
         },
     },
+    
 })
