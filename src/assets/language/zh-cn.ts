@@ -3,7 +3,7 @@ const cn = {
         common: {
             // headerA
             menu1: '主頁',
-            menu2: '挖礦',
+            menu2: '造币',
             menu3: '盲盒',
             menu4: '檔',
             menu5: '賽博新世界',
