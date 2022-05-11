@@ -13,12 +13,37 @@
                         <input type="text" id="nickname" placeholder="input your nickname" @input="input" @blur="blur(0)" v-model="nickname">
                     </div>
                 </div>
-                <!-- <div class="item">
+                <div class="item">
                     <label for="Email">Email</label>
                     <div class="content1" :class="{'error': emailErr}">
                         <input type="text" id="Email" placeholder="input your email" @input="emailInput" @blur="blur(1)" v-model="email">
+                        <div class="send" @click="send">Send</div>
                     </div>
-                </div> -->
+                </div>
+                    <div class="item">
+                    <label for="Email">Email Code</label>
+                    <div class="content1" :class="{'error': emailCodeErr}">
+                        <input type="text" id="Email" placeholder="input your email code" @blur="blur(2)" v-model="emailCode">
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="Email">PassWord</label>
+                    <div class="content1" :class="{'error': PassWordErr}">
+                        <input type="text" id="Email" placeholder="input your PassWord" @blur="blur(3)" v-model="PassWord">
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="Email">Confirm PassWord</label>
+                    <div class="content1" :class="{'error': ConfirmPassWordErr}">
+                        <input type="text" id="Email" placeholder="input your PassWord" @blur="blur(4)" v-model="ConfirmPassWord">
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="Email">Referral Code (option)</label>
+                    <div class="content1" :class="{'error': ReferralCodeErr}">
+                        <input type="text" id="Email" placeholder="input your email code" @blur="blur(5)" v-model="ReferralCode">
+                    </div>
+                </div>
             </div>
             <div class="btn">
                 <div class="btn-wrap">
@@ -33,6 +58,7 @@
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import store from '@/store'
 import { useI18n } from 'vue-i18n';
+import { log } from 'console';
 
 const { t } = useI18n()
 const emit = defineEmits(['closeRegister']);
@@ -53,14 +79,26 @@ const props = defineProps({
     }
 })
 const idTemp = computed(() => store?.state.user?.idTemp);
+//input
 const nickname = ref('');
 const email = ref('');
+const emailCode = ref('')
+const PassWord = ref('')
+const ConfirmPassWord = ref('')
+const ReferralCode = ref('')
+
+// state
 const nicknameErr = ref(false);
 const emailErr = ref(false);
+const emailCodeErr = ref(false);
+const PassWordErr = ref(false);
+const ConfirmPassWordErr = ref(false);
+const ReferralCodeErr = ref(false);
+
 
 //REACT_APP_BACKEND_URL=http://13.250.39.184:8612
 const getPublicAddress = (publicAddress: any, email: any, nikename: any) => {
-    proxy.$api.post(`/code/level/invitation?addr=${publicAddress}&icode=${props.code}&email=${''}&nikename=${nikename}`).then((res: any) => {
+    proxy.$api.post(`/code/level/invitation?addr=${publicAddress}&icode=${props.code}&email=${''}&nikename=${nikename}&`).then((res: any) => {
         if(res.code != 55555) {
             store.dispatch('user/messSing', props.code);
             store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}});
@@ -94,6 +132,7 @@ const messgSing = async (publicAddress: any) => {
     }
 }
 
+
 const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     if(nickname.value.trim() != '' && nickname.value.trim().length <= 50){
@@ -112,10 +151,13 @@ const blur = (type: any) => {
     if(!type){
         nicknameErr.value = false;
         if(nickname.value.trim().length == 0 || nickname.value.trim().length > 50) nicknameErr.value = true;
-    }else{
+    }else if(type == 1){
         // let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
         // emailErr.value = false;
         // if(!reg.test(email.value)) emailErr.value = true;
+    }else if(type == 2){
+        console.log(type, 'type');
+        emailCodeInput()
     }
 }
 
@@ -125,11 +167,36 @@ const input = (e: any) => {
     if(result.trim().length == 0 || result.trim().length > 50) nicknameErr.value = true;
 }
 
+
+
+//email
+// 发送验证码
+const send = () => {
+    proxy.$api.get(`https://gamepool.cyberpool.online/generate_code?email=${email.value}`).then((res: any) => {
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
+        
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
+
 const emailInput = (e: any) => {
     let result = e.target.value
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     emailErr.value = false;
     if(!reg.test(email.value)) emailErr.value = true;
+}
+
+const emailCodeInput = () => {
+    var regu = "^[0-9a-zA-Z]{6,12}$"; 
+    var re = new RegExp(regu); 
+    console.log(re.test(emailCode.value));
+    
+    if(re.test(emailCode.value)){
+        emailCodeErr.value = false;
+        return;
+    }
+    emailCodeErr.value = true;
 }
  
 
@@ -168,7 +235,7 @@ onMounted(() => {
             bottom: 0;
             width: 37.51vw;
             min-width: 380px;
-            height: 28vw;
+            height: 48vw;
             min-height: 180px;
             margin: auto;
             padding: 2.5vw;
@@ -242,7 +309,7 @@ onMounted(() => {
                     }
                 }
                 .item{
-                    margin: 1.5vw 0;
+                    margin: .6vw 0;
                     label{
                         display: inline-block;
                         margin: 0.5vw 0;
@@ -268,6 +335,14 @@ onMounted(() => {
                         input::-webkit-input-placeholder{
                             color: #fff;
                             opacity: .5;
+                        }
+                        .send{
+                            padding: 1vw 1vw;
+                            border: 1px solid;
+                            cursor: pointer;
+                        }
+                        .send:hover{
+                            filter: drop-shadow(0 0 0.4vw #fff);
                         }
                     }
                     .error{

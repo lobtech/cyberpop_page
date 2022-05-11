@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="register">
-                        <div class="register_button">register</div>
+                        <div class="register_button" @click="isRegister">register</div>
                     </div>
                     <div class="login_in" v-if="!loggined" @click="login()" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
                         <div class="txt">{{$t('message.common.wallet')}}</div>
@@ -389,17 +389,20 @@ const connect: any = async () => {
 // 邀请用户注册
 const level = ref(0); // 用户等级
 const isRegister = () => {
-    proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
-        if(res.data === true){
-            register.value = true;
-            registerTrans.value = true;
-            return;
-        } 
-        level.value = res.data.level;
-        code.value = res.data.inv_level || router.currentRoute.value.query.code;
-    }).catch( (err: any) => {
-        console.log(err)
-    })
+    register.value = true;
+    registerTrans.value = true;
+    return;
+    // proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
+    //     if(res.data === true){
+    //         register.value = true;
+    //         registerTrans.value = true;
+    //         return;
+    //     } 
+    //     level.value = res.data.level;
+    //     code.value = res.data.inv_level || router.currentRoute.value.query.code;
+    // }).catch( (err: any) => {
+    //     console.log(err)
+    // })
 }
 const closeRegister = () => {
     registerTrans.value = false;
@@ -603,6 +606,7 @@ onMounted(() => {
                         height: 100%;
                         display: flex;
                         align-items: center;
+                        margin-right: .5vw;
                         .register_button{
                             border: 1px solid #DD2ECE;
                             padding: 0.5vw 1vw;
