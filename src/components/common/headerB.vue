@@ -128,6 +128,7 @@ watch(chainId, (newVal, oldVal) => {
     if(temp) chainList.value.select = { ...temp, active: 1 };
 }, {immediate:true,deep:true});
 const showMsgPop = () => {
+    store.dispatch('user/xplanChangeAni', true);
     store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
 }
 
@@ -324,9 +325,9 @@ const logined = (accounts: string) => {
         "parameter2":"",
         "parameter3":""
     }).then((res: any) => {
-        console.log(res);
+        // console.log(res);
     }).catch( (err: any) => {
-        console.log(err)
+        // console.log(err) 
     })
 }
 

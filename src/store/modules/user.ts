@@ -15,7 +15,7 @@ const states = {
     account: '' as string, // 用户地址
     nativeBalance: '' as string, // 本地余额
     tokenBalances: '' as string, // 令牌余额
-    chainId: 1 as Number, // chainid
+    chainId: -1 as Number, // chainid
 
     // home header
     active: 0,
@@ -53,6 +53,10 @@ const states = {
     badge: [0, 1, 2, 3, 4, 5],
     game: [2, 3, 101101],
     box: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+
+    //staking
+    stakingState: false, //质押流程
+    stakingInfo: {} as any,
 }
 export type typeof_user = typeof states
 export default {
@@ -171,6 +175,14 @@ export default {
         },
         purchaseInfo(state, payload: any) {
             state.purchaseInfo = payload;
+        },
+
+        //staking
+        stakingState(state, payload: any) {
+            state.stakingState = payload;
+        },
+        stakingInfo(state, payload: any) {
+            state.stakingInfo = payload;
         }
     },
     actions: {
@@ -266,6 +278,13 @@ export default {
         purchaseState({ commit }, paylaod: any) {
             commit('purchaseState', paylaod.show)
             commit('purchaseInfo', paylaod.info)
+        },
+
+
+        //staking
+        stakingState({ commit }, paylaod: any) {
+            commit('stakingState', paylaod.show)
+            commit('stakingInfo', paylaod.info)
         },
     },
 } as Module<typeof_user, State>

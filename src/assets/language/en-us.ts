@@ -258,6 +258,7 @@ const us = {
             pledge_bot_txt1: 'APPROVE',
             pledge_bot_txt2: 'Select NFT to stake',
             pledge_bot_txt3: 'Coming soon',
+            staking: 'staking',
         },
 
         // boxA

@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-        <div class="mask" :class="isShowTips && (xplanAni ? 'bounceShow' : 'bounceHide') ">
+        <div class="mask" :class="isShowTips && (xplanAni ? 'bounceShow' : 'bounceHide')">
             <div class="cover"></div>
             <div class="coverborder"></div>
             <img class="close" src="@/assets/nwhome/close.svg" alt=""  @click="closeDialog">
             <div class="content">
-                <div class="title">{{ props.title }}</div>
+                <div class="title">Staking</div>
                 <!-- <div class="icon">
                     <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/metaMask.svg" alt="">
                     <div class="subtitle">{{t('message.common.metamask.logoText')}}</div>
@@ -17,20 +17,18 @@
                         <div class="tips" v-show="numState == 'error'">{{$t('message.assets.pop.tips_err')}}</div>
                         <div class="number" :class="numState == 'error' ? 'error':''">
                             <input id="inputNum" type="text" @input="inputNumber($event)" :value="valueIn">
-                            <div class="add" @click="addNft()"></div>
-                            <div class="reduce" @click="reduceNft()"></div>
                         </div>
                         <div class="btns">
                             <div :class="{'active': active == 0}" @click="active = 0">Mix</div>
                             <div :class="{'active': active == 1}" @click="active = 1">Max</div>
                         </div>
-                        <div class="purchase" :class="{'not-allowed': numState == 'error'}"  @click="purchase">{{ $t('message.details.box_btn_pur') }}</div>
+                        <div class="staking" :class="{'not-allowed': numState == 'error'}"  @click="stakingCYT">{{ $t('message.mining.staking') }}</div>
                     </div>
                 </div>
                 <div class="item">
                     <p>step2</p>
                     <div class="content1" :class="{'success': state >= 4 && state != 5, 'reject': state == 5}">
-                        <span>{{ content1 }}</span>
+                        <span>Authorization in progress....</span>
                         <div class="loading" v-if="state == 3">
                             <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
                         </div>
@@ -41,7 +39,7 @@
                 <div class="item">
                     <p>step3</p>
                     <div class="content1" :class="{'success': state >= 7 && state != 8, 'reject': state == 8}">
-                        <span>{{ content2 }}</span>
+                        <span>staking....</span>
                         <div class="loading" v-if="state == 6">
                             <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
                         </div>
@@ -66,26 +64,19 @@ import { useI18n } from 'vue-i18n';
 import Web3 from '@/tools/web3'
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
-const { MarketV2, cyt } = Web3.contracts;
-const xplanAni = computed(() => store?.state.user?.xplanAni);
+const { MarketV2, cytV2, staking } = Web3.contracts;
+
 const props = defineProps({
-    content1: String, // 文案内容
-    content2: String, // 文案内容
-    title: String,  // 标题
-    isShowTips: Boolean, //是否显示
-    boxId: Number,
+    isShowTips: Boolean,
+    haveCTY: Number,
     state: {
         type: Number,
         default: 0
     },
-    haveNFT: {
-        type: Number,
-        default: 1,
-    },
 })
 
 const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
-
+const xplanAni = computed(() => store?.state.user?.xplanAni);
 
 // input
 let valueIn:any = ref(1)
@@ -95,105 +86,56 @@ watch(active, (newVal: any, oldVal) => {
     if(newVal == 0){
         valueIn.value = 1;
     }else{
-        valueIn.value = props.haveNFT;
+        valueIn.value = props.haveCTY || 1;
     }
-    console.log(props.haveNFT);
-    
     numState.value = ''
 }, {immediate:true,deep:true});
 
 
 const inputNumber = (e:any) => {
     console.log(e.target.value);
-    // console.log(e.target.value,regExp.test(e.target.value));
     let regExp = /^[0-9]+$/; // 驗證是否為正整數
     valueIn.value = e.target.value
-    if ( e.target.value && !(regExp.test(e.target.value)) || Number(valueIn.value) > Number(props.haveNFT)) {
+    if (!e.target.value || !(regExp.test(valueIn.value)) || Number(valueIn.value) > Number(props.haveCTY)) {
         numState.value = 'error' 
-    } else if( !e.target.value ){
-        numState.value = 'error'
     }else{
         numState.value = ''
     }
 }
 
-const addNft = () => {
-    if( valueIn.value < 1 || valueIn.value > props.haveNFT ){
-        valueIn.value = 1 ;
-        numState.value = '';
-    }else if( valueIn.value == props.haveNFT ){
-        valueIn.value = props.haveNFT
-    }else{
-        valueIn.value = parseInt(valueIn.value) + 1;
-    }
-}
-const reduceNft = () => {
-    if( valueIn.value <= 1 || valueIn.value > props.haveNFT ){
-        valueIn.value = 1 ;
-        numState.value = '';
-    }else{
-        valueIn.value = parseInt(valueIn.value) - 1;
-    }
-}
+
 
 const closeDialog = () => {
     store.dispatch('user/xplanChangeAni', false);
     setTimeout(() => {
-        store.dispatch('user/purchaseState', { show: false, info: { } });
+        store.dispatch('user/stakingState', { show: false, info: { } });
     }, 300);
 }
 
-// 购买埋点
-const logined = (accounts: any) => {
-    proxy.$api.post(`/code/connection/general`, {
-        "action": "buyBox",
-        "address": accounts,
-        "time":"1",
-        "parameter1": "",
-        "parameter2": "",
-        "parameter3": ""
-    }).then((res: any) => {
-        console.log(res);
-    }).catch( (err: any) => {
-        console.log(err)
-    })
-}
-
-const purchase =  async () => {
-    if( numState.value == 'error') return;
-
-    // 去检查是否授权过了，或者正在授权中
-    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 3, haveNFT: props.haveNFT, boxId: props.boxId }});
-
-    let allowance_res: any = await Web3.allowance(cyt.abi, cyt.address, MarketV2.address); //用自己的cyt去给授权市场合约授权的个数
-    console.log(allowance_res, 'allowance_res');
-    
-    if(allowance_res < 30 * valueIn.value){
-        let approve_res = await Web3.approve(cyt.abi, cyt.address, MarketV2.address, 30 * valueIn.value + 1);
-        if(!approve_res) { // 授权失败
-            store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 5, haveNFT: props.haveNFT, boxId: props.boxId }});
+const stakingCYT =  async () => {
+    store.dispatch('user/stakingState', { show: true, info: { state: 3, haveCTY: props.haveCTY }});
+    let result = await Web3.approve(cytV2.abi, cytV2.address, staking.address, valueIn.value);
+    if(result) {
+        store.dispatch('user/stakingState', { show: true, info: { state: 6, haveCTY: props.haveCTY }});
+        let stake_result = await Web3.stake(staking.abi, staking.address, valueIn.value);
+        console.log(stake_result);
+        if(stake_result) {
+            store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
+            store.dispatch('user/stakingState', { show: true, info: { state: 7, haveCTY: props.haveCTY }});
             return;
         }
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
+        store.dispatch('user/stakingState', { show: true, info: { state: 8, haveCTY: props.haveCTY }});
+    }else{
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
+        store.dispatch('user/stakingState', { show: true, info: { state: 5, haveCTY: props.haveCTY }});
     }
-
-    // 正常流程
-    store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 6, haveNFT: props.haveNFT, boxId: props.boxId }});
-    console.log(props.boxId, 'props.boxId');
     
-    let reuslt = await Web3.buyLootBox(MarketV2.abi, MarketV2.address, props.boxId, 30, valueIn.value);
-    if(reuslt){ //购买成功
-        store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 7, haveNFT: props.haveNFT, boxId: props.boxId }});
-        store.dispatch('user/dataSumSearch', { flag: readyAssetsF.value + 1 }); // 操作成功 页面监听到，再刷新数据
-        logined(store.state.user?.idTemp)
-    }else{ // 购买拒绝
-        store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 8, haveNFT: props.haveNFT, boxId: props.boxId }});
-    }
 }
 
 
 onMounted(() => {
     console.log(props);
-    
 })
 
 
@@ -220,26 +162,50 @@ onMounted(() => {
         height: 100%;
         background: rgba(0, 0, 0, .5);
         color: #fff;
-        .tips{
-            margin: 5vw 0;
-        }
         .mask{
             position: absolute;
-            width: 320px;
-            min-height: 200px;
-            z-index: 9;
+            top: 3.8vw;
+            left: 0;
+            right: 0;
             bottom: 0;
-            width: 100%;
-            height: 397px;
-            padding: 24px;
-            background: linear-gradient(221deg, rgba(132, 120, 255, .8) 0%, rgba(12, 9, 17, .8) 100%),
-                        linear-gradient(81deg, rgba(45, 222, 211, .6) 0%, rgba(12, 9, 17, 1) 100%);
-            box-shadow: inset 0px 4px 0px 1px #5A5685;
+            width: 37.51vw;
+            min-width: 380px;
+            height: 42vw;
+            min-height: 180px;
+            margin: auto;
+            padding: 2.5vw;
+            box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+            border: .15vw solid;
+            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
+            clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
+            .cover{
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
+            }
+            .coverborder{
+                z-index: -1;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                content: '';
+                display: inline-block;
+                width: 8vw;
+                height: 8vw;
+                background-color: #2d2942;
+            }
             .close{
+                position: absolute;
                 right: 1vw;
+                top: 1vw;
                 z-index: 11;
-                width: 40px;
-                margin-left: 300px;
+                width: 2.8vw;
             }
             .content{
                 position: absolute;
@@ -247,11 +213,10 @@ onMounted(() => {
                 right: 0;
                 padding: 0 2.5vw;
                 .title{
-                    font-size: 20px;
+                    font-size: 1.95vw;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     font-weight: normal;
                     line-height: 2.08vw;
-                    margin-top: 10px;
                 }
                 .icon{
                     display: flex;
@@ -382,7 +347,7 @@ onMounted(() => {
 
                         }
                     }
-                    .purchase{
+                    .staking{
                         background-image: url(https://d2cimmz3cflrbm.cloudfront.net/nwbox/details2.png);
                         width: 11.94vw;
                         height: 3.125vw;

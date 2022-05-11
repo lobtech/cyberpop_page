@@ -24,7 +24,6 @@ id="videobg" :sources="[`https://d2cimmz3cflrbm.cloudfront.net/nwbox/boxbanner.m
             <div class="maskBlur"></div>
         </div>
         <!-- 元素里面必须要有这个，要不然监听readyAssetsF不生效 -->
-        {{ readyAssetsF }} 
         <div class="blind" v-if="data.length > 0">
             <div class="title">{{ $t('message.box.type_title_1') }} <span>{{ $t('message.box.type_title_2') }} </span> ({{ $t('message.box.testnet') }})</div>
             <ul>
@@ -134,21 +133,24 @@ const Remaining = ref([0, 0, 0]);
 
 const isProduction: any = ref(true);
 const chainId: any = computed(() => store.state.user?.chainId);
-watch(chainId, (newVal, oldVal) => {
-    if(!oldVal) return;
+const idTemp: any = computed(() => store?.state.user?.idTemp);  // 完整地址
+watch(chainId, (newVal, oldVal: any) => {
+    if(!oldVal || oldVal == -1) return;
+    window.scrollTo(0,0);
+    data.value = [];
+    getBalance(chainId.value)
 }, {immediate:true,deep:true});
 
-
-const TipsState: any = ref(false as any);
+watch(idTemp, (newVal, oldVal) => {
+    if(!oldVal) return;
+    window.scrollTo(0,0);
+    data.value = [];
+    getBalance(chainId.value)
+}, {immediate:true,deep:true});
 
 const data: any = ref([]);
 const loadingState: any = ref(true)
-const readyAssetsF: any = computed(() => {
-    getBalance(chainId.value)
-    data.value = [];
-    loadingState.value = false;
-    return store.state.user?.readyAssets
-});
+
 
 const getBalance = async (chainid: number) => {
     if(chainid == 80001){
@@ -167,6 +169,7 @@ const getBalance = async (chainid: number) => {
 const open = (boxId: any, number: any) => {
     if(number == 0) return;
     // getLast(); // 查询资产合约中最后一位为立马开启的资产
+    store.dispatch('user/xplanChangeAni', true);
     store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false, boxId: boxId, haveNFT: number }});
 }
 
@@ -226,8 +229,11 @@ const getNFTData: any = async (res: any) => {
 }
 
 
-onMounted(async () => {
+onMounted(() => {
     window.scrollTo(0,0);
+    setTimeout(() => {
+        getBalance(chainId.value)
+    }, 1000);
     store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     store.dispatch('user/metaChange',false);
     if(process.env.NODE_ENV == 'development') isProduction.value = false; //判断开发 生产环境

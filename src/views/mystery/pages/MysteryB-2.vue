@@ -115,29 +115,33 @@ const router = useRouter()
 
 const { proxy } = getCurrentInstance() as any;
 
-const { LootBox, GiftBox, cyt, MarketV2, Cyborg, Cyborg_Fuji, cyberClub_Fuji, cyberClub } = Web3.contracts;
+const { LootBox, GiftBox, cyt, MarketV2 } = Web3.contracts;
 
 const chainId: any = computed(() => store.state.user?.chainId);
-watch(chainId, (newVal: any, oldVal) => {
-    if(!oldVal) return;
-    getBalance(newVal)
-}, {immediate:true,deep:true});
 
 const isProduction = ref(true);
-const TipsState: any = ref(false as any);
 
 const data: any = ref([]);
-
+const idTemp: any = computed(() => store?.state.user?.idTemp);  // 完整地址
 const Remaining: any = ref([]);
-
-const readyAssetsF: any = computed(() => {
+watch(chainId, (newVal, oldVal: any) => {
+    if(!oldVal || oldVal == -1) return;
+    window.scrollTo(0,0);
+    data.value = [];
     getBalance(chainId.value)
-    console.log(chainId.value, 'chainId');
+}, {immediate:true,deep:true});
 
-    return store.state.user?.readyAssets
-});
+watch(idTemp, (newVal, oldVal) => {
+    if(!oldVal) return;
+    getBalance(chainId.value)
+    window.scrollTo(0,0);
+    data.value = [];
+}, {immediate:true,deep:true});
+
+
 
 const getBalance = async (chainid: number) => {
+    console.log('进来了');
     data.value = []; // 清空
     if(chainid == 80001){
         var result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box);
@@ -148,7 +152,6 @@ const getBalance = async (chainid: number) => {
     }
     console.log(result, 'result');
     console.log(chainId.value);
-    
     getData(result)
    
 }
@@ -178,7 +181,8 @@ const getData = async (boxData: any[]) => {
         return; // 目前只有mumbai能用购买盒子
     }
     let LootBox_result: any = await Web3.balanceOfBatch(LootBox.abi, LootBox.address, store.state.user?.box, MarketV2.address); // 查询已上架的资产
-    Remaining.value = LootBox_result;
+    Remaining.value = [1, 0, 0] || LootBox_result;
+    console.log(Remaining.value, 'Remaining.valueRemaining.valueRemaining.valueRemaining.value');
 }
 const toDetails = (type:any) => {
     router.push({ name: 'details', query:{ type }})
@@ -196,14 +200,15 @@ const purchase = async (boxId: number, number: any) => {
     // let result = Web3.balanceOfBatch(MarketV2.abi, MarketV2.address, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], true);
     // console.log(result);
     if(number == 0 || isProduction.value) return;
+    store.dispatch('user/xplanChangeAni', true);
     store.dispatch('user/purchaseState', { show: true, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 0, boxId, haveNFT: number || 1 }});
 }
 
-onMounted( async () => {
+onMounted(() => {
     window.scrollTo(0,0);
-    if(readyAssetsF.value != -1 && chainId.value == 80001 || chainId.value == 43113){
-        // getBalance()
-    }
+    setTimeout(() => {
+        getBalance(chainId.value)
+    }, 1000);
     if(process.env.NODE_ENV == 'development') isProduction.value = false; //判断开发 生产环境
 })
 
@@ -212,7 +217,6 @@ onMounted( async () => {
     .section{
         z-index: 8;
         position: fixed;
-        display: flex;
         justify-content: center;
         top: 0;
         width: 100%;
@@ -454,7 +458,7 @@ onMounted( async () => {
                 color: #B1B5C3;
                 line-height: 1.04vw;
                 text-align: center;
-                margin-top: 13vw;
+                margin-top: 70px;
                 a{
                     color: #04FFA2;
                     text-decoration: none;

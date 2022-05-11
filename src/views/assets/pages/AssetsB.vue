@@ -227,9 +227,10 @@ const loadingState: any = ref(0);
 const chainId: any = computed(() => store.state.user?.chainId );
 const readyAssetsF = computed(() => store.state.user?.readyAssets );
 const transferSuccess = computed(() => store.state.user?.transferSuccess);
-watch(chainId, (newVal, oldVal) => {
-    if(!oldVal) return;
-    console.log(1, newVal);
+
+watch(chainId, (newVal, oldVal: any) => {
+    if(!oldVal || oldVal == -1) return;
+    console.log('her2');
 	getData(ecrType.value)
 }, {immediate:true,deep:true});
 
@@ -699,6 +700,11 @@ onUnmounted(() => {
     window.removeEventListener('click', inputOtherClick, true);
 })
 
+watch(readyAssetsF, (newVal: any, oldVal: any) => {
+    if(newVal == -1) return;
+    console.log('her1', newVal);
+    getData(ecrType.value)
+}, {immediate:true,deep:true});
 
 
 onMounted(async () => {
@@ -711,7 +717,8 @@ onMounted(async () => {
     window.addEventListener('click', inputOtherClick, true);
     store.dispatch('user/transferChange',false)
     store.dispatch('user/transferChangeAni',false)
-
+    console.log(store.state.user?.readyAssets , 'store.state.user?.readyAssets ');
+    
     if(store.state.user?.readyAssets !== -1){
         // data.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
         getData(ecrType.value)

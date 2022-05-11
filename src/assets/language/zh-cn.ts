@@ -257,6 +257,7 @@ const cn = {
             pledge_bot_txt1: '同意',
             pledge_bot_txt2: '選擇NFT以作為賭注',
             pledge_bot_txt3: '即將上線',
+            staking: '质押',
         },
 
         // boxA

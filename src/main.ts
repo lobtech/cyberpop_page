@@ -27,6 +27,8 @@ import msgPopupB from './components/common/msgPopupB.vue'
 import loading from './components/loading/loading.vue'
 import purchaseA from './components/box/purchase.vue'
 import purchaseB from './components/box/purchaseB.vue'
+import stakingA from './components/staking/stakingA.vue'
+import stakingB from './components/staking/stakingB.vue'
 import wrongNetWorkA from './components/common/wrongNetWorkA.vue';
 import loadGameA from './components/assets/loadGameA.vue';
 import boxOpenedA from './components/assets/boxOpenedA.vue';
@@ -70,6 +72,8 @@ app.component('msgPopupB', msgPopupB)
 app.component('loading', loading)
 app.component('purchaseA', purchaseA)
 app.component('purchaseB', purchaseB)
+app.component('stakingA', stakingA)
+app.component('stakingB', stakingB)
 app.component('wrongNetWorkA', wrongNetWorkA)
 app.component('loadGameA', loadGameA)
 app.component('boxOpenedA', boxOpenedA)
