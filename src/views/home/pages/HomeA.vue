@@ -383,6 +383,20 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
         </div>
     </div>
+    <div class="team">
+        <div class="title" id="ele7">{{ $t('message.home.team_title') }}</div>
+        <div class="wrap">
+            <ul>
+                <li v-for="(item,index) in teamInfo" :key="index">
+                    <div class="avator"><img :src="item.img" alt=""></div>
+                    <div class="msg">
+                        <div>{{ item.name }}</div>
+                        <span>{{ item.desc }}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
     <div class="partners">
         <div class="title" id="ele6">{{ $t('message.home.part_title') }}
             <img class="xplan" @click="showxplan()" src="@/assets/nwhome/xplan.svg" alt="" >
@@ -522,7 +536,63 @@ const { proxy } = getCurrentInstance() as any;
 
 
 const leftModules:any = [Navigation];
-
+const teamInfo: any = ref([
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_jie.png',
+        name: 'JIE',
+        desc: 'Art Director',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_frank.png',
+        name: 'Frank',
+        desc: 'Co-Founder',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_hason.png',
+        name: 'Hason',
+        desc: 'Co-Founder',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_nick.png',
+        name: 'Nick',
+        desc: 'Backend',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_caroline.png',
+        name: 'Caroline',
+        desc: 'Marketing director',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_fy.png',
+        name: 'Fy',
+        desc: 'Backend',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_han.png',
+        name: 'Han',
+        desc: 'Chief Back-end',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_quanbug.png',
+        name: 'Quanbug',
+        desc: 'Framework Designer',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_john.png',
+        name: 'John',
+        desc: 'Technical Director',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_water.png',
+        name: 'Water',
+        desc: 'Co-Founder',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_ice.png',
+        name: 'ICE',
+        desc: 'Backend',
+    }
+])
 
 
 
@@ -809,6 +879,7 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         let ele4 = document.getElementById("ele4") as HTMLElement;
         let ele5 = document.getElementById("ele5") as HTMLElement;
         let ele6 = document.getElementById("ele6") as HTMLElement;
+        let ele7 = document.getElementById("ele7") as HTMLElement;
         let mapList = document.getElementsByClassName('maptime');
         const mapListLen = mapList.length;
         // let role = document.getElementById("role") as HTMLElement;
@@ -820,6 +891,7 @@ const checkScrollHeightAndLoadAnimation: any = () => {
         const ele4Top: Number = ele4.getBoundingClientRect().top; 
         const ele5Top: Number = ele5.getBoundingClientRect().top; 
         const ele6Top: Number = ele6.getBoundingClientRect().top; 
+        const ele7Top: Number = ele7.getBoundingClientRect().top; 
         const roleTop: Number = roles[0].getBoundingClientRect().top; 
 
         let timeTop:any = {};
@@ -851,6 +923,10 @@ const checkScrollHeightAndLoadAnimation: any = () => {
             {
                 el: ele6,
                 top: ele6Top
+            },
+            {
+                el: ele7,
+                top: ele7Top
             },
             {
                 el: roles[0],
@@ -2184,6 +2260,143 @@ onMounted(() => {
             }
             .time5,.time6,.time7,.time8{
                 // margin-top: -3.5vw;
+            }
+        }
+    }
+    .team{
+        width: 100%;
+        height: 55vw;
+        background-color: #000000;
+        .title{
+            height: 5vw;
+            margin: 0 auto;
+            font-size: 2.08vw;
+            font-family: AlibabaPuHuiTi_2_115_Black;
+            color: #FFFFFF;
+            line-height: 3.69vw;
+            text-align: center;
+            cursor: pointer;
+        }
+        .wrap{
+            width: 100%;
+            height: 50vw;
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/teamBg.png');
+            background-size: 100% 100%;
+            ul{
+                position: relative;
+                width: 100%;
+                height: 100%;
+                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/teamLogo.png');
+                background-size: auto 5.2vw;
+                background-position: center 18vw;
+                background-repeat: no-repeat;
+                li{
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 15vw;
+                    height: 4.4vw;
+                    padding: .46vw 0vw;
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/membersBg.png');
+                    background-size: 100% 100%;
+                    transition: all .2s ease;
+                    -moz-transition: all .2s ease;
+                    -webkit-transition: all .2s ease;
+
+                    .avator{
+                        height: 100%;
+                        margin-right: 1.04vw;
+                        img{
+                            height: 100%;
+                        }
+                    }
+                    .msg{
+                        font-size: 1.14vw;
+                        font-family: AlibabaPuHuiTi_2_85_Bold;
+                        color: #FFFFFF;
+                        line-height: 1.25vw;
+                        white-space: nowrap;
+                        span:last-child{
+                            font-size: .73vw;
+                            color: #CDCDCD;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            line-height: 1.04vw;
+                        }
+                    }
+                }
+                li:nth-child(1){
+                    top: 5vw;
+                    left: 31vw;
+                }
+                li:nth-child(2){
+                    top: 6.6vw;
+                    left: 55.8vw;
+                    width: 13.54vw;
+                    height: 5.2vw;
+                    .msg > div{
+                        color: #04FFA2;
+                    }
+                }
+                li:nth-child(3){
+                    top: 12.6vw;
+                    left: 19vw;
+                    width: 13.75vw;
+                    height: 5.41vw;
+                    .msg > div{
+                        color: #04FFA2;
+                    }
+                }
+                li:nth-child(4){
+                    top: 11.6vw;
+                    left: 40.8vw;
+                    width: 11.66vw;
+                    height: 3.95vw;
+                }
+                li:nth-child(5){
+                    top: 13.6vw;
+                    left: 65.4vw;
+                    width: 13.75vw;
+                    height: 3.95vw;
+                }
+                li:nth-child(6){
+                    top: 20.5vw;
+                    left: 27.7vw;
+                    width: 11.14vw;
+                    height: 3.95vw;
+                }
+                li:nth-child(7){
+                    top: 19.2vw;
+                    left: 58.1vw;
+                }
+                li:nth-child(8){
+                    top: 26.6vw;
+                    left: 19.6vw;
+                }
+                li:nth-child(9){
+                    top: 25.4vw;
+                    left: 52.2vw;
+                    width: 14.58vw;
+                    height: 4.16vw;
+                }
+                li:nth-child(10){
+                    top: 30.3vw;
+                    left: 38.3vw;
+                    width: 13.54vw;
+                    height: 5.2vw;
+                    .msg > div{
+                        color: #04FFA2;
+                    }
+                }
+                li:nth-child(11){
+                    top: 30.2vw;
+                    left: 66.5vw;
+                    width: 11.66vw;
+                    height: 3.95vw;
+                }
+                li:hover{
+                    transform: translate(0,-10px);
+                }
             }
         }
     }
