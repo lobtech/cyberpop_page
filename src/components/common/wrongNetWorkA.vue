@@ -2,7 +2,7 @@
     <div class="warp" v-show="isShowTips">
         <div class="container" @click="close">
         </div>
-        <div class="mask" :class="isShowTips && (isShowTips ? 'bounceShow' : 'bounceHide') ">
+        <div class="mask" :class="isShowTips && (xplanAni ? 'bounceShow' : 'bounceHide') ">
             <div class="cover"></div>
             <div class="coverborder"></div>
             <div class="content">
@@ -24,7 +24,7 @@ import { useI18n } from 'vue-i18n';
 import NFT from '@/tools/web3' 
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
-
+const xplanAni = computed(() => store?.state.user?.xplanAni);
 const emit = defineEmits(['changeSwitch']);
 const props = defineProps({
     isShowTips: {
@@ -34,7 +34,10 @@ const props = defineProps({
 })
 
 const close = () => {
-    emit('changeSwitch')
+    store.dispatch('user/xplanChangeAni', false);
+    setTimeout(() => {
+        emit('changeSwitch')
+    }, 300);
 }
 
 const changeChain = async (value?: any) => {
