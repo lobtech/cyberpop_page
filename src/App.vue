@@ -10,6 +10,8 @@
         <message-b v-if="innerWidth <= 1025 && showDialog" :state="alertInfo.state" :txt="alertInfo.txt"></message-b>
         <purchaseA v-if="innerWidth > 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state" :haveNFT="purchaseInfo.haveNFT" :boxId="purchaseInfo.boxId"/>
         <purchaseB v-if="innerWidth <= 1025 && purchaseState" :isShowTips="purchaseState" :title="purchaseInfo.title" :content1="purchaseInfo.content1" :content2="purchaseInfo.content2" :state="purchaseInfo.state" :haveNFT="purchaseInfo.haveNFT" :boxId="purchaseInfo.boxId"/>
+        <staking-a v-if="innerWidth > 1025 && stakingState" :isShowTips="stakingState" :haveCTY="stakingInfo.haveCTY" :state="stakingInfo.state"/>
+        <staking-b v-if="innerWidth <= 1025 && stakingState" :isShowTips="stakingState" :haveCTY="stakingInfo.haveCTY" :state="stakingInfo.state"/>
         <boxOpenedA v-if="innerWidth > 1025 && boxOpened" :isShowTips="boxOpened" :boxId="boxId"></boxOpenedA>
         <boxOpenedB v-if="innerWidth <= 1025 && boxOpened" :isShowTips="boxOpened" :boxId="boxId"></boxOpenedB>
         <div class="ip_error" v-if="iperror && innerWidth > 1025">
@@ -40,13 +42,12 @@ const TipsState = computed(() => store.state.user?.TipsState );
 const TipsInfo = computed(() => store.state.user?.TipsInfo);
 const alertInfo = computed(() => store.state.user?.alertInfo);
 const showDialog = computed(() => store.state.user?.showDialog);
-const purchaseState = computed(() => store.state.user?.purchaseState );
 const boxOpened = computed(() => store.state.user?.boxOpened);
 const boxId = computed(() => store.state.user?.boxId);
-const purchaseInfo = computed(() => {
-    console.log(store.state.user?.purchaseInfo, 'store.state.user?.purchaseInfo');
-    return store.state.user?.purchaseInfo;
-});
+const purchaseState = computed(() => store.state.user?.purchaseState );
+const purchaseInfo = computed(() => store.state.user?.purchaseInfo);
+const stakingState = computed(() => store.state.user?.stakingState );
+const stakingInfo = computed(() => store.state.user?.stakingInfo);
 
 const isChinese = (val: any) => {
     var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");

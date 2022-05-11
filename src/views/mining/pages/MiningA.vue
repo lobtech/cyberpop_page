@@ -34,6 +34,13 @@
                 <div class="percent">≈$- -</div>
             </li>
         </ul>
+        <div class="days">
+            <div class="title">Days</div>
+            <div class="content">
+                <div :style="{'width': progress + '%'}"></div>
+            </div>
+            <div class="total_day">total: 30day</div>
+        </div>
         <div class="pledge">
             <div class="title">{{$t('message.mining.pledge_title')}}<span>2/4</span></div>
             <ul>
@@ -48,13 +55,19 @@
                     </div>
                 </li> -->
                 <li>
-                    <div class="img-wrap" @click="stakingCyt">
+                    <div class="not-stak" v-if="myStakCyt == 0">
+                        <div class="img-wrap" @click="stakingCyt">
                         <img class="pledge-img" :src="whiteImgSrc" alt="">
+                        </div>
+                        <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
+                        <div class="bot-txt whiteNft">
+                            <div>{{$t('message.mining.pledge_bot_txt2')}}</div>
+                            <img :src="whiteBorderSrc" alt="">
+                        </div>
                     </div>
-                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
-                    <div class="bot-txt whiteNft">
-                        <div>{{$t('message.mining.pledge_bot_txt2')}}</div>
-                        <img :src="whiteBorderSrc" alt="">
+                    <div class="have-stak"  @click="stakingCyt" v-else>
+                         Your Staking: {{ myStakCyt }}
+                         Current day: {{ 30 }}
                     </div>
                 </li>
                 <li>
@@ -92,6 +105,8 @@
     </div>
     <footer-a></footer-a>
     <coming-a v-show="showComingFlag"></coming-a>
+    <!-- 切换网络弹窗 -->
+    <wrongNetWorkA :isShowTips="isShowTips" @changeSwitch="changeSwitch"></wrongNetWorkA>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
@@ -103,12 +118,34 @@ import Web3 from '@/tools/web3'
 const { staking, cytV2 } = Web3.contracts;
 
 const router = useRouter()
-
+const realId = computed(() => store?.state.user?.realId);  // 星号地址
 const chainId: any = computed(() => store.state.user?.chainId);
-watch(chainId, (newVal: any, oldVal) => {
-    if(!oldVal) return;
+watch(chainId, (newVal: any, oldVal: any) => {
+    console.log(newVal, oldVal, 'newVal');
+    console.log(!oldVal);
+    
+    if(!oldVal || oldVal == -1) return;
+    if(newVal != 43113){
+        changeSwitch()
+        return;
+    }
+    init()
+}, {immediate:true,deep:true});
+watch(realId, (newVal, oldVal: any) => {
+    console.log(newVal, oldVal, 'realId');
+    if(!oldVal || oldVal == -1) return;
+    init()
+    console.log('her3');
 }, {immediate:true,deep:true});
 
+// component
+const isShowTips = ref(false)
+const changeSwitch = () => { //子组件，弹窗属性
+    isShowTips.value = !isShowTips.value;
+}
+
+// progress 进度
+const progress = ref(0)
 
 // coming soon
 let showComingFlag:any = ref(false)
@@ -149,29 +186,37 @@ let greenBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/ple
 let whiteBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pledge-border2.svg')
 let lockedBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pledge-border3.svg')
 
+//  my balance
+const mycyt: any = ref(0);
+const myStakCyt: any = ref(0);
 
-const getBalanceOf = async () => {
-    let result = await Web3.getBalanceOf(staking.abi, staking.address);
-    console.log(result);
-}
-
-const approve = async () => {
-    let result = await Web3.approve(cytV2.abi, cytV2.address, staking.address, 30);
-
-}
-
+// start staking
 const stakingCyt = async () => {
-    approve()
+    store.dispatch('user/stakingState', { show: true, info: { state: 0, haveCTY: mycyt.value }});
+    store.dispatch('user/xplanChangeAni', true);
+}
+
+// init data
+const init = async () => {
+    mycyt.value = await Web3.ERC20balanceOf(cytV2.abi, cytV2.address);
+    myStakCyt.value = await Web3.getBalanceOf(staking.abi, staking.address)
+    console.log(myStakCyt.value, 'myStakCyt.value');
+    let DaysResult = await Web3.DaysRemaining(staking.abi, staking.address, 3)
+    console.log(DaysResult, 'DaysResult');
+    
 }
 
 onMounted(async () => {
     setTimeout(() => {
-        getBalanceOf()
-    }, 1000);
+        if(chainId.value != 43113){
+            changeSwitch()
+            return;
+        }
+        progress.value = 40;
+        init() 
+    }, 2000);
     getTotalSupply.value = await Web3.getTotalSupply(staking.abi, staking.address)
     window.scrollTo(0,0);
-    store.dispatch('user/showDialog',{ show: false, info: {} });// close message dialog
-    store.dispatch('user/metaChange',false);
 })
 
 </script>
@@ -354,6 +399,39 @@ onMounted(async () => {
                 margin-left: 5.6vw;
             }
         }
+        .days{
+            width: 60.78vw;
+            height: 5.1vw;
+            margin: 0 auto;
+            color: #fff;
+            font-family: AlibabaPuHuiTi_2_105_Heavy;
+            .title{
+                margin: 2vw 0;
+            }
+            .content{
+                border: 1px solid #fff;
+                border-radius: 10px;
+                width: 100%;
+                height: 2vw;
+                display: flex;
+                font-size: 1vw;
+                overflow: hidden;
+                & > div{
+                    line-height: 2vw;
+                    width: 1%;
+                    height: 100%;
+                    text-align: center;
+                    background: radial-gradient(circle, #1551c2 1%, #10aa7c 40%, #c79c0e 80%);
+                    filter: blur(2px);
+                    position: relative;
+                    transition: all 0.5s ease-in-out;
+                }
+            }
+            .total_day{
+                margin-top: 1vw;
+                text-align: right;
+            }
+        }
         .pledge{
             width: 60.78vw;
             height: 28.9vw;
@@ -387,6 +465,16 @@ onMounted(async () => {
                     background-repeat: no-repeat;
                     background-position: left top;
                     background-size: 100% 100%; 
+                    .not-stak{
+                    }
+                    .have-stak{
+                        height: 100%;
+                        display: flex;
+                        color: #DFF;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                    }
                     .img-wrap{
                         display: flex;
                         justify-content: center;

@@ -3,7 +3,7 @@ const cn = {
         common: {
             // headerA
             menu1: '主頁',
-            menu2: '挖礦',
+            menu2: '造币',
             menu3: '盲盒',
             menu4: '檔',
             menu5: '賽博新世界',
@@ -257,6 +257,7 @@ const cn = {
             pledge_bot_txt1: '同意',
             pledge_bot_txt2: '選擇NFT以作為賭注',
             pledge_bot_txt3: '即將上線',
+            staking: '质押',
         },
 
         // boxA

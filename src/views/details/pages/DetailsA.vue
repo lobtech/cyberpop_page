@@ -380,6 +380,7 @@ watch(readyAssetsF, (newVal, oldVal) => {
 // 開盒子
 const open = () => {
     if(ownerNumber.value == 0 || isProduction.value) return;
+    store.dispatch('user/xplanChangeAni', true);
     store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'), addNetwork: false, boxId: index-1, haveNFT: ownerNumber.value }});
 }
 

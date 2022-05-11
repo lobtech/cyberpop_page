@@ -1,6 +1,6 @@
 <template>
     <div class="container" v-show="isShowTips">
-        <div class="mask" :style="{'height': boxId != undefined ? '27vw' : '16vw'}" :class="isShowTips && (isShowTips ? 'bounceShow' : 'bounceHide') ">
+        <div class="mask" :style="{'height': boxId != undefined ? '27vw' : '16vw'}" :class="isShowTips && (xplanAni ? 'bounceShow' : 'bounceHide') ">
             <div class="cover"></div>
             <div class="coverborder"></div>
             <img class="close" v-if="props.isClose" src="@/assets/nwhome/close.svg" alt=""  @click="close">
@@ -59,7 +59,7 @@ const { proxy } = getCurrentInstance() as any;
 const chainId: any = computed(() => store.state.user?.chainId); // vuex state狀態管理器中獲取chain狀態
 const { GiftBox, LootBox, Cyborg, MarketV2, cyt } = Web3.contracts;
 const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
-
+const xplanAni = computed(() => store?.state.user?.xplanAni);
 
 //unpack
 const isUnpack: any = ref(false)
@@ -155,7 +155,10 @@ const props = defineProps({
 
 
 const close = () => {
-    store.dispatch('user/TipsState', {show: false, info: { }})
+    store.dispatch('user/xplanChangeAni', false);
+    setTimeout(() => {
+        store.dispatch('user/TipsState', {show: false, info: { }})
+    }, 300);
 }
 
 const changeChain = async (value?: any) => {

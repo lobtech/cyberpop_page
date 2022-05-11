@@ -112,7 +112,7 @@ onMounted(() => {
         background: rgba(0,0,0,.4);
         .mask{
             position: relative;
-            width: 360px;
+            width: 350px;
             height: 250px;
             padding: 2.5vw;
             z-index: 999;

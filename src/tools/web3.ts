@@ -405,6 +405,45 @@ const getTotalSupply = (abi: any[], address: string) => {
     })
 }
 
+const ERC20balanceOf = (abi: any[], address: string) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        let result = await contract.methods.balanceOf(accounts.value).call();
+        resolve(result/1000000)
+    })
+} 
+
+// 质押cyt数量
+const stake = (abi: any[], address: string, number: number) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        contract.methods.stake(number).send({ from: accounts.value }).then(function (receipt: any) {
+            resolve(receipt)
+        }).catch((err: any) => {
+            resolve(0)
+            console.log('error');
+        })
+    })
+}
+
+
+// 质押CYT剩余天数
+const DaysRemaining = (abi: any[], address: string, tokenId: number) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        let _price = await contract.methods._price([tokenId]).call();
+        console.log(_price, '_price');
+        let earned = await contract.methods.earned(accounts.value).call();
+        console.log(earned, 'earned');
+        let rewardPerToken = await contract.methods.rewardPerToken().call();
+        let getBalanceOf = await contract.methods.getBalanceOf(accounts.value).call();
+        console.log((_price - earned) * 1000000000000000000  / (rewardPerToken * getBalanceOf)); //_balances
+        
+    })
+}
 
 export default {
     safeTransferFrom,
@@ -432,5 +471,8 @@ export default {
     testactouns,
     getBalanceOf,
     getTotalSupply,
+    ERC20balanceOf,
+    stake,
+    DaysRemaining,
     contracts,
 }

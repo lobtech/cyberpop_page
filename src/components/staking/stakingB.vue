@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <div class="mask" :class="isShowTips && (xplanAni ? 'bounceShow' : 'bounceHide') ">
+    <div class="container" v-show="isShowTips">
+        <div class="mask" :class="(isShowTips ? 'bounceShow' : 'bounceHide')">
             <div class="cover"></div>
             <div class="coverborder"></div>
             <img class="close" src="@/assets/nwhome/close.svg" alt=""  @click="closeDialog">
@@ -12,42 +12,25 @@
                 </div> -->
                 <div class="item">
                     <p>step1</p>
-                    <div>
-                        <div class="tips" v-show="numState == ''">{{$t('message.assets.pop.tips')}}</div>
-                        <div class="tips" v-show="numState == 'error'">{{$t('message.assets.pop.tips_err')}}</div>
-                        <div class="number" :class="numState == 'error' ? 'error':''">
-                            <input id="inputNum" type="text" @input="inputNumber($event)" :value="valueIn">
-                            <div class="add" @click="addNft()"></div>
-                            <div class="reduce" @click="reduceNft()"></div>
+                    <div class="content1" :class="{'success': state >= 1 && state != 2, 'reject': state == 2}">
+                        <span>{{ content1 }}</span>
+                        <div class="loading" v-if="state == 0">
+                            <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
                         </div>
-                        <div class="btns">
-                            <div :class="{'active': active == 0}" @click="active = 0">Mix</div>
-                            <div :class="{'active': active == 1}" @click="active = 1">Max</div>
-                        </div>
-                        <div class="purchase" :class="{'not-allowed': numState == 'error'}"  @click="purchase">{{ $t('message.details.box_btn_pur') }}</div>
                     </div>
+                    <p v-if="state >= 1 && state != 2" class="ok">success</p>
+                    <p v-if="state == 2" class="Nok">reject</p>
                 </div>
                 <div class="item">
                     <p>step2</p>
                     <div class="content1" :class="{'success': state >= 4 && state != 5, 'reject': state == 5}">
-                        <span>{{ content1 }}</span>
+                        <span>{{ content2 }}</span>
                         <div class="loading" v-if="state == 3">
                             <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
                         </div>
                     </div>
                     <p v-if="state >= 4 && state != 5" class="ok">success</p>
                     <p v-if="state == 5" class="Nok">reject</p>
-                </div>
-                <div class="item">
-                    <p>step3</p>
-                    <div class="content1" :class="{'success': state >= 7 && state != 8, 'reject': state == 8}">
-                        <span>{{ content2 }}</span>
-                        <div class="loading" v-if="state == 6">
-                            <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
-                        </div>
-                    </div>
-                    <p v-if="state >= 7 && state != 8" class="ok">success</p>
-                    <p v-if="state == 8" class="Nok">reject</p>
                 </div>
             </div>
             <div class="btn">
@@ -67,7 +50,7 @@ import Web3 from '@/tools/web3'
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 const { MarketV2, cyt } = Web3.contracts;
-const xplanAni = computed(() => store?.state.user?.xplanAni);
+
 const props = defineProps({
     content1: String, // 文案内容
     content2: String, // 文案内容
@@ -83,6 +66,7 @@ const props = defineProps({
         default: 1,
     },
 })
+
 
 const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
 
@@ -103,44 +87,8 @@ watch(active, (newVal: any, oldVal) => {
 }, {immediate:true,deep:true});
 
 
-const inputNumber = (e:any) => {
-    console.log(e.target.value);
-    // console.log(e.target.value,regExp.test(e.target.value));
-    let regExp = /^[0-9]+$/; // 驗證是否為正整數
-    valueIn.value = e.target.value
-    if ( e.target.value && !(regExp.test(e.target.value)) || Number(valueIn.value) > Number(props.haveNFT)) {
-        numState.value = 'error' 
-    } else if( !e.target.value ){
-        numState.value = 'error'
-    }else{
-        numState.value = ''
-    }
-}
-
-const addNft = () => {
-    if( valueIn.value < 1 || valueIn.value > props.haveNFT ){
-        valueIn.value = 1 ;
-        numState.value = '';
-    }else if( valueIn.value == props.haveNFT ){
-        valueIn.value = props.haveNFT
-    }else{
-        valueIn.value = parseInt(valueIn.value) + 1;
-    }
-}
-const reduceNft = () => {
-    if( valueIn.value <= 1 || valueIn.value > props.haveNFT ){
-        valueIn.value = 1 ;
-        numState.value = '';
-    }else{
-        valueIn.value = parseInt(valueIn.value) - 1;
-    }
-}
-
 const closeDialog = () => {
-    store.dispatch('user/xplanChangeAni', false);
-    setTimeout(() => {
-        store.dispatch('user/purchaseState', { show: false, info: { } });
-    }, 300);
+    store.dispatch('user/purchaseState', { show: false, info: { title: 'PURCHASE....', content1: 'Authorization in progress....', content2: 'In purchase....', state: 4} });
 }
 
 // 购买埋点
@@ -190,10 +138,7 @@ const purchase =  async () => {
     }
 }
 
-
 onMounted(() => {
-    console.log(props);
-    
 })
 
 
@@ -220,26 +165,48 @@ onMounted(() => {
         height: 100%;
         background: rgba(0, 0, 0, .5);
         color: #fff;
-        .tips{
-            margin: 5vw 0;
-        }
         .mask{
             position: absolute;
-            width: 320px;
-            min-height: 200px;
-            z-index: 9;
+            top: 3.8vw;
+            left: 0;
+            right: 0;
             bottom: 0;
-            width: 100%;
-            height: 397px;
-            padding: 24px;
-            background: linear-gradient(221deg, rgba(132, 120, 255, .8) 0%, rgba(12, 9, 17, .8) 100%),
-                        linear-gradient(81deg, rgba(45, 222, 211, .6) 0%, rgba(12, 9, 17, 1) 100%);
-            box-shadow: inset 0px 4px 0px 1px #5A5685;
+            width: 84.51vw;
+            height: 60vw;
+            margin: auto;
+            padding: 2.5vw;
+            box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
+            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+            border: .15vw solid;
+            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;
+            clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
+            .cover{
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
+                clip-path: polygon(0 0, 100% 0, 100% 89%, 90% 100%, 0 100%);
+            }
+            .coverborder{
+                z-index: -1;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                content: '';
+                display: inline-block;
+                width: 8vw;
+                height: 8vw;
+                background-color: #2d2942;
+            }
             .close{
+                position: absolute;
                 right: 1vw;
+                top: 1vw;
                 z-index: 11;
-                width: 40px;
-                margin-left: 300px;
+                width: 8.8vw;
             }
             .content{
                 position: absolute;
@@ -247,11 +214,10 @@ onMounted(() => {
                 right: 0;
                 padding: 0 2.5vw;
                 .title{
-                    font-size: 20px;
+                    font-size: 4.95vw;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     font-weight: normal;
                     line-height: 2.08vw;
-                    margin-top: 10px;
                 }
                 .icon{
                     display: flex;
@@ -270,13 +236,13 @@ onMounted(() => {
                     }
                 }
                 .item{
-                    margin: 1.5vw 0;
+                    margin: 4.5vw 0;
                     p{
                         margin: 0.5vw 0;
                         font-family: AlibabaPuHuiTi_2_115_Black;
                     }
                     .content1, .content2{
-                        padding: 0.4vw;
+                        padding: 2.4vw;
                         border: 1px solid #fff;
                         font-family: AlibabaPuHuiTi_2_55_Regular;
                         display: flex;
@@ -298,114 +264,6 @@ onMounted(() => {
                     .reject{
                         border: 1px solid #FF5CA1;
                         color: #FF5CA1;
-                    }
-                    .tips{
-                        height: 1.14vw;
-                        margin: 1.25vw 0;
-                        font-size: .83vw;
-                        font-family: AlibabaPuHuiTi_2_55_Regular;
-                        color: #FFFFFF;
-                        line-height: .98vw;
-                    }
-                    .number{
-                        position: relative;
-                        width: 8.47vw;
-                        height: 2.81vw;
-                        padding: .4vw .6vw;
-                        margin-bottom: 1vw;
-                        border: 1px solid #8478FF;
-                        input{
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            padding: 0 1.2vw 0 .4vw;
-                            font-size: .83vw;
-                            font-family: AlibabaPuHuiTi_2_55_Regular;
-                            color: rgba(255, 255, 255, 0.35);
-                            line-height: .98vw;
-                            border: none;
-                            outline: none;
-                            background: transparent;
-                        }
-                        input::-webkit-outer-spin-button,
-                        input::-webkit-inner-spin-button {
-                            -webkit-appearance: none !important;
-                            margin: 0;
-                        }
-                        div{
-                            position: absolute;
-                            right: .7vw;
-                            width: 0;
-                            height: 0;
-                            border-left: .3vw solid transparent;
-                            border-right: .3vw solid transparent;
-                        }
-                        .add{
-                            top: .6vw;
-                            border-bottom: .6vw solid #8478FF;
-                            cursor: pointer;
-                        }
-                        .reduce{
-                            bottom: .6vw;
-                            border-top: .6vw solid #8478FF;
-                            cursor: pointer;
-                        }
-                    }
-                    .number.error{
-                        border: 1px solid #FF5CA1 !important;
-                        input{
-                            color: #FF5CA1 !important;
-                        }
-                        .add{
-                            border-bottom: .6vw solid #FF5CA1 !important;
-                        }
-                        .reduce{
-                            border-top: .6vw solid #FF5CA1 !important;
-                        }
-                    }
-                    .btns{
-                        display: flex;
-                        margin-bottom: 1vw;
-                        div{
-                            margin-right: 1vw;
-                            padding: 0.7vw 1.5vw;
-                            border: 1px solid rgba(83, 77, 126, 1);
-                            border-radius: 5px;
-                            font-family: AlibabaPuHuiTi_2_55_Regular;
-                            cursor: pointer;
-                        }
-                        .active{
-                            color: rgb(22, 19, 19);
-                            background-color: rgb(145, 138, 202);
-
-                        }
-                    }
-                    .purchase{
-                        background-image: url(https://d2cimmz3cflrbm.cloudfront.net/nwbox/details2.png);
-                        width: 11.94vw;
-                        height: 3.125vw;
-                        background-size: 100% 100%;
-                        background-repeat: no-repeat;
-                        cursor: pointer;
-                        font-size: 1.64vw;
-                        display: flex;
-                        justify-content: center;
-                        cursor: pointer;
-                        align-items: center;
-                        font-family: AlibabaPuHuiTi_2_115_Black;
-                        transition: all .2s ease-in-out;
-                    }
-                    .purchase:hover{
-                        opacity: .7;
-                    }
-                    .not-allowed{
-                        cursor: not-allowed !important;
-                        opacity: .4;
-                    }
-                    .not-allowed:hover{
-                        opacity: .4;
                     }
                 }
                 .text{
@@ -430,26 +288,24 @@ onMounted(() => {
                 }
                 .loading{
                     img{
-                        width: 2vw;
-                        height: 2vw;
+                        width: 5vw;
+                        height: 5vw;
                         animation: loadingAni 1s linear infinite;
                     }
                 }
             }
             .btn{
                 position: absolute;
-                bottom: 1vw;
+                bottom: 5vw;
                 right: 3vw;
+                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-cancle.svg');
+                background-size: 100% 100%;
                 .cancel{    
-                    width: 8.54vw;
-                    height: 2.91vw;
-                    font-size: 1.04vw;
+                    font-size: 2.04vw;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     color: #FFFFFF;
-                    line-height: 2.91vw;
+                    line-height: 3.91vw;
                     text-align: center;
-                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/meta-cancle.svg');
-                    background-size: 100% 100%;
                     cursor: pointer;
                 }
             }

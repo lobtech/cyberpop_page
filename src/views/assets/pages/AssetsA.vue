@@ -232,8 +232,8 @@ const chainId: any = computed(() => store.state.user?.chainId );
 const transferSuccess = computed(() => store.state.user?.transferSuccess);
 
 
-watch(chainId, (newVal, oldVal) => {
-    if(!oldVal) return;
+watch(chainId, (newVal, oldVal: any) => {
+    if(!oldVal || oldVal == -1) return;
     console.log('her2');
 	getData(ecrType.value)
 }, {immediate:true,deep:true});
@@ -274,22 +274,18 @@ const myNav:any = ref(null);
 const windowScroll: any = () => {
     const navHeight: number = myNav.value.offsetHeight;  // 该元素离顶部的距离
     const cHeight: number = document.documentElement.clientHeight; // 窗口高度
-    const scrollHeight: number = document.documentElement.scrollTop; // 
-    startMove(Math.ceil((cHeight - navHeight - 130) + scrollHeight));
+    const scrollHeight: number = document.documentElement.scrollTop; // 向下滑动了多少px
+    startMove(Math.ceil((cHeight - navHeight - 150) + scrollHeight));
 }
 
 let timer: any = null;
 const startMove = (target : any) => {
-    clearInterval(timer);
-    timer = setInterval(() => {
-        let speed = (target - myNav.value.offsetTop) / 1;
-        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
-        if( target === myNav.value.offsetTop ){
-            clearInterval(timer);
-        }else{
-            myNav.value.style.top = myNav.value.offsetTop + speed + 'px';
-        }
-    },5 )
+    console.log(target, myNav.value.offsetTop, myNav.value.style, 'target');
+    let speed = (target - myNav.value.offsetTop) / 1;
+    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+    myNav.value.style.top = myNav.value.offsetTop + speed + 'px';
+    if(parseInt(myNav.value.style.top) < 599)  myNav.value.style.top = 517 + 'px';
+        
 }
 
 
@@ -431,37 +427,33 @@ const getData: any = async (type: Number, filter: any = false) => { // erc正常
     loadingState.value = 1; // 初始化为0 1表示加载中 2表示加载完毕
     console.log(loadingState.value, 'loadingState');
     
-    // let result: any = await getGamePool(idTemp.value)
-    // let weapons = [];
-    // let role = [];
-    // let badge = [];
-    // for (const iterator in result) {
-    //     if(iterator.length == 6){ // 武器id
-    //         let key = iterator  
-    //         let val = result[iterator]
-    //         weapons.push({
-    //             [ key ]: val
-    //         })
-    //     }else if(iterator.length == 11){ // 角色id
-    //         role.push(iterator)
-    //     }else if(iterator.length == 7){ //徽章id
-    //         let key = iterator 
-    //         let val = result[iterator]
-    //         badge.push({
-    //             [ key[ key.length-1 ] ]: val
-    //         })
-    //     }
-    // }
+    let result: any = await getGamePool(idTemp.value)
+    let weapons = [];
+    let role = [];
+    let badge = [];
+    for (const iterator in result) {
+        if(iterator.length == 6){ // 武器id
+            let key = iterator  
+            let val = result[iterator]
+            weapons.push({
+                [ key ]: val
+            })
+        }else if(iterator.length == 11){ // 角色id
+            role.push(iterator)
+        }else if(iterator.length == 7){ //徽章id
+            let key = iterator 
+            let val = result[iterator]
+            badge.push({
+                [ key[ key.length-1 ] ]: val
+            })
+        }
+    }
 
-    // console.log(weapons, role, badge, '======>gamepool');
+    console.log(weapons, role, badge, '======>gamepool');
     
 
     return new Promise(async (resolve, reject) => {
-    console.log(89999);
-        
             if(chainId.value == 80001){  //mumbai
-        console.log(233333);
-
                 if(!type){
                     if(filter){ // 左侧栏目筛选
                         console.log(filter, 'filter');
@@ -682,7 +674,8 @@ const getNFTData: any = async (res: any, path: any, type: any, ids?: any, isLoad
 let ecrType:any = ref(0)
 const readyAssetsF: any = computed(() => store.state.user?.readyAssets );
 watch(readyAssetsF, (newVal: any, oldVal: any) => {
-    if(newVal == -1 || newVal == 0) return;
+    console.log(newVal, oldVal, 'newVal');
+    if(newVal == -1) return;
     console.log('her1', newVal);
     getData(ecrType.value)
 }, {immediate:true,deep:true});
@@ -738,6 +731,7 @@ const transferPopup = (item:any) => {
 const open = (item: any) => {
     if(item.number == 0) return;
     // getLast(); // 查询资产合约中最后一位为立马开启的资产
+    store.dispatch('user/xplanChangeAni', true);
     store.dispatch('user/TipsState', {show: true, info: { hasLoading: true, hasClose: true, title: t('message.box.opening'), content: t('message.box.open_text'),   addNetwork: false, boxId: item.id, haveNFT: item.number }});
 }
 
@@ -760,7 +754,6 @@ onMounted(() => {
     store.dispatch('user/showDialog',{show: false, info: {}});// close message dialog
     store.dispatch('user/metaChange',false);
     store.dispatch('user/transferChange',false);
-
     if(store.state.user?.readyAssets !== -1){
         // data.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
         getData(ecrType.value)
@@ -863,6 +856,7 @@ onMounted(() => {
                     padding: 2.08vw 1.04vw;
                     background: #1B1A22;
                     border-radius: 2px;
+                    transition: all .5s ease-in-out;
                     .title{
                         width: 9.58vw;
                         height: 1.61vw;
