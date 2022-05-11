@@ -2111,7 +2111,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 640px;
+        height: 720px;
         margin: -2px 0;
         background-color: #000000;
         overflow: hidden;
