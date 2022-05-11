@@ -389,6 +389,20 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             </div>
         </div>
     </div>
+    <div class="team">
+        <div class="title" id="ele7">{{ $t('message.home.team_title') }}</div>
+        <div class="wrap">
+            <ul>
+                <li v-for="(item,index) in teamInfo" :key="index">
+                    <div class="avator"><img :src="item.img" alt=""></div>
+                    <div class="msg">
+                        <div>{{ item.name }}</div>
+                        <span>{{ item.desc }}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
     <div class="partners">
         <div class="title" id="ele6">{{ $t('message.home.part_title') }}
             <img class="xplan" @click="showxplan()" src="@/assets/nwhome/xplan.svg" alt="" >
@@ -526,7 +540,63 @@ const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 
 let close:any = ref(true)
-
+const teamInfo: any = ref([
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_frank.png',
+        name: 'Frank',
+        desc: 'Co-Founder',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_caroline.png',
+        name: 'Caroline',
+        desc: 'Marketing director',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_hason.png',
+        name: 'Hason',
+        desc: 'Co-Founder',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_quanbug.png',
+        name: 'Quanbug',
+        desc: 'Framework Designer',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_fy.png',
+        name: 'Fy',
+        desc: 'Backend',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_ice.png',
+        name: 'ICE',
+        desc: 'Backend',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_john.png',
+        name: 'John',
+        desc: 'Technical Director',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_water.png',
+        name: 'Water',
+        desc: 'Co-Founder',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_jie.png',
+        name: 'JIE',
+        desc: 'Art Director',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_han.png',
+        name: 'Han',
+        desc: 'Chief Back-end',
+    },
+    {
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_nick.png',
+        name: 'Nick',
+        desc: 'Backend',
+    },
+])
 
 
 
@@ -2147,10 +2217,140 @@ onMounted(() => {
             }
         }
     }
+    .team{
+        width: 100%;
+        height: 618px;
+        background-color: #000000;
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/teamBg_phone.png');
+        background-size: auto 100%;
+        background-position: 718px top;
+        overflow: hidden;
+        .title{
+            height: 37px;
+            margin-top: 18px;
+            font-size: 22px;
+            font-family: AlibabaPuHuiTi_2_115_Black;
+            color: #FFFFFF;
+            line-height: 28px;
+            text-align: center;
+        }
+        .wrap{
+            width: 100%;
+            height: 563px;
+            ul{
+                position: relative;
+                width: 100%;
+                height: 100%;
+                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/teamLogo_phone.png');
+                background-size: auto 52px;
+                background-position: 206px 177px;
+                background-repeat: no-repeat;
+                li{
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    transition: all .3s ease;
+                    -moz-transition: all .3s ease;
+                    -webkit-transition: all .3s ease;
+
+                    .avator{
+                        height: 42px;
+                        margin-right: 10px;
+                        img{
+                            height: 100%;
+                        }
+                    }
+                    .msg{
+                        font-size: 14px;
+                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                        color: #ffffff;
+                        line-height: 14px;
+                        white-space: nowrap;
+                        span:last-child{
+                            font-size: 10px;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            color: #CDCDCD;
+                            line-height: 14px;
+                            zoom: .9;
+                        }
+                    }
+                }
+                li:nth-child(1){
+                    top: 40px;
+                    left: 196px;
+                    .msg > div{
+                        color: #04FFA2;
+                    }
+                }
+                li:nth-child(2){
+                    top: 78px;
+                    left: 50px;
+                }
+                li:nth-child(3){
+                    top: 146px;
+                    left: 20px;
+                    .msg > div{
+                        color: #04FFA2;
+                    }
+                }
+                li:nth-child(4){
+                    top: 134px;
+                    left: 148px;
+                    .avator{
+                        height:34px;
+                    }
+                }
+                li:nth-child(5){
+                    top: 116px;
+                    right: 9px;
+                    .avator{
+                        height: 38px;
+                    }
+                }
+                li:nth-child(6){
+                    top: 202px;
+                    left: 130px;
+                }
+                li:nth-child(7){
+                    top: 240px;
+                    left: 20px;
+                    .avator{
+                        height: 38px;
+                    }
+                }   
+                li:nth-child(8){
+                    top: 240px;
+                    right: 29px;
+                    .msg > div{
+                        color: #04FFA2;
+                    }
+                }
+                li:nth-child(9){
+                    top: 338px;
+                    left: 54px;
+                }
+                li:nth-child(10){
+                    top: 290px;
+                    left: 150px;
+                }
+                li:nth-child(11){
+                    top: 336px;
+                    right: 24px;
+                    .avator{
+                        height: 38px;
+                    }
+                }   
+                li:hover{
+                    transform: translate(0,-10px);
+                }
+            }
+        }
+    }
     .partners{
         width: 100%;
         height: 1160px;
         margin: -2px 0;
+        margin-top: -60px;
         background-color: #000000;
         overflow: hidden;
         .title{

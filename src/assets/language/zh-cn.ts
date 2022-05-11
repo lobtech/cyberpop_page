@@ -168,6 +168,7 @@ const cn = {
             roadmap_s3_d3_e3: '開放NFT金融衍生物平臺',
             roadmap_s3_d3_e4: '賽博新世界藝術家聯盟',
             // homeA-partners
+            team_title: '團隊成員',
             part_title: '合作夥伴',
             // homeA-will
             will_title: '我們支持多端可操作性',

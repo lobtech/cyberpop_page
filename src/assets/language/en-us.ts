@@ -169,6 +169,7 @@ const us = {
             roadmap_s3_d3_e3: 'Open of the NFT financial derivative platform',
             roadmap_s3_d3_e4: 'Cyberpop Artists Association',
             // homeA-partners
+            team_title: 'TEAM MEMBERS',
             part_title: 'PARTNERS',
             // homeA-will
             will_title: 'We suppport multi-end interoperability',
