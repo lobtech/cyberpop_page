@@ -1,5 +1,6 @@
 import store from '@/store'
 import contracts from '@/tools/contracts'
+import { resolve } from 'path/posix'
 import { ref, computed } from 'vue'
 const Web3 = (window as any).Web3 // 引用全局的web3 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 const Moralis = (window as any).Moralis // 引用全局的Moralis 在index.html文件cdn引入<script src="https://cdn.jsdelivr.net/npm/moralis@latest/dist/moralis.min.js"></script>
@@ -405,6 +406,7 @@ const getTotalSupply = (abi: any[], address: string) => {
     })
 }
 
+
 const ERC20balanceOf = (abi: any[], address: string) => {
     return new Promise(async (resolve, reject) => {
         const web3 = new Web3((Web3 as any).givenProvider);
@@ -420,6 +422,7 @@ const stake = (abi: any[], address: string, number: number) => {
         const web3 = new Web3((Web3 as any).givenProvider);
         const contract = new web3.eth.Contract(abi, address)
         contract.methods.stake(number).send({ from: accounts.value }).then(function (receipt: any) {
+            notifyrewardamount(abi, address)
             resolve(receipt)
         }).catch((err: any) => {
             resolve(0)
@@ -441,9 +444,24 @@ const DaysRemaining = (abi: any[], address: string, tokenId: number) => {
         let rewardPerToken = await contract.methods.rewardPerToken().call();
         let getBalanceOf = await contract.methods.getBalanceOf(accounts.value).call();
         console.log((_price - earned) * 1000000000000000000  / (rewardPerToken * getBalanceOf)); //_balances
-        
     })
 }
+
+
+// 质押之前调用一次
+const notifyrewardamount = (abi: any[], address: string) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        contract.methods.notifyRewardAmount(22222333).send({ from: accounts.value }).then(function (receipt: any) {
+            resolve(receipt)
+        }).catch((err: any) => {
+            resolve(0)
+            console.log('error');
+        })
+    })
+}
+
 
 export default {
     safeTransferFrom,
@@ -474,5 +492,6 @@ export default {
     ERC20balanceOf,
     stake,
     DaysRemaining,
+    notifyrewardamount,
     contracts,
 }

@@ -34,6 +34,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="register">
+                        <div class="register_button" @click="isRegister">register</div>
+                    </div>
                     <div class="login_in" v-if="!loggined" @click="login()" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
                         <div class="txt">{{$t('message.common.wallet')}}</div>
                         <div class="mask" id="mask"></div>
@@ -195,6 +198,7 @@ const mouseLeaveChain: any = () => {
 
 const switchChain = () => { //切换链
     if(chainId.value == 80001 || chainId.value == 43113) return;
+    store.dispatch('user/xplanChangeAni', true);
     isShowTips.value = !isShowTips.value;
 }
 const changeSwitch = () => { //子组件，弹窗属性
@@ -373,7 +377,10 @@ const connect: any = async () => {
         await web3obj.eth.net.getId().then((chainId: any) => {
             console.log(chainId);
             store.dispatch('user/chageChainId', Number(chainId))
-            if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
+            if(chainId != 80001 && chainId != 43113) {
+                store.dispatch('user/xplanChangeAni', true);
+                store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
+            }
         })
         if(code.value && messSing.value == '') isRegister();
     }
@@ -382,17 +389,20 @@ const connect: any = async () => {
 // 邀请用户注册
 const level = ref(0); // 用户等级
 const isRegister = () => {
-    proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
-        if(res.data === true){
-            register.value = true;
-            registerTrans.value = true;
-            return;
-        } 
-        level.value = res.data.level;
-        code.value = res.data.inv_level || router.currentRoute.value.query.code;
-    }).catch( (err: any) => {
-        console.log(err)
-    })
+    register.value = true;
+    registerTrans.value = true;
+    return;
+    // proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
+    //     if(res.data === true){
+    //         register.value = true;
+    //         registerTrans.value = true;
+    //         return;
+    //     } 
+    //     level.value = res.data.level;
+    //     code.value = res.data.inv_level || router.currentRoute.value.query.code;
+    // }).catch( (err: any) => {
+    //     console.log(err)
+    // })
 }
 const closeRegister = () => {
     registerTrans.value = false;
@@ -590,6 +600,25 @@ onMounted(() => {
                                     color: #6D4AFF;
                                 }
                             }
+                        }
+                    }
+                    .register{
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        margin-right: .5vw;
+                        .register_button{
+                            border: 1px solid #DD2ECE;
+                            padding: 0.5vw 1vw;
+                            font-size: 1.02vw;
+                            color: #DD2ECE;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 0.83vw;
+                            white-space: nowrap;
+                            cursor: pointer;
+                            font-family: AlibabaPuHuiTi_2_75_SemiBold;
                         }
                     }
                     .login_in{

@@ -1,8 +1,8 @@
 <template>
     <header-a path="/mining" :type="1"></header-a>
-    <div class="section">
+    <!-- <div class="section">
         <div class="title">{{$t('message.mining.coming')}}</div>
-    </div>
+    </div> -->
     <div class="mining">
         <div class="banner">
             <div class="title">{{$t('message.mining.title')}}</div>
@@ -207,6 +207,8 @@ const init = async () => {
 }
 
 onMounted(async () => {
+    let a = await Web3.notifyrewardamount(staking.abi, staking.address)
+    console.log(a);
     setTimeout(() => {
         if(chainId.value != 43113){
             changeSwitch()
