@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="register">
-                        <div class="register_button" @click="isRegister">register</div>
+                        <div class="register_button" @click="isRegister(true)">{{ $t('message.home.reg_submit') }}</div>
                     </div>
                     <div class="login_in" v-if="!loggined" @click="login()" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
                         <div class="txt">{{$t('message.common.wallet')}}</div>
@@ -92,7 +92,7 @@
         <div class="wrap">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb20222.pdf" @click="showDoc = false" target="view_window">{{t('message.common.doc_whitePaper')}}</a>
+            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" @click="showDoc = false" target="view_window">{{t('message.common.doc_whitePaper')}}</a>
             <!-- <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_greenPaper')}}</a> -->
             <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" @click="showDoc = false" target="view_window">{{t('message.common.doc_deck')}}</a>
         </div>
@@ -110,7 +110,7 @@
     <!-- 切换网络弹窗 -->
     <wrongNetWorkA :isShowTips="isShowTips" @changeSwitch="changeSwitch"></wrongNetWorkA>
     <!-- 经销商注册 -->
-    <register-a v-if="register" :register="register" :registerTrans="registerTrans" :code="code" @closeRegister="closeRegister"></register-a>
+    <register-a v-if="register" :register="register" :registerTrans="registerTrans" :code="code" :level="level" @closeRegister="closeRegister"></register-a>
 </template>
 
 <script setup lang="ts">
@@ -388,22 +388,26 @@ const connect: any = async () => {
 
 // 邀请用户注册
 const level = ref(0); // 用户等级
-const isRegister = () => {
-    register.value = true;
-    registerTrans.value = true;
-    return;
-    // proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
-    //     if(res.data === true){
-    //         register.value = true;
-    //         registerTrans.value = true;
-    //         return;
-    //     } 
-    //     level.value = res.data.level;
-    //     code.value = res.data.inv_level || router.currentRoute.value.query.code;
-    // }).catch( (err: any) => {
-    //     console.log(err)
-    // })
+const isRegister = (isClick?: boolean) => {
+    if(isClick) { // 表示是点击的按钮
+        register.value = true;
+        registerTrans.value = true;
+        code.value = router.currentRoute.value.query.code;
+        return;
+    }
+    proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
+        // if(res.data === true){
+        //     register.value = true;
+        //     registerTrans.value = true;
+        //     return;
+        // } 
+        level.value = res.data.level;
+        code.value = res.data.inv_level || router.currentRoute.value.query.code;
+    }).catch( (err: any) => {
+        console.log(err)
+    })
 }
+
 const closeRegister = () => {
     registerTrans.value = false;
     setTimeout(() => {
@@ -511,11 +515,11 @@ onMounted(() => {
                 justify-content: space-between;
                 position: relative;
                 .logo{
-                    width: 20.20vw;
+                    width: 18.20vw;
                     height: 100%;
                     overflow: hidden;
                     img{
-                        width: 100.2%;
+                        width: 110.2%;
                         height: 100.2%;
                         border: none;
                         margin: -.1vw;
@@ -775,7 +779,7 @@ onMounted(() => {
                 .menu{
                     position: absolute;
                     top: 0;
-                    left: 23.5vw;
+                    left: 19.5vw;
                     width: 43.6vw;
                     height: 100%;
                     ul{

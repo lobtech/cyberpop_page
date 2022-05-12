@@ -4,40 +4,56 @@
             <div class="cover"></div>
             <div class="coverborder"></div>
             <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="closeDialog">
-            <div class="content">
-                <div class="title">REGISTER</div>
-                <p class="level">level: {{ level }}</p>
-                <div class="item">
-                    <label for="nickname">NickName</label>
-                    <div class="content1" :class="{'error': nicknameErr}">
-                        <input type="text" id="nickname" placeholder="input your nickname" @input="input" @blur="blur(0)" v-model="nickname">
+            <form action="#">
+                <div class="content">
+                    <div class="title">REGISTER</div>
+                    <p class="level" v-if="props.level > 0">level: {{ props.level }}</p>
+                    <div class="item">
+                        <label for="nickname">NickName</label>
+                        <div class="content1" :class="{'error': nicknameErr}">
+                            <input type="text" id="nickname" placeholder="input your nickname" @input="input" @blur="blur(0)" v-model="nickname">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="Email">Email</label>
+                        <div class="content1" :class="{'error': emailErr}">
+                            <input type="text" id="Email" placeholder="input your email" @input="emailInput" @blur="blur(1)" v-model="email">
+                            <div class="send" :class="{'error': emailErr}" @click="send" v-if="Sended == 60">Send</div>
+                            <div class="send timer" v-else>{{ Sended }}</div>
+                        </div>
+                    </div>
+                        <div class="item">
+                        <label for="Email">Email Code</label>
+                        <div class="content1" :class="{'error': emailCodeErr}">
+                            <input type="text" id="Email" placeholder="input your email 6 code" @input="emailCodeInput" @blur="blur(2)" v-model="emailCode">
+                        </div>
+                    </div>
+                    <!-- <div class="item">
+                        <label for="Email">Referral Code (option)</label>
+                        <div class="content1" :class="{'error': ReferralCodeErr}">
+                            <input type="text" id="Email" readonly placeholder="Not ReferralCode" @blur="blur(5)" v-model="ReferralCode">
+                        </div>
+                    </div> -->
+                </div>
+                <div class="btn">
+                    <div class="btn-wrap">
+                        <div class="cancel" @click="submit()">{{$t('message.assets.pop.btn_submit')}}</div>
                     </div>
                 </div>
-                <!-- <div class="item">
-                    <label for="Email">Email</label>
-                    <div class="content1" :class="{'error': emailErr}">
-                        <input type="text" id="Email" placeholder="input your email" @input="emailInput" @blur="blur(1)" v-model="email">
-                    </div>
-                </div> -->
-            </div>
-            <div class="btn">
-                <div class="btn-wrap">
-                    <div class="cancel" @click="submit()">{{$t('message.assets.pop.btn_submit')}}</div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, getCurrentInstance, computed } from 'vue'
+import { ref, onMounted, getCurrentInstance, computed, onUnmounted } from 'vue'
 import store from '@/store'
 import { useI18n } from 'vue-i18n';
+import { log } from 'console';
 
 const { t } = useI18n()
 const emit = defineEmits(['closeRegister']);
 const { proxy } = getCurrentInstance() as any;
-const level = ref(1);
 const props = defineProps({
     register: {  //是否显示
         type: Boolean,
@@ -50,17 +66,36 @@ const props = defineProps({
     code: {
         type: String,
         default: ''
+    },
+    level: {
+        type: Number,
+        default: ''
     }
 })
 const idTemp = computed(() => store?.state.user?.idTemp);
+
+//input
 const nickname = ref('');
 const email = ref('');
+const emailCode = ref('')
+const ReferralCode = ref('Not ReferralCode')
+
+// state
 const nicknameErr = ref(false);
 const emailErr = ref(false);
+const emailCodeErr = ref(false);
+const ReferralCodeErr = ref(false);
+const Sended = ref(60);
 
 //REACT_APP_BACKEND_URL=http://13.250.39.184:8612
-const getPublicAddress = (publicAddress: any, email: any, nikename: any) => {
-    proxy.$api.post(`/code/level/invitation?addr=${publicAddress}&icode=${props.code}&email=${email}&nikename=${nikename}`).then((res: any) => {
+const getPublicAddress = (publicAddress: any, email: any, nikename: any,  referralCode: any) => {
+    let uri = ''
+    if(referralCode){
+        uri = `/code/level/invitation?addr=${publicAddress}&icode=${referralCode}&email=${email}&nikename=${nikename}`
+    }else{
+        uri = `/code/level/invitation?addr=${publicAddress}&email=${email}&nikename=${nikename}`
+    }
+    proxy.$api.post(uri).then((res: any) => {
         if(res.code != 55555) {
             store.dispatch('user/messSing', props.code);
             store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}});
@@ -85,7 +120,7 @@ const messgSing = async (publicAddress: any) => {
             publicAddress,
             '' // MetaMask will ignore the password argument here
         );
-        if(result) getPublicAddress(idTemp.value, email.value, nickname.value);
+        if(result) getPublicAddress(idTemp.value, email.value, nickname.value, props.code);
         console.log(result);
     } catch (err) {
         throw new Error(
@@ -94,15 +129,15 @@ const messgSing = async (publicAddress: any) => {
     }
 }
 
+
 const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
-    if(nickname.value.trim() != '' && nickname.value.trim().length <= 50){
+    if(nickname.value.trim() != '' && nickname.value.trim().length <= 50 && emailInput() && emailCodeInput()){
         messgSing(idTemp.value)
     }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: 'name or email error'}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: 'Please enter complete'}})
     }
 }
-
 
 const closeDialog = () => {
     emit('closeRegister')
@@ -113,10 +148,13 @@ const blur = (type: any) => {
     if(!type){
         nicknameErr.value = false;
         if(nickname.value.trim().length == 0 || nickname.value.trim().length > 50) nicknameErr.value = true;
-    }else{
+    }else if(type == 1){
         // let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
         // emailErr.value = false;
         // if(!reg.test(email.value)) emailErr.value = true;
+    }else if(type == 2){
+        console.log(type, 'type');
+        emailCodeInput()
     }
 }
 
@@ -126,15 +164,52 @@ const input = (e: any) => {
     if(result.trim().length == 0 || result.trim().length > 50) nicknameErr.value = true;
 }
 
-const emailInput = (e: any) => {
-    let result = e.target.value
+let timer: any = null;
+const send = () => {
+    if(!emailInput()){
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('Email error')}})
+        return;
+    } 
+    timer = setInterval(() => {
+        --Sended.value
+        if(Sended.value == 0) {
+            clearInterval(timer);
+            Sended.value = 60
+        }
+    }, 1000)
+    proxy.$api.get(`http://192.168.0.134:5001/generate_code?email=${email.value}`).then((res: any) => {
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
+        
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+}
+
+const emailInput = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     emailErr.value = false;
     if(!reg.test(email.value)) emailErr.value = true;
+    return reg.test(email.value)
+}
+
+const emailCodeInput = () => {
+    var regu = /^\d{6}$/; 
+    console.log(regu.test(emailCode.value));
+    if(emailCode.value.length > 6) emailCode.value = emailCode.value.slice(0, 6)
+    if(regu.test(emailCode.value)){
+        emailCodeErr.value = false;
+        return true;
+    }
+    emailCodeErr.value = true;
+    return false;
 }
  
+onUnmounted(() => {
+    clearInterval(timer);
+})
 
 onMounted(() => {
+    ReferralCode.value = props.code;
 })
 
 
@@ -168,7 +243,7 @@ onMounted(() => {
             right: 0;
             bottom: 0;
             width: 350px;
-            height: 290px;
+            height: 390px;
             margin: auto;
             padding: 2.5vw;
             box-shadow: -1.51vw .83vw .2vw .05vw rgba(0, 0, 0, 0.4);
@@ -199,11 +274,15 @@ onMounted(() => {
             }
             .close{
                 position: absolute;
-                right: 10px;
-                top: 10px;
+                right: 1vw;
+                top: 1vw;
                 z-index: 11;
                 width: 40px;
                 cursor: pointer;
+                transition: all .2s ease-in-out;
+            }
+            .close:hover{
+                opacity: .7;
             }
             .content{
                 position: absolute;
@@ -211,15 +290,15 @@ onMounted(() => {
                 right: 0;
                 padding: 0 2.5vw;
                 .level{
-                    margin: 10px 0;
+                    margin: 15px 0;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                 }
                 .title{
                     font-size: 20px;
+                    margin-top: 20px;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     font-weight: normal;
                     line-height: 2.08vw;
-                    margin-top: 10px;
                 }
                 .icon{
                     display: flex;
@@ -265,9 +344,21 @@ onMounted(() => {
                             color: #fff;
                             opacity: .5;
                         }
+                        .send{
+                            border: 1px solid;
+                            font-family: AlibabaPuHuiTi_2_115_Black;
+                            padding: 0 .6vw;
+                            cursor: pointer;
+                            line-height: 25px;
+                            height: 100%;
+                        }
+                        .send:hover{
+                            filter: drop-shadow(0 0 0.4vw #fff);
+                        }
                     }
                     .error{
                         border: 1px solid #FF5CA1 !important;
+                        color: #FF5CA1;
                         input{
                             color: #FF5CA1 !important;
                         }
@@ -275,6 +366,10 @@ onMounted(() => {
                             color: #FF5CA1;
                             opacity: .5;
                         }
+                    }
+                    .error:hover{
+                        filter: none !important;
+                        pointer-events: none;
                     }
                     .ok{
                         color: #8478FF;
@@ -380,22 +475,29 @@ onMounted(() => {
             }
             .btn{
                 position: absolute;
-                bottom: 30px;
+                bottom: 50px;
+                width: 90%;
                 .cancel{    
-                    width: 320px;
-                    height: 40px;
-                    font-size: 20px;
+                    width: 100%;
+                    height: 30px;
+                    font-size: 16px;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     color: #FFFFFF;
-                    line-height: 40px;
+                    line-height: 30px;
                     text-align: center;
                     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwbox/purchase.png');
                     background-size: 100% 100%;
                     cursor: pointer;
                     transition: all .2s ease-in-out;
                 }
+                .cancel:hover{
+                    opacity: .7;
+                }
                 .not-allowed{
                     cursor: not-allowed !important;
+                    opacity: .4;
+                }
+                .not-allowed:hover{
                     opacity: .4;
                 }
             }

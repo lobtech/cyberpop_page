@@ -4,58 +4,49 @@
             <div class="cover"></div>
             <div class="coverborder"></div>
             <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="closeDialog">
-            <div class="content">
-                <div class="title">REGISTER</div>
-                <p class="level">level: {{ level }}</p>
-                <div class="item">
-                    <label for="nickname">NickName</label>
-                    <div class="content1" :class="{'error': nicknameErr}">
-                        <input type="text" id="nickname" placeholder="input your nickname" @input="input" @blur="blur(0)" v-model="nickname">
-                    </div>
-                </div>
-                <div class="item">
-                    <label for="Email">Email</label>
-                    <div class="content1" :class="{'error': emailErr}">
-                        <input type="text" id="Email" placeholder="input your email" @input="emailInput" @blur="blur(1)" v-model="email">
-                        <div class="send" @click="send">Send</div>
-                    </div>
-                </div>
+            <form action="#">
+                <div class="content">
+                    <div class="title">REGISTER</div>
+                    <p class="level" v-if="props.level > 0">level: {{ props.level }}</p>
                     <div class="item">
-                    <label for="Email">Email Code</label>
-                    <div class="content1" :class="{'error': emailCodeErr}">
-                        <input type="text" id="Email" placeholder="input your email code" @blur="blur(2)" v-model="emailCode">
+                        <label for="nickname">NickName</label>
+                        <div class="content1" :class="{'error': nicknameErr}">
+                            <input type="text" id="nickname" placeholder="input your nickname" @input="input" @blur="blur(0)" v-model="nickname">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="Email">Email</label>
+                        <div class="content1" :class="{'error': emailErr}">
+                            <input type="text" id="Email" placeholder="input your email" @input="emailInput" @blur="blur(1)" v-model="email">
+                            <div class="send" :class="{'error': emailErr}" @click="send" v-if="Sended == 60">Send</div>
+                            <div class="send timer" v-else>{{ Sended }}</div>
+                        </div>
+                    </div>
+                        <div class="item">
+                        <label for="Email">Email Code</label>
+                        <div class="content1" :class="{'error': emailCodeErr}">
+                            <input type="text" id="Email" placeholder="input your email 6 code" @input="emailCodeInput" @blur="blur(2)" v-model="emailCode">
+                        </div>
+                    </div>
+                    <!-- <div class="item">
+                        <label for="Email">Referral Code (option)</label>
+                        <div class="content1" :class="{'error': ReferralCodeErr}">
+                            <input type="text" id="Email" readonly placeholder="Not ReferralCode" @blur="blur(5)" v-model="ReferralCode">
+                        </div>
+                    </div> -->
+                </div>
+                <div class="btn">
+                    <div class="btn-wrap">
+                        <div class="cancel" @click="submit()">{{$t('message.assets.pop.btn_submit')}}</div>
                     </div>
                 </div>
-                <div class="item">
-                    <label for="Email">PassWord</label>
-                    <div class="content1" :class="{'error': PassWordErr}">
-                        <input type="text" id="Email" placeholder="input your PassWord" @blur="blur(3)" v-model="PassWord">
-                    </div>
-                </div>
-                <div class="item">
-                    <label for="Email">Confirm PassWord</label>
-                    <div class="content1" :class="{'error': ConfirmPassWordErr}">
-                        <input type="text" id="Email" placeholder="input your PassWord" @blur="blur(4)" v-model="ConfirmPassWord">
-                    </div>
-                </div>
-                <div class="item">
-                    <label for="Email">Referral Code (option)</label>
-                    <div class="content1" :class="{'error': ReferralCodeErr}">
-                        <input type="text" id="Email" placeholder="input your email code" @blur="blur(5)" v-model="ReferralCode">
-                    </div>
-                </div>
-            </div>
-            <div class="btn">
-                <div class="btn-wrap">
-                    <div class="cancel" @click="submit()">{{$t('message.assets.pop.btn_submit')}}</div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, getCurrentInstance, computed } from 'vue'
+import { ref, onMounted, getCurrentInstance, computed, onUnmounted } from 'vue'
 import store from '@/store'
 import { useI18n } from 'vue-i18n';
 import { log } from 'console';
@@ -63,7 +54,6 @@ import { log } from 'console';
 const { t } = useI18n()
 const emit = defineEmits(['closeRegister']);
 const { proxy } = getCurrentInstance() as any;
-const level = ref(1);
 const props = defineProps({
     register: {  //是否显示
         type: Boolean,
@@ -76,29 +66,36 @@ const props = defineProps({
     code: {
         type: String,
         default: ''
+    },
+    level: {
+        type: Number,
+        default: ''
     }
 })
 const idTemp = computed(() => store?.state.user?.idTemp);
+
 //input
 const nickname = ref('');
 const email = ref('');
 const emailCode = ref('')
-const PassWord = ref('')
-const ConfirmPassWord = ref('')
-const ReferralCode = ref('')
+const ReferralCode = ref('Not ReferralCode')
 
 // state
 const nicknameErr = ref(false);
 const emailErr = ref(false);
 const emailCodeErr = ref(false);
-const PassWordErr = ref(false);
-const ConfirmPassWordErr = ref(false);
 const ReferralCodeErr = ref(false);
-
+const Sended = ref(60);
 
 //REACT_APP_BACKEND_URL=http://13.250.39.184:8612
-const getPublicAddress = (publicAddress: any, email: any, nikename: any) => {
-    proxy.$api.post(`/code/level/invitation?addr=${publicAddress}&icode=${props.code}&email=${''}&nikename=${nikename}&`).then((res: any) => {
+const getPublicAddress = (publicAddress: any, email: any, nikename: any,  referralCode: any) => {
+    let uri = ''
+    if(referralCode){
+        uri = `/code/level/invitation?addr=${publicAddress}&icode=${referralCode}&email=${email}&nikename=${nikename}`
+    }else{
+        uri = `/code/level/invitation?addr=${publicAddress}&email=${email}&nikename=${nikename}`
+    }
+    proxy.$api.post(uri).then((res: any) => {
         if(res.code != 55555) {
             store.dispatch('user/messSing', props.code);
             store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}});
@@ -123,7 +120,7 @@ const messgSing = async (publicAddress: any) => {
             publicAddress,
             '' // MetaMask will ignore the password argument here
         );
-        if(result) getPublicAddress(idTemp.value, email.value, nickname.value);
+        if(result) getPublicAddress(idTemp.value, email.value, nickname.value, props.code);
         console.log(result);
     } catch (err) {
         throw new Error(
@@ -135,10 +132,10 @@ const messgSing = async (publicAddress: any) => {
 
 const submit = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
-    if(nickname.value.trim() != '' && nickname.value.trim().length <= 50){
+    if(nickname.value.trim() != '' && nickname.value.trim().length <= 50 && emailInput() && emailCodeInput()){
         messgSing(idTemp.value)
     }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: 'name or email error'}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: 'Please enter complete'}})
     }
 }
 
@@ -167,12 +164,20 @@ const input = (e: any) => {
     if(result.trim().length == 0 || result.trim().length > 50) nicknameErr.value = true;
 }
 
-
-
-//email
-// 发送验证码
+let timer: any = null;
 const send = () => {
-    proxy.$api.get(`https://gamepool.cyberpool.online/generate_code?email=${email.value}`).then((res: any) => {
+    if(!emailInput()){
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('Email error')}})
+        return;
+    } 
+    timer = setInterval(() => {
+        --Sended.value
+        if(Sended.value == 0) {
+            clearInterval(timer);
+            Sended.value = 60
+        }
+    }, 1000)
+    proxy.$api.get(`http://192.168.0.134:5001/generate_code?email=${email.value}`).then((res: any) => {
         store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
         
     }).catch( (err: any) => {
@@ -180,27 +185,31 @@ const send = () => {
     })
 }
 
-const emailInput = (e: any) => {
-    let result = e.target.value
+const emailInput = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     emailErr.value = false;
     if(!reg.test(email.value)) emailErr.value = true;
+    return reg.test(email.value)
 }
 
 const emailCodeInput = () => {
-    var regu = "^[0-9a-zA-Z]{6,12}$"; 
-    var re = new RegExp(regu); 
-    console.log(re.test(emailCode.value));
-    
-    if(re.test(emailCode.value)){
+    var regu = /^\d{6}$/; 
+    console.log(regu.test(emailCode.value));
+    if(emailCode.value.length > 6) emailCode.value = emailCode.value.slice(0, 6)
+    if(regu.test(emailCode.value)){
         emailCodeErr.value = false;
-        return;
+        return true;
     }
     emailCodeErr.value = true;
+    return false;
 }
  
+onUnmounted(() => {
+    clearInterval(timer);
+})
 
 onMounted(() => {
+    ReferralCode.value = props.code;
 })
 
 
@@ -233,9 +242,9 @@ onMounted(() => {
             left: 0;
             right: 0;
             bottom: 0;
-            width: 37.51vw;
+            width: 32.51vw;
             min-width: 380px;
-            height: 48vw;
+            height: 35vw;
             min-height: 180px;
             margin: auto;
             padding: 2.5vw;
@@ -337,9 +346,12 @@ onMounted(() => {
                             opacity: .5;
                         }
                         .send{
-                            padding: 1vw 1vw;
                             border: 1px solid;
+                            font-family: AlibabaPuHuiTi_2_115_Black;
+                            padding: 0 .6vw;
                             cursor: pointer;
+                            line-height: 2.4vw;
+                            height: 100%;
                         }
                         .send:hover{
                             filter: drop-shadow(0 0 0.4vw #fff);
@@ -347,6 +359,7 @@ onMounted(() => {
                     }
                     .error{
                         border: 1px solid #FF5CA1 !important;
+                        color: #FF5CA1;
                         input{
                             color: #FF5CA1 !important;
                         }
@@ -354,6 +367,10 @@ onMounted(() => {
                             color: #FF5CA1;
                             opacity: .5;
                         }
+                    }
+                    .error:hover{
+                        filter: none !important;
+                        pointer-events: none;
                     }
                     .ok{
                         color: #8478FF;

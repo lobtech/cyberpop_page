@@ -471,6 +471,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="https://tofunft.com/" target="view_window">
                 <img class="logo11" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_tofu.png" alt="">
             </a>
+            <a href="https://chain.link/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/chain_link.png" alt="">
+            </a>
             <!-- <a href="https://www.bybit.com/en-US/" target="view_window">
                 <img class="logo10" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_bybit.png" alt="">
             </a> -->

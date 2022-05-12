@@ -182,6 +182,8 @@ const us = {
             reg_subtitle: 'GET THE LASTEST IN INBOX',
             reg_submit: 'Register',
             reg_link: 'Become an ambassador',
+            inviter_Code: 'inviter Code',
+            level: 'level',
             // homeA-xplan
             xplan_title1: 'X-PLAN MAKES IT EASY FOR INVESTORS AND SHAREHOLDERS TO SEE THE PROGRESS OF PROJECT.',
             xplan_title2: 'The plan will issue a limited number of NFT badge. Contact us to become an investor.',
