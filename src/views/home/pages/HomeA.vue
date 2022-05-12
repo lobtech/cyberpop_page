@@ -2364,7 +2364,7 @@ onMounted(() => {
                         padding: .625vw 1.04vw 1.25vw;
                         background: rgba(40, 38, 38,.9);
                         transform: translate(0,-114%);
-                        animation: teamCardAni 0.2s ease-in;
+                        animation: teamCardAni 0.1s ease-in;
                         animation-fill-mode: forwards;
                         .msg{
                             display: flex;
@@ -2378,7 +2378,7 @@ onMounted(() => {
                             margin-top: .6vw;
                             font-size: .73vw;
                             color: #CDCDCD;
-                            line-height: 1.04vw;
+                            line-height: 1.09vw;
                             font-family: AlibabaPuHuiTi_2_55_Regular;
                         }
                         &::after{
