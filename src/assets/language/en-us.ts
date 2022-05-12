@@ -168,8 +168,20 @@ const us = {
             roadmap_s3_d3_e2: 'Further integration of AR /VR with the real world',
             roadmap_s3_d3_e3: 'Open of the NFT financial derivative platform',
             roadmap_s3_d3_e4: 'Cyberpop Artists Association',
-            // homeA-partners
+            // homeA-team
             team_title: 'TEAM MEMBERS',
+            team_mem_jie: 'Former Ubisoft senior game art designer working on Assassin\'s Creed, Rayman, etc. The VGAME: A World of Nothing, of which Jie was the chief game art designer, attracted 40.000 players in 3 days. He has been in game industry for 15 years.',
+            team_mem_frank: 'familiar with project operation work, district-Blockchain professional equipment hardware developers, server equipment-Supplier; experience in outsourcing a variety of chain game technology; have legal Compliance and investment experience, once led the completion of many companies-Combination of assets.',
+            team_mem_hason: 'Worked at Ubisoft Entertainment, gameplay programmer; participated in the "Might & Magic Raiders" project, an ORPG online game on PC, and the "Might & Magic Duel of Champion" project, a TCG online card game on PC and iPad; obtained Ubisoft EX\'s Greatest Performance Appraisal several times.',
+            team_mem_nick: 'Core developer of King’s Alliance. He has made breakthrough of our product from 0 to 1 by reconstructing unisWAP source code. Besides, he is capable of a complete Permissionless Blockchain development for his knowledge in Consortium Blockchain such as Hyperledger Fabric, FISCO and BCO. ',
+            team_mem_caroline: 'Rich experience in blockchain industry; Highly influential in Southeast Asia. Active in many communities.',
+            team_mem_fy: 'Former Huawei Cloud Service backend developer. Having published two machine learning-related patents. Rich experience in micro-service architecture design, edge computing, etc. Full stack engineer. Familiar with Web 3.',
+            team_mem_han: 'Once worked in Tencent Photon Studio and NEXT Studio as a senior back-end programmer. He has more than 10 years of work experience and has profound research on technology trends， back-end security and stability,.',
+            team_mem_quanbug: 'Former Ubisoft senior programmer whose code was studied as paradigm by Ubisoft Québec. Freelancer recommended programmer with 15 years of multiplatform and multi-end framework experience.',
+            team_mem_john: 'Former ubisoft senior Technical Art designer with rich AAA product development experience. As the graphics technical consultant of TiMi Studio Group, he provided crucial support for the team of Honor of Kings. He is now researching on using Render Pipelines to support AAA presentation on multiple platforms. ',
+            team_mem_water: 'Worked as a cloud computing engineer at Intel\'s Asia-Pacific R&D Ltd; Former cloud technology director of Huawei, responsible for cloud design, experienced in cloud computing and blockchain industry; set up a team to delve into the development of metaverse games and successfully designed an independent MMORPG game.',
+            team_mem_ice: 'Worked as chief cloud back-end developer in Huawei. Familiar with various technical frameworks such as Java and Go-Lang. Code contributor in Cosmos community. Familiar with blockchain structure. Core source code contributor. He realized cross-chain transfer of Erc-1155 and EVM.',
+            // homeA-partners
             part_title: 'PARTNERS',
             // homeA-will
             will_title: 'We suppport multi-end interoperability',

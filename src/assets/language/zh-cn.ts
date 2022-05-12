@@ -167,8 +167,20 @@ const cn = {
             roadmap_s3_d3_e2: 'AR /VR與現實世界的進一步融合',
             roadmap_s3_d3_e3: '開放NFT金融衍生物平臺',
             roadmap_s3_d3_e4: '賽博新世界藝術家聯盟',
-            // homeA-partners
+            // homeA-team
             team_title: '團隊成員',
+            team_mem_jie: '前育碧高级美术参与《刺客信条》、雷曼》等美术制作；后作为《VGAME：消零世界》主美做到3天自然吸量40万效果。15年游戏行业经验。',
+            team_mem_frank: '熟悉项目运营工作，区块链专业设备硬件开发、服务器设备供应商；有各种连锁游戏技术外包经验；有合规和投资经验，曾牵头完成多个公司-资产组合。',
+            team_mem_hason: '曾任职于育碧，参与制作PC端ORPG网游《魔域攻略》，以及PC和iPad端TCG网游《魔域冠军对决》；多次获得育碧EX的最佳绩效评估。',
+            team_mem_nick: '金联盟开发核心开发人员，重构uniswap源代码，完成产品从0到1的突破，熟知联盟链Hyperledger Fabric，FISCO BCO 具备完整的公链开发能力。',
+            team_mem_caroline: '在区块链行业有丰富的履历和经验; 在东南亚非常有影响力，创办了NFT平台Roseon Finance，参与过Chumbivalley的顾问。',
+            team_mem_fy: '华为云服务后端开发，并发表过两篇机器学习相关专利，在微服务架构设计，边缘计算等方面有非常丰富的经验，全栈工程师, 熟悉Web3.0技术架构以及合约交互。',
+            team_mem_han: '腾讯光子工作室、NEXT Studio前高级后端，10年以上工作经验。后端安全及稳定性，技术潮流方面有长期深入研究。',
+            team_mem_quanbug: '前育碧高级程序，代码曾被育碧魁北克拿去当精品代码研究。Freelancer编辑推荐程序。15年全平台全端架构经验。',
+            team_mem_john: '前育碧高级技术美术，3A级产品研发经验。后参与腾讯天美早期图形引擎技术顾问，引擎用于支持《王者荣耀》项目组。现自研渲染管线用于支持多平台（含手机端）3A级呈现。15年游戏行业经验。',
+            team_mem_water: '曾就职于英特尔亚太研发有限公司云计算工程师，后任华为前云技术总监，负责云设计，云计算和区块链行业经验丰富； 成立团队深耕元界游戏开发，成功设计了一款独立的MMORPG游戏。',
+            team_mem_ice: '前华为云核心后端，熟悉Java/go-lang等多种技术框架，Cosmos 社区代码贡献者，参与熟悉区块链结构，核心源码贡献者；实现ERC-1155, EVM跨链转移。',
+            // homeA-partners
             part_title: '合作夥伴',
             // homeA-will
             will_title: '我們支持多端可操作性',

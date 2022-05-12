@@ -424,7 +424,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 <img class="logo12" src="@/assets/nwhome/mexc.png" alt="">
             </a>
             <a href="https://www.gate.io" target="view_window">
-                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_gate.png" alt="">
+                <img class="logo10" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_gate.png" alt="">
             </a>
             <a href="https://consensys.net/" target="view_window">
                 <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
