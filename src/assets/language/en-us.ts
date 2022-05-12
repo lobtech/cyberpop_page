@@ -250,7 +250,7 @@ const us = {
             title: 'MINING',
             subtitle: 'STAKE NFT FOR MINING REWARDS',
             total_title: 'TOTAL REWARDS',
-            total_subtitle: '（BUSD）',
+            total_subtitle: '（CYT）',
             data_txt1: 'Total Staking NFTs',
             data_txt2: 'Percentage',
             data_txt3: 'Rewards',

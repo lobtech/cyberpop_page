@@ -249,7 +249,7 @@ const cn = {
             title: '挖礦',
             subtitle: 'NFT作賭注以獲取挖礦收益',
             total_title: '總收益',
-            total_subtitle: '（BUSD）',
+            total_subtitle: '（CYT）',
             data_txt1: 'NFT賭注量',
             data_txt2: '比率',
             data_txt3: '挖礦收益',
