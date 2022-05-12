@@ -40,18 +40,25 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
     </div>
     <div class="download" v-show="showDown" :class="!isOut ? 'bounceShow' : 'bounceHide'">
         <div class="download-mask">
-            <div class="cover"></div>
-            <div class="coverborder"></div>
             <div class="wrap">
-                <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
-                <div class="close">
-                    <img src="@/assets/nwhome/close.svg" alt="" @click="isOut = true">
-                    <div class="closebg"></div>
-                </div>
-                <div class="message">
-                    {{$t('message.home.download_message')}}
-                </div>
-                <div class="btn" @click="downloadGame">{{$t('message.home.download_btn1')}}</div>
+                <form action="#" onsubmit="">
+                    <div class="button" style="margin-top: 48px;">
+                        <input type="text" v-model="emailAddress" placeholder="Email address"/>
+                    </div>
+                    <div class="button" style="margin-top: 28px;margin-bottom: 9px;">
+                        <input type="text" v-model="emailCode" placeholder="Email verification code"/>
+                        <span>Send code</span>
+                    </div>
+                    <p class="tips">Account will be automatically registered</p>
+                    <button type="button">LOGIN</button>
+                </form>
+            </div>
+        </div>
+        <div class="down_button" @click="downloadGame">
+            <img class="person" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alen.png" alt="">
+            <div class="down_cyberpop">
+                <img class="media" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/android.png" alt="">
+                <b>DOWNLOAD CYBERPOP</b>
             </div>
         </div>
     </div>
@@ -541,7 +548,7 @@ import { clear } from 'console';
 SwiperCore.use([EffectFade, EffectCreative, Mousewheel, Autoplay]);
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
-
+const router = useRouter()
 let close:any = ref(true)
 const teamInfo: any = ref([
     {
@@ -672,6 +679,8 @@ const connect: any = async () => {
 
 // download
 let isOut:any = ref(false)
+const emailAddress: any = ref('');
+const emailCode: any = ref('');
 const downloadGame = () => {
     window.location.href = 'https://d3bhixjyozyk2o.cloudfront.net/Cyberpop_1.0.0_2022_04_27_23_38_36_V25_Dev.false_Symbols.AWS%40USE_NFT_ASSETS.apk'
     proxy.$api.post(`/code/user/download?address=${idTemp.value}`).then((res: any) => {
@@ -687,7 +696,6 @@ const downloadGame = () => {
 let imgSrc0: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftGray.svg');
 let imgSrc: any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwhome/welcome-leftYellow.svg');
 let imgIndex: any = ref(0);
-
 
 const onSwiper = (swiper: any) => {
     console.log('swiper',swiper.activeInde);
@@ -797,8 +805,6 @@ const openseaLeave = () => {
 
 
 
-
-const router = useRouter()
 
 const email: any = ref("");
 
@@ -926,7 +932,12 @@ onMounted(() => {
     window.addEventListener('scroll', windowScroll, true);
     store.dispatch('user/showDialog',{show: false, info: {}});
     window.scrollTo(0,0);
+    console.log(router.currentRoute.value.query.code, 'router.currentRoute.value.query.code');
     
+    if(router.currentRoute.value.query.code) {
+        showDown.value = true; 
+        isOut.value = false;
+    }
 })
 
 </script>
@@ -1137,7 +1148,9 @@ onMounted(() => {
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0,0,0,.4);
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/down_backgournd.png');
+        background-size: auto 100%;
+        background-position: center top;
         .download-mask{
             position: absolute;
             top: 0;
@@ -1145,100 +1158,100 @@ onMounted(() => {
             bottom: 0;
             left: 0;
             margin: auto;
-            width: 314px;
-            height: 354px;
-            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-            border: 3px solid;
-            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 5 5;
-            clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
-            .cover{
-                position: absolute;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);;
-                clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
-            }
-            .coverborder{
-                z-index: -1;
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                content: '';
-                display: inline-block;
-                width: 50px;
-                height: 50px;
-                background-color: #2d2942;
-            }
+            width: 332px;
+            height: 300px;
+            background: #000000;
             .wrap{
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                .bg{
-                    width: 250px;
-                    margin-top: 10px;
-                    margin-left: 30px;
-                }
-                .close{
-                    position: absolute;
-                    top: 7px;
-                    right: 7px;
-                    width: 22px;
-                    height: 22px;
-                }
-                .close{
-                    position: absolute;
-                    top: 0px;
-                    right: 0px;
-                    width: 45px;
-                    height: 45px;
-                    img{
-                        z-index: 2;
-                        width: 24px;
-                        height: 24px;
-                        position: absolute;
-                        top: 1.1vw;
-                        right: 1.8vw;
-                    }
-                    div{
+                .button{
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/withborder.png');
+                    width: 302px;
+                    height: 44px;
+                    background-size: 100% 100%;
+                    font-size: 13px;
+                    font-family: AlibabaPuHuiTi_2_85_Bold;
+                    color: #FFFFFF;
+                    line-height: 18px;
+                    margin: 0 auto;
+                    position: relative;
+                    
+                    input{
+                        line-height: 18px;
+                        border: none;
+                        outline: none;
                         width: 100%;
                         height: 100%;
-                        position: absolute;
-                        top: -1.4vw;
-                        right: -1.2vw;
+                        background: none;
+                        padding: 0 16px;
+                        color: #fff;
+                        font-family: AlibabaPuHuiTi_2_85_Bold;
                     }
-                    img:hover + .closebg{
-                        background-image: url('../../../assets/nwhome/closeBg.svg');
-                        background-position: center center;
-                        background-repeat: no-repeat;
-                        background-size: 100% 100%;
+                    span{
+                        position: absolute;
+                        right: 0;
+                        font-size: 14px;
+                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                        color: #A6F779;
+                        line-height: 20px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        margin-right: 16px;
                     }
                 }
-                .message{
-                    // background: #00FF9C;
-                    width: 280px;
-                    margin: 14px 0 18px;
-                    font-size: 16px;
+                .tips{
+                    font-size: 12px;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
-                    line-height: 20px;
+                    line-height: 17px;
+                    margin-top: 9px;
+                    margin-bottom: 27px;
                     text-align: center;
                 }
-                .btn{
-                    width: 150px;
-                    height: 43px;
+                button{
+                    border: none;
+                    background: transparent;
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/greenButton.png');
+                    background-size: 100% 100%;
+                    width: 210px;
+                    height: 52px;
                     margin: 0 auto;
-                    font-size: 16px;
-                    font-family: AlibabaPuHuiTi_2_115_Black;
-                    color: #FFFFFF;
-                    line-height: 43px;
-                    text-align: center;
-                    // background-image: url('../../../assets/nwhome/download.svg');
-                    background-size: auto 100%;
-                    clip-path: polygon(0% 33.4%, 10.8% 0%, 100% 0, 100% 80.5%, 90.8% 100%, 0 100%);
-                    cursor: pointer;
-                    background-color: gray;
+                    display: block;
+                    font-size: 18px;
+                    font-family: AlibabaPuHuiTi_2_85_Bold;
+                    color: #000000;
+                }
+            }
+        }
+        .down_button{
+            position: absolute;
+            width: 270px;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            .person{
+                width: 114px;
+                height: 115px;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: -80px;
+                margin: auto;
+            }
+            .down_cyberpop{
+                width: 270px;
+                height: 60px;
+                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/down_button2.png');
+                background-size: 100% 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #FFFFFF;
+                .media{
+                    margin-right: 9px;
+                    width: 22px;
+                    height: 26px;
                 }
             }
         }
