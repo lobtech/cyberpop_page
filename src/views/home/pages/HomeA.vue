@@ -387,11 +387,18 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="title" id="ele7">{{ $t('message.home.team_title') }}</div>
         <div class="wrap">
             <ul>
-                <li v-for="(item,index) in teamInfo" :key="index">
+                <li v-for="(item,index) in teamInfo" :key="index" @click="teamCard(index)">
                     <div class="avator"><img :src="item.img" alt=""></div>
                     <div class="msg">
                         <div>{{ item.name }}</div>
                         <span>{{ item.desc }}</span>
+                    </div>
+                    <div v-show="showTeamCard == index" class="card">
+                        <div class="msg">
+                            <div>{{ item.name }}</div>
+                            <span>{{ item.desc }}</span>
+                        </div>
+                        <div class="text">{{ $t(item.info) }}</div>
                     </div>
                 </li>
             </ul>
@@ -420,7 +427,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
                 </a>
             </div>
             <a href="https://www.gate.io" target="view_window">
-                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_gate.png" alt="">
+                <img class="logo10" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_gate.png" alt="">
             </a>
             <a href="https://consensys.net/" target="view_window">
                 <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
@@ -544,60 +551,78 @@ const teamInfo: any = ref([
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_jie.png',
         name: 'JIE',
         desc: 'Art Director',
+        info: 'message.home.team_mem_jie',
     },
     {
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_frank.png',
         name: 'Frank',
         desc: 'Co-Founder',
+        info: 'message.home.team_mem_frank',
     },
     {
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_hason.png',
         name: 'Hason',
         desc: 'Co-Founder',
+        info: 'message.home.team_mem_hason',
     },
     {
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_nick.png',
         name: 'Nick',
         desc: 'Backend',
+        info: 'message.home.team_mem_nick',
     },
     {
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_caroline.png',
         name: 'Caroline',
         desc: 'Marketing director',
+        info: 'message.home.team_mem_caroline',
     },
     {
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_fy.png',
         name: 'Fy',
         desc: 'Backend',
+        info: 'message.home.team_mem_fy',
     },
     {
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_han.png',
         name: 'Han',
         desc: 'Chief Back-end',
+        info: 'message.home.team_mem_han',
     },
     {
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_quanbug.png',
         name: 'Quanbug',
         desc: 'Framework Designer',
+        info: 'message.home.team_mem_quanbug',
     },
     {
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_john.png',
         name: 'John',
         desc: 'Technical Director',
+        info: 'message.home.team_mem_john',
     },
     {
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_water.png',
         name: 'Water',
         desc: 'Co-Founder',
+        info: 'message.home.team_mem_water',
     },
     {
         img: 'https://d2cimmz3cflrbm.cloudfront.net/nwhome/mem_ice.png',
         name: 'ICE',
         desc: 'Backend',
+        info: 'message.home.team_mem_ice',
     }
 ])
 
-
+const showTeamCard:any = ref(-1);
+const teamCard = (index: any) =>  {
+    if( showTeamCard.value == index ){
+        showTeamCard.value = -1;
+    }else{
+        showTeamCard.value = index;
+    }
+}
 
 
 // xplan
@@ -991,6 +1016,14 @@ onMounted(() => {
 
 </script>
 <style lang="less" scoped>
+    @keyframes teamCardAni {
+        0%{
+            top: 1.4vw;
+        }
+        100%{
+            top: 0;
+        }
+    }
 
     @keyframes downloadAni {
         0%{
@@ -2306,7 +2339,7 @@ onMounted(() => {
                     transition: all .2s ease;
                     -moz-transition: all .2s ease;
                     -webkit-transition: all .2s ease;
-
+                    cursor: pointer;
                     .avator{
                         height: 100%;
                         margin-right: 1.04vw;
@@ -2322,9 +2355,46 @@ onMounted(() => {
                         white-space: nowrap;
                         span:last-child{
                             font-size: .73vw;
-                            color: #CDCDCD;
+                            color: #ffffff;
                             font-family: AlibabaPuHuiTi_2_55_Regular;
                             line-height: 1.04vw;
+                        }
+                    }
+                    .card{
+                        position: absolute;
+                        top: 0;
+                        width: 20.46vw;
+                        padding: .625vw 1.04vw 1.25vw;
+                        background: rgba(40, 38, 38,.9);
+                        transform: translate(0,-114%);
+                        animation: teamCardAni 0.1s ease-in;
+                        animation-fill-mode: forwards;
+                        .msg{
+                            display: flex;
+                            align-items: flex-end;
+                            span{
+                                color: #979797;
+                                margin-left: 2px;
+                            }
+                        }
+                        .text{
+                            margin-top: .6vw;
+                            font-size: .73vw;
+                            color: #CDCDCD;
+                            line-height: 1.09vw;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                        }
+                        &::after{
+                            position: absolute;
+                            left: 50%;
+                            bottom: .0546vw;
+                            content: '';
+                            display: inline-block;
+                            width: 0;
+                            height: 0;
+                            border: solid .83vw transparent;
+                            border-top-color: rgba(40, 38, 38,.9);
+                            transform: translate(-50%,100%);
                         }
                     }
                 }
