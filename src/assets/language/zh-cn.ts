@@ -44,7 +44,7 @@ const cn = {
                 network: '網絡錯誤',
                 wrongNetwork: '網絡警告',
                 wrongContent: '你连接到了错误的网络。请连接孟买或富士网络。',
-                switchMumbai: '切换孟買',
+                switchMumbai: '切换币安',
                 switchFuji: '切换富士',
             },
             // messageB
@@ -64,7 +64,21 @@ const cn = {
                 // mobile
                 limited_m: '個白名單',
                 quota_m: '人均基本配額',
-            }
+            },
+            //register
+            register: {
+                REGISTER: '注册',
+                inputEmail: '输入电子邮件',
+                Email: '电子邮件',
+                tips1: '郵件已注册',
+                tips2: '用戶資訊錯誤',
+                tips3: '邀請程式碼錯誤',
+                tips4: '電子郵件錯誤',
+                tips5: '郵箱已注册',
+                level: '等级',
+            },
+            //common
+            ip: '我們的服務僅適用於部分合規國家和地區。 非法訪問將不受保護。'
         },
 
         // homeA
@@ -410,6 +424,20 @@ const cn = {
             Transfering: '轉帳...',
             Transfering_content: '正在轉帳中，請等待',
         },
+
+        //dowload
+        download: {
+            tips1: '帳戶將自動注册',
+            REGISTER: '注册',
+            ios: '苹果',
+            Android: '安卓',
+            inputEmail: '输入电子邮件',
+            tips2: '沒有ios app',
+            tips3: '電子郵件錯誤',
+            tips4: '郵件已注册',
+            tips5: '用戶資訊錯誤',
+            tips6: '邀請程式碼錯誤',
+        }
 
     }
 }

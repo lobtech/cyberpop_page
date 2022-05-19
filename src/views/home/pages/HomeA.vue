@@ -27,26 +27,33 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/section_buttom.svg" alt="" class="buttom">
         </footer>
     </div>
-    <div class="download" v-show="showDown" :class="!isOut ? 'bounceShow' : 'bounceHide'">
+    <!-- <div class="download" v-show="showDown" :class="!isOut ? 'bounceShow' : 'bounceHide'">
         <div class="download-mask">
-            <div class="cover"></div>
-            <div class="coverborder"></div>
+            <div class="close">
+                <img src="@/assets/nwhome/close.svg" alt="" @click="showDown = false,isOut = true">
+                <div class="closebg"></div>
+            </div>
             <div class="wrap">
-                <img class="bg" src="@/assets/nwhome/downloadbg.png" alt="">
-                <div class="close">
-                    <img src="@/assets/nwhome/close.svg" alt="" @click="isDown = false,isOut = true">
-                    <div class="closebg"></div>
-                </div>
-                <div class="message">
-                    {{$t('message.home.download_message')}}
-                </div>
-                <div class="btn" @click="downloadGame" @mouseenter="isDown = true,downFlag =true" @mouseleave="downFlag =false">
-                    <div class="txt">{{$t('message.home.download_btn1')}}</div>
-                    <div class="mask" id="down" :class="isDown && (downFlag ? 'downloadAni' : 'stopDownloadAni')"></div>
+                <form action="#" onsubmit="">
+                    <div class="button" style="margin-top: 2.6vw;margin-bottom: 5.4vw;">
+                        <input type="text" v-model="emailAddress" placeholder="Email address"/>
+                    </div>
+                    <div class="button" style="margin-top: 1.87vw;margin-bottom: 0.4vw;">
+                        <input type="text" v-model="emailCode" placeholder="Email verification code"/>
+                        <span>Send code</span>
+                    </div>
+                    <p class="tips">Account will be automatically registered</p>
+                    <button type="button" @click="register">REGISTER</button>
+                </form>
+            </div>
+            <div class="down_button" @click="downloadGame">
+                <div class="down_cyberpop">
+                    <img class="media" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/android.png" alt="">
+                    <b>DOWNLOAD CYBERPOP</b>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="nav-logos" ref="myNav">
         <a href="#" target="view_window">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/joinus.svg" alt="" class="joinus">
@@ -656,16 +663,18 @@ const showxplan = () => {
 
 
 // register
+const isOut = ref(false);
 let showDown:any = ref(false);
 const playToEarn = () => {
-    if( realId.value != -1 ){
-        showDown.value = true;
-        isOut.value = false;
-    }else{
-        connect()
-    }
+    router.push({ path: '/download', query: { code: router.currentRoute.value.query.code || '' } })
+    return;
+    // if( realId.value != -1 ){
+    //     showDown.value = true;
+    //     isOut.value = false;
+    // }else{
+    //     connect()
+    // }
 }
-
 
 const id: any = ref(0)
 const loggined = computed(() => store?.state.user?.loggined);
@@ -714,21 +723,6 @@ const showComing = () => {
     },3000)
 }
 
-
-
-
-// download 
-let isDown:any = ref(false)
-let downFlag:any = ref(false)
-let isOut:any = ref(false)
-const downloadGame = () => {
-    window.location.href = 'https://d3bhixjyozyk2o.cloudfront.net/Cyberpop_1.0.0_2022_04_27_23_38_36_V25_Dev.false_Symbols.AWS%40USE_NFT_ASSETS.apk'
-    proxy.$api.post(`/code/user/download?address=${idTemp.value}`).then((res: any) => {
-        console.log(res);
-    }).catch( (err: any) => {
-        console.log(err)
-    })
-}
 
 
 // swiper
@@ -1204,125 +1198,123 @@ onMounted(() => {
         .download-mask{
             position: absolute;
             top: 0;
-            left: 0;
             right: 0;
             bottom: 0;
+            left: 0;
             margin: auto;
-            width: 48.8vw;
-            height: 28.9vw;
-            // height: 32vw;
-            background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-            border: .26vw solid;
-            border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 5 5;
-            clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
-            .cover{
+            width: 43.95vw;
+            height: 35vw;
+            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/down_background_pc.png');
+            background-size: 100% 100%;
+            .close{
                 position: absolute;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
-                clip-path: polygon(0 0, 100% 0, 100% 82%, 90% 100%, 0 100%);
-            }
-            .coverborder{
-                z-index: -1;
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                content: '';
-                display: inline-block;
-                width: 8vw;
-                height: 8vw;
-                background-color: #2d2942;
+                width: 2.65vw;
+                height: 2.65vw;
+                top: 3vw;
+                right: 3vw;
             }
             .wrap{
-                display: flex;
-                flex-direction: column;
-                position: relative;
-                .bg{
-                    width: 33.02vw;
-                    height: 18.17vw;
-                    margin-top: .93vw;
-                    margin-left: 9.94vw;
-                }
-                .close{
-                    position: absolute;
-                    top: 0vw;
-                    right: -.4vw;
-                    width: 10vw;
-                    height: 10vw;
-                    img{
-                        z-index: 2;
-                        width: 2.4vw;
-                        height: 2.4vw;
-                        position: absolute;
-                        top: 1.1vw;
-                        right: 1.8vw;
-                    }
-                    div{
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                width: 34.4vw;
+                height: 21.35vw;
+                margin: auto;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(4px);
+                .button{
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/withborder.png');
+                    width: 25.02vw;
+                    height: 3.75vw;
+                    background-size: 100% 100%;
+                    font-size: 0.93vw;
+                    font-family: AlibabaPuHuiTi_2_85_Bold;
+                    color: #FFFFFF;
+                    line-height: 1.3vw;
+                    margin: 0 auto;
+                    position: relative;
+                    input{
+                        line-height: 1.3vw;
+                        border: none;
+                        outline: none;
                         width: 100%;
                         height: 100%;
-                        position: absolute;
-                        top: -2.3vw;
-                        right: -2vw;
+                        background: none;
+                        padding: 1.25vw 1.66vw;
+                        color: #fff;
+                        font-family: AlibabaPuHuiTi_2_85_Bold;
                     }
-                    img:hover + .closebg{
-                        background-image: url('../../../assets/nwhome/closeBg.svg');
-                        background-position: center center;
-                        background-repeat: no-repeat;
-                        background-size: 100% 100%;
+                    span{
+                        position: absolute;
+                        right: 0;
+                        font-size: 1.14vw;
+                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                        color: #A6F779;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        margin-right: 1.40vw;
                     }
                 }
-                .message{
-                    flex: 1;
-                    width: 40.88vw;
-                    // height: 2.91vw;
-                    margin: .41vw auto .93vw;
-                    font-size: .93vw;
+                .tips{
+                    font-size: 0.83vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #FFFFFF;
-                    line-height: 1.45vw;
+                    line-height: 1.3vw;
+                    font-family: AlibabaPuHuiTi_2_55_Regular;
+                    color: #FFFFFF;
+                    margin-top: 0.53vw;
+                    margin-bottom: 1.14vw;
                     text-align: center;
                 }
-                .btn{
-                    position: relative;
-                    width: 14.53vw;
-                    height: 4.16vw;
+                button{
+                    border: none;
+                    background: transparent;
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/greenButton.png');
+                    background-size: 100% 100%;
+                    width: 17.5vw;
+                    height: 4.37vw;
                     margin: 0 auto;
-                    // background-image: url('../../../assets/nwhome/download.svg');
-                    clip-path: polygon(0% 33.4%, 10.8% 0%, 100% 0, 100% 80.5%, 90.8% 100%, 0 100%);
-                    cursor: pointer;
-                    background-color: gray;
-                    .txt{
-                        z-index: 8;
-                        position: absolute;
-                        width: 14.53vw;
-                        height: 4.16vw;
-                        font-size: 1.3vw;
-                        font-family: AlibabaPuHuiTi_2_115_Black;
-                        color: #FFFFFF;
-                        text-align: center;
-                        background-size: auto 100%;
-                        line-height: 4.16vw;
-                    }
-                    .mask{
-                        position: absolute;
-                        top: 0;
-                        left: -22vw;
-                        width: 19vw;
-                        height: 100%;
-                        background-color: rgb(65, 64, 64);
-                        opacity: .8;
-                        transform: skewX(-50deg);
-                    }
-                    .downloadAni{
-                        animation: downloadAni 0.15s linear;
-                        animation-fill-mode: forwards;
-                    }
-                    .stopDownloadAni{
-                        animation: stopDownloadAni 0.15s linear;
-                        animation-fill-mode: forwards;
+                    display: block;
+                    font-size: 1.25vw;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #000000;
+                    line-height: 4.37vw;
+                }
+            }
+            .down_button{
+                position: absolute;
+                width: 20.84vw;
+                height: 3.83vw;
+                left: 0;
+                right: 0;
+                bottom: 2.23vw;
+                margin: 0 auto;
+                transition: all .2s ease-in-out;
+                cursor: pointer;
+                .down_cyberpop{
+                    width: 100%;
+                    height: 100%;
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/down_button2.png');
+                    background-size: 100% 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.14vw;
+                    font-family: AlibabaPuHuiTi_2_115_Black;
+                    color: #FFFFFF;
+                    line-height: 1.56vw;
+                    .media{
+                        margin-right: 0.52vw;
+                        width: 1.4vw;
+                        height: 1.66vw;
                     }
                 }
+
+            }
+            .down_button:hover{
+                opacity: .7;
             }
         }
     }

@@ -35,9 +35,9 @@ export default defineConfig({
                 rewrite: (path) => path.replace(/^\/code/, '')
             },
             '/email': {
-                target: 'http://192.168.0.134:5001/', //实际请求地址
+                target: 'http://192.168.0.134/', //实际请求地址
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/email/, '')
+                rewrite: (path) => path.replace(/^\/game/, '')
             },
         },
     },

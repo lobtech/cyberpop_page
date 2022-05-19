@@ -162,6 +162,7 @@ const transfer = async () => {
             console.log(abiMsg.value, addressMsg.value, inputAddress.value, idMsg.value, valueIn.value);
             console.log(props.transferInfo?.type, 'props.transferInfo?.type');
             TipsState.value = true;
+            store.dispatch('user/xplanChangeAni', true);
             if(props.transferInfo?.type == 'role_mumbai' || props.transferInfo?.type == 'role_fuji' || props.transferInfo?.type == 'head_mumbai' || props.transferInfo?.type == 'head_fuji'){
                 let result = await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, Number(idMsg.value));
                 TipsState.value = false;
@@ -175,7 +176,10 @@ const transfer = async () => {
                 return;
             }
             let result = await Web3.safeTransferFrom(abiMsg.value, addressMsg.value, inputAddress.value, Number(idMsg.value), valueIn.value);
-            TipsState.value = false;
+            store.dispatch('user/xplanChangeAni', false);
+            setTimeout(() => {
+                TipsState.value = false;
+            }, 300);
             if(!result){ // 如果转账失败
                 store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
             }else{ // 转账成功

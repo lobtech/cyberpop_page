@@ -6,28 +6,28 @@
             <img class="close" src="@/assets/nwhome/close.svg" alt="" @click="closeDialog">
             <form action="#">
                 <div class="content">
-                    <div class="title">REGISTER</div>
-                    <p class="level" v-if="props.level > 0">level: {{ props.level }}</p>
-                    <div class="item">
+                    <div class="title">{{$t('message.common.register.REGISTER')}}</div>
+                    <p class="level" v-if="props.level > 0">{{$t('message.common.register.level')}}: {{ props.level }}</p>
+                    <!-- <div class="item">
                         <label for="nickname">NickName</label>
                         <div class="content1" :class="{'error': nicknameErr}">
                             <input type="text" id="nickname" placeholder="input your nickname" @input="input" @blur="blur(0)" v-model="nickname">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="item">
-                        <label for="Email">Email</label>
+                        <label for="Email">{{ $t('message.common.register.Email') }}</label>
                         <div class="content1" :class="{'error': emailErr}">
-                            <input type="text" id="Email" placeholder="input your email" @input="emailInput" @blur="blur(1)" v-model="email">
-                            <div class="send" :class="{'error': emailErr}" @click="send" v-if="Sended == 60">Send</div>
-                            <div class="send timer" v-else>{{ Sended }}</div>
+                            <input type="text" id="Email" :placeholder="$t('message.common.register.REGISTER')" @input="emailInput" @blur="blur(1)" v-model="email">
+                            <!-- <div class="send" :class="{'error': emailErr}" @click="send" v-if="Sended == 60">Send</div>
+                            <div class="send timer" v-else>{{ Sended }}</div> -->
                         </div>
                     </div>
-                        <div class="item">
+                    <!-- <div class="item">
                         <label for="Email">Email Code</label>
                         <div class="content1" :class="{'error': emailCodeErr}">
                             <input type="text" id="Email" placeholder="input your email 6 code" @input="emailCodeInput" @blur="blur(2)" v-model="emailCode">
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="item">
                         <label for="Email">Referral Code (option)</label>
                         <div class="content1" :class="{'error': ReferralCodeErr}">
@@ -85,25 +85,32 @@ const nicknameErr = ref(false);
 const emailErr = ref(false);
 const emailCodeErr = ref(false);
 const ReferralCodeErr = ref(false);
-const Sended = ref(60);
+const Sended = ref(60); 
 
 //REACT_APP_BACKEND_URL=http://13.250.39.184:8612
-const getPublicAddress = (publicAddress: any, email: any, nikename: any,  referralCode: any) => {
-    let uri = ''
-    if(referralCode){
-        uri = `/code/level/invitation?addr=${publicAddress}&icode=${referralCode}&email=${email}&nikename=${nikename}`
-    }else{
-        uri = `/code/level/invitation?addr=${publicAddress}&email=${email}&nikename=${nikename}`
-    }
-    proxy.$api.post(uri).then((res: any) => {
-        if(res.code != 55555) {
+const getPublicAddress = (email: any,  referralCode?: any,  publicAddress?: string) => {
+    proxy.$api.post(`/code/business/invuser?address=${publicAddress || 0}&icode=${referralCode || 0}&email=${email}&nickname=${0}`).then((res: any) => {
+        if(res.data.code == 514) {
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.common.register.tips1')}})
+            return;
+        }
+        if(res.data.code == 510) {
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.common.register.tips2') }})
+            return;
+        }
+        if(res.data.code == 506) {
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.common.register.tips3') }})
+            return;
+        }
+        
+        if(res.data.code != 55555) {
             store.dispatch('user/messSing', props.code);
             store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}});
             closeDialog()
             return
         }
         store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
-        messgSing(publicAddress)
+        // messgSing(publicsAddress)
     }).catch( (err: any) => {
         console.log(err)
     })
@@ -111,6 +118,7 @@ const getPublicAddress = (publicAddress: any, email: any, nikename: any,  referr
 
 
 // login
+const resolveAcount = ref('' as any)
 const messgSing = async (publicAddress: any) => {
     try {
         const Web3 = (window as any).Web3;
@@ -120,8 +128,12 @@ const messgSing = async (publicAddress: any) => {
             publicAddress,
             '' // MetaMask will ignore the password argument here
         );
-        if(result) getPublicAddress(idTemp.value, email.value, nickname.value, props.code);
-        console.log(result);
+        if(result) {
+            getPublicAddress(email.value, props.code, idTemp.value);
+            resolveAcount.value = idTemp.value;
+        }else{
+             store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
+        }
     } catch (err) {
         throw new Error(
             'You need to sign the message to be able to log in.'
@@ -129,19 +141,58 @@ const messgSing = async (publicAddress: any) => {
     }
 }
 
+//验证邮箱是否已经注册过了
+const verification = () => {
+    return new Promise((resolve, reject) => {
+        proxy.$api.get(`/code/user/bemail?email=${email.value}`).then((res: any) => {
+            if(res.data === true) { // 该邮箱没有注册过
+                const ethereum = (window as any).ethereum // 获取小狐狸实例
+                console.log(ethereum, 'ethereum');
+                if(!ethereum){
+                    getPublicAddress(email.value, props.code, '')
+                    return;
+                }
+                messgSing(idTemp.value)
+                resolve(1)
+            }else{
+                store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.common.register.tips5') }});
+                resolve(0)
+            }
+        }).catch( (err: any) => {
+            console.log(err)
+        })
+    })
+}
 
-const submit = () => {
-    let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
-    if(nickname.value.trim() != '' && nickname.value.trim().length <= 50 && emailInput() && emailCodeInput()){
-        messgSing(idTemp.value)
-    }else{
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: 'Please enter complete'}})
+
+const submit = async () => {
+    console.log(emailInput(), 'emailInput');
+    if(emailInput()){
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.common.register.tips4') }})
+        return;
     }
+    await verification();
+    // if(emailInput() && emailCodeInput()){
+    //     proxy.$api.get(`/game/verify_email?email=${email.value}&verify_code=${emailCode.value}`).then((res: any) => {
+    //         if(res.error == 'ok'){
+    //             const ethereum = (window as any).ethereum // 获取小狐狸实例
+    //             console.log(ethereum, 'ethereum');
+    //             if(!ethereum){
+    //                 getPublicAddress(email.value, props.code, '')
+    //             }
+    //             messgSing(idTemp.value)
+    //         }else{
+    //             store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: 'Code error' }})
+    //         }
+    //     })
+    // }else{
+    //     store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: 'Please enter complete' }})
+    // }
 }
 
 const closeDialog = () => {
     emit('closeRegister')
-}
+}   
 
 
 const blur = (type: any) => {
@@ -167,7 +218,7 @@ const input = (e: any) => {
 let timer: any = null;
 const send = () => {
     if(!emailInput()){
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('Email error')}})
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.common.register.tips4')}})
         return;
     } 
     timer = setInterval(() => {
@@ -177,20 +228,27 @@ const send = () => {
             Sended.value = 60
         }
     }, 1000)
-    proxy.$api.get(`http://192.168.0.134:5001/generate_code?email=${email.value}`).then((res: any) => {
-        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
-        
-    }).catch( (err: any) => {
-        console.log(err)
+    proxy.$api.get(`/game/generate_code?email=${email.value}`).then((res: any) => {
+        if(res.error == 'ok'){
+            store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}});
+        }else{
+            store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: 'Code error'}})
+        }
+    }).catch((err: any) => {
+         store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: 'Code error'}})
     })
 }
 
 const emailInput = () => {
     let reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则
     emailErr.value = false;
-    if(!reg.test(email.value)) emailErr.value = true;
-    return reg.test(email.value)
+    if(!reg.test(email.value)) {
+        emailErr.value = true;
+        return !reg.test(email.value)
+    }
+    return !reg.test(email.value)
 }
+
 
 const emailCodeInput = () => {
     var regu = /^\d{6}$/; 
@@ -244,7 +302,7 @@ onMounted(() => {
             bottom: 0;
             width: 32.51vw;
             min-width: 380px;
-            height: 35vw;
+            height: 30vw;
             min-height: 180px;
             margin: auto;
             padding: 2.5vw;

@@ -10,13 +10,13 @@
             </div>
             <div class="menuMask" ref="cursor" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
                 <div class="close-menu">
-                    <div class="select_chain" v-show="realId !== -1" @click="showMsgPop()"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span></div>
+                    <div class="select_chain" v-show="realId !== -1" @click="showMsgPop()"><img :src="chainId == 97 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 97 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span></div>
                     <img @click="closeMenuIcon()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
                 <div class="login_in" v-if="!loggined" @click="login()">
                     <div class="txt">{{$t('message.common.wallet')}}</div>
                 </div>
-                <div class="code" v-if="code"> <button @click="isRegister(true)">{{ $t('message.home.reg_submit') }}</button> {{ $t('message.home.inviter_Code') }}: {{ code }} &nbsp;&nbsp;&nbsp; {{ $t('message.home.level') }}: {{ level }} </div>
+                <div class="code"> <button @click="isRegister(true)">{{ $t('message.home.reg_submit') }}</button> <span v-if="code">{{ $t('message.home.inviter_Code') }}: {{ code }} &nbsp;&nbsp;&nbsp; {{ $t('message.home.level') }}: {{ level }}</span> </div>
                 <div class="logged_in" v-if="loggined">
                     <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
                     <div class="idtxt">{{ realId }}</div>
@@ -98,9 +98,9 @@ const chainList = ref({
         chainId: 43113,
     },
     mumbai: {
-        name: 'Mumbai',
-        img: 'https://chainlist.org/_next/image?url=https%3A%2F%2Fdefillama.com%2Fchain-icons%2Frsz_polygon.jpg&w=64&q=75',
-        chainId: 80001,
+        name: 'BSC',
+        img: 'https://testnet.bscscan.com/images/favicon.ico',
+        chainId: 97,
     },
     select: {
         name: 'Avalanche Fuji Testnet',
@@ -254,9 +254,9 @@ const connect: any = async () => {
     const ismessage: any = await NFT.hasMetaMask()
 
     if( ismessage == 'No install' ){
-        store.dispatch('user/metaChange',true);
-        store.dispatch('user/metaChangeAni',true);
-        store.dispatch('user/checkInstall',false);
+        // store.dispatch('user/metaChange',true);
+        // store.dispatch('user/metaChangeAni',true);
+        // store.dispatch('user/checkInstall',false);
     }else{
         store.dispatch('user/metaChange',true);
         store.dispatch('user/metaChangeAni',true);
@@ -278,7 +278,7 @@ const connect: any = async () => {
         await web3obj.eth.net.getId().then((chainId: any) => {
             console.log(chainId, '99999999');
             store.dispatch('user/chageChainId', Number(chainId))
-            if(chainId != 80001 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
+            if(chainId != 97 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
         })
         if(code.value && messSing.value == '') isRegister();
     }
@@ -303,13 +303,14 @@ const isRegister = (isClick?: boolean) => {
         return;
     }
     proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
-        // if(res.data === true){
-        //     register.value = true;
-        //     registerTrans.value = true;
-        //     return;
-        // } 
-        level.value = res.data.level;
-        code.value = res.data.inv_level || router.currentRoute.value.query.code;
+        if(res.data === true){
+            register.value = true;
+            registerTrans.value = true;
+        } 
+        setTimeout(() => {
+            level.value = res.data.level || 0;
+            code.value = res.data.inv_level || router.currentRoute.value.query.code;
+        }, 1000);
     }).catch( (err: any) => {
         console.log(err)
     })

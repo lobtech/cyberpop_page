@@ -1,45 +1,88 @@
 <template>
     <header-a path="/mining" :type="1"></header-a>
-    <div class="section">
+    <!-- <div class="section">
         <div class="title">{{$t('message.mining.coming')}}</div>
-    </div>
+    </div> -->
     <div class="mining">
         <div class="banner">
-            <div class="title">{{$t('message.mining.title')}}</div>
-            <div class="subtitle">{{$t('message.mining.subtitle')}}</div>
+            <div class="titles">
+                <div class="title">NFT MINING</div>
+                <div class="subtitle">{{$t('message.mining.subtitle')}}</div>     
+            </div>
             <div class="total">
                 <div class="progressBall">
                     <img class="ballBorder" src="https://d2cimmz3cflrbm.cloudfront.net/nwmining/ballBorder.svg" alt="">
                     <div class="ball-inner"></div>
                 </div>
-
                 <div class="right">
-                    <div class="total-title">{{$t('message.mining.total_title')}}</div>
-                    <div class="total-subtitle">{{$t('message.mining.total_subtitle')}}</div>
-                    <div class="price">$- -</div>
+                    <div class="right_content">
+                        <div class="total-title">Mining PooL Amount (CYT) </div>
+                        <div class="price">$3,441,130</div>
+                        <div class="total-subtitle">Mining PooL:1,092,37</div>
+                    </div>
                 </div>
             </div>
         </div>
         <ul class="data">   
             <li>
-                <div class="txt">{{$t('message.mining.data_txt1')}}</div>
-                <div class="percent">{{ getTotalSupply }}</div>
+                <div>
+                    <div class="txt">Total Mining Power <img src="https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin5.png" alt=""> </div>
+                    <div class="percent">{{ getTotalSupply }}</div>
+                </div>
             </li>
+            <div class="line"></div>
             <li>
-                <div class="txt">{{$t('message.mining.data_txt3')}}</div>
-                <div class="percent">- -%</div>
+                <div>
+                    <div class="txt">Total Staked Amount</div>
+                    <div class="percent">10,199</div>
+                </div>
             </li>
+            <div class="line"></div>
             <li>
-                <div class="txt">{{$t('message.mining.data_txt3')}}</div>
-                <div class="percent">≈$- -</div>
+                <div>
+                    <div class="txt">Total Staked Tokens(CYT) ≈ $5,278,606</div>
+                    <div class="percent">$19,432,500,000,000</div>
+                </div>
             </li>
         </ul>
+        <div class="mystaked">
+            <ul>
+                <li>
+                    <div>
+                        <p class="title">My Mining Power</p>
+                        <p class="number_list"> <span class="number">0</span> <span class="dollar">≈ $0.278</span></p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <p class="title">My Staked Amount</p>
+                        <p> <span class="number">0</span></p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <p class="title">My Staked Tokens(CYT)≈ $0</p>
+                        <p> <span class="number">0</span></p>
+                    </div>
+                </li>
+            </ul>
+            <div class="Harvest">
+                <div class="texts">
+                    <div class="exchange">(CYT) ≈ $0.34566</div>
+                    <div class="price">114,514</div>
+                </div>
+                <div class="button">Harvest</div>
+            </div>
+        </div>
+        <div class="more">
+            <img src="https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin2.png" alt="">
+        </div>
         <div class="days">
             <div class="title">Days</div>
             <div class="content">
                 <div :style="{'width': progress + '%'}"></div>
             </div>
-            <div class="total_day">total: 30day</div>
+            <div class="total_day">Cycle days: 30day</div>
         </div>
         <div class="pledge">
             <div class="title">{{$t('message.mining.pledge_title')}}<span>2/4</span></div>
@@ -66,9 +109,9 @@
                         </div>
                     </div>
                     <div class="have-stak"  @click="stakingCyt" v-else>
-                         Your Staking: {{ myStakCyt }}
-                         Current day: {{ 30 }}
+                         <p>Your Staking: {{ myStakCyt }} <br> Current day: {{ myTime > 0 ? myTime : 'Finish, click to receive' }}</p>
                     </div>
+                    <div class="withdraw">111</div>
                 </li>
                 <li>
                     <div class="img-wrap">
@@ -102,11 +145,19 @@
                 </li>
             </ul>
         </div>
+        <div class="farms">
+            <div class="background">
+                
+            </div>
+            <div class="content"></div>
+        </div>
     </div>
     <footer-a></footer-a>
     <coming-a v-show="showComingFlag"></coming-a>
+    <FinishedA ref="Finished" :isShowTips="isShowFinished" v-if="isShowFinished" @closeFinshed="isShowFinished = false"></FinishedA>
+
     <!-- 切换网络弹窗 -->
-    <wrongNetWorkA :isShowTips="isShowTips" @changeSwitch="changeSwitch"></wrongNetWorkA>
+    <!-- <wrongNetWorkA :isShowTips="isShowTips" @changeSwitch="changeSwitch"></wrongNetWorkA> -->
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
@@ -114,23 +165,35 @@ import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, wa
 import store from '@/store'
 import {  useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
+import { useI18n } from 'vue-i18n';
+import FinishedA from '@/components/staking/FinishedA.vue';
+
 
 const { staking, cytV2 } = Web3.contracts;
-
+const { t, locale } = useI18n();
 const router = useRouter()
 const realId = computed(() => store?.state.user?.realId);  // 星号地址
 const chainId: any = computed(() => store.state.user?.chainId);
+const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
+watch(readyAssetsF, (newVal, oldVal: any) => {
+    console.log(newVal, oldVal, 'readyAssetsF');
+    if(!oldVal || oldVal == -1) return;
+    init()
+    console.log('her3');
+}, {immediate:true,deep:true});
+
 watch(chainId, (newVal: any, oldVal: any) => {
     console.log(newVal, oldVal, 'newVal');
     console.log(!oldVal);
-    
     if(!oldVal || oldVal == -1) return;
     if(newVal != 43113){
-        changeSwitch()
+        store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
         return;
     }
     init()
 }, {immediate:true,deep:true});
+
+
 watch(realId, (newVal, oldVal: any) => {
     console.log(newVal, oldVal, 'realId');
     if(!oldVal || oldVal == -1) return;
@@ -138,14 +201,16 @@ watch(realId, (newVal, oldVal: any) => {
     console.log('her3');
 }, {immediate:true,deep:true});
 
-// component
-const isShowTips = ref(false)
-const changeSwitch = () => { //子组件，弹窗属性
-    isShowTips.value = !isShowTips.value;
-}
+
+// 子组件Finished（质押完成领取奖励）
+const Finished = ref(null);
+const isShowFinished = ref(false as boolean);
+console.log(Finished, 'Finished');
+
+
 
 // progress 进度
-const progress = ref(0)
+const progress = ref(0) as any;
 
 // coming soon
 let showComingFlag:any = ref(false)
@@ -189,11 +254,18 @@ let lockedBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pl
 //  my balance
 const mycyt: any = ref(0);
 const myStakCyt: any = ref(0);
+const myTime: any = ref(0);
 
 // start staking
 const stakingCyt = async () => {
-    store.dispatch('user/stakingState', { show: true, info: { state: 0, haveCTY: mycyt.value }});
+    if(myTime.value > 0) { // 还没到时间 还可以继续质押
+        store.dispatch('user/stakingState', { show: true, info: { state: 0, haveCTY: mycyt.value }});
+        store.dispatch('user/xplanChangeAni', true);
+        return;
+    }
     store.dispatch('user/xplanChangeAni', true);
+    isShowFinished.value = true;
+    // await Web3.getReward(staking.abi, staking.address);
 }
 
 // init data
@@ -201,22 +273,24 @@ const init = async () => {
     mycyt.value = await Web3.ERC20balanceOf(cytV2.abi, cytV2.address);
     myStakCyt.value = await Web3.getBalanceOf(staking.abi, staking.address)
     console.log(myStakCyt.value, 'myStakCyt.value');
-    let DaysResult = await Web3.DaysRemaining(staking.abi, staking.address, 3)
+    let DaysResult = await Web3.DaysRemaining(staking.abi, staking.address, 3) as number;
     console.log(DaysResult, 'DaysResult');
-    
+    myTime.value = DaysResult.toFixed(2);
+    console.log(myTime.value , 'myTime.value');
+    progress.value = await Web3.progress(staking.abi, staking.address);
+    console.log(progress.value, 'progress.value');
+    if(myTime.value <= 0) progress.value = 100;
 }
 
 onMounted(async () => {
-    let a = await Web3.notifyrewardamount(staking.abi, staking.address)
-    console.log(a);
+    // let a = await Web3.notifyrewardamount(staking.abi, staking.address)
+    // console.log(a);
     setTimeout(() => {
         if(chainId.value != 43113){
-            changeSwitch()
             return;
         }
-        progress.value = 40;
-        init() 
-    }, 2000);
+        init()
+    }, 1000);
     getTotalSupply.value = await Web3.getTotalSupply(staking.abi, staking.address)
     window.scrollTo(0,0);
 })
@@ -241,8 +315,25 @@ onMounted(async () => {
             transform: rotateY(180deg);
         }
     }
+    @keyframes arrow{
+        0% {
+            transform: translateY(0);
+        }
+        25% {
+            transform: translateY(10px);
+        }
+        50% {
+            transform: translateY(0px);
+        }
+        75% {
+            transform: translateY(-10px);
+        }
+        100% {
+            transform: translateY(0px);
+        }
+    }
     a {
-    text-decoration: none;
+        text-decoration: none;
     }
     .section{
         z-index: 8;
@@ -281,34 +372,39 @@ onMounted(async () => {
             background-repeat: no-repeat;
             background-position: left bottom;
             background-size: 100% 100%; 
-            .title{
-                height: 6.56vw;
-                margin-top: 6.92vw;
-                margin-right: 17.65vw;
-                font-size: 4.73vw;
-                font-family: AlibabaPuHuiTi_2_105_Heavy;
-                color: #FFFFFF;
-                line-height: 6.56vw;
-                letter-spacing: .46vw;
-                text-align: right;
-                animation: fadeInUp .8s linear;
-            }
-            .subtitle{
-                height: 2.13vw;
-                margin-right: 17.55vw;
-                font-size: 1.51vw;
-                font-family: AlibabaPuHuiTi_2_75_SemiBold;
-                color: #FFFFFF;
-                line-height: 2.13vw;
-                text-align: right;
+            padding-top: 12.01vw;
+            // position: absolute;
+            .titles{
+                position: absolute;
+                right: 0;
+                right: 18.65vw;
+                top: 23vw;
+                .title{
+                    font-size: 3.33vw;
+                    font-family: AlibabaPuHuiTi_2_105_Heavy;
+                    color: #FFFFFF;
+                    line-height: 4.63vw;
+                    letter-spacing: 6px;
+                    filter: drop-shadow(0.155vw 0 0 #D236A5) drop-shadow(-0.15vw 0 0.05rem #72F0D9);
+                }
+                .subtitle{
+                    font-size: 1.19vw;
+                    font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                    color: #FFFFFF;
+                    line-height: 1.66vw;
+                    text-align: right;
+                    margin-right: 0.5vw;
+                }
             }
             .total{
                 display: flex;
                 margin-top: 2.96vw;
-                margin-left: 20.78vw;
+                margin-left: 14.78vw;
+                position: relative;
                 .progressBall{
                     display:inline-block;
                     position: relative;
+                    z-index: 1;
                     width: 11.30vw;
                     height: 11.45vw;
                     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwmining/ballBg.svg');
@@ -333,34 +429,38 @@ onMounted(async () => {
                         position:relative;
                         top: 28%;
                         left: -48%;
-                        -webkit-animation:wave 5s linear infinite;
+                        -webkit-animation: wave 5s linear infinite;
                         z-index:66;
                     }
                 }
                 .right{
                     margin-left: 2.13vw;
-                    .total-title{
-                        height: 1.71vw;
-                        font-size: 1.25vw;
-                        font-family: AlibabaPuHuiTi_2_105_Heavy;
-                        color: #FFFFFF;
-                        line-height: 1.71vw;
-                    }
-                    .total-subtitle{
-                        height: 1.45vw;
-                        font-size: 1.04vw;
-                        font-family: AlibabaPuHuiTi_2_55_Regular;
-                        color: #B4B4B4;
-                        line-height: 1.45vw;
-                    }
-                    .price{
-                        height: 3.6vw;
-                        font-size: 3.07vw;
-                        // font-family: AlibabaPuHuiTi_2_105_Heavy;
-                        font-family: Oswald-Regular;
-                        font-weight: 900;
-                        color: #04FF55;
-                        line-height: 3.6vw;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .right_content{
+                        .total-title{
+                            height: 1.71vw;
+                            font-size: 1.25vw;
+                            font-family: AlibabaPuHuiTi_2_105_Heavy;
+                            color: #FFFFFF;
+                            line-height: 1.71vw;
+                        }
+                        .total-subtitle{
+                            height: 1.45vw;
+                            font-size: 1.04vw;
+                            font-family: AlibabaPuHuiTi_2_55_Regular;
+                            color: #B4B4B4;
+                            line-height: 1.45vw;
+                        }
+                        .price{
+                                font-size: 3.07vw;
+                            // font-family: AlibabaPuHuiTi_2_105_Heavy;
+                            font-family: AlibabaPuHuiTi_2_105_Heavy;
+                            font-weight: 900;
+                            color: #04FF55;
+                            line-height: 3.6vw;
+                        }
                     }
                 }
             }
@@ -372,33 +472,154 @@ onMounted(async () => {
         }
         .data{
             width: 60.78vw;
-            height: 5.1vw;
+            height: 6.14vw;
+            left: 0;
+            right: 0;
             margin: 0 auto;
-            background: #121122;
+            position: absolute;
             display: flex;
+            background: #171C28;
+            box-shadow: 0px 12px 20px 0px rgba(0,0,0,.65);
+            border: 2px solid #27E37C;
+            .line{
+                width: 0.104vw;
+                height: 2.08vw;
+                margin-top: 2vw;
+                background: #59647E;
+            }
             li{
                 margin-top: 1.05vw;
+                display: flex;
+                justify-content: center;
                 .txt{
                     font-size: .98vw;
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #B3B3B3;
                     line-height: 1.35vw;
+                    display: flex;
+                    align-items: center;
+                    img{
+                        margin-left: 0.5vw;
+                        width: 1.04vw;
+                    }
                 }
                 .percent{
-                    height: 2vw;
                     font-size: 1.61vw;
-                    // font-family: AlibabaPuHuiTi_2_85_Bold;
-                    font-family: Oswald-Regular;
-                    font-weight: 900;
-                    color: #F2F2F2;
-                    line-height: 2vw;
+                    line-height: 2.29vw;
+                    font-family: AlibabaPuHuiTi_2_85_Bold;
+                    color: #04FF55;
                 }
             }
             li:first-child{
-                margin-left: 14.2vw;
+                width: 16.87vw;
             }
-            li + li{
-                margin-left: 5.6vw;
+            li:nth-child(3){
+                width: 17.13vw;
+            }
+            li:nth-child(5){
+                width: 26.56vw;
+            }
+        }
+        .mystaked{
+            width: 59.74vw;
+            height: 6.66vw;
+            margin: auto;
+            margin-top: 6.14vw;
+            background: #3F16A7;
+            border: 1px solid #3F4043;
+            position: relative;
+            ul{
+                width: 100%;
+                height: 100%;
+                li{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    float: left;
+                    height: 100%;
+                    color: #B3B3B3;
+                    .title{
+                        font-size: 0.98vw;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                        line-height: 1.35vw;
+                    }
+                    .number_list{
+                        display: flex;
+                        align-items: center;
+                    }
+                    .number{
+                        font-size: 1.61vw;
+                        font-family: AlibabaPuHuiTi_2_85_Bold;
+                        color: #FFFFFF;
+                        line-height: 2.29vw;
+                    }
+                    .dollar{
+                        display: inline-block;
+                        padding-top: 0.2vw;
+                        margin-left: 0.5vw;
+                        font-size: 0.625vw;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                        line-height: 0.88vw;
+                    }
+                }
+                li:nth-child(1){
+                    width: 11.97vw;
+                }
+                li:nth-child(2){
+                    width: 11.91vw;
+                }
+                li:nth-child(3){
+                    width: 17.29vw;
+                }
+            }
+            .Harvest{
+                width: 19.11vw;
+                height: 7.18vw;
+                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin3.png'); 
+                background-size: 100% 100%;
+                position: absolute;
+                right: 0;
+                top: 0;
+                padding-left: 1.56vw;
+                padding-right: 1.30vw;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .texts{
+                    .exchange{
+                        font-size: 0.98vw;
+                        font-family: AlibabaPuHuiTi_2_85_Bold;
+                        color: #2C1469;
+                        line-height: 1.35vw;
+                    }
+                    .price{
+                        font-size: 1.61vw;
+                        font-family: AlibabaPuHuiTi_2_105_Heavy;
+                        color: #3F16A7;
+                        line-height: 2.29vw;
+                    }
+                }
+                .button{
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin8.png'); 
+                    background-size: 100% 100%;
+                    width: 6.92vw;
+                    line-height: 2.55vw;
+                    text-align: center;
+                    font-size: 0.93vw;
+                    font-family: AlibabaPuHuiTi_2_85_Bold;
+                    color: #FFFFFF;
+                    margin-top: 2vw;
+                }
+            }
+        }
+        .more{
+            text-align: center;
+            margin-top: 2.08vw;
+            img{
+                width: 1.66vw;
+                height: 1.04vw;
+                -webkit-animation: arrow 2s linear infinite;
             }
         }
         .days{
@@ -438,7 +659,6 @@ onMounted(async () => {
             width: 60.78vw;
             height: 28.9vw;
             margin: 0 auto;
-            margin-bottom: 26vh;
             .title{
                 width: 100%;
                 margin-top: 4.53vw;
@@ -473,6 +693,7 @@ onMounted(async () => {
                         height: 100%;
                         display: flex;
                         color: #DFF;
+                        flex-wrap: wrap;
                         justify-content: center;
                         align-items: center;
                         text-align: center;
@@ -555,6 +776,19 @@ onMounted(async () => {
                 }
                 li + li{
                     margin-left: 2.76vw;
+                }
+            }
+        }
+        .farms{
+            .background{
+                height: 35.156vw;
+                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin6.png');
+                background-size: auto 100%;
+                .img_title{
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin6.png');
+                    background-size: auto 100%;
+                    width: 17.23vw;
+                    height: 15.26vw;
                 }
             }
         }

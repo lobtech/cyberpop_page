@@ -641,6 +641,8 @@ const showxplan = () => {
 let showDown:any = ref(false);
 
 const playToEarn = () => {
+    router.push({ path: '/download', query: { code: router.currentRoute.value.query.code || '' } })
+    return;
     if( realId.value != -1 ){
         showDown.value = true; 
         isOut.value = false;
@@ -933,11 +935,6 @@ onMounted(() => {
     store.dispatch('user/showDialog',{show: false, info: {}});
     window.scrollTo(0,0);
     console.log(router.currentRoute.value.query.code, 'router.currentRoute.value.query.code');
-    
-    if(router.currentRoute.value.query.code) {
-        showDown.value = true; 
-        isOut.value = false;
-    }
 })
 
 </script>

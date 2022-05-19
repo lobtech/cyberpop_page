@@ -27,7 +27,7 @@
                 </div>
                 <div class="item">
                     <p>step2</p>
-                    <div class="content1" :class="{'success': state >= 4 && state != 5, 'reject': state == 5}"> 
+                    <div class="content1" :class="{'success': state >= 4 && state != 5, 'reject': state == 5}">
                         <span>Authorization in progress....</span>
                         <div class="loading" v-if="state == 3">
                             <img src="@/assets/nwhomePhone/loading-phone.svg" alt="">
@@ -66,14 +66,14 @@ const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 const { MarketV2, cytV2, staking } = Web3.contracts;
 
-const props: any = defineProps({
+const props = defineProps({
     isShowTips: Boolean,
     haveCTY: Number,
     state: {
         type: Number,
         default: 0
     },
-});
+})
 
 const readyAssetsF: any = computed(() => store.state.user?.readyAssets ); // 连接的状态值
 const xplanAni = computed(() => store?.state.user?.xplanAni);
@@ -86,7 +86,7 @@ watch(active, (newVal: any, oldVal) => {
     if(newVal == 0){
         valueIn.value = 1;
     }else{
-        valueIn.value = parseInt(props.haveCTY) || 1;
+        valueIn.value = props.haveCTY || 1;
     }
     numState.value = ''
 }, {immediate:true,deep:true});

@@ -204,7 +204,7 @@
     
     <footer-a></footer-a>
     <load-game-a :isShowTips="TipsState" :transition="transition" :tokenId="tokenId" v-if="TipsState" :loadAbi="loadAbi" :loadAddress="loadAddress" :number="number" @initLoad='initLoad'></load-game-a>
-    <!-- <message-a v-show="showDialog" :state="messageState" :dialogC="messageContent"></message-a> -->
+    <popup-a v-show="transferActive" :transferInfo="transferItem" :abi="abiSelect" :address="addressSelect"></popup-a>
 </template>
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'

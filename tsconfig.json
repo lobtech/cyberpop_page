@@ -1,5 +1,6 @@
 {
     "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/types/.d.ts/moralis.d.ts"],
+    "noUnusedParameters": false,
     "compilerOptions": {
         "outDir": "./dist", // 指定输出目录
         "target": "esnext", // 目标语言的版本

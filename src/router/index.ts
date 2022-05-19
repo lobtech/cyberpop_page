@@ -11,6 +11,16 @@ const routes = [
         }
     },
     {
+        name: 'download',
+        path: '/download',
+        component: () => import('../views/download/index.vue'),
+        meta: {
+            keepAlive: false,
+            showFooter: true,
+            transition: 'slide-right',
+        },
+    },
+    {
         name: 'privacy',
         path: '/privacy',
         component: () => import('../views/privacy/index.vue'),

@@ -13,7 +13,7 @@
                         @mouseleave="mouseLeaveChain"
                         v-show="realId !== -1"
                     >
-                        <div class="select_chain" @click="switchChain" :class="{'selected': chainId == 80001 || chainId == 43113}"><img :src="chainId == 80001 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 80001 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span><div class="blur"></div></div>
+                        <div class="select_chain" @click="switchChain" :class="{'selected': chainId == 97 || chainId == 43113}"><img :src="chainId == 97 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 97 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span><div class="blur"></div></div>
                         <div class="hover_chunk" v-show="showChainList">
                             <div class="chunk_wrap">
                                 <div v-for="(value,key,index) in chainList" @click="changeChain(value)" :key="index" class="item" v-show="!value.active"><img :src="value.img" alt=""><span>{{ value.name }}</span></div>
@@ -140,9 +140,9 @@ const chainList = ref({
         chainId: 43113,
     },
     mumbai: {
-        name: 'Mumbai',
-        img: 'https://mumbai.polygonscan.com/images/svg/brands/poly.png?v=1.3',
-        chainId: 80001,
+        name: 'BSC',
+        img: 'https://testnet.bscscan.com/images/favicon.ico',
+        chainId: 97,
     },
     select: {
         name: 'Fuji',
@@ -178,7 +178,6 @@ const changeChain = async (value?: any) => {
     let a: any = await NFT.addChain(value.chainId)
     if(a){
         store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.assets.pop.tran_succ')}})
-
         chainList.value.select = {...value, active: 1};
     }else{
         store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.tran_stop')}})
@@ -187,7 +186,7 @@ const changeChain = async (value?: any) => {
 
 const mouseOver: any = () => {
     console.log(chainId.value);
-    if(chainId.value == 80001 || chainId.value == 43113){
+    if(chainId.value == 97 || chainId.value == 43113){
         showChainList.value = true;
     }
 }
@@ -197,7 +196,7 @@ const mouseLeaveChain: any = () => {
 }
 
 const switchChain = () => { //切换链
-    if(chainId.value == 80001 || chainId.value == 43113) return;
+    if(chainId.value == 97 || chainId.value == 43113) return;
     store.dispatch('user/xplanChangeAni', true);
     isShowTips.value = !isShowTips.value;
 }
@@ -356,6 +355,11 @@ const connect: any = async () => {
         store.dispatch('user/metaChange',true);
         store.dispatch('user/metaChangeAni',true);
         store.dispatch('user/checkInstall',false);
+        if(code.value && messSing.value == '') {
+            register.value = true;
+            registerTrans.value = true;
+            store.dispatch('user/messSing', 'ok');
+        };
     }else{
         store.dispatch('user/metaChange',true);
         store.dispatch('user/metaChangeAni',true);
@@ -377,7 +381,7 @@ const connect: any = async () => {
         await web3obj.eth.net.getId().then((chainId: any) => {
             console.log(chainId);
             store.dispatch('user/chageChainId', Number(chainId))
-            if(chainId != 80001 && chainId != 43113) {
+            if(chainId != 97 && chainId != 43113) {
                 store.dispatch('user/xplanChangeAni', true);
                 store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
             }
@@ -387,7 +391,7 @@ const connect: any = async () => {
 }
 
 // 邀请用户注册
-const level = ref(0); // 用户等级
+const level = ref(0) as any; // 用户等级
 const isRegister = (isClick?: boolean) => {
     if(isClick) { // 表示是点击的按钮
         register.value = true;
@@ -396,13 +400,14 @@ const isRegister = (isClick?: boolean) => {
         return;
     }
     proxy.$api.get(`/code/level/eqaddr?addr=${idTemp.value}`).then((res: any) => {
-        // if(res.data === true){
-        //     register.value = true;
-        //     registerTrans.value = true;
-        //     return;
-        // } 
-        level.value = res.data.level;
-        code.value = res.data.inv_level || router.currentRoute.value.query.code;
+        if(res.data === true){
+            register.value = true;
+            registerTrans.value = true;
+        } 
+        setTimeout(() => {
+            level.value = res.data.level || 0;
+            code.value = res.data.inv_level || router.currentRoute.value.query.code;
+        }, 1000);
     }).catch( (err: any) => {
         console.log(err)
     })
@@ -435,7 +440,7 @@ const signout = () => {
 
 
 const toAssets = () => {
-    router.push('/knapsack');
+    router.push({ path: '/knapsack', query: { code: code.value } });
 }
 
 
@@ -612,17 +617,17 @@ onMounted(() => {
                         align-items: center;
                         margin-right: .5vw;
                         .register_button{
-                            border: 1px solid #DD2ECE;
-                            padding: 0.5vw 1vw;
-                            font-size: 1.02vw;
-                            color: #DD2ECE;
+                            padding: 0.26vw 0.41vw;
+                            font-size: 0.63vw;
+                            font-family: AlibabaPuHuiTi_2_65_Medium;
+                            color: #FFFFFF;
+                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwAssets/withBorder.png');
+                            background-size: 100% 100%;
                             display: flex;
                             justify-content: center;
                             align-items: center;
-                            font-size: 0.83vw;
                             white-space: nowrap;
                             cursor: pointer;
-                            font-family: AlibabaPuHuiTi_2_75_SemiBold;
                         }
                     }
                     .login_in{

@@ -15,10 +15,10 @@
         <boxOpenedA v-if="innerWidth > 1025 && boxOpened" :isShowTips="boxOpened" :boxId="boxId"></boxOpenedA>
         <boxOpenedB v-if="innerWidth <= 1025 && boxOpened" :isShowTips="boxOpened" :boxId="boxId"></boxOpenedB>
         <div class="ip_error" v-if="iperror && innerWidth > 1025">
-            Our service is only available for part of the legal compliance countries and regions.  Illegal access will not be protected. 
+            {{$t('message.common.ip')}}
         </div>
         <div class="ip_error_Mobile" v-if="iperror && innerWidth <= 1025">
-            Our service is only available for part of the legal compliance countries and regions.  Illegal access will not be protected. 
+            {{$t('message.common.ip')}}
         </div>
         <!-- <div style="background: #333;color: #fff" v-if="cname">{{ cname }}</div> -->
     </router-view>
@@ -33,6 +33,8 @@ const route = useRouter()
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 const $store: any = useStore()
+const router = useRouter()
+
 
 const innerWidth = computed(() => store.state.sys?.innerWidth || 0)
 const iperror = ref(false);
@@ -58,35 +60,44 @@ const isChinese = (val: any) => {
     }
 }
 
-const cname = ref(0)
+const cname = ref(0) // 城市名字
 
 
 onMounted(() => {
     const ethereum = (window as any).ethereum 
     window.onresize = () => store.dispatch('sys/get_screen_size') // 监听屏幕尺寸
     
-    ethereum.on("accountsChanged", (accounts: any) => {
-        console.log(accounts[0]);//一旦切换账号这里就会执行
-        let id = accounts[0];
-        let len = id.length-1;
-        id = id[0]+id[1]+id[2]+id[3]+id[4]+"*****"+id[len-3]+id[len-2]+id[len-1]+id[len];
-        store.dispatch('user/connectWallet',{realId:id, idTemp:accounts[0]});// 存放星号id、完整id
-        store.dispatch('user/dataSumSearch',{flag:0});
-    });
-    ethereum.on('chainChanged', (chainId: string) => {
-        let id: any = Number(chainId);
-        // console.log(id);
-        
-        store.dispatch('user/chageChainId', Number(chainId))
-        
-        
-        if(id != 80001 && id != 43113) {
-            store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
-            return;
-        }
-        store.dispatch('user/TipsState', {show: false, info: { }});
-    });
- 
+    if(ethereum){  // 如果安装了metamask才执行
+        ethereum.on("accountsChanged", (accounts: any) => {
+            console.log(accounts[0]);//一旦切换账号这里就会执行
+            let id = accounts[0];
+            let len = id.length-1;
+            id = id[0]+id[1]+id[2]+id[3]+id[4]+"*****"+id[len-3]+id[len-2]+id[len-1]+id[len];
+            store.dispatch('user/connectWallet',{realId:id, idTemp:accounts[0]});// 存放星号id、完整id
+            store.dispatch('user/dataSumSearch',{flag:0});
+        });
+        ethereum.on('chainChanged', (chainId: string) => {
+            let id: any = Number(chainId);
+            // console.log(id);
+            
+            store.dispatch('user/chageChainId', Number(chainId))
+            
+            if(id != 97 && id != 43113) {
+                store.dispatch('user/xplanChangeAni', true);
+                store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
+                return;
+            }
+            store.dispatch('user/TipsState', {show: false, info: { }});
+        });
+    }
+
+    // 如果携带了邀请的code自动跳转
+    console.log(router.currentRoute.value.query.code, 'router.currentRoute.value.query.code');
+    
+    // setTimeout(() => {
+    //     if(router.currentRoute.value.query.code) router.push({ path: '/download', query: { code: router.currentRoute.value.query.code || '' } })
+    // }, 500);
+     
     // 验证是否是中国IP
     var returnCitySN = (window as any).returnCitySN;
     console.log(returnCitySN, 'returnCitySN');
@@ -99,7 +110,6 @@ onMounted(() => {
         // route.push({ path: '/IPshielding' })
         iperror.value = true;
         console.log(2222);
-        
     }else{ 
         setTimeout(() => {
             console.log(route.currentRoute.value, 'route.currentRoute.value');

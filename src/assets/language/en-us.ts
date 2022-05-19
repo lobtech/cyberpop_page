@@ -44,7 +44,7 @@ const us = {
                 network: 'Network Error',
                 wrongNetwork: 'WRONG NERWOEK',
                 wrongContent: 'You are connecting to the wrong network. Please connect to the Mumbai or Fuji network.',
-                switchMumbai: 'SWITCH MUMBAI',
+                switchMumbai: 'SWITCH BSC',
                 switchFuji: 'SWITCH FUJI',
             },
             // messageB
@@ -65,7 +65,22 @@ const us = {
                 // mobile
                 limited_m: 'whitelists',
                 quota_m: 'Basic quota per person',
-            }
+            },
+            //register
+            register: {
+                REGISTER: 'REGISTER',
+                inputEmail: 'input email',
+                Email: 'Email',
+                tips1: 'The message has been registered',
+                tips2: 'User information error',
+                tips3: 'Invitation code error',
+                tips4: 'Email error',
+                tips5: 'Mailbox has been registered',
+                level: 'level',
+                
+            },
+            // common
+            ip: 'Our service is only available for part of the legal compliance countries and regions.  Illegal access will not be protected. '
         },
 
         // homeA
@@ -412,7 +427,20 @@ const us = {
             Transfering_content: 'Transfer in progress, please wait',
         },
 
-
+        //dowload
+        download: {
+            tips1: 'Account will be automatically registered',
+            REGISTER: 'REGISTER',
+            ios: 'ios',
+            Android: 'Android',
+            inputEmail: 'input email',
+            tips2: 'Not Ios App',
+            tips3: 'Email error',
+            tips4: 'The message has been registered',
+            tips5: 'User information error',
+            tips6: 'Invitation code error',
+            tips7: 'Mailbox has been registered',
+        },
     }
 }
 
