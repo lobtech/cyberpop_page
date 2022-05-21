@@ -433,6 +433,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="https://www.gate.io" target="view_window">
                 <img class="logo10" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_gate.png" alt="">
             </a>
+            <div>
+                <img class="logo8" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/hashshareBank.png" alt="">
+            </div>
             <a href="https://consensys.net/" target="view_window">
                 <img class="logo7" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/consensys-logo.svg" alt="">
             </a>
@@ -2361,7 +2364,7 @@ onMounted(() => {
     }
     .partners{
         width: 100%;
-        height: 1160px;
+        height: 1250px;
         margin: -2px 0;
         margin-top: -60px;
         background-color: #000000;
