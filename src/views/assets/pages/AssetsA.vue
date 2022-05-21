@@ -10,7 +10,7 @@
                     <img src="@/assets/nwAssets/portrait.svg" alt="">
                 </div>
                 <div class="title">{{$t('message.assets.wel_name')}}</div>
-                <div class="id">{{realId == -1? '':realId}}</div>
+                <div class="id">{{realId == -1 ? '' : realId}}</div>
                 <div class="desc">
                     {{$t('message.assets.wel_desc')}}
                 </div>
@@ -18,6 +18,18 @@
             <div class="ecr" v-if="readyAssetsF != -1">
                 <!-- <div class="ecr" v-if="false"> -->
                 <div class="search" ref="myNav">
+                    <div class="myAssets">
+                        <div class="item">
+                            <p>My CYT</p>
+                            <p>{{ myAssets.cyt || 0 }}</p>
+                            <div class="getCoin">GET CYT</div>
+                        </div>
+                        <div class="item">
+                            <p>My COIN</p>
+                            <p>{{ myAssets.coin || 0}}</p>
+                        </div>
+                        <div class="line"></div>
+                    </div>
                     <div class="title">{{t('message.assets.search_title')}}</div>
                     <div class="input">
                         <input type="text" :placeholder="t('message.assets.input_pla')">
@@ -226,7 +238,6 @@ const tokenId = ref(1);
 const loadAddress: any = ref(0)
 const loadAbi: any = ref(0);
 let data:any = ref([]);
-
 const loadingState: any = ref(0);
 const chainId: any = computed(() => store.state.user?.chainId );
 const transferSuccess = computed(() => store.state.user?.transferSuccess);
@@ -236,18 +247,21 @@ watch(chainId, (newVal, oldVal: any) => {
     if(!oldVal || oldVal == -1) return;
     console.log('her2');
 	getData(ecrType.value)
+    initMyAssetes()
 }, {immediate:true,deep:true});
 
 watch(realId, (newVal, oldVal) => {
     if(oldVal == -1 || !oldVal) return;
     console.log('her3');
 	getData(ecrType.value)
+    initMyAssetes()
 }, {immediate:true,deep:true});
 
 watch(transferSuccess, (newVal, oldVal) => {
     if(!oldVal) return;
     console.log('her4');
     getData(ecrType.value)
+    initMyAssetes()
 }, {immediate:true,deep:true});
 
 const copyUrl = (e: any) => {
@@ -280,12 +294,32 @@ const windowScroll: any = () => {
 
 let timer: any = null;
 const startMove = (target : any) => {
-    console.log(target, myNav.value.offsetTop, myNav.value.style, 'target');
+    console.log(target, myNav.value.offsetTop, 'targset');
+    let a = document.getElementsByClassName('prince')[0] as HTMLElement;
+    console.log(a.offsetTop);
+    
     let speed = (target - myNav.value.offsetTop) / 1;
     speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
     myNav.value.style.top = myNav.value.offsetTop + speed + 'px';
-    if(parseInt(myNav.value.style.top) < 599)  myNav.value.style.top = 517 + 'px';
-        
+    if(parseInt(myNav.value.style.top) < a.offsetTop)  myNav.value.style.top = a.offsetTop - 80 + 'px';
+    
+}
+
+
+//myAssets 
+const myAssets = ref({}) as any;
+const initMyAssetes = async () => {
+    console.log(1111);
+    console.log(chainId.value);
+    
+    if(chainId.value == 43113){
+        var a = await Web3.ERC20balanceOf(cytV2.abi, cytV2.address);
+        var b = await Web3.ERC20balanceOf(coin.abi, coin.address);
+    }
+    myAssets.value.cyt = a || 0;
+    myAssets.value.coin = b || 0;
+    console.log(myAssets.value, 'cyt');
+
 }
 
 
@@ -416,7 +450,7 @@ const initLoad = () => {
 }
 
 
-const { nft, nft_fuji, arms, gamePool, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji, LootBox } = Web3.contracts;
+const { nft, nft_fuji, arms, gamePool, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji, LootBox, cytV2, coin } = Web3.contracts;
 
 const getData: any = async (type: Number, filter: any = false) => { // erc正常的数据模式
     if(!filter) {
@@ -678,6 +712,7 @@ watch(readyAssetsF, (newVal: any, oldVal: any) => {
     if(newVal == -1) return;
     console.log('her1', newVal);
     getData(ecrType.value)
+    initMyAssetes()
 }, {immediate:true,deep:true});
 
 // NFT transfer
@@ -757,6 +792,7 @@ onMounted(() => {
     if(store.state.user?.readyAssets !== -1){
         // data.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
         getData(ecrType.value)
+        initMyAssetes()
     }
 })
 
@@ -850,13 +886,60 @@ onMounted(() => {
                 .search{
                     position: absolute;
                     width: 15.98vw;
-                    height: 40.66vw;
+                    // height: 40.66vw;
                     // margin: 4.27vw 1.66vw 9.68vw 3.43vw;
                     margin: 4.27vw 1.66vw 15vw 3.43vw;
                     padding: 2.08vw 1.04vw;
                     background: #1B1A22;
                     border-radius: 2px;
                     transition: all .5s ease-in-out;
+                    .myAssets{
+                        // height: 12.6vw;
+                        margin-bottom: 1.56vw;
+                        .item{
+                            margin-bottom: 1.302vw;
+                            position: relative;
+                            p:first-child{
+                                font-size: 0.83vw;
+                                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                font-weight: normal;
+                                color: #FFFFFF;
+                                line-height: 0.98vw;
+                                margin-bottom: 0.52vw;
+                            }
+                            p:nth-child(2){
+                                font-size: 0.93vw;
+                                font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                font-weight: normal;
+                                color: #7B61FF;
+                                line-height: 1.82vw;
+                            }
+                            .getCoin{
+                                position: absolute;
+                                right: 0;
+                                top: 1.6vw;
+                                width: 4.68vw;
+                                background: linear-gradient(213deg, #B041D8 0%, #DE2DCF 100%);
+                                border-radius: 0.31vw;
+                                font-size: 0.53vw;
+                                font-family: AlibabaPuHuiTi_2_85_Bold;
+                                font-weight: normal;
+                                color: #FFFFFF;
+                                line-height: 1.97vw;
+                                text-align: center;
+                                cursor: pointer;
+                                transition: all .2s ease-in-out;
+                            }
+                            .getCoin:hover{
+                                opacity: .7;
+                            }
+                        }
+                        .line{
+                            height: 0px;
+                            opacity: 1;
+                            border-bottom: 0.104vw solid #3F3356;
+                        }
+                    }
                     .title{
                         width: 9.58vw;
                         height: 1.61vw;

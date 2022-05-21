@@ -148,10 +148,17 @@ const balanceOf = (abi:any, address:any, id:any) => {
 
 // lootbox礼盒专用 開發人員面向使用者介面，使用此功能從戰利品盒中獲得隨機獎勵
 const unpack = (abi: any, address: any, id: any, number: any) => {
+    console.log(abi);
+    console.log(address);
+    console.log(id);
+    console.log(number);
+    
     return new Promise((resolve, reject) => {
+        let intNumber = parseInt(number);
+        console.log(intNumber, 'intNumber');
         const web3 = new Web3((window as any ).ethereum)
         const contract = new web3.eth.Contract(abi, address)
-        contract.methods.unpack(id, number).send({ from: accounts.value})
+        contract.methods.unpack(id, intNumber).send({ from: accounts.value})
         .on('transactionHash', function (hash: any) {
             console.log(`---------->:hash`, hash)
         })

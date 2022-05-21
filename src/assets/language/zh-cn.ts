@@ -431,6 +431,7 @@ const cn = {
             REGISTER: '注册',
             ios: '苹果',
             Android: '安卓',
+            windows: '窗口',
             inputEmail: '输入电子邮件',
             tips2: '沒有ios app',
             tips3: '電子郵件錯誤',

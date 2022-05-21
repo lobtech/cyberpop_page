@@ -1,8 +1,8 @@
 <template>
     <header-a path="/mining" :type="1"></header-a>
-    <!-- <div class="section">
+    <div class="section">
         <div class="title">{{$t('message.mining.coming')}}</div>
-    </div> -->
+    </div>
     <div class="mining">
         <div class="banner">
             <div class="titles">
@@ -44,6 +44,9 @@
                     <div class="percent">$19,432,500,000,000</div>
                 </div>
             </li>
+            <div class="element1"></div>
+            <div class="element2"></div>
+            <div class="element3"></div>
         </ul>
         <div class="mystaked">
             <ul>
@@ -145,11 +148,86 @@
                 </li>
             </ul>
         </div>
+        <div class="myAssets">
+            <div class="item1">
+                <div class="left">
+                    My CYT <span>{{ mycyt }}</span>
+                </div>
+                <div class="right button">
+                    GET CYT
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="item2">
+                <div class="left">
+                    My COIN <span>{{ mycoin }}</span>
+                </div>
+                <div class="right coin_logo">
+                    <img src="https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin9.png" alt="">
+                </div>
+            </div>
+        </div>
         <div class="farms">
             <div class="background">
-                
+                <div class="elements">
+                    <div class="left">
+                        <div class="img_title"></div>
+                        <div class="texts">
+                            <p class="title">Total LP Locked</p>
+                            <p class="price">$10,009,923</p>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div>
+                            <div>
+                                <p>FARMS</p>
+                                <p>STAKE LP TOKEN TO EARN</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="content"></div>
+            <div class="content">
+                <div class="item">
+                    <div class="top">
+                        <div class="top_element1"></div>
+                        <div class="top_element2"></div>
+                        <div class="table">
+                            <div class="title">Stake LP</div>
+                            <div class="desc">CYT-YOOSHI</div>
+                        </div>
+                        <div class="table">
+                            <div class="title">TVL</div>
+                            <div class="desc">$29,393,229</div>
+                        </div>
+                        <div class="table">
+                            <div class="title">APR</div>
+                            <div class="desc">489.09%</div>
+                        </div>
+                        <div class="table">
+                            <div class="title">Your staked</div>
+                            <div class="desc">12,323 <span class="tag">LP</span> </div>
+                        </div>
+                        <div class="table top_element5">
+                            <div class="title">Rewards in</div>
+                            <div class="desc">
+                                <p>318 CYT <span>/DAY</span> </p>
+                                <p>318 BNB <span>/DAY</span> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="table">
+                            <div class="title">Earned (CYT)</div>
+                            <div class="desc">≈ $123,222.00</div>
+                        </div>
+                        <div class="table">
+                            <div class="title">Earned (CYT)</div>
+                            <div class="desc">≈ $123,222.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <footer-a></footer-a>
@@ -253,8 +331,11 @@ let lockedBorderSrc:any = ref('https://d2cimmz3cflrbm.cloudfront.net/nwmining/pl
 
 //  my balance
 const mycyt: any = ref(0);
+const mycoin: any = ref(0)
 const myStakCyt: any = ref(0);
 const myTime: any = ref(0);
+
+const test = ref(0) as any
 
 // start staking
 const stakingCyt = async () => {
@@ -401,6 +482,7 @@ onMounted(async () => {
                 margin-top: 2.96vw;
                 margin-left: 14.78vw;
                 position: relative;
+                z-index: 2;
                 .progressBall{
                     display:inline-block;
                     position: relative;
@@ -481,11 +563,36 @@ onMounted(async () => {
             background: #171C28;
             box-shadow: 0px 12px 20px 0px rgba(0,0,0,.65);
             border: 2px solid #27E37C;
+            z-index: 1;
             .line{
                 width: 0.104vw;
                 height: 2.08vw;
                 margin-top: 2vw;
                 background: #59647E;
+            }
+            .element1{
+                width: 1px;
+                height: 1.82vw;
+                background: #27E37C;
+                position: absolute;
+                right: -0.416vw;
+                bottom: -0.416vw;
+            }
+            .element2{
+                width: 6.56vw;
+                height: 1px;
+                background: #27E37C;
+                position: absolute;
+                right: -0.416vw;
+                bottom: -0.416vw;
+            }
+            .element3{
+                width: 3.12vw;
+                height: 1px;
+                background: #27E37C;
+                position: absolute;
+                left: 0;
+                bottom: -0.416vw;
             }
             li{
                 margin-top: 1.05vw;
@@ -657,7 +764,6 @@ onMounted(async () => {
         }
         .pledge{
             width: 60.78vw;
-            height: 28.9vw;
             margin: 0 auto;
             .title{
                 width: 100%;
@@ -779,16 +885,205 @@ onMounted(async () => {
                 }
             }
         }
+        .myAssets{
+            width: 60.78vw;
+            height: 6.14vw;
+            background: #171C28;
+            box-shadow: 0px 12px 20px 0px rgba(0, 0, 0, 0.69);
+            border: 2px solid;
+            margin: 5.78vw auto 1.56vw auto;
+            border-image: linear-gradient(45deg, rgba(35, 71, 54, 1), rgba(51, 32, 91, 1)) 2 2;
+            display: flex;
+            .item1, .item2{
+                width: 50%;
+                height: 100%;
+                padding-left: 2.6vw;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 0.98vw;
+                font-family: AlibabaPuHuiTi_2_85_Bold;
+                color: #FFFFFF;
+                .left{
+                    display: flex;
+                    align-items: center;
+                }
+                .right{
+
+                }
+                .button{
+                    width: 7.03vw;
+                    line-height: 2.7vw;
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin10.png');
+                    background-size: 100% 100%;
+                    text-align: center;
+                    font-size: 0.93vw;
+                    margin-right: 2.29vw;
+                }
+                .coin_logo{
+                    width: 14.79vw;
+                    height: 100%;
+                    background: linear-gradient(90deg, rgba(88, 0, 255, 0) 0%, rgba(105, 0, 255, 0.6) 100%);
+                    text-align: right;
+                    img{
+                        width: 5.78vw;
+                        margin-right: 1.61vw;
+                        margin-top: 0.4vw;
+                    }
+                }
+                span{
+                    font-size: 1.61vw;
+                    font-family: AlibabaPuHuiTi_2_105_Heavy;
+                    color: #04FF55;
+                    margin-left: 1.04vw;
+                }
+            }
+            .line{
+                width: 0.104vw;
+                height: 2.08vw;
+                background: #59647E;
+                margin-top: 2.03vw;
+            }
+        }
         .farms{
             .background{
                 height: 35.156vw;
                 background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin6.png');
                 background-size: auto 100%;
-                .img_title{
-                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin6.png');
-                    background-size: auto 100%;
-                    width: 17.23vw;
-                    height: 15.26vw;
+                .elements{
+                    margin: 0 auto;
+                    width: 61.3vw;
+                    padding-top: 4.73vw;
+                    display: flex;
+                    justify-content: space-between;
+                    .left{
+                        height: 15.26vw;
+                        display: flex;
+                        align-items: center;
+                        .img_title{
+                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin1.png');
+                            background-size: auto 100%;
+                            width: 17.23vw;
+                            height: 100%;
+                        }
+                        .texts{
+                            .title{
+                                font-size: 1.25vw;
+                                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                                color: #FFFFFF;
+                                line-height: 1.71vw;
+                            }
+                            .price{
+                                font-size: 3.07vw;
+                                font-family: AlibabaPuHuiTi_2_105_Heavy;
+                                color: #04FF55;
+                                line-height: 4.32vw;
+                            }
+                        }
+                    }
+                    .right{
+                        & > div{
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            flex-wrap: wrap-reverse;
+                            color: #FFFFFF;
+                            div{
+                                & > :first-child{
+                                    font-size: 3.33vw;
+                                    font-family: AlibabaPuHuiTi_2_105_Heavy;
+                                    line-height: 4.63vw;
+                                    text-align: right;
+                                    filter: drop-shadow(0.155vw 0 0 #D236A5) drop-shadow(-0.15vw 0 0.05rem #72F0D9);
+                                }
+                                & > :last-child{
+                                    font-size: 1.19vw;
+                                    font-family: AlibabaPuHuiTi_2_75_SemiBold;
+                                    line-height: 1.66vw;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .content{
+                margin: 0 auto;
+                width: 61.3vw;
+                margin-top: -18.75vw;
+                position: relative;
+                .item{
+                    background: #171C28;
+                    border: 2px solid;
+                    border-image: linear-gradient(45deg, rgba(35, 71, 54, 1), rgba(51, 32, 91, 1)) 2 2;
+                    height: 12.81vw;
+                    .top{
+                        height: 6.14vw;
+                        background: #171C28;
+                        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.69);
+                        display: flex;
+                        align-items: center;
+                        padding-left: 1.56vw;
+                        .top_element1, .top_element2{
+                            width: 2.7vw;
+                            height: 2.7vw;
+                            background: #FEE476;
+                            border: 0.104vw solid #171C28;
+                            border-radius: 50%;
+                        }
+                        .top_element2{
+                            background: #EFB90B;
+                            border: 0.104vw solid #000 !important;
+                            margin-left: -0.704vw;
+                        }
+                        .table{
+                            margin-left: 3.2vw;
+                            .title{
+                                font-size: 0.98vw;
+                                font-family: AlibabaPuHuiTi_2_55_Regular;
+                                color: #B3B3B3;
+                                line-height: 1.35vw;
+                            }
+                            .desc{
+                                font-size: 1.35vw;
+                                font-family: AlibabaPuHuiTi_2_85_Bold;
+                                color: #FFFFFF;
+                                line-height: 1.92vw;
+                            }
+                        }
+                        .top_element5{
+                            padding-top: 1vw;
+                            p{
+                                font-size: 0.93vw;
+                                font-family: AlibabaPuHuiTi_2_85_Bold;
+                                color: #FFFFFF;
+                                line-height: 1.3vw;
+                                span{
+                                    color: #B3B3B3;
+                                    font-size: 0.83vw;
+                                }
+                            }
+                        }
+                    }
+                    .bottom{
+                        display: flex;
+                        align-items: center;
+                        padding-left: 1.56vw;
+                        height: 6.66vw;
+                        .table{
+                            .title{
+                                font-size: 0.98vw;
+                                font-family: AlibabaPuHuiTi_2_55_Regular;
+                                color: #B3B3B3;
+                                line-height: 1.35vw;
+                            }
+                            .desc{
+                                font-size: 1.61vw;
+                                font-family: AlibabaPuHuiTi_2_85_Bold;
+                                color: #FFFFFF;
+                                line-height: 2.29vw;
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -3,7 +3,7 @@
     <div class="warp">
         <div class="register">
             <form action="#" onsubmit="">
-                <div class="button" style="margin-top: 2.6vw;margin-bottom: 5.4vw;">
+                <div class="button" style="margin-top: 4.68vw;margin-bottom: 2.36vw;">
                     <input type="text" v-model="emailAddress" :placeholder="$t('message.download.inputEmail')"/>
                 </div>
                 <!-- <div class="button" style="margin-top: 1.87vw;margin-bottom: 0.4vw;">
@@ -16,12 +16,17 @@
         </div>
         <div class="down_button">
             <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alen.png" alt="">
+            <div class="tips">DOWNLOAD CYBERPOP</div>
             <div class="buttons">
                 <div class="down_cyberpop" @click="downloadGame(0)">
                     <img class="media" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/android.png" alt="">
                     <b>{{ $t('message.download.Android') }}</b>
                 </div>
-                <div class="down_cyberpop not-error" @click="downloadGame(1)">
+                <div class="down_cyberpop" @click="downloadGame(1)">
+                    <img class="media" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/windows.png" alt="">
+                    <b>{{ $t('message.download.windows') }}</b>
+                </div>
+                <div class="down_cyberpop not-error" @click="downloadGame(2)">
                     <img class="media" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/ios.png" alt="">
                     <b>{{ $t('message.download.ios') }}</b>
                 </div>
@@ -47,12 +52,12 @@ const router = useRouter()
 // download
 const isDonload: any = ref(false);
 const downloadGame = (type: number) => {
-    if(type == 1) return;
+    if(type == 2) return;
     if(!isDonload.value){
         store.dispatch('user/showDialog',{ show: true, info: { state: 0, txt: t('message.download.tips3')} });
         return;
     }
-    window.location.href = type ? '' : 'https://d3bhixjyozyk2o.cloudfront.net/Cyberpop.apk'
+    window.location.href = type == 0 ? 'https://d3bhixjyozyk2o.cloudfront.net/Cyberpop.apk' : 'https://packagedownload.s3.ap-southeast-1.amazonaws.com/Cyberpop_1.0.1_2022_05_13.rar';
     proxy.$api.post(`/code/user/download?address=${idTemp.value}`).then((res: any) => {
         console.log(res);
     }).catch( (err: any) => {
@@ -245,10 +250,10 @@ onMounted(() => {
 
 <style lang="less">
     .warp{
-        // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/down_background_pc2.png');
-        // background-size: auto 100%;
-        // background-position: center top;
-        background: rgba(0, 0, 0, 0.9);
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/down_background_pc3.png');
+        background-size: auto 100%;
+        background-position: center top;
+        background-color: rgba(0, 0, 0, 0.9);
         height: 100vh;
         .register{
             width: 40.62vw;
@@ -323,7 +328,7 @@ onMounted(() => {
         }
         .down_button{
             position: absolute;
-            width: 33.62vw;
+            width: 50.62vw;
             left: 0;
             right: 0;
             bottom: 14.12vh;
@@ -334,6 +339,17 @@ onMounted(() => {
             z-index: 0;
             img{
                 width: 7.7vw;
+            }
+            .tips{
+                font-size: 1.3vw;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #FFFFFF;
+                text-align: center;
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin: auto;
+                top: 5vw;
             }
             .buttons{
                 display: flex;

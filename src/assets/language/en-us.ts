@@ -431,8 +431,9 @@ const us = {
         download: {
             tips1: 'Account will be automatically registered',
             REGISTER: 'REGISTER',
-            ios: 'ios',
+            ios: 'iOS',
             Android: 'Android',
+            windows: 'Windows',
             inputEmail: 'input email',
             tips2: 'Not Ios App',
             tips3: 'Email error',

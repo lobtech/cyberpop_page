@@ -59,8 +59,8 @@
                         <li @mouseover="menuHover(2)" @click="changeMenu(2, '/mystery')" :class="{'active': active == 2}">
                             <span>{{$t('message.common.menu3')}}</span>
                         </li>
-                        <li @mouseover="menuHover(4)" @mouseleave="hoverDoc = false" ref="clickCursor" @click="showDoc = !showDoc,hoverDoc = false" :class="{'active': active == 4}">
-                            <span @mouseenter="hoverDoc = true">{{$t('message.common.menu4')}}</span>
+                        <li @mouseover="menuHover(4)" @mouseleave="hoverDoc = false" @mouseenter="hoverDoc = true" ref="clickCursor" @click="showDoc = !showDoc,hoverDoc = false" :class="{'active': active == 4}">
+                            <span >{{$t('message.common.menu4')}}</span>
                         </li>
                         <li @mouseover="menuHover(5)" @click="changeMenu(5,'/space')" :class="{'active': active == 5}">
                             <span>{{$t('message.common.menu5')}}</span>
@@ -92,7 +92,8 @@
         <div class="wrap">
             <div class="cover"></div>
             <div class="coverborder"></div>
-            <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" @click="showDoc = false" target="view_window">{{t('message.common.doc_whitePaper')}}</a>
+            <!-- <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopWhitePaper18thFeb2022.pdf" @click="showDoc = false" target="view_window">{{t('message.common.doc_whitePaper')}}</a> -->
+            <a href="https://pdf.cyberpop.online/" @click="showDoc = false" target="view_window">{{t('message.common.doc_whitePaper')}}</a>
             <!-- <a href="https://d3bhixjyozyk2o.cloudfront.net/CyberpopTechnologyArchitecture2.pdf" @click="showDoc = false" target="view_window">{{$t('message.common.doc_greenPaper')}}</a> -->
             <a href="https://d3bhixjyozyk2o.cloudfront.net/(new)CyberPOPNewworlddeck(en).pdf" @click="showDoc = false" target="view_window">{{t('message.common.doc_deck')}}</a>
         </div>
@@ -908,7 +909,7 @@ onMounted(() => {
         z-index: 9;
         position: fixed;
         top: 5.2vw;
-        left: 49vw;
+        left: 46vw;
         .wrap{
             position: relative;
             width: 8.3vw;

@@ -4,7 +4,10 @@
         <div class="download-mask">
             <div class="wrap">
                 <form action="#" onsubmit="">
-                    <div class="button" style="margin-top: 48px;margin-bottom: 79px;">
+                    <div class="logo">
+                        <img src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/logo.png" alt="">
+                    </div>
+                    <div class="button">
                         <input type="text" v-model="email" :placeholder="$t('message.download.inputEmail')"/>
                     </div>
                     <!-- <div class="button" style="margin-top: 28px;margin-bottom: 9px;">
@@ -18,14 +21,16 @@
         </div>
         <div class="down_button">
             <img class="person" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alen.png" alt="">
+            <div class="tips">DOWNLOAD CYBERPOP</div>
             <div class="buttons">
                 <div class="down_cyberpop" @click="downloadGame(0)">
                     <img class="media" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/android.png" alt="">
-                    <b>{{ $t('message.download.Android') }}</b>
                 </div>
-                <div class="down_cyberpop not-error" @click="downloadGame(1)">
+                <div class="down_cyberpop" @click="downloadGame(1)">
                     <img class="media" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/ios.png" alt="">
-                    <b>{{ $t('message.download.ios') }}</b>
+                </div>
+                <div class="down_cyberpop" @click="downloadGame(2)">
+                    <img class="media" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/windows.png" alt="">
                 </div>
             </div>
         </div>
@@ -54,7 +59,7 @@
             store.dispatch('user/showDialog',{ show: true, info: { state: 0, txt: t('message.download.tips3') } });
             return;
         }
-        window.location.href = type ? '' : 'https://d3bhixjyozyk2o.cloudfront.net/Cyberpop.apk'
+        window.location.href = type == 0 ? 'https://d3bhixjyozyk2o.cloudfront.net/Cyberpop.apk' : 'https://packagedownload.s3.ap-southeast-1.amazonaws.com/Cyberpop_1.0.1_2022_05_13.rar';
         proxy.$api.post(`/code/user/download?address=${idTemp.value}`).then((res: any) => {
             console.log(res);
         }).catch( (err: any) => {
@@ -220,21 +225,32 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        // background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/down_backgournd.png');
-        // background-size: auto 100%;
-        // background-position: center top;
-        background: rgba(0, 0, 0, 0.9);
+        background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/down_backgournd2.png');
+        background-size: auto 100%;
+        background-position: center top;
+        background-color: rgba(0, 0, 0, 0.9);
         .download-mask{
             position: absolute;
             top: 0;
             right: 0;
-            bottom: 0;
+            bottom: 150px;
             left: 0;
             margin: auto;
             width: 332px;
-            height: 300px;
+            height: 291px;
             background: #000000;
             .wrap{
+                .logo{
+                    width: 310px;
+                    height: 82px;
+                    margin: 0 auto;
+                    margin-top: 10px;
+                    margin-bottom: 19px;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
                 .button{
                     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/withborder.png');
                     width: 302px;
@@ -297,7 +313,7 @@
         .down_button{
             position: absolute;
             width: 314px;
-            bottom: 60px;
+            bottom: 100px;
             z-index: -1;
             left: 0;
             right: 0;
@@ -311,13 +327,27 @@
                 top: -80px;
                 margin: auto;
             }
+            .tips{
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: -8px;
+                margin: 0 auto;
+                text-align: center;
+                font-size: 16px;
+                font-family: AlibabaPuHuiTi_2_115_Black;
+                color: #FFFFFF;
+                line-height: 22px;
+            }
             .buttons{
                 display: flex;
+                margin-top: 40px;
                 justify-content: space-between;
                 .down_cyberpop{
-                    width: 153px;
-                    height: 62px;
-                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwhome/down_button2.png');
+                    width: 58px;
+                    height: 58px;
+                    border: 1px solid #FFFFFF;
+                    border-radius: 50%;
                     background-size: 100% 100%;
                     display: flex;
                     align-items: center;
@@ -326,7 +356,6 @@
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     color: #FFFFFF;
                     .media{
-                        margin-right: 9px;
                         width: 22px;
                         height: 26px;
                     }
