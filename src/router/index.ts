@@ -120,16 +120,16 @@ const routes = [
             transition: 'slide-right',
         },
     },
-    {
-        name: 'whitepaper',
-        path: '/whitepaper',
-        component: () => import('../views/pdf/whitepaper.vue'),
-        meta: {
-            keepAlive: false,
-            showFooter: true,
-            transition: 'slide-right',
-        },
-    },
+    // {
+    //     name: 'whitepaper',
+    //     path: '/whitepaper',
+    //     component: () => import('../views/pdf/whitepaper.vue'),
+    //     meta: {
+    //         keepAlive: false,
+    //         showFooter: true,
+    //         transition: 'slide-right',
+    //     },
+    // },
 ]
 
 const router = createRouter({
