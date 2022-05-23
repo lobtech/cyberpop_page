@@ -59,7 +59,7 @@
             store.dispatch('user/showDialog',{ show: true, info: { state: 0, txt: t('message.download.tips3') } });
             return;
         }
-        window.location.href = type == 0 ? 'https://d3bhixjyozyk2o.cloudfront.net/Cyberpop.apk' : 'https://packagedownload.s3.ap-southeast-1.amazonaws.com/Cyberpop_1.0.1_2022_05_13.rar';
+        window.location.href = type == 0 ? 'https://d3bhixjyozyk2o.cloudfront.net/Cyberpop.apk' : 'https://d3bhixjyozyk2o.cloudfront.net/Cyberpop_1.0.1_2022_05_13.rar';
         proxy.$api.post(`/code/user/download?address=${idTemp.value}`).then((res: any) => {
             console.log(res);
         }).catch( (err: any) => {
