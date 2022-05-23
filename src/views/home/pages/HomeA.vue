@@ -454,6 +454,9 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <a href="https://t3e.vc/" target="view_window">
                 <img class="logo5" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/T3E-Logo.png" alt="">
             </a>
+            <a href="https://polygon.technology/" target="view_window">
+                <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_polygon.png" alt="">
+            </a>
             <div>
                 <img class="logo6" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/partners5-2.png" alt="">
             </div>
@@ -487,22 +490,18 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
             <!-- <a href="https://www.bybit.com/en-US/" target="view_window">
                 <img class="logo10" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_bybit.png" alt="">
             </a> -->
-            <!-- <a href="#" target="view_window"> -->
             <div>
                 <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_jdventures.png" alt="">
             </div>
-            <!-- </a> -->
             <a href="https://www.nsguild.net/guild" target="view_window">
                 <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_nsguild.png" alt="">
             </a>
             <a href="https://chain.link/" target="view_window">
                 <img class="logo12" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/chain_link.png" alt="">
             </a>
-            <!-- <a href="#" target="view_window"> -->
             <div>
                 <img class="logo11" src="https://d2cimmz3cflrbm.cloudfront.net/nwhome/alpha_richmeta.png" alt="">
             </div>
-            <!-- </a> -->
         </div>
     </div>
     <div class="will">
