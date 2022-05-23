@@ -100,7 +100,7 @@ const us = {
             nav_logos_join: 'JOIN US',
             // homeA-welcome
             wel_titleBef: 'WELCOME TO',
-            wel_titleAft: 'CYBERPOP NEW WORLD',
+            wel_titleAft: 'CYBERPOP METAVERSE',
             wel_desc1: 'A UGC Metaverse adventure built on the Ethereum, where you can explore the diverse cyberspaces from different areas, searching for mysterious digital artifacts and creatures.',
             wel_swiper_title1: 'Exploration',
             wel_swiper_title2: 'Combat',

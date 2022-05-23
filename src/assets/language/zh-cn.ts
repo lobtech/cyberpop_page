@@ -98,7 +98,7 @@ const cn = {
             nav_logos_join: '加入我們',
             // homeA-welcome
             wel_titleBef: '歡迎來到',
-            wel_titleAft: '賽博新世界',
+            wel_titleAft: '賽博元宇宙',
             wel_desc1: '這是一次基於以太坊的UGC元宇宙之旅，你可自由穿行於不同時空，領略賽博之美，探尋奇珍異寶',
             wel_swiper_title1: '探索',
             wel_swiper_title2: '戰鬥',
