@@ -44,8 +44,10 @@ const cn = {
                 network: '網絡錯誤',
                 wrongNetwork: '網絡警告',
                 wrongContent: '你连接到了错误的网络。请连接孟买或富士网络。',
-                switchMumbai: '切换币安',
+                switchMumbai: '切换孟买',
                 switchFuji: '切换富士',
+                switchBSC: '切换币安',
+                switchGate: '切换GT',
             },
             // messageB
             mess_faild: '失敗！',

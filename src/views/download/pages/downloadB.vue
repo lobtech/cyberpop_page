@@ -1,5 +1,5 @@
 <template>
-    <header-b path="/download" :type="0"></header-b>
+    <header-b path="/download" :type="0" v-if="isClick"></header-b>
     <div class="download bounceShow">
         <div class="download-mask">
             <div class="wrap">
@@ -47,6 +47,7 @@
     const { t } = useI18n()
 
     const idTemp = computed(() => store?.state.user?.idTemp);
+    const isClick = ref(false as any);
 
     // download
     const isDonload: any = ref(false);
@@ -214,6 +215,7 @@
 
     onMounted(() => {
         code.value = router.currentRoute.value.query.code;
+        isClick.value = router.currentRoute.value.query.isClick;
     })
 </script>
 

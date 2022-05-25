@@ -1,5 +1,5 @@
 <template>
-    <header-a path="download" :type="0"></header-a>
+    <header-a path="download" :type="0" v-if="isClick"></header-a>
     <div class="warp">
         <div class="register">
             <form action="#" onsubmit="">
@@ -47,7 +47,7 @@ const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 const idTemp = computed(() => store?.state.user?.idTemp);
 const router = useRouter()
-
+const isClick = ref(false as any);
 
 // download
 const isDonload: any = ref(false);
@@ -244,6 +244,7 @@ onUnmounted(() => {
 
 onMounted(() => {
     code.value = router.currentRoute.value.query.code;
+    isClick.value = router.currentRoute.value.query.isClick;
 })
 
 </script>
@@ -324,6 +325,11 @@ onMounted(() => {
                 font-family: AlibabaPuHuiTi_2_115_Black;
                 color: #000000;
                 line-height: 4.37vw;
+                cursor: pointer;
+                transition: all .1s ease-in;
+            }
+            button:hover{
+                opacity: .9;
             }
         }
         .down_button{
@@ -331,7 +337,7 @@ onMounted(() => {
             width: 50.62vw;
             left: 0;
             right: 0;
-            bottom: 14.12vh;
+            bottom: 10.12vh;
             margin: 0 auto;
             text-align: center;
             transition: all .2s ease-in-out;
@@ -366,6 +372,7 @@ onMounted(() => {
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     color: #FFFFFF;
                     line-height: 1.56vw;
+                    transition: all .1s ease-in;
                     .media{
                         margin-right: 0.52vw;
                         width: 1.4vw;

@@ -9,7 +9,8 @@
                 <div class="icon">
                     <img src="@/assets/nwAssets/portrait.svg" alt="">
                 </div>
-                <div class="title">{{$t('message.assets.wel_name')}}</div>
+                <div class="title" v-if="email">Hi, {{ email }}</div>
+                <div class="title" v-else>{{$t('message.assets.wel_name')}}</div>
                 <div class="id">{{realId == -1? '':realId}}</div>
                 <div class="desc">
                     {{$t('message.assets.wel_desc')}}
@@ -200,6 +201,7 @@ const loadAddress: any = ref(0)
 const loadAbi: any = ref(0);
 const TipsState: any = ref(false as any)  // has popup-a 
 const transition = ref(true);
+const email: any = ref('')
 
 
 const copyUrl = (e:any) => {
@@ -220,6 +222,15 @@ const copyUrl = (e:any) => {
     }
 }
 
+// 获取address绑定的信息
+const addressInfo = () => {
+    proxy.$api.get(`/code/user/baddress?address=${idTemp.value}`).then((result: any) => {
+        email.value = result.data;
+    }).catch((err: any) => {
+        console.log(err); 
+    })
+}
+
 
 // ----------
 let data:any = ref([]);
@@ -237,12 +248,14 @@ watch(chainId, (newVal, oldVal: any) => {
 watch(realId, (newVal, oldVal) => {
     if(oldVal == -1 || !oldVal) return;
     console.log(2, newVal);
+    addressInfo()
 	getData(ecrType.value)
 }, {immediate:true,deep:true});
 
 watch(transferSuccess, (newVal, oldVal) => {
     if(!oldVal) return;
     console.log(3, newVal);
+    addressInfo()
     getData(ecrType.value)
 }, {immediate:true,deep:true});
 
@@ -703,6 +716,7 @@ onUnmounted(() => {
 watch(readyAssetsF, (newVal: any, oldVal: any) => {
     if(newVal == -1) return;
     console.log('her1', newVal);
+    addressInfo()
     getData(ecrType.value)
 }, {immediate:true,deep:true});
 
@@ -722,6 +736,7 @@ onMounted(async () => {
     if(store.state.user?.readyAssets !== -1){
         // data.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
         getData(ecrType.value)
+        addressInfo()
     }
         
 })

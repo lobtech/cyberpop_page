@@ -10,8 +10,10 @@
                 <div class="text">{{ $t('message.common.metamask.wrongContent') }}</div>
             </div>
             <div class="btns">
-                <div class="btn" @click="changeChain(97)">{{ $t('message.common.metamask.switchMumbai') }}</div>
-                <div class="btn" @click="changeChain(43113)">{{ $t('message.common.metamask.switchFuji') }}</div>
+                <span class="btn" @click="changeChain(97)">{{ $t('message.common.metamask.switchBSC') }}</span>
+                <span class="btn" @click="changeChain(43113)">{{ $t('message.common.metamask.switchFuji') }}</span> 
+                <span class="btn" @click="changeChain(80001)">{{ $t('message.common.metamask.switchMumbai') }}</span>    
+                <span class="btn" @click="changeChain(85)">{{ $t('message.common.metamask.switchGate') }}</span>  
             </div>
         </div>
     </div>
@@ -171,7 +173,7 @@ onMounted(() => {
                 display: flex;
                 justify-content: flex-end;
                 .btn{
-                    padding: 0.73vw 1.25vw;
+                    padding: 0.73vw 1.75vw;
                     transition: all 0.2s ease;
                     cursor: pointer;
                     font-size: 1.04vw;
@@ -180,6 +182,16 @@ onMounted(() => {
                     color: #FFFFFF;
                 }
                 .btn:first-child{
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwAssets/withBorder.png');
+                    background-size: 100% 100%;
+                    margin-right: 1.25vw;
+                }
+                .btn:nth-child(2){
+                    background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwAssets/withBorder.png');
+                    background-size: 100% 100%;
+                    margin-right: 1.25vw;
+                }
+                .btn:nth-child(3){
                     background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwAssets/withBorder.png');
                     background-size: 100% 100%;
                     margin-right: 1.25vw;

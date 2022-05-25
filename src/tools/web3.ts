@@ -199,7 +199,7 @@ const addChain = (chainId: Number) => {
             params: [
                 {
                     chainId: web3.utils.numberToHex(43113),
-                    chainName: 'AVAX',
+                    chainName: 'Fuji',
                     nativeCurrency: {
                         name: 'AVAX',
                         symbol: 'AVAX', // 2-6 characters long
@@ -210,7 +210,24 @@ const addChain = (chainId: Number) => {
                 }
             ]
         }
-    }else{
+    }else if(chainId == 80001){
+        info = {
+            method: 'wallet_addEthereumChain',
+            params: [
+                {
+                    chainId: web3.utils.numberToHex(80001),
+                    chainName: 'Mumbai',
+                    nativeCurrency: {
+                        name: 'MATIC',
+                        symbol: 'MATIC', // 2-6 characters long
+                        decimals: 18
+                    },
+                    rpcUrls: ['https://matic-mumbai.chainstacklabs.com'],
+                    blockExplorerUrls: ['https://mumbai.polygonscan.com/']
+                }
+            ]
+        }
+    }else if(chainId == 97){
         info = {
             method: 'wallet_addEthereumChain',
             params: [
@@ -224,6 +241,23 @@ const addChain = (chainId: Number) => {
                     },
                     rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org'],
                     blockExplorerUrls: ['https://testnet.bscscan.com/']
+                }
+            ]
+        }
+    }else{
+        info = {
+            method: 'wallet_addEthereumChain',
+            params: [
+                {
+                    chainId: web3.utils.numberToHex(85),
+                    chainName: 'GateChain Testnet',
+                    nativeCurrency: {
+                        name: 'GT',
+                        symbol: 'GT', // 2-6 characters long
+                        decimals: 18
+                    },
+                    rpcUrls: ['https://meteora-evm.gatenode.cc'],
+                    blockExplorerUrls: ['https://gatescan.org/testnet/']
                 }
             ]
         }

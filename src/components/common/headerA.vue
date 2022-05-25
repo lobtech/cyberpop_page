@@ -13,7 +13,7 @@
                         @mouseleave="mouseLeaveChain"
                         v-show="realId !== -1"
                     >
-                        <div class="select_chain" @click="switchChain" :class="{'selected': chainId == 97 || chainId == 43113}"><img :src="chainId == 97 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 97 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span><div class="blur"></div></div>
+                        <div class="select_chain" @click="switchChain" :class="{'selected': chainId == 97 || chainId == 43113 || chainId == 80001 || chainId == 85}"><img :src="chainId == 97 || chainId == 43113 || chainId == 80001 || chainId == 85 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 97 || chainId == 43113 || chainId == 80001 || chainId == 85 ? chainList.select.name : chainList.notSupported.name }}</span><div class="blur"></div></div>
                         <div class="hover_chunk" v-show="showChainList">
                             <div class="chunk_wrap">
                                 <div v-for="(value,key,index) in chainList" @click="changeChain(value)" :key="index" class="item" v-show="!value.active"><img :src="value.img" alt=""><span>{{ value.name }}</span></div>
@@ -135,20 +135,30 @@ const props = defineProps({
 
 
 const chainList = ref({
+    BSC: {
+        name: 'BSC',
+        img: 'https://testnet.bscscan.com/images/favicon.ico',
+        chainId: 97,
+    },
     avax: {
         name: 'Fuji',
         img: 'https://nftrade.com/img/chains/icons/avax.png',
         chainId: 43113,
     },
     mumbai: {
+        name: 'Mumbai',
+        img: 'https://mumbai.polygonscan.com/images/svg/brands/poly.png?v=1.3',
+        chainId: 80001,
+    },
+    Gate: {
+        name: 'Gate',
+        img: 'https://www.gatechain.io/docs/assets/img/logo.svg',
+        chainId: 85,
+    },
+    select: {
         name: 'BSC',
         img: 'https://testnet.bscscan.com/images/favicon.ico',
         chainId: 97,
-    },
-    select: {
-        name: 'Fuji',
-        img: 'https://nftrade.com/img/chains/icons/avax.png',
-        chainId: 43113,
         active: 1,
     },
     notSupported: {
@@ -187,7 +197,7 @@ const changeChain = async (value?: any) => {
 
 const mouseOver: any = () => {
     console.log(chainId.value);
-    if(chainId.value == 97 || chainId.value == 43113){
+    if(chainId.value == 97 || chainId.value == 43113 || chainId.value == 85 || chainId.value == 80001){
         showChainList.value = true;
     }
 }
@@ -380,9 +390,8 @@ const connect: any = async () => {
         const Web3 = (window as any).Web3;
         let web3obj = new Web3((Web3 as any).givenProvider);
         await web3obj.eth.net.getId().then((chainId: any) => {
-            console.log(chainId);
             store.dispatch('user/chageChainId', Number(chainId))
-            if(chainId != 97 && chainId != 43113) {
+            if(chainId != 97 && chainId != 43113 && chainId != 80001 && chainId != 85) {
                 store.dispatch('user/xplanChangeAni', true);
                 store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
             }
@@ -468,9 +477,7 @@ onMounted(() => {
     if(realId.value == -1) login() // 判断是否已经登陆过了 然后自动登录
     let temp: any;
     Object.keys(chainList._rawValue).forEach((key: any) => {
-        if(chainList._rawValue[key].chainId == chainId.value){
-            temp = chainList._rawValue[key]
-        }
+        if(chainList._rawValue[key].chainId == chainId.value) temp = chainList._rawValue[key]
     })
     if(temp) chainList.value.select = { ...temp, active: 1 };
 })

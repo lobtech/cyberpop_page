@@ -9,7 +9,8 @@
                 <div class="icon">
                     <img src="@/assets/nwAssets/portrait.svg" alt="">
                 </div>
-                <div class="title">{{$t('message.assets.wel_name')}}</div>
+                <div class="title" v-if="email">Hi, {{ email }}</div>
+                <div class="title" v-else>{{$t('message.assets.wel_name')}}</div>
                 <div class="id">{{realId == -1 ? '' : realId}}</div>
                 <div class="desc">
                     {{$t('message.assets.wel_desc')}}
@@ -241,7 +242,7 @@ let data:any = ref([]);
 const loadingState: any = ref(0);
 const chainId: any = computed(() => store.state.user?.chainId );
 const transferSuccess = computed(() => store.state.user?.transferSuccess);
-
+const email: any = ref('')
 
 watch(chainId, (newVal, oldVal: any) => {
     if(!oldVal || oldVal == -1) return;
@@ -254,6 +255,7 @@ watch(realId, (newVal, oldVal) => {
     if(oldVal == -1 || !oldVal) return;
     console.log('her3');
 	getData(ecrType.value)
+    addressInfo()
     initMyAssetes()
 }, {immediate:true,deep:true});
 
@@ -261,6 +263,7 @@ watch(transferSuccess, (newVal, oldVal) => {
     if(!oldVal) return;
     console.log('her4');
     getData(ecrType.value)
+    addressInfo()
     initMyAssetes()
 }, {immediate:true,deep:true});
 
@@ -282,6 +285,14 @@ const copyUrl = (e: any) => {
     }
 }
 
+// 获取address绑定的信息
+const addressInfo = () => {
+    proxy.$api.get(`/code/user/baddress?address=${idTemp.value}`).then((result: any) => {
+        email.value = result.data;
+    }).catch((err: any) => {
+        console.log(err); 
+    })
+}
 
 // 左侧图标滚动
 const myNav:any = ref(null);
@@ -309,9 +320,6 @@ const startMove = (target : any) => {
 //myAssets 
 const myAssets = ref({}) as any;
 const initMyAssetes = async () => {
-    console.log(1111);
-    console.log(chainId.value);
-    
     if(chainId.value == 43113){
         var a = await Web3.ERC20balanceOf(cytV2.abi, cytV2.address);
         var b = await Web3.ERC20balanceOf(coin.abi, coin.address);
@@ -712,6 +720,7 @@ watch(readyAssetsF, (newVal: any, oldVal: any) => {
     if(newVal == -1) return;
     console.log('her1', newVal);
     getData(ecrType.value)
+    addressInfo()
     initMyAssetes()
 }, {immediate:true,deep:true});
 
@@ -792,6 +801,7 @@ onMounted(() => {
     if(store.state.user?.readyAssets !== -1){
         // data.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
         getData(ecrType.value)
+        addressInfo()
         initMyAssetes()
     }
 })

@@ -1,8 +1,8 @@
 <template>
     <header-a path="/mining" :type="1"></header-a>
-    <div class="section">
+    <!-- <div class="section">
         <div class="title">{{$t('message.mining.coming')}}</div>
-    </div>
+    </div> -->
     <div class="mining">
         <div class="banner">
             <div class="titles">
@@ -103,7 +103,7 @@
                 <li>
                     <div class="not-stak" v-if="myStakCyt == 0">
                         <div class="img-wrap" @click="stakingCyt">
-                            <img class="pledge-img" :src="whiteImgSrc" alt="">
+                        <img class="pledge-img" :src="whiteImgSrc" alt="">
                         </div>
                         <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
                         <div class="bot-txt whiteNft">
@@ -112,26 +112,18 @@
                         </div>
                     </div>
                     <div class="have-stak"  @click="stakingCyt" v-else>
-                        <p>Your Staking: {{ myStakCyt }} <br> Current day: {{ myTime > 0 ? myTime : 'Finish, click to receive' }}</p>
-                        <div class="bot-txt whiteNft" @click.stop="cancelStake">
-                            <div>cancel staking</div>
-                            <img :src="whiteBorderSrc" alt="">
-                        </div>
+                         <p>Your Staking: {{ myStakCyt }} <br> Current day: {{ myTime > 0 ? myTime : 'Finish, click to receive' }}</p>
                     </div>
+                    <div class="withdraw">111</div>
                 </li>
                 <li>
-                    <div class="not-stak" v-if="myStakeNFT == 0">
-                        <div class="img-wrap" @click="stakingNFT">
-                            <img class="pledge-img" :src="whiteImgSrc" alt="">
-                        </div>
-                        <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
-                        <div class="bot-txt whiteNft">
-                            <div>{{$t('message.mining.pledge_bot_txt2')}}</div>
-                            <img :src="whiteBorderSrc" alt="">
-                        </div>
+                    <div class="img-wrap">
+                        <img class="pledge-img" :src="whiteImgSrc" alt="">
                     </div>
-                    <div class="have-stak"  @click="myStakeNFT" v-else>
-                        <p>Your Staking: {{ myStakCyt }} <br> Current day: {{ myTime > 0 ? myTime : 'Finish, click to receive' }}</p>
+                    <div class="top-txt">{{$t('message.mining.pledge_top_txt')}}</div>
+                    <div class="bot-txt whiteNft">
+                        <div>{{$t('message.mining.pledge_bot_txt2')}}</div>
+                        <img :src="whiteBorderSrc" alt="">
                     </div>
                 </li>
                 <li>
@@ -196,7 +188,7 @@
                 </div>
             </div>
             <div class="content">
-                <div class="item" v-for="item in 2" :key="item">
+                <div class="item">
                     <div class="top">
                         <div class="top_element1"></div>
                         <div class="top_element2"></div>
@@ -229,19 +221,9 @@
                             <div class="title">Earned (CYT)</div>
                             <div class="desc">≈ $123,222.00</div>
                         </div>
-                        <div class="table bottom_element2">
-                            <div class="title">Harvest (CYT) ≈ $0</div>
-                            <div class="desc">0</div>
-                        </div>
-                        <div class="Harvest">Harvest</div>
-                        <div class="stake">
-                            <div class="staked">
-                                <p class="title">Staked (CYT/BNB)</p>
-                                <div class="desc">0</div>
-                            </div>
-                            <div class="button">
-                                Stake
-                            </div>
+                        <div class="table">
+                            <div class="title">Earned (CYT)</div>
+                            <div class="desc">≈ $123,222.00</div>
                         </div>
                     </div>
                 </div>
@@ -250,28 +232,22 @@
     </div>
     <footer-a></footer-a>
     <coming-a v-show="showComingFlag"></coming-a>
-    <!-- 质押完成领取奖励 -->
-    <FinishedA ref="Finished" v-if="isShowFinished" :isShowTips="isShowFinished"  @closeFinshed="isShowFinished = false"></FinishedA>
-    <!-- 取消质押弹窗 -->
-    <CancelStake ref="SelectNFT" v-if="isShowCancelStake" :isShowTips="isShowCancelStake"  @closeFinshed="isShowCancelStake = false"></CancelStake>
-    <!-- 选择NFT质押 -->
-    <SelectNFTA ref="SelectNFT" v-if="isShowSelectNFT" :isShowTips="isShowSelectNFT"  @closeFinshed="isShowSelectNFT = false"></SelectNFTA>
+    <FinishedA ref="Finished" :isShowTips="isShowFinished" v-if="isShowFinished" @closeFinshed="isShowFinished = false"></FinishedA>
+
     <!-- 切换网络弹窗 -->
     <!-- <wrongNetWorkA :isShowTips="isShowTips" @changeSwitch="changeSwitch"></wrongNetWorkA> -->
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, computed, getCurrentInstance, onUnmounted, watch } from 'vue'
 
-
 import store from '@/store'
-import {  useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 import { useI18n } from 'vue-i18n';
 import FinishedA from '@/components/staking/FinishedA.vue';
-import SelectNFTA from '@/components/staking/selectNFTA.vue';
-import CancelStake from '@/components/staking/cancelStakeA.vue';
 
-const { staking, cytV2 } = Web3.contracts;
+
+const { staking, cytV2, EasyStaking, cyt_ice } = Web3.contracts;
 const { t, locale } = useI18n();
 const router = useRouter()
 const realId = computed(() => store?.state.user?.realId);  // 星号地址
@@ -304,20 +280,11 @@ watch(realId, (newVal, oldVal: any) => {
 }, {immediate:true,deep:true});
 
 
-
 // 子组件Finished（质押完成领取奖励）
 const Finished = ref(null);
 const isShowFinished = ref(false as boolean);
 console.log(Finished, 'Finished');
 
-
-//子组件SelectNFT
-const SelectNFT = ref(null);
-const isShowSelectNFT = ref(false as boolean);
-
-
-// 子组件 取消质押弹窗
-const isShowCancelStake = ref(false) as any;
 
 
 // progress 进度
@@ -367,7 +334,7 @@ const mycyt: any = ref(0);
 const mycoin: any = ref(0)
 const myStakCyt: any = ref(0);
 const myTime: any = ref(0);
-const myStakeNFT: any = ref(0);
+
 const test = ref(0) as any
 
 // start staking
@@ -381,20 +348,6 @@ const stakingCyt = async () => {
     isShowFinished.value = true;
     // await Web3.getReward(staking.abi, staking.address);
 }
-const stakingNFT = async () => {
-    store.dispatch('user/xplanChangeAni', true);
-    isShowSelectNFT.value = true;
-}
-
-
-// cancel stake
-const cancelStake = () => {
-    store.dispatch('user/xplanChangeAni', true);
-    isShowCancelStake.value = true;
-}
-
-
-
 
 // init data
 const init = async () => {
@@ -850,11 +803,6 @@ onMounted(async () => {
                         justify-content: center;
                         align-items: center;
                         text-align: center;
-                        .cancelStakin{
-                            color: #fff;
-                            position: absolute;
-                            bottom: 0;
-                        }
                     }
                     .img-wrap{
                         display: flex;
@@ -998,7 +946,6 @@ onMounted(async () => {
             }
         }
         .farms{
-            margin-bottom: 7.91vw;
             .background{
                 height: 35.156vw;
                 background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin6.png');
@@ -1069,8 +1016,6 @@ onMounted(async () => {
                     border: 2px solid;
                     border-image: linear-gradient(45deg, rgba(35, 71, 54, 1), rgba(51, 32, 91, 1)) 2 2;
                     height: 12.81vw;
-                    margin-bottom: 2.08vw;
-                    position: relative;
                     .top{
                         height: 6.14vw;
                         background: #171C28;
@@ -1078,8 +1023,6 @@ onMounted(async () => {
                         display: flex;
                         align-items: center;
                         padding-left: 1.56vw;
-                        position: relative;
-                        z-index: 11;
                         .top_element1, .top_element2{
                             width: 2.7vw;
                             height: 2.7vw;
@@ -1138,65 +1081,6 @@ onMounted(async () => {
                                 font-family: AlibabaPuHuiTi_2_85_Bold;
                                 color: #FFFFFF;
                                 line-height: 2.29vw;
-                            }
-                        }
-                        .bottom_element2{
-                            position: absolute;
-                            left: 18vw;
-                        }
-                        .Harvest{
-                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin4.png');
-                            background-size: 100%; 
-                            width: 6.4vw;
-                            line-height: 2.08vw;
-                            text-align: center;
-                            font-size: 0.93vw;
-                            font-family: AlibabaPuHuiTi_2_85_Bold;
-                            color: #A4F238;
-                            position: absolute;
-                            left: 28.5vw;
-                            bottom: 1.4vw;
-                            cursor: pointer;
-                        }
-                        .stake{
-                            background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin11.png');
-                            background-size: 100%; 
-                            width: 21.92vw;
-                            height: 6.66vw;
-                            position: absolute;
-                            right: 0;
-                            z-index: 0;
-                            bottom: 0.1vw;
-                            .staked{
-                                position: absolute;
-                                top: 2vw;
-                                left: 3.5vw;
-                                .title{
-                                    font-size: 0.98vw;
-                                    font-family: AlibabaPuHuiTi_2_55_Regular;
-                                    color: #B3B3B3;
-                                    line-height: 1.35vw;
-                                }
-                                .desc{
-                                    font-size: 1.61vw;
-                                    font-family: AlibabaPuHuiTi_2_85_Bold;
-                                    color: #FFFFFF;
-                                    line-height: 2.29vw;
-                                }
-                            }
-                            .button{
-                                background-image: url('https://d2cimmz3cflrbm.cloudfront.net/nwStaking/stakin12.png');
-                                background-size: 100%; 
-                                width: 6.4vw;
-                                line-height: 2.08vw;
-                                text-align: center;
-                                font-size: 0.93vw;
-                                font-family: AlibabaPuHuiTi_2_85_Bold;
-                                color: #363A54;
-                                position: absolute;
-                                right: 2vw;
-                                bottom: 1vw;
-                                cursor: pointer;
                             }
                         }
                     }

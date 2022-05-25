@@ -643,7 +643,7 @@ const showxplan = () => {
 let showDown:any = ref(false);
 
 const playToEarn = () => {
-    router.push({ path: '/download', query: { code: router.currentRoute.value.query.code || '' } })
+    router.push({ path: '/download', query: { code: router.currentRoute.value.query.code, isClick: 1 } })
     return;
     if( realId.value != -1 ){
         showDown.value = true; 

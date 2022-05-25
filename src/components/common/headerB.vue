@@ -10,7 +10,7 @@
             </div>
             <div class="menuMask" ref="cursor" :class="isPage && (showMenuAni ? 'menuAnimation' : 'stopMenuAnimation')">
                 <div class="close-menu">
-                    <div class="select_chain" v-show="realId !== -1" @click="showMsgPop()"><img :src="chainId == 97 || chainId == 43113 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 97 || chainId == 43113 ? chainList.select.name : chainList.notSupported.name }}</span></div>
+                    <div class="select_chain" v-show="realId !== -1" @click="showMsgPop()"><img :src="chainId == 97 || chainId == 43113 || chainId == 85 || chainId == 80001 ? chainList.select.img : chainList.notSupported.img" alt=""><span>{{ chainId == 97 || chainId == 43113 || chainId == 85 || chainId == 80001 ? chainList.select.name : chainList.notSupported.name }}</span></div>
                     <img @click="closeMenuIcon()" src="https://d2cimmz3cflrbm.cloudfront.net/nwhomePhone/close-menu.svg" alt="">
                 </div>
                 <div class="login_in" v-if="!loggined" @click="login()">
@@ -93,25 +93,35 @@ const selectLang = (index:any) => {
 }
 
 const chainList = ref({
-    avax: {
-        name: 'Avalanche Fuji Testnet',
-        img: 'https://nftrade.com/img/chains/icons/avax.png',
-        chainId: 43113,
-    },
-    mumbai: {
+    BSC: {
         name: 'BSC',
         img: 'https://testnet.bscscan.com/images/favicon.ico',
         chainId: 97,
     },
-    select: {
-        name: 'Avalanche Fuji Testnet',
+    avax: {
+        name: 'Fuji',
         img: 'https://nftrade.com/img/chains/icons/avax.png',
         chainId: 43113,
+    },
+    mumbai: {
+        name: 'Mumbai',
+        img: 'https://mumbai.polygonscan.com/images/svg/brands/poly.png?v=1.3',
+        chainId: 80001,
+    },
+    Gate: {
+        name: 'Gate',
+        img: 'https://www.gatechain.io/docs/assets/img/logo.svg',
+        chainId: 85,
+    },
+    select: {
+        name: 'BSC',
+        img: 'https://testnet.bscscan.com/images/favicon.ico',
+        chainId: 97,
         active: 1,
     },
     notSupported: {
-        name: 'Chain is not supported.',
-        img: 'https://nftrade.com/img/chains/icons/eth.png',
+        name: 'Wrong Network',
+        img: 'https://d2cimmz3cflrbm.cloudfront.net/nwAssets/wrong.png',
         active: 1,
     }
 }) as any
@@ -277,9 +287,8 @@ const connect: any = async () => {
         const Web3 = (window as any).Web3
         let web3obj = new Web3((Web3 as any).givenProvider)
         await web3obj.eth.net.getId().then((chainId: any) => {
-            console.log(chainId, '99999999');
             store.dispatch('user/chageChainId', Number(chainId))
-            if(chainId != 97 && chainId != 43113) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
+            if(chainId != 97 && chainId != 43113 && chainId != 85 && chainId != 80001) store.dispatch('user/TipsState', {show: true, info: { hasLoading: false, hasClose: true, title: 'Network Error', content: t('message.common.metamask.switch'), addNetwork: true}});
         })
         if(code.value && messSing.value == '') isRegister();
     }
@@ -386,9 +395,7 @@ onMounted(() => {
     if(realId.value == -1) login() // 判断是否已经登陆过了 然后自动登录
     let temp: any;
     Object.keys(chainList._rawValue).forEach((key: any) => {
-        if(chainList._rawValue[key].chainId == chainId.value){
-            temp = chainList._rawValue[key]
-        }
+        if(chainList._rawValue[key].chainId == chainId.value) temp = chainList._rawValue[key]
     })
     if(temp) chainList.value.select = { ...temp, active: 1 };
 })

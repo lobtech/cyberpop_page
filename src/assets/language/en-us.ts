@@ -44,8 +44,10 @@ const us = {
                 network: 'Network Error',
                 wrongNetwork: 'WRONG NERWOEK',
                 wrongContent: 'You are connecting to the wrong network. Please connect to the Mumbai or Fuji network.',
-                switchMumbai: 'SWITCH BSC',
-                switchFuji: 'SWITCH FUJI',
+                switchMumbai: 'Mumbai',
+                switchFuji: 'FUJI',
+                switchBSC: 'BSC',
+                switchGate: 'Gate',
             },
             // messageB
             mess_faild: 'Failed!',
