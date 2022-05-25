@@ -21,12 +21,12 @@
                 <div class="search" ref="myNav">
                     <div class="myAssets">
                         <div class="item">
-                            <p>My CYT</p>
+                            <p>{{$t('message.assets.my_cyt')}}</p>
                             <p>{{ myAssets.cyt || 0 }}</p>
-                            <div class="getCoin">GET CYT</div>
+                            <div class="getCoin">{{$t('message.assets.get_cyt')}}</div>
                         </div>
                         <div class="item">
-                            <p>My COIN</p>
+                            <p>{{$t('message.assets.my_coin')}}</p>
                             <p>{{ myAssets.coin || 0}}</p>
                         </div>
                         <div class="line"></div>
@@ -159,7 +159,7 @@
                         </ul>
                     </div>
                     <div class="noting" v-if="loadingState == 2 && data.length == 0">
-                        <p>NOT DATA</p>
+                        <p>{{$t('message.assets.not_data')}}</p>
                         <img src="@/assets/nwAssets/nothing.svg" alt="">
                     </div>
                 </div>

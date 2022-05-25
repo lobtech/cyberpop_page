@@ -29,7 +29,8 @@
                                 <ul>
                                     <li :class="select == 'us' ? 'active' : ''" @click="selectLang('us')">{{$t('message.common.language1')}}</li>
                                     <li :class="select == 'cn' ? 'active' : ''" @click="selectLang('cn')">{{$t('message.common.language2')}}</li>
-                                    <!-- <li :class="select == 'kr' ? 'active' : ''" @click="selectLang('kr')">{{$t('message.common.language3')}}</li> -->
+                                    <li :class="select == 'jp' ? 'active' : ''" @click="selectLang('jp')">{{$t('message.common.language3')}}</li>
+                                    <li :class="select == 'kr' ? 'active' : ''" @click="selectLang('kr')">{{$t('message.common.language4')}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -733,8 +734,8 @@ onMounted(() => {
                             .wrap{
                                 position: absolute;
                                 width: 8vw;
-                                // height: 8vw;
-                                height: 6vw;
+                                height: 10vw;
+                                // height: 6vw;
                                 background: linear-gradient(180deg, #30304D 0%, #232F37 100%);
                                 border: .15vw solid;
                                 border-image: linear-gradient(219deg, rgba(83, 77, 126, 1), rgba(45, 39, 65, 1), rgba(45, 42, 66, 1), rgba(34, 103, 90, 1)) 3 3;

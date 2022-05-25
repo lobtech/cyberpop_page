@@ -130,7 +130,7 @@
                         </ul>
                     </div>
                     <div class="noting" v-if="loadingState == 2 && data.length == 0">
-                        <p>NOT DATA</p>
+                        <p>{{$t('message.assets.not_data')}}</p>
                         <img src="@/assets/nwAssets/nothing.svg" alt="">
                     </div>
                 </div>
