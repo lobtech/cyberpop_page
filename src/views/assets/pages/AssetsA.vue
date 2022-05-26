@@ -20,7 +20,7 @@
                 <!-- <div class="ecr" v-if="false"> -->
                 <div class="search" ref="myNav">
                     <div class="whiteList">
-                        <p>{{ whiteList ? 'You hava white paper' : 'You not hava white paper' }}</p>
+                        <p>{{ whiteList ? $t('message.assets.haveWhite') : $t('message.assets.notHaveWhite') }}</p>
                     </div>
                     <div class="line"></div>
                     <div class="myAssets">
@@ -230,6 +230,7 @@ import { useRouter } from 'vue-router'
 import Web3 from '@/tools/web3' 
 import { toRaw } from '@vue/reactivity'
 import { useI18n } from 'vue-i18n';
+import { log } from 'console'
 const { t } = useI18n();
 
 
@@ -253,7 +254,6 @@ watch(chainId, (newVal, oldVal: any) => {
     if(!oldVal || oldVal == -1) return;
     console.log('her2');
 	getData(ecrType.value)
-    initMyAssetes()
 }, {immediate:true,deep:true});
 
 watch(realId, (newVal, oldVal) => {
@@ -333,6 +333,8 @@ const initMyAssetes = async () => {
     myAssets.value.coin = b || 0;
     // console.log(myAssets.value, 'cyt');
     // 是否购买了白皮书
+    console.log(idTemp.value, 'idTemp');
+    
     proxy.$api.post(`/bobabrewery/boba/api/v1/cyberpop?walletAddress=${idTemp.value}`).then((res: any) => {
         res?.data.data ? whiteList.value = true : whiteList.value = false;
     }).catch( (err: any) => {
@@ -729,9 +731,11 @@ watch(readyAssetsF, (newVal: any, oldVal: any) => {
     console.log(newVal, oldVal, 'newVal');
     if(newVal == -1) return;
     console.log('her1', newVal);
-    getData(ecrType.value)
-    addressInfo()
-    initMyAssetes()
+    setTimeout(() => {
+        getData(ecrType.value)
+        addressInfo()
+        initMyAssetes()
+    }, 500);
 }, {immediate:true,deep:true});
 
 // NFT transfer

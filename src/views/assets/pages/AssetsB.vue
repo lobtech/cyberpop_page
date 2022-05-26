@@ -16,7 +16,7 @@
                     {{$t('message.assets.wel_desc')}}
                 </div>
                 <div class="whiteList">
-                    <p>You don't have a white list</p>
+                    <p>{{ whiteList ? $t('message.assets.haveWhite') : $t('message.assets.notHaveWhite') }}</p>
                 </div>
                 <div class="myAssets">
                     <div class="item">
@@ -756,9 +756,11 @@ onUnmounted(() => {
 watch(readyAssetsF, (newVal: any, oldVal: any) => {
     if(newVal == -1) return;
     console.log('her1', newVal);
-    addressInfo()
-    initMyAssetes()
-    getData(ecrType.value)
+    setTimeout(() => {
+        getData(ecrType.value)
+        addressInfo()
+        initMyAssetes()
+    }, 500);
 }, {immediate:true,deep:true});
 
 
