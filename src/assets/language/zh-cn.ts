@@ -10,7 +10,8 @@ const cn = {
             menu6: '白名單',
             language1: '英語',
             language2: '漢語',
-            language3: '韓語',
+            language3: '日語',
+            language4: '韓語',
             wallet: '連接錢包',
             doc_whitePaper: '白皮書',
             doc_greenPaper: '綠皮書',
@@ -40,11 +41,11 @@ const cn = {
                 viewTrade: '網絡貿易視野',
                 add1: '切換孟買',
                 add2: '切換富士',
-                switch: '請切換到孟買網絡或富士網絡.',
+                switch: '請切換當前網絡.',
                 network: '網絡錯誤',
                 wrongNetwork: '網絡警告',
-                wrongContent: '你连接到了错误的网络。请连接孟买或富士网络。',
-                switchMumbai: '切换孟买',
+                wrongContent: '你连接到了错误的网络， 請切換當前網絡。',
+                switchMumbai: '切換孟買',
                 switchFuji: '切换富士',
                 switchBSC: '切换币安',
                 switchGate: '切换GT',
@@ -108,8 +109,8 @@ const cn = {
             wel_swiper_title4: '未來都會',
             // homeA-nobody
             nobody_role_tipBef_1: '席拉',
-            nobody_role_tipBef_2: '卡库路契亚',
-            nobody_role_tipBef_3: '玛内利',
+            nobody_role_tipBef_2: '卡庫路契亞',
+            nobody_role_tipBef_3: '瑪內利',
             // nobody_role_tipAft: 'in #0 cyberspace', // -d
             nobody_r_titleBef: '成敗皆由你',
             nobody_r_titleAft: '',
@@ -185,17 +186,17 @@ const cn = {
             roadmap_s3_d3_e4: '賽博新世界藝術家聯盟',
             // homeA-team
             team_title: '團隊成員',
-            team_mem_jie: '前育碧高级美术参与《刺客信条》、雷曼》等美术制作；后作为《VGAME：消零世界》主美做到3天自然吸量40万效果。15年游戏行业经验。',
-            team_mem_frank: '熟悉项目运营工作，区块链专业设备硬件开发、服务器设备供应商；有各种连锁游戏技术外包经验；有合规和投资经验，曾牵头完成多个公司-资产组合。',
-            team_mem_hason: '曾任职于育碧，参与制作PC端ORPG网游《魔域攻略》，以及PC和iPad端TCG网游《魔域冠军对决》；多次获得育碧EX的最佳绩效评估。',
-            team_mem_nick: '金联盟开发核心开发人员，重构uniswap源代码，完成产品从0到1的突破，熟知联盟链Hyperledger Fabric，FISCO BCO 具备完整的公链开发能力。',
-            team_mem_caroline: '在区块链行业有丰富的履历和经验; 在东南亚非常有影响力，创办了NFT平台Roseon Finance，参与过Chumbivalley的顾问。',
-            team_mem_fy: '华为云服务后端开发，并发表过两篇机器学习相关专利，在微服务架构设计，边缘计算等方面有非常丰富的经验，全栈工程师, 熟悉Web3.0技术架构以及合约交互。',
-            team_mem_han: '腾讯光子工作室、NEXT Studio前高级后端，10年以上工作经验。后端安全及稳定性，技术潮流方面有长期深入研究。',
-            team_mem_quanbug: '前育碧高级程序，代码曾被育碧魁北克拿去当精品代码研究。Freelancer编辑推荐程序。15年全平台全端架构经验。',
-            team_mem_john: '前育碧高级技术美术，3A级产品研发经验。后参与腾讯天美早期图形引擎技术顾问，引擎用于支持《王者荣耀》项目组。现自研渲染管线用于支持多平台（含手机端）3A级呈现。15年游戏行业经验。',
-            team_mem_water: '曾就职于英特尔亚太研发有限公司云计算工程师，后任华为前云技术总监，负责云设计，云计算和区块链行业经验丰富； 成立团队深耕元界游戏开发，成功设计了一款独立的MMORPG游戏。',
-            team_mem_ice: '前华为云核心后端，熟悉Java/go-lang等多种技术框架，Cosmos 社区代码贡献者，参与熟悉区块链结构，核心源码贡献者；实现ERC-1155, EVM跨链转移。',
+            team_mem_jie: '前育碧高級美術參與《刺客信條》、雷曼》等美術製作； 後作為《VGAME：消零世界》主美做到3天自然吸量40萬效果。 15年遊戲行業經驗。',
+            team_mem_frank: '熟悉項目運營工作，區塊鏈專業設備硬體開發、服務器設備供應商； 有各種連鎖遊戲科技外包經驗； 有合規和投資經驗，曾牽頭完成多個公司-資產組合。',
+            team_mem_hason: '曾任職於育碧，參與製作PC端ORPG網遊《魔域攻略》，以及PC和iPad端TCG網遊《魔域冠軍對决》； 多次獲得育碧EX的最佳績效評估。',
+            team_mem_nick: '金聯盟開發覈心開發人員，重構uniswap原始程式碼，完成產品從0到1的突破，熟知聯盟鏈Hyperledger Fabric，FISCO BCO具備完整的公鏈開發能力。',
+            team_mem_caroline: '在區塊鏈行業有豐富的履歷和經驗； 在東南亞非常有影響力，創辦了NFT平臺Roseon Finance，參與過Chumbivalley的顧問。',
+            team_mem_fy: '華為雲服務後端開發，並發表過兩篇機器學習相關專利，在微服務架構設計，邊緣計算等方面有非常豐富的經驗，全棧工程師，熟悉Web3. 0科技架構以及合約互動。',
+            team_mem_han: '騰訊光子工作室、NEXT Studio前高級後端，10年以上工作經驗。 後端安全及穩定性，科技潮流方面有長期深入研究。',
+            team_mem_quanbug: '前育碧高級程式，程式碼曾被育碧魁北克拿去當精品程式碼研究。 Freelancer編輯推薦程式。 15年全平臺全端架構經驗。',
+            team_mem_john: '前育碧高級科技美術，3A級產品研發經驗。 後參與騰訊天美早期圖形引擎技術顧問，引擎用於支持《王者榮耀》項目組。 現自研渲染管線用於支持多平臺（含手機端）3A級呈現。 15年遊戲行業經驗。',
+            team_mem_water: '曾就職於英特爾亞太研發有限公司云計算工程師，後任華為前雲技術總監，負責雲設計，云計算和區塊鏈行業經驗豐富； 成立團隊深耕元界遊戲開發，成功設計了一款獨立的MMORPG遊戲。',
+            team_mem_ice: '前華為雲覈心後端，熟悉Java/go-lang等多種科技框架，Cosmos社區程式碼貢獻者，參與熟悉區塊鏈結構，覈心源碼貢獻者； 實現ERC-1155，EVM跨鏈轉移。',
             // homeA-partners
             part_title: '合作夥伴',
             // homeA-will
@@ -211,6 +212,7 @@ const cn = {
             reg_link: '成為我們的推廣大使',
             inviter_Code: '邀请码',
             level: '等级',
+            reg_Email: 'Email',
             // homeA-xplan
             xplan_title1: 'X-PLAN便於投資商和股東視察專案進展情況',
             xplan_title2: '該平臺會發佈一定數量的NFT徽章。如要投資，敬請聯繫我們',
@@ -425,6 +427,10 @@ const cn = {
             },
             Transfering: '轉帳...',
             Transfering_content: '正在轉帳中，請等待',
+            my_cyt: '我的 CYT',
+            get_cyt: '獲得 CYT',
+            my_coin: '我的 COIN',
+            not_data: '暫無數據',
         },
 
         //dowload
@@ -440,6 +446,7 @@ const cn = {
             tips4: '郵件已注册',
             tips5: '用戶資訊錯誤',
             tips6: '邀請程式碼錯誤',
+            tips7: '郵箱已注册',
         }
 
     }

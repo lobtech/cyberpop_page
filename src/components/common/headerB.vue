@@ -47,7 +47,8 @@
                     <ul v-show="showLang">
                         <li :class="select == 'us' ? 'active' : ''" @click="selectLang('us')">{{$t('message.common.language1')}}</li>
                         <li :class="select == 'cn' ? 'active' : ''" @click="selectLang('cn')">{{$t('message.common.language2')}}</li>
-                        <!-- <li :class="select == 'kr' ? 'active' : ''" @click="selectLang('kr')">{{$t('message.common.language3')}}</li> -->
+                        <li :class="select == 'jp' ? 'active' : ''" @click="selectLang('jp')">{{$t('message.common.language3')}}</li>
+                        <li :class="select == 'kr' ? 'active' : ''" @click="selectLang('kr')">{{$t('message.common.language4')}}</li>
                     </ul>
                 </div>
             </div>

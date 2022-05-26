@@ -145,7 +145,7 @@
                         </ul>
                     </div>
                     <div class="noting" v-if="loadingState == 2 && data.length == 0">
-                        <p>NOT DATA</p>
+                        <p>{{$t('message.assets.not_data')}}</p>
                         <img src="@/assets/nwAssets/nothing.svg" alt="">
                     </div>
                 </div>
@@ -1200,7 +1200,7 @@ onMounted(async () => {
                         p{
                             display: block;
                             margin: 20px 0;
-                            color: #fff;
+                            color: #B1B5C3;
                             font-size: 14px;
                             font-family: AlibabaPuHuiTi_2_55_Regular;
                         }
