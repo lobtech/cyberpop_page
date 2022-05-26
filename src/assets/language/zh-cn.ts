@@ -212,6 +212,7 @@ const cn = {
             reg_link: '成為我們的推廣大使',
             inviter_Code: '邀请码',
             level: '等级',
+            reg_Email: 'Email',
             // homeA-xplan
             xplan_title1: 'X-PLAN便於投資商和股東視察專案進展情況',
             xplan_title2: '該平臺會發佈一定數量的NFT徽章。如要投資，敬請聯繫我們',

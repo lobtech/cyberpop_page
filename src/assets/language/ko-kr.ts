@@ -45,9 +45,9 @@ const kr = {
                 network: '네트워크 오류',
                 wrongNetwork: '네트워크 경고',
                 wrongContent: '너는 잘못된 네트워크에 연결되었다.현재 네트워크를 전환하십시오.',
-                switchMumbai: '뭄바이로 전환',
-                switchFuji: '후지 전환',
-                switchBSC: '화폐 교환안',
+                switchMumbai: 'Mumbai 토글',
+                switchFuji: 'FUJI 토글',
+                switchBSC: 'BSC 전환',
                 switchGate: 'GT 전환',
             },
             // messageB
@@ -212,6 +212,7 @@ const kr = {
             reg_link: '저희의 홍보대사로 되기',
             inviter_Code: '초대 코드',
             level: '등급',
+            reg_Email: '전자 우편',
             // homeA-xplan
             xplan_title1: 'X-PLAN는 투자자와 주주가 프로젝트 진행 상황을 쉽게 시찰할 수 있다',
             xplan_title2: '본 플랫폼은 일정량의 NFT 배지를 발표합니다. 투자를 원하시면 연락해 주세요',

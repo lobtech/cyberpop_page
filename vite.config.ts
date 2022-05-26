@@ -17,7 +17,7 @@ export default defineConfig({
             '/text': {
                 target: 'https://d2cimmz3cflrbm.cloudfront.net/', //实际请求地址
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, '')
+                rewrite: (path) => path.replace(/^\/text/, '')
             },
             '/data': {
                 target: 'https://api.cyberpop.online/', //实际请求地址
