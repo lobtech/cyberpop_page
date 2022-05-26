@@ -15,6 +15,21 @@
                 <div class="desc">
                     {{$t('message.assets.wel_desc')}}
                 </div>
+                <div class="whiteList">
+                    <p>You don't have a white list</p>
+                </div>
+                <div class="myAssets">
+                    <div class="item">
+                        <p>My CYT: </p>
+                        <p>{{ myAssets.cyt || 0 }}</p>
+                        <div class="button">GET CYT</div>
+                    </div>
+                    <div class="item">
+                        <p>My COIN: </p>
+                        <p>{{ myAssets.coin || 0}}</p>
+                    </div>
+                    <div class="line"></div>
+                </div>
                 <div class="search">
                     <div class="input" :class="inputShow ? 'actived' : ''">
                         <input v-model="inputValue" @focus="inputShow = true" ref="myInput" type="text" :placeholder="$t('message.assets.input_pla')">
@@ -242,6 +257,7 @@ const transferSuccess = computed(() => store.state.user?.transferSuccess);
 watch(chainId, (newVal, oldVal: any) => {
     if(!oldVal || oldVal == -1) return;
     console.log('her2');
+    initMyAssetes()
 	getData(ecrType.value)
 }, {immediate:true,deep:true});
 
@@ -249,6 +265,7 @@ watch(realId, (newVal, oldVal) => {
     if(oldVal == -1 || !oldVal) return;
     console.log(2, newVal);
     addressInfo()
+    initMyAssetes()
 	getData(ecrType.value)
 }, {immediate:true,deep:true});
 
@@ -256,6 +273,7 @@ watch(transferSuccess, (newVal, oldVal) => {
     if(!oldVal) return;
     console.log(3, newVal);
     addressInfo()
+    initMyAssetes()
     getData(ecrType.value)
 }, {immediate:true,deep:true});
 
@@ -408,7 +426,7 @@ const initLoad = () => {
     }, 300);
 }
 
-const { nft, nft_fuji, arms, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji, LootBox } = Web3.contracts;
+const { nft, nft_fuji, arms, GiftBox, cyberClub, cyberClub_Fuji, Cyborg, Cyborg_Fuji, game_Fuji, LootBox, cytV2, coin } = Web3.contracts;
 
 const getData: any = async (type: Number, filter?: any) => {
     if(!filter) data.value = [];
@@ -702,6 +720,28 @@ const searchSubmit = () => {
     inputShow.value = false
 }
 
+//myAssets 
+const myAssets = ref({}) as any;
+const whiteList: any = ref(false);
+const initMyAssetes = async () => {
+    if(chainId.value == 43113){
+        var a = await Web3.ERC20balanceOf(cytV2.abi, cytV2.address);
+        var b = await Web3.ERC20balanceOf(coin.abi, coin.address);
+    }
+    myAssets.value.cyt = a || 0;
+    myAssets.value.coin = b || 0;
+    console.log(myAssets.value, 'cyt');
+        // 是否购买了白皮书
+    proxy.$api.post(`/bobabrewery/boba/api/v1/cyberpop?walletAddress=${idTemp.value}`).then((res: any) => {
+        res?.data.data ? whiteList.value = true : whiteList.value = false;
+    }).catch( (err: any) => {
+        console.log(err)
+    })
+
+}
+
+
+
 // 开盒子
 const open = async (item: any) => {
     store.dispatch('user/xplanChangeAni', true);
@@ -717,6 +757,7 @@ watch(readyAssetsF, (newVal: any, oldVal: any) => {
     if(newVal == -1) return;
     console.log('her1', newVal);
     addressInfo()
+    initMyAssetes()
     getData(ecrType.value)
 }, {immediate:true,deep:true});
 
@@ -736,6 +777,7 @@ onMounted(async () => {
     if(store.state.user?.readyAssets !== -1){
         // data.value = JSON.parse(JSON.stringify(store.state.user?.dataSum));
         getData(ecrType.value)
+        initMyAssetes()
         addressInfo()
     }
         
@@ -823,6 +865,31 @@ onMounted(async () => {
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     color: #B1B5C3;
                     line-height: 16px;
+                }
+                .myAssets, .whiteList{
+                    color: #8478FF;
+                    margin: 15px 0;
+                    font-size: 10px;
+                    .item{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-family: AlibabaPuHuiTi_2_55_Regular;
+                        p{
+                            margin-right: 10px;
+                        }
+                        .button{
+                            background: #8478FF;
+                            color: #fff;
+                            padding: 5px 10px;
+                            font-size: 12px;
+                            border-radius: 5px;
+                        }
+                    }
+                    .item:not(:last-child){
+                        margin-right: 10px;
+                        margin-bottom: 20px;
+                    }
                 }
                 .search{
                     margin-bottom: 96px;

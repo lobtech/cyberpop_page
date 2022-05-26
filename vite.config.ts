@@ -39,6 +39,11 @@ export default defineConfig({
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/game/, '')
             },
+            '/bobabrewery': { 
+                target: 'https://bobabrewery.com/', //实际请求地址
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/bobabrewery/, '')
+            }
         },
     },
     define: {

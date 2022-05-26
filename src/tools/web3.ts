@@ -477,14 +477,35 @@ const DaysRemaining = (abi: any[], address: string, tokenId: number) => {
     return new Promise(async (resolve, reject) => {
         const web3 = new Web3((Web3 as any).givenProvider);
         const contract = new web3.eth.Contract(abi, address)
-        let _price = await contract.methods._price([tokenId]).call();
+        let _price = await contract.methods._price([1]).call();
         console.log(_price, '_price');
         let earned = await contract.methods.earned(accounts.value).call();
         console.log(earned, 'earned');
         let rewardPerToken = await contract.methods.rewardPerToken().call();
+        console.log(rewardPerToken, 'rewardPerToken');
         let getBalanceOf = await contract.methods.getBalanceOf(accounts.value).call();
+        console.log(getBalanceOf, 'getBalanceOf');
         let result = ((_price - earned) * 1000000000000000000)  / (rewardPerToken * getBalanceOf); //_balances
         console.log(result, 'result');
+        resolve(result);
+    })
+}
+
+const DaysNeededPrediction = (abi: any[], address: string) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        let result = await contract.methods.DaysNeededPrediction(1, accounts.value).call()
+        resolve(result);
+    })
+}
+
+
+const DaysNeededPredictionx = (abi: any[], address: string) => {
+    return new Promise(async (resolve, reject) => {
+        const web3 = new Web3((Web3 as any).givenProvider);
+        const contract = new web3.eth.Contract(abi, address)
+        let result = await contract.methods.DaysNeededPredictionx(1, accounts.value).call()
         resolve(result);
     })
 }
@@ -508,7 +529,7 @@ const notifyrewardamount = (abi: any[], address: string) => {
     return new Promise(async (resolve, reject) => {
         const web3 = new Web3((Web3 as any).givenProvider);
         const contract = new web3.eth.Contract(abi, address)
-        contract.methods.notifyRewardAmount(2592000).send({ from: accounts.value }).then(function (receipt: any) {
+        contract.methods.notifyRewardAmount(6000000).send({ from: accounts.value }).then(function (receipt: any) {
             resolve(receipt)
         }).catch((err: any) => {
             resolve(0)
@@ -596,5 +617,7 @@ export default {
     getNFT,
     progress,
     withdraw,
+    DaysNeededPrediction,
+    DaysNeededPredictionx,
     contracts,
 }
