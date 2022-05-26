@@ -92,7 +92,8 @@ onMounted(() => {
         }
         .mask{
             position: relative;
-            width: 31.51vw;
+            // width: 31.51vw;
+            width: 36vw;
             height: 16.72vw;
             padding: 2.5vw;
             z-index: 999;
@@ -167,16 +168,19 @@ onMounted(() => {
             }
             .btns{
                 width: 100%;
+                max-width: 31vw;
                 position: absolute;
-                top: 12vw;
+                bottom: 2vw;
                 right: 2vw;
                 display: flex;
                 justify-content: flex-end;
                 .btn{
-                    padding: 0.73vw 1.75vw;
+                    // padding: 0.73vw 1.75vw;
+                    padding: 0.73vw 1.2vw;
                     transition: all 0.2s ease;
                     cursor: pointer;
-                    font-size: 1.04vw;
+                    // font-size: 1.04vw;
+                    font-size: .83vw;
                     font-family: AlibabaPuHuiTi_2_115_Black;
                     font-weight: normal;
                     color: #FFFFFF;

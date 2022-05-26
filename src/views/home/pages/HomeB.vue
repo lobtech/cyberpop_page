@@ -527,7 +527,7 @@ id="videobg" :sources="[`https://d3bhixjyozyk2o.cloudfront.net/5c64797a7cb8b72ed
         <div class="subtitle">{{ $t('message.home.reg_subtitle') }}</div>
         <div class="email">
             <div class="email-wrap">
-                <input class="email-input" type="text" v-model="email" placeholder="Email">
+                <input class="email-input" type="text" v-model="email" :placeholder="$t('message.home.reg_Email')">
             </div>
             <div class="sub" @click="submit()">{{ $t('message.home.reg_submit') }}</div>
         </div>

@@ -1133,7 +1133,7 @@ onMounted(async () => {
                         p{
                             display: block;
                             margin: 20px 0;
-                            color: #fff;
+                            color: #B1B5C3;
                             font-size: 14px;
                             font-family: AlibabaPuHuiTi_2_55_Regular;
                         }

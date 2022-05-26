@@ -1218,7 +1218,7 @@ onMounted(() => {
                     .noting{
                         text-align: center;
                         p{
-                            color: #fff;
+                            color: #B1B5C3;
                             margin: 3vw 0;
                             font-family: AlibabaPuHuiTi_2_55_Regular;   
                         }

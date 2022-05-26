@@ -280,20 +280,23 @@ onMounted(() => {
                     font-family: AlibabaPuHuiTi_2_55_Regular;
                     font-weight: normal;
                     line-height: 1vw;
-                    span{
-                        float: right;
-                        display: inline-block;
-                        padding: 1.4px 3px;
-                        margin: 1.4vw .8vw 0 0;
-                        background: #30304D;
-                        cursor: pointer;
-                    }
-                    span:hover{
-                        color: rgb(255, 24, 255);
-                    }
                     .buttons{
                         display: flex;
                         justify-content: space-between;
+                        span{
+                            float: right;
+                            display: inline-block;
+                            padding: 1.4px 3px;
+                            margin: 1.4vw .8vw 0 0;
+                            background: #30304D;
+                            cursor: pointer;
+                        }
+                        span:hover{
+                            color: rgb(255, 24, 255);
+                        }
+                        span:last-child{
+                            margin-right: 0;
+                        }
                     }
                     a{
                         color: #fff;
