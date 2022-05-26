@@ -1,8 +1,8 @@
 <template>
     <header-a path="/mining" :type="1"></header-a>
-    <div class="section">
+    <!-- <div class="section">
         <div class="title">{{$t('message.mining.coming')}}</div>
-    </div>
+    </div> -->
     <div class="mining">
         <div class="banner">
             <div class="titles">
@@ -372,7 +372,9 @@ const test = ref(0) as any
 
 // start staking
 const stakingCyt = async () => {
-    if(myTime.value > 0) { // 还没到时间 还可以继续质押
+    console.log(progress.value, 'progress.value');
+    
+    if(myTime.value > 0 && progress.value < 100) { // 还没到时间 还可以继续质押
         store.dispatch('user/stakingState', { show: true, info: { state: 0, haveCTY: mycyt.value }});
         store.dispatch('user/xplanChangeAni', true);
         return;
@@ -413,6 +415,11 @@ const init = async () => {
 onMounted(async () => {
     // let a = await Web3.notifyrewardamount(staking.abi, staking.address)
     // console.log(a);
+    let result = await Web3.DaysNeededPrediction(staking.abi, staking.address)
+    console.log(result, 'DaysNeededPrediction');
+    let DaysNeededPredictionx = await Web3.DaysNeededPredictionx(staking.abi, staking.address)
+    console.log(DaysNeededPredictionx, 'DaysNeededPredictionx');
+    
     setTimeout(() => {
         if(chainId.value != 43113){
             return;

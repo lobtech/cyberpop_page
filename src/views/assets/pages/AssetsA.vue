@@ -19,6 +19,10 @@
             <div class="ecr" v-if="readyAssetsF != -1">
                 <!-- <div class="ecr" v-if="false"> -->
                 <div class="search" ref="myNav">
+                    <div class="whiteList">
+                        <p>{{ whiteList ? 'You hava white paper' : 'You not hava white paper' }}</p>
+                    </div>
+                    <div class="line"></div>
                     <div class="myAssets">
                         <div class="item">
                             <p>My CYT</p>
@@ -243,6 +247,7 @@ const loadingState: any = ref(0);
 const chainId: any = computed(() => store.state.user?.chainId );
 const transferSuccess = computed(() => store.state.user?.transferSuccess);
 const email: any = ref('')
+const whiteList: any = ref(false); //是否购买了白皮书
 
 watch(chainId, (newVal, oldVal: any) => {
     if(!oldVal || oldVal == -1) return;
@@ -326,8 +331,13 @@ const initMyAssetes = async () => {
     }
     myAssets.value.cyt = a || 0;
     myAssets.value.coin = b || 0;
-    console.log(myAssets.value, 'cyt');
-
+    // console.log(myAssets.value, 'cyt');
+    // 是否购买了白皮书
+    proxy.$api.post(`/bobabrewery/boba/api/v1/cyberpop?walletAddress=${idTemp.value}`).then((res: any) => {
+        res?.data.data ? whiteList.value = true : whiteList.value = false;
+    }).catch( (err: any) => {
+        console.log(err)
+    })
 }
 
 
@@ -903,15 +913,17 @@ onMounted(() => {
                     background: #1B1A22;
                     border-radius: 2px;
                     transition: all .5s ease-in-out;
-                    .myAssets{
+                    .myAssets, .whiteList{
                         // height: 12.6vw;
                         margin-bottom: 1.56vw;
+                        color: #fff;
+                        font-family: AlibabaPuHuiTi_2_75_SemiBold;
+
                         .item{
                             margin-bottom: 1.302vw;
                             position: relative;
                             p:first-child{
                                 font-size: 0.83vw;
-                                font-family: AlibabaPuHuiTi_2_75_SemiBold;
                                 font-weight: normal;
                                 color: #FFFFFF;
                                 line-height: 0.98vw;
@@ -919,7 +931,6 @@ onMounted(() => {
                             }
                             p:nth-child(2){
                                 font-size: 0.93vw;
-                                font-family: AlibabaPuHuiTi_2_75_SemiBold;
                                 font-weight: normal;
                                 color: #7B61FF;
                                 line-height: 1.82vw;
@@ -944,11 +955,15 @@ onMounted(() => {
                                 opacity: .7;
                             }
                         }
-                        .line{
-                            height: 0px;
-                            opacity: 1;
-                            border-bottom: 0.104vw solid #3F3356;
-                        }
+                    }
+                    .whiteList{
+                        font-size: .83vw;
+                    }
+                    .line{
+                        height: 0px;
+                        opacity: 1;
+                        border-bottom: 0.104vw solid #3F3356;
+                        margin-bottom: 1.302vw;
                     }
                     .title{
                         width: 9.58vw;
