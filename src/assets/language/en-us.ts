@@ -433,6 +433,8 @@ const us = {
             get_cyt: 'GET CYT',
             my_coin: 'My COIN',
             not_data: 'NOT DATA',
+            haveWhite: 'You are in whitelist (from Brewery)',
+            notHaveWhite: 'You are not in whitelist',
         },
 
         //dowload
