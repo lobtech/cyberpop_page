@@ -431,6 +431,8 @@ const kr = {
             get_cyt: 'CYT の取得',
             my_coin: '私の COIN',
             not_data: 'しばらくデータがありません',
+            haveWhite: 'ホワイトリストがありますね(Breweryより)',
+            notHaveWhite: 'ホワイトリストはありません',
         },
 
         //dowload

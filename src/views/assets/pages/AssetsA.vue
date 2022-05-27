@@ -303,10 +303,11 @@ const addressInfo = () => {
 左侧图标滚动
 const myNav:any = ref(null);
 const windowScroll: any = () => {
+    if( data.value.length === 0 ) return
     const navHeight: number = myNav.value.offsetHeight;  // 该元素离顶部的距离
     const cHeight: number = document.documentElement.clientHeight; // 窗口高度
     const scrollHeight: number = document.documentElement.scrollTop; // 向下滑动了多少px
-    startMove(Math.ceil((cHeight - navHeight - 150) + scrollHeight));
+    startMove(Math.ceil((cHeight - navHeight - 196) + scrollHeight));
 }
 
 let timer: any = null;

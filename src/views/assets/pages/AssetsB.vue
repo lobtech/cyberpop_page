@@ -21,12 +21,12 @@
                 </div>
                 <div class="myAssets">
                     <div class="item">
-                        <p>My CYT: </p>
+                        <p>{{$t('message.assets.my_cyt')}}: </p>
                         <p>{{ myAssets.cyt || 0 }}</p>
-                        <div class="button">GET CYT</div>
+                        <div class="button">{{$t('message.assets.get_cyt')}}</div>
                     </div>
                     <div class="item">
-                        <p>My COIN: </p>
+                        <p>{{$t('message.assets.my_coin')}}: </p>
                         <p>{{ myAssets.coin || 0}}</p>
                     </div>
                     <div class="line"></div>
