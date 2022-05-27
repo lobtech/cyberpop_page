@@ -431,8 +431,8 @@ const cn = {
             get_cyt: '獲得 CYT',
             my_coin: '我的 COIN',
             not_data: '暫無數據',
-            haveWhite: '你有白名单',
-            notHaveWhite: '你没有白名单',
+            haveWhite: '你有白名單 (來自 Brewery)',
+            notHaveWhite: '你沒有白名單',
         },
 
         //dowload

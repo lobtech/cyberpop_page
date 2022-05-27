@@ -431,6 +431,8 @@ const kr = {
             get_cyt: 'CYT 획득',
             my_coin: '내 COIN',
             not_data: '데이터 없음',
+            haveWhite: '화이트 리스트가 있어요 (Brewery에서)',
+            notHaveWhite: '당신은 화이트리스트가 없습니다',
         },
 
         //dowload

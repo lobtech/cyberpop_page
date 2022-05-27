@@ -16,7 +16,10 @@
                 <div class="login_in" v-if="!loggined" @click="login()">
                     <div class="txt">{{$t('message.common.wallet')}}</div>
                 </div>
-                <div class="code"> <button @click="isRegister(true)">{{ $t('message.home.reg_submit') }}</button> <span v-if="code">{{ $t('message.home.inviter_Code') }}: {{ code }} &nbsp;&nbsp;&nbsp; {{ $t('message.home.level') }}: {{ level }}</span> </div>
+                <div class="code"> 
+                    <button @click="isRegister(true)">{{ $t('message.home.reg_submit') }}</button> 
+                    <span v-if="code">{{ $t('message.home.inviter_Code') }}: {{ code }} &nbsp;&nbsp;&nbsp; {{ $t('message.home.level') }}: {{ level }}</span> 
+                </div>
                 <div class="logged_in" v-if="loggined">
                     <img class="portrait" src="@/assets/nwhome/portrait.svg" alt="">
                     <div class="idtxt">{{ realId }}</div>
@@ -526,13 +529,15 @@ onMounted(() => {
                     font-size: 1vw;
                     button{
                         padding: 0 20px;
-                        margin-right: 10px;
                         height: 30px;
                         background-color: #452CB6;
                         border-radius: 4px;
                         border: none;
                         outline: none;
                         color: #fff;
+                    }
+                    span{
+                        margin-left: 10px;
                     }
                 }
                 .logged_in{
