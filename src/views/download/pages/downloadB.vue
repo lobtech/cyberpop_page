@@ -42,6 +42,7 @@
     import store from '@/store'
     import { useI18n } from 'vue-i18n';
     import {  useRouter } from 'vue-router'
+    import Web3 from '@/tools/web3' 
     const { proxy } = getCurrentInstance() as any;
     const router = useRouter()
     const { t } = useI18n()
@@ -116,6 +117,7 @@
                 store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
             }
         } catch (err) {
+            store.dispatch('user/showDialog', {show: true, info: {state: 0, txt: 'sign error' }})
             throw new Error(
                 'You need to sign the message to be able to log in.'
             );
@@ -124,7 +126,7 @@
 
     //验证邮箱是否已经注册过了
     const verification = () => {
-        proxy.$api.get(`/code/user/bemail?email=${email.value}`).then((res: any) => {
+        proxy.$api.get(`/code/user/bemail?email=${email.value}`).then(async (res: any) => {
             if(res.data === true) { // 该邮箱没有注册过
                 const ethereum = (window as any).ethereum // 获取小狐狸实例
                 console.log(ethereum, 'ethereum');
@@ -132,7 +134,8 @@
                     getPublicAddress(email.value, code.value, '')
                     return;
                 }
-                messgSing(idTemp.value)
+                let [ account ] = await Web3.getAccounts()
+                messgSing(account)
             }else{
                 isDonload.value = true;
                 store.dispatch('user/messSing', code.value);
