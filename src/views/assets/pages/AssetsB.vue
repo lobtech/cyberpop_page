@@ -16,7 +16,8 @@
                     {{$t('message.assets.wel_desc')}}
                 </div>
                 <div class="whiteList">
-                    <p>{{ whiteList ? $t('message.assets.haveWhite') : $t('message.assets.notHaveWhite') }}</p>
+                    <p v-if="bobabrewery">{{ bobabrewery }}</p>
+                    <p v-else>{{ whiteList ? $t('message.assets.haveWhite') : $t('message.assets.notHaveWhite') }}</p>
                 </div>
                 <div class="myAssets">
                     <div class="item">
@@ -723,6 +724,7 @@ const searchSubmit = () => {
 //myAssets 
 const myAssets = ref({}) as any;
 const whiteList: any = ref(false);
+const bobabrewery = ref('') as any;
 const initMyAssetes = async () => {
     if(chainId.value == 43113){
         var a = await Web3.ERC20balanceOf(cytV2.abi, cytV2.address);
@@ -733,7 +735,9 @@ const initMyAssetes = async () => {
     console.log(myAssets.value, 'cyt');
         // 是否购买了白皮书
     proxy.$api.post(`/bobabrewery/boba/api/v1/cyberpop?walletAddress=${idTemp.value}`).then((res: any) => {
-        res?.data.data ? whiteList.value = true : whiteList.value = false;
+        console.log(res.data, 'data');
+        res.data?.code != 200 ? bobabrewery.value = 'request fail' : bobabrewery.value = '';
+        res.data?.data ? whiteList.value = true : whiteList.value = false;
     }).catch( (err: any) => {
         console.log(err)
     })

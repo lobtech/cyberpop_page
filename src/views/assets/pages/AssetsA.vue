@@ -1,5 +1,5 @@
 <template>
-    <header-a path="javascript:scrollTo(0,0);" :type="0"></header-a>
+    <header-a path="javascript:scrollTo(0,0);" :type="0" ref="header"></header-a>
     <!-- <div class="section">
         <div class="title">COMING SOON</div>
     </div> -->
@@ -16,11 +16,12 @@
                     {{$t('message.assets.wel_desc')}}
                 </div>
             </div>
-            <div class="ecr" v-if="readyAssetsF != -1">
+            <div class="ecr" v-if="readyAssetsF != -1" ref="ecrchange">
                 <!-- <div class="ecr" v-if="false"> -->
                 <div class="search" ref="myNav">
                     <div class="whiteList">
-                        <p>{{ whiteList ? $t('message.assets.haveWhite') : $t('message.assets.notHaveWhite') }}</p>
+                        <p v-if="bobabrewery">{{ bobabrewery }}</p>
+                        <p v-else>{{ whiteList ? $t('message.assets.haveWhite') : $t('message.assets.notHaveWhite') }}</p>
                     </div>
                     <div class="line"></div>
                     <div class="myAssets">
@@ -299,7 +300,7 @@ const addressInfo = () => {
     })
 }
 
-// 左侧图标滚动
+左侧图标滚动
 const myNav:any = ref(null);
 const windowScroll: any = () => {
     if( data.value.length === 0 ) return
@@ -311,20 +312,30 @@ const windowScroll: any = () => {
 
 let timer: any = null;
 const startMove = (target : any) => {
-    console.log(target, myNav.value.offsetTop, 'targset');
-    let a = document.getElementsByClassName('prince')[0] as HTMLElement;
-    console.log(a.offsetTop);
-    
+    let a = document.getElementsByClassName('ecr')[0] as HTMLElement;
     let speed = (target - myNav.value.offsetTop) / 1;
     speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
     myNav.value.style.top = myNav.value.offsetTop + speed + 'px';
     if(parseInt(myNav.value.style.top) < a.offsetTop)  myNav.value.style.top = a.offsetTop - 80 + 'px';
-    
 }
+
+
+// const myNav:any = ref(null);
+// const ecrchange: any = ref(null);
+// const head: any = ref(null);
+// const windowScroll: any = () => {
+//     let navHeight: number = myNav.value.offsetHeight;  // nav元素高度
+//     let content = ecrchange.value.offsetTop;
+//     let cHeight: number = document.documentElement.clientHeight; // 窗口高度
+//     let scrollHeight: number = document.documentElement.scrollTop; // 向下滑动了多少px
+//     console.log(navHeight, navHeight, cHeight, scrollHeight, content);
+//     myNav.value.style.top =  scrollHeight + content - (navHeight / 3) + 'px';
+// }
 
 
 //myAssets 
 const myAssets = ref({}) as any;
+const bobabrewery = ref('') as any;
 const initMyAssetes = async () => {
     if(chainId.value == 43113){
         var a = await Web3.ERC20balanceOf(cytV2.abi, cytV2.address);
@@ -335,9 +346,10 @@ const initMyAssetes = async () => {
     // console.log(myAssets.value, 'cyt');
     // 是否购买了白皮书
     console.log(idTemp.value, 'idTemp');
-    
     proxy.$api.post(`/bobabrewery/boba/api/v1/cyberpop?walletAddress=${idTemp.value}`).then((res: any) => {
-        res?.data.data ? whiteList.value = true : whiteList.value = false;
+        console.log(res.data, 'data');
+        res.data?.code != 200 ? bobabrewery.value = 'request fail' : bobabrewery.value = '';
+        res.data?.data ? whiteList.value = true : whiteList.value = false;
     }).catch( (err: any) => {
         console.log(err)
     })
@@ -411,7 +423,6 @@ const checkall = (index:any) => {
 // switch erc button
 const changeType = (type: Number) => {
     console.log(loadingState.value, 'loadingState.value');
-    
     if(loadingState.value == 2 || loadingState.value == 0){
         ecrType.value = type;
         console.log('her5');
@@ -797,7 +808,7 @@ const open = (item: any) => {
 
 onUnmounted(() => {
     window.removeEventListener('scroll', windowScroll, true);
-    clearInterval(timer);
+    // clearInterval(timer);
 })
 
 

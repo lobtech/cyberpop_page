@@ -134,6 +134,7 @@ const messgSing = async (publicAddress: any) => {
             store.dispatch('user/showDialog',{show: true, info: {state: 0, txt: t('message.assets.pop.reject_transaction')}})
         }
     } catch (err) {
+        store.dispatch('user/showDialog', {show: true, info: {state: 0, txt: 'sign error' }})
         throw new Error(
             'You need to sign the message to be able to log in.'
         );
@@ -143,26 +144,23 @@ const messgSing = async (publicAddress: any) => {
 
 //验证邮箱是否已经注册过了
 const verification = () => {
-    return new Promise((resolve, reject) => {
-        proxy.$api.get(`/code/user/bemail?email=${emailAddress.value}`).then((res: any) => {
-            if(res.data === true) { // 该邮箱没有注册过
-                const ethereum = (window as any).ethereum // 获取小狐狸实例
-                console.log(ethereum, 'ethereum');
-                if(!ethereum){
-                    getPublicAddress(emailAddress.value, code.value, '')
-                    return;
-                }
-                messgSing(idTemp.value)
-                resolve(1)
-            }else{
-                isDonload.value = true;
-                store.dispatch('user/messSing', code.value);
-                store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.download.tips4') }});
-                resolve(0)
+    proxy.$api.get(`/code/user/bemail?email=${emailAddress.value}`).then(async (res: any) => {
+        if(res.data === true) { // 该邮箱没有注册过
+            const ethereum = (window as any).ethereum // 获取小狐狸实例
+            console.log(ethereum, 'ethereum');
+            if(!ethereum){
+                getPublicAddress(emailAddress.value, code.value, '')
+                return;
             }
-        }).catch( (err: any) => {
-            console.log(err)
-        })
+            let [ account ] = await Web3.getAccounts()
+            messgSing(account)
+        }else{
+            isDonload.value = true;
+            store.dispatch('user/messSing', code.value);
+            store.dispatch('user/showDialog',{show: true, info: {state: 1, txt: t('message.download.tips4') }});
+        }
+    }).catch( (err: any) => {
+        console.log(err)
     })
 }
 
