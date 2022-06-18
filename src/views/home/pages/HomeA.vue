@@ -10,11 +10,11 @@
                 </div>
                 <div class="menu">
                     <ul>
-                        <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">HOME</li>
-                        <li @click="changeMenu(1, '/about')" :class="{'active': active == 1}">STORY</li>
-                        <li @click="changeMenu(2)" :class="{'active': active == 2}">NEWS</li>
-                        <li @click="changeMenu(3, '/support')" :class="{'active': active == 3}">SUPPORT</li>
-                        <li @click="changeMenu(4, '/about')" :class="{'active': active == 4}">ABOUT</li>
+                        <li @click="changeMenu(0, '/')" :class="{'active': active == 0}">首页</li>
+                        <li @click="changeMenu(1, '/about')" :class="{'active': active == 1}">故事</li>
+                        <li @click="changeMenu(2)" :class="{'active': active == 2}">新闻</li>
+                        <li @click="changeMenu(3, '/support')" :class="{'active': active == 3}">支持</li>
+                        <li @click="changeMenu(4, '/about')" :class="{'active': active == 4}">关于</li>
                     </ul>
                 </div>
             </div>
@@ -22,13 +22,13 @@
         <section>
             <div class="titles"> 
                 <div class="title1">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/section1_2.png" alt="">
+                    全新元宇宙NFR游戏
                 </div>
                 <div class="title2">
-                    <img src="https://d1td2c8hf7fv9k.cloudfront.net/section1_1.png" alt="">
+                    代号X
                 </div>
                 <div class="title3">
-                    COMING SOON
+                    快来了
                 </div>
             </div>
             <div class="nav-logos">
@@ -60,7 +60,7 @@
             <div class="document">
                 <!-- <div class="buttons" @click="down">NEWS</div> -->
                 <!-- <div class="position"></div> -->
-                <div class="buttons" @click="deckd">DECK</div>
+                <div class="buttons" @click="deckd">甲板</div>
             </div>
         </section>
         <footer>
@@ -70,7 +70,7 @@
     <div class="welcome">
         <div class="cover_up"></div>
         <div class="warp">
-            <div class="title" id="ele1">WELCOMETO  THE &nbsp;<span class="yellow">NEW WORLD</span></div>
+            <div class="title" id="ele1">欢迎来到 &nbsp;<span class="yellow">代号X</span></div>
             <div class="content" id="ele2">
                 <div class="left">
                     <img src="@/assets/icon/left.png" alt="">
@@ -79,7 +79,7 @@
                     <div class="item1">
                         <img class="bg" src="https://d1td2c8hf7fv9k.cloudfront.net/swiper_border.png" alt="">
                         <img class="banner" src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-2.jpg" alt="">
-                        <div class="des">The protagonists are in a real world that is <span>treacherous and changeable.</span></div>
+                        <div class="des">主角们在暗潮涌动的多势力世界中探险</div>
                         <div class="black"></div>
                         <div class="outher"></div>
                         <div class="outher2"></div>
@@ -89,7 +89,7 @@
                     <div class="item2">
                         <img class="bg" src="https://d1td2c8hf7fv9k.cloudfront.net/swiper_border.png" alt="">
                         <img class="banner" src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-3.jpg" alt="">
-                        <div class="des">Experience the fantastic online cyber world.</div>
+                        <div class="des">虚拟与现实之间的较量.</div>
                         <div class="black"></div>
                         <div class="outher"></div>
                         <div class="outher2"></div>
@@ -99,7 +99,7 @@
                     <div class="item3"> 
                         <img class="bg" src="https://d1td2c8hf7fv9k.cloudfront.net/swiper_border.png" alt="">
                         <img class="banner" src="https://d1td2c8hf7fv9k.cloudfront.net/BK3-4.png" alt="">
-                        <div class="des">Welcome to the Cyber Pop New World.</div>
+                        <div class="des">进入代号X，跨时空战场.</div>
                         <div class="black"></div>
                         <div class="outher"></div>
                         <div class="outher2"></div>
@@ -528,12 +528,18 @@ onMounted(() => {
                 .title1{
                     margin-bottom: 2vw;
                     animation: fadeInRight .5s linear;
+                    font-size: 3vw;
+                    color: #fff;
+                    font-family: Aideep;
                     img{
                         width: 80px;
                     }
                 }
                 .title2{
                     animation: fadeInRight .5s linear;
+                    font-size: 5vw;
+                    color: #fff;
+                    font-family: Aideep;
                     img{
                         width: 200px;
                     }
